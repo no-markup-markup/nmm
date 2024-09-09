@@ -11,7 +11,7 @@ default:
 	@echo 'no default target'
 
 clean:
-	@echo 'TODO'
+	rm -rf .direnv
 
 test:
 	@echo 'TODO'
