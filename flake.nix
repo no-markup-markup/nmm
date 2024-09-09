@@ -18,7 +18,7 @@
       flake-utils.lib.eachSystem systems (system:
         let
           pkgs         = nixpkgs.legacyPackages.${system};
-          pkgs_common  = []; # TODO
+          pkgs_common  = [pkgs.bash pkgs.gnumake];
           pkgs_mercury = [pkgs.mercury];
           pkgs_ocaml   = []; # TODO
           pkgs_github  = []; # TODO
