@@ -35,9 +35,9 @@ par      := ‘¶’ SP* (pfx_par | name_par) (NL hdr) NL NL+ blk(0)+
 
 pfx_par  := ‘PAR’ # TODO: more prefixes: ‘DEF’, ‘LMA’, ‘FCT’, ‘RMK’ et cetera
 
-name_par := pfx_par ‘:’ sfx_par
+name_par := pfx_par ‘:’ name_sfx
 
-sfx_par  := # TODO
+name_sfx := (!(‘[’ / ‘]’ / ‘:’ / ‘,’ / ‘;’) NON_WS_CHR)+
 
 
 # block
