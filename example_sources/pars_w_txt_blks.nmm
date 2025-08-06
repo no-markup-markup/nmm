@@ -1,0 +1,30 @@
+¶
+
+This is a no-markup-markup source made up paragraphs. This paragraph
+is made up of a single text block containing a line break.
+
+
+¶
+A paragraph header
+
+This paragraph has a header and two text blocks.
+
+This is the second text block of this paragraph, and it contains a
+line break.
+
+
+¶ PAR:a_paragraph_w_blts
+
+This is a named paragraph with a nested bullet list.
+
+-	This is a bullet on level 0.
+
+	-	This is a bullet on level 1.
+
+	-	This is another bullet on level 1.
+
+-	This is a bullet on level 0.
+
+-	This is a bullet on level 0.
+
+This is a text block.
