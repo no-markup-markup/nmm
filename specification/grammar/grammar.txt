@@ -18,7 +18,7 @@ nmm-doc := (pars | blks(0)) # TODO: preamble, chs, secs, apps, refs
 # what-you-see-is-what-you-get text---up to the intended rare usage of escape
 # sequences---without vertical whitespace
 
-txt_no_vws := NON_VWS_CHAR+
+txt_no_vws := NON_VWS_CHR+
 
 
 pars    :=
