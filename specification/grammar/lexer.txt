@@ -1,0 +1,62 @@
+# this is a comment
+
+
+# handling everything below by the lexer is optional except for returning an
+# error if any of the following exotic vertical whitespace characters is
+# encountered. by returning an error we do not have to handle this token in the
+# rest of the grammar
+FORBIDDEN_VWS := # forbidden vertical whitespace
+  VT / # vertical tab, U+000B
+  FF / # form feed, U+000C
+  LS / # line separator, U+2028
+  PS / # paragraph separator, U+2029
+
+
+# escape sequences
+ESQ_SEQ := # TODO
+
+
+# horizontal whitespace characters
+# see
+# https://en.wikipedia.org/wiki/Whitespace_character#Unicode
+# and
+# https://www.compart.com/en/unicode/category/Zs#UNC_CAT
+SP :=
+  SPACE / # regular space, U+0020
+  NBSP  / # no-break space, U+00A0
+  OSM   / # ogham space mark, U+1680
+  ENQ   / # en quad, U+2000
+  EMQ   / # em quad, U+2001
+  ENSP  / # en space, U+2002
+  EMSP  / # em space, U+2003
+  EMSP₃ / # three-per-em space, U+2004
+  EMSP₄ / # four-per-em space, U+2005
+  EMSP₆ / # six-per-em space, U+2006
+  FSP   / # figure space, U+2007
+  PSP   / # puncuation space, U+2008
+  TSP   / # thin space, U+2009
+  HSP   / # hair space, U+200A
+  NNBSP / # narrow no-break space, U+202F
+  MMSP  / # medium mathematical space, U+205F
+  ISP   / # ideographic space, U+3000
+
+
+# the horizontal tab character
+TAB := U+0009
+
+
+# new lines aka line breaks
+NL  := 
+  LF   / # line feed, U+000A
+  CRLF / # carriage return followed by line feed
+  CR   / # carriage return, U+000D
+  NEL  / # next line, U+0085
+
+
+
+# non white-space characters
+
+NON_WS_CHR  := # non-whitespace character
+  !(TAB / NL / SP) (ESQ_SEQ / .)
+NON_VWS_CHR := # non-vertical-whitespace character
+  !(TAB / NL)      (ESQ_SEQ / .)
