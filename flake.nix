@@ -8,7 +8,7 @@
   outputs = {self, nixpkgs, flake-utils}:
     let
       systems = [
-        # TODO "aarch64-darwin"
+        "aarch64-darwin"
         # TODO "aarch64-linux"
         "x86_64-darwin"
         # TODO "x86_64-linux"
