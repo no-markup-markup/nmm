@@ -1,0 +1,5 @@
+*.mh
+*.err
+Mercury
+nmm.lexer
+nmm.lexer.test

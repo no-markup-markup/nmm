@@ -1,0 +1,213 @@
+:- module nmm.lexer.
+
+% INTERFACE
+
+%% INTERFACE DECLARATION
+
+:- interface.
+
+
+%% SUBMODULES
+
+:- include_module
+  lexer.test
+  .
+
+
+%% TYPE T_LINE_NO
+
+:- type t_line_no == uint.
+
+
+%% TYPES T_TKN AND T_TKNS
+
+:- type t_tkn --->
+  c_tkn_nws(t_line_no,chr); % non-whitespace character
+  c_tkn_sp( t_line_no,chr); % non-tab space character
+  c_tkn_esc(t_line_no,chr); % escaped character
+  c_tkn_tab(t_line_no);
+  c_tkn_lb( t_line_no);      % line break
+  c_tkn_eof.
+
+:- type t_tkns == list(t_tkn).
+
+
+%% TYPE T_TKNIZE_RES
+
+:- type t_tknize_res --->
+  c_tknize_res_ok( t_tkns);
+  c_tknize_res_err(str).
+
+
+%% FUNCTION F_TKNIZE
+
+:- func f_tknize(chrs) = t_tknize_res is det.
+
+
+%% FUNCTION F_TKNS2STR
+
+:- func f_tkns2str(t_tkns) = str.
+
+
+
+% IMPLEMENTATION
+
+:- implementation.
+
+:- import_module uint.
+
+:- use_module string.
+
+
+%% F_TKNS2STR
+
+%%% THE FUNCTION
+
+f_tkns2str(TKNS) = string.append_list(list.map(f_tkn2str,TKNS)).
+
+%%% HELPER FUNCTION F_TKN2STR
+
+:- func f_tkn2str(t_tkn) = str.
+f_tkn2str(c_tkn_nws(_,C)) = S :- (
+  if list.member(C,['␛','␉','␤','␄']) then
+    S = string.append("␛",chr2str(C))
+  else
+    S = chr2str(C)
+).
+f_tkn2str(c_tkn_sp(_,C))  = chr2str(C).
+f_tkn2str(c_tkn_esc(_,C)) = string.append("␛",chr2str(C)).
+f_tkn2str(c_tkn_tab(_))   = "␉\t".
+f_tkn2str(c_tkn_lb(_))    = "␤\n".
+f_tkn2str(c_tkn_eof)      = "␄\n".
+
+
+%% F_TKNIZE
+
+%%% THE FUNCTION
+
+f_tknize(CHRS) = RES :-
+  p_tknize(1u,CHRS,[],[],TKNS,ERRS),
+  (
+    if ERRS \= [] then
+      RES = c_tknize_res_err(string.join_list("\n",ERRS))
+    else
+      RES = c_tknize_res_ok(TKNS)
+  ).
+
+%%% HELPER PREDICATE P_TKNIZE
+
+%%%% THE PREDICATE
+
+:- pred p_tknize(t_line_no,chrs,t_tkns, strs,   t_tkns,  strs).
+:- mode p_tknize(in,       in,  in,     in,     out,     out) is det.
+p_tknize(        LINE_NO,  CHRS,TKNS_IN,ERRS_IN,TKNS_OUT,ERRS_OUT) :- (
+  if CHRS = [C|CHRS_TL],p_unsupported(char.to_int(C),CP,N) then
+    ERRS_IN_NEW =
+    (
+      ERRS_IN
+      ++
+      [
+        string.append_list([
+          "line ",
+          string.uint_to_string(LINE_NO),
+          ": unsupported character ",
+          CP,
+          " ",
+          N,
+          "."
+        ])
+      ]
+    ),
+    p_tknize(LINE_NO,CHRS_TL,TKNS_IN,ERRS_IN_NEW,TKNS_OUT,ERRS_OUT)
+  else if p_leading_esc_chr(CHRS,ESC_CHR,CHRS_TL) then
+    TKNS_IN_NEW = TKNS_IN++[c_tkn_esc(LINE_NO,ESC_CHR)],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+  else if p_leading_line_break(CHRS,CHRS_TL) then
+    TKNS_IN_NEW = TKNS_IN++[c_tkn_lb(LINE_NO)],
+    p_tknize(LINE_NO+1u,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+  else if CHRS = ['\t'|CHRS_TL] then
+    TKNS_IN_NEW = TKNS_IN++[c_tkn_tab(LINE_NO)],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+  else if CHRS = [C|CHRS_TL], p_sp_but_not_tab(C) then
+    TKNS_IN_NEW = TKNS_IN++[c_tkn_sp(LINE_NO,C)],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+  else if CHRS = [C|CHRS_TL] then
+    TKNS_IN_NEW = TKNS_IN++[c_tkn_nws(LINE_NO,C)],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+  else
+    TKNS_OUT = TKNS_IN++[c_tkn_eof],
+    ERRS_OUT = ERRS_IN
+).
+
+%%%% HELPER PREDICATE P_UNSUPPORTED
+
+% these characters have difficult semantics
+:- pred p_unsupported(int::in,str::out,str::out) is semidet.
+p_unsupported(        0x000B, "U+000B","Vertical Tab").
+p_unsupported(        0x000C, "U+000C","Form Feed").
+p_unsupported(        0x2029, "U+2029","Paragraph Separator").
+
+%%%% HELPER PREDICATE P_LEADING_ESC_CHR
+
+:- pred p_leading_esc_chr(chrs::in,chr::out,chrs::out) is semidet.
+p_leading_esc_chr(        CHRS_IN, ESC_CHR, CHRS_OUT) :-
+  CHRS_IN = ['\\'|CHRS_1],
+  (
+    if CHRS_1 = ['C','H'|CHRS_2] then
+      ESC_CHR  = 'C',
+      CHRS_OUT = ['H'|CHRS_2]
+    else if CHRS_1 = [C|CHRS_2], list.member(C,['§','¶','[','*','\\']) then
+      ESC_CHR  = C,
+      CHRS_OUT = CHRS_2
+    else
+      false
+  ).
+
+%%%% HELPER PREDICATE P_LEADING_LINE_BREAK
+
+% see
+% https://en.wikipedia.org/wiki/Newline#Unicode
+% https://www.unicode.org/reports/tr14/tr14-32.html
+
+:- func k_lf = chr. % line feed
+:- func k_cr = chr. % carriage return
+:- func k_nl = chr. % new line
+:- func k_ls = chr. % line separator
+k_lf = char.det_from_int(0x000A).
+k_cr = char.det_from_int(0x000D).
+k_nl = char.det_from_int(0x0085).
+k_ls = char.det_from_int(0x2028).
+
+:- pred p_leading_line_break(chrs::in,chrs::out) is semidet.
+p_leading_line_break(        CHRS_IN, CHRS_OUT) :- (
+  CHRS_IN = [k_cr,k_lf|CHRS] -> CHRS_OUT = CHRS;
+  CHRS_IN = [k_lf     |CHRS] -> CHRS_OUT = CHRS;
+  CHRS_IN = [k_cr     |CHRS] -> CHRS_OUT = CHRS;
+  CHRS_IN = [k_nl     |CHRS] -> CHRS_OUT = CHRS;
+  CHRS_IN = [k_ls     |CHRS] -> CHRS_OUT = CHRS;
+  false
+).
+
+%%%% HELPER PREDICATE P_SP_BUT_NOT_TAB
+
+% see
+% https://en.wikipedia.org/wiki/Whitespace_character#Unicode
+
+:- pred p_sp_but_not_tab(chr::in) is semidet.
+p_sp_but_not_tab(char.det_from_int(0x0020)). % space
+p_sp_but_not_tab(char.det_from_int(0x00A0)). % no break space
+p_sp_but_not_tab(char.det_from_int(0x1680)). % ogham space mark
+p_sp_but_not_tab(char.det_from_int(0x2000)). % en quad
+p_sp_but_not_tab(char.det_from_int(0x2001)). % em quad
+p_sp_but_not_tab(char.det_from_int(0x2002)). % en space
+p_sp_but_not_tab(char.det_from_int(0x2003)). % em space
+p_sp_but_not_tab(char.det_from_int(0x2004)). % 1/3 em space
+p_sp_but_not_tab(char.det_from_int(0x2005)). % 1/4 em space
+p_sp_but_not_tab(char.det_from_int(0x2006)). % 1/6 em space
+p_sp_but_not_tab(char.det_from_int(0x2007)). % figure space
+p_sp_but_not_tab(char.det_from_int(0x2008)). % punctuation space
+p_sp_but_not_tab(char.det_from_int(0x2009)). % thin space
+p_sp_but_not_tab(char.det_from_int(0x200A)). % hair space
+p_sp_but_not_tab(char.det_from_int(0x202F)). % narrow no break space
+p_sp_but_not_tab(char.det_from_int(0x205F)). % medium math space
+p_sp_but_not_tab(char.det_from_int(0x3000)). % ideographic space

@@ -11,8 +11,7 @@ default:
 	@echo 'no default target'
 
 clean:
-	rm -rf .direnv
-	cd implementations
+	cd mercury
 	make clean
 	cd -
 

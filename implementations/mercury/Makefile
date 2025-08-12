@@ -11,10 +11,8 @@ default:
 	@echo 'no default target'
 
 clean:
-	rm -rf .direnv
-	cd implementations
-	make clean
-	cd -
+	# remove anything in .gitignore, including directories
+	git clean -fdX
 
 test:
 	@echo 'TODO'
