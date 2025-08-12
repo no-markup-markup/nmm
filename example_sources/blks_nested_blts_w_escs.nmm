@@ -1,0 +1,31 @@
+This is a no-markup-markup source made up of some blocks.
+
+-	This is a bullet block.
+
+	-	This is a bullet block within a bullet block.
+
+	-	This is another bullet block within a bullet block, and it
+		contains a line break.
+
+-	This is another bullet block. It is made up of two text blocks.
+
+	The second text block contains an escaped character, namely an
+	escaped left bracket: \[PAR:a_par]. Had the bracket not been
+	escaped then ‘\[PAR:a_par]’ would have been treated as a
+	cross-reference.
+
+-	Sometimes one might want to use ‘\’. Sometimes it escapes the
+	next character. Then one uses ‘\\\\’, for example if one for one
+	reason want to produce ‘\\[PAR:something]’, in which case
+	one uses ‘\\\\[PAR:something]’.
+
+-	The following usage of a left bracket does not require escaping:
+	f[α,β]---this because ‘f[α,β]’ is never valid syntax for a
+	cross-reference and thus need not be disambiguated from such.
+	Neither is the simpler ‘f[a]’---cross-references require such a
+	specific syntax that very seldom---hopefully never except from
+	when using nmm to describe nmm---neeeds to escape left brackets.
+
+\¶ If for some reason one would want to begin a
+level 0 text block with ‘¶’, then that is possible as well, by using
+‘\\¶’.
