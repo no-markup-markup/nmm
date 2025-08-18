@@ -26,7 +26,7 @@
   c_tkn_sp( t_line_no,chr); % non-tab space character
   c_tkn_esc(t_line_no,chr); % escaped character
   c_tkn_tab(t_line_no);
-  c_tkn_lb( t_line_no);      % line break
+  c_tkn_lb( t_line_no);     % line break
   c_tkn_eof.
 
 :- type t_tkns == list(t_tkn).
@@ -35,7 +35,7 @@
 %% TYPE T_TKNIZE_RES
 
 :- type t_tknize_res --->
-  c_tknize_res_ok( t_tkns);
+  c_tknize_res_ok(t_tkns);
   c_tknize_res_err(str).
 
 
@@ -98,9 +98,9 @@ f_tknize(CHRS) = RES :-
 
 %%%% THE PREDICATE
 
-:- pred p_tknize(t_line_no,chrs,t_tkns, strs,   t_tkns,  strs).
-:- mode p_tknize(in,       in,  in,     in,     out,     out) is det.
-p_tknize(        LINE_NO,  CHRS,TKNS_IN,ERRS_IN,TKNS_OUT,ERRS_OUT) :- (
+:- pred p_tknize(t_line_no, chrs, t_tkns,  strs,    t_tkns,   strs).
+:- mode p_tknize(in,        in,   in,      in,      out,      out) is det.
+p_tknize(        LINE_NO,   CHRS, TKNS_IN, ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
   if CHRS = [C|CHRS_TL],p_unsupported(char.to_int(C),CP,N) then
     ERRS_IN_NEW =
     (
@@ -142,15 +142,15 @@ p_tknize(        LINE_NO,  CHRS,TKNS_IN,ERRS_IN,TKNS_OUT,ERRS_OUT) :- (
 %%%% HELPER PREDICATE P_UNSUPPORTED
 
 % these characters have difficult semantics
-:- pred p_unsupported(int::in,str::out,str::out) is semidet.
-p_unsupported(        0x000B, "U+000B","Vertical Tab").
-p_unsupported(        0x000C, "U+000C","Form Feed").
-p_unsupported(        0x2029, "U+2029","Paragraph Separator").
+:- pred p_unsupported(int::in, str::out, str::out) is semidet.
+p_unsupported(        0x000B,  "U+000B", "Vertical Tab").
+p_unsupported(        0x000C,  "U+000C", "Form Feed").
+p_unsupported(        0x2029,  "U+2029", "Paragraph Separator").
 
 %%%% HELPER PREDICATE P_LEADING_ESC_CHR
 
-:- pred p_leading_esc_chr(chrs::in,chr::out,chrs::out) is semidet.
-p_leading_esc_chr(        CHRS_IN, ESC_CHR, CHRS_OUT) :-
+:- pred p_leading_esc_chr(chrs::in, chr::out, chrs::out) is semidet.
+p_leading_esc_chr(        CHRS_IN,  ESC_CHR,  CHRS_OUT) :-
   CHRS_IN = ['\\'|CHRS_1],
   (
     if CHRS_1 = ['C','H'|CHRS_2] then
