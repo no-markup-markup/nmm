@@ -12,7 +12,7 @@
 
 # starting point of parsing
 
-nmm-doc := (pars | blks(0)) # TODO: preamble, chs, secs, apps, refs
+nmm-doc := (pars | blks(0)) # TODO: preamble, abstract, chs, secs, apps, refs
 
 
 # what-you-see-is-what-you-get text---up to the intended rare usage of escape
@@ -31,11 +31,11 @@ blks(𝓁) :=
 # paragraph
 # the pilcrow symbol ‘¶’ has unicode code point U+00B6
 
-par      := ‘¶’ SP* (pfx_par | name_par) (NL hdr) NL NL+ blk(0)+
+par      := ‘¶’ SP* (tag_par | name_par) (NL hdr) NL NL+ blk(0)+
 
-pfx_par  := ‘PAR’ # TODO: more prefixes: ‘DEF’, ‘LMA’, ‘FCT’, ‘RMK’ et cetera
+tag_par  := ‘PAR’ # TODO: more prefixes: ‘DEF’, ‘LMA’, ‘FCT’, ‘RMK’ et cetera
 
-name_par := pfx_par ‘:’ name_sfx
+name_par := tag_par ‘:’ name_sfx
 
 name_sfx := (!(‘[’ / ‘]’ / ‘:’ / ‘,’ / ‘;’) NON_WS_CHR)+
 

@@ -11,8 +11,8 @@
  %%  nmm.ast
  %%  ,
   nmm.lexer
- %% ,
- %%  nmm.parser
+  ,
+  nmm.parser
  %%  ,
  %%  nmm.test
   .
