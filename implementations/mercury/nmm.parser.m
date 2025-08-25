@@ -152,23 +152,37 @@
  %% 
  %% :- pred r_pars(list(pars)::out, t_tkns::in, t_tkns::out).
 
-%%% TODO: T_BLK, R_BLK AND R_BLKS
+%%% T_BLK, T_BLKS, R_BLK AND R_BLKS
 
- %% :- type t_blk --->
- %%   c_blk_txt(t_blk_txt);
- %%   c_blk_blt(t_blk_blt).
- %% 
- %% % doc:        BLK         LVL
- %% :- pred r_blk(t_blk::out, uint::in, t_tkns::in, t_tkns::out).
- %% 
- %% :- type t_blks == list(t_blk).
- %% 
- %% % doc:         BLKS              LVL
- %% :- pred r_blks(list(t_blk)::out, uint::in, t_tkns::in, t_tkns::out).
+:- type t_blk --->
+  c_blk_txt(t_blk_txt);
+  c_blk_blt(t_blk_blt).
 
-%%% TODO: T_BLK_TXT AND R_BLK_TXT
+:- type t_blks == list(t_blk).
+
+% doc:               LVL   VALID_TAGS
+:- pred r_blk(t_blk, uint, strs,      t_tkns, t_tkns).
+:- mode r_blk(out,   in,   in,        in,     out) is semidet.
+
+
+% doc:                 LVL   VALID_TAGS
+:- pred r_blks(t_blks, uint, strs,      t_tkns, t_tkns).
+:- mode r_blks(out,    in,   in,        in,     out) is semidet.
+
+%%% T_BLK_TXT AND R_BLK_TXT
+
+:- type t_blk_txt == list(t_txt_unit).
+
+% doc:                       LVL   VALID_TAGS
+:- pred r_blk_txt(t_blk_txt, uint, strs,      t_tkns, t_tkns).
+:- mode r_blk_txt(out,       in,   in,        in,     out) is semidet.
 
 %%% TODO: T_BLK_BLT AND R_BLK_BLT
+
+:- type t_blk_blt == t_blks.
+%% 
+%% % doc:            BLKS            LVL
+%% :- pred r_blk_blt(t_blk_blt::out, uint::in, t_tkns::in, t_tkns::out) is semidet.
 
 %%% TODO: T_TAG_OR_ID AND R_TAG_OR_ID
 
@@ -465,12 +479,34 @@ r_txt_unit_wysiwyg(S,VALID_TAGS) -->
 r_txt_units(US,VALID_TAGS) -->
   r_txt_unit(U,VALID_TAGS),
   (
-    r_txt_units(US_,VALID_TAGS) -> {US = list.append([U],US_)};
+    r_txt_units(US_,VALID_TAGS) -> {US = [U]++US_};
                                    {US = [U]}
   ).
 
 %%% TODO: R_BLK AND R_BLKS
 
-%%% TODO: R_BLK_TXT
+r_blk(BLK,LVL,VALID_TAGS) -->
+  r_blk_txt(BLK_TXT,LVL,VALID_TAGS) -> {BLK = c_blk_txt(BLK_TXT)};
+                                       {false}.
+
+r_blks(BLKS,LVL,VALID_TAGS) -->
+  r_blk(BLK,LVL,VALID_TAGS),
+  (
+    +r_lb, r_tabs(LVL), r_blks(BLKS_,LVL,VALID_TAGS) -> {BLKS = [BLK]++BLKS_};
+                                                        {BLKS = [BLK]}
+  ).
+
+%%% R_BLK_TXT
+
+r_blk_txt(US,LVL,VALID_TAGS) -->
+  r_blk_txt_line(US_,VALID_TAGS),
+  (
+    r_tabs(LVL), r_blk_txt_line(US__,VALID_TAGS) -> {US = US_ ++ US__};
+                                                    {US = US_}
+  ).
+
+:- pred r_blk_txt_line(list(t_txt_unit), strs, t_tkns, t_tkns).
+:- mode r_blk_txt_line(out,              in,   in,     out) is semidet.
+r_blk_txt_line(UNITS,VALID_TAGS) --> r_txt_units(UNITS,VALID_TAGS), r_lb.
 
 %%% TODO: R_BLK_BLT
