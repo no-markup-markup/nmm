@@ -166,6 +166,10 @@
  %% % doc:         BLKS              LVL
  %% :- pred r_blks(list(t_blk)::out, uint::in, t_tkns::in, t_tkns::out).
 
+%%% TODO: T_BLK_TXT AND R_BLK_TXT
+
+%%% TODO: T_BLK_BLT AND R_BLK_BLT
+
 %%% TODO: T_TAG_OR_ID AND R_TAG_OR_ID
 
  %% :- type t_tag_or_id --->
@@ -464,3 +468,9 @@ r_txt_units(US,VALID_TAGS) -->
     r_txt_units(US_,VALID_TAGS) -> {US = list.append([U],US_)};
                                    {US = [U]}
   ).
+
+%%% TODO: R_BLK AND R_BLKS
+
+%%% TODO: R_BLK_TXT
+
+%%% TODO: R_BLK_BLT
