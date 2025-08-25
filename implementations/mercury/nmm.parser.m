@@ -63,7 +63,7 @@
   c_r_any.     % read any of the above
 
 
-%% TYPE T_STOPS (= STRS) FOR NON-ESCAPED STRINGS BEFORE WHICH TO STOP READING
+%% (TODO: USED?) TYPE T_STOPS (= STRS) FOR NON-ESCAPED STRINGS BEFORE WHICH TO STOP READING
 
 :- type t_stops == strs.
 
