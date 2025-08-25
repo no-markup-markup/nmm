@@ -70,12 +70,12 @@
 
 %% DCG RULES AND CORRESPONDING AST TYPES
 
-%%% STAR OPERATOR ‘*’
+%%% KLEENE STAR OPERATOR ‘*’
 
 :- pred *(pred(TKNS, TKNS),           TKNS,  TKNS).
 :- mode *(pred(in,   out) is semidet, in,    out) is det.
 
-%%% PLUS OPERATOR ‘+’
+%%% KLEENE PLUS OPERATOR ‘+’
 
 :- pred +(pred(TKNS, TKNS),           TKNS,  TKNS).
 :- mode +(pred(in,   out) is semidet, in,    out) is semidet.
