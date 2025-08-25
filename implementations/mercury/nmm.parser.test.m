@@ -440,6 +440,188 @@ p_test_r_c_ref_3 :-
   else
     true.
 
+%%% P_TEST_R_TXT_UNIT_1
+
+:- pred p_test_r_txt_unit_1 is det.
+p_test_r_txt_unit_1 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ!"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_1").
+
+%%% P_TEST_R_TXT_UNIT_2
+
+:- pred p_test_r_txt_unit_2 is det.
+p_test_r_txt_unit_2 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ!"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!\t"),
+    f_str2tkns("\t")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_2").
+
+%%% P_TEST_R_TXT_UNIT_3
+
+:- pred p_test_r_txt_unit_3 is det.
+p_test_r_txt_unit_3 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ!["),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!["),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_3").
+
+%%% P_TEST_R_TXT_UNIT_4
+
+:- pred p_test_r_txt_unit_4 is det.
+p_test_r_txt_unit_4 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ![¶§]"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ![¶§]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_4").
+
+%%% P_TEST_R_TXT_UNIT_5
+
+:- pred p_test_r_txt_unit_5 is det.
+p_test_r_txt_unit_5 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ![¶§]"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!\\[\\¶\\§]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_5").
+
+%%% P_TEST_R_TXT_UNIT_6
+
+:- pred p_test_r_txt_unit_6 is det.
+p_test_r_txt_unit_6 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ![PAR:]"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ![PAR:]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_6").
+
+%%% P_TEST_R_TXT_UNIT_7
+
+:- pred p_test_r_txt_unit_7 is det.
+p_test_r_txt_unit_7 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ!"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ![PAR:name]"),
+    f_str2tkns("[PAR:name]")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_7").
+
+%%% P_TEST_R_TXT_UNIT_8
+
+:- pred p_test_r_txt_unit_8 is det.
+p_test_r_txt_unit_8 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ![PAR:name]"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!\\[PAR:name]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_8").
+
+%%% P_TEST_R_TXT_UNIT_9
+
+:- pred p_test_r_txt_unit_9 is det.
+p_test_r_txt_unit_9 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ![INVALID_TAG:name]"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ![INVALID_TAG:name]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_9").
+
+%%% P_TEST_R_TXT_UNIT_10
+
+:- pred p_test_r_txt_unit_10 is det.
+p_test_r_txt_unit_10 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("HEJ!"),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!\n"),
+    f_str2tkns("\n")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_10").
+
+%%% P_TEST_R_TXT_UNIT_11
+
+:- pred p_test_r_txt_unit_11 is det.
+p_test_r_txt_unit_11 :-
+  if r_txt_unit(
+    c_txt_unit_wysiwyg("[PAR:name]HEJ!"),
+    ["DSP","PAR"],
+    f_str2tkns("[PAR:name]HEJ!"),
+    _
+  ) then
+    exception.throw("p_test_r_txt_unit_11")
+  else
+    true.
+
+%%% P_TEST_R_TXT_UNIT_12
+
+:- pred p_test_r_txt_unit_12 is det.
+p_test_r_txt_unit_12 :-
+  if r_txt_unit(
+    c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+    ["DSP","PAR"],
+    f_str2tkns("[PAR:name]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_12").
+
+%%% P_TEST_R_TXT_UNIT_13
+
+:- pred p_test_r_txt_unit_13 is det.
+p_test_r_txt_unit_13 :-
+  if r_txt_unit(
+    c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+    ["DSP","PAR"],
+    f_str2tkns("[PAR:name], and more"),
+    f_str2tkns(", and more")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_unit_13").
+
 
 %% P_TEST
 
@@ -478,4 +660,17 @@ p_test(!IO) :-
   p_test_r_id_4,
   p_test_r_c_ref_1,
   p_test_r_c_ref_2,
-  p_test_r_c_ref_3.
+  p_test_r_c_ref_3,
+  p_test_r_txt_unit_1,
+  p_test_r_txt_unit_2,
+  p_test_r_txt_unit_3,
+  p_test_r_txt_unit_4,
+  p_test_r_txt_unit_5,
+  p_test_r_txt_unit_6,
+  p_test_r_txt_unit_7,
+  p_test_r_txt_unit_8,
+  p_test_r_txt_unit_9,
+  p_test_r_txt_unit_10,
+  p_test_r_txt_unit_11,
+  p_test_r_txt_unit_12,
+  p_test_r_txt_unit_13.

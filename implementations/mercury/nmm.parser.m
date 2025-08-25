@@ -203,7 +203,7 @@
  %% 
  %% :- pred r_hdr(t_hdr::out, t_tkns::in, t_tkns::out).
 
-%%% T_C_REF AND R_CREF
+%%% T_C_REF AND R_C_REF
 
 :-type t_c_ref ---> c_c_ref(t_id).
 
@@ -212,12 +212,14 @@
 
 %%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS
 
- %% :- type t_txt_unit --->
- %%   c_txt_unit_wysiwyg(str);
- %%   c_txt_unit_emph(str);
- %%   c_txt_unit_c_ref(t_cref).
- %% 
- %% :- pred r_txt_unit(t_txt_unit::out, t_tkns::in, t_tkns::out).
+:- type t_txt_unit --->
+  c_txt_unit_wysiwyg(str);
+  c_txt_unit_emph(str);
+  c_txt_unit_c_ref(t_c_ref).
+
+% doc:                         VALID_TAGS
+:- pred r_txt_unit(t_txt_unit, strs,      t_tkns, t_tkns).
+:- mode r_txt_unit(out,        in,        in,     out) is semidet.
  %% 
  %% :- pred r_txt_units(list(t_txt_unit)::out, t_tkns::in, t_tkns::out).
 
@@ -436,6 +438,20 @@ r_c_ref(c_c_ref(ID),VALID_TAGS) -->
 
 %%% R_TXT_UNIT AND R_TXT_UNITS
 
-% r_txt_unit(c_txt_unit_wysiwyg(str)) -->
-%   not r(c_r_nws_sps)
-%%% TODO: R_BLKS
+r_txt_unit(TU,VALID_TAGS) -->
+  r_c_ref(CR,VALID_TAGS)            -> {TU = c_txt_unit_c_ref(CR)};
+  r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {TU = c_txt_unit_wysiwyg(S)};
+                                       {false}.
+
+% doc:                          VALID_TAGS
+:- pred r_txt_unit_wysiwyg(str, strs,      t_tkns, t_tkns).
+:- mode r_txt_unit_wysiwyg(out, in,        in,     out) is semidet.
+r_txt_unit_wysiwyg(S,VALID_TAGS) -->
+  not r_tab,
+  not r_lb,
+  not r_c_ref(_,VALID_TAGS),
+  r_c(CHR),
+  (
+    r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
+                                         {S = chr2str(CHR)}
+  ).
