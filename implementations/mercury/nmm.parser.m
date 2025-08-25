@@ -132,7 +132,7 @@
 % DCG rule for consuming EOF
 :- pred r_eof(t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_DOC AND R_DOC
+%%% TODO: T_DOC AND R_DOC
 
  %% :- type t_doc --->
  %%   c_doc_pars(list(par));
@@ -140,7 +140,7 @@
  %% 
  %% :- pred r_doc(t_doc::out, t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_PAR, R_PAR AND R_PARS
+%%% TODO: T_PAR, R_PAR AND R_PARS
 
  %% :- type t_par ---> c_par(
  %%   fld_par_tag_or_id :: maybe(t_tag_or_id),
@@ -152,7 +152,7 @@
  %% 
  %% :- pred r_pars(list(pars)::out, t_tkns::in, t_tkns::out).
 
-%%% T_BLK, R_BLK AND R_BLKS
+%%% TODO: T_BLK, R_BLK AND R_BLKS
 
  %% :- type t_blk --->
  %%   c_blk_txt(t_blk_txt);
@@ -166,7 +166,7 @@
  %% % doc:         BLKS              LVL
  %% :- pred r_blks(list(t_blk)::out, uint::in, t_tkns::in, t_tkns::out).
 
-%%% T_TAG_OR_ID AND R_TAG_OR_ID
+%%% TODO: T_TAG_OR_ID AND R_TAG_OR_ID
 
  %% :- type t_tag_or_id --->
  %%   c_tag_or_id_tag(t_tag);
@@ -197,7 +197,7 @@
 % doc:                  VALID_TAGS
 :- pred r_id(t_id::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_HDR AND R_HDR
+%%% TODO: T_HDR AND R_HDR
 
  %% :- type t_hdr ---> c_hdr(list(t_txt_unit)).
  %% 
@@ -220,8 +220,10 @@
 % doc:                         VALID_TAGS
 :- pred r_txt_unit(t_txt_unit, strs,      t_tkns, t_tkns).
 :- mode r_txt_unit(out,        in,        in,     out) is semidet.
- %% 
- %% :- pred r_txt_units(list(t_txt_unit)::out, t_tkns::in, t_tkns::out).
+
+% doc:                                VALID_TAGS
+:- pred r_txt_units(list(t_txt_unit), strs,      t_tkns, t_tkns).
+:- mode r_txt_units(out,              in,        in,     out) is semidet.
 
 
 
@@ -438,9 +440,9 @@ r_c_ref(c_c_ref(ID),VALID_TAGS) -->
 
 %%% R_TXT_UNIT AND R_TXT_UNITS
 
-r_txt_unit(TU,VALID_TAGS) -->
-  r_c_ref(CR,VALID_TAGS)            -> {TU = c_txt_unit_c_ref(CR)};
-  r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {TU = c_txt_unit_wysiwyg(S)};
+r_txt_unit(U,VALID_TAGS) -->
+  r_c_ref(CR,VALID_TAGS)            -> {U = c_txt_unit_c_ref(CR)};
+  r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {U = c_txt_unit_wysiwyg(S)};
                                        {false}.
 
 % doc:                          VALID_TAGS
@@ -454,4 +456,11 @@ r_txt_unit_wysiwyg(S,VALID_TAGS) -->
   (
     r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
                                          {S = chr2str(CHR)}
+  ).
+
+r_txt_units(US,VALID_TAGS) -->
+  r_txt_unit(U,VALID_TAGS),
+  (
+    r_txt_units(US_,VALID_TAGS) -> {US = list.append([U],US_)};
+                                   {US = [U]}
   ).

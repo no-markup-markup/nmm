@@ -622,6 +622,69 @@ p_test_r_txt_unit_13 :-
   else
     exception.throw("p_test_r_txt_unit_13").
 
+%%% P_TEST_R_TXT_UNITS_1
+
+:- pred p_test_r_txt_units_1 is det.
+p_test_r_txt_units_1 :-
+  if r_txt_units(
+    [c_txt_unit_wysiwyg("HEJ!")],
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_units_1").
+
+%%% P_TEST_R_TXT_UNITS_2
+
+:- pred p_test_r_txt_units_2 is det.
+p_test_r_txt_units_2 :-
+  if r_txt_units(
+    [
+      c_txt_unit_wysiwyg("HEJ!"),
+      c_txt_unit_c_ref(c_c_ref(c_id("DSP","name")))
+    ],
+    ["DSP","PAR"],
+    f_str2tkns("HEJ![DSP:name]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_units_2").
+
+%%% P_TEST_R_TXT_UNITS_3
+
+:- pred p_test_r_txt_units_3 is det.
+p_test_r_txt_units_3 :-
+  if r_txt_units(
+    [
+      c_txt_unit_wysiwyg("HEJ!"),
+      c_txt_unit_c_ref(c_c_ref(c_id("DSP","name"))),
+      c_txt_unit_wysiwyg("HAJ!")
+    ],
+    ["DSP","PAR"],
+    f_str2tkns("HEJ![DSP:name]HAJ!\n"),
+    f_str2tkns("\n")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_units_3").
+
+%%% P_TEST_R_TXT_UNITS_4
+
+:- pred p_test_r_txt_units_4 is det.
+p_test_r_txt_units_4 :-
+  if r_txt_units(
+    _,
+    ["DSP","PAR"],
+    f_str2tkns("\tHEJ![DSP:name]HAJ!\n"),
+    _
+  ) then
+    exception.throw("p_test_r_txt_units_4")
+  else
+    true.
+
 
 %% P_TEST
 
@@ -673,4 +736,8 @@ p_test(!IO) :-
   p_test_r_txt_unit_10,
   p_test_r_txt_unit_11,
   p_test_r_txt_unit_12,
-  p_test_r_txt_unit_13.
+  p_test_r_txt_unit_13,
+  p_test_r_txt_units_1,
+  p_test_r_txt_units_2,
+  p_test_r_txt_units_3,
+  p_test_r_txt_units_4.
