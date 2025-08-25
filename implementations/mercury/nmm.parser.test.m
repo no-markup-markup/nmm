@@ -340,6 +340,106 @@ p_test_r_name_5 :-
   else
     true.
 
+%%% P_TEST_R_ID_1
+
+:- pred p_test_r_id_1 is det.
+p_test_r_id_1 :-
+  if r_id(
+    c_id("PAR","a_name"),
+    ["DSP","PAR"],
+    f_str2tkns("PAR:a_name"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_id_1").
+
+%%% P_TEST_R_ID_2
+
+:- pred p_test_r_id_2 is det.
+p_test_r_id_2 :-
+  if (
+    r_id(ID,["DSP","PAR"],f_str2tkns("PAR:a_name"),[]),
+    fld_id_tag(ID)  = "PAR",
+    fld_id_name(ID) = "a_name"
+  )
+  then
+    true
+  else
+    exception.throw("p_test_r_id_2").
+
+%%% P_TEST_R_ID_3
+
+:- pred p_test_r_id_3 is det.
+p_test_r_id_3 :-
+  if (
+    r_id(
+      c_id("PAR","a_name"),
+      ["DSP","PAR"],
+      f_str2tkns("PAR:a_name]"),
+      f_str2tkns("]")
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_id_3").
+
+%%% P_TEST_R_ID_4
+
+:- pred p_test_r_id_4 is det.
+p_test_r_id_4 :-
+  if r_id(
+      c_id("PAR","a_"),
+      ["DSP","PAR"],
+      f_str2tkns("PAR:a_,name]"),
+      f_str2tkns(",name]")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_id_4").
+
+%%% P_TEST_R_C_REF_1
+
+:- pred p_test_r_c_ref_1 is det.
+p_test_r_c_ref_1 :-
+  if r_c_ref(
+      c_c_ref(c_id("PAR","a_name")),
+      ["DSP","PAR"],
+      f_str2tkns("[PAR:a_name]"),
+      []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_c_ref_1").
+
+%%% P_TEST_R_C_REF_2
+
+:- pred p_test_r_c_ref_2 is det.
+p_test_r_c_ref_2 :-
+  if r_c_ref(
+      c_c_ref(c_id("PAR","a_name")),
+      ["DSP","PAR"],
+      f_str2tkns("[PAR:a_name], gives"),
+      f_str2tkns(", gives")
+  ) then
+    true
+  else
+    exception.throw("p_test_r_c_ref_2").
+
+%%% P_TEST_R_C_REF_3
+
+:- pred p_test_r_c_ref_3 is det.
+p_test_r_c_ref_3 :-
+  if r_c_ref(
+      _,
+      ["DSP","PAR"],
+      f_str2tkns("[PAR::a_name]"),
+      _
+  ) then
+    exception.throw("p_test_r_c_ref_3")
+  else
+    true.
+
 
 %% P_TEST
 
@@ -371,4 +471,11 @@ p_test(!IO) :-
   p_test_r_name_2,
   p_test_r_name_3,
   p_test_r_name_4,
-  p_test_r_name_5.
+  p_test_r_name_5,
+  p_test_r_id_1,
+  p_test_r_id_2,
+  p_test_r_id_3,
+  p_test_r_id_4,
+  p_test_r_c_ref_1,
+  p_test_r_c_ref_2,
+  p_test_r_c_ref_3.

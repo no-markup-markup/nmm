@@ -178,7 +178,8 @@
 
 :- type t_tag == str.
 
-:- pred r_tag(t_tag::out, strs::in, t_tkns::in, t_tkns::out) is semidet.
+% doc:                    VALID_TAGS
+:- pred r_tag(t_tag::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_NAME AND R_NAME
 
@@ -188,12 +189,13 @@
 
 %%% T_ID AND R_ID
 
-%% :- type t_id ---> c_id(
-%%   fld_id_tag  :: t_tag,
-%%   fld_id_name :: t_name
-%% ).
-%% 
-%% :- pred r_id(t_id::out, strs::in, t_tkns::in, t_tkns::out).
+:- type t_id ---> c_id(
+  fld_id_tag  :: t_tag,
+  fld_id_name :: t_name
+).
+
+% doc:                  VALID_TAGS
+:- pred r_id(t_id::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_HDR AND R_HDR
 
@@ -203,7 +205,10 @@
 
 %%% T_C_REF AND R_CREF
 
- %% :-type t_c_ref ---> c_c_ref(t_id).
+:-type t_c_ref ---> c_c_ref(t_id).
+
+% doc:                        VALID_TAGS
+:- pred r_c_ref(t_c_ref::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS
 
@@ -409,8 +414,8 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 
 %%% R_ID
 
- %% r_id(c_id(TAG,NAME), VALID_TAGS) -->
- %%   r_tag(TAG,VALID_TAGS), r_c(':'), r_name(NAME).
+r_id(c_id(TAG,NAME),VALID_TAGS) -->
+  r_tag(TAG,VALID_TAGS), r_c(':'), r_name(NAME).
 
 %%% R_TAG
 
@@ -421,6 +426,13 @@ r_tag(TAG,VALID_TAGS) -->
 %%% R_NAME
 
 r_name(NAME) --> r(c_r_nws,k_forbidden_strs_in_tags_names,NAME).
+
+%%% R_C_REF
+
+r_c_ref(c_c_ref(ID),VALID_TAGS) -->
+  r_str("["),
+  r_id(ID,VALID_TAGS),
+  r_str("]").
 
 %%% R_TXT_UNIT AND R_TXT_UNITS
 
