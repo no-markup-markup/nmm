@@ -8,13 +8,11 @@
 %% SUBMODULES
 
 :- include_module
- %%  nmm.ast
- %%  ,
   nmm.lexer
   ,
   nmm.parser
- %%  ,
- %%  nmm.test
+  ,
+  nmm.test
   .
 
 

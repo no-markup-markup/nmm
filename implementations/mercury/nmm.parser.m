@@ -72,18 +72,18 @@
 
 %%% STAR OPERATOR ‘*’
 
- %% :- mode *(pred(in, out) is semidet, in, out) is det.
- %% *(P) --> (P, *(P)) -> []; [].
+:- pred *(pred(TKNS, TKNS),           TKNS,  TKNS).
+:- mode *(pred(in,   out) is semidet, in,    out) is det.
 
 %%% PLUS OPERATOR ‘+’
 
- %% :- mode +(pred(in, out) is semidet, in, out) is semidet.
- %% +(P) --> (P, +(P)) -> []; P.
+:- pred +(pred(TKNS, TKNS),           TKNS,  TKNS).
+:- mode +(pred(in,   out) is semidet, in,    out) is semidet.
 
-%%% R_OPT OPERATOR
+%%% QUESTION MARK OPERATOR ‘?’
 
- %% :- pred r_opt(pred(in, out) is semidet, in, out) is semidet.
- %% r_opt(P) --> P -> []; [].
+:- pred ?(pred(TKNS, TKNS),           TKNS,  TKNS).
+:- mode ?(pred(in,   out) is semidet, in,    out) is det.
 
 
 %%% R
@@ -176,24 +176,24 @@
 
 %%% T_TAG AND R_TAG
 
- %% :- type t_tag == str.
- %% 
- %% :- pred r_tag(t_tag::out, strs::in, t_tkns::in, t_tkns::out).
+:- type t_tag == str.
+
+:- pred r_tag(t_tag::out, strs::in, t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_NAME AND R_NAME
 
- %% :- type t_name == str.
- %% 
- %% :- pred r_name(t_name::out, t_tkns::in, t_tkns::out).
+:- type t_name == str.
+
+:- pred r_name(t_name::out, t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_ID AND R_ID
 
- %% :- type t_id ---> c_id(
- %%   fld_id_tag  :: t_tag,
- %%   fld_id_name :: t_name
- %% ).
- %% 
- %% :- pred r_id(t_id::out, strs::in, t_tkns::in, t_tkns::out).
+%% :- type t_id ---> c_id(
+%%   fld_id_tag  :: t_tag,
+%%   fld_id_name :: t_name
+%% ).
+%% 
+%% :- pred r_id(t_id::out, strs::in, t_tkns::in, t_tkns::out).
 
 %%% T_HDR AND R_HDR
 
@@ -201,11 +201,15 @@
  %% 
  %% :- pred r_hdr(t_hdr::out, t_tkns::in, t_tkns::out).
 
+%%% T_C_REF AND R_CREF
+
+ %% :-type t_c_ref ---> c_c_ref(t_id).
+
 %%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS
 
  %% :- type t_txt_unit --->
- %%   c_txt_unit_wysiwyg(str),
- %%   c_txt_unit_emph(str),
+ %%   c_txt_unit_wysiwyg(str);
+ %%   c_txt_unit_emph(str);
  %%   c_txt_unit_c_ref(t_cref).
  %% 
  %% :- pred r_txt_unit(t_txt_unit::out, t_tkns::in, t_tkns::out).
@@ -271,6 +275,18 @@ p_valid_tag(TAG) :- list.all_false(
 
 
 %% DCG RULES
+
+%%% STAR OPERATOR ‘*’
+
+*(P) --> (P, *(P)) -> []; [].
+
+%%% PLUS OPERATOR ‘+’
+
++(P) --> (P, +(P)) -> []; P.
+
+%%% QUESTION MARK OPERATOR ‘?’
+
+?(P) --> P -> []; [].
 
 %%% HELPER R_C (READ NON-TAB NON-LINE-BREAK CHARACTER)
 
@@ -398,12 +414,16 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 
 %%% R_TAG
 
- %% r_tag(TAG,VALID_TAGS) -->
- %%   r(c_r_nws,k_forbidden_strs_in_tags_names,TAG),
- %%   {list.member(TAG,VALID_TAGS)}.
+r_tag(TAG,VALID_TAGS) -->
+  r(c_r_nws,k_forbidden_strs_in_tags_names,TAG),
+  {list.member(TAG,VALID_TAGS)}.
 
 %%% R_NAME
 
- %% r_name(NAME) --> r(c_r_nws,k_forbidden_strs_in_tags_names,NAME).
+r_name(NAME) --> r(c_r_nws,k_forbidden_strs_in_tags_names,NAME).
 
+%%% R_TXT_UNIT AND R_TXT_UNITS
+
+% r_txt_unit(c_txt_unit_wysiwyg(str)) -->
+%   not r(c_r_nws_sps)
 %%% TODO: R_BLKS

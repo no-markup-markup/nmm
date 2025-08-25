@@ -1,5 +1,6 @@
 *.mh
 *.err
 Mercury
+nmm.test
 nmm.lexer.test
 nmm.parser.test
