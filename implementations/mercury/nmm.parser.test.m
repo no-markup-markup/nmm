@@ -167,7 +167,7 @@ p_test_r_tabs_1 :-
   if nmm.parser.r_tabs(1u,f_str2tkns("\t"),[]) then
     true
   else
-    exception.throw("p_test_tabs_2").
+    exception.throw("p_test_tabs_1").
 
 %%% P_TEST_R_TABS_2
 
@@ -186,6 +186,15 @@ p_test_r_tabs_3 :-
     true
   else
     exception.throw("p_test_tabs_3").
+
+%%% P_TEST_R_TABS_4
+
+:- pred p_test_r_tabs_4 is det.
+p_test_r_tabs_4 :-
+  if nmm.parser.r_tabs(0u,f_str2tkns("hej"),f_str2tkns("hej")) then
+    true
+  else
+    exception.throw("p_test_tabs_4").
 
 %%% P_TEST_STAR_1
 
@@ -783,19 +792,46 @@ p_test_r_blk_txt_6 :-
     f_str2tkns("HEJ!\n\tOCH HEJ IGEN!\n"),
     _
   ) then
-    exception.throw("p_test_r_blk_txt_3")
+    exception.throw("p_test_r_blk_txt_6")
   else
     true.
+
+%%% P_TEST_R_BLK_TXT_7
+
+:- pred p_test_r_blk_txt_7 is det.
+p_test_r_blk_txt_7 :-
+  if (
+    r_blk_txt(
+      [
+        c_txt_unit_wysiwyg("HEJ"),
+        c_txt_unit_wysiwyg("HAJ "),
+        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_wysiwyg("!"),
+        c_txt_unit_c_ref(c_c_ref(c_id("DSP","name"))),
+        c_txt_unit_wysiwyg("HOJ")
+      ],
+      0u,
+      ["DSP","PAR"],
+      f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_txt_7").
 
 %%% P_TEST_R_BLK_1
 
 :- pred p_test_r_blk_1 is det.
 p_test_r_blk_1 :-
   if r_blk(
-    c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+    c_blk_txt([
+      c_txt_unit_wysiwyg("HEJ!"),
+      c_txt_unit_wysiwyg("HEJ!")
+    ]),
     0u,
     ["DSP","PAR"],
-    f_str2tkns("HEJ!\n"),
+    f_str2tkns("HEJ!\nHEJ!\n"),
     []
   ) then
     true
@@ -1026,6 +1062,23 @@ p_test_r_blk_blt_6 :-
   else
     exception.throw("p_test_r_blk_blt_6").
 
+%%% P_TEST_R_DOC_1
+
+:- pred p_test_r_doc_1 is det.
+p_test_r_doc_1 :-
+  if r_doc(
+    c_doc_blks([
+      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+      c_blk_txt([c_txt_unit_wysiwyg("HOJ!"),c_txt_unit_wysiwyg("HAJ!")])
+    ]),
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!\n\nHOJ!\nHAJ!\n") ++ [nmm.lexer.c_tkn_eof],
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_doc_1").
+
 
 %% P_TEST
 
@@ -1042,6 +1095,7 @@ p_test(!IO) :-
   p_test_r_tabs_1,
   p_test_r_tabs_2,
   p_test_r_tabs_3,
+  p_test_r_tabs_4,
   p_test_r_star_1,
   p_test_r_star_2,
   p_test_r_plus_1,
@@ -1088,6 +1142,7 @@ p_test(!IO) :-
   p_test_r_blk_txt_4,
   p_test_r_blk_txt_5,
   p_test_r_blk_txt_6,
+  p_test_r_blk_txt_7,
   p_test_r_blk_1,
   p_test_r_blks_1,
   p_test_r_blks_2,
@@ -1099,4 +1154,5 @@ p_test(!IO) :-
   p_test_r_blk_blt_3,
   p_test_r_blk_blt_4,
   p_test_r_blk_blt_5,
-  p_test_r_blk_blt_6.
+  p_test_r_blk_blt_6,
+  p_test_r_doc_1.

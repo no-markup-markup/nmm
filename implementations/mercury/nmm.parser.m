@@ -132,21 +132,22 @@
 % DCG rule for consuming EOF
 :- pred r_eof(t_tkns::in, t_tkns::out) is semidet.
 
-%%% TODO: T_DOC AND R_DOC
+%%% T_DOC AND R_DOC
 
- %% :- type t_doc --->
- %%   c_doc_pars(list(par));
- %%   c_doc_blks(list(blk)).
- %% 
- %% :- pred r_doc(t_doc::out, t_tkns::in, t_tkns::out) is semidet.
+:- type t_doc --->
+  c_doc_pars(list(t_par));
+  c_doc_blks(list(t_blk)).
+
+% doc:                    VALID_TAGS
+:- pred r_doc(t_doc::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
 %%% TODO: T_PAR, R_PAR AND R_PARS
 
- %% :- type t_par ---> c_par(
- %%   fld_par_tag_or_id :: maybe(t_tag_or_id),
- %%   fld_par_hdr       :: maybe(t_hdr),
- %%   fld_par_blks      :: list(blk)
- %% ).
+:- type t_par ---> c_par(
+  fld_par_tag_or_id :: maybe(t_tag_or_id),
+  fld_par_hdr       :: maybe(t_hdr),
+  fld_par_blks      :: list(t_blk)
+).
  %% 
  %% :- pred r_par(t_par::out, t_tkns::in, t_tkns::out).
  %% 
@@ -187,10 +188,10 @@
 
 %%% TODO: T_TAG_OR_ID AND R_TAG_OR_ID
 
- %% :- type t_tag_or_id --->
- %%   c_tag_or_id_tag(t_tag);
- %%   c_tag_or_id_id(t_id).
- %% 
+:- type t_tag_or_id --->
+  c_tag_or_id_tag(t_tag);
+  c_tag_or_id_id(t_id).
+
  %% :- pred r_tag_or_id(t_tag_or_id::out, t_tkns::in, t_tkns::out).
 
 %%% T_TAG AND R_TAG
@@ -218,8 +219,8 @@
 
 %%% TODO: T_HDR AND R_HDR
 
- %% :- type t_hdr ---> c_hdr(list(t_txt_unit)).
- %% 
+:- type t_hdr ---> c_hdr(list(t_txt_unit)).
+
  %% :- pred r_hdr(t_hdr::out, t_tkns::in, t_tkns::out).
 
 %%% T_C_REF AND R_C_REF
@@ -500,18 +501,30 @@ r_blks(BLKS,LVL,VALID_TAGS) -->
 
 %%% R_BLK_TXT
 
-r_blk_txt(US,LVL,VALID_TAGS) -->
-  r_blk_txt_line(US_,VALID_TAGS),
-  (
-    r_tabs(LVL), r_blk_txt_line(US__,VALID_TAGS) -> {US = US_ ++ US__};
-                                                    {US = US_}
-  ).
+r_blk_txt(US,LVL,VALID_TAGS) --> r_blk_txt_lines(US,LVL,VALID_TAGS).
 
 :- pred r_blk_txt_line(list(t_txt_unit), strs, t_tkns, t_tkns).
 :- mode r_blk_txt_line(out,              in,   in,     out) is semidet.
-r_blk_txt_line(UNITS,VALID_TAGS) --> r_txt_units(UNITS,VALID_TAGS), r_lb.
+r_blk_txt_line(        UNITS,            VALID_TAGS) -->
+  r_txt_units(UNITS,VALID_TAGS), r_lb.
+
+:- pred r_blk_txt_lines(list(t_txt_unit), uint, strs, t_tkns, t_tkns).
+:- mode r_blk_txt_lines(out,                in, in,   in,     out) is semidet.
+r_blk_txt_lines(        UNITS,            LVL,  VALID_TAGS) -->
+  r_blk_txt_line(UNITS_,VALID_TAGS),
+  (
+    r_tabs(LVL), r_blk_txt_lines(UNITS__,LVL,VALID_TAGS)
+      -> {UNITS = UNITS_ ++ UNITS__};
+         {UNITS = UNITS_}
+  ).
 
 %%% R_BLK_BLT
 
 r_blk_blt(BLKS,LVL,VALID_TAGS) -->
   r_str("-"), r_tab, r_blks(BLKS,LVL+1u,VALID_TAGS).
+
+%%% R_DOC
+
+r_doc(DOC,VALID_TAGS) -->
+  r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC = c_doc_blks(BLKS)};
+                                       {false}.
