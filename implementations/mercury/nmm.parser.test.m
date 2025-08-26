@@ -1062,12 +1062,12 @@ p_test_r_blk_blt_6 :-
   else
     exception.throw("p_test_r_blk_blt_6").
 
-%%% P_TEST_R_DOC_1
+%%% P_TEST_R_DOC_MAIN_1
 
-:- pred p_test_r_doc_1 is det.
-p_test_r_doc_1 :-
-  if r_doc(
-    c_doc_blks([
+:- pred p_test_r_doc_main_1 is det.
+p_test_r_doc_main_1 :-
+  if r_doc_main(
+    c_doc_main_blks([
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
       c_blk_txt([c_txt_unit_wysiwyg("HOJ!"),c_txt_unit_wysiwyg("HAJ!")])
     ]),
@@ -1077,7 +1077,7 @@ p_test_r_doc_1 :-
   ) then
     true
   else
-    exception.throw("p_test_r_doc_1").
+    exception.throw("p_test_r_doc_main_1").
 
 
 %% P_TEST
@@ -1155,4 +1155,4 @@ p_test(!IO) :-
   p_test_r_blk_blt_4,
   p_test_r_blk_blt_5,
   p_test_r_blk_blt_6,
-  p_test_r_doc_1.
+  p_test_r_doc_main_1.

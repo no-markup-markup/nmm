@@ -88,8 +88,8 @@
 
 %%% R
 
-% DCG rules for reading non-empty parts of a line or a whole non-empty line
-% (excluding line breaks), optionally stopping right before certain strings
+% DCG rules for reading non-empty parts of a line (excluding line breaks),
+% optionally stopping right before certain strings
 
 :- pred r(t_r, t_stops, str, t_tkns, t_tkns).
 :- mode r(in,  in,      in,  in,     out) is semidet.
@@ -132,14 +132,38 @@
 % DCG rule for consuming EOF
 :- pred r_eof(t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_DOC AND R_DOC
+%%% TODO: T_DOC AND R_DOC
 
-:- type t_doc --->
-  c_doc_pars(list(t_par));
-  c_doc_blks(list(t_blk)).
+:- type t_doc ---> c_doc(
+  fld_doc_preamble :: maybe(t_preamble),
+  fld_doc_main     :: t_doc_main,
+  fld_doc_refs     :: t_doc_refs
+).
 
-% doc:                    VALID_TAGS
-:- pred r_doc(t_doc::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+ %% % doc:                    VALID_TAGS
+ %% :- pred r_doc(t_doc::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+
+%%% TODO: T_PREAMBLE AND R_PREAMBLE
+
+:- type t_preamble == str.
+
+ %% :- pred r_preamble(t_preamble::out, t_tkns::in, t_tkns::out) is semidet.
+
+%%% T_DOC_MAIN AND R_DOC_MAIN
+
+:- type t_doc_main --->
+  c_doc_main_pars(list(t_par));
+  c_doc_main_blks(list(t_blk)).
+
+% doc:                         VALID_TAGS
+:- pred r_doc_main(t_doc_main, strs,      t_tkns, t_tkns).
+:- mode r_doc_main(out,        in,        in,     out) is semidet.
+
+%%% TODO: T_DOC_REFS AND R_DOC_REFS
+
+:- type t_doc_refs == list(t_blk).
+
+ %% :- pred r_doc_refs(t_doc_refs, t_tkns::in, t_tkns::out).
 
 %%% TODO: T_PAR, R_PAR AND R_PARS
 
@@ -259,12 +283,6 @@
 :- import_module uint.
 
 
-%% CONSTANT K_FORBIDDEN_STRS_IN_TAGS_NAMES
-
-k_forbidden_strs_in_tags_names =
-  ["\\", "[", "]", "(", ")", ":", ",", ";", "*"].
-
-
 %% FUNCTION F_VALIDATE_CONF
 
 %%% THE FUNCTION
@@ -303,6 +321,12 @@ p_valid_tag(TAG) :- list.all_false(
 ).
 
 
+%% CONSTANT K_FORBIDDEN_STRS_IN_TAGS_NAMES
+
+k_forbidden_strs_in_tags_names =
+  ["\\", "[", "]", "(", ")", ":", ",", ";", "*"].
+
+
 %% DCG RULES
 
 %%% STAR OPERATOR ‘*’
@@ -338,23 +362,13 @@ r_c(c_r_any,     C) --> [nmm.lexer.c_tkn_esc(_,C)].
 
 r_c(             C) --> r_c(c_r_any,C).
 
-%%% R_STR
-
-r_str(S) --> if {S = ""} then {true} else r_str_rec(str2chrs(S)).
-
-:- pred r_str_rec(chrs::in, t_tkns::in, t_tkns::out) is semidet.
-r_str_rec(        [C|CS]) --> (
-  r_c(c_r_nws_sps,C), r_str_rec(CS) -> [];
-                                       r_c(c_r_nws_sps,C)
-).
-
 %%% R
 
 %%%% THE RULE
 
-r(         S) --> r(c_r_any,   S).
-r(R,       S) --> r(R,      [],S).
 r(R, STPS, S) --> r_rec(R,STPS,CS), {S = chrs2str(CS), S \= ""}.
+r(R,       S) --> r(R,      [],S).
+r(         S) --> r(c_r_any,   S).
 
 :- pred r_rec(t_r, t_stops, chrs, t_tkns, t_tkns).
 :- mode r_rec(in,  in,      out,  in,     out) is det.
@@ -378,13 +392,23 @@ r_stop(        [STP|STPS_TL], TKNS_IN, TKNS_OUT) :-
   ),
   TKNS_OUT = TKNS_IN.
 
-%%% R_LB
+%%% R_STR
 
-r_lb --> [nmm.lexer.c_tkn_lb(_)].
+r_str(S) --> if {S = ""} then {true} else r_str_rec(str2chrs(S)).
+
+:- pred r_str_rec(chrs::in, t_tkns::in, t_tkns::out) is semidet.
+r_str_rec(        [C|CS]) --> (
+  r_c(c_r_nws_sps,C), r_str_rec(CS) -> [];
+                                       r_c(c_r_nws_sps,C)
+).
 
 %%% R_SP
 
 r_sp --> [nmm.lexer.c_tkn_sp(_,_)].
+
+%%% R_LB
+
+r_lb --> [nmm.lexer.c_tkn_lb(_)].
 
 %%% R_TAB AND R_TABS
 
@@ -397,10 +421,11 @@ r_tabs(N) -->
 
 r_eof --> [nmm.lexer.c_tkn_eof].
 
-%%% R_DOC
+%%% R_DOC_MAIN
 
- %% r_doc(c_doc_pars(PARS)) --> r_pars(  PARS), r_eof.
- %% r_doc(c_doc_blks(BLKS)) --> r_blks(0,BLKS), r_eof.
+r_doc_main(DOC_MAIN,VALID_TAGS) -->
+  r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
+                                       {false}.
 
 %%% R_PAR AND R_PARS
 
@@ -417,73 +442,6 @@ r_eof --> [nmm.lexer.c_tkn_eof].
  %%   r_par(PAR), r_pars(PARS) -> [];
  %%                               r_par(PAR), {PARS = []}
  %% ).
-
-%%% HELPER R_MAYBE_TAG_OR_ID
-
- %% :- pred
- %%   r_maybe_tag_or_id(maybe(t_tag_or_id)::out, strs::in, t_tkns::in, t_tkns::out).
- %% r_maybe_tag_or_id(  RES,                     VALID_TAGS) --> (
- %%   r_id( ID, VALID_TAGS) -> {RES = maybe.yes(ID)};
- %%   r_tag(TAG,VALID_TAGS) -> {RES = maybe.yes(TAG)};
- %%   []                    -> {RES = maybe.no}
- %% ).
-
-%%% HELPER R_MAYBE_HDR
-
- %% :- pred r_maybe_hdr(maybe(t_hdr)::out, t_tkns::in, t_tkns::out).
- %% r_maybe_hdr(        RES) --> (
- %%   r_blk_txt(TXT_UNITS,0) -> {RES = maybe.yes(c_hdr(TXT_UNITS))};
- %%   []                     -> {RES = maybe.no}
- %% ).
-
-%%% R_ID
-
-r_id(c_id(TAG,NAME),VALID_TAGS) -->
-  r_tag(TAG,VALID_TAGS), r_c(':'), r_name(NAME).
-
-%%% R_TAG
-
-r_tag(TAG,VALID_TAGS) -->
-  r(c_r_nws,k_forbidden_strs_in_tags_names,TAG),
-  {list.member(TAG,VALID_TAGS)}.
-
-%%% R_NAME
-
-r_name(NAME) --> r(c_r_nws,k_forbidden_strs_in_tags_names,NAME).
-
-%%% R_C_REF
-
-r_c_ref(c_c_ref(ID),VALID_TAGS) -->
-  r_str("["),
-  r_id(ID,VALID_TAGS),
-  r_str("]").
-
-%%% R_TXT_UNIT AND R_TXT_UNITS
-
-r_txt_unit(U,VALID_TAGS) -->
-  r_c_ref(CR,VALID_TAGS)            -> {U = c_txt_unit_c_ref(CR)};
-  r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {U = c_txt_unit_wysiwyg(S)};
-                                       {false}.
-
-% doc:                          VALID_TAGS
-:- pred r_txt_unit_wysiwyg(str, strs,      t_tkns, t_tkns).
-:- mode r_txt_unit_wysiwyg(out, in,        in,     out) is semidet.
-r_txt_unit_wysiwyg(S,VALID_TAGS) -->
-  not r_tab,
-  not r_lb,
-  not r_c_ref(_,VALID_TAGS),
-  r_c(CHR),
-  (
-    r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
-                                         {S = chr2str(CHR)}
-  ).
-
-r_txt_units(US,VALID_TAGS) -->
-  r_txt_unit(U,VALID_TAGS),
-  (
-    r_txt_units(US_,VALID_TAGS) -> {US = [U]++US_};
-                                   {US = [U]}
-  ).
 
 %%% R_BLK AND R_BLKS
 
@@ -523,8 +481,70 @@ r_blk_txt_lines(        UNITS,            LVL,  VALID_TAGS) -->
 r_blk_blt(BLKS,LVL,VALID_TAGS) -->
   r_str("-"), r_tab, r_blks(BLKS,LVL+1u,VALID_TAGS).
 
-%%% R_DOC
+%%% HELPER R_MAYBE_TAG_OR_ID
 
-r_doc(DOC,VALID_TAGS) -->
-  r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC = c_doc_blks(BLKS)};
+ %% :- pred
+ %%   r_maybe_tag_or_id(maybe(t_tag_or_id)::out, strs::in, t_tkns::in, t_tkns::out).
+ %% r_maybe_tag_or_id(  RES,                     VALID_TAGS) --> (
+ %%   r_id( ID, VALID_TAGS) -> {RES = maybe.yes(ID)};
+ %%   r_tag(TAG,VALID_TAGS) -> {RES = maybe.yes(TAG)};
+ %%   []                    -> {RES = maybe.no}
+ %% ).
+
+%%% HELPER R_MAYBE_HDR
+
+ %% :- pred r_maybe_hdr(maybe(t_hdr)::out, t_tkns::in, t_tkns::out).
+ %% r_maybe_hdr(        RES) --> (
+ %%   r_blk_txt(TXT_UNITS,0) -> {RES = maybe.yes(c_hdr(TXT_UNITS))};
+ %%   []                     -> {RES = maybe.no}
+ %% ).
+
+%%% R_TAG
+
+r_tag(TAG,VALID_TAGS) -->
+  r(c_r_nws,k_forbidden_strs_in_tags_names,TAG),
+  {list.member(TAG,VALID_TAGS)}.
+
+%%% R_NAME
+
+r_name(NAME) --> r(c_r_nws,k_forbidden_strs_in_tags_names,NAME).
+
+%%% R_ID
+
+r_id(c_id(TAG,NAME),VALID_TAGS) -->
+  r_tag(TAG,VALID_TAGS), r_c(':'), r_name(NAME).
+
+%%% R_C_REF
+
+r_c_ref(c_c_ref(ID),VALID_TAGS) -->
+  r_str("["),
+  r_id(ID,VALID_TAGS),
+  r_str("]").
+
+%%% R_TXT_UNIT AND R_TXT_UNITS
+
+r_txt_unit(U,VALID_TAGS) -->
+  r_c_ref(CR,VALID_TAGS)            -> {U = c_txt_unit_c_ref(CR)};
+  r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {U = c_txt_unit_wysiwyg(S)};
                                        {false}.
+
+% doc:                          VALID_TAGS
+:- pred r_txt_unit_wysiwyg(str, strs,      t_tkns, t_tkns).
+:- mode r_txt_unit_wysiwyg(out, in,        in,     out) is semidet.
+r_txt_unit_wysiwyg(S,VALID_TAGS) -->
+  not r_tab,
+  not r_lb,
+  not r_c_ref(_,VALID_TAGS),
+  r_c(CHR),
+  (
+    r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
+                                         {S = chr2str(CHR)}
+  ).
+
+r_txt_units(US,VALID_TAGS) -->
+  r_txt_unit(U,VALID_TAGS),
+  (
+    r_txt_units(US_,VALID_TAGS) -> {US = [U]++US_};
+                                   {US = [U]}
+  ).
+
