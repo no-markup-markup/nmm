@@ -905,6 +905,127 @@ p_test_r_blks_5 :-
   else
     true.
 
+%%% P_TEST_R_BLK_BLT_1
+
+:- pred p_test_r_blk_blt_1 is det.
+p_test_r_blk_blt_1 :-
+  if r_blk_blt(
+    [c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])],
+    0u,
+    ["DSP","PAR"],
+    f_str2tkns("-\tHEJ!\n"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_blt_1").
+
+%%% P_TEST_R_BLK_BLT_2
+
+:- pred p_test_r_blk_blt_2 is det.
+p_test_r_blk_blt_2 :-
+  if r_blk_blt(
+    [
+      c_blk_txt([
+        c_txt_unit_wysiwyg("HEJ!"),
+        c_txt_unit_wysiwyg("HAJ!")
+      ])
+    ],
+    1u,
+    ["DSP","PAR"],
+    f_str2tkns("-\tHEJ!\n\t\tHAJ!\n"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_blt_2").
+
+%%% P_TEST_R_BLK_BLT_3
+
+:- pred p_test_r_blk_blt_3 is det.
+p_test_r_blk_blt_3 :-
+  if r_blk_blt(
+    [
+      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+      c_blk_txt([c_txt_unit_wysiwyg("HAJ!")])
+    ],
+    1u,
+    ["DSP","PAR"],
+    f_str2tkns("-\tHEJ!\n\n\t\tHAJ!\n"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_blt_3").
+
+%%% P_TEST_R_BLK_BLT_4
+
+:- pred p_test_r_blk_blt_4 is det.
+p_test_r_blk_blt_4 :-
+  if r_blk_blt(
+    [
+      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+      c_blk_txt([
+        c_txt_unit_wysiwyg("HAJ"),
+        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_wysiwyg("HOJ")
+      ])
+    ],
+    1u,
+    ["DSP","PAR"],
+    f_str2tkns("-\tHEJ!\n\n\n\n\n\t\tHAJ[PAR:name]\n\t\tHOJ\n"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_blt_4").
+
+%%% P_TEST_R_BLK_BLT_5
+
+:- pred p_test_r_blk_blt_5 is det.
+p_test_r_blk_blt_5 :-
+  if r_blk_blt(
+    [
+      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+      c_blk_txt([
+        c_txt_unit_wysiwyg("HAJ"),
+        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_wysiwyg("HOJ")
+      ]),
+      c_blk_txt([c_txt_unit_wysiwyg("HOJHOJ")])
+    ],
+    0u,
+    ["DSP","PAR"],
+    f_str2tkns("-\tHEJ!\n\n\tHAJ[PAR:name]\n\tHOJ\n\n\tHOJHOJ\n"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_blt_5").
+
+%%% P_TEST_R_BLK_BLT_6
+
+:- pred p_test_r_blk_blt_6 is det.
+p_test_r_blk_blt_6 :-
+  if r_blk_blt(
+    [
+      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+      c_blk_txt([
+        c_txt_unit_wysiwyg("HAJ"),
+        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name")))
+      ]),
+      c_blk_txt([c_txt_unit_wysiwyg("HOJ")]),
+      c_blk_blt([c_blk_txt([c_txt_unit_wysiwyg("HEJ")])])
+    ],
+    1u,
+    ["DSP","PAR"],
+    f_str2tkns("-\tHEJ!\n\n\t\tHAJ[PAR:name]\n\n\t\tHOJ\n\n\t\t-\tHEJ\n"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_blt_6").
+
 
 %% P_TEST
 
@@ -972,4 +1093,10 @@ p_test(!IO) :-
   p_test_r_blks_2,
   p_test_r_blks_3,
   p_test_r_blks_4,
-  p_test_r_blks_5.
+  p_test_r_blks_5,
+  p_test_r_blk_blt_1,
+  p_test_r_blk_blt_2,
+  p_test_r_blk_blt_3,
+  p_test_r_blk_blt_4,
+  p_test_r_blk_blt_5,
+  p_test_r_blk_blt_6.

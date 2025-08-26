@@ -177,12 +177,13 @@
 :- pred r_blk_txt(t_blk_txt, uint, strs,      t_tkns, t_tkns).
 :- mode r_blk_txt(out,       in,   in,        in,     out) is semidet.
 
-%%% TODO: T_BLK_BLT AND R_BLK_BLT
+%%% T_BLK_BLT AND R_BLK_BLT
 
 :- type t_blk_blt == t_blks.
-%% 
-%% % doc:            BLKS            LVL
-%% :- pred r_blk_blt(t_blk_blt::out, uint::in, t_tkns::in, t_tkns::out) is semidet.
+
+% doc:                       LVL   VALID_TAGS
+:- pred r_blk_blt(t_blk_blt, uint, strs,      t_tkns, t_tkns).
+:- mode r_blk_blt(out,       in,   in,        in,     out) is semidet.
 
 %%% TODO: T_TAG_OR_ID AND R_TAG_OR_ID
 
@@ -483,10 +484,11 @@ r_txt_units(US,VALID_TAGS) -->
                                    {US = [U]}
   ).
 
-%%% TODO: R_BLK AND R_BLKS
+%%% R_BLK AND R_BLKS
 
 r_blk(BLK,LVL,VALID_TAGS) -->
   r_blk_txt(BLK_TXT,LVL,VALID_TAGS) -> {BLK = c_blk_txt(BLK_TXT)};
+  r_blk_blt(BLK_BLT,LVL,VALID_TAGS) -> {BLK = c_blk_blt(BLK_BLT)};
                                        {false}.
 
 r_blks(BLKS,LVL,VALID_TAGS) -->
@@ -509,4 +511,7 @@ r_blk_txt(US,LVL,VALID_TAGS) -->
 :- mode r_blk_txt_line(out,              in,   in,     out) is semidet.
 r_blk_txt_line(UNITS,VALID_TAGS) --> r_txt_units(UNITS,VALID_TAGS), r_lb.
 
-%%% TODO: R_BLK_BLT
+%%% R_BLK_BLT
+
+r_blk_blt(BLKS,LVL,VALID_TAGS) -->
+  r_str("-"), r_tab, r_blks(BLKS,LVL+1u,VALID_TAGS).
