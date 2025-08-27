@@ -1383,10 +1383,9 @@ p_test_r_pars_3 :-
           maybe.yes(c_tag_or_id_id(c_id("PAR", "name"))),
           maybe.yes(c_hdr([c_txt_unit_wysiwyg("¶ PAR:name")])),
           [
-            c_blk_txt([
-              c_txt_unit_wysiwyg("¶"),
-              c_txt_unit_wysiwyg("§")
-            ])
+            c_blk_txt([c_txt_unit_wysiwyg("¶")]),
+            c_blk_txt([c_txt_unit_wysiwyg("§")]),
+            c_blk_txt([c_txt_unit_wysiwyg("CH")])
           ]
         )
       ],
@@ -1396,11 +1395,17 @@ p_test_r_pars_3 :-
         ++
         "\\¶ PAR:name\n" % header with initial escaped pilcrow
         ++
-        "\n"
+        "\n\n"
         ++
         "\\¶\n" % text block with initial escaped pilcrow
         ++
+        "\n\n"
+        ++
         "\\§\n" % text block with initial escaped section sign
+        ++
+        "\n\n"
+        ++
+        "\\CH\n" % text block with initial escaped ‘CH’
       ),
       []
     )
