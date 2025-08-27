@@ -1134,6 +1134,245 @@ p_test_r_tag_or_id_2 :-
   else
     exception.throw("p_test_r_tag_or_id_2").
 
+%%% P_TEST_R_PAR_1
+
+:- pred p_test_r_par_1 is det.
+p_test_r_par_1 :-
+  if (
+    r_par(
+      c_par(
+        maybe.no,
+        maybe.no,
+        [
+          c_blk_txt(
+            [
+              c_txt_unit_wysiwyg("HEJ!"),
+              c_txt_unit_wysiwyg("HAJ!")
+            ]
+          )
+        ]
+      ),
+      ["DSP","PAR"],
+      f_str2tkns("¶\n\nHEJ!\nHAJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_par_1").
+
+%%% P_TEST_R_PAR_2
+
+:- pred p_test_r_par_2 is det.
+p_test_r_par_2 :-
+  if (
+    r_par(
+      c_par(
+        maybe.no,
+        maybe.no,
+        [
+          c_blk_txt([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ]),
+          c_blk_blt([c_blk_txt([
+            c_txt_unit_wysiwyg("HOJ!"),
+            c_txt_unit_wysiwyg("HÖJ!")
+          ])])
+        ]
+      ),
+      ["DSP","PAR"],
+      f_str2tkns("¶\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_par_2").
+
+%%% P_TEST_R_PAR_3
+
+:- pred p_test_r_par_3 is det.
+p_test_r_par_3 :-
+  if (
+    r_par(
+      c_par(
+        maybe.yes(c_tag_or_id_tag("PAR")),
+        maybe.no,
+        [
+          c_blk_txt([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ]),
+          c_blk_blt([c_blk_txt([
+            c_txt_unit_wysiwyg("HOJ!"),
+            c_txt_unit_wysiwyg("HÖJ!")
+          ])])
+        ]
+      ),
+      ["DSP","PAR"],
+      f_str2tkns("¶ PAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_par_3").
+
+%%% P_TEST_R_PAR_4
+
+:- pred p_test_r_par_4 is det.
+p_test_r_par_4 :-
+  if (
+    r_par(
+      c_par(
+        maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+        maybe.no,
+        [
+          c_blk_txt([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ]),
+          c_blk_blt([c_blk_txt([
+            c_txt_unit_wysiwyg("HOJ!"),
+            c_txt_unit_wysiwyg("HÖJ!")
+          ])])
+        ]
+      ),
+      ["DSP","PAR"],
+      f_str2tkns("¶ PAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_par_4").
+
+
+%%% P_TEST_R_PAR_5
+
+:- pred p_test_r_par_5 is det.
+p_test_r_par_5 :-
+  if (
+    r_par(
+      c_par(
+        maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+        maybe.yes(c_hdr([
+          c_txt_unit_wysiwyg("HEJ!"),
+          c_txt_unit_wysiwyg("HAJ!")
+        ])),
+        [
+          c_blk_txt([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ]),
+          c_blk_blt([c_blk_txt([
+            c_txt_unit_wysiwyg("HOJ!"),
+            c_txt_unit_wysiwyg("HÖJ!")
+          ])])
+        ]
+      ),
+      ["DSP","PAR"],
+      f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_par_5").
+
+%%% P_TEST_R_PARS_1
+
+:- pred p_test_r_pars_1 is det.
+p_test_r_pars_1 :-
+  if (
+    r_pars(
+      [
+        c_par(
+          maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+          maybe.yes(c_hdr([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ])),
+          [
+            c_blk_txt([
+              c_txt_unit_wysiwyg("HEJ!"),
+              c_txt_unit_wysiwyg("HAJ!")
+            ]),
+            c_blk_blt([c_blk_txt([
+              c_txt_unit_wysiwyg("HOJ!"),
+              c_txt_unit_wysiwyg("HÖJ!")
+            ])])
+          ]
+        )
+      ],
+      ["DSP","PAR"],
+      f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_pars_1").
+
+%%% P_TEST_R_PARS_2
+
+:- pred p_test_r_pars_2 is det.
+p_test_r_pars_2 :-
+  if (
+    r_pars(
+      [
+        c_par(
+          maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+          maybe.yes(c_hdr([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ])),
+          [
+            c_blk_txt([
+              c_txt_unit_wysiwyg("HEJ!"),
+              c_txt_unit_wysiwyg("HAJ!")
+            ]),
+            c_blk_blt([c_blk_txt([
+              c_txt_unit_wysiwyg("HOJ!"),
+              c_txt_unit_wysiwyg("HÖJ!")
+            ])])
+          ]
+        ),
+        c_par(
+          maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+          maybe.yes(c_hdr([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ])),
+          [
+            c_blk_txt([
+              c_txt_unit_wysiwyg("HEJ!"),
+              c_txt_unit_wysiwyg("HAJ!")
+            ]),
+            c_blk_blt([c_blk_txt([
+              c_txt_unit_wysiwyg("HOJ!"),
+              c_txt_unit_wysiwyg("HÖJ!")
+            ])])
+          ]
+        )
+      ],
+      ["DSP","PAR"],
+      f_str2tkns(
+        "¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"
+        ++
+        "\n"
+        ++
+        "¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"
+      ),
+      _
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_pars_2").
+
+
 %% P_TEST
 
 p_test(!IO) :-
@@ -1212,4 +1451,11 @@ p_test(!IO) :-
   p_test_r_hdr_1,
   p_test_r_tag_or_id_1,
   p_test_r_tag_or_id_2,
+  p_test_r_par_1,
+  p_test_r_par_2,
+  p_test_r_par_3,
+  p_test_r_par_4,
+  p_test_r_par_5,
+  p_test_r_pars_1,
+  p_test_r_pars_2,
   p_test_r_doc_main_1.

@@ -172,10 +172,12 @@
   fld_par_hdr       :: maybe(t_hdr),
   fld_par_blks      :: list(t_blk)
 ).
- %% 
- %% :- pred r_par(t_par::out, t_tkns::in, t_tkns::out).
- %% 
- %% :- pred r_pars(list(pars)::out, t_tkns::in, t_tkns::out).
+
+% doc:                    VALID_TAGS
+:- pred r_par(t_par::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+
+% doc:                           VALID_TAGS
+:- pred r_pars(list(t_par)::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_BLK, T_BLKS, R_BLK AND R_BLKS
 
@@ -432,19 +434,21 @@ r_doc_main(DOC_MAIN,VALID_TAGS) -->
 
 %%% R_PAR AND R_PARS
 
- %% r_par(c_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS)) -->
- %%   r_c('¶'),
- %%   r_sp*,
- %%   r_maybe_tag_or_id(MAYBE_TAG_OR_ID,["PAR"]),
- %%   r_lb,
- %%   r_maybe_header(MAYBE_HDR),
- %%   r_lb+,
- %%   r_blks(BLKS).
- %% 
- %% r_pars([PAR|PARS]) ---> (
- %%   r_par(PAR), r_pars(PARS) -> [];
- %%                               r_par(PAR), {PARS = []}
- %% ).
+r_par(c_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS),VALID_TAGS) -->
+  r_c('¶'),
+  *(r_sp),
+  r_maybe_tag_or_id(MAYBE_TAG_OR_ID,VALID_TAGS),
+  r_lb,
+  r_maybe_hdr(MAYBE_HDR,VALID_TAGS),
+  +(r_lb),
+  r_blks(BLKS,0u,VALID_TAGS).
+
+r_pars(PARS,VALID_TAGS) -->
+  r_par(PAR,VALID_TAGS),
+  (
+    +r_lb, r_pars(PARS_,VALID_TAGS) -> {PARS = [PAR]++PARS_};
+                                       {PARS = [PAR]}
+  ).
 
 %%% R_BLK AND R_BLKS
 
@@ -462,7 +466,16 @@ r_blks(BLKS,LVL,VALID_TAGS) -->
 
 %%% R_BLK_TXT
 
-r_blk_txt(US,LVL,VALID_TAGS) --> r_blk_txt_lines(US,LVL,VALID_TAGS).
+r_blk_txt(US,LVL,VALID_TAGS) -->
+  (
+    if {LVL = 0u} then
+      not r_str("CH"),
+      not r_str("§"),
+      not r_str("¶")
+    else
+      {true}
+  ),
+  r_blk_txt_lines(US,LVL,VALID_TAGS).
 
 :- pred r_blk_txt_line(list(t_txt_unit), strs, t_tkns, t_tkns).
 :- mode r_blk_txt_line(out,              in,   in,     out) is semidet.
@@ -505,15 +518,14 @@ r_tag_or_id(TAG_OR_ID,VALID_TAGS) --> (
                            {false}
 ).
 
-%%% TODO: HELPER R_MAYBE_TAG_OR_ID
+%%% HELPER R_MAYBE_TAG_OR_ID
 
- %% :- pred
- %%   r_maybe_tag_or_id(maybe(t_tag_or_id)::out, strs::in, t_tkns::in, t_tkns::out).
- %% r_maybe_tag_or_id(  RES,                     VALID_TAGS) --> (
- %%   r_id( ID, VALID_TAGS) -> {RES = maybe.yes(ID)};
- %%   r_tag(TAG,VALID_TAGS) -> {RES = maybe.yes(TAG)};
- %%   []                    -> {RES = maybe.no}
- %% ).
+:- pred r_maybe_tag_or_id(maybe(t_tag_or_id), strs, t_tkns, t_tkns).
+:- mode r_maybe_tag_or_id(out,                in,   in,     out) is det.
+r_maybe_tag_or_id(        RES,                VALID_TAGS) --> (
+  r_tag_or_id(TAG_OR_ID,VALID_TAGS) -> {RES = maybe.yes(TAG_OR_ID)};
+                                       {RES = maybe.no}
+).
 
 %%% R_TAG
 
