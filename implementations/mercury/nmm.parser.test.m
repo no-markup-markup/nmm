@@ -1079,6 +1079,60 @@ p_test_r_doc_main_1 :-
   else
     exception.throw("p_test_r_doc_main_1").
 
+%%% P_TEST_R_HDR_1
+
+:- pred p_test_r_hdr_1 is det.
+p_test_r_hdr_1 :-
+  if (
+    r_hdr(
+      c_hdr([
+        c_txt_unit_wysiwyg("HEJ"),
+        c_txt_unit_wysiwyg("HAJ "),
+        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_wysiwyg("!"),
+        c_txt_unit_c_ref(c_c_ref(c_id("DSP","name"))),
+        c_txt_unit_wysiwyg("HOJ")
+      ]),
+      ["DSP","PAR"],
+      f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_hdr_1").
+
+%%% P_TEST_R_TAG_OR_ID_1
+
+:- pred p_test_r_tag_or_id_1 is det.
+p_test_r_tag_or_id_1 :-
+  if (
+    r_tag_or_id(
+      c_tag_or_id_id(c_id("PAR","name")),
+      ["DSP","PAR"],
+      f_str2tkns("PAR:name !"),
+      f_str2tkns(" !")
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_tag_or_id_1").
+
+%%% P_TEST_R_TAG_OR_ID_2
+
+:- pred p_test_r_tag_or_id_2 is det.
+p_test_r_tag_or_id_2 :-
+  if (
+    r_tag_or_id(
+      c_tag_or_id_tag("PAR"),
+      ["DSP","PAR"],
+      f_str2tkns("PAR :name"),
+      f_str2tkns(" :name")
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_tag_or_id_2").
 
 %% P_TEST
 
@@ -1155,4 +1209,7 @@ p_test(!IO) :-
   p_test_r_blk_blt_4,
   p_test_r_blk_blt_5,
   p_test_r_blk_blt_6,
+  p_test_r_hdr_1,
+  p_test_r_tag_or_id_1,
+  p_test_r_tag_or_id_2,
   p_test_r_doc_main_1.

@@ -63,7 +63,7 @@
   c_r_any.     % read any of the above
 
 
-%% (TODO: USED?) TYPE T_STOPS (= STRS) FOR NON-ESCAPED STRINGS BEFORE WHICH TO STOP READING
+%% TYPE T_STOPS (= STRS) FOR NON-ESCAPED STRINGS BEFORE WHICH TO STOP READING
 
 :- type t_stops == strs.
 
@@ -210,13 +210,22 @@
 :- pred r_blk_blt(t_blk_blt, uint, strs,      t_tkns, t_tkns).
 :- mode r_blk_blt(out,       in,   in,        in,     out) is semidet.
 
-%%% TODO: T_TAG_OR_ID AND R_TAG_OR_ID
+%%% R_HDR
+
+:- type t_hdr ---> c_hdr(list(t_txt_unit)).
+
+% doc:                    VALID_TAGS
+:- pred r_hdr(t_hdr::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+
+%%% T_TAG_OR_ID AND R_TAG_OR_ID
 
 :- type t_tag_or_id --->
   c_tag_or_id_tag(t_tag);
   c_tag_or_id_id(t_id).
 
- %% :- pred r_tag_or_id(t_tag_or_id::out, t_tkns::in, t_tkns::out).
+% doc:                           VALID_TAGS
+:- pred r_tag_or_id(t_tag_or_id, strs,      t_tkns, t_tkns).
+:- mode r_tag_or_id(out,         in,        in,     out) is semidet.
 
 %%% T_TAG AND R_TAG
 
@@ -240,12 +249,6 @@
 
 % doc:                  VALID_TAGS
 :- pred r_id(t_id::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
-
-%%% TODO: T_HDR AND R_HDR
-
-:- type t_hdr ---> c_hdr(list(t_txt_unit)).
-
- %% :- pred r_hdr(t_hdr::out, t_tkns::in, t_tkns::out).
 
 %%% T_C_REF AND R_C_REF
 
@@ -481,7 +484,28 @@ r_blk_txt_lines(        UNITS,            LVL,  VALID_TAGS) -->
 r_blk_blt(BLKS,LVL,VALID_TAGS) -->
   r_str("-"), r_tab, r_blks(BLKS,LVL+1u,VALID_TAGS).
 
-%%% HELPER R_MAYBE_TAG_OR_ID
+%%% R_HDR
+
+r_hdr(c_hdr(UNITS),VALID_TAGS) --> r_blk_txt(UNITS,0u,VALID_TAGS).
+
+%%% HELPER R_MAYBE_HDR
+
+:- pred r_maybe_hdr(maybe(t_hdr), strs, t_tkns, t_tkns).
+:- mode r_maybe_hdr(out,          in,   in,     out) is det.
+r_maybe_hdr(        RES,          VALID_TAGS) --> (
+  r_hdr(HDR,VALID_TAGS)  -> {RES = maybe.yes(HDR)};
+                            {RES = maybe.no}
+).
+
+%%% R_TAG_OR_ID
+
+r_tag_or_id(TAG_OR_ID,VALID_TAGS) --> (
+  r_id(ID,VALID_TAGS)   -> {TAG_OR_ID = c_tag_or_id_id(ID)};
+  r_tag(TAG,VALID_TAGS) -> {TAG_OR_ID = c_tag_or_id_tag(TAG)};
+                           {false}
+).
+
+%%% TODO: HELPER R_MAYBE_TAG_OR_ID
 
  %% :- pred
  %%   r_maybe_tag_or_id(maybe(t_tag_or_id)::out, strs::in, t_tkns::in, t_tkns::out).
@@ -489,14 +513,6 @@ r_blk_blt(BLKS,LVL,VALID_TAGS) -->
  %%   r_id( ID, VALID_TAGS) -> {RES = maybe.yes(ID)};
  %%   r_tag(TAG,VALID_TAGS) -> {RES = maybe.yes(TAG)};
  %%   []                    -> {RES = maybe.no}
- %% ).
-
-%%% HELPER R_MAYBE_HDR
-
- %% :- pred r_maybe_hdr(maybe(t_hdr)::out, t_tkns::in, t_tkns::out).
- %% r_maybe_hdr(        RES) --> (
- %%   r_blk_txt(TXT_UNITS,0) -> {RES = maybe.yes(c_hdr(TXT_UNITS))};
- %%   []                     -> {RES = maybe.no}
  %% ).
 
 %%% R_TAG
