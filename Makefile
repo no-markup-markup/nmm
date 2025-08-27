@@ -17,4 +17,6 @@ clean:
 	cd -
 
 test:
-	@echo 'TODO'
+	cd implementations
+	make test
+	cd -

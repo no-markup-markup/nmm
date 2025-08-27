@@ -16,4 +16,6 @@ clean:
 	cd -
 
 test:
-	@echo 'TODO'
+	cd mercury
+	make test
+	cd -

@@ -15,4 +15,5 @@ clean:
 	git clean -fdX
 
 test:
-	@echo 'TODO'
+	mmc --make --warn-inconsistent-pred-order-clauses --warn-dead-preds --warn-dead-procs --inform-ite-instead-of-switch nmm.test
+	./nmm.test
