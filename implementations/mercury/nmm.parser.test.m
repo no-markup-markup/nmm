@@ -1365,12 +1365,49 @@ p_test_r_pars_2 :-
         ++
         "¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"
       ),
-      _
+      []
     )
   ) then
     true
   else
     exception.throw("p_test_r_pars_2").
+
+%%% P_TEST_R_PARS_3
+
+:- pred p_test_r_pars_3 is det.
+p_test_r_pars_3 :-
+  if (
+    r_pars(
+      [
+        c_par(
+          maybe.yes(c_tag_or_id_id(c_id("PAR", "name"))),
+          maybe.yes(c_hdr([c_txt_unit_wysiwyg("¶ PAR:name")])),
+          [
+            c_blk_txt([
+              c_txt_unit_wysiwyg("¶"),
+              c_txt_unit_wysiwyg("§")
+            ])
+          ]
+        )
+      ],
+      ["DSP","PAR"],
+      f_str2tkns(
+        "¶ PAR:name\n"
+        ++
+        "\\¶ PAR:name\n" % header with initial escaped pilcrow
+        ++
+        "\n"
+        ++
+        "\\¶\n" % text block with initial escaped pilcrow
+        ++
+        "\\§\n" % text block with initial escaped section sign
+      ),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_pars_3").
 
 
 %% P_TEST
@@ -1458,4 +1495,5 @@ p_test(!IO) :-
   p_test_r_par_5,
   p_test_r_pars_1,
   p_test_r_pars_2,
+  p_test_r_pars_3,
   p_test_r_doc_main_1.
