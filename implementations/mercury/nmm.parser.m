@@ -150,11 +150,13 @@
 
  %% :- pred r_preamble(t_preamble::out, t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_DOC_MAIN AND R_DOC_MAIN
+%%% T_DOC_MAIN, R_DOC_MAIN AND INSTANCE T_DOC_MAIN XMLABLE
 
 :- type t_doc_main --->
   c_doc_main_pars(list(t_par));
   c_doc_main_blks(list(t_blk)).
+
+:- instance term_to_xml.xmlable(t_doc_main).
 
 % doc:                         VALID_TAGS
 :- pred r_doc_main(t_doc_main, strs,      t_tkns, t_tkns).
@@ -447,6 +449,21 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 r_doc_main(DOC_MAIN,VALID_TAGS) -->
   r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
                                        {false}.
+
+:- instance term_to_xml.xmlable(t_doc_main) where [
+  func(to_xml/1) is f_doc_main_to_xml
+].
+
+:- func
+  f_doc_main_to_xml(t_doc_main::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_doc_main_to_xml(c_doc_main_pars(PARS)) =
+  term_to_xml.elem("c_doc_main_pars",[],list.map(f_par_to_xml,PARS)).
+f_doc_main_to_xml(c_doc_main_blks(BLKS)) =
+  term_to_xml.elem("c_doc_main_blks",[],list.map(f_blk_to_xml,BLKS)).
+
 
 %%% R_PAR AND R_PARS AND T_PAR XMLABLE
 

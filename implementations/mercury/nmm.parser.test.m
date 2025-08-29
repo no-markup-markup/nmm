@@ -1686,4 +1686,38 @@ p_test(!IO) :-
       ]
     ),
     !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_doc_main_pars([
+      c_par(
+        maybe.no,
+        maybe.yes(c_hdr([c_txt_unit_wysiwyg("a header")])),
+        [
+          c_blk_txt([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ]),
+          c_blk_blt([c_blk_txt([
+            c_txt_unit_wysiwyg("HOJ!"),
+            c_txt_unit_wysiwyg("HÖJ!")
+          ])])
+        ]
+      ),
+      c_par(
+        maybe.no,
+        maybe.no,
+        [
+          c_blk_txt([
+            c_txt_unit_wysiwyg("HEJ!"),
+            c_txt_unit_wysiwyg("HAJ!")
+          ]),
+          c_blk_blt([c_blk_txt([
+            c_txt_unit_wysiwyg("HOJ!"),
+            c_txt_unit_wysiwyg("HÖJ!")
+          ])])
+        ]
+      )
+    ]),
+    !IO
   ).
