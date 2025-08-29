@@ -166,13 +166,15 @@
 
  %% :- pred r_doc_refs(t_doc_refs, t_tkns::in, t_tkns::out).
 
-%%% T_PAR, R_PAR AND R_PARS
+%%% T_PAR, R_PAR, R_PARS AND INSTANCE T_PAR XMLABLE
 
 :- type t_par ---> c_par(
   fld_par_tag_or_id :: maybe(t_tag_or_id),
   fld_par_hdr       :: maybe(t_hdr),
   fld_par_blks      :: list(t_blk)
 ).
+
+:- instance term_to_xml.xmlable(t_par).
 
 % doc:                    VALID_TAGS
 :- pred r_par(t_par::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
@@ -214,9 +216,11 @@
 :- pred r_blk_blt(t_blk_blt, uint, strs,      t_tkns, t_tkns).
 :- mode r_blk_blt(out,       in,   in,        in,     out) is semidet.
 
-%%% R_HDR
+%%% T_HDR, R_HDR AND INSTANCE T_HDR XMLABLE
 
 :- type t_hdr ---> c_hdr(list(t_txt_unit)).
+
+:- instance term_to_xml.xmlable(t_hdr).
 
 % doc:                    VALID_TAGS
 :- pred r_hdr(t_hdr::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
@@ -444,7 +448,7 @@ r_doc_main(DOC_MAIN,VALID_TAGS) -->
   r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
                                        {false}.
 
-%%% R_PAR AND R_PARS
+%%% R_PAR AND R_PARS AND T_PAR XMLABLE
 
 r_par(c_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS),VALID_TAGS) -->
   r_c('¶'),
@@ -460,6 +464,50 @@ r_pars(PARS,VALID_TAGS) -->
   (
     +r_lb, r_pars(PARS_,VALID_TAGS) -> {PARS = [PAR]++PARS_};
                                        {PARS = [PAR]}
+  ).
+
+:- instance term_to_xml.xmlable(t_par) where [
+  func(to_xml/1) is f_par_to_xml
+].
+
+:- func
+  f_par_to_xml(t_par::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_par_to_xml(c_par(maybe.yes(c_tag_or_id_tag(TAG)),maybe.yes(HDR),BLKS)) =
+  term_to_xml.elem(
+    "c_par",
+    [],
+    [f_tag_to_xml(TAG),f_hdr_to_xml(HDR)]++list.map(f_blk_to_xml,BLKS)
+  ).
+f_par_to_xml(c_par(maybe.yes(c_tag_or_id_tag(TAG)),maybe.no,BLKS)) =
+  term_to_xml.elem(
+    "c_par",
+    [],
+    [f_tag_to_xml(TAG)]++list.map(f_blk_to_xml,BLKS)
+  ).
+f_par_to_xml(c_par(maybe.yes(c_tag_or_id_id(ID)),maybe.yes(HDR),BLKS)) =
+  term_to_xml.elem(
+    "c_par",
+    [],
+    [f_id_to_xml(ID),f_hdr_to_xml(HDR)]++list.map(f_blk_to_xml,BLKS)
+  ).
+f_par_to_xml(c_par(maybe.yes(c_tag_or_id_id(ID)),maybe.no,BLKS)) =
+  term_to_xml.elem(
+    "c_par",
+    [],
+    [f_id_to_xml(ID)]++list.map(f_blk_to_xml,BLKS)
+  ).
+f_par_to_xml(c_par(maybe.no,maybe.yes(HDR),BLKS)) =
+  term_to_xml.elem(
+    "c_par",
+    [],
+    [f_hdr_to_xml(HDR)]++list.map(f_blk_to_xml,BLKS)
+  ).
+f_par_to_xml(c_par(maybe.no,maybe.no,BLKS)) =
+  term_to_xml.elem(
+    "c_par",
+    [],
+    list.map(f_blk_to_xml,BLKS)
   ).
 
 %%% R_BLK AND R_BLKS AND INSTANCE T_BLK XMLABLE
@@ -532,6 +580,20 @@ r_blk_blt(BLKS,LVL,VALID_TAGS) -->
 %%% R_HDR
 
 r_hdr(c_hdr(UNITS),VALID_TAGS) --> r_blk_txt(UNITS,0u,VALID_TAGS).
+
+:- instance term_to_xml.xmlable(t_hdr) where [
+  func(to_xml/1) is f_hdr_to_xml
+].
+
+:- func
+  f_hdr_to_xml(t_hdr::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+
+f_hdr_to_xml(c_hdr(UNITS)) = term_to_xml.elem(
+  "c_hdr",
+  [],
+  list.map(f_txt_unit_to_xml,UNITS)
+).
 
 %%% HELPER R_MAYBE_HDR
 
