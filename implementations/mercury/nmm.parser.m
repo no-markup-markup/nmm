@@ -17,6 +17,7 @@
 %% MODULE IMPORTS
 
 :- use_module
+  term_to_xml,
   nmm.lexer
   .
 
@@ -68,7 +69,7 @@
 :- type t_stops == strs.
 
 
-%% DCG RULES AND CORRESPONDING AST TYPES
+%% DCG RULES, CORRESPONDING AST TYPES, AND TERM_TO_XML INSTANCES
 
 %%% KLEENE STAR OPERATOR ‘*’
 
@@ -229,35 +230,43 @@
 :- pred r_tag_or_id(t_tag_or_id, strs,      t_tkns, t_tkns).
 :- mode r_tag_or_id(out,         in,        in,     out) is semidet.
 
-%%% T_TAG AND R_TAG
+%%% T_TAG, R_TAG AND INSTANCE T_TAG XMLABLE
 
-:- type t_tag == str.
+:- type t_tag ---> c_tag(str).
+
+:- instance term_to_xml.xmlable(t_tag).
 
 % doc:                    VALID_TAGS
 :- pred r_tag(t_tag::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_NAME AND R_NAME
+%%% T_NAME, R_NAME AND INSTANCE T_TAG XMLABLE
 
-:- type t_name == str.
+:- type t_name ---> c_name(str).
+
+:- instance term_to_xml.xmlable(t_name).
 
 :- pred r_name(t_name::out, t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_ID AND R_ID
+%%% T_ID, R_ID AND INSTANCE T_ID XMLABLE
 
 :- type t_id ---> c_id(
   fld_id_tag  :: t_tag,
   fld_id_name :: t_name
 ).
 
+:- instance term_to_xml.xmlable(t_id).
+
 % doc:                  VALID_TAGS
 :- pred r_id(t_id::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_C_REF AND R_C_REF
+%%% T_C_REF AND R_C_REF AND INSTANCE T_C_REF XMLABLE
 
 :-type t_c_ref ---> c_c_ref(t_id).
 
 % doc:                        VALID_TAGS
 :- pred r_c_ref(t_c_ref::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+
+:- instance term_to_xml.xmlable(t_c_ref).
 
 %%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS
 
@@ -527,27 +536,75 @@ r_maybe_tag_or_id(        RES,                VALID_TAGS) --> (
                                        {RES = maybe.no}
 ).
 
-%%% R_TAG
+%%% R_TAG AND INSTANCE T_TAG XMLABLE
 
-r_tag(TAG,VALID_TAGS) -->
-  r(c_r_nws,k_forbidden_strs_in_tags_names,TAG),
-  {list.member(TAG,VALID_TAGS)}.
+r_tag(c_tag(S),VALID_TAGS) -->
+  r(c_r_nws,k_forbidden_strs_in_tags_names,S),
+  {list.member(S,VALID_TAGS)}.
 
-%%% R_NAME
+:- instance term_to_xml.xmlable(t_tag) where [
+  func(to_xml/1) is f_tag_to_xml
+].
 
-r_name(NAME) --> r(c_r_nws,k_forbidden_strs_in_tags_names,NAME).
+:- func
+  f_tag_to_xml(t_tag::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
 
-%%% R_ID
+f_tag_to_xml(c_tag(S)) = term_to_xml.elem("c_tag",[],[term_to_xml.data(S)]).
+
+%%% R_NAME AND INSTANCE T_NAME XMLABLE
+
+r_name(c_name(S)) --> r(c_r_nws,k_forbidden_strs_in_tags_names,S).
+
+:- instance term_to_xml.xmlable(t_name) where [
+  func(to_xml/1) is f_name_to_xml
+].
+
+:- func
+  f_name_to_xml(t_name::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+
+f_name_to_xml(c_name(S)) = term_to_xml.elem("c_name",[],[term_to_xml.data(S)]).
+
+%%% R_ID AND INSTANCE T_ID XMLABLE
 
 r_id(c_id(TAG,NAME),VALID_TAGS) -->
   r_tag(TAG,VALID_TAGS), r_c(':'), r_name(NAME).
 
-%%% R_C_REF
+:- instance term_to_xml.xmlable(t_id) where [
+  func(to_xml/1) is f_id_to_xml
+].
+
+:- func
+  f_id_to_xml(t_id::in) = (term_to_xml.xml::out(term_to_xml.xml_doc)) is det.
+f_id_to_xml(c_id(TAG,NAME)) = term_to_xml.elem(
+  "c_id",
+  [],
+  [
+    f_tag_to_xml(TAG),
+    f_name_to_xml(NAME)
+  ]
+).
+
+%%% R_C_REF AND INSTANCE T_C_REF XMLABLE
 
 r_c_ref(c_c_ref(ID),VALID_TAGS) -->
   r_str("["),
   r_id(ID,VALID_TAGS),
   r_str("]").
+
+:- instance term_to_xml.xmlable(t_c_ref) where [
+  func(to_xml/1) is f_c_ref_to_xml
+].
+
+:- func
+  f_c_ref_to_xml(t_c_ref::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_c_ref_to_xml(c_c_ref(ID)) = term_to_xml.elem("c_c_ref",[],[f_id_to_xml(ID)]).
 
 %%% R_TXT_UNIT AND R_TXT_UNITS
 

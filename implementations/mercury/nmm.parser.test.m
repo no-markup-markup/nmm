@@ -27,7 +27,7 @@
 
 %% USE MODULES
 
-:- use_module exception, nmm.parser, nmm.lexer.
+:- use_module exception, term_to_xml, nmm.parser, nmm.lexer.
 
 
 %% FUNCTION F_STR2TKNS
@@ -272,7 +272,7 @@ p_test_r_question_mark_2 :-
 
 :- pred p_test_r_tag_1 is det.
 p_test_r_tag_1 :-
-  if r_tag("DSP",["DSP","DEF"],f_str2tkns("DSP"),[]) then
+  if r_tag(c_tag("DSP"),["DSP","DEF"],f_str2tkns("DSP"),[]) then
     true
   else
     exception.throw("p_test_r_tag_1").
@@ -281,7 +281,7 @@ p_test_r_tag_1 :-
 
 :- pred p_test_r_tag_2 is det.
 p_test_r_tag_2 :-
-  if r_tag("DEF",["DSP","DEF"],f_str2tkns("DEF"),[]) then
+  if r_tag(c_tag("DEF"),["DSP","DEF"],f_str2tkns("DEF"),[]) then
     true
   else
     exception.throw("p_test_r_tag_2").
@@ -290,7 +290,7 @@ p_test_r_tag_2 :-
 
 :- pred p_test_r_tag_3 is det.
 p_test_r_tag_3 :-
-  if r_tag("DEF",["DSP","DEF"],f_str2tkns("DEFS"),_) then
+  if r_tag(c_tag("DEF"),["DSP","DEF"],f_str2tkns("DEFS"),_) then
     exception.throw("p_test_r_tag_3")
   else
     true.
@@ -299,7 +299,7 @@ p_test_r_tag_3 :-
 
 :- pred p_test_r_tag_4 is det.
 p_test_r_tag_4 :-
-  if r_tag("DEF",["DSP","DEF"],f_str2tkns("DEF:"),f_str2tkns(":")) then
+  if r_tag(c_tag("DEF"),["DSP","DEF"],f_str2tkns("DEF:"),f_str2tkns(":")) then
     true
   else
     exception.throw("p_test_r_tag_4").
@@ -308,7 +308,7 @@ p_test_r_tag_4 :-
 
 :- pred p_test_r_name_1 is det.
 p_test_r_name_1 :-
-  if r_name("a_name",f_str2tkns("a_name:"),f_str2tkns(":")) then
+  if r_name(c_name("a_name"),f_str2tkns("a_name:"),f_str2tkns(":")) then
     true
   else
     exception.throw("p_test_r_name_1").
@@ -317,7 +317,7 @@ p_test_r_name_1 :-
 
 :- pred p_test_r_name_2 is det.
 p_test_r_name_2 :-
-  if r_name("a_name",f_str2tkns("a_name"),[]) then
+  if r_name(c_name("a_name"),f_str2tkns("a_name"),[]) then
     true
   else
     exception.throw("p_test_r_name_2").
@@ -326,7 +326,7 @@ p_test_r_name_2 :-
 
 :- pred p_test_r_name_3 is det.
 p_test_r_name_3 :-
-  if r_name("a_name",f_str2tkns("a_name]"),f_str2tkns("]")) then
+  if r_name(c_name("a_name"),f_str2tkns("a_name]"),f_str2tkns("]")) then
     true
   else
     exception.throw("p_test_r_name_3").
@@ -335,7 +335,7 @@ p_test_r_name_3 :-
 
 :- pred p_test_r_name_4 is det.
 p_test_r_name_4 :-
-  if r_name("a_name",f_str2tkns("a_name["),f_str2tkns("[")) then
+  if r_name(c_name("a_name"),f_str2tkns("a_name["),f_str2tkns("[")) then
     true
   else
     exception.throw("p_test_r_name_4").
@@ -344,7 +344,7 @@ p_test_r_name_4 :-
 
 :- pred p_test_r_name_5 is det.
 p_test_r_name_5 :-
-  if r_name(";a_name",f_str2tkns(";a_name"),_) then
+  if r_name(c_name(";a_name"),f_str2tkns(";a_name"),_) then
     exception.throw("p_test_r_name_5")
   else
     true.
@@ -354,7 +354,7 @@ p_test_r_name_5 :-
 :- pred p_test_r_id_1 is det.
 p_test_r_id_1 :-
   if r_id(
-    c_id("PAR","a_name"),
+    c_id(c_tag("PAR"),c_name("a_name")),
     ["DSP","PAR"],
     f_str2tkns("PAR:a_name"),
     []
@@ -369,8 +369,8 @@ p_test_r_id_1 :-
 p_test_r_id_2 :-
   if (
     r_id(ID,["DSP","PAR"],f_str2tkns("PAR:a_name"),[]),
-    fld_id_tag(ID)  = "PAR",
-    fld_id_name(ID) = "a_name"
+    fld_id_tag(ID)  = c_tag("PAR"),
+    fld_id_name(ID) = c_name("a_name")
   )
   then
     true
@@ -383,7 +383,7 @@ p_test_r_id_2 :-
 p_test_r_id_3 :-
   if (
     r_id(
-      c_id("PAR","a_name"),
+      c_id(c_tag("PAR"),c_name("a_name")),
       ["DSP","PAR"],
       f_str2tkns("PAR:a_name]"),
       f_str2tkns("]")
@@ -398,7 +398,7 @@ p_test_r_id_3 :-
 :- pred p_test_r_id_4 is det.
 p_test_r_id_4 :-
   if r_id(
-      c_id("PAR","a_"),
+      c_id(c_tag("PAR"),c_name("a_")),
       ["DSP","PAR"],
       f_str2tkns("PAR:a_,name]"),
       f_str2tkns(",name]")
@@ -412,7 +412,7 @@ p_test_r_id_4 :-
 :- pred p_test_r_c_ref_1 is det.
 p_test_r_c_ref_1 :-
   if r_c_ref(
-      c_c_ref(c_id("PAR","a_name")),
+      c_c_ref(c_id(c_tag("PAR"),c_name("a_name"))),
       ["DSP","PAR"],
       f_str2tkns("[PAR:a_name]"),
       []
@@ -426,7 +426,7 @@ p_test_r_c_ref_1 :-
 :- pred p_test_r_c_ref_2 is det.
 p_test_r_c_ref_2 :-
   if r_c_ref(
-      c_c_ref(c_id("PAR","a_name")),
+      c_c_ref(c_id(c_tag("PAR"),c_name("a_name"))),
       ["DSP","PAR"],
       f_str2tkns("[PAR:a_name], gives"),
       f_str2tkns(", gives")
@@ -608,7 +608,7 @@ p_test_r_txt_unit_11 :-
 :- pred p_test_r_txt_unit_12 is det.
 p_test_r_txt_unit_12 :-
   if r_txt_unit(
-    c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+    c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
     ["DSP","PAR"],
     f_str2tkns("[PAR:name]"),
     []
@@ -622,7 +622,7 @@ p_test_r_txt_unit_12 :-
 :- pred p_test_r_txt_unit_13 is det.
 p_test_r_txt_unit_13 :-
   if r_txt_unit(
-    c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+    c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
     ["DSP","PAR"],
     f_str2tkns("[PAR:name], and more"),
     f_str2tkns(", and more")
@@ -652,7 +652,7 @@ p_test_r_txt_units_2 :-
   if r_txt_units(
     [
       c_txt_unit_wysiwyg("HEJ!"),
-      c_txt_unit_c_ref(c_c_ref(c_id("DSP","name")))
+      c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
     ],
     ["DSP","PAR"],
     f_str2tkns("HEJ![DSP:name]"),
@@ -669,7 +669,7 @@ p_test_r_txt_units_3 :-
   if r_txt_units(
     [
       c_txt_unit_wysiwyg("HEJ!"),
-      c_txt_unit_c_ref(c_c_ref(c_id("DSP","name"))),
+      c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
       c_txt_unit_wysiwyg("HAJ!")
     ],
     ["DSP","PAR"],
@@ -746,7 +746,7 @@ p_test_r_blk_txt_4 :-
   if r_blk_txt(
     [
       c_txt_unit_wysiwyg("HEJ "),
-      c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+      c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
       c_txt_unit_wysiwyg("!")
     ],
     100u,
@@ -766,9 +766,9 @@ p_test_r_blk_txt_5 :-
     r_blk_txt(
       [
         c_txt_unit_wysiwyg("HEJ "),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
         c_txt_unit_wysiwyg("!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("DSP","name")))
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
       ],
       1u,
       ["DSP","PAR"],
@@ -805,9 +805,9 @@ p_test_r_blk_txt_7 :-
       [
         c_txt_unit_wysiwyg("HEJ"),
         c_txt_unit_wysiwyg("HAJ "),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
         c_txt_unit_wysiwyg("!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("DSP","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
         c_txt_unit_wysiwyg("HOJ")
       ],
       0u,
@@ -861,7 +861,7 @@ p_test_r_blks_2 :-
     [
       c_blk_txt([
         c_txt_unit_wysiwyg("HEJ!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name")))
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name"))))
       ]),
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
@@ -883,7 +883,7 @@ p_test_r_blks_3 :-
     [
       c_blk_txt([
         c_txt_unit_wysiwyg("HEJ!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name")))
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name"))))
       ]),
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
@@ -905,7 +905,7 @@ p_test_r_blks_4 :-
     [
       c_blk_txt([
         c_txt_unit_wysiwyg("HEJ!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name")))
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name"))))
       ]),
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
@@ -927,7 +927,7 @@ p_test_r_blks_5 :-
     [
       c_blk_txt([
         c_txt_unit_wysiwyg("HEJ!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name")))
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name"))))
       ]),
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
@@ -1003,7 +1003,7 @@ p_test_r_blk_blt_4 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
       c_blk_txt([
         c_txt_unit_wysiwyg("HAJ"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
         c_txt_unit_wysiwyg("HOJ")
       ])
     ],
@@ -1025,7 +1025,7 @@ p_test_r_blk_blt_5 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
       c_blk_txt([
         c_txt_unit_wysiwyg("HAJ"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
         c_txt_unit_wysiwyg("HOJ")
       ]),
       c_blk_txt([c_txt_unit_wysiwyg("HOJHOJ")])
@@ -1048,7 +1048,7 @@ p_test_r_blk_blt_6 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
       c_blk_txt([
         c_txt_unit_wysiwyg("HAJ"),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name")))
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name"))))
       ]),
       c_blk_txt([c_txt_unit_wysiwyg("HOJ")]),
       c_blk_blt([c_blk_txt([c_txt_unit_wysiwyg("HEJ")])])
@@ -1079,6 +1079,65 @@ p_test_r_doc_main_1 :-
   else
     exception.throw("p_test_r_doc_main_1").
 
+%%% P_TEST_R_DOC_MAIN_2
+
+:- pred p_test_r_doc_main_2(io.io::di,io.io::uo) is det.
+p_test_r_doc_main_2(!IO) :-
+  io.read_named_file_as_string(
+    "../../example_sources/blks_nested_blts_w_escs.nmm",
+    RES,
+    !IO
+  ),
+  (
+    (
+      RES = io.error(ERR_CODE),
+      io.write_string(io.error_message(ERR_CODE),!IO)
+    );
+    (
+      RES          = io.ok(FILE_AS_STR),
+      TKNS_OR_ERRS = nmm.lexer.f_tknize(str2chrs(FILE_AS_STR)),
+      (
+        (
+          TKNS_OR_ERRS = nmm.lexer.c_tknize_res_err(ERR_MSG),
+          io.write_string(ERR_MSG,!IO)
+        );
+        (
+          TKNS_OR_ERRS = nmm.lexer.c_tknize_res_ok(TKNS),
+          (
+            if r_doc_main(DOC_MAIN,["DSP","PAR"],TKNS,[]) then
+              io.write(DOC_MAIN,!IO),
+              io.write_string("\n",!IO)
+            else
+              exception.throw("p_test_r_doc_main_2")
+          )
+        )
+      )
+    )
+  ).
+
+%%% P_TEST_R_DOC_MAIN_3
+
+:- pred p_test_r_doc_main_3(io.io::di,io.io::uo) is det.
+p_test_r_doc_main_3(!IO) :-
+  if r_doc_main(
+    DOC_MAIN,
+    ["DSP","PAR"],
+    f_str2tkns("HEJ!\n\nHOJ!\nHAJ!\n") ++ [nmm.lexer.c_tkn_eof],
+    []
+  ) then
+    term_to_xml.write_xml_doc_general(
+      io.stdout_stream,
+      DOC_MAIN,
+      term_to_xml.simple,
+      term_to_xml.no_stylesheet,
+      term_to_xml.no_dtd,
+      _,
+      !IO
+    )
+  else
+    exception.throw("p_test_r_doc_main_3").
+
+
 %%% P_TEST_R_HDR_1
 
 :- pred p_test_r_hdr_1 is det.
@@ -1088,9 +1147,9 @@ p_test_r_hdr_1 :-
       c_hdr([
         c_txt_unit_wysiwyg("HEJ"),
         c_txt_unit_wysiwyg("HAJ "),
-        c_txt_unit_c_ref(c_c_ref(c_id("PAR","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
         c_txt_unit_wysiwyg("!"),
-        c_txt_unit_c_ref(c_c_ref(c_id("DSP","name"))),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
         c_txt_unit_wysiwyg("HOJ")
       ]),
       ["DSP","PAR"],
@@ -1108,7 +1167,7 @@ p_test_r_hdr_1 :-
 p_test_r_tag_or_id_1 :-
   if (
     r_tag_or_id(
-      c_tag_or_id_id(c_id("PAR","name")),
+      c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name"))),
       ["DSP","PAR"],
       f_str2tkns("PAR:name !"),
       f_str2tkns(" !")
@@ -1124,7 +1183,7 @@ p_test_r_tag_or_id_1 :-
 p_test_r_tag_or_id_2 :-
   if (
     r_tag_or_id(
-      c_tag_or_id_tag("PAR"),
+      c_tag_or_id_tag(c_tag("PAR")),
       ["DSP","PAR"],
       f_str2tkns("PAR :name"),
       f_str2tkns(" :name")
@@ -1197,7 +1256,7 @@ p_test_r_par_3 :-
   if (
     r_par(
       c_par(
-        maybe.yes(c_tag_or_id_tag("PAR")),
+        maybe.yes(c_tag_or_id_tag(c_tag("PAR"))),
         maybe.no,
         [
           c_blk_txt([
@@ -1226,7 +1285,7 @@ p_test_r_par_4 :-
   if (
     r_par(
       c_par(
-        maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+        maybe.yes(c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name")))),
         maybe.no,
         [
           c_blk_txt([
@@ -1256,7 +1315,7 @@ p_test_r_par_5 :-
   if (
     r_par(
       c_par(
-        maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+        maybe.yes(c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name")))),
         maybe.yes(c_hdr([
           c_txt_unit_wysiwyg("HEJ!"),
           c_txt_unit_wysiwyg("HAJ!")
@@ -1289,7 +1348,7 @@ p_test_r_pars_1 :-
     r_pars(
       [
         c_par(
-          maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name")))),
           maybe.yes(c_hdr([
             c_txt_unit_wysiwyg("HEJ!"),
             c_txt_unit_wysiwyg("HAJ!")
@@ -1323,7 +1382,7 @@ p_test_r_pars_2 :-
     r_pars(
       [
         c_par(
-          maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name")))),
           maybe.yes(c_hdr([
             c_txt_unit_wysiwyg("HEJ!"),
             c_txt_unit_wysiwyg("HAJ!")
@@ -1340,7 +1399,7 @@ p_test_r_pars_2 :-
           ]
         ),
         c_par(
-          maybe.yes(c_tag_or_id_id(c_id("PAR","name"))),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name")))),
           maybe.yes(c_hdr([
             c_txt_unit_wysiwyg("HEJ!"),
             c_txt_unit_wysiwyg("HAJ!")
@@ -1380,7 +1439,7 @@ p_test_r_pars_3 :-
     r_pars(
       [
         c_par(
-          maybe.yes(c_tag_or_id_id(c_id("PAR", "name"))),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("PAR"),c_name("name")))),
           maybe.yes(c_hdr([c_txt_unit_wysiwyg("¶ PAR:name")])),
           [
             c_blk_txt([c_txt_unit_wysiwyg("¶")]),
@@ -1501,4 +1560,16 @@ p_test(!IO) :-
   p_test_r_pars_1,
   p_test_r_pars_2,
   p_test_r_pars_3,
-  p_test_r_doc_main_1.
+  p_test_r_doc_main_1,
+  p_test_r_doc_main_2(!IO),
+  p_test_r_doc_main_3(!IO),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_c_ref(c_id(c_tag("DSP"),c_name("name"))),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_id(c_tag("DSP"),c_name("name")),
+    !IO
+  ).
