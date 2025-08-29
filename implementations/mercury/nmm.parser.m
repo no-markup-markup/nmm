@@ -292,13 +292,13 @@
 
 :- instance term_to_xml.xmlable(t_txt_unit).
 
-% doc:                         VALID_TAGS
-:- pred r_txt_unit(t_txt_unit, strs,      t_tkns, t_tkns).
-:- mode r_txt_unit(out,        in,        in,     out) is semidet.
+% doc:                         LVL   VALID_TAGS
+:- pred r_txt_unit(t_txt_unit, uint, strs,      t_tkns, t_tkns).
+:- mode r_txt_unit(out,        in,   in,        in,     out) is semidet.
 
-% doc:                                VALID_TAGS
-:- pred r_txt_units(list(t_txt_unit), strs,      t_tkns, t_tkns).
-:- mode r_txt_units(out,              in,        in,     out) is semidet.
+% doc:                                LVL   VALID_TAGS
+:- pred r_txt_units(list(t_txt_unit), uint, strs,      t_tkns, t_tkns).
+:- mode r_txt_units(out,              in,   in,        in,     out) is semidet.
 
 
 
@@ -594,15 +594,15 @@ r_blk_txt(US,LVL,VALID_TAGS) -->
   ),
   r_blk_txt_lines(US,LVL,f_all_valid_tags(VALID_TAGS)).
 
-:- pred r_blk_txt_line(list(t_txt_unit), strs, t_tkns, t_tkns).
-:- mode r_blk_txt_line(out,              in,   in,     out) is semidet.
-r_blk_txt_line(        UNITS,            VALID_TAGS) -->
-  r_txt_units(UNITS,VALID_TAGS), r_lb.
+:- pred r_blk_txt_line(list(t_txt_unit), uint, strs, t_tkns, t_tkns).
+:- mode r_blk_txt_line(out,              in,   in,   in,     out) is semidet.
+r_blk_txt_line(        UNITS,            LVL,  VALID_TAGS) -->
+  r_txt_units(UNITS,LVL,VALID_TAGS), r_lb.
 
 :- pred r_blk_txt_lines(list(t_txt_unit), uint, strs, t_tkns, t_tkns).
 :- mode r_blk_txt_lines(out,                in, in,   in,     out) is semidet.
 r_blk_txt_lines(        UNITS,            LVL,  VALID_TAGS) -->
-  r_blk_txt_line(UNITS_,VALID_TAGS),
+  r_blk_txt_line(UNITS_,LVL,VALID_TAGS),
   (
     r_tabs(LVL), r_blk_txt_lines(UNITS__,LVL,VALID_TAGS)
       -> {UNITS = UNITS_ ++ UNITS__};
@@ -731,29 +731,7 @@ f_c_ref_to_xml(c_c_ref(ID)) = term_to_xml.elem("c_c_ref",[],[f_id_to_xml(ID)]).
 
 %%% R_TXT_UNIT AND R_TXT_UNITS AND INSTANCE T_TXT_UNIT XMLABLE
 
-r_txt_unit(U,VALID_TAGS) -->
-  r_c_ref(CR,VALID_TAGS)            -> {U = c_txt_unit_c_ref(CR)};
-  r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {U = c_txt_unit_wysiwyg(S)};
-                                       {false}.
-
-:- pred r_txt_unit_wysiwyg(str, strs, t_tkns, t_tkns).
-:- mode r_txt_unit_wysiwyg(out, in,   in,     out) is semidet.
-r_txt_unit_wysiwyg(        S,   VALID_TAGS) -->
-  not r_tab,
-  not r_lb,
-  not r_c_ref(_,VALID_TAGS),
-  r_c(CHR),
-  (
-    r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
-                                         {S = chr2str(CHR)}
-  ).
-
-r_txt_units(US,VALID_TAGS) -->
-  r_txt_unit(U,VALID_TAGS),
-  (
-    r_txt_units(US_,VALID_TAGS) -> {US = [U]++US_};
-                                   {US = [U]}
-  ).
+%%%% INSTANCE T_TXT_UNIT XMLABLE
 
 :- instance term_to_xml.xmlable(t_txt_unit) where [
   func(to_xml/1) is f_txt_unit_to_xml
@@ -770,3 +748,48 @@ f_txt_unit_to_xml(c_txt_unit_wysiwyg(STR)) =
   term_to_xml.elem("c_txt_unit_wysiwyg",[],[term_to_xml.data(STR)]).
 f_txt_unit_to_xml(c_txt_unit_emph(STR)) =
   term_to_xml.elem("c_txt_unit_emph",[],[term_to_xml.data(STR)]).
+
+%%%% R_TXT_UNIT
+
+r_txt_unit(UNIT,LVL,VALID_TAGS) -->
+  r_c_ref(CR,VALID_TAGS)           -> {UNIT = c_txt_unit_c_ref(CR)};
+  r_txt_unit_emph(S,LVL)           -> {UNIT = c_txt_unit_emph(S)};
+  r_txt_unit_wysiwyg(S,VALID_TAGS) -> {UNIT = c_txt_unit_wysiwyg(S)};
+                                      {false}.
+
+r_txt_units(US,LVL,VALID_TAGS) -->
+  r_txt_unit(U,LVL,VALID_TAGS),
+  (
+    r_txt_units(US_,LVL,VALID_TAGS) -> {US = [U]++US_};
+                                       {US = [U]}
+  ).
+
+%%%% R_TXT_UNIT_EMPH
+
+:- pred r_txt_unit_emph(str::out, uint::in, t_tkns::in, t_tkns::out) is semidet.
+r_txt_unit_emph(        S,        LVL) -->
+  r_str("*"), r_txt_unit_emph_content(S, LVL), r_str("*").
+
+:- pred r_txt_unit_emph_content(str, uint, t_tkns, t_tkns).
+:- mode r_txt_unit_emph_content(out, in,   in,     out) is semidet.
+r_txt_unit_emph_content(        S,   LVL) -->
+  r(c_r_nws_sps,["*"],S_),
+  (
+    r_lb, r_tabs(LVL) ->
+      r_txt_unit_emph_content(S__,LVL), {S = S_ ++ " " ++ S__};
+      {S = S_}
+  ).
+
+%%%% R_TXT_UNIT_WYSIWYG
+
+:- pred r_txt_unit_wysiwyg(str, strs, t_tkns, t_tkns).
+:- mode r_txt_unit_wysiwyg(out, in,   in,     out) is semidet.
+r_txt_unit_wysiwyg(        S,   VALID_TAGS) -->
+  not r_tab,
+  not r_lb,
+  not r_c_ref(_,VALID_TAGS),
+  r_c(CHR),
+  (
+    r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
+                                         {S = chr2str(CHR)}
+  ).

@@ -471,6 +471,7 @@ p_test_r_c_ref_3 :-
 p_test_r_txt_unit_1 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ!"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!"),
     []
@@ -485,6 +486,7 @@ p_test_r_txt_unit_1 :-
 p_test_r_txt_unit_2 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ!"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!\t"),
     f_str2tkns("\t")
@@ -499,6 +501,7 @@ p_test_r_txt_unit_2 :-
 p_test_r_txt_unit_3 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ!["),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!["),
     []
@@ -513,6 +516,7 @@ p_test_r_txt_unit_3 :-
 p_test_r_txt_unit_4 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ![¶§]"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ![¶§]"),
     []
@@ -527,6 +531,7 @@ p_test_r_txt_unit_4 :-
 p_test_r_txt_unit_5 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ![¶§]"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!\\[\\¶\\§]"),
     []
@@ -541,6 +546,7 @@ p_test_r_txt_unit_5 :-
 p_test_r_txt_unit_6 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ![PAR:]"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ![PAR:]"),
     []
@@ -555,6 +561,7 @@ p_test_r_txt_unit_6 :-
 p_test_r_txt_unit_7 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ!"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ![PAR:name]"),
     f_str2tkns("[PAR:name]")
@@ -569,6 +576,7 @@ p_test_r_txt_unit_7 :-
 p_test_r_txt_unit_8 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ![PAR:name]"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!\\[PAR:name]"),
     []
@@ -583,6 +591,7 @@ p_test_r_txt_unit_8 :-
 p_test_r_txt_unit_9 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ![INVALID_TAG:name]"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ![INVALID_TAG:name]"),
     []
@@ -597,6 +606,7 @@ p_test_r_txt_unit_9 :-
 p_test_r_txt_unit_10 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("HEJ!"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!\n"),
     f_str2tkns("\n")
@@ -611,6 +621,7 @@ p_test_r_txt_unit_10 :-
 p_test_r_txt_unit_11 :-
   if r_txt_unit(
     c_txt_unit_wysiwyg("[PAR:name]HEJ!"),
+    0u,
     k_all_valid_tags,
     f_str2tkns("[PAR:name]HEJ!"),
     _
@@ -625,6 +636,7 @@ p_test_r_txt_unit_11 :-
 p_test_r_txt_unit_12 :-
   if r_txt_unit(
     c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
+    0u,
     k_all_valid_tags,
     f_str2tkns("[PAR:name]"),
     []
@@ -639,6 +651,7 @@ p_test_r_txt_unit_12 :-
 p_test_r_txt_unit_13 :-
   if r_txt_unit(
     c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
+    0u,
     k_all_valid_tags,
     f_str2tkns("[PAR:name], and more"),
     f_str2tkns(", and more")
@@ -653,6 +666,7 @@ p_test_r_txt_unit_13 :-
 p_test_r_txt_units_1 :-
   if r_txt_units(
     [c_txt_unit_wysiwyg("HEJ!")],
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ!"),
     []
@@ -670,6 +684,7 @@ p_test_r_txt_units_2 :-
       c_txt_unit_wysiwyg("HEJ!"),
       c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
     ],
+    0u,
     k_all_valid_tags,
     f_str2tkns("HEJ![DSP:name]"),
     []
@@ -682,15 +697,19 @@ p_test_r_txt_units_2 :-
 
 :- pred p_test_r_txt_units_3 is det.
 p_test_r_txt_units_3 :-
-  if r_txt_units(
-    [
-      c_txt_unit_wysiwyg("HEJ!"),
-      c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
-      c_txt_unit_wysiwyg("HAJ!")
-    ],
-    k_all_valid_tags,
-    f_str2tkns("HEJ![DSP:name]HAJ!\n"),
-    f_str2tkns("\n")
+  if (
+    r_txt_units(
+      [
+        c_txt_unit_emph("HEJ! HAJ!"),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
+        c_txt_unit_wysiwyg("HAJ!")
+      ],
+      0u,
+      k_all_valid_tags,
+      f_str2tkns("*HEJ!\nHAJ!*[DSP:name]HAJ!\n"),
+      TKNS_OUT
+    ),
+    p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
   ) then
     true
   else
@@ -702,6 +721,7 @@ p_test_r_txt_units_3 :-
 p_test_r_txt_units_4 :-
   if r_txt_units(
     _,
+    0u,
     k_all_valid_tags,
     f_str2tkns("\tHEJ![DSP:name]HAJ!\n"),
     _
@@ -709,6 +729,28 @@ p_test_r_txt_units_4 :-
     exception.throw("p_test_r_txt_units_4")
   else
     true.
+
+%%% P_TEST_R_TXT_UNITS_5
+
+:- pred p_test_r_txt_units_5 is det.
+p_test_r_txt_units_5 :-
+  if (
+    r_txt_units(
+      [
+        c_txt_unit_emph("HEJ! HAJ!"),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
+        c_txt_unit_wysiwyg("HAJ!")
+      ],
+      1u,
+      k_all_valid_tags,
+      f_str2tkns("*HEJ!\n\tHAJ!*[DSP:name]HAJ!\n"),
+      TKNS_OUT
+    ),
+    p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
+  ) then
+    true
+  else
+    exception.throw("p_test_r_txt_units_5").
 
 %%% P_TEST_R_BLK_TXT_1
 
@@ -1084,12 +1126,12 @@ p_test_r_blk_blt_6 :-
 p_test_r_doc_main_1 :-
   if r_doc_main(
     c_doc_main_blks([
-      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
-      c_blk_txt([c_txt_unit_wysiwyg("HOJ!"),c_txt_unit_wysiwyg("HAJ!")])
+      c_blk_txt([c_txt_unit_wysiwyg("HOJ!"),c_txt_unit_wysiwyg("HAJ!")]),
+      c_blk_blt([c_blk_txt([c_txt_unit_emph("TJO TJO")])])
     ]),
     k_valid_tags,
-    f_str2tkns("HEJ!\n\nHOJ!\nHAJ!\n") ++ [nmm.lexer.c_tkn_eof],
-    []
+    f_str2tkns("HOJ!\nHAJ!\n\n-\t*TJO\n\tTJO*\n") ++ [nmm.lexer.c_tkn_eof],
+    _
   ) then
     true
   else
@@ -1130,28 +1172,6 @@ p_test_r_doc_main_2(!IO) :-
       )
     )
   ).
-
-%%% P_TEST_R_DOC_MAIN_3
-
-:- pred p_test_r_doc_main_3(io.io::di,io.io::uo) is det.
-p_test_r_doc_main_3(!IO) :-
-  if r_doc_main(
-    DOC_MAIN,
-    k_valid_tags,
-    f_str2tkns("HEJ!\n\nHOJ!\nHAJ!\n") ++ [nmm.lexer.c_tkn_eof],
-    []
-  ) then
-    term_to_xml.write_xml_doc_general(
-      io.stdout_stream,
-      DOC_MAIN,
-      term_to_xml.simple,
-      term_to_xml.no_stylesheet,
-      term_to_xml.no_dtd,
-      _,
-      !IO
-    )
-  else
-    exception.throw("p_test_r_doc_main_3").
 
 
 %%% P_TEST_R_HDR_1
@@ -1573,6 +1593,7 @@ p_test(!IO) :-
   p_test_r_txt_units_2,
   p_test_r_txt_units_3,
   p_test_r_txt_units_4,
+  p_test_r_txt_units_5,
   p_test_r_blk_txt_1,
   p_test_r_blk_txt_2,
   p_test_r_blk_txt_3,
@@ -1606,7 +1627,6 @@ p_test(!IO) :-
   p_test_r_pars_3,
   p_test_r_doc_main_1,
   p_test_r_doc_main_2(!IO),
-  p_test_r_doc_main_3(!IO),
   term_to_xml.write_xml_doc(
     io.stdout_stream,
     c_c_ref(c_id(c_tag("DSP"),c_name("name"))),
