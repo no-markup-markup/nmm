@@ -207,29 +207,25 @@
 
 :- instance term_to_xml.xmlable(t_blk).
 
-% doc:               LVL   VALID_TAGS
-:- pred r_blk(t_blk, uint, strs,      t_tkns, t_tkns).
-:- mode r_blk(out,   in,   in,        in,     out) is semidet.
+:- pred r_blk(t_blk, uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_blk(out,   in,   in,           in,     out) is semidet.
 
-% doc:                 LVL   VALID_TAGS
-:- pred r_blks(t_blks, uint, strs,      t_tkns, t_tkns).
-:- mode r_blks(out,    in,   in,        in,     out) is semidet.
+:- pred r_blks(t_blks, uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_blks(out,    in,   in,           in,     out) is semidet.
 
 %%% T_BLK_TXT AND R_BLK_TXT
 
 :- type t_blk_txt == list(t_txt_unit).
 
-% doc:                       LVL   VALID_TAGS
-:- pred r_blk_txt(t_blk_txt, uint, strs,      t_tkns, t_tkns).
-:- mode r_blk_txt(out,       in,   in,        in,     out) is semidet.
+:- pred r_blk_txt(t_blk_txt, uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_blk_txt(out,       in,   in,           in,     out) is semidet.
 
 %%% T_BLK_BLT AND R_BLK_BLT
 
 :- type t_blk_blt == t_blks.
 
-% doc:                       LVL   VALID_TAGS
-:- pred r_blk_blt(t_blk_blt, uint, strs,      t_tkns, t_tkns).
-:- mode r_blk_blt(out,       in,   in,        in,     out) is semidet.
+:- pred r_blk_blt(t_blk_blt, uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_blk_blt(out,       in,   in,           in,     out) is semidet.
 
 %%% T_HDR, R_HDR AND INSTANCE T_HDR XMLABLE
 
@@ -237,8 +233,7 @@
 
 :- instance term_to_xml.xmlable(t_hdr).
 
-% doc:                    VALID_TAGS
-:- pred r_hdr(t_hdr::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+:- pred r_hdr(t_hdr::out, t_valid_tags::in, t_tkns::in, t_tkns::out) is semidet.
 
 %%% T_TAG_OR_ID AND R_TAG_OR_ID
 
@@ -470,9 +465,8 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN,VALID_TAGS) --> (
-  r_blks(BLKS,0u,f_all_valid_tags(VALID_TAGS)), r_eof
-    -> {DOC_MAIN = c_doc_main_blks(BLKS)};
-       {false}
+  r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
+                                       {false}
 ).
 
 :- instance term_to_xml.xmlable(t_doc_main) where [
@@ -494,14 +488,13 @@ f_doc_main_to_xml(c_doc_main_blks(BLKS)) =
 
 r_par(c_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS),VALID_TAGS) -->
   {VALID_PAR_TAGS = fld_valid_tags_par(VALID_TAGS)},
-  {ALL_VALID_TAGS = f_all_valid_tags(VALID_TAGS)},
   r_c('¶'),
   *(r_sp),
   r_maybe_tag_or_id(MAYBE_TAG_OR_ID,VALID_PAR_TAGS),
   r_lb,
-  r_maybe_hdr(MAYBE_HDR,ALL_VALID_TAGS),
+  r_maybe_hdr(MAYBE_HDR,VALID_TAGS),
   +(r_lb),
-  r_blks(BLKS,0u,ALL_VALID_TAGS).
+  r_blks(BLKS,0u,VALID_TAGS).
 
 r_pars(PARS,VALID_TAGS) -->
   r_par(PAR,VALID_TAGS),
@@ -599,7 +592,7 @@ r_blk_txt(US,LVL,VALID_TAGS) -->
     else
       {true}
   ),
-  r_blk_txt_lines(US,LVL,VALID_TAGS).
+  r_blk_txt_lines(US,LVL,f_all_valid_tags(VALID_TAGS)).
 
 :- pred r_blk_txt_line(list(t_txt_unit), strs, t_tkns, t_tkns).
 :- mode r_blk_txt_line(out,              in,   in,     out) is semidet.
@@ -641,8 +634,8 @@ f_hdr_to_xml(c_hdr(UNITS)) = term_to_xml.elem(
 
 %%% HELPER R_MAYBE_HDR
 
-:- pred r_maybe_hdr(maybe(t_hdr), strs, t_tkns, t_tkns).
-:- mode r_maybe_hdr(out,          in,   in,     out) is det.
+:- pred r_maybe_hdr(maybe(t_hdr), t_valid_tags, t_tkns, t_tkns).
+:- mode r_maybe_hdr(out,          in,           in,     out) is det.
 r_maybe_hdr(        RES,          VALID_TAGS) --> (
   r_hdr(HDR,VALID_TAGS)  -> {RES = maybe.yes(HDR)};
                             {RES = maybe.no}

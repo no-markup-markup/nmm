@@ -717,7 +717,7 @@ p_test_r_blk_txt_1 :-
   if r_blk_txt(
     [c_txt_unit_wysiwyg("HEJ!")],
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ!\n"),
     []
   ) then
@@ -732,7 +732,7 @@ p_test_r_blk_txt_2 :-
   if r_blk_txt(
     [c_txt_unit_wysiwyg("HEJ!")],
     100u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ!\n"),
     []
   ) then
@@ -747,7 +747,7 @@ p_test_r_blk_txt_3 :-
   if r_blk_txt(
     [c_txt_unit_wysiwyg("HEJ!"),c_txt_unit_wysiwyg("OCH HEJ IGEN!")],
     2u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ!\n\t\tOCH HEJ IGEN!\n"),
     []
   ) then
@@ -766,7 +766,7 @@ p_test_r_blk_txt_4 :-
       c_txt_unit_wysiwyg("!")
     ],
     100u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ [PAR:name]!\n"),
     []
   ) then
@@ -787,7 +787,7 @@ p_test_r_blk_txt_5 :-
         c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
       ],
       1u,
-      k_all_valid_tags,
+      k_valid_tags,
       f_str2tkns("HEJ [PAR:name]!\n\t[DSP:name]\n\n"),
       TKNS_OUT
     ),
@@ -804,7 +804,7 @@ p_test_r_blk_txt_6 :-
   if r_blk_txt(
     [c_txt_unit_wysiwyg("HEJ!"),c_txt_unit_wysiwyg("OCH HEJ IGEN!")],
     2u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ!\n\tOCH HEJ IGEN!\n"),
     _
   ) then
@@ -827,7 +827,7 @@ p_test_r_blk_txt_7 :-
         c_txt_unit_wysiwyg("HOJ")
       ],
       0u,
-      k_all_valid_tags,
+      k_valid_tags,
       f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
       []
     )
@@ -846,7 +846,7 @@ p_test_r_blk_1 :-
       c_txt_unit_wysiwyg("HEJ!")
     ]),
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ!\nHEJ!\n"),
     []
   ) then
@@ -861,7 +861,7 @@ p_test_r_blks_1 :-
   if r_blks(
     [c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])],
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ!\n"),
     []
   ) then
@@ -882,7 +882,7 @@ p_test_r_blks_2 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ![PAR:name]\n\nHEJ!\n"),
     []
   )
@@ -904,7 +904,7 @@ p_test_r_blks_3 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
     2u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ![PAR:name]\n\n\t\tHEJ!\n"),
     []
   )
@@ -926,7 +926,7 @@ p_test_r_blks_4 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
     2u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ![PAR:name]\n\n\n\n\t\tHEJ!\n"),
     []
   )
@@ -948,7 +948,7 @@ p_test_r_blks_5 :-
       c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])
     ],
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("HEJ![PAR:name]\n\n\tHEJ!\n"),
     _
   )
@@ -964,7 +964,7 @@ p_test_r_blk_blt_1 :-
   if r_blk_blt(
     [c_blk_txt([c_txt_unit_wysiwyg("HEJ!")])],
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("-\tHEJ!\n"),
     []
   ) then
@@ -984,7 +984,7 @@ p_test_r_blk_blt_2 :-
       ])
     ],
     1u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("-\tHEJ!\n\t\tHAJ!\n"),
     []
   ) then
@@ -1002,7 +1002,7 @@ p_test_r_blk_blt_3 :-
       c_blk_txt([c_txt_unit_wysiwyg("HAJ!")])
     ],
     1u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("-\tHEJ!\n\n\t\tHAJ!\n"),
     []
   ) then
@@ -1024,7 +1024,7 @@ p_test_r_blk_blt_4 :-
       ])
     ],
     1u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("-\tHEJ!\n\n\n\n\n\t\tHAJ[PAR:name]\n\t\tHOJ\n"),
     []
   ) then
@@ -1047,7 +1047,7 @@ p_test_r_blk_blt_5 :-
       c_blk_txt([c_txt_unit_wysiwyg("HOJHOJ")])
     ],
     0u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("-\tHEJ!\n\n\tHAJ[PAR:name]\n\tHOJ\n\n\tHOJHOJ\n"),
     []
   ) then
@@ -1070,7 +1070,7 @@ p_test_r_blk_blt_6 :-
       c_blk_blt([c_blk_txt([c_txt_unit_wysiwyg("HEJ")])])
     ],
     1u,
-    k_all_valid_tags,
+    k_valid_tags,
     f_str2tkns("-\tHEJ!\n\n\t\tHAJ[PAR:name]\n\n\t\tHOJ\n\n\t\t-\tHEJ\n"),
     []
   ) then
@@ -1168,7 +1168,7 @@ p_test_r_hdr_1 :-
         c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
         c_txt_unit_wysiwyg("HOJ")
       ]),
-      k_all_valid_tags,
+      k_valid_tags,
       f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
       []
     )
