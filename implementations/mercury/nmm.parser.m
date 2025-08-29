@@ -40,6 +40,22 @@
 ).
 
 
+%% TYPE T_VALID_TAGS
+
+:- type t_valid_tags ---> c_valid_tags(
+  fld_valid_tags_ch  :: strs,
+  fld_valid_tags_sec :: strs,
+  fld_valid_tags_app :: strs,
+  fld_valid_tags_par :: strs,
+  fld_valid_tags_itm :: strs,
+  fld_valid_tags_dsp :: strs
+).
+
+%% FUNCTION F_ALL_VALID_TAGS
+
+:- func f_all_valid_tags(t_valid_tags) = strs.
+
+
 %% FUNCTION F_VALIDATE_CONF AND TYPE T_VALIDATE_CONF_RES
 
 :- type t_validate_conf_res --->
@@ -141,8 +157,7 @@
   fld_doc_refs     :: t_doc_refs
 ).
 
- %% % doc:                    VALID_TAGS
- %% :- pred r_doc(t_doc::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+ %% :- pred r_doc(t_doc::out, t_valid_tags::in, t_tkns::in, t_tkns::out) is semidet.
 
 %%% TODO: T_PREAMBLE AND R_PREAMBLE
 
@@ -158,9 +173,8 @@
 
 :- instance term_to_xml.xmlable(t_doc_main).
 
-% doc:                         VALID_TAGS
-:- pred r_doc_main(t_doc_main, strs,      t_tkns, t_tkns).
-:- mode r_doc_main(out,        in,        in,     out) is semidet.
+:- pred r_doc_main(t_doc_main, t_valid_tags, t_tkns, t_tkns).
+:- mode r_doc_main(out,        in,           in,     out) is semidet.
 
 %%% TODO: T_DOC_REFS AND R_DOC_REFS
 
@@ -178,11 +192,10 @@
 
 :- instance term_to_xml.xmlable(t_par).
 
-% doc:                    VALID_TAGS
-:- pred r_par(t_par::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+:- pred r_par(t_par::out, t_valid_tags::in, t_tkns::in, t_tkns::out) is semidet.
 
-% doc:                           VALID_TAGS
-:- pred r_pars(list(t_par)::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+:- pred r_pars(list(t_par), t_valid_tags, t_tkns, t_tkns).
+:- mode r_pars(out,         in,           in,     out) is semidet.
 
 %%% T_BLK, T_BLKS, R_BLK AND R_BLKS AND INSTANCE T_BLK XMLABLE
 
@@ -270,10 +283,10 @@
 
 :-type t_c_ref ---> c_c_ref(t_id).
 
+:- instance term_to_xml.xmlable(t_c_ref).
+
 % doc:                        VALID_TAGS
 :- pred r_c_ref(t_c_ref::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
-
-:- instance term_to_xml.xmlable(t_c_ref).
 
 %%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS AND INSTANCE T_TXT_UNIT XMLABLE
 
@@ -305,6 +318,16 @@
 
 :- import_module uint.
 
+%% FUNCTION F_ALL_VALID_TAGS
+
+f_all_valid_tags(VALID_TAGS) = list.condense([
+  fld_valid_tags_ch(VALID_TAGS),
+  fld_valid_tags_sec(VALID_TAGS),
+  fld_valid_tags_app(VALID_TAGS),
+  fld_valid_tags_par(VALID_TAGS),
+  fld_valid_tags_itm(VALID_TAGS),
+  fld_valid_tags_dsp(VALID_TAGS)
+]).
 
 %% FUNCTION F_VALIDATE_CONF
 
@@ -446,9 +469,11 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 
 %%% R_DOC_MAIN
 
-r_doc_main(DOC_MAIN,VALID_TAGS) -->
-  r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
-                                       {false}.
+r_doc_main(DOC_MAIN,VALID_TAGS) --> (
+  r_blks(BLKS,0u,f_all_valid_tags(VALID_TAGS)), r_eof
+    -> {DOC_MAIN = c_doc_main_blks(BLKS)};
+       {false}
+).
 
 :- instance term_to_xml.xmlable(t_doc_main) where [
   func(to_xml/1) is f_doc_main_to_xml
@@ -468,13 +493,15 @@ f_doc_main_to_xml(c_doc_main_blks(BLKS)) =
 %%% R_PAR AND R_PARS AND T_PAR XMLABLE
 
 r_par(c_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS),VALID_TAGS) -->
+  {VALID_PAR_TAGS = fld_valid_tags_par(VALID_TAGS)},
+  {ALL_VALID_TAGS = f_all_valid_tags(VALID_TAGS)},
   r_c('¶'),
   *(r_sp),
-  r_maybe_tag_or_id(MAYBE_TAG_OR_ID,VALID_TAGS),
+  r_maybe_tag_or_id(MAYBE_TAG_OR_ID,VALID_PAR_TAGS),
   r_lb,
-  r_maybe_hdr(MAYBE_HDR,VALID_TAGS),
+  r_maybe_hdr(MAYBE_HDR,ALL_VALID_TAGS),
   +(r_lb),
-  r_blks(BLKS,0u,VALID_TAGS).
+  r_blks(BLKS,0u,ALL_VALID_TAGS).
 
 r_pars(PARS,VALID_TAGS) -->
   r_par(PAR,VALID_TAGS),
@@ -631,8 +658,9 @@ r_tag_or_id(TAG_OR_ID,VALID_TAGS) --> (
 
 %%% HELPER R_MAYBE_TAG_OR_ID
 
-:- pred r_maybe_tag_or_id(maybe(t_tag_or_id), strs, t_tkns, t_tkns).
-:- mode r_maybe_tag_or_id(out,                in,   in,     out) is det.
+% doc:                                        VALID_TAGS
+:- pred r_maybe_tag_or_id(maybe(t_tag_or_id), strs,      t_tkns, t_tkns).
+:- mode r_maybe_tag_or_id(out,                in,        in,     out) is det.
 r_maybe_tag_or_id(        RES,                VALID_TAGS) --> (
   r_tag_or_id(TAG_OR_ID,VALID_TAGS) -> {RES = maybe.yes(TAG_OR_ID)};
                                        {RES = maybe.no}
@@ -715,10 +743,9 @@ r_txt_unit(U,VALID_TAGS) -->
   r_txt_unit_wysiwyg(S,VALID_TAGS)  -> {U = c_txt_unit_wysiwyg(S)};
                                        {false}.
 
-% doc:                          VALID_TAGS
-:- pred r_txt_unit_wysiwyg(str, strs,      t_tkns, t_tkns).
-:- mode r_txt_unit_wysiwyg(out, in,        in,     out) is semidet.
-r_txt_unit_wysiwyg(S,VALID_TAGS) -->
+:- pred r_txt_unit_wysiwyg(str, strs, t_tkns, t_tkns).
+:- mode r_txt_unit_wysiwyg(out, in,   in,     out) is semidet.
+r_txt_unit_wysiwyg(        S,   VALID_TAGS) -->
   not r_tab,
   not r_lb,
   not r_c_ref(_,VALID_TAGS),
