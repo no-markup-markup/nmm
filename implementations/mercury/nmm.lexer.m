@@ -59,28 +59,6 @@
 :- use_module string.
 
 
-%% F_TKNS2STR
-
-%%% THE FUNCTION
-
-f_tkns2str(TKNS) = string.append_list(list.map(f_tkn2str,TKNS)).
-
-%%% HELPER FUNCTION F_TKN2STR
-
-:- func f_tkn2str(t_tkn) = str.
-f_tkn2str(c_tkn_nws(_,C)) = S :- (
-  if list.member(C,['␛','␉','␤','␄']) then
-    S = string.append("␛",chr2str(C))
-  else
-    S = chr2str(C)
-).
-f_tkn2str(c_tkn_sp(_,C))  = chr2str(C).
-f_tkn2str(c_tkn_esc(_,C)) = string.append("␛",chr2str(C)).
-f_tkn2str(c_tkn_tab(_))   = "␉\t".
-f_tkn2str(c_tkn_lb(_))    = "␤\n".
-f_tkn2str(c_tkn_eof)      = "␄\n".
-
-
 %% F_TKNIZE
 
 %%% THE FUNCTION
@@ -211,3 +189,25 @@ p_sp_but_not_tab(char.det_from_int(0x200A)). % hair space
 p_sp_but_not_tab(char.det_from_int(0x202F)). % narrow no break space
 p_sp_but_not_tab(char.det_from_int(0x205F)). % medium math space
 p_sp_but_not_tab(char.det_from_int(0x3000)). % ideographic space
+
+
+%% F_TKNS2STR
+
+%%% THE FUNCTION
+
+f_tkns2str(TKNS) = string.append_list(list.map(f_tkn2str,TKNS)).
+
+%%% HELPER FUNCTION F_TKN2STR
+
+:- func f_tkn2str(t_tkn) = str.
+f_tkn2str(c_tkn_nws(_,C)) = S :- (
+  if list.member(C,['␛','␉','␤','␄']) then
+    S = string.append("␛",chr2str(C))
+  else
+    S = chr2str(C)
+).
+f_tkn2str(c_tkn_sp(_,C))  = chr2str(C).
+f_tkn2str(c_tkn_esc(_,C)) = string.append("␛",chr2str(C)).
+f_tkn2str(c_tkn_tab(_))   = "␉\t".
+f_tkn2str(c_tkn_lb(_))    = "␤\n".
+f_tkn2str(c_tkn_eof)      = "␄\n".

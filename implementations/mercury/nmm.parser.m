@@ -166,7 +166,7 @@
 
  %% :- pred r_doc_refs(t_doc_refs, t_tkns::in, t_tkns::out).
 
-%%% TODO: T_PAR, R_PAR AND R_PARS
+%%% T_PAR, R_PAR AND R_PARS
 
 :- type t_par ---> c_par(
   fld_par_tag_or_id :: maybe(t_tag_or_id),
@@ -180,7 +180,7 @@
 % doc:                           VALID_TAGS
 :- pred r_pars(list(t_par)::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
 
-%%% T_BLK, T_BLKS, R_BLK AND R_BLKS
+%%% T_BLK, T_BLKS, R_BLK AND R_BLKS AND INSTANCE T_BLK XMLABLE
 
 :- type t_blk --->
   c_blk_txt(t_blk_txt);
@@ -188,10 +188,11 @@
 
 :- type t_blks == list(t_blk).
 
+:- instance term_to_xml.xmlable(t_blk).
+
 % doc:               LVL   VALID_TAGS
 :- pred r_blk(t_blk, uint, strs,      t_tkns, t_tkns).
 :- mode r_blk(out,   in,   in,        in,     out) is semidet.
-
 
 % doc:                 LVL   VALID_TAGS
 :- pred r_blks(t_blks, uint, strs,      t_tkns, t_tkns).
@@ -268,12 +269,14 @@
 
 :- instance term_to_xml.xmlable(t_c_ref).
 
-%%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS
+%%% T_TXT_UNIT, R_TXT_UNIT AND R_TXT_UNITS AND INSTANCE T_TXT_UNIT XMLABLE
 
 :- type t_txt_unit --->
   c_txt_unit_wysiwyg(str);
   c_txt_unit_emph(str);
   c_txt_unit_c_ref(t_c_ref).
+
+:- instance term_to_xml.xmlable(t_txt_unit).
 
 % doc:                         VALID_TAGS
 :- pred r_txt_unit(t_txt_unit, strs,      t_tkns, t_tkns).
@@ -459,7 +462,7 @@ r_pars(PARS,VALID_TAGS) -->
                                        {PARS = [PAR]}
   ).
 
-%%% R_BLK AND R_BLKS
+%%% R_BLK AND R_BLKS AND INSTANCE T_BLK XMLABLE
 
 r_blk(BLK,LVL,VALID_TAGS) -->
   r_blk_txt(BLK_TXT,LVL,VALID_TAGS) -> {BLK = c_blk_txt(BLK_TXT)};
@@ -471,6 +474,26 @@ r_blks(BLKS,LVL,VALID_TAGS) -->
   (
     +r_lb, r_tabs(LVL), r_blks(BLKS_,LVL,VALID_TAGS) -> {BLKS = [BLK]++BLKS_};
                                                         {BLKS = [BLK]}
+  ).
+
+:- instance term_to_xml.xmlable(t_blk) where [
+  func(to_xml/1) is f_blk_to_xml
+].
+
+:- func
+  f_blk_to_xml(t_blk::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_blk_to_xml(c_blk_txt(UNITS)) =
+  term_to_xml.elem(
+    "c_blk_txt",
+    [],
+    list.map(f_txt_unit_to_xml,UNITS)
+  ).
+f_blk_to_xml(c_blk_blt(BLKS)) =
+  term_to_xml.elem(
+    "c_blk_blt",
+    [],
+    list.map(f_blk_to_xml,BLKS)
   ).
 
 %%% R_BLK_TXT
@@ -606,7 +629,7 @@ r_c_ref(c_c_ref(ID),VALID_TAGS) -->
   is det.
 f_c_ref_to_xml(c_c_ref(ID)) = term_to_xml.elem("c_c_ref",[],[f_id_to_xml(ID)]).
 
-%%% R_TXT_UNIT AND R_TXT_UNITS
+%%% R_TXT_UNIT AND R_TXT_UNITS AND INSTANCE T_TXT_UNIT XMLABLE
 
 r_txt_unit(U,VALID_TAGS) -->
   r_c_ref(CR,VALID_TAGS)            -> {U = c_txt_unit_c_ref(CR)};
@@ -633,3 +656,18 @@ r_txt_units(US,VALID_TAGS) -->
                                    {US = [U]}
   ).
 
+:- instance term_to_xml.xmlable(t_txt_unit) where [
+  func(to_xml/1) is f_txt_unit_to_xml
+].
+
+:- func
+  f_txt_unit_to_xml(t_txt_unit::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_txt_unit_to_xml(c_txt_unit_c_ref(C_REF)) =
+  term_to_xml.elem("c_txt_unit_c_ref",[],[f_c_ref_to_xml(C_REF)]).
+f_txt_unit_to_xml(c_txt_unit_wysiwyg(STR)) =
+  term_to_xml.elem("c_txt_unit_wysiwyg",[],[term_to_xml.data(STR)]).
+f_txt_unit_to_xml(c_txt_unit_emph(STR)) =
+  term_to_xml.elem("c_txt_unit_emph",[],[term_to_xml.data(STR)]).

@@ -1572,4 +1572,46 @@ p_test(!IO) :-
     io.stdout_stream,
     c_id(c_tag("DSP"),c_name("name")),
     !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_txt_unit_wysiwyg("HEJ"),
+    !IO
+  ),
+  io.write_string("\n",!IO),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_txt_unit_emph("HAJ"),
+    !IO
+  ),
+  io.write_string("\n",!IO),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_blk_txt([
+      c_txt_unit_wysiwyg("HEJ"),
+      c_txt_unit_wysiwyg("HAJ "),
+      c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
+      c_txt_unit_wysiwyg("!"),
+      c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
+      c_txt_unit_wysiwyg("HOJ")
+    ]),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_blk_blt([
+      c_blk_txt([c_txt_unit_wysiwyg("HEJ!")]),
+      c_blk_txt([
+        c_txt_unit_wysiwyg("HAJ"),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name")))),
+        c_txt_unit_wysiwyg("HOJ")
+      ]),
+      c_blk_txt([c_txt_unit_wysiwyg("HOJHOJ")])
+    ]),
+    !IO
   ).
