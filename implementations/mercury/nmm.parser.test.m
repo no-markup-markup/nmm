@@ -1536,6 +1536,155 @@ p_test_r_pars_3 :-
   else
     exception.throw("p_test_r_pars_3").
 
+%%% P_TEST_R_LBL_1
+
+:- pred p_test_r_lbl_1 is det.
+p_test_r_lbl_1 :-
+  if (
+    r_lbl(
+      c_lbl_custom("hej hoj"),
+      f_str2tkns("hej hoj"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_lbl_1").
+
+%%% P_TEST_R_LBL_2
+
+:- pred p_test_r_lbl_2 is det.
+p_test_r_lbl_2 :-
+  if (
+    r_lbl(
+      c_lbl_auto,
+      f_str2tkns(""),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_lbl_2").
+
+%%% P_TEST_R_LBL_3
+
+:- pred p_test_r_lbl_3 is det.
+p_test_r_lbl_3 :-
+  if (
+    r_lbl(
+      c_lbl_custom("hej"),
+      f_str2tkns("hej("),
+      f_str2tkns("(")
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_lbl_3").
+
+%%% P_TEST_R_LBL_4
+
+:- pred p_test_r_lbl_4 is det.
+p_test_r_lbl_4 :-
+  if (
+    r_lbl(
+      c_lbl_auto,
+      f_str2tkns("]"),
+      f_str2tkns("]")
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_lbl_4").
+
+%%% P_TEST_R_BLK_ITM_1
+
+:- pred p_test_r_blk_itm_1 is det.
+p_test_r_blk_itm_1 :-
+  if (
+    r_blk_itm(
+      c_blk_itm(c_lbl_auto,maybe.no,[c_blk_txt([c_txt_unit_wysiwyg("hej")])]),
+      0u,
+      k_valid_tags,
+      f_str2tkns("[]\thej\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_itm_1").
+
+%%% P_TEST_R_BLK_ITM_2
+
+:- pred p_test_r_blk_itm_2 is det.
+p_test_r_blk_itm_2 :-
+  if (
+    r_blk_itm(
+      c_blk_itm(
+        c_lbl_custom("hej"),
+        maybe.no,
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("hej")])
+        ]
+      ),
+      0u,
+      k_valid_tags,
+      f_str2tkns("[hej]\thej\n\n\thej\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_itm_2").
+
+%%% P_TEST_R_BLK_ITM_3
+
+:- pred p_test_r_blk_itm_3 is det.
+p_test_r_blk_itm_3 :-
+  if (
+    r_blk_itm(
+      c_blk_itm(
+        c_lbl_custom("hej"),
+        maybe.yes(c_tag_or_id_tag(c_tag("DEF"))),
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("hej")])
+        ]
+      ),
+      0u,
+      k_valid_tags,
+      f_str2tkns("[hej]\tDEF\n\thej\n\n\thej\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_itm_3").
+
+%%% P_TEST_R_BLK_ITM_4
+
+:- pred p_test_r_blk_itm_4 is det.
+p_test_r_blk_itm_4 :-
+  if (
+    r_blk_itm(
+      c_blk_itm(
+        c_lbl_auto,
+        maybe.yes(c_tag_or_id_id(c_id(c_tag("DEF"),c_name("name")))),
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("hej")])
+        ]
+      ),
+      0u,
+      k_valid_tags,
+      f_str2tkns("[]\tDEF:name\n\thej\n\n\thej\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_itm_4").
+
 
 %% P_TEST
 
@@ -1625,6 +1774,14 @@ p_test(!IO) :-
   p_test_r_pars_1,
   p_test_r_pars_2,
   p_test_r_pars_3,
+  p_test_r_lbl_1,
+  p_test_r_lbl_2,
+  p_test_r_lbl_3,
+  p_test_r_lbl_4,
+  p_test_r_blk_itm_1,
+  p_test_r_blk_itm_2,
+  p_test_r_blk_itm_3,
+  p_test_r_blk_itm_4,
   p_test_r_doc_main_1,
   p_test_r_doc_main_2(!IO),
   term_to_xml.write_xml_doc(
@@ -1782,6 +1939,62 @@ p_test(!IO) :-
           ])])
         ]
       )
+    ]),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_doc_main_blks([
+      c_blk_itm(c_blk_itm(
+        c_lbl_custom("label"),
+        maybe.yes(c_tag_or_id_id(c_id(c_tag("TAG"),c_name("name")))),
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("haj")])
+        ]
+      ))
+    ]),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_doc_main_blks([
+      c_blk_itm(c_blk_itm(
+        c_lbl_auto,
+        maybe.yes(c_tag_or_id_id(c_id(c_tag("TAG"),c_name("name")))),
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("haj")])
+        ]
+      ))
+    ]),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_doc_main_blks([
+      c_blk_itm(c_blk_itm(
+        c_lbl_auto,
+        maybe.yes(c_tag_or_id_tag(c_tag("TAG"))),
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("haj")])
+        ]
+      ))
+    ]),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_doc_main_blks([
+      c_blk_itm(c_blk_itm(
+        c_lbl_auto,
+        maybe.no,
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("haj")])
+        ]
+      ))
     ]),
     !IO
   ).

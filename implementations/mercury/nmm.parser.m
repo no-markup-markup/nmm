@@ -201,7 +201,8 @@
 
 :- type t_blk --->
   c_blk_txt(t_blk_txt);
-  c_blk_blt(t_blk_blt).
+  c_blk_blt(t_blk_blt);
+  c_blk_itm(t_blk_itm).
 
 :- type t_blks == list(t_blk).
 
@@ -224,8 +225,23 @@
 
 :- type t_blk_blt == t_blks.
 
+% doc:                       LVL
 :- pred r_blk_blt(t_blk_blt, uint, t_valid_tags, t_tkns, t_tkns).
 :- mode r_blk_blt(out,       in,   in,           in,     out) is semidet.
+
+%%% T_BLK_ITM, R_BLK_ITM AND INSTANCE T_BLK_ITEM XMLABLE
+
+:- type t_blk_itm ---> c_blk_itm(
+  fld_blk_itm_custom_lbl :: t_lbl,
+  fld_blk_itm_tag_or_id  :: maybe(t_tag_or_id),
+  fld_blk_itm_blks       :: t_blks
+).
+
+:- instance term_to_xml.xmlable(t_blk_itm).
+
+% doc:                       LVL
+:- pred r_blk_itm(t_blk_itm, uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_blk_itm(out,       in,   in,           in,     out) is semidet.
 
 %%% T_HDR, R_HDR AND INSTANCE T_HDR XMLABLE
 
@@ -273,6 +289,16 @@
 
 % doc:                  VALID_TAGS
 :- pred r_id(t_id::out, strs::in,  t_tkns::in, t_tkns::out) is semidet.
+
+%%% T_LBL, R_LBL AND INSTANCE T_LBL XMLABLE
+
+:- type t_lbl --->
+  c_lbl_auto;
+  c_lbl_custom(str).
+
+:- instance term_to_xml.xmlable(t_lbl).
+
+:- pred r_lbl(t_lbl::out, t_tkns::in, t_tkns::out) is det.
 
 %%% T_C_REF AND R_C_REF AND INSTANCE T_C_REF XMLABLE
 
@@ -568,18 +594,17 @@ r_blks(BLKS,LVL,VALID_TAGS) -->
 :- func
   f_blk_to_xml(t_blk::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
   is det.
-f_blk_to_xml(c_blk_txt(UNITS)) =
-  term_to_xml.elem(
-    "c_blk_txt",
-    [],
-    list.map(f_txt_unit_to_xml,UNITS)
-  ).
-f_blk_to_xml(c_blk_blt(BLKS)) =
-  term_to_xml.elem(
-    "c_blk_blt",
-    [],
-    list.map(f_blk_to_xml,BLKS)
-  ).
+f_blk_to_xml(c_blk_txt(UNITS)) = term_to_xml.elem(
+  "c_blk_txt",
+  [],
+  list.map(f_txt_unit_to_xml,UNITS)
+).
+f_blk_to_xml(c_blk_blt(BLKS)) = term_to_xml.elem(
+  "c_blk_blt",
+  [],
+  list.map(f_blk_to_xml,BLKS)
+).
+f_blk_to_xml(c_blk_itm(ITM)) = f_blk_itm_to_xml(ITM).
 
 %%% R_BLK_TXT
 
@@ -613,6 +638,48 @@ r_blk_txt_lines(        UNITS,            LVL,  VALID_TAGS) -->
 
 r_blk_blt(BLKS,LVL,VALID_TAGS) -->
   r_str("-"), r_tab, r_blks(BLKS,LVL+1u,VALID_TAGS).
+
+%%% R_BLK_ITM AND INSTANCE T_BLK_ITM XMLABLE
+
+%%%% R_BLK_ITEM
+
+r_blk_itm(c_blk_itm(LBL,MAYBE_TAG_OR_ID,BLKS),LVL,VALID_TAGS) -->
+  {VALID_ITM_TAGS = fld_valid_tags_itm(VALID_TAGS)},
+  r_str("["), r_lbl(LBL), r_str("]"), r_tab,
+  (
+    if r_tag_or_id(TAG_OR_ID,VALID_ITM_TAGS), r_lb, r_tabs(LVL+1u) then
+      {MAYBE_TAG_OR_ID = maybe.yes(TAG_OR_ID)}
+    else
+      {MAYBE_TAG_OR_ID = maybe.no}
+  ),
+  r_blks(BLKS,LVL+1u,VALID_TAGS).
+
+%%%% INSTANCE XMLABLE
+
+:- instance term_to_xml.xmlable(t_blk_itm) where [
+  func(to_xml/1) is f_blk_itm_to_xml
+].
+
+:- func
+  f_blk_itm_to_xml(t_blk_itm::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_blk_itm_to_xml(c_blk_itm(LBL,maybe.yes(c_tag_or_id_tag(TAG)),BLKS)) =
+  term_to_xml.elem(
+    "c_blk_itm",
+    [],
+    [f_lbl_to_xml(LBL),f_tag_to_xml(TAG)] ++ list.map(f_blk_to_xml,BLKS)
+  ).
+f_blk_itm_to_xml(c_blk_itm(LBL,maybe.yes(c_tag_or_id_id(ID)),BLKS)) =
+  term_to_xml.elem(
+    "c_blk_itm",
+    [],
+    [f_lbl_to_xml(LBL),f_id_to_xml(ID)] ++ list.map(f_blk_to_xml,BLKS)
+  ).
+f_blk_itm_to_xml(c_blk_itm(LBL,maybe.no,BLKS)) = term_to_xml.elem(
+  "c_blk_itm",
+  [],
+  [f_lbl_to_xml(LBL)]++list.map(f_blk_to_xml,BLKS)
+).
 
 %%% R_HDR
 
@@ -709,6 +776,29 @@ f_id_to_xml(c_id(TAG,NAME)) = term_to_xml.elem(
     f_tag_to_xml(TAG),
     f_name_to_xml(NAME)
   ]
+).
+
+
+%%% R_LBL AND INSTANCE T_LBL XMLABLE
+
+%%%% R_LBL
+
+r_lbl(LBL) --> (
+  r(c_r_any,["(",")","[","]"],S) -> {LBL = c_lbl_custom(S)};
+                                    {LBL = c_lbl_auto}
+).
+
+%%%% INSTANCE T_LBL XMAMBLE
+
+:- instance term_to_xml.xmlable(t_lbl) where [
+  func(to_xml/1) is f_lbl_to_xml
+].
+
+:- func
+  f_lbl_to_xml(t_lbl::in) = (term_to_xml.xml::out(term_to_xml.xml_doc)) is det.
+f_lbl_to_xml(c_lbl_auto) = term_to_xml.elem("c_lbl_auto",[],[]).
+f_lbl_to_xml(c_lbl_custom(S)) = term_to_xml.elem(
+  "c_lbl_custom",[],[term_to_xml.data(S)]
 ).
 
 %%% R_C_REF AND INSTANCE T_C_REF XMLABLE
