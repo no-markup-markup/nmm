@@ -2390,7 +2390,7 @@ p_test(!IO) :-
           c_blk_dsp([
             c_dsp_line(
               maybe.yes(c_lbl_auto),
-              maybe.yes(c_tag_or_id_tag(c_tag("DSP"))),
+              maybe.yes(c_tag_or_id_tag(c_tag("DSP<"))),
               [
                 c_dsp_unit_wysiwyg("HEJ!"),
                 c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
