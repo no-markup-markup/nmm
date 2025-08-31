@@ -737,13 +737,13 @@ p_test_r_txt_units_5 :-
   if (
     r_txt_units(
       [
-        c_txt_unit_emph("HEJ! HAJ!"),
+        c_txt_unit_emph("HEJ!* HAJ!"),
         c_txt_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
         c_txt_unit_wysiwyg("HAJ!")
       ],
       1u,
       k_all_valid_tags,
-      f_str2tkns("*HEJ!\n\tHAJ!*[DSP:name]HAJ!\n"),
+      f_str2tkns("*HEJ!\\*\n\tHAJ!*[DSP:name]HAJ!\n"),
       TKNS_OUT
     ),
     p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
@@ -998,6 +998,48 @@ p_test_r_blks_5 :-
     exception.throw("p_test_r_blks_5")
   else
     true.
+
+%%% P_TEST_R_BLKS_6
+
+:- pred p_test_r_blks_6 is det.
+p_test_r_blks_6 :-
+  if r_blks(
+    [
+      c_blk_txt([
+        c_txt_unit_wysiwyg("HEJ!"),
+        c_txt_unit_c_ref(c_c_ref(c_id(c_tag("PAR"),c_name("name"))))
+      ]),
+      c_blk_itm(c_blk_itm(
+        c_lbl_auto,
+        maybe.no,
+        [
+          c_blk_dsp([
+            c_dsp_line(
+              maybe.yes(c_lbl_auto),
+              maybe.no,
+              [
+                c_dsp_unit_wysiwyg("a²+b²=c²")
+              ]
+            )
+          ])
+        ]
+      ))
+    ],
+    1u,
+    k_valid_tags,
+    (
+      f_str2tkns("HEJ![PAR:name]\n")
+      ++
+      f_str2tkns("\n")
+      ++
+      f_str2tkns("\t[]\t()\ta²+b²=c²\n")
+    ),
+    []
+  )
+  then
+    true
+  else
+    exception.throw("p_test_r_blks_6").
 
 %%% P_TEST_R_BLK_BLT_1
 
@@ -1685,6 +1727,289 @@ p_test_r_blk_itm_4 :-
   else
     exception.throw("p_test_r_blk_itm_4").
 
+%%% P_TEST_R_BLK_DSP_1
+
+:- pred p_test_r_blk_dsp_1 is det.
+p_test_r_blk_dsp_1 :-
+  if (
+    r_blk_dsp(
+      [
+        c_dsp_line(
+          maybe.yes(c_lbl_auto),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("DEF"),c_name("name")))),
+          [c_dsp_unit_wysiwyg("a²+b²=c²")]
+        ),
+        c_dsp_line(
+          maybe.no,
+          maybe.no,
+          [c_dsp_unit_wysiwyg("a²+b²=c²")]
+        )
+      ],
+      1u,
+      k_valid_tags,
+      f_str2tkns("()\ta²+b²=c²\tDEF:name\n\t\ta²+b²=c²\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_blk_dsp_1").
+
+%%% P_TEST_R_BLK_DSP_2
+
+:- pred p_test_r_blk_dsp_2 is det.
+p_test_r_blk_dsp_2 :-
+  if (
+    r_blk_dsp(
+      _,
+      1u,
+      k_valid_tags,
+      f_str2tkns("()\ta²+b²=c²\tDEF:name\n\n\t\ta²+b²=c²\n"),
+      []
+    )
+  ) then
+    exception.throw("p_test_r_blk_dsp_2")
+  else
+    true.
+
+%%% P_TEST_R_DSP_UNITS_1
+
+:- pred p_test_r_dsp_units_1 is det.
+p_test_r_dsp_units_1 :-
+  if r_dsp_units(
+    [c_dsp_unit_wysiwyg("HEJ!")],
+    k_all_valid_tags,
+    f_str2tkns("HEJ!"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_units_1").
+
+%%% P_TEST_R_DSP_UNITS_2
+
+:- pred p_test_r_dsp_units_2 is det.
+p_test_r_dsp_units_2 :-
+  if r_dsp_units(
+    [
+      c_dsp_unit_wysiwyg("HEJ!"),
+      c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
+    ],
+    k_all_valid_tags,
+    f_str2tkns("HEJ![DSP:name]"),
+    []
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_units_2").
+
+%%% P_TEST_R_DSP_UNITS_3
+
+:- pred p_test_r_dsp_units_3 is det.
+p_test_r_dsp_units_3 :-
+  if (
+    r_dsp_units(
+      [
+        c_dsp_unit_emph("HEJ! HAJ!"),
+        c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
+        c_dsp_unit_wysiwyg("HAJ!")
+      ],
+      k_all_valid_tags,
+      f_str2tkns("*HEJ! HAJ!*[DSP:name]HAJ!\n"),
+      TKNS_OUT
+    ),
+    p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_units_3").
+
+%%% P_TEST_R_DSP_LINE_1
+
+:- pred p_test_r_dsp_line_1 is det.
+p_test_r_dsp_line_1 :-
+  if (
+    r_dsp_line(
+      c_dsp_line(
+        maybe.no,
+        maybe.no,
+        [
+          c_dsp_unit_emph("HEJ! HAJ!"),
+          c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
+          c_dsp_unit_wysiwyg("HAJ!")
+        ]
+      ),
+      k_valid_tags,
+      f_str2tkns("\t*HEJ! HAJ!*[DSP:name]HAJ!\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_line_1").
+
+%%% P_TEST_R_DSP_LINE_2
+
+:- pred p_test_r_dsp_line_2 is det.
+p_test_r_dsp_line_2 :-
+  if (
+    r_dsp_line(
+      c_dsp_line(
+        maybe.yes(c_lbl_auto),
+        maybe.no,
+        [c_dsp_unit_wysiwyg("a²+b²=c²")]
+      ),
+      k_valid_tags,
+      f_str2tkns("()\ta²+b²=c²\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_line_2").
+
+%%% P_TEST_R_DSP_LINE_3
+
+:- pred p_test_r_dsp_line_3 is det.
+p_test_r_dsp_line_3 :-
+  if (
+    r_dsp_line(
+      c_dsp_line(
+        maybe.no,
+        maybe.no,
+        [c_dsp_unit_wysiwyg("a²+b²=c²")]
+      ),
+      k_valid_tags,
+      f_str2tkns("\ta²+b²=c²\t\tDSP\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_line_3").
+
+%%% P_TEST_R_DSP_LINE_4
+
+:- pred p_test_r_dsp_line_4 is det.
+p_test_r_dsp_line_4 :-
+  if (
+    r_dsp_line(
+      c_dsp_line(
+        maybe.yes(c_lbl_custom("!")),
+        maybe.no,
+        [c_dsp_unit_wysiwyg("a²+b²=c²")]
+      ),
+      k_valid_tags,
+      f_str2tkns("(!)\ta²+b²=c²\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_line_4").
+
+%%% P_TEST_R_DSP_LINE_5
+
+:- pred p_test_r_dsp_line_5 is det.
+p_test_r_dsp_line_5 :-
+  if (
+    r_dsp_line(
+      c_dsp_line(
+        maybe.yes(c_lbl_custom("!")),
+        maybe.yes(c_tag_or_id_tag(c_tag("DEF"))),
+        [c_dsp_unit_wysiwyg("a²+b²=c²")]
+      ),
+      k_valid_tags,
+      f_str2tkns("(!)\ta²+b²=c²\tDEF\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_line_5").
+
+%%% P_TEST_R_DSP_LINE_6
+
+:- pred p_test_r_dsp_line_6 is det.
+p_test_r_dsp_line_6 :-
+  if (
+    r_dsp_line(
+      c_dsp_line(
+        maybe.yes(c_lbl_custom("!")),
+        maybe.yes(c_tag_or_id_id(c_id(c_tag("DEF"),c_name("name")))),
+        [c_dsp_unit_wysiwyg("a²+b²=c²")]
+      ),
+      k_valid_tags,
+      f_str2tkns("(!)\ta²+b²=c²\t\t\t\tDEF:name\n"),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_line_6").
+
+%%% P_TEST_R_DSP_LINES_1
+
+:- pred p_test_r_dsp_lines_1 is det.
+p_test_r_dsp_lines_1 :-
+  if (
+    r_dsp_lines(
+      [
+        c_dsp_line(
+          maybe.yes(c_lbl_auto),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("DEF"),c_name("name")))),
+          [c_dsp_unit_wysiwyg("a²+b²=c²")]
+        ),
+        c_dsp_line(
+          maybe.yes(c_lbl_custom("!")),
+          maybe.yes(c_tag_or_id_id(c_id(c_tag("DEF"),c_name("name")))),
+          [c_dsp_unit_wysiwyg("a²+b²=c²")]
+        ),
+        c_dsp_line(
+          maybe.no,
+          maybe.no,
+          [c_dsp_unit_wysiwyg("a²+b²=c²")]
+        )
+      ],
+      1u,
+      k_valid_tags,
+      (
+        f_str2tkns("()\ta²+b²=c²\t\t\t\tDEF:name\n")
+        ++
+        f_str2tkns("\t(!)\ta²+b²=c²\t\t\t\tDEF:name\n")
+        ++
+        f_str2tkns("\t\ta²+b²=c²\t\t\t\tDSP\n")
+      ),
+      []
+    )
+  ) then
+    true
+  else
+    exception.throw("p_test_r_dsp_lines_1").
+
+%%% P_TEST_R_DSP_LINES_2
+
+:- pred p_test_r_dsp_lines_2 is det.
+p_test_r_dsp_lines_2 :-
+  if (
+    r_dsp_lines(
+      _,
+      1u,
+      k_valid_tags,
+      (
+        f_str2tkns("()\ta²+b²=c²\t\t\t\tDEF:name\n")
+        ++
+        f_str2tkns("\n")
+        ++
+        f_str2tkns("\t\ta²+b²=c²\t\t\t\tDSP\n")
+      ),
+      []
+    )
+  ) then
+    exception.throw("p_test_r_dsp_lines_2")
+  else
+    true.
+
 
 %% P_TEST
 
@@ -1743,6 +2068,17 @@ p_test(!IO) :-
   p_test_r_txt_units_3,
   p_test_r_txt_units_4,
   p_test_r_txt_units_5,
+  p_test_r_dsp_units_1,
+  p_test_r_dsp_units_2,
+  p_test_r_dsp_units_3,
+  p_test_r_dsp_line_1,
+  p_test_r_dsp_line_2,
+  p_test_r_dsp_line_3,
+  p_test_r_dsp_line_4,
+  p_test_r_dsp_line_5,
+  p_test_r_dsp_line_6,
+  p_test_r_dsp_lines_1,
+  p_test_r_dsp_lines_2,
   p_test_r_blk_txt_1,
   p_test_r_blk_txt_2,
   p_test_r_blk_txt_3,
@@ -1756,6 +2092,7 @@ p_test(!IO) :-
   p_test_r_blks_3,
   p_test_r_blks_4,
   p_test_r_blks_5,
+  p_test_r_blks_6,
   p_test_r_blk_blt_1,
   p_test_r_blk_blt_2,
   p_test_r_blk_blt_3,
@@ -1782,6 +2119,8 @@ p_test(!IO) :-
   p_test_r_blk_itm_2,
   p_test_r_blk_itm_3,
   p_test_r_blk_itm_4,
+  p_test_r_blk_dsp_1,
+  p_test_r_blk_dsp_2,
   p_test_r_doc_main_1,
   p_test_r_doc_main_2(!IO),
   term_to_xml.write_xml_doc(
@@ -1993,6 +2332,71 @@ p_test(!IO) :-
         [
           c_blk_txt([c_txt_unit_wysiwyg("hej")]),
           c_blk_txt([c_txt_unit_wysiwyg("haj")])
+        ]
+      ))
+    ]),
+    !IO
+  ),
+  io.write_string("\n",!IO),
+  term_to_xml.write_xml_doc(io.stdout_stream,c_dsp_unit_wysiwyg("HEJ!"),!IO),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name")))),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_dsp_line(
+      maybe.yes(c_lbl_auto),
+      maybe.yes(c_tag_or_id_tag(c_tag("DSP"))),
+      [
+        c_dsp_unit_wysiwyg("HEJ!"),
+        c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
+      ]
+    ),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_blk_dsp([
+      c_dsp_line(
+        maybe.yes(c_lbl_auto),
+        maybe.yes(c_tag_or_id_tag(c_tag("DSP"))),
+        [
+          c_dsp_unit_wysiwyg("HEJ!"),
+          c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
+        ]
+      ),
+      c_dsp_line(
+        maybe.yes(c_lbl_auto),
+        maybe.yes(c_tag_or_id_tag(c_tag("DSP"))),
+        [
+          c_dsp_unit_wysiwyg("HEJ!"),
+          c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
+        ]
+      )
+    ]),
+    !IO
+  ),
+  term_to_xml.write_xml_doc(
+    io.stdout_stream,
+    c_doc_main_blks([
+      c_blk_itm(c_blk_itm(
+        c_lbl_auto,
+        maybe.no,
+        [
+          c_blk_txt([c_txt_unit_wysiwyg("hej")]),
+          c_blk_txt([c_txt_unit_wysiwyg("haj")]),
+          c_blk_dsp([
+            c_dsp_line(
+              maybe.yes(c_lbl_auto),
+              maybe.yes(c_tag_or_id_tag(c_tag("DSP"))),
+              [
+                c_dsp_unit_wysiwyg("HEJ!"),
+                c_dsp_unit_c_ref(c_c_ref(c_id(c_tag("DSP"),c_name("name"))))
+              ]
+            )
+          ])
         ]
       ))
     ]),

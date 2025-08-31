@@ -202,7 +202,8 @@
 :- type t_blk --->
   c_blk_txt(t_blk_txt);
   c_blk_blt(t_blk_blt);
-  c_blk_itm(t_blk_itm).
+  c_blk_itm(t_blk_itm);
+  c_blk_dsp(t_blk_dsp).
 
 :- type t_blks == list(t_blk).
 
@@ -229,12 +230,12 @@
 :- pred r_blk_blt(t_blk_blt, uint, t_valid_tags, t_tkns, t_tkns).
 :- mode r_blk_blt(out,       in,   in,           in,     out) is semidet.
 
-%%% T_BLK_ITM, R_BLK_ITM AND INSTANCE T_BLK_ITEM XMLABLE
+%%% T_BLK_ITM, R_BLK_ITM AND INSTANCE T_BLK_ITM XMLABLE
 
 :- type t_blk_itm ---> c_blk_itm(
-  fld_blk_itm_custom_lbl :: t_lbl,
-  fld_blk_itm_tag_or_id  :: maybe(t_tag_or_id),
-  fld_blk_itm_blks       :: t_blks
+  fld_blk_itm_lbl       :: t_lbl,
+  fld_blk_itm_tag_or_id :: maybe(t_tag_or_id),
+  fld_blk_itm_blks      :: t_blks
 ).
 
 :- instance term_to_xml.xmlable(t_blk_itm).
@@ -242,6 +243,33 @@
 % doc:                       LVL
 :- pred r_blk_itm(t_blk_itm, uint, t_valid_tags, t_tkns, t_tkns).
 :- mode r_blk_itm(out,       in,   in,           in,     out) is semidet.
+
+%%% T_BLK_DSP, R_BLK_DSP
+
+:- type t_blk_dsp == list(t_dsp_line).
+
+% doc:                       LVL
+:- pred r_blk_dsp(t_blk_dsp, uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_blk_dsp(out,       in,   in,           in,     out) is semidet.
+
+%%% T_DSP_LINE, R_DSP_LINE, R_DSP_LINES AND T_DSP_LINE XMLABLE
+
+:- type t_dsp_line ---> c_dsp_line(
+  fld_dsp_line_lbl       :: maybe(t_lbl),
+  fld_dsp_line_tag_or_id :: maybe(t_tag_or_id),
+  fld_dsp_line_units     :: list(t_dsp_unit)
+).
+
+:- instance term_to_xml.xmlable(t_dsp_line).
+
+:- pred r_dsp_line(t_dsp_line, t_valid_tags, t_tkns, t_tkns).
+:- mode r_dsp_line(out,        in,           in,     out) is semidet.
+
+% doc:                                LVL
+:- pred r_dsp_lines(list(t_dsp_line), uint, t_valid_tags, t_tkns, t_tkns).
+:- mode r_dsp_lines(
+                    out,              in,   in,           in,     out
+) is semidet.
 
 %%% T_HDR, R_HDR AND INSTANCE T_HDR XMLABLE
 
@@ -325,6 +353,23 @@
 % doc:                                LVL   VALID_TAGS
 :- pred r_txt_units(list(t_txt_unit), uint, strs,      t_tkns, t_tkns).
 :- mode r_txt_units(out,              in,   in,        in,     out) is semidet.
+
+%%% T_DSP_UNIT, R_DSP_UNIT, R_DSP_UNITS AND T_DSP_UNIT XMLABLE
+
+:- type t_dsp_unit --->
+  c_dsp_unit_wysiwyg(str);
+  c_dsp_unit_emph(str);
+  c_dsp_unit_c_ref(t_c_ref).
+
+:- instance term_to_xml.xmlable(t_dsp_unit).
+
+% doc:                         VALID_TAGS
+:- pred r_dsp_unit(t_dsp_unit, strs,      t_tkns, t_tkns).
+:- mode r_dsp_unit(out,        in,        in,     out) is semidet.
+
+% doc:                                VALID_TAGS
+:- pred r_dsp_units(list(t_dsp_unit), strs,      t_tkns, t_tkns).
+:- mode r_dsp_units(out,              in,        in,     out) is semidet.
 
 
 
@@ -575,10 +620,16 @@ f_par_to_xml(c_par(maybe.no,maybe.no,BLKS)) =
 
 %%% R_BLK AND R_BLKS AND INSTANCE T_BLK XMLABLE
 
+%%%% R_BLK
+
 r_blk(BLK,LVL,VALID_TAGS) -->
   r_blk_txt(BLK_TXT,LVL,VALID_TAGS) -> {BLK = c_blk_txt(BLK_TXT)};
   r_blk_blt(BLK_BLT,LVL,VALID_TAGS) -> {BLK = c_blk_blt(BLK_BLT)};
+  r_blk_itm(BLK_ITM,LVL,VALID_TAGS) -> {BLK = c_blk_itm(BLK_ITM)};
+  r_blk_dsp(BLK_DSP,LVL,VALID_TAGS) -> {BLK = c_blk_dsp(BLK_DSP)};
                                        {false}.
+
+%%%% R_BLKS
 
 r_blks(BLKS,LVL,VALID_TAGS) -->
   r_blk(BLK,LVL,VALID_TAGS),
@@ -587,6 +638,8 @@ r_blks(BLKS,LVL,VALID_TAGS) -->
                                                         {BLKS = [BLK]}
   ).
 
+%%%% INSTANCE XMLABLE
+
 :- instance term_to_xml.xmlable(t_blk) where [
   func(to_xml/1) is f_blk_to_xml
 ].
@@ -594,17 +647,13 @@ r_blks(BLKS,LVL,VALID_TAGS) -->
 :- func
   f_blk_to_xml(t_blk::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
   is det.
-f_blk_to_xml(c_blk_txt(UNITS)) = term_to_xml.elem(
-  "c_blk_txt",
-  [],
-  list.map(f_txt_unit_to_xml,UNITS)
-).
-f_blk_to_xml(c_blk_blt(BLKS)) = term_to_xml.elem(
-  "c_blk_blt",
-  [],
-  list.map(f_blk_to_xml,BLKS)
-).
-f_blk_to_xml(c_blk_itm(ITM)) = f_blk_itm_to_xml(ITM).
+f_blk_to_xml(c_blk_txt(UNITS)) =
+  term_to_xml.elem("c_blk_txt",[],list.map(f_txt_unit_to_xml,UNITS)).
+f_blk_to_xml(c_blk_blt(BLKS))  =
+  term_to_xml.elem("c_blk_blt",[],list.map(f_blk_to_xml,BLKS)).
+f_blk_to_xml(c_blk_itm(ITM))   = f_blk_itm_to_xml(ITM).
+f_blk_to_xml(c_blk_dsp(LINES)) =
+  term_to_xml.elem("c_blk_dsp",[],list.map(f_dsp_line_to_xml,LINES)).
 
 %%% R_BLK_TXT
 
@@ -641,7 +690,7 @@ r_blk_blt(BLKS,LVL,VALID_TAGS) -->
 
 %%% R_BLK_ITM AND INSTANCE T_BLK_ITM XMLABLE
 
-%%%% R_BLK_ITEM
+%%%% R_BLK_ITM
 
 r_blk_itm(c_blk_itm(LBL,MAYBE_TAG_OR_ID,BLKS),LVL,VALID_TAGS) -->
   {VALID_ITM_TAGS = fld_valid_tags_itm(VALID_TAGS)},
@@ -680,6 +729,111 @@ f_blk_itm_to_xml(c_blk_itm(LBL,maybe.no,BLKS)) = term_to_xml.elem(
   [],
   [f_lbl_to_xml(LBL)]++list.map(f_blk_to_xml,BLKS)
 ).
+
+%%% R_BLK_DSP
+
+r_blk_dsp(BLK,LVL,VALID_TAGS) --> r_dsp_lines(BLK,LVL,VALID_TAGS).
+
+%%% R_DSP_LINE, R_DSP_LINES AND T_DSP_LINE XMLABLE
+
+%%%% XMLABLE
+
+:- instance term_to_xml.xmlable(t_dsp_line) where [
+  func(to_xml/1) is f_dsp_line_to_xml
+].
+
+:- func
+  f_dsp_line_to_xml(t_dsp_line::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_dsp_line_to_xml(
+  c_dsp_line(maybe.yes(LBL),maybe.yes(c_tag_or_id_tag(TAG)),UNITS)
+) =
+  term_to_xml.elem(
+    "c_dsp_line",
+    [],
+    [f_lbl_to_xml(LBL),f_tag_to_xml(TAG)]++list.map(f_dsp_unit_to_xml,UNITS)
+  ).
+f_dsp_line_to_xml(
+  c_dsp_line(maybe.yes(LBL),maybe.yes(c_tag_or_id_id(ID)),UNITS)) =
+  term_to_xml.elem(
+    "c_dsp_line",
+    [],
+    [f_lbl_to_xml(LBL),f_id_to_xml(ID)]++list.map(f_dsp_unit_to_xml,UNITS)
+  ).
+f_dsp_line_to_xml(c_dsp_line(maybe.yes(LBL),maybe.no,UNITS)) =
+  term_to_xml.elem(
+    "c_dsp_line",
+    [],
+    [f_lbl_to_xml(LBL)]++list.map(f_dsp_unit_to_xml,UNITS)
+  ).
+f_dsp_line_to_xml(c_dsp_line(maybe.no,maybe.yes(c_tag_or_id_tag(TAG)),UNITS)) =
+  term_to_xml.elem(
+    "c_dsp_line",
+    [],
+    [f_tag_to_xml(TAG)]++list.map(f_dsp_unit_to_xml,UNITS)
+  ).
+f_dsp_line_to_xml(c_dsp_line(maybe.no,maybe.yes(c_tag_or_id_id(ID)),UNITS)) =
+  term_to_xml.elem(
+    "c_dsp_line",
+    [],
+    [f_id_to_xml(ID)]++list.map(f_dsp_unit_to_xml,UNITS)
+  ).
+f_dsp_line_to_xml(c_dsp_line(maybe.no,maybe.no,UNITS)) =
+  term_to_xml.elem(
+    "c_dsp_line",
+    [],
+    list.map(f_dsp_unit_to_xml,UNITS)
+  ).
+
+%%%% R_DSP_LINE
+
+:- pred r_dsp_line_type_1(t_dsp_line, t_valid_tags, t_tkns, t_tkns).
+:- mode r_dsp_line_type_1(out,        in,           in,     out) is semidet.
+r_dsp_line_type_1(c_dsp_line(maybe.no,maybe.no,UNITS),VALID_TAGS) -->
+  {ALL_VALID_TAGS = f_all_valid_tags(VALID_TAGS)},
+  r_tab, r_dsp_units(UNITS,ALL_VALID_TAGS),
+  (
+    +r_tab, r_str("DSP") -> {true};
+                            []
+  ),
+  r_lb.
+
+:- pred r_dsp_line_type_2(t_dsp_line, t_valid_tags, t_tkns, t_tkns).
+:- mode r_dsp_line_type_2(out,        in,           in,     out) is semidet.
+r_dsp_line_type_2(
+  c_dsp_line(maybe.yes(LBL),MAYBE_TAG_OR_ID,UNITS),VALID_TAGS
+) -->
+  {ALL_VALID_TAGS = f_all_valid_tags(VALID_TAGS)},
+  {VALID_DSP_TAGS = fld_valid_tags_dsp(VALID_TAGS)},
+  r_str("("),
+  r_lbl(LBL),
+  r_str(")"),
+  r_tab,
+  r_dsp_units(UNITS,ALL_VALID_TAGS),
+  (
+    if +r_tab, r_tag_or_id(TAG_OR_ID,VALID_DSP_TAGS) then
+      {MAYBE_TAG_OR_ID = maybe.yes(TAG_OR_ID)}
+    else
+      {MAYBE_TAG_OR_ID = maybe.no}
+  ),
+  r_lb.
+
+r_dsp_line(DSP_LINE,VALID_TAGS) --> (
+  r_dsp_line_type_1(DSP_LINE_,VALID_TAGS) -> {DSP_LINE = DSP_LINE_};
+  r_dsp_line_type_2(DSP_LINE_,VALID_TAGS) -> {DSP_LINE = DSP_LINE_};
+                                             {false}
+).
+
+%%%% R_DSP_LINES
+
+r_dsp_lines(LINES,LVL,VALID_TAGS) -->
+  r_dsp_line(LINE,VALID_TAGS),
+  (
+    r_tabs(LVL), r_dsp_lines(LINES_,LVL,VALID_TAGS) -> {LINES = [LINE]++LINES_};
+                                                       {LINES = [LINE]}
+  ).
 
 %%% R_HDR
 
@@ -788,7 +942,7 @@ r_lbl(LBL) --> (
                                     {LBL = c_lbl_auto}
 ).
 
-%%%% INSTANCE T_LBL XMAMBLE
+%%%% INSTANCE T_LBL XMLAMBLE
 
 :- instance term_to_xml.xmlable(t_lbl) where [
   func(to_xml/1) is f_lbl_to_xml
@@ -863,11 +1017,10 @@ r_txt_unit_emph(        S,        LVL) -->
 :- pred r_txt_unit_emph_content(str, uint, t_tkns, t_tkns).
 :- mode r_txt_unit_emph_content(out, in,   in,     out) is semidet.
 r_txt_unit_emph_content(        S,   LVL) -->
-  r(c_r_nws_sps,["*"],S_),
+  r(c_r_any,["*"],S_),
   (
-    r_lb, r_tabs(LVL) ->
-      r_txt_unit_emph_content(S__,LVL), {S = S_ ++ " " ++ S__};
-      {S = S_}
+    r_lb, r_tabs(LVL) -> r_txt_unit_emph_content(S__,LVL), {S = S_++" "++S__};
+    {S = S_}
   ).
 
 %%%% R_TXT_UNIT_WYSIWYG
@@ -878,8 +1031,58 @@ r_txt_unit_wysiwyg(        S,   VALID_TAGS) -->
   not r_tab,
   not r_lb,
   not r_c_ref(_,VALID_TAGS),
-  r_c(CHR),
+  r_c(c_r_any,CHR),
   (
     r_txt_unit_wysiwyg(S_,VALID_TAGS) -> {S = string.append(chr2str(CHR),S_)};
                                          {S = chr2str(CHR)}
   ).
+
+%%% R_DSP_UNIT AND R_DSP_UNITS AND INSTANCE T_DSP_UNIT XMLABLE
+
+%%%% INSTANCE T_DSP_UNIT XMLABLE
+
+:- instance term_to_xml.xmlable(t_dsp_unit) where [
+  func(to_xml/1) is f_dsp_unit_to_xml
+].
+
+:- func
+  f_dsp_unit_to_xml(t_dsp_unit::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_dsp_unit_to_xml(c_dsp_unit_c_ref(C_REF)) =
+  term_to_xml.elem("c_dsp_unit_c_ref",[],[f_c_ref_to_xml(C_REF)]).
+f_dsp_unit_to_xml(c_dsp_unit_wysiwyg(STR)) =
+  term_to_xml.elem("c_dsp_unit_wysiwyg",[],[term_to_xml.data(STR)]).
+f_dsp_unit_to_xml(c_dsp_unit_emph(STR)) =
+  term_to_xml.elem("c_dsp_unit_emph",[],[term_to_xml.data(STR)]).
+
+%%%% R_DSP_UNIT
+
+r_dsp_unit(UNIT,VALID_TAGS) -->
+  r_c_ref(CR,VALID_TAGS)           -> {UNIT = c_dsp_unit_c_ref(CR)};
+  r_dsp_unit_emph(S)               -> {UNIT = c_dsp_unit_emph(S)};
+  r_dsp_unit_wysiwyg(S,VALID_TAGS) -> {UNIT = c_dsp_unit_wysiwyg(S)};
+                                      {false}.
+
+%%%% R_DSP_UNITS
+
+r_dsp_units(US,VALID_TAGS) -->
+  r_dsp_unit(U,VALID_TAGS),
+  (
+    r_dsp_units(US_,VALID_TAGS) -> {US = [U]++US_};
+                                   {US = [U]}
+  ).
+
+%%%% R_DSP_UNIT_EMPH
+
+:- pred r_dsp_unit_emph(str::out, t_tkns::in, t_tkns::out) is semidet.
+r_dsp_unit_emph(        S) -->
+  r_str("*"), r(c_r_any,["*"],S), r_str("*").
+
+%%%% R_DSP_UNIT_WYSIWYG
+
+:- pred r_dsp_unit_wysiwyg(str, strs, t_tkns, t_tkns).
+:- mode r_dsp_unit_wysiwyg(out, in,   in,     out) is semidet.
+r_dsp_unit_wysiwyg(        S,   VALID_TAGS) -->
+  r_txt_unit_wysiwyg(S,VALID_TAGS).
