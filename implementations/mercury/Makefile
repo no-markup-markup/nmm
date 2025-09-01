@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test
+.PHONY: default clean nmm.cli test
 
 default:
 	@echo 'no default target'
@@ -14,6 +14,8 @@ clean:
 	# remove anything in .gitignore, including directories
 	git clean -fdX
 
-test:
-	mmc --make --warn-inconsistent-pred-order-clauses --warn-dead-preds --warn-dead-procs --inform-ite-instead-of-switch nmm.test
-	./nmm.test
+nmm.cli:
+	mmc --make --warn-inconsistent-pred-order-clauses --warn-dead-preds --warn-dead-procs --inform-ite-instead-of-switch nmm.cli
+
+test: nmm.cli
+	./nmm.cli test

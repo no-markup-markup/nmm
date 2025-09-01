@@ -2,12 +2,16 @@
 
 % INTERFACE
 
+%% INTERFACE DECLARATION
+
 :- interface.
 
 
 %% SUBMODULES
 
 :- include_module
+  nmm.cli
+  ,
   nmm.lexer
   ,
   nmm.parser

@@ -11,9 +11,9 @@
 :- use_module io.
 
 
-%% PREDICATE P_TEST
+%% PREDICATE P
 
-:- pred p_test(io.io::di,io.io::uo) is det.
+:- pred p(io.io::di,io.io::uo) is det.
 
 
 
@@ -29,9 +29,9 @@
 :- use_module nmm.lexer.
 
 
-%% P_TEST
+%% P
 
-p_test(!IO) :-
+p(!IO) :-
   io.read_named_file_as_string(
     "../../example_sources/blks_nested_blts_w_escs.nmm",
     RES,

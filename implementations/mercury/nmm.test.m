@@ -2,6 +2,8 @@
 
 % INTERFACE
 
+%% INTERFACE DECLARATION
+
 :- interface.
 
 
@@ -10,9 +12,9 @@
 :- use_module io.
 
 
-%% MAIN
+%% P
 
-:- pred main(io.io::di,io.io::uo) is det.
+:- pred p(io.io::di,io.io::uo) is det.
 
 
 
@@ -26,8 +28,8 @@
   nmm.parser, nmm.parser.test
   .
 
-main(!IO) :-
-  nmm.lexer.test.p_test(!IO)
+p(!IO) :-
+  nmm.lexer.test.p(!IO)
   ,
-  nmm.parser.test.p_test(!IO)
+  nmm.parser.test.p(!IO)
   .

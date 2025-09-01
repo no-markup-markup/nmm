@@ -12,9 +12,9 @@
 :- use_module io.
 
 
-%% P_TEST
+%% PREDICATE P
 
-:- pred p_test(io.io::di,io.io::uo) is det.
+:- pred p(io.io::di,io.io::uo) is det.
 
 
 
@@ -2011,9 +2011,9 @@ p_test_r_dsp_lines_2 :-
     true.
 
 
-%% P_TEST
+%% P
 
-p_test(!IO) :-
+p(!IO) :-
   p_test_r_1,
   p_test_r_2,
   p_test_r_3,

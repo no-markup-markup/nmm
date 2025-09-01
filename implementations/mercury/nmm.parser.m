@@ -9,9 +9,7 @@
 
 %% SUBMODULES
 
-:- include_module
-  parser.test
-  .
+:- include_module parser.test.
 
 
 %% MODULE IMPORTS
@@ -536,6 +534,7 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN,VALID_TAGS) --> (
+  r_pars(PARS,   VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_pars(PARS)};
   r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
                                        {false}
 ).

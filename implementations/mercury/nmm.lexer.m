@@ -9,9 +9,7 @@
 
 %% SUBMODULES
 
-:- include_module
-  lexer.test
-  .
+:- include_module lexer.test.
 
 
 %% TYPE T_LINE_NO
@@ -30,6 +28,11 @@
   c_tkn_eof.
 
 :- type t_tkns == list(t_tkn).
+
+
+%% PREDICATE P_TKN_LINE_NO
+
+:- pred p_tkn_line_no(t_tkn::in,t_line_no::out) is semidet.
 
 
 %% TYPE T_TKNIZE_RES
@@ -52,11 +55,25 @@
 
 % IMPLEMENTATION
 
+%% IMPLEMENTATION DECLARATION
+
 :- implementation.
+
+
+%% MODULE IMPORTS
 
 :- import_module uint.
 
 :- use_module string.
+
+
+%% P_TKN_LINE_NO
+
+p_tkn_line_no(c_tkn_nws(LINE_NO,_),LINE_NO).
+p_tkn_line_no(c_tkn_sp( LINE_NO,_),LINE_NO).
+p_tkn_line_no(c_tkn_esc(LINE_NO,_),LINE_NO).
+p_tkn_line_no(c_tkn_tab(LINE_NO),  LINE_NO).
+p_tkn_line_no(c_tkn_lb( LINE_NO),  LINE_NO).
 
 
 %% F_TKNIZE
@@ -67,7 +84,7 @@ f_tknize(CHRS) = RES :-
   p_tknize(1u,CHRS,[],[],TKNS,ERRS),
   (
     if ERRS \= [] then
-      RES = c_tknize_res_err(string.join_list("\n",ERRS))
+      RES = c_tknize_res_err(string.join_list("\n",ERRS)++"\n")
     else
       RES = c_tknize_res_ok(TKNS)
   ).
