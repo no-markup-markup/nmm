@@ -218,13 +218,20 @@ p_parse(        FILE_PATH, !IO) :-
   ).
 
 
+%% P_TEST
+
+:- pred p_test(io.io::di, io.io::uo) is det.
+p_test(!IO) :-
+  io.set_exit_status(1,!IO),
+  io.write_string(io.stderr_stream,"TODO!\n",!IO).
+
 %% MAIN
 
 main(!IO) :-
   io.command_line_arguments(ARGS,!IO),
   (
     ARGS = ["nmm2xml",FILE_PATH_AS_STR] -> p_parse(FILE_PATH_AS_STR,!IO);
-    ARGS = ["test"]                     -> io.write_string("TODO!\n",!IO);
+    ARGS = ["test"]                     -> p_test(!IO);
     ARGS = ["-h"]                       -> p_write_usage(!IO);
     ARGS = ["--help"]                   -> p_write_usage(!IO);
                                            p_write_usage(!IO)
