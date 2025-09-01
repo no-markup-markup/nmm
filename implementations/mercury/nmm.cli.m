@@ -147,6 +147,9 @@ k_valid_tags = VALID_TAGS :-
 p_parse_as_far_as_possible(
   TKNS,   LINE_NO_BEFORE_FAIL, DOC_MAIN
 ) :- (
+  % remove one token at a time from end of source, until parsing succeeds
+  % this is very inefficient
+  % a binary search for longest possible parsing ought to be performed instead
   list.last(TKNS,LAST_TKN),
   (
     if (
