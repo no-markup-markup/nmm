@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test
+.PHONY: default clean test bin
 
 default:
 	@echo 'no default target'
@@ -19,4 +19,9 @@ clean:
 test:
 	cd implementations
 	make test
+	cd -
+
+bin:
+	cd bin
+	make
 	cd -
