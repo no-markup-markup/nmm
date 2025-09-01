@@ -15,6 +15,9 @@ clean:
 	cd implementations
 	make clean
 	cd -
+	cd bin
+	make clean
+	cd -
 
 test:
 	cd implementations
