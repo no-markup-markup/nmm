@@ -178,7 +178,7 @@ p_handle_parse_failure(        TKNS,       !IO) :-
       ++
       "Trying to parse as far as possible.\n"
       ++
-      "This may take a while (slow implementation because of laziness).\n"
+      "This may take a while (slow implementation because of lazy developer).\n"
     ),
     !IO
   ),
