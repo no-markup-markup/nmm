@@ -166,6 +166,7 @@
 %%% T_DOC_MAIN, R_DOC_MAIN AND INSTANCE T_DOC_MAIN XMLABLE
 
 :- type t_doc_main --->
+  c_doc_main_secs(list(t_sec));
   c_doc_main_pars(list(t_par));
   c_doc_main_blks(list(t_blk)).
 
@@ -179,6 +180,22 @@
 :- type t_doc_refs == list(t_blk).
 
  %% :- pred r_doc_refs(t_doc_refs, t_tkns::in, t_tkns::out).
+
+%%% T_SEC, R_SEC, R_SECS AND INSTANCE T_SEC XMLABLE
+
+:- type t_sec ---> c_sec(
+  fld_sec_tag_or_id :: maybe(t_tag_or_id),
+  fld_sec_hdr       :: maybe(t_hdr),
+  fld_sec_blks      :: list(t_blk),
+  fld_sec_pars      :: list(t_par)
+).
+
+:- instance term_to_xml.xmlable(t_sec).
+
+:- pred r_sec(t_sec::out, t_valid_tags::in, t_tkns::in, t_tkns::out) is semidet.
+
+:- pred r_secs(list(t_sec), t_valid_tags, t_tkns, t_tkns).
+:- mode r_secs(out,         in,           in,     out) is semidet.
 
 %%% T_PAR, R_PAR, R_PARS AND INSTANCE T_PAR XMLABLE
 
@@ -534,6 +551,7 @@ r_eof --> [nmm.lexer.c_tkn_eof].
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN,VALID_TAGS) --> (
+  r_secs(SECS,   VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_secs(SECS)};
   r_pars(PARS,   VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_pars(PARS)};
   r_blks(BLKS,0u,VALID_TAGS), r_eof -> {DOC_MAIN = c_doc_main_blks(BLKS)};
                                        {false}
@@ -548,11 +566,110 @@ r_doc_main(DOC_MAIN,VALID_TAGS) --> (
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
   is det.
+f_doc_main_to_xml(c_doc_main_secs(SECS)) =
+  term_to_xml.elem("c_doc_main_secs",[],list.map(f_sec_to_xml,SECS)).
 f_doc_main_to_xml(c_doc_main_pars(PARS)) =
   term_to_xml.elem("c_doc_main_pars",[],list.map(f_par_to_xml,PARS)).
 f_doc_main_to_xml(c_doc_main_blks(BLKS)) =
   term_to_xml.elem("c_doc_main_blks",[],list.map(f_blk_to_xml,BLKS)).
 
+
+%%% R_SEC AND R_SECS AND T_SEC XMLABLE
+
+%%%% R_SEC
+
+r_sec(c_sec(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS,PARS),VALID_TAGS) -->
+  {
+    VALID_SEC_TAGS =
+      fld_valid_tags_sec(VALID_TAGS)++fld_valid_tags_app(VALID_TAGS)
+  },
+  r_c('§'),
+  *(r_sp),
+  r_maybe_tag_or_id(MAYBE_TAG_OR_ID,VALID_SEC_TAGS),
+  r_lb,
+  r_maybe_hdr(MAYBE_HDR,VALID_TAGS),
+  +(r_lb),
+  (
+    r_blks(BLKS_,0u,VALID_TAGS), +(r_lb), r_pars(PARS_,VALID_TAGS) -> (
+      {BLKS = BLKS_, PARS = PARS_}
+    );
+                                          r_pars(PARS_,VALID_TAGS) -> (
+      {BLKS = [],    PARS = PARS_}
+    );
+    r_blks(BLKS_,0u,VALID_TAGS)                                    -> (
+      {BLKS = BLKS_, PARS = []}
+    );
+    {false}
+  ).
+
+%%%% R_SECS
+
+r_secs(SECS,VALID_TAGS) -->
+  r_sec(SEC,VALID_TAGS),
+  (
+    +r_lb, r_secs(SECS_,VALID_TAGS) -> {SECS = [SEC]++SECS_};
+                                       {SECS = [SEC]}
+  ).
+
+%%%% XMLABLE
+
+:- instance term_to_xml.xmlable(t_sec) where [
+  func(to_xml/1) is f_sec_to_xml
+].
+
+:- func
+  f_sec_to_xml(t_sec::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  is det.
+f_sec_to_xml(c_sec(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS,PARS)) = XML :- (
+  (
+    (
+      MAYBE_TAG_OR_ID    = maybe.yes(c_tag_or_id_id(ID)),
+      XML_TAG_OR_ID_LIST = [f_id_to_xml(ID)],
+      c_tag(TAG_STR)     = fld_id_tag(ID),
+      (
+        TAG_STR = "APP" -> XML_CONSTRUCTOR_STR = "c_app";
+                           XML_CONSTRUCTOR_STR = "c_sec"
+      )
+    );
+    (
+      MAYBE_TAG_OR_ID    = maybe.yes(c_tag_or_id_tag(TAG)),
+      XML_TAG_OR_ID_LIST = [f_tag_to_xml(TAG)],
+      c_tag(TAG_STR)     = TAG,
+      (
+        TAG_STR = "APP" -> XML_CONSTRUCTOR_STR = "c_app";
+                           XML_CONSTRUCTOR_STR = "c_sec"
+      )
+    );
+    (
+      MAYBE_TAG_OR_ID     = maybe.no,
+      XML_TAG_OR_ID_LIST  = [],
+      XML_CONSTRUCTOR_STR = "c_sec"
+    )
+  ),
+  (
+    (
+      MAYBE_HDR    = maybe.yes(HDR),
+      XML_HDR_LIST = [f_hdr_to_xml(HDR)]
+    );
+    (
+      MAYBE_HDR    = maybe.no,
+      XML_HDR_LIST = []
+    )
+  ),
+  XML = term_to_xml.elem(
+    XML_CONSTRUCTOR_STR,
+    [],
+    (
+      XML_TAG_OR_ID_LIST
+      ++
+      XML_HDR_LIST
+      ++
+      list.map(f_blk_to_xml,BLKS)
+      ++
+      list.map(f_par_to_xml,PARS)
+    )
+  )
+).
 
 %%% R_PAR AND R_PARS AND T_PAR XMLABLE
 
