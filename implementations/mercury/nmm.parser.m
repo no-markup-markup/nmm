@@ -416,20 +416,30 @@ f_all_valid_tags(VALID_TAGS) = list.condense([
 
 f_validate_conf(CONF) = RES :-
   (
-    if not      p_valid_tags(fld_conf_extra_ch_tags( CONF)) then
+    if (
+      SEC_TAGS = ["SEC"] ++ fld_conf_extra_sec_tags(CONF),
+      APP_TAGS = ["APP"] ++ fld_conf_extra_app_tags(CONF),
+      list.any_true(
+        (pred(TAG::in) is semidet :- list.member(TAG,APP_TAGS)),
+        SEC_TAGS
+      )
+    ) then (
+      RES = c_validate_conf_res_err("chapter and appendix tags intersect")
+    ) else if not p_valid_tags(fld_conf_extra_ch_tags( CONF)) then (
       RES = c_validate_conf_res_err("invalid chapter tags")
-    else if not p_valid_tags(fld_conf_extra_sec_tags(CONF)) then
+    ) else if not p_valid_tags(fld_conf_extra_sec_tags(CONF)) then (
       RES = c_validate_conf_res_err("invalid section tags")
-    else if not p_valid_tags(fld_conf_extra_app_tags(CONF)) then
+    ) else if not p_valid_tags(fld_conf_extra_app_tags(CONF)) then (
       RES = c_validate_conf_res_err("invalid appendix tags")
-    else if not p_valid_tags(fld_conf_extra_par_tags(CONF)) then
+    ) else if not p_valid_tags(fld_conf_extra_par_tags(CONF)) then (
       RES = c_validate_conf_res_err("invalid paragraph tags")
-    else if not p_valid_tags(fld_conf_extra_itm_tags(CONF)) then
+    ) else if not p_valid_tags(fld_conf_extra_itm_tags(CONF)) then (
       RES = c_validate_conf_res_err("invalid item tags")
-    else if not p_valid_tags(fld_conf_extra_dsp_tags(CONF)) then
+    ) else if not p_valid_tags(fld_conf_extra_dsp_tags(CONF)) then (
       RES = c_validate_conf_res_err("invalid displayed tags")
-    else
+    ) else (
       RES = c_validate_conf_res_ok
+    )
   ).
 
 %%% HELPER P_VALID_TAGS

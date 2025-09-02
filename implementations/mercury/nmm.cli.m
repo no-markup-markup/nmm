@@ -50,8 +50,8 @@
 p_write_usage(!IO) :-
   io.progname_base("nmm-mercury",BIN_NAME,!IO),
   io.write_string("Usages:\n",                                        !IO),
-  io.write_string("  " ++ BIN_NAME ++ " test\n",                      !IO),
   io.write_string("  " ++ BIN_NAME ++ " nmm2xml path-to-nmm-source\n",!IO),
+  io.write_string("  " ++ BIN_NAME ++ " test\n",                      !IO),
   io.write_string("  " ++ BIN_NAME ++ " version\n",                   !IO),
   io.write_string("  " ++ BIN_NAME ++ " --version\n",                 !IO),
   io.write_string("  " ++ BIN_NAME ++ " help\n",                      !IO),

@@ -6,36 +6,36 @@
 
   - Names of simple types begin with ‘ts_’.
 
-  - If ‘ts_’⌒name is the name of a simple type then the name of its single
-    constructor is ‘cs_’⌒name.
+  - If ‘ts_’⌒ν is the name of a simple type then the name of its single
+    constructor is ‘cs_’⌒ν.
 
 - *An enum type is* an inductive type with multiple constructors, each
   non-inductive and with no more than one argument.
 
   - Names of enum types begin with ‘te_’.
 
-  - If ‘te_’⌒name is the name of an enum type then the name of each of its
-    constructors begins with ‘ce_’⌒name⌒‘_’.
+  - If ‘te_’⌒ν is the name of an enum type then the name of each of its
+    constructors begins with ‘ce_’⌒ν⌒‘_’.
 
-- *A record type is* an inductive type with a single non-inductive constructors
-  taking more multiple arguments. The arguments may be accessed by pattern
-  matching as usual, but also by *the field functions for the* record type.
+- *A record type is* an inductive type with a single non-inductive constructor
+  taking multiple arguments. The arguments may be accessed by pattern matching
+  as usual, but also by *the field functions for the* record type.
 
   - Names of record types begin with ‘tr_’.
 
-  - If ‘tr_’⌒name is the name of a record type then:
+  - If ‘tr_’⌒ν is the name of a record type then:
 
-    - The name of the constructor of the record type begins with ‘cr_’⌒name.
+    - The name of the constructor of the record type begins with ‘cr_’⌒ν.
 
-    - Each field function of the record type begins with ‘fld_’⌒name⌒‘_’.
+    - Each field function of the record type begins with ‘fld_’⌒ν⌒‘_’.
 
 - *An inductive type is* an inductive type with at least one properly inductive
   constructor.
 
   - Names of inductive types begin with ‘ti_’.
 
-  - If ‘ti_’⌒name is the name of a simple type then the name of each of its
-    constructors start with ‘ci_’⌒name.
+  - If ‘ti_’⌒ν is the name of a simple type then the name of each of its
+    constructors start with ‘ci_’⌒ν.
 *)
 
 (* we assume a string type *)
@@ -77,7 +77,7 @@ Inductive te_lbl : Type :=
 Record tr_dsp_line : Type := cr_dsp_line {
   fld_dsp_line_lbl       : option te_lbl;
   fld_dsp_line_tag_or_id : option te_tag_or_id;
-  fld_dsp_line_units     : option (list te_txt_unit);
+  fld_dsp_line_units     : list te_txt_unit;
 }.
 
 (*  constructors cr_blk_itm and cr_blk_dsp does not pass positivity checking,
