@@ -50,10 +50,13 @@
 p_write_usage(!IO) :-
   io.progname_base("nmm-mercury",BIN_NAME,!IO),
   io.write_string("Usages:\n",                                        !IO),
-  io.write_string("  " ++ BIN_NAME ++ " -h\n",                        !IO),
-  io.write_string("  " ++ BIN_NAME ++ " --help\n",                    !IO),
   io.write_string("  " ++ BIN_NAME ++ " test\n",                      !IO),
-  io.write_string("  " ++ BIN_NAME ++ " nmm2xml path-to-nmm-source\n",!IO).
+  io.write_string("  " ++ BIN_NAME ++ " nmm2xml path-to-nmm-source\n",!IO),
+  io.write_string("  " ++ BIN_NAME ++ " version\n",                   !IO),
+  io.write_string("  " ++ BIN_NAME ++ " --version\n",                 !IO),
+  io.write_string("  " ++ BIN_NAME ++ " help\n",                      !IO),
+  io.write_string("  " ++ BIN_NAME ++ " -h\n",                        !IO),
+  io.write_string("  " ++ BIN_NAME ++ " --help\n",                    !IO).
 
 
 %% P_PARSE
@@ -228,6 +231,13 @@ p_test(!IO) :-
   io.set_exit_status(1,!IO),
   io.write_string(io.stderr_stream,"TODO!\n",!IO).
 
+%% P_WRITE_VERSION
+
+:- pred p_write_version(io.io::di, io.io::uo) is det.
+p_write_version(!IO) :-
+  io.write_string(io.stderr_stream,"-1\n",!IO).
+
+
 %% MAIN
 
 main(!IO) :-
@@ -235,6 +245,9 @@ main(!IO) :-
   (
     ARGS = ["nmm2xml",FILE_PATH_AS_STR] -> p_parse(FILE_PATH_AS_STR,!IO);
     ARGS = ["test"]                     -> p_test(!IO);
+    ARGS = ["version"]                  -> p_write_version(!IO);
+    ARGS = ["--version"]                -> p_write_version(!IO);
+    ARGS = ["help"]                     -> p_write_usage(!IO);
     ARGS = ["-h"]                       -> p_write_usage(!IO);
     ARGS = ["--help"]                   -> p_write_usage(!IO);
                                            p_write_usage(!IO)
