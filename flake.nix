@@ -20,12 +20,25 @@
           pkgs         = nixpkgs.legacyPackages.${system};
           pkgs_common  = [pkgs.bash pkgs.gnumake];
           pkgs_mercury = [pkgs.mercury];
+          pkgs_rocq    = [pkgs.rocq-core_9_1];
           pkgs_ocaml   = []; # TODO
           pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
         in {
           devShells.default = pkgs.mkShell {
-            buildInputs =
-              pkgs_common ++ pkgs_mercury ++ pkgs_ocaml ++ pkgs_github;
+            buildInputs = (
+              pkgs_common
+              ++
+              pkgs_mercury
+              ++
+              pkgs_rocq
+              ++
+              pkgs_ocaml
+              ++
+              pkgs_github
+            );
+          };
+          devShells.rocq = pkgs.mkShell {
+            buildInputs = pkgs_common ++ pkgs_rocq;
           };
           devShells.mercury = pkgs.mkShell {
             buildInputs = pkgs_common ++ pkgs_mercury;
