@@ -91,10 +91,10 @@ Inductive
   | ce_blk_dsp : ts_blk_dsp -> te_blk
 with
   ts_blk_txt : Type :=
-  | cs_txt_blk : ts_txt_units ->                             ts_blk_txt
+  | cs_blk_txt : ts_txt_units ->                             ts_blk_txt
 with
   ts_blk_blt : Type :=
-  | cs_blt_blk : ts_blks ->                                  ts_blk_blt
+  | cs_blk_blt : ts_blks ->                                  ts_blk_blt
 with
   tr_blk_itm : Type :=
   | cr_blk_itm : te_lbl -> option te_tag_or_id -> ts_blks -> tr_blk_itm
