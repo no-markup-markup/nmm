@@ -53,17 +53,14 @@ Inductive te_tag_or_id : Type :=
 | ce_tag_or_id_id  : tr_id  -> te_tag_or_id
 .
 
-Record tr_c_ref : Type := cr_c_ref {
-  fld_c_ref_tag  : ts_tag;
-  fld_c_ref_name : ts_name;
-}.
+Inductive ts_c_ref : Type := cs_c_ref : tr_id -> ts_c_ref.
 
 Inductive ts_txt_unit_wysiwyg : Type :=
   cs_txt_unit_wysiwyg : t_str    -> ts_txt_unit_wysiwyg.
 Inductive ts_txt_unit_emph    : Type :=
   cs_txt_unit_emph    : t_str    -> ts_txt_unit_emph.
 Inductive ts_txt_unit_c_ref   : Type :=
-  cs_txt_unit_c_ref   : tr_c_ref -> ts_txt_unit_c_ref.
+  cs_txt_unit_c_ref   : ts_c_ref -> ts_txt_unit_c_ref.
 Inductive te_txt_unit :=
 | ce_txt_unit_wysiwyg : ts_txt_unit_wysiwyg -> te_txt_unit
 | ce_txt_unit_emph    : ts_txt_unit_emph    -> te_txt_unit
