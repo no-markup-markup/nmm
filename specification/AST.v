@@ -146,10 +146,10 @@ Inductive te_secs_pars_or_blks : Type :=
 .
 
 Record tr_ch : Type := cr_ch {
-  fld_ch_secs_tag_or_id : option te_tag_or_id;
-  fld_ch_secs_hdr       : option ts_hdr;
-  fld_ch_secs_intro     : option ts_blks;
-  fld_ch_secs_main      : te_secs_pars_or_blks;
+  fld_ch_tag_or_id : option te_tag_or_id;
+  fld_ch_hdr       : option ts_hdr;
+  fld_ch_intro     : option ts_blks;
+  fld_ch_main      : te_secs_pars_or_blks;
 }.
 Inductive ts_chs : Type := cs_chs : list tr_ch  -> ts_chs.
 
@@ -160,13 +160,13 @@ Inductive te_doc_main : Type :=
 | ce_doc_main_blks : ts_blks -> te_doc_main
 .
 
-Inductive ts_refs     : Type := cs_refs     : ts_blks          -> ts_refs.
+Inductive ts_refs     : Type := cs_refs     : ts_blks      -> ts_refs.
 
-Inductive ts_abstract : Type := cs_abstract : list ts_blk_txt  -> ts_abstract.
+Inductive ts_abstract : Type := cs_abstract : ts_blks      -> ts_abstract.
 
-Inductive ts_title    : Type := cs_title    : list te_txt_unit -> ts_title.
+Inductive ts_title    : Type := cs_title    : ts_txt_units -> ts_title.
 
-Inductive ts_preamble : Type := cs_preamble : t_str            -> ts_preamble.
+Inductive ts_preamble : Type := cs_preamble : t_str        -> ts_preamble.
 
 Record tr_doc : Type := cr_doc {
   fld_doc_preamble : option ts_preamble;
