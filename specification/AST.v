@@ -139,7 +139,7 @@ Inductive ts_secs : Type := cs_secs : list tr_sec -> ts_secs.
 Inductive te_secs_pars_or_blks : Type :=
 | ce_secs_pars_or_blks_pars : ts_pars -> te_secs_pars_or_blks
 | ce_secs_pars_or_blks_secs : ts_secs -> te_secs_pars_or_blks
-| cd_secs_pars_or_blks_blks : ts_blks -> te_secs_pars_or_blks
+| ce_secs_pars_or_blks_blks : ts_blks -> te_secs_pars_or_blks
 .
 
 Record tr_ch : Type := cr_ch {
