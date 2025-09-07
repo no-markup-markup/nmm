@@ -110,7 +110,7 @@ Definition fld_blk_itm_lbl       (blk_itm : tr_blk_itm) : te_lbl
   := match blk_itm with cr_blk_itm lbl _        _    => lbl       end.
 Definition fld_blk_itm_tag_or_id (blk_itm : tr_blk_itm) : option te_tag_or_id
   := match blk_itm with cr_blk_itm _  tag_or_id _    => tag_or_id end.
-Definition fld_blk_itm_blks      (blk_itm : tr_blk_itm) : ts_blks
+Definition fld_blk_itm_main      (blk_itm : tr_blk_itm) : ts_blks
   := match blk_itm with cr_blk_itm _  _         blks => blks      end.
 
 Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
@@ -130,14 +130,14 @@ Inductive te_pars_or_blks : Type :=
 Record tr_sec : Type := cr_sec {
   fld_sec_tag_or_id : option te_tag_or_id;
   fld_sec_hdr       : option ts_hdr;
-  fld_sec_intro     : ts_blks;
+  fld_sec_intro     : option ts_blks;
   fld_sec_main      : te_pars_or_blks;
 }.
 Inductive ts_secs : Type := cs_secs : list tr_sec -> ts_secs.
 
 Inductive te_secs_pars_or_blks : Type :=
-| ce_secs_pars_or_blks_pars : ts_pars -> te_secs_pars_or_blks
 | ce_secs_pars_or_blks_secs : ts_secs -> te_secs_pars_or_blks
+| ce_secs_pars_or_blks_pars : ts_pars -> te_secs_pars_or_blks
 | ce_secs_pars_or_blks_blks : ts_blks -> te_secs_pars_or_blks
 .
 
@@ -156,13 +156,13 @@ Inductive te_doc_main : Type :=
 | ce_doc_main_blks : ts_blks -> te_doc_main
 .
 
-Inductive ts_refs     : Type := cs_refs     : ts_blks      -> ts_refs.
+Inductive ts_refs     : Type := cs_refs     : ts_blks -> ts_refs.
 
-Inductive ts_abstract : Type := cs_abstract : ts_blks      -> ts_abstract.
+Inductive ts_abstract : Type := cs_abstract : ts_blks -> ts_abstract.
 
-Inductive ts_title    : Type := cs_title    : ts_txt_units -> ts_title.
+Inductive ts_title    : Type := cs_title    : t_str   -> ts_title.
 
-Inductive ts_preamble : Type := cs_preamble : t_str        -> ts_preamble.
+Inductive ts_preamble : Type := cs_preamble : t_str   -> ts_preamble.
 
 Record tr_doc : Type := cr_doc {
   fld_doc_preamble : option ts_preamble;
