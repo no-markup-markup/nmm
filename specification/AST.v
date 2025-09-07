@@ -1,25 +1,25 @@
 (*
   NAMING CONVENTIONS
 
-- *A simple type is* an inductive type with a single non-inductive constructor
-  taking one argument.
+- A *simple type* is a type with a single non-inductive constructor taking one
+  argument.
 
   - Names of simple types begin with ‘ts_’.
 
   - If ‘ts_’⌒ν is the name of a simple type then the name of its single
     constructor is ‘cs_’⌒ν.
 
-- *An enum type is* an inductive type with multiple constructors, each
-  non-inductive and with no more than one argument.
+- An *enum type* is a type with multiple constructors, each non-inductive and
+  with no more than one argument.
 
   - Names of enum types begin with ‘te_’.
 
   - If ‘te_’⌒ν is the name of an enum type then the name of each of its
     constructors begins with ‘ce_’⌒ν⌒‘_’.
 
-- *A record type is* an inductive type with a single non-inductive constructor
-  taking multiple arguments. The arguments may be accessed by pattern matching
-  as usual, but also by *the field functions for the* record type.
+- A *record type* is a type with a single non-inductive constructor taking
+  multiple arguments. The arguments may be accessed by pattern matching as
+  usual, but also by *the field functions for the* record type.
 
   - Names of record types begin with ‘tr_’.
 
@@ -29,7 +29,7 @@
 
     - Each field function of the record type begins with ‘fld_’⌒ν⌒‘_’.
 
-- *An inductive type is* an inductive type with at least one properly inductive
+- An *inductive type* is a type with at least one properly inductive
   constructor.
 
   - Names of inductive types begin with ‘ti_’.
@@ -67,7 +67,7 @@ Inductive te_txt_unit :=
 | ce_txt_unit_c_ref   : ts_txt_unit_c_ref   -> te_txt_unit
 .
 Inductive ts_txt_units : Type :=
-  cs_txt_units : list(te_txt_unit) -> ts_txt_units.
+  cs_txt_units : list te_txt_unit -> ts_txt_units.
 
 Inductive te_lbl : Type :=
 | ce_lbl_auto   :          te_lbl
@@ -79,7 +79,6 @@ Record tr_dsp_line : Type := cr_dsp_line {
   fld_dsp_line_tag_or_id : option te_tag_or_id;
   fld_dsp_line_units     : ts_txt_units;
 }.
-
 Inductive ts_dsp_lines : Type :=
   cs_dsp_lines : list tr_dsp_line -> ts_dsp_lines.
 
