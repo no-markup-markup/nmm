@@ -18,7 +18,37 @@
         "type": "github"
       }
     },
-    "nixpkgs": {
+    "nixpkgs-darwin": {
+      "locked": {
+        "lastModified": 1757480844,
+        "narHash": "sha256-JcgZNp6vfc4/ujTP8iPokLCTFbjdSNs5GcDL+Tj1ECY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "34042177831bc6ebe803dc3b39e97dbb4da831fc",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixpkgs-25.05-darwin",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-linux": {
+      "locked": {
+        "lastModified": 1757408970,
+        "narHash": "sha256-aSgK4BLNFFGvDTNKPeB28lVXYqVn8RdyXDNAvgGq+k0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d179d77c139e0a3f5c416477f7747e9d6b7ec315",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-25.05",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1757034884,
         "narHash": "sha256-PgLSZDBEWUHpfTRfFyklmiiLBE1i1aGCtz4eRA3POao=",
@@ -36,7 +66,9 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs-darwin": "nixpkgs-darwin",
+        "nixpkgs-linux": "nixpkgs-linux",
+        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },
     "systems": {

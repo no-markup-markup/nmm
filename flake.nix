@@ -2,25 +2,42 @@
   description = "no-markup-markup";
 
   inputs = {
-    nixpkgs.url     = "nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-linux.url    = "nixpkgs/nixos-25.05";
+    nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
+    flake-utils.url      = "github:numtide/flake-utils";
   };
-  outputs = {self, nixpkgs, flake-utils}:
+  outputs = {
+    self, nixpkgs-linux, nixpkgs-darwin, nixpkgs-unstable, flake-utils
+  }:
     let
-      systems = [
-        "aarch64-darwin"
+      linux-systems  = [
         # TODO "aarch64-linux"
-        "x86_64-darwin"
         "x86_64-linux"
-        # TODO "x86_64-windows"
       ];
+      darwin-systems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      ## windows-systems = [
+      ##   # TODO "x86_64-windows"
+      ## ];
+      systems = linux-systems ++ darwin-systems; ## TODO ++ windows-systems;
     in
       flake-utils.lib.eachSystem systems (system:
         let
+          nixpkgs      = (
+            if      builtins.elem system linux-systems  then
+              nixpkgs-linux
+            else if builtins.elem system darwin-systems then
+              nixpkgs-darwin
+            else
+              nixpkgs-unstable
+          );
           pkgs         = nixpkgs.legacyPackages.${system};
           pkgs_common  = [pkgs.bash pkgs.gnumake];
           pkgs_mercury = [pkgs.mercury];
-          pkgs_rocq    = [pkgs.rocq-core_9_1];
+          pkgs_rocq    = [pkgs.coq];
           pkgs_ocaml   = []; # TODO
           pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
         in {
