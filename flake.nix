@@ -11,7 +11,7 @@
         "aarch64-darwin"
         # TODO "aarch64-linux"
         "x86_64-darwin"
-        # TODO "x86_64-linux"
+        "x86_64-linux"
         # TODO "x86_64-windows"
       ];
     in
