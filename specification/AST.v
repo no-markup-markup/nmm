@@ -53,15 +53,23 @@ Inductive te_tag_or_id : Type :=
 | ce_tag_or_id_id  : tr_id  -> te_tag_or_id
 .
 
-Inductive ts_c_ref : Type := cs_c_ref : tr_id -> ts_c_ref.
+Inductive te_c_ref_type :=
+| ce_cref_type_lcl : te_c_ref_type
+| ce_cref_type_gbl : te_c_ref_type
+.
+
+Record tr_c_ref : Type := cr_c_ref {
+  fld_c_ref_type : te_c_ref_type;
+  fld_c_ref_id   : tr_id;
+}.
 
 Inductive ts_txt_unit_wysiwyg : Type :=
   cs_txt_unit_wysiwyg : t_str    -> ts_txt_unit_wysiwyg.
 Inductive ts_txt_unit_emph    : Type :=
   cs_txt_unit_emph    : t_str    -> ts_txt_unit_emph.
 Inductive ts_txt_unit_c_ref   : Type :=
-  cs_txt_unit_c_ref   : ts_c_ref -> ts_txt_unit_c_ref.
-Inductive te_txt_unit :=
+  cs_txt_unit_c_ref   : tr_c_ref -> ts_txt_unit_c_ref.
+Inductive te_txt_unit         : Type :=
 | ce_txt_unit_wysiwyg : ts_txt_unit_wysiwyg -> te_txt_unit
 | ce_txt_unit_emph    : ts_txt_unit_emph    -> te_txt_unit
 | ce_txt_unit_c_ref   : ts_txt_unit_c_ref   -> te_txt_unit
@@ -74,13 +82,19 @@ Inductive te_lbl : Type :=
 | ce_lbl_custom : t_str -> te_lbl
 .
 
-Record tr_dsp_line : Type := cr_dsp_line {
-  fld_dsp_line_lbl       : option te_lbl;
-  fld_dsp_line_tag_or_id : option te_tag_or_id;
-  fld_dsp_line_units     : ts_txt_units;
+Inductive ts_dsp_line_no_lbl : Type :=
+| cs_dsp_line_no_lbl : ts_txt_units -> ts_dsp_line_no_lbl.
+Record tr_dsp_line_lbld : Type := cr_dsp_line_lbld {
+  fld_dsp_line_lbld_lbl   : te_lbl;
+  fld_dsp_line_lbld_id    : option tr_id;
+  fld_dsp_line_lbld_units : ts_txt_units;
 }.
+Inductive te_dsp_line : Type :=
+| ce_dsp_line_no_lbl : ts_dsp_line_no_lbl -> te_dsp_line
+| ce_dsp_line_lbld   : tr_dsp_line_lbld   -> te_dsp_line
+.
 Inductive ts_dsp_lines : Type :=
-  cs_dsp_lines : list tr_dsp_line -> ts_dsp_lines.
+  cs_dsp_lines : list te_dsp_line -> ts_dsp_lines.
 
 Inductive
   te_blk : Type :=
@@ -90,28 +104,28 @@ Inductive
   | ce_blk_dsp : ts_blk_dsp -> te_blk
 with
   ts_blk_txt : Type :=
-  | cs_blk_txt : ts_txt_units ->                             ts_blk_txt
+  | cs_blk_txt : ts_txt_units ->                      ts_blk_txt
 with
   ts_blk_blt : Type :=
-  | cs_blk_blt : ts_blks ->                                  ts_blk_blt
+  | cs_blk_blt : ts_blks ->                           ts_blk_blt
 with
   tr_blk_itm : Type :=
-  | cr_blk_itm : te_lbl -> option te_tag_or_id -> ts_blks -> tr_blk_itm
+  | cr_blk_itm : te_lbl -> option tr_id -> ts_blks -> tr_blk_itm
 with
   ts_blk_dsp : Type :=
-  | cs_blk_dsp : ts_dsp_lines ->                             ts_blk_dsp
+  | cs_blk_dsp : ts_dsp_lines ->                      ts_blk_dsp
 with
   ts_blks    : Type :=
-  | cs_blks    : list te_blk  ->                             ts_blks
+  | cs_blks    : list te_blk  ->                      ts_blks
 .
 (* Cannot mix inductive definitions with record definitions so we have to define
    the fld functions manually for tr_blk_itm *)
-Definition fld_blk_itm_lbl       (blk_itm : tr_blk_itm) : te_lbl
-  := match blk_itm with cr_blk_itm lbl _        _    => lbl       end.
-Definition fld_blk_itm_tag_or_id (blk_itm : tr_blk_itm) : option te_tag_or_id
-  := match blk_itm with cr_blk_itm _  tag_or_id _    => tag_or_id end.
-Definition fld_blk_itm_main      (blk_itm : tr_blk_itm) : ts_blks
-  := match blk_itm with cr_blk_itm _  _         blks => blks      end.
+Definition fld_blk_itm_lbl  (blk_itm : tr_blk_itm) : te_lbl
+  := match blk_itm with cr_blk_itm lbl _  _    => lbl  end.
+Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
+  := match blk_itm with cr_blk_itm _   id _    => id   end.
+Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
+  := match blk_itm with cr_blk_itm _   _  blks => blks end.
 
 Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
 
@@ -127,10 +141,11 @@ Inductive te_pars_or_blks : Type :=
 | ce_pars_or_blks_blks : ts_blks -> te_pars_or_blks
 .
 
+Inductive ts_sec_intro : Type := cs_sec_intro: ts_blks -> ts_sec_intro.
+
 Record tr_sec : Type := cr_sec {
   fld_sec_tag_or_id : option te_tag_or_id;
   fld_sec_hdr       : option ts_hdr;
-  fld_sec_intro     : option ts_blks;
   fld_sec_main      : te_pars_or_blks;
 }.
 Inductive ts_secs : Type := cs_secs : list tr_sec -> ts_secs.
@@ -144,7 +159,6 @@ Inductive te_secs_pars_or_blks : Type :=
 Record tr_ch : Type := cr_ch {
   fld_ch_tag_or_id : option te_tag_or_id;
   fld_ch_hdr       : option ts_hdr;
-  fld_ch_intro     : option ts_blks;
   fld_ch_main      : te_secs_pars_or_blks;
 }.
 Inductive ts_chs : Type := cs_chs : list tr_ch  -> ts_chs.
