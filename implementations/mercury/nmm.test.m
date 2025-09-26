@@ -23,8 +23,7 @@
 :- implementation.
 
 :- use_module
-  nmm.lexer, nmm.lexer.test
-  ,
+  nmm.lexer, nmm.lexer.test,
   nmm.parser, nmm.parser.test
   .
 

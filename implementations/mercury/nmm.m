@@ -9,15 +9,7 @@
 
 %% SUBMODULES
 
-:- include_module
-  nmm.cli
-  ,
-  nmm.lexer
-  ,
-  nmm.parser
-  ,
-  nmm.test
-  .
+:- include_module nmm.cli, nmm.lexer, nmm.parser, nmm.test.
 
 
 %% MODULE IMPORTS

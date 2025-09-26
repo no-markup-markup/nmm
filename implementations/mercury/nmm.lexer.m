@@ -80,14 +80,17 @@ p_tkn_line_no(c_tkn_lb( LINE_NO),  LINE_NO).
 
 %%% THE FUNCTION
 
-f_tknize(CHRS) = RES :-
+f_tknize(CHRS) = RES :- (
   p_tknize(1u,CHRS,[],[],TKNS,ERRS),
   (
-    if ERRS \= [] then
+    (
+      ERRS = [],
+      RES  = c_tknize_res_ok(TKNS)
+    );
+      ERRS = [_|_],
       RES = c_tknize_res_err(string.join_list("\n",ERRS)++"\n")
-    else
-      RES = c_tknize_res_ok(TKNS)
-  ).
+  )
+).
 
 %%% HELPER PREDICATE P_TKNIZE
 
@@ -126,12 +129,30 @@ p_tknize(        LINE_NO,   CHRS, TKNS_IN, ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
   else if CHRS = [C|CHRS_TL], p_sp_but_not_tab(C) then
     TKNS_IN_NEW = TKNS_IN++[c_tkn_sp(LINE_NO,C)],
     p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
-  else if CHRS = [C|CHRS_TL] then
-    TKNS_IN_NEW = TKNS_IN++[c_tkn_nws(LINE_NO,C)],
-    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
-  else
-    TKNS_OUT = TKNS_IN++[c_tkn_eof],
-    ERRS_OUT = ERRS_IN
+  else (
+    (
+      CHRS = [C|CHRS_TL],
+      p_tknize(
+        LINE_NO,
+        CHRS_TL,
+        TKNS_IN++[c_tkn_nws(LINE_NO,C)],
+        ERRS_IN,
+        TKNS_OUT,
+        ERRS_OUT
+      )
+    );
+    (
+      CHRS     = [],
+      TKNS_OUT = TKNS_IN++[c_tkn_eof],
+      ERRS_OUT = ERRS_IN
+    )
+  )
+ %%  else if CHRS = [C|CHRS_TL] then
+ %%    TKNS_IN_NEW = TKNS_IN++[c_tkn_nws(LINE_NO,C)],
+ %%    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+ %%  else
+ %%    TKNS_OUT = TKNS_IN++[c_tkn_eof],
+ %%    ERRS_OUT = ERRS_IN
 ).
 
 %%%% HELPER PREDICATE P_UNSUPPORTED

@@ -1,4 +1,4 @@
-:- module nmm.parser_helpers.
+:- module nmm.parser.helpers.
 
 % INTERFACE
 
@@ -6,13 +6,14 @@
 
 :- interface.
 
+
+%% SUBMODULES
+
+:- include_module nmm.parser.helpers.test.
+
 %% MODULE IMPORTS
 
-:- use_module
-  term_to_xml
-  ,
-  nmm, nmm.lexer
-  .
+:- use_module nmm, nmm.lexer.
 
 
 %% TYPE ABBREVIATIONS T_TKN AND T_TKNS
@@ -34,24 +35,6 @@
 %% ALIAS TYPE TA_STRS_TO_STOP_BEFORE (= STRS)
 
 :- type ta_strs_to_stop_before == strs.
-
-
-%% OPERATORS ?, * AND + (INCLUDING HIGER-ORDER VERSIONS)
-
-:- pred ?(pred(T,   TKNS, TKNS),           maybe(T), TKNS,  TKNS).
-:- mode ?(pred(out, in,   out) is semidet, out,      in,    out) is det.
-:- pred ?(pred(     TKNS, TKNS),                     TKNS,  TKNS).
-:- mode ?(pred(     in,   out) is semidet,           in,    out) is det.
-
-:- pred *(pred(T,   TKNS, TKNS),           list(T),  TKNS,  TKNS).
-:- mode *(pred(out, in,   out) is semidet, out,      in,    out) is det.
-:- pred *(pred(     TKNS, TKNS),                     TKNS,  TKNS).
-:- mode *(pred(     in,   out) is semidet,           in,    out) is det.
-
-:- pred +(pred(T,   TKNS, TKNS),           list(T),  TKNS,  TKNS).
-:- mode +(pred(out, in,   out) is semidet, out,      in,    out) is semidet.
-:- pred +(pred(     TKNS, TKNS),                     TKNS,  TKNS).
-:- mode +(pred(     in,   out) is semidet,           in,    out) is semidet.
 
 
 %% RULE R_C FOR READING A SINGLE NON-TAB NON-LINE-BREAK CHARACTHER
@@ -119,48 +102,18 @@
 :- implementation.
 
 
-%% ?, * AND +
-
-?(X,P) --> (
-  P(X_) -> {X = maybe.yes(X_)};
-           {X = maybe.no}
-).
-?(P) --> (
-  P -> {true};
-       {true}
-).
-
-*(XS,P) --> (
-  P(X), *(XS_,P) -> {XS = [X|XS_]};
-                    {XS = []}
-).
-*(P) --> (
-  P, *(P) -> {true};
-             {true}
-).
-
-+(XS,P) --> (
-  P(X), +(XS_,P) -> {XS = [X|XS_]};
-                    P(X), {XS = [X]}
-).
-+(P) --> (
-  P, +(P) -> {true};
-             P
-).
-
-
 %% R_C
 
-r_c(c_r_nws,     C) --> [nmm.lexer.c_tkn_nws(_,C)].
-r_c(c_r_sps,     C) --> [nmm.lexer.c_tkn_sp( _,C)].
-r_c(c_r_esc,     C) --> [nmm.lexer.c_tkn_esc(_,C)].
-r_c(c_r_nws_sps, C) --> [nmm.lexer.c_tkn_nws(_,C)].
-r_c(c_r_nws_sps, C) --> [nmm.lexer.c_tkn_sp( _,C)].
-r_c(c_r_any,     C) --> [nmm.lexer.c_tkn_nws(_,C)].
-r_c(c_r_any,     C) --> [nmm.lexer.c_tkn_sp( _,C)].
-r_c(c_r_any,     C) --> [nmm.lexer.c_tkn_esc(_,C)].
+r_c(ce_r_nws,     C) --> [nmm.lexer.c_tkn_nws(_,C)].
+r_c(ce_r_sps,     C) --> [nmm.lexer.c_tkn_sp( _,C)].
+r_c(ce_r_esc,     C) --> [nmm.lexer.c_tkn_esc(_,C)].
+r_c(ce_r_nws_sps, C) --> [nmm.lexer.c_tkn_nws(_,C)].
+r_c(ce_r_nws_sps, C) --> [nmm.lexer.c_tkn_sp( _,C)].
+r_c(ce_r_any,     C) --> [nmm.lexer.c_tkn_nws(_,C)].
+r_c(ce_r_any,     C) --> [nmm.lexer.c_tkn_sp( _,C)].
+r_c(ce_r_any,     C) --> [nmm.lexer.c_tkn_esc(_,C)].
 
-r_c(             C) --> r_c(c_r_any,C).
+r_c(              C) --> r_c(ce_r_any,C).
 
 
 %%% R_STR
@@ -169,8 +122,8 @@ r_str(S) --> if {S = ""} then {true} else r_str_rec(str2chrs(S)).
 
 :- pred r_str_rec(chrs::in, t_tkns::in, t_tkns::out) is semidet.
 r_str_rec(        [C|CS]) --> (
-  r_c(c_r_nws_sps,C), r_str_rec(CS) -> [];
-                                       r_c(c_r_nws_sps,C)
+  r_c(ce_r_nws_sps,C), r_str_rec(CS) -> [];
+                                        r_c(ce_r_nws_sps,C)
 ).
 
 
@@ -194,12 +147,12 @@ r_stop(        [STP|STPS_TL],          TKNS_IN, TKNS_OUT) :-
 %%% THE RULE
 
 r(R, STPS, S) --> r_rec(R,STPS,CS), {S = chrs2str(CS), S \= ""}.
-r(R,       S) --> r(R,      [],S).
-r(         S) --> r(c_r_any,   S).
+r(R,       S) --> r(R,       [],S).
+r(         S) --> r(ce_r_any,   S).
 
-:- pred r_rec(t_r, t_stops, chrs, t_tkns, t_tkns).
-:- mode r_rec(in,  in,      out,  in,     out) is det.
-r_rec(        R,   STPS,    CS) -->
+:- pred r_rec(te_r, ta_strs_to_stop_before, chrs, t_tkns, t_tkns).
+:- mode r_rec(in,   in,                     out,  in,     out) is det.
+r_rec(        R,    STPS,                   CS) -->
   r_stop(STPS) -> [],                  {CS = []};
   r_c(R,C)     -> r_rec(R,STPS,CS_TL), {CS = [C|CS_TL]};
                   [],                  {CS = []}.
