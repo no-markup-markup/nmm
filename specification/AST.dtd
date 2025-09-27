@@ -44,9 +44,13 @@
 <!ELEMENT cs_dsp_line_no_lbl (cs_txt_units)>
 <!ELEMENT cr_dsp_line_lbld ((ce_lbl_auto | ce_lbl_custom)?, cr_id?, cs_txt_units)>
 
-<!ELEMENT ce_txt_unit_wysiwyg (#PCDATA)>
-<!ELEMENT ce_txt_unit_emph (#PCDATA)>
-<!ELEMENT ce_txt_unit_c_ref (cr_c_ref)>
+<!ELEMENT ce_txt_unit_wysiwyg (cs_txt_unit_wysiwyg)>
+<!ELEMENT ce_txt_unit_emph (cs_txt_unit_emph)>
+<!ELEMENT ce_txt_unit_c_ref (cs_txt_unit_c_ref)>
+
+<!ELEMENT cs_txt_unit_wysiwyg (#PCDATA)>
+<!ELEMENT cs_txt_unit_emph (#PCDATA)>
+<!ELEMENT cs_txt_unit_c_ref (cr_c_ref)>
 
 <!ELEMENT cr_c_ref (cr_id)>
 <!ATTLIST cr_c_ref c_ref_type (LCL | GBL) #REQUIRED>
