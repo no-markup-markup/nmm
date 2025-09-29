@@ -401,6 +401,34 @@ p_test_r_txt_units_5 :- (
   p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
 ).
 
+%%% P_TEST_R_TXT_UNITS_6
+
+:- pred p_test_r_txt_units_6 is semidet.
+p_test_r_txt_units_6 :- r_txt_units(
+  0u,
+  cs_txt_units([
+    ce_txt_unit_emph(cs_txt_unit_emph("one")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+    ce_txt_unit_emph(cs_txt_unit_emph("two"))
+  ]),
+  f_str2tkns("*one* *two*"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNITS_7
+
+:- pred p_test_r_txt_units_7 is semidet.
+p_test_r_txt_units_7 :- r_txt_units(
+  3u,
+  cs_txt_units([
+    ce_txt_unit_emph(cs_txt_unit_emph("one")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+    ce_txt_unit_emph(cs_txt_unit_emph("two"))
+  ]),
+  f_str2tkns("*one* *two*"),
+  []
+).
+
 %%% THE PREDICATE
 
 :- pred p_test(io.io::di, io.io::uo) is det.
@@ -654,6 +682,20 @@ p_test(!IO) :- (
     if not p_test_r_txt_units_5 then
       io.set_exit_status(1,!IO),
       io.write_string("p_test_r_txt_units_5 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_6 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_6 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_7 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_7 failed\n",!IO)
     else
       true
   )
