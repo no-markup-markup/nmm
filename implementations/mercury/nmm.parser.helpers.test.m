@@ -29,6 +29,7 @@ p_test_r_1(!IO) :- (
   if r(S,f_str2tkns("hej hej"),[]), S = "hej hej" then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_1 failed\n",!IO)
 ).
 
@@ -40,6 +41,7 @@ p_test_r_2(!IO) :- (
   if r(ce_r_nws,"hej",f_str2tkns("hej hej"),f_str2tkns(" hej")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_2 failed\n",!IO)
 ).
 
@@ -53,6 +55,7 @@ p_test_r_3(!IO) :- (
   ) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_3 failed\n",!IO)
 ).
 
@@ -64,6 +67,7 @@ p_test_r_4(!IO) :- (
   if r(ce_r_any,"[test\\]¶",f_str2tkns("\\[test\\]\\¶"),[]) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_4 failed\n",!IO)
 ).
 
@@ -75,6 +79,7 @@ p_test_r_str_1(!IO) :- (
   if r_str("",f_str2tkns("ab"),f_str2tkns("ab")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_str_1 failed\n",!IO)
 ).
 
@@ -86,6 +91,7 @@ p_test_r_str_2(!IO) :- (
   if r_str("ab",f_str2tkns("abcd"),f_str2tkns("cd")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_str_2 failed\n",!IO)
 ).
 
@@ -97,6 +103,7 @@ p_test_r_tab_1(!IO) :- (
   if r_tab(f_str2tkns("\t"),[]) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tab_1 failed\n",!IO)
 ).
 
@@ -108,6 +115,7 @@ p_test_r_tab_2(!IO) :- (
   if r_tab(f_str2tkns("\t\t"),[nmm.lexer.c_tkn_tab(1u)]) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tab_2 failed\n",!IO)
 ).
 
@@ -119,6 +127,7 @@ p_test_r_tab_3(!IO) :- (
   if r_tab(f_str2tkns("\tHEJ"),f_str2tkns("HEJ")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tab_3 failed\n",!IO)
 ).
 
@@ -130,6 +139,7 @@ p_test_r_tabs_1(!IO) :- (
   if r_tabs(1u,f_str2tkns("\t"),[]) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tabs_1 failed\n",!IO)
 ).
 
@@ -141,6 +151,7 @@ p_test_r_tabs_2(!IO) :- (
   if r_tabs(2u,f_str2tkns("\t\t"),[]) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tabs_2 failed\n",!IO)
 ).
 
@@ -152,6 +163,7 @@ p_test_r_tabs_3(!IO) :- (
   if r_tabs(2u,f_str2tkns("\t\thej"),f_str2tkns("hej")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tabs_3 failed\n",!IO)
 ).
 
@@ -163,6 +175,7 @@ p_test_r_tabs_4(!IO) :- (
   if r_tabs(0u,f_str2tkns("hej"),f_str2tkns("hej")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tabs_4 failed\n",!IO)
 ).
 
@@ -174,6 +187,7 @@ p_test_r_tabs_5(!IO) :- (
   if r_tabs(2u,f_str2tkns("\t\t\t"),f_str2tkns("\t")) then
     true
   else
+    io.set_exit_status(1,!IO),
     io.write_string("parser helpers test p_test_r_tabs_5 failed\n",!IO)
 ).
 

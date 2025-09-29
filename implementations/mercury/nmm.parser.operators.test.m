@@ -86,36 +86,42 @@ test_3b :- r_3(str2chrs("cab"),str2chrs("cab")).
 p_test(!IO) :- (
   (
     if not test_1a then
+      io.set_exit_status(1,!IO),
       io.write_string("test 1a failed\n",!IO)
     else
       true
   ),
   (
     if not test_1b then
+      io.set_exit_status(1,!IO),
       io.write_string("test 1b failed\n",!IO)
     else
       true
   ),
   (
     if not test_2a then
+      io.set_exit_status(1,!IO),
       io.write_string("test 2a failed\n",!IO)
     else
       true
   ),
   (
     if not test_2b then
+      io.set_exit_status(1,!IO),
       io.write_string("test 2b failed\n",!IO)
     else
       true
   ),
   (
     if not test_3a then
+      io.set_exit_status(1,!IO),
       io.write_string("test 3a failed\n",!IO)
     else
       true
   ),
   (
     if not test_3b then
+      io.set_exit_status(1,!IO),
       io.write_string("test 3b failed\n",!IO)
     else
       true

@@ -52,6 +52,509 @@ f_str2tkns(S) = TKNS :- (
 ).
 
 
+%% PREDICATE P_TEST
+
+%%% HELPER TEST PREDICATE P_EQ_UP_TO_LINE_NO
+
+:- pred p_tkn_eq_up_to_line_no( t_tkn::in,  t_tkn::in) is semidet.
+:- pred p_tkns_eq_up_to_line_no(t_tkns::in, t_tkns::in) is semidet.
+
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_nws(_,C), nmm.lexer.c_tkn_nws(_,C)).
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_sp( _,C), nmm.lexer.c_tkn_sp( _,C)).
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_esc(_,C), nmm.lexer.c_tkn_esc(_,C)).
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_nws(_,C), nmm.lexer.c_tkn_nws(_,C)).
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_tab(_),   nmm.lexer.c_tkn_tab(_)).
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_lb( _),   nmm.lexer.c_tkn_lb( _)).
+p_tkn_eq_up_to_line_no(nmm.lexer.c_tkn_eof,      nmm.lexer.c_tkn_eof).
+
+p_tkns_eq_up_to_line_no(TKNS_1,TKNS_2) :-
+  list.same_length(TKNS_1,TKNS_2),
+  list.all_true_corresponding(p_tkn_eq_up_to_line_no,TKNS_1,TKNS_2).
+
+%%% P_TEST_R_TAG_1
+
+:- pred p_test_r_tag_1 is semidet.
+p_test_r_tag_1 :- r_tag(cs_tag("DSP"),f_str2tkns("DSP"),[]).
+
+%%% P_TEST_R_TAG_2
+
+:- pred p_test_r_tag_2 is semidet.
+p_test_r_tag_2 :- r_tag(cs_tag("DEF"),f_str2tkns("DEF"),[]).
+
+%%% P_TEST_R_TAG_3
+
+:- pred p_test_r_tag_3 is semidet.
+p_test_r_tag_3 :- not r_tag(cs_tag("DEF"),f_str2tkns("DEFS"),_).
+
+%%% P_TEST_R_TAG_4
+
+:- pred p_test_r_tag_4 is semidet.
+p_test_r_tag_4 :- r_tag(cs_tag("DEF"),f_str2tkns("DEF:"),f_str2tkns(":")).
+
+%%% P_TEST_R_NAME_1
+
+:- pred p_test_r_name_1 is semidet.
+p_test_r_name_1 :-
+  r_name(cs_name("a_name"),f_str2tkns("a_name:"),f_str2tkns(":")).
+
+%%% P_TEST_R_NAME_2
+
+:- pred p_test_r_name_2 is semidet.
+p_test_r_name_2 :- r_name(cs_name("a_name"),f_str2tkns("a_name"),[]).
+
+%%% P_TEST_R_NAME_3
+
+:- pred p_test_r_name_3 is semidet.
+p_test_r_name_3 :-
+  r_name(cs_name("a_name"),f_str2tkns("a_name]"),f_str2tkns("]")).
+
+%%% P_TEST_R_NAME_4
+
+:- pred p_test_r_name_4 is semidet.
+p_test_r_name_4 :-
+  r_name(cs_name("a_name"),f_str2tkns("a_name["),f_str2tkns("[")).
+
+%%% P_TEST_R_NAME_5
+
+:- pred p_test_r_name_5 is semidet.
+p_test_r_name_5 :-
+  not r_name(cs_name(";a_name"),f_str2tkns(";a_name"),_).
+
+%%% P_TEST_R_ID_1
+
+:- pred p_test_r_id_1 is semidet.
+p_test_r_id_1 :-
+  r_id(cr_id(cs_tag("PAR"),cs_name("a_name")),f_str2tkns("PAR:a_name"),[]).
+
+%%% P_TEST_R_ID_2
+
+:- pred p_test_r_id_2 is semidet.
+p_test_r_id_2 :-
+  r_id(ID,f_str2tkns("PAR:a_name"),[]),
+  fld_id_tag(ID)  = cs_tag("PAR"),
+  fld_id_name(ID) = cs_name("a_name").
+
+%%% P_TEST_R_ID_3
+
+:- pred p_test_r_id_3 is semidet.
+p_test_r_id_3 :- r_id(
+  cr_id(cs_tag("PAR"),cs_name("a_name")),
+  f_str2tkns("PAR:a_name]"),
+  f_str2tkns("]")
+).
+
+%%% P_TEST_R_ID_4
+
+:- pred p_test_r_id_4 is semidet.
+p_test_r_id_4 :- r_id(
+  cr_id(cs_tag("PAR"),cs_name("a_")),
+  f_str2tkns("PAR:a_,name]"),
+  f_str2tkns(",name]")
+).
+
+%%% P_TEST_R_C_REF_1
+
+:- pred p_test_r_c_ref_1 is semidet.
+p_test_r_c_ref_1 :- r_c_ref(
+  cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"))),
+  f_str2tkns("[PAR:a_name]"),
+  []
+).
+
+%%% P_TEST_R_C_REF_2
+
+:- pred p_test_r_c_ref_2 is semidet.
+p_test_r_c_ref_2 :- r_c_ref(
+  cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"))),
+  f_str2tkns("[PAR:a_name], gives"),
+  f_str2tkns(", gives")
+).
+
+%%% P_TEST_R_C_REF_3
+
+:- pred p_test_r_c_ref_3 is semidet.
+p_test_r_c_ref_3 :- not r_c_ref(_,f_str2tkns("[PAR::a_name]"),_).
+
+%%% P_TEST_R_TXT_UNIT_1
+
+:- pred p_test_r_txt_unit_1 is semidet.
+p_test_r_txt_unit_1 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+  f_str2tkns("HEJ!"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_2
+
+:- pred p_test_r_txt_unit_2 is semidet.
+p_test_r_txt_unit_2 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+  f_str2tkns("HEJ!\t"),
+  f_str2tkns("\t")
+).
+
+%%% P_TEST_R_TXT_UNIT_3
+
+:- pred p_test_r_txt_unit_3 is semidet.
+p_test_r_txt_unit_3 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![")),
+  f_str2tkns("HEJ!["),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_4
+
+:- pred p_test_r_txt_unit_4 is semidet.
+p_test_r_txt_unit_4 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![¶§]")),
+  f_str2tkns("HEJ![¶§]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_5
+
+:- pred p_test_r_txt_unit_5 is semidet.
+p_test_r_txt_unit_5 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![¶§]")),
+  f_str2tkns("HEJ!\\[\\¶\\§]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_6
+
+:- pred p_test_r_txt_unit_6 is semidet.
+p_test_r_txt_unit_6 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![PAR:]")),
+  f_str2tkns("HEJ![PAR:]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_7
+
+:- pred p_test_r_txt_unit_7 is semidet.
+p_test_r_txt_unit_7 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+  f_str2tkns("HEJ![PAR:name]"),
+  f_str2tkns("[PAR:name]")
+).
+
+%%% P_TEST_R_TXT_UNIT_8
+
+:- pred p_test_r_txt_unit_8 is semidet.
+p_test_r_txt_unit_8 :-r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![PAR:name]")),
+  f_str2tkns("HEJ!\\[PAR:name]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_9
+
+:- pred p_test_r_txt_unit_9 is semidet.
+p_test_r_txt_unit_9 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![INVALID:TAG:name]")),
+  f_str2tkns("HEJ![INVALID:TAG:name]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_10
+
+:- pred p_test_r_txt_unit_10 is semidet.
+p_test_r_txt_unit_10 :- r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+  f_str2tkns("HEJ!\n"),
+  f_str2tkns("\n")
+).
+
+%%% P_TEST_R_TXT_UNIT_11
+
+:- pred p_test_r_txt_unit_11 is semidet.
+p_test_r_txt_unit_11 :- not r_txt_unit(
+  0u,
+  ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("[PAR:name]HEJ!")),
+  f_str2tkns("[PAR:name]HEJ!"),
+  _
+).
+
+%%% P_TEST_R_TXT_UNIT_12
+
+:- pred p_test_r_txt_unit_12 is semidet.
+p_test_r_txt_unit_12 :- r_txt_unit(
+  0u,
+  ce_txt_unit_c_ref(cs_txt_unit_c_ref(
+    cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+  )),
+  f_str2tkns("[PAR:name]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNIT_13
+
+:- pred p_test_r_txt_unit_13 is semidet.
+p_test_r_txt_unit_13 :- r_txt_unit(
+  0u,
+  ce_txt_unit_c_ref(cs_txt_unit_c_ref(
+    cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+  )),
+  f_str2tkns("[PAR:name], and more"),
+  f_str2tkns(", and more")
+).
+
+%%% P_TEST_R_TXT_UNIT_14
+
+:- pred p_test_r_txt_unit_14 is semidet.
+p_test_r_txt_unit_14 :- r_txt_unit(
+  0u,
+  ce_txt_unit_emph(cs_txt_unit_emph("emphasized text")),
+  f_str2tkns("*emphasized text*, and more"),
+  f_str2tkns(", and more")
+).
+
+%%% P_TEST_R_TXT_UNIT_15
+
+:- pred p_test_r_txt_unit_15 is semidet.
+p_test_r_txt_unit_15 :- (
+  r_txt_unit(
+    0u,
+    ce_txt_unit_emph(cs_txt_unit_emph("emphasized text")),
+    f_str2tkns("*emphasized\ntext*, and more"),
+    TKNS
+  ),
+  p_tkns_eq_up_to_line_no(TKNS,f_str2tkns(", and more"))
+).
+
+%%% THE PREDICATE
+
+:- pred p_test(io.io::di, io.io::uo) is det.
+p_test(!IO) :- (
+  (
+    if not p_test_r_tag_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_tag_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_tag_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_tag_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_tag_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_tag_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_tag_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_tag_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_name_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_name_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_name_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_name_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_name_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_name_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_name_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_name_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_name_5 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_name_5 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_id_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_id_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_id_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_id_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_id_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_id_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_id_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_id_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_c_ref_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_c_ref_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_c_ref_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_c_ref_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_c_ref_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_c_ref_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_5 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_5 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_6 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_6 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_7 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_7 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_8 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_8 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_9 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_9 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_10 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_10 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_11 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_11 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_12 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_12 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_13 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_13 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_14 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_14 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_unit_15 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_unit_15 failed\n",!IO)
+    else
+      true
+  )
+).
+
 %% P
 
 p(!IO) :-
@@ -60,4 +563,6 @@ p(!IO) :-
   nmm.parser.helpers.test.p(!IO)
   ,
   nmm.parser.operators.test.p(!IO)
+  ,
+  p_test(!IO)
   .
