@@ -332,6 +332,75 @@ p_test_r_txt_unit_15 :- (
   p_tkns_eq_up_to_line_no(TKNS,f_str2tkns(", and more"))
 ).
 
+%%% P_TEST_R_TXT_UNITS_1
+
+:- pred p_test_r_txt_units_1 is semidet.
+p_test_r_txt_units_1 :- r_txt_units(
+  0u,
+  cs_txt_units([ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))]),
+  f_str2tkns("HEJ!"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNITS_2
+
+:- pred p_test_r_txt_units_2 is semidet.
+p_test_r_txt_units_2 :- r_txt_units(
+  0u,
+  cs_txt_units([
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+    ce_txt_unit_c_ref(cs_txt_unit_c_ref(
+      cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+    ))
+  ]),
+  f_str2tkns("HEJ![DSP:name]"),
+  []
+).
+
+%%% P_TEST_R_TXT_UNITS_3
+
+:- pred p_test_r_txt_units_3 is semidet.
+p_test_r_txt_units_3 :- (
+  r_txt_units(
+    0u,
+    cs_txt_units([
+      ce_txt_unit_emph(cs_txt_unit_emph("HEJ! HAJ!")),
+      ce_txt_unit_c_ref(cs_txt_unit_c_ref(
+        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+      )),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+    ]),
+    f_str2tkns("*HEJ!\nHAJ!*[DSP:name]HAJ!\n"),
+    TKNS_OUT
+  ),
+  p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
+).
+
+%%% P_TEST_R_TXT_UNITS_4
+
+:- pred p_test_r_txt_units_4 is semidet.
+p_test_r_txt_units_4 :-
+  not r_txt_units(0u,_,f_str2tkns("\tHEJ![DSP:name]HAJ!\n"),_).
+
+%%% P_TEST_R_TXT_UNITS_5
+
+:- pred p_test_r_txt_units_5 is semidet.
+p_test_r_txt_units_5 :- (
+  r_txt_units(
+    1u,
+    cs_txt_units([
+      ce_txt_unit_emph(cs_txt_unit_emph("HEJ!* HAJ!")),
+      ce_txt_unit_c_ref(cs_txt_unit_c_ref(
+        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+      )),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+    ]),
+    f_str2tkns("*HEJ!\\*\n\tHAJ!*[DSP:name]HAJ!\n"),
+    TKNS_OUT
+  ),
+  p_tkns_eq_up_to_line_no(TKNS_OUT,f_str2tkns("\n"))
+).
+
 %%% THE PREDICATE
 
 :- pred p_test(io.io::di, io.io::uo) is det.
@@ -550,6 +619,41 @@ p_test(!IO) :- (
     if not p_test_r_txt_unit_15 then
       io.set_exit_status(1,!IO),
       io.write_string("p_test_r_txt_unit_15 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_txt_units_5 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_txt_units_5 failed\n",!IO)
     else
       true
   )
