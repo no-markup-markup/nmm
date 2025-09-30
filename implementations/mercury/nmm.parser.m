@@ -1407,7 +1407,8 @@ r_dsp_line_type_2(
   r_str(")"),
   r_tab,
   +([],r_dsp_unit,US,[]),
-  ?([+([r_tab])],r_tag_or_id,MAYBE_TAG_OR_ID,[])
+  ?([+([r_tab])],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
+  r_lb
 ).
 
 %%% R_DSP_LINE
