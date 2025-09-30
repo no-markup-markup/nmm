@@ -658,13 +658,13 @@ p_test_r_blks_6 :- r_blks(
       maybe.no,
       cs_blks([
         ce_blk_dsp(cs_blk_dsp(cs_dsp_lines([
-          cr_dsp_line(
-            maybe.yes(ce_lbl_auto),
+          ce_dsp_line_lbld(cr_dsp_line_lbld(
+            ce_lbl_auto,
             maybe.no,
             cs_txt_units([
               ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("a²+b²=c²"))
             ])
-          )
+          ))
         ])))
       ])
     ))

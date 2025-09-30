@@ -378,7 +378,7 @@
 
 %% RULE R_DSP_LINES, SIMPLE TYPE TS_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
 
-:- type ts_dsp_lines ---> cs_dsp_lines(list(tr_dsp_line)).
+:- type ts_dsp_lines ---> cs_dsp_lines(list(te_dsp_line)).
 
 :- instance term_to_xml.xmlable(ts_dsp_lines).
 
@@ -386,18 +386,39 @@
 :- mode r_dsp_lines(in,     out,          in,      out) is semidet.
 
 
-%% RULE R_DSP_LINE, RECORD TYPE TR_DSP_LINE, INSTANCE TR_DSP_LINE XMLABLE
+%% RULE R_DSP_LINE, ENUM TYPE TE_DSP_LINE, INSTANCE TE_DSP_LINE XMLABLE
 
-:- type tr_dsp_line ---> cr_dsp_line(
-  fld_dsp_line_lbl       :: maybe(te_lbl),
-  fld_dsp_line_tag_or_id :: maybe(te_tag_or_id),
-  fld_dsp_line_units     :: ts_txt_units
+:- type te_dsp_line --->
+  ce_dsp_line_lbld(tr_dsp_line_lbld);
+  ce_dsp_line_no_lbl(ts_dsp_line_no_lbl).
+
+:- instance term_to_xml.xmlable(te_dsp_line).
+
+:- pred r_dsp_line(te_dsp_line, ta_tkns, ta_tkns).
+:- mode r_dsp_line(out,         in,      out) is semidet.
+
+%% RULE R_DSP_LINE_LBLD, RECORD TYPE TR_DSP_LINE_LBLD, INSTANCE TR_DSP_LINE_LBLD XMLABLE
+
+:- type tr_dsp_line_lbld ---> cr_dsp_line_lbld(
+  fld_dsp_line_lbld_lbl   :: te_lbl,
+  fld_dsp_line_lbld_id    :: maybe(tr_id),
+  fld_dsp_line_lbld_units :: ts_txt_units
 ).
 
-:- instance term_to_xml.xmlable(tr_dsp_line).
+:- instance term_to_xml.xmlable(tr_dsp_line_lbld).
 
-:- pred r_dsp_line(tr_dsp_line, ta_tkns, ta_tkns).
-:- mode r_dsp_line(out,         in,      out) is semidet.
+:- pred r_dsp_line_lbld(tr_dsp_line_lbld, ta_tkns, ta_tkns).
+:- mode r_dsp_line_lbld(out,              in,      out) is semidet.
+
+
+%% RULE R_DSP_LINE_NO_LBL, SIMPLE TYPE TS_DSP_LINE_NO_LBL, INSTANCE TS_DSP_LINE_NO_LBL XMLABLE
+
+:- type ts_dsp_line_no_lbl ---> cs_dsp_line_no_lbl(ts_txt_units).
+
+:- instance term_to_xml.xmlable(ts_dsp_line_no_lbl).
+
+:- pred r_dsp_line_no_lbl(ts_dsp_line_no_lbl, ta_tkns, ta_tkns).
+:- mode r_dsp_line_no_lbl(out,                in,      out) is semidet.
 
 
 %% RULE R_DSP_UNIT
@@ -1383,79 +1404,98 @@ f_dsp_lines_to_xml(cs_dsp_lines(LINES)) =
 
 %% R_DSP_LINE, TR_DSP_LINE XMLABLE
 
-%%% R_DSP_LINE_TYPE_1
+%%% R_DSP_LINE
 
-:- pred r_dsp_line_type_1(tr_dsp_line, ta_tkns, ta_tkns).
-:- mode r_dsp_line_type_1(out,         in,      out) is semidet.
-r_dsp_line_type_1(cr_dsp_line(maybe.no, maybe.no,cs_txt_units(US))
-) --> (
+r_dsp_line(LINE) --> (
+  r_dsp_line_no_lbl(LINE_) -> {LINE = ce_dsp_line_no_lbl(LINE_)};
+  r_dsp_line_lbld(  LINE_) -> {LINE = ce_dsp_line_lbld(  LINE_)};
+                              {false}
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(te_dsp_line) where [
+  func(to_xml/1) is f_dsp_line_to_xml
+].
+:- func (
+  f_dsp_line_to_xml(te_dsp_line::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_dsp_line_to_xml(ce_dsp_line_no_lbl(L)) =
+  term_to_xml.elem("ce_dsp_line_no_lbl",[],[f_dsp_line_no_lbl_to_xml(L)]).
+f_dsp_line_to_xml(ce_dsp_line_lbld(  L)) =
+  term_to_xml.elem("ce_dsp_line_lbld",  [],[f_dsp_line_lbld_to_xml(  L)]).
+
+
+%% R_DSP_LINE_LBLD, TR_DSP_LINE_LBLD XMLABLE
+
+%%% R_DSP_LINE_LBLD
+
+r_dsp_line_lbld(cr_dsp_line_lbld(LBL,MAYBE_ID,cs_txt_units(US))) --> (
+  r_str("("),
+  r_lbl(LBL),
+  r_str(")"),
+  r_tab,
+  +([],r_dsp_unit,US,[]),
+  ?([+([r_tab])],r_id,MAYBE_ID,[]),
+  r_lb
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(tr_dsp_line_lbld) where [
+  func(to_xml/1) is f_dsp_line_lbld_to_xml
+].
+:- func (
+  f_dsp_line_lbld_to_xml(tr_dsp_line_lbld::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_dsp_line_lbld_to_xml(LINE) = XML :- (
+  (
+    (
+      fld_dsp_line_lbld_id(LINE) = maybe.yes(ID),
+      ID_XML_LIST                = [f_id_to_xml(ID)]
+    );
+    (
+      fld_dsp_line_lbld_id(LINE) = maybe.no,
+      ID_XML_LIST                = []
+    )
+  ),
+  LBL   = fld_dsp_line_lbld_lbl(  LINE),
+  UNITS = fld_dsp_line_lbld_units(LINE),
+  XML = term_to_xml.elem(
+    "cr_dsp_line",
+    [],
+    [f_lbl_to_xml(LBL)]++ID_XML_LIST++[f_txt_units_to_xml(UNITS)]
+  )
+).
+
+
+%% R_DSP_LINE_NO_LBL, TS_DSP_LINE_NO_LBL XMLABLE
+
+%%% R_DSP_LINE_NO_LBL
+
+r_dsp_line_no_lbl(cs_dsp_line_no_lbl(cs_txt_units(US))) --> (
   r_tab,
   +([],r_dsp_unit,US,[]),
   ?([+([r_tab]),r_str("DSP")]),
   r_lb
 ).
 
-%%% R_DSP_LINE_TYPE_2
-
-:- pred r_dsp_line_type_2(tr_dsp_line, ta_tkns, ta_tkns).
-:- mode r_dsp_line_type_2(out,         in,      out) is semidet.
-r_dsp_line_type_2(
-  cr_dsp_line(maybe.yes(LBL),MAYBE_TAG_OR_ID,cs_txt_units(US))
-) --> (
-  r_str("("),
-  r_lbl(LBL),
-  r_str(")"),
-  r_tab,
-  +([],r_dsp_unit,US,[]),
-  ?([+([r_tab])],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
-  r_lb
-).
-
-%%% R_DSP_LINE
-
-r_dsp_line(DSP_LINE) --> (
-  r_dsp_line_type_1(DSP_LINE_) -> {DSP_LINE = DSP_LINE_};
-  r_dsp_line_type_2(DSP_LINE_) -> {DSP_LINE = DSP_LINE_};
-                                  {false}
-).
-
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(tr_dsp_line) where [
-  func(to_xml/1) is f_dsp_line_to_xml
+:- instance term_to_xml.xmlable(ts_dsp_line_no_lbl) where [
+  func(to_xml/1) is f_dsp_line_no_lbl_to_xml
 ].
 :- func (
-  f_dsp_line_to_xml(tr_dsp_line::in)
+  f_dsp_line_no_lbl_to_xml(ts_dsp_line_no_lbl::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_dsp_line_to_xml(DSP_LINE) = XML :- (
-  (
-    (
-      fld_dsp_line_lbl(DSP_LINE) = maybe.yes(LBL),
-      LBL_XML_LIST               = [f_lbl_to_xml(LBL)]
-    );
-    (
-      fld_dsp_line_lbl(DSP_LINE) = maybe.no,
-      LBL_XML_LIST               = []
-    )
-  ),
-  (
-    (
-      fld_dsp_line_tag_or_id(DSP_LINE) = maybe.yes(TAG_OR_ID),
-      TAG_OR_ID_XML_LIST               = [f_tag_or_id_to_xml(TAG_OR_ID)]
-    );
-    (
-      fld_dsp_line_tag_or_id(DSP_LINE) = maybe.no,
-      TAG_OR_ID_XML_LIST               = []
-    )
-  ),
-  DSP_UNITS = fld_dsp_line_units(DSP_LINE),
-  XML = term_to_xml.elem(
-    "cr_dsp_line",
-    [],
-    LBL_XML_LIST++TAG_OR_ID_XML_LIST++[f_txt_units_to_xml(DSP_UNITS)]
-  )
+f_dsp_line_no_lbl_to_xml(cs_dsp_line_no_lbl(TXT_UNITS)) = term_to_xml.elem(
+  "cs_dsp_line_no_lbl",[],[f_txt_units_to_xml(TXT_UNITS)]
 ).
 
 
