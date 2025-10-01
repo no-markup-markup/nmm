@@ -1511,7 +1511,7 @@ f_dsp_line_lbld_to_xml(LINE) = XML :- (
   LBL   = fld_dsp_line_lbld_lbl(  LINE),
   UNITS = fld_dsp_line_lbld_units(LINE),
   XML = term_to_xml.elem(
-    "cr_dsp_line",
+    "cr_dsp_line_lbld",
     [],
     [f_lbl_to_xml(LBL)]++ID_XML_LIST++[f_txt_units_to_xml(UNITS)]
   )
