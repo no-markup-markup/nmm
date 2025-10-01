@@ -456,6 +456,7 @@ p_test_r_blk_txt_3 :- r_blk_txt(
   2u,
   cs_blk_txt(cs_txt_units([
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("OCH HEJ IGEN!"))
   ])),
   f_str2tkns("HEJ!\n\t\tOCH HEJ IGEN!\n"),
@@ -490,6 +491,7 @@ p_test_r_blk_txt_5 :- (
         cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
       )),
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       ce_txt_unit_c_ref(cs_txt_unit_c_ref(
         cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
       ))
@@ -507,6 +509,7 @@ p_test_r_blk_txt_6 :- r_blk_txt(
   2u,
   cs_blk_txt(cs_txt_units([
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("OCH HEJ IGEN"))
   ])),
   f_str2tkns("HEJ!\n\t\tOCH HEJ IGEN\n"),
@@ -520,14 +523,17 @@ p_test_r_blk_txt_7 :- r_blk_txt(
   0u,
   cs_blk_txt(cs_txt_units([
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ ")),
     ce_txt_unit_c_ref(cs_txt_unit_c_ref(
       cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
     )),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_c_ref(cs_txt_unit_c_ref(
       cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
     )),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
   ])),
   f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
@@ -541,6 +547,7 @@ p_test_r_blk_1 :- r_blk(
   0u,
   ce_blk_txt(cs_blk_txt(cs_txt_units([
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))
   ]))),
   f_str2tkns("HEJ!\nHEJ!\n"),
@@ -701,6 +708,7 @@ p_test_r_blk_blt_2 :- r_blk_blt(
   cs_blk_blt(cs_blks([
     ce_blk_txt(cs_blk_txt(cs_txt_units([
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
     ])))
   ])),
@@ -716,6 +724,7 @@ p_test_r_blk_blt_3 :- r_blk_blt(
   cs_blk_blt(cs_blks([
     ce_blk_txt(cs_blk_txt(cs_txt_units([
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
     ])))
   ])),
@@ -737,6 +746,7 @@ p_test_r_blk_blt_4 :- r_blk_blt(
       ce_txt_unit_c_ref(cs_txt_unit_c_ref(
         cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
       )),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
     ])))
   ])),
@@ -758,6 +768,7 @@ p_test_r_blk_blt_5 :- r_blk_blt(
       ce_txt_unit_c_ref(cs_txt_unit_c_ref(
         cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
       )),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
     ]))),
     ce_blk_txt(cs_blk_txt(cs_txt_units([
@@ -803,6 +814,7 @@ p_test_r_doc_main_1 :- r_doc_main(
     ce_doc_main_blks(cs_blks([
       ce_blk_txt(cs_blk_txt(cs_txt_units([
         ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
         ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
       ]))),
       ce_blk_blt(cs_blk_blt(cs_blks([
@@ -821,14 +833,17 @@ p_test_r_doc_main_1 :- r_doc_main(
 p_test_r_hdr_1 :- r_hdr(
   cs_hdr(cs_txt_units([
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ ")),
     ce_txt_unit_c_ref(
       cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"))))
     ),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_c_ref(
       cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"))))
     ),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
   ])),
   f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
@@ -1257,7 +1272,7 @@ p_test(!IO) :- (
   (
     if not p_test_r_hdr_1 then
       io.set_exit_status(1,!IO),
-      io.write_string("p_test_r_doc_main_1 failed\n",!IO)
+      io.write_string("p_test_r_hdr_1 failed\n",!IO)
     else
       true
   )

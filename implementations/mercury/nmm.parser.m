@@ -1280,8 +1280,9 @@ r_blk_txt(LVL,cs_blk_txt(UNITS)) --> (
 r_blk_txt_lines(        LVL,    cs_txt_units(US)) --> (
   r_blk_txt_line(LVL,cs_txt_units(US_)),
   (
-    r_tabs(LVL), r_blk_txt_lines(LVL,cs_txt_units(US__)) -> {US = US_ ++ US__};
-                                                            {US = US_}
+    r_tabs(LVL), r_blk_txt_lines(LVL,cs_txt_units(US__)) ->
+      {US = US_ ++ [ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" "))] ++ US__};
+    {US = US_}
   )
 ).
 
