@@ -603,10 +603,10 @@ f_refs_to_xml(cs_refs(BLKS)) =
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN) --> (
-  r_secs(   SECS), r_eof -> {DOC_MAIN = ce_doc_main_secs(SECS)};
-  r_pars(   PARS), r_eof -> {DOC_MAIN = ce_doc_main_pars(PARS)};
-  r_blks(0u,BLKS), r_eof -> {DOC_MAIN = ce_doc_main_blks(BLKS)};
-                            {false}
+  r_secs(   SECS), *([r_lb]), r_eof -> {DOC_MAIN = ce_doc_main_secs(SECS)};
+  r_pars(   PARS), *([r_lb]), r_eof -> {DOC_MAIN = ce_doc_main_pars(PARS)};
+  r_blks(0u,BLKS), *([r_lb]), r_eof -> {DOC_MAIN = ce_doc_main_blks(BLKS)};
+                                       {false}
 ).
 
 %%% XMLABLE
