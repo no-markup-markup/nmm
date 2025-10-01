@@ -276,16 +276,33 @@
 :- mode r_txt_units(in,     out,          in,      out) is semidet.
 
 
+%% RULE R_LBL_AUTO, SIMPLE TYPE TS_LBL_AUTO, INSTANCE TS_LBL_AUTO XMLABLE
+
+:- type ts_lbl_auto ---> cs_lbl_auto.
+
+:- instance term_to_xml.xmlable(ts_lbl_auto).
+
+:- pred r_lbl_auto(ts_lbl_auto::out, ta_tkns::in, ta_tkns::out) is det.
+
+
+%% RULE R_LBL_CUSTOM, SIMPLE TYPE TS_LBL_CUSTOM, INSTANCE TS_LBL_CUSTOM XMLABLE
+
+:- type ts_lbl_custom ---> cs_lbl_custom(str).
+
+:- instance term_to_xml.xmlable(ts_lbl_custom).
+
+:- pred r_lbl_custom(ts_lbl_custom::out, ta_tkns::in, ta_tkns::out) is semidet.
+
+
 %% RULE R_LBL, ENUM TYPE TE_LBL, INSTANCE TE_LBL XMLABLE
 
 :- type te_lbl --->
-  ce_lbl_auto;
-  ce_lbl_custom(str).
+  ce_lbl_auto(ts_lbl_auto);
+  ce_lbl_custom(ts_lbl_custom).
 
 :- instance term_to_xml.xmlable(te_lbl).
 
 :- pred r_lbl(te_lbl::out, ta_tkns::in, ta_tkns::out) is det.
-
 
 
 %% RULE R_TAG_OR_ID, ENUM TYPE TE_TAG_OR_ID, INSTANCE TE_TAG_OR_ID_XMLABLE
@@ -357,9 +374,9 @@
 %% RULE R_BLK_ITM, RECORD TYPE TR_BLK_ITM, INSTANCE TR_BLK_ITM XMLABLE
 
 :- type tr_blk_itm ---> cr_blk_itm(
-  fld_blk_itm_lbl       :: te_lbl,
-  fld_blk_itm_tag_or_id :: maybe(te_tag_or_id),
-  fld_blk_itm_main      :: ts_blks
+  fld_blk_itm_lbl  :: te_lbl,
+  fld_blk_itm_id   :: maybe(tr_id),
+  fld_blk_itm_main :: ts_blks
 ).
 
 :- instance term_to_xml.xmlable(tr_blk_itm).
@@ -1153,13 +1170,43 @@ f_txt_units_to_xml(cs_txt_units(US)) =
   term_to_xml.elem("cs_txt_units",[],list.map(f_txt_unit_to_xml,US)).
 
 
+%% R_LBL_AUTO, TS_LBL_AUTO XMLABLE
+
+r_lbl_auto(cs_lbl_auto) --> {true}.
+
+:- instance term_to_xml.xmlable(ts_lbl_auto) where [
+  func(to_xml/1) is f_lbl_auto_to_xml
+].
+:- func (
+  f_lbl_auto_to_xml(ts_lbl_auto::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_lbl_auto_to_xml(cs_lbl_auto)  = term_to_xml.elem("cs_lbl_auto",[],[]).
+
+%% R_LBL_CUSTOM, TS_LBL_CUSTOM XMLABLE
+
+r_lbl_custom(cs_lbl_custom(S)) --> r(ce_r_any,["(",")","[","]"],S).
+
+:- instance term_to_xml.xmlable(ts_lbl_custom) where [
+  func(to_xml/1) is f_lbl_custom_to_xml
+].
+:- func (
+  f_lbl_custom_to_xml(ts_lbl_custom::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_lbl_custom_to_xml(cs_lbl_custom(S)) =
+  term_to_xml.elem("cs_lbl_custom",[],[term_to_xml.data(S)]).
+
 %% R_LBL, TE_LBL XMLABLE
 
 %%% R_LBL
 
 r_lbl(LBL) --> (
-  r(ce_r_any,["(",")","[","]"],S) -> {LBL = ce_lbl_custom(S)};
-                                     {LBL = ce_lbl_auto}
+  r_lbl_custom(LBL_) -> {LBL = ce_lbl_custom(LBL_)};
+  r_lbl_auto(LBL_)   -> {LBL = ce_lbl_auto(LBL_)};
+                        {false}
 ).
 
 %%% XMLABLE
@@ -1170,9 +1217,10 @@ r_lbl(LBL) --> (
 :- func (
   f_lbl_to_xml(te_lbl::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_lbl_to_xml(ce_lbl_auto)      = term_to_xml.elem("ce_lbl_auto",[],[]).
-f_lbl_to_xml(ce_lbl_custom(S)) =
-  term_to_xml.elem("ce_lbl_custom",[],[term_to_xml.data(S)]).
+f_lbl_to_xml(ce_lbl_auto(LBL))      =
+  term_to_xml.elem("ce_lbl_auto",[],[f_lbl_auto_to_xml(LBL)]).
+f_lbl_to_xml(ce_lbl_custom(LBL)) =
+  term_to_xml.elem("ce_lbl_custom",[],[f_lbl_custom_to_xml(LBL)]).
 
 
 %% R_TAG_OR_ID, INSTANCE TE_TAG_OR_ID XMLABLE
@@ -1322,14 +1370,10 @@ f_blk_blt_to_xml(cs_blk_blt(BLKS)) =
 
 %%% R_BLK_ITM
 
-r_blk_itm(LVL,cr_blk_itm(LBL,MAYBE_TAG_OR_ID,BLKS)) --> (
-  r_str("["), r_lbl(LBL), r_str("]"), r_tab,
-  (
-    if r_tag_or_id(TAG_OR_ID), r_lb, r_tabs(LVL+1u) then
-      {MAYBE_TAG_OR_ID = maybe.yes(TAG_OR_ID)}
-    else
-      {MAYBE_TAG_OR_ID = maybe.no}
-  ),
+r_blk_itm(LVL,cr_blk_itm(LBL,MAYBE_ID,BLKS)) --> (
+  r_str("["), r_lbl(LBL), r_str("]"),
+  r_tab,
+  ?([],r_id,MAYBE_ID,[r_lb,r_tabs(LVL+1u)]),
   r_blks(LVL+1u,BLKS)
 ).
 
@@ -1345,12 +1389,12 @@ r_blk_itm(LVL,cr_blk_itm(LBL,MAYBE_TAG_OR_ID,BLKS)) --> (
 f_blk_itm_to_xml(BLK_ITM) = XML :- (
   (
     (
-      fld_blk_itm_tag_or_id(BLK_ITM) = maybe.no,
-      TAG_OR_ID_XML_LIST             = []
+      fld_blk_itm_id(BLK_ITM) = maybe.no,
+      ID_XML_LIST             = []
     );
     (
-      fld_blk_itm_tag_or_id(BLK_ITM) = maybe.yes(TAG_OR_ID),
-      TAG_OR_ID_XML_LIST             = [f_tag_or_id_to_xml(TAG_OR_ID)]
+      fld_blk_itm_id(BLK_ITM) = maybe.yes(ID),
+      ID_XML_LIST             = [f_id_to_xml(ID)]
     )
   ),
   LBL  = fld_blk_itm_lbl(BLK_ITM),
@@ -1358,7 +1402,7 @@ f_blk_itm_to_xml(BLK_ITM) = XML :- (
   XML  = term_to_xml.elem(
     "cr_blk_itm",
     [],
-    [f_lbl_to_xml(LBL)]++TAG_OR_ID_XML_LIST++[f_blks_to_xml(BLKS)]
+    [f_lbl_to_xml(LBL)]++ID_XML_LIST++[f_blks_to_xml(BLKS)]
   )
 ).
 

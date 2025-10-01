@@ -661,12 +661,12 @@ p_test_r_blks_6 :- r_blks(
       ))
     ]))),
     ce_blk_itm(cr_blk_itm(
-      ce_lbl_auto,
+      ce_lbl_auto(cs_lbl_auto),
       maybe.no,
       cs_blks([
         ce_blk_dsp(cs_blk_dsp(cs_dsp_lines([
           ce_dsp_line_lbld(cr_dsp_line_lbld(
-            ce_lbl_auto,
+            ce_lbl_auto(cs_lbl_auto),
             maybe.no,
             cs_txt_units([
               ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("a²+b²=c²"))
@@ -851,6 +851,228 @@ p_test_r_hdr_1 :- r_hdr(
 ).
 
 
+
+%%% P_TEST_R_TAG_OR_ID_1
+
+:- pred p_test_r_tag_or_id_1 is semidet.
+p_test_r_tag_or_id_1 :- r_tag_or_id(
+  ce_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"))),
+  f_str2tkns("PAR:name !"),
+  f_str2tkns(" !")
+).
+
+%%% P_TEST_R_TAG_OR_ID_2
+
+:- pred p_test_r_tag_or_id_2 is semidet.
+p_test_r_tag_or_id_2 :- r_tag_or_id(
+  ce_tag_or_id_tag(cs_tag("PAR")),
+  f_str2tkns("PAR :name"),
+  f_str2tkns(" :name")
+).
+
+%%% P_TEST_R_PAR_1
+
+:- pred p_test_r_par_1 is semidet.
+p_test_r_par_1 :- r_par(
+  cr_par(
+    maybe.no,
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+          ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+          ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+          ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ])))
+    ])
+  ),
+  f_str2tkns("¶\n\nHEJ!\nHAJ!\n"),
+  []
+).
+
+%%% P_TEST_R_PAR_2
+
+:- pred p_test_r_par_2 is semidet.
+p_test_r_par_2 :- r_par(
+  cr_par(
+    maybe.no,
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ]))),
+      ce_blk_blt(cs_blk_blt(cs_blks([ce_blk_txt(cs_blk_txt(cs_txt_units([
+          ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+          ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+          ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+      ])))])))
+    ])
+  ),
+  f_str2tkns("¶\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
+
+%%% P_TEST_R_PAR_3
+
+:- pred p_test_r_par_3 is semidet.
+p_test_r_par_3 :- r_par(
+  cr_par(
+    maybe.yes(ce_tag_or_id_tag(cs_tag("PAR"))),
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ]))),
+      ce_blk_blt(cs_blk_blt(cs_blks([ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+      ])))])))
+    ])
+  ),
+  f_str2tkns("¶ PAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
+
+%%% P_TEST_R_PAR_4
+
+:- pred p_test_r_par_4 is semidet.
+p_test_r_par_4 :- r_par(
+  cr_par(
+    maybe.yes(ce_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name")))),
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ]))),
+      ce_blk_blt(cs_blk_blt(cs_blks([ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+      ])))])))
+    ])
+  ),
+  f_str2tkns("¶ PAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
+
+%%% P_TEST_R_PAR_5
+
+:- pred p_test_r_par_5 is semidet.
+p_test_r_par_5 :- r_par(
+  cr_par(
+    maybe.yes(ce_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name")))),
+    maybe.yes(cs_hdr(cs_txt_units([
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+      ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+    ]))),
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ]))),
+      ce_blk_blt(cs_blk_blt(cs_blks([ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+      ])))])))
+    ])
+  ),
+  f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
+
+%%% P_TEST_R_BLK_ITM_1
+
+:- pred p_test_r_blk_itm_1 is semidet.
+p_test_r_blk_itm_1 :- r_blk_itm(
+  0u,
+  cr_blk_itm(
+    ce_lbl_auto(cs_lbl_auto),
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ])))
+    ])
+  ),
+  f_str2tkns("[]\thej\n"),
+  []
+).
+
+%%% P_TEST_R_BLK_ITM_2
+
+:- pred p_test_r_blk_itm_2 is semidet.
+p_test_r_blk_itm_2 :- r_blk_itm(
+  0u,
+  cr_blk_itm(
+    ce_lbl_custom(cs_lbl_custom("hej")),
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ]))),
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ])))
+    ])
+  ),
+  f_str2tkns("[hej]\thej\n\n\thej\n"),
+  []
+).
+
+%%% P_TEST_R_BLK_ITM_3
+
+:- pred p_test_r_blk_itm_3 is semidet.
+p_test_r_blk_itm_3 :- r_blk_itm(
+  0u,
+  cr_blk_itm(
+    ce_lbl_custom(cs_lbl_custom("hej")),
+    maybe.no,
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ]))),
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ])))
+    ])
+  ),
+  f_str2tkns("[hej]\thej\n\thej\n\n\thej\n"),
+  []
+).
+
+%%% P_TEST_R_BLK_ITM_4
+
+:- pred p_test_r_blk_itm_4 is semidet.
+p_test_r_blk_itm_4 :- r_blk_itm(
+  0u,
+  cr_blk_itm(
+    ce_lbl_auto(cs_lbl_auto),
+    maybe.yes(cr_id(cs_tag("DEF"),cs_name("name"))),
+    cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ]))),
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ])))
+    ])
+  ),
+  f_str2tkns("[]\tDEF:name\n\thej\n\thej\n\n\thej\n"),
+  []
+).
 
 %%% THE PREDICATE
 
@@ -1275,14 +1497,89 @@ p_test(!IO) :- (
       io.write_string("p_test_r_hdr_1 failed\n",!IO)
     else
       true
+  ),
+  (
+    if not p_test_r_tag_or_id_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_tag_or_id_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_tag_or_id_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_tag_or_id_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_5 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_5 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_4 failed\n",!IO)
+    else
+      true
   )
 ).
 
 %% P
 
 p(!IO) :-
-  io.write_string("TODO: parser tests\n",!IO)
-  ,
   nmm.parser.helpers.test.p(!IO)
   ,
   nmm.parser.operators.test.p(!IO)
