@@ -77,9 +77,11 @@ Inductive te_txt_unit         : Type :=
 Inductive ts_txt_units : Type :=
   cs_txt_units : list te_txt_unit -> ts_txt_units.
 
+Inductive ts_lbl_custom : Type := cs_lbl_custom : t_str -> ts_lbl_custom.
+
 Inductive te_lbl : Type :=
-| ce_lbl_auto   :          te_lbl
-| ce_lbl_custom : t_str -> te_lbl
+| ce_lbl_auto   :                  te_lbl
+| ce_lbl_custom : ts_lbl_custom -> te_lbl
 .
 
 Inductive ts_dsp_line_no_lbl : Type :=
@@ -140,8 +142,6 @@ Inductive te_pars_or_blks : Type :=
 | ce_pars_or_blks_pars : ts_pars -> te_pars_or_blks
 | ce_pars_or_blks_blks : ts_blks -> te_pars_or_blks
 .
-
-Inductive ts_sec_intro : Type := cs_sec_intro: ts_blks -> ts_sec_intro.
 
 Record tr_sec : Type := cr_sec {
   fld_sec_tag_or_id : option te_tag_or_id;
