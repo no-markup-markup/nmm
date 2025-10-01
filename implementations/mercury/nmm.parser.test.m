@@ -796,6 +796,47 @@ p_test_r_blk_blt_6 :- r_blk_blt(
   []
 ).
 
+%%% P_TEST_R_DOC_MAIN_1
+
+:- pred p_test_r_doc_main_1 is semidet.
+p_test_r_doc_main_1 :- r_doc_main(
+    ce_doc_main_blks(cs_blks([
+      ce_blk_txt(cs_blk_txt(cs_txt_units([
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+        ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ]))),
+      ce_blk_blt(cs_blk_blt(cs_blks([
+        ce_blk_txt(cs_blk_txt(cs_txt_units([
+          ce_txt_unit_emph(cs_txt_unit_emph("TJO TJO"))
+        ])))
+      ])))
+    ])),
+    f_str2tkns("HOJ!\nHAJ!\n\n-\t*TJO\n\tTJO*\n") ++ [nmm.lexer.c_tkn_eof],
+    []
+).
+
+%%% P_TEST_R_HDR_1
+
+:- pred p_test_r_hdr_1 is semidet.
+p_test_r_hdr_1 :- r_hdr(
+  cs_hdr(cs_txt_units([
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ")),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ ")),
+    ce_txt_unit_c_ref(
+      cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"))))
+    ),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
+    ce_txt_unit_c_ref(
+      cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"))))
+    ),
+    ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
+  ])),
+  f_str2tkns("HEJ\nHAJ [PAR:name]!\n[DSP:name]\nHOJ\n"),
+  []
+).
+
+
+
 %%% THE PREDICATE
 
 :- pred p_test(io.io::di, io.io::uo) is det.
@@ -1203,6 +1244,20 @@ p_test(!IO) :- (
     if not p_test_r_blk_blt_6 then
       io.set_exit_status(1,!IO),
       io.write_string("p_test_r_blk_blt_6 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_doc_main_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_doc_main_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_hdr_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_doc_main_1 failed\n",!IO)
     else
       true
   )
