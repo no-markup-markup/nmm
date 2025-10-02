@@ -35,7 +35,7 @@
               nixpkgs-unstable
           );
           pkgs         = nixpkgs.legacyPackages.${system};
-          pkgs_common  = [pkgs.bash pkgs.gnumake];
+          pkgs_common  = [pkgs.bash pkgs.gnumake pkgs.xmldiff];
           pkgs_mercury = [pkgs.mercury];
           pkgs_rocq    = [pkgs.coq];
           pkgs_ocaml   = []; # TODO
