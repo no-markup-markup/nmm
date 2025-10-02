@@ -43,6 +43,7 @@ p_write_usage(!IO) :-
   io.progname_base("nmm-mercury",BIN_NAME,!IO),
   io.write_string("Usages:\n",                                        !IO),
   io.write_string("  " ++ BIN_NAME ++ " nmm2xml path-to-nmm-source\n",!IO),
+  io.write_string("  " ++ BIN_NAME ++ " lex2txt path-to-nmm-source\n",!IO),
   io.write_string("  " ++ BIN_NAME ++ " test\n",                      !IO),
   io.write_string("  " ++ BIN_NAME ++ " version\n",                   !IO),
   io.write_string("  " ++ BIN_NAME ++ " --version\n",                 !IO),
@@ -51,9 +52,8 @@ p_write_usage(!IO) :-
   io.write_string("  " ++ BIN_NAME ++ " --help\n",                    !IO).
 
 
-%% P_PARSE
 
-%%% TYPE T_LEX_FILE_RES AND HELPER P_LEX_FILE
+%% TYPE T_LEX_FILE_RES AND HELPER P_LEX_FILE
 
 :- type t_lex_file_res --->
   c_lex_file_res_ok(t_tkns);
@@ -82,6 +82,27 @@ p_lex_file(        FILE_PATH, RES,                 !IO) :-
       )
     )
   ).
+
+
+%% P_LEX
+
+:- pred p_lex(str::in,   io.io::di, io.io::uo) is det.
+p_lex(        FILE_PATH, !IO) :-
+  p_lex_file(FILE_PATH,RES,!IO),
+  (
+    (
+      RES = c_lex_file_res_err(ERR),
+      io.set_exit_status(1,!IO),
+      io.write_string(io.stderr_stream,ERR,!IO)
+    );
+    (
+      RES = c_lex_file_res_ok(TKNS),
+      io.write_string(nmm.lexer.f_tkns2str(TKNS),!IO)
+    )
+  ).
+
+
+%% P_PARSE
 
 %%% HELPER P_PARSE_AS_FAR_AS_POSSIBLE
 
@@ -158,10 +179,11 @@ p_parse(        FILE_PATH, !IO) :-
   ).
 
 
-%% P_TEST (TODO)
+%% P_TEST
 
 :- pred p_test(io.io::di, io.io::uo) is det.
 p_test(!IO) :- nmm.test.p(!IO).
+
 
 %% P_WRITE_VERSION
 
@@ -176,6 +198,7 @@ main(!IO) :-
   io.command_line_arguments(ARGS,!IO),
   (
     ARGS = ["nmm2xml",FILE_PATH_AS_STR] -> p_parse(FILE_PATH_AS_STR,!IO);
+    ARGS = ["lex2txt",FILE_PATH_AS_STR] -> p_lex(FILE_PATH_AS_STR,!IO);
     ARGS = ["test"]                     -> p_test(!IO);
     ARGS = ["version"]                  -> p_write_version(!IO);
     ARGS = ["--version"]                -> p_write_version(!IO);

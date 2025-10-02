@@ -445,7 +445,7 @@
 
 
 
-% TODO: IMPLEMENTATION
+% IMPLEMENTATION
 
 %% IMPLEMENTATION DECLARATION
 
@@ -1109,12 +1109,13 @@ r_txt_unit_wysiwyg(LVL,cs_txt_unit_wysiwyg(STR)) -->
 
 :- pred r_txt_unit_wysiwyg_chr(ta_lvl, chr, ta_tkns, ta_tkns).
 :- mode r_txt_unit_wysiwyg_chr(in,     out, in,      out) is semidet.
-r_txt_unit_wysiwyg_chr(        LVL,    C) -->
+r_txt_unit_wysiwyg_chr(        LVL,    C) --> (
   not r_tab,
   not r_lb,
   not r_c_ref(_),
   not r_txt_unit_emph(LVL,_),
-  r_c(ce_r_any,C).
+  r_c(ce_r_any,C)
+).
 
 
 %%% XMLABLE
@@ -1314,9 +1315,21 @@ f_c_ref_to_xml(cs_c_ref(ID)) =
 r_blk_txt(LVL,cs_blk_txt(UNITS)) --> (
   (
     if {LVL = 0u} then
-      not r_str("CH"),
-      not r_str("§"),
-      not r_str("¶")
+      not (
+        r_str("CH"),
+        ?([*([r_sp])],r_tag_or_id,_,[]),
+        r_lb
+      ),
+      not (
+        r_str("§"),
+        ?([*([r_sp])],r_tag_or_id,_,[]),
+        r_lb
+      ),
+      not (
+        r_str("¶"),
+        ?([*([r_sp])],r_tag_or_id,_,[]),
+        r_lb
+      )
     else
       {true}
   ),
