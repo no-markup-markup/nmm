@@ -58,17 +58,14 @@ Inductive te_c_ref_type :=
 | ce_cref_type_gbl : te_c_ref_type
 .
 
-Record tr_c_ref : Type := cr_c_ref {
-  fld_c_ref_type : te_c_ref_type;
-  fld_c_ref_id   : tr_id;
-}.
+Inductive ts_c_ref : Type := cs_c_ref : tr_id -> ts_c_ref.
 
 Inductive ts_txt_unit_wysiwyg : Type :=
   cs_txt_unit_wysiwyg : t_str    -> ts_txt_unit_wysiwyg.
 Inductive ts_txt_unit_emph    : Type :=
   cs_txt_unit_emph    : t_str    -> ts_txt_unit_emph.
 Inductive ts_txt_unit_c_ref   : Type :=
-  cs_txt_unit_c_ref   : tr_c_ref -> ts_txt_unit_c_ref.
+  cs_txt_unit_c_ref   : ts_c_ref -> ts_txt_unit_c_ref.
 Inductive te_txt_unit         : Type :=
 | ce_txt_unit_wysiwyg : ts_txt_unit_wysiwyg -> te_txt_unit
 | ce_txt_unit_emph    : ts_txt_unit_emph    -> te_txt_unit
@@ -77,10 +74,10 @@ Inductive te_txt_unit         : Type :=
 Inductive ts_txt_units : Type :=
   cs_txt_units : list te_txt_unit -> ts_txt_units.
 
+Inductive ts_lbl_auto   : Type := cs_lbl_auto   :          ts_lbl_auto.
 Inductive ts_lbl_custom : Type := cs_lbl_custom : t_str -> ts_lbl_custom.
-
-Inductive te_lbl : Type :=
-| ce_lbl_auto   :                  te_lbl
+Inductive te_lbl        : Type :=
+| ce_lbl_auto   : ts_lbl_auto   -> te_lbl
 | ce_lbl_custom : ts_lbl_custom -> te_lbl
 .
 
