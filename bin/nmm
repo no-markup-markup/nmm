@@ -54,7 +54,7 @@ assert set(argument_w_help_by_subcommand.keys()) == set(subcommands)
 
 ## IMPLEMENTATION OF SUBCOMMANDS
 
-### HELPER GET_BIN_DIR
+### HELPER GET_BIN_PATH
 
 def get_bin_path(bin_name: str) -> str:
   return str(
@@ -64,7 +64,7 @@ def get_bin_path(bin_name: str) -> str:
     )
   )
 
-### HELPER REALPATH_AS_STR
+### HELPER GET_REALPATH_AS_STR
 
 def get_realpath_as_str(file_path: str) -> str:
   return str(os.path.realpath(file_path))
@@ -78,12 +78,13 @@ def nmm2txt(file_path: str) -> None:
 ### NMM2XML
 
 def nmm2xml(file_path: str) -> None:
-  print(f"'{get_realpath_as_str(file_path)}'")
-  subprocess.run([
+  completed_process : F[subprocess.CompletedProcess[bytes]] = subprocess.run([
     get_bin_path('nmm-mercury'),
     'nmm2xml',
     get_realpath_as_str(file_path),
   ])
+  sys.exit(completed_process.returncode)
+
 
 ### XML2TXT
 
