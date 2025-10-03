@@ -2,14 +2,13 @@
 
 # IMPORTS
 
-## STD LIB
-
 import argparse as ap
 import os
 import os.path
+import subprocess
 import sys
 
-from typing import Dict as D, Final as F, Iterable as I, List as L
+from typing import Callable, Final as F
 
 
 
@@ -27,7 +26,7 @@ subcommands : F[tuple[str,...]] = (
 
 ## DESCRIPTION_BY_SUBCOMMAND
 
-description_by_subcommand : F[D[str,str]] = {
+description_by_subcommand : F[dict[str,str]] = {
   'nmm2txt'      :
     'turn a no-markup-markup source file into raw text',
   'nmm2xml'      :
@@ -43,38 +42,72 @@ assert set(description_by_subcommand.keys()) == set(subcommands)
 
 ## ARGUMENT_W_HELP_BY_SUBCOMMAND
 
-argument_w_help_by_subcommand : F[D[str,tuple[str,str]]] = {
-  'nmm2txt'      : ('nmm-source','path to nmm source file'),
-  'nmm2xml'      : ('nmm-source','path to nmm source file'),
-  'xml2txt'      : ('xml-file',  'path to xml file'),
-  'validate-xml' : ('xml-file',  'path to xml file'),
+argument_w_help_by_subcommand : F[dict[str,tuple[str,str]]] = {
+  'nmm2txt'      : ('path', 'path to nmm source file'),
+  'nmm2xml'      : ('path', 'path to nmm source file'),
+  'xml2txt'      : ('path', 'path to xml file'),
+  'validate-xml' : ('path', 'path to xml file'),
 }
 
 assert set(argument_w_help_by_subcommand.keys()) == set(subcommands)
 
 
-## IMPLEMENTATION OF SUBCOMMAND NMM2TXT
+## IMPLEMENTATION OF SUBCOMMANDS
+
+### HELPER GET_BIN_DIR
+
+def get_bin_path(bin_name: str) -> str:
+  return str(
+    os.path.join(
+      os.path.dirname(os.path.realpath(__file__)),
+      bin_name,
+    )
+  )
+
+### HELPER REALPATH_AS_STR
+
+def get_realpath_as_str(file_path: str) -> str:
+  return str(os.path.realpath(file_path))
+
+### NMM2TXT
 
 def nmm2txt(file_path: str) -> None:
   print("TODO",file=sys.stderr)
+  sys.exit(1)
 
-
-## IMPLEMENTATION OF SUBCOMMAND NMM2TXT
+### NMM2XML
 
 def nmm2xml(file_path: str) -> None:
-  print("TODO",file=sys.stderr)
+  print(f"'{get_realpath_as_str(file_path)}'")
+  subprocess.run([
+    get_bin_path('nmm-mercury'),
+    'nmm2xml',
+    get_realpath_as_str(file_path),
+  ])
 
-
-## IMPLEMENTATION OF SUBCOMMAND XML2TXT
+### XML2TXT
 
 def xml2txt(file_path: str) -> None:
   print("TODO",file=sys.stderr)
+  sys.exit(1)
 
-
-## IMPLEMENTATION OF SUBCOMMAND VALID-XML
+### VALIDATE-XML
 
 def validate_xml(file_path: str) -> None:
   print("TODO",file=sys.stderr)
+  sys.exit(1)
+
+
+## HANDLER_BY_SUBCOMMAND
+
+handler_by_subcommand : F[dict[str,Callable[[str],None]]] = {
+  'nmm2txt'      : nmm2txt,
+  'nmm2xml'      : nmm2xml,
+  'xml2txt'      : xml2txt,
+  'validate-xml' : validate_xml,
+}
+
+assert set(handler_by_subcommand.keys()) == set(subcommands)
 
 
 ## CREATE PARSER
@@ -84,10 +117,11 @@ parser : F[ap.ArgumentParser] = ap.ArgumentParser(
   formatter_class=ap.ArgumentDefaultsHelpFormatter,
 )
 
+
 ## CREATE SUBCOMMAND PARSERS
 
-subparsers : F = parser.add_subparsers()
-subparser_by_subcommand : F[D[str,ap.ArgumentParser]] = {
+subparsers : F = parser.add_subparsers(title='commands')
+subparser_by_subcommand : F[dict[str,ap.ArgumentParser]] = {
   sc: subparsers.add_parser(name=sc,description=description_by_subcommand[sc])
   for sc in subcommands
 }
@@ -96,9 +130,10 @@ for subcommand,subparser in subparser_by_subcommand.items():
   argument : F[str] = argument_w_help_by_subcommand[subcommand][0]
   help     : F[str] = argument_w_help_by_subcommand[subcommand][1]
   subparser.add_argument(argument,help=help)
+  subparser.set_defaults(func=handler_by_subcommand[subcommand])
 
 
-## PARSE AND VALIDATE
+## PARSE
 
 args : F[ap.Namespace] = parser.parse_args()
 
@@ -112,4 +147,4 @@ if args == ap.Namespace():
     print(f'    {description_by_subcommand[sc]}',file=sys.stderr)
   sys.exit(1)
 
-print(args)
+args.func(args.path)
