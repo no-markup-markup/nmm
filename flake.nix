@@ -44,6 +44,7 @@
             pkgs.ocamlPackages.findlib
             pkgs.ocamlPackages.menhir
             pkgs.ocamlPackages.menhirLib
+            pkgs.ocamlPackages.sedlex
             pkgs.ocamlPackages.uuseg
             pkgs.ocamlPackages.xml-light
           ];

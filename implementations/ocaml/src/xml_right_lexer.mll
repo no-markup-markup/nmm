@@ -23,11 +23,7 @@ let nrst = ['\n' '\r' ' ' '\t']
 
 let xml_declaration = '<' st* '?' [^ '?' '<' '>' '\n' '\r']* '?' st* '>'
 
-let non_special_data = [^ '&' ';' '<' '>' '\n' '\r' '\t' '/']+
-
-let special_data = ("&" | ";" | "<" | ">" | "/")+
-
-let predefined_entity = "&lt;"| "&gt;" | "&amp;" | "&apos;" | "&quot;"
+let pcdata = [^ '\n' '\r' '\t' '<' '>' ]+
 
 let tag = [^ ' ' '\t' '\n' '\r' '&' ';' '<' '>' '\'' '\"' '=' '/']+
 
@@ -45,9 +41,7 @@ rule token = parse
 	|'<' st* (tag as s) st* (attrs* as t) st* '>'		{ TAG_OPEN (s,t) }
 	|'<' st* (tag as s) st* (attrs* as t) st* '/' st* '>'	{ TAG_OPEN_CLOSE (s,t) }
 	|'<' st* '/' st* (tag as s) st* '>'			{ TAG_CLOSE s }
-	|non_special_data as s					{ NON_SPECIAL_DATA s }
-	|special_data as s					{ SPECIAL_DATA s }
-	|predefined_entity as s					{ PREDEFINED_ENTITY s }
+	|pcdata as s					{ PCDATA s }
 	|xml_declaration					{ token lexbuf }
 	|nrst+ as s						{ let _=newlines s lexbuf in token lexbuf }
 	|comment as s						{ let _=newlines s lexbuf in token lexbuf }
