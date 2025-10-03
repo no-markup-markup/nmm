@@ -38,7 +38,15 @@
           pkgs_common  = [pkgs.bash pkgs.gnumake pkgs.xmldiff];
           pkgs_mercury = [pkgs.mercury];
           pkgs_rocq    = [pkgs.coq];
-          pkgs_ocaml   = []; # TODO
+          pkgs_ocaml   = [
+            pkgs.ocaml
+            pkgs.ocamlPackages.findlib
+            pkgs.ocamlPackages.menhir
+            pkgs.ocamlPackages.menhirLib
+            pkgs.ocamlPackages.sedlex
+            pkgs.ocamlPackages.uuseg
+            pkgs.ocamlPackages.xml-light
+          ];
           pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
         in {
           devShells.default = pkgs.mkShell {
