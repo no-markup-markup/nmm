@@ -1,0 +1,115 @@
+#! /usr/bin/env python3.13
+
+# IMPORTS
+
+## STD LIB
+
+import argparse as ap
+import os
+import os.path
+import sys
+
+from typing import Dict as D, Final as F, Iterable as I, List as L
+
+
+
+# SUBCOMMANDS AND THEIR IMPLEMENTATIONS
+
+## SUBCOMMANDS
+
+subcommands : F[tuple[str,...]] = (
+  'nmm2txt',
+  'nmm2xml',
+  'xml2txt',
+  'validate-xml',
+)
+
+
+## DESCRIPTION_BY_SUBCOMMAND
+
+description_by_subcommand : F[D[str,str]] = {
+  'nmm2txt'      :
+    'turn a no-markup-markup source file into raw text',
+  'nmm2xml'      :
+    'turn a no-markup-markup source file into an XML representation of its AST',
+  'xml2txt'      :
+    'turn an XML representation of a no-markup-markup AST into raw text',
+  'validate-xml' :
+    'check that an XML file represents a no-markup-markup AST',
+}
+
+assert set(description_by_subcommand.keys()) == set(subcommands)
+
+
+## ARGUMENT_W_HELP_BY_SUBCOMMAND
+
+argument_w_help_by_subcommand : F[D[str,tuple[str,str]]] = {
+  'nmm2txt'      : ('nmm-source','path to nmm source file'),
+  'nmm2xml'      : ('nmm-source','path to nmm source file'),
+  'xml2txt'      : ('xml-file',  'path to xml file'),
+  'validate-xml' : ('xml-file',  'path to xml file'),
+}
+
+assert set(argument_w_help_by_subcommand.keys()) == set(subcommands)
+
+
+## IMPLEMENTATION OF SUBCOMMAND NMM2TXT
+
+def nmm2txt(file_path: str) -> None:
+  print("TODO",file=sys.stderr)
+
+
+## IMPLEMENTATION OF SUBCOMMAND NMM2TXT
+
+def nmm2xml(file_path: str) -> None:
+  print("TODO",file=sys.stderr)
+
+
+## IMPLEMENTATION OF SUBCOMMAND XML2TXT
+
+def xml2txt(file_path: str) -> None:
+  print("TODO",file=sys.stderr)
+
+
+## IMPLEMENTATION OF SUBCOMMAND VALID-XML
+
+def validate_xml(file_path: str) -> None:
+  print("TODO",file=sys.stderr)
+
+
+## CREATE PARSER
+
+parser : F[ap.ArgumentParser] = ap.ArgumentParser(
+  description='no-markup-markup utilities',
+  formatter_class=ap.ArgumentDefaultsHelpFormatter,
+)
+
+## CREATE SUBCOMMAND PARSERS
+
+subparsers : F = parser.add_subparsers()
+subparser_by_subcommand : F[D[str,ap.ArgumentParser]] = {
+  sc: subparsers.add_parser(name=sc,description=description_by_subcommand[sc])
+  for sc in subcommands
+}
+
+for subcommand,subparser in subparser_by_subcommand.items():
+  argument : F[str] = argument_w_help_by_subcommand[subcommand][0]
+  help     : F[str] = argument_w_help_by_subcommand[subcommand][1]
+  subparser.add_argument(argument,help=help)
+
+
+## PARSE AND VALIDATE
+
+args : F[ap.Namespace] = parser.parse_args()
+
+if args == ap.Namespace():
+  print(
+    'subcommand (or ‘-h’ or ‘--help’) missing; available subcommands:',
+    file=sys.stderr
+  )
+  for sc in subcommands:
+    print(f'  {sc}',file=sys.stderr)
+    print(f'    {description_by_subcommand[sc]}',file=sys.stderr)
+  sys.exit(1)
+
+print(args)

@@ -173,11 +173,14 @@ Inductive ts_abstract : Type := cs_abstract : ts_blks -> ts_abstract.
 
 Inductive ts_title    : Type := cs_title    : t_str   -> ts_title.
 
+Inductive ts_author   : Type := cs_author   : t_str   -> ts_author.
+
 Inductive ts_preamble : Type := cs_preamble : t_str   -> ts_preamble.
 
 Record tr_doc : Type := cr_doc {
   fld_doc_preamble : option ts_preamble;
   fld_doc_title    : option ts_title;
+  fld_doc_author   : option ts_author;
   fld_doc_abstract : option ts_abstract;
   fld_doc_main     : te_doc_main;
   fld_doc_refs     : option ts_refs;

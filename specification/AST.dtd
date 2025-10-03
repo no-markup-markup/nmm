@@ -1,6 +1,7 @@
-<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_abstract?, (ce_doc_main_chs | ce_doc_main_secs | ce_doc_main_pars | ce_doc_main_blks), cs_refs?)>
+<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_author?, cs_abstract?, (ce_doc_main_chs | ce_doc_main_secs | ce_doc_main_pars | ce_doc_main_blks), cs_refs?)>
 <!ELEMENT cs_preamble (#PCDATA+)>
 <!ELEMENT cs_title (#PCDATA+)>
+<!ELEMENT cs_author (#PCDATA+)>
 <!ELEMENT cs_abstract (cs_blks)>
 
 <!ELEMENT ce_doc_main_chs (cs_chs)>
