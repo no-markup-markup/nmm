@@ -1,24 +1,34 @@
+src=example_input
+dest=example_output
+
+if [ -d $dest ]
+then 
+	rm -r $dest
+fi
+mkdir $dest
+
+
 echo "txt-of-xml:"
 
-./compilation/nmm-ocaml txt-of-xml example_input/simple.xml > example_output/simple.txt
-./compilation/nmm-ocaml txt-of-xml example_input/blks.xml > example_output/blks.txt
-./compilation/nmm-ocaml txt-of-xml example_input/pars.xml > example_output/pars.txt
-./compilation/nmm-ocaml txt-of-xml example_input/secs.xml > example_output/secs.txt
-./compilation/nmm-ocaml txt-of-xml example_input/special_blks.xml > example_output/special_blks.txt
-./compilation/nmm-ocaml txt-of-xml example_input/optimal_partitioning.xml > example_output/optimal_partitioning.txt
+./compilation/nmm-ocaml txt-of-xml $src/simple.xml > $dest/simple.txt
+./compilation/nmm-ocaml txt-of-xml $src/blks.xml > $dest/blks.txt
+./compilation/nmm-ocaml txt-of-xml $src/pars.xml > $dest/pars.txt
+./compilation/nmm-ocaml txt-of-xml $src/secs.xml > $dest/secs.txt
+./compilation/nmm-ocaml txt-of-xml $src/special_blks.xml > $dest/special_blks.txt
+./compilation/nmm-ocaml txt-of-xml $src/optimal_partitioning.xml > $dest/optimal_partitioning.txt
 
 
 #echo "html-of-xml:"
 
 echo "html-of-xml:"
 
-./compilation/nmm-ocaml html-of-xml "html.css" "en" example_input/simple.xml > example_output/simple.html
-./compilation/nmm-ocaml html-of-xml "html.css" "en" example_input/blks.xml > example_output/blks.html
-./compilation/nmm-ocaml html-of-xml "html.css" "en" example_input/pars.xml > example_output/pars.html
-./compilation/nmm-ocaml html-of-xml "html.css" "en" example_input/secs.xml > example_output/secs.html
-./compilation/nmm-ocaml html-of-xml "html.css" "en" example_input/special_blks.xml > example_output/special_blks.html
-./compilation/nmm-ocaml html-of-xml "html.css" "en" example_input/optimal_partitioning.xml > example_output/optimal_partitioning.html
-cp css/html.css example_output/html.css
+./compilation/nmm-ocaml html-of-xml "html.css" "en" $src/simple.xml > $dest/simple.html
+./compilation/nmm-ocaml html-of-xml "html.css" "en" $src/blks.xml > $dest/blks.html
+./compilation/nmm-ocaml html-of-xml "html.css" "en" $src/pars.xml > $dest/pars.html
+./compilation/nmm-ocaml html-of-xml "html.css" "en" $src/secs.xml > $dest/secs.html
+./compilation/nmm-ocaml html-of-xml "html.css" "en" $src/special_blks.xml > $dest/special_blks.html
+./compilation/nmm-ocaml html-of-xml "html.css" "en" $src/optimal_partitioning.xml > $dest/optimal_partitioning.html
+cp css/html.css $dest/html.css
 
 echo "check-xml-schema:"
 
@@ -26,11 +36,11 @@ echo "check-xml-schema:"
 
 echo "validate-xml:"
 
-./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" example_input/simple.xml
-./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" example_input/blks.xml
-./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" example_input/pars.xml
-./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" example_input/secs.xml
-./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" example_input/special_blks.xml
-./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" example_input/optimal_partitioning.xml
+./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" $src/simple.xml
+./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" $src/blks.xml
+./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" $src/pars.xml
+./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" $src/secs.xml
+./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" $src/special_blks.xml
+./compilation/nmm-ocaml validate-xml dtd/axml.dtd "cr_doc" $src/optimal_partitioning.xml
 
 
