@@ -1,0 +1,327 @@
+html {
+	font-family:monospace;
+	font-size:12px;
+}
+
+a {
+	text-decoration:none;
+}
+
+.doc {
+	display:block;
+
+	--tab_length:10mm;
+	--sec_indent:0;
+	--par_indent:10mm;
+	--sec_symbol:none;
+	--par_symbol:none;
+
+	--outline:none;
+	outline:var(--outline);
+}
+
+
+.title {
+	display:block;
+	margin-bottom:2ch;
+	font-size:16px;
+}
+
+
+.author {
+	display:block;
+	margin-bottom:2ch;
+	font-size:14px;
+}
+
+.doc_main {
+	display:block;
+	margin:1ch;
+	outline:var(--outline);
+}
+
+.sec {
+	display:block;
+	margin:1ch;
+	outline:var(--outline);
+}
+
+.sec_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+	font-size:14px;
+	font-weight:bold;
+
+	outline:var(--outline);
+}
+
+.sec_lbl::before {
+	content:var(--sec_symbol);
+}
+
+.sec_hdr {
+	display:block;
+	margin-left:var(--par_indent);
+	font-size:14px;
+	outline:var(--outline);
+}
+
+.sec_main {
+	display:block;
+	margin-left:var(--sec_indent);
+	outline:var(--outline);
+}
+
+.sec_lbl + .sec_main::before {
+	content:" ";
+	white-space:pre;
+}
+
+.par {
+	display:block;
+	margin-bottom:2ch;
+	margin-top:2ch;
+	outline:var(--outline);
+}
+
+.par_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+	font-size:12px;
+	outline:var(--outline);
+}
+
+.par_lbl::before{
+	content:var(--par_symbol);
+}
+
+.par_hdr {
+	display:block;
+	margin-left:var(--par_indent);
+	font-style:italic;
+	font-weight:normal;
+	outline:var(--outline);
+}
+
+.par_main {
+	display:block;
+	margin-left:var(--par_indent);
+
+	outline:var(--outline);
+}
+
+.blk_txt {
+	display:block;
+	margin-bottom:2ch;
+	margin-top:2ch;
+	hyphens:auto;
+	white-space:pre-wrap;
+
+	outline:var(--outline);
+}
+
+.blk_blt {
+	display:block;
+	margin:2ch;
+	
+	outline:var(--outline);
+}
+
+.blk_blt_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+
+	outline:var(--outline);
+}
+
+.blk_blt_main {
+	display:block;
+	margin-left:var(--tab_length);
+
+
+	outline:var(--outline);
+}
+
+.blk_itm {
+	display:block;
+	margin:2ch;
+	outline:var(--outline);
+}
+
+.blk_itm_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+
+	outline:var(--outline);
+}
+
+.blk_itm_main {
+	display:block;
+	margin-left:var(--tab_length);
+
+	outline:var(--outline);
+}
+
+.blk_dsp {
+	display:block;
+	margin:2ch;
+	white-space:nowrap;
+
+	outline:var(--outline);
+}
+
+.dsp_line {
+	display:block;
+
+	outline:var(--outline);
+}
+
+.dsp_line_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+	outline:var(--outline);
+}
+
+.dsp_line_main {
+	margin-left:var(--tab_length);
+	display:block;
+	white-space:pre;
+
+	outline:var(--outline);
+}
+
+.txt_unit_norm {
+	display:inline;
+
+	outline:var(--outline);
+}
+
+.txt_unit_emph {
+	display:inline;
+	text-decoration:underline;
+	font-style:normal;
+
+	outline:var(--outline);
+}
+
+.txt_unit_c_ref {
+	display:inline;
+
+	outline:var(--outline);
+}
+
+.txt_unit_norm_dsp {
+	display:inline;
+
+	outline:var(--outline);
+}
+
+.txt_unit_emph_dsp {
+	display:inline;
+	text-decoration:underline;
+	font-style:normal;
+
+	outline:var(--outline);
+}
+
+.txt_unit_c_ref_dsp {
+	display:inline;
+
+	outline:var(--outline);
+}
+
+.par[tag="FCT"] .par_hdr::before {
+	font-style:normal;
+	content:"FACT. ";
+}
+
+.par[tag="FCT"] .par_lbl + .par_main::before {
+	font-style:normal;
+	content:"FACT. ";
+	white-space:pre;
+	float:left;
+}
+
+.par[tag="FCT"] .par_main {
+	font-style:italic;
+}
+
+.par[tag="DEF"] .par_hdr::before {
+	font-style:normal;
+	content:"DEFINITION. ";
+}
+
+.par[tag="DEF"] .par_lbl + .par_main::before {
+	font-style:normal;
+	content:"DEFINITION. ";
+	white-space:pre;
+	float:left;
+}
+
+@media print {
+	.sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+		page-break-after:avoid;
+	}
+
+/* For one-sided printing:*/
+	@page {
+		size:a4;
+		margin-top:20mm;
+		margin-left:20mm;
+		margin-right:20mm;
+		margin-bottom:30mm;
+
+		@top-center {
+			content:" ";
+		}
+
+		@bottom-center {
+			padding:10mm;
+			content: counter(page) " of " counter(pages);
+		}
+	}
+
+/* For two-sided printing:*/
+/*
+@page:right {
+	size:a4;
+	margin-top:0;
+	margin-left:0;
+	margin-right:0;
+	margin-bottom:20mm;
+	padding-top:20mm;
+	padding-left:20mm;
+	padding-right:20mm;
+	padding-bottom:20mm;
+
+	@bottom-right {
+		padding-right:15mm;
+		content: counter(page) "/" counter(pages);
+	}
+}
+@page:left {
+	size:a4;
+	margin-top:0;
+	margin-left:0;
+	margin-right:0;
+	margin-bottom:20mm;
+	padding-top:20mm;
+	padding-left:20mm;
+	padding-right:20mm;
+	padding-bottom:20mm;
+
+	@bottom-left {
+		padding-left:15mm;
+		content: counter(page) "/" counter(pages);
+	}
+}
+}*/
+
+
+}
+

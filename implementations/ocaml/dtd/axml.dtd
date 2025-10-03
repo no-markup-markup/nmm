@@ -1,0 +1,66 @@
+<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_author?, cs_abstract?, (ce_doc_main_chs | ce_doc_main_secs | ce_doc_main_pars | ce_doc_main_blks), cs_refs?)>
+<!ELEMENT cs_preamble (#PCDATA+)>
+<!ELEMENT cs_title (#PCDATA+)>
+<!ELEMENT cs_author (#PCDATA+)>
+<!ELEMENT cs_abstract (cs_blks)>
+
+<!ELEMENT ce_doc_main_chs (cs_chs)>
+<!ELEMENT ce_doc_main_secs (cs_secs)>
+<!ELEMENT ce_doc_main_pars (cs_pars)>
+<!ELEMENT ce_doc_main_blks (cs_blks)>
+
+<!ELEMENT cs_refs (cs_blks)>
+
+<!ELEMENT cs_chs (cr_ch+)>
+<!ELEMENT cs_secs (cr_sec+)>
+<!ELEMENT cs_pars (cr_par+)>
+<!ELEMENT cs_blks (ce_blk_txt | ce_blk_blt | ce_blk_itm | ce_blk_dsp)+>
+
+<!ELEMENT cr_ch ((ce_tag_or_id_tag | ce_tag_or_id_id)?, cs_hdr?, (ce_secs_pars_or_blks_secs | ce_secs_pars_or_blks_pars | ce_secs_pars_or_blks_blks))>
+<!ELEMENT cr_sec ((ce_tag_or_id_tag | ce_tag_or_id_id)?, cs_hdr?, (ce_pars_or_blks_pars | ce_pars_or_blks_blks))>
+<!ELEMENT cr_par ((ce_tag_or_id_tag | ce_tag_or_id_id)?, cs_hdr?, cs_blks)>
+
+<!ELEMENT ce_secs_pars_or_blks_secs (cs_secs)>
+<!ELEMENT ce_secs_pars_or_blks_pars (cs_pars)>
+<!ELEMENT ce_secs_pars_or_blks_blks (cs_blks)>
+
+<!ELEMENT ce_pars_or_blks_pars (cs_pars)>
+<!ELEMENT ce_pars_or_blks_blks (cs_blks)>
+
+<!ELEMENT ce_blk_txt (cs_blk_txt)>
+<!ELEMENT ce_blk_blt (cs_blk_blt)>
+<!ELEMENT ce_blk_itm (cr_blk_itm)>
+<!ELEMENT ce_blk_dsp (cs_blk_dsp)>
+
+<!ELEMENT cs_blk_txt (cs_txt_units)>
+<!ELEMENT cs_blk_blt (cs_blks)>
+<!ELEMENT cr_blk_itm ((ce_lbl_auto | ce_lbl_custom), cr_id?, cs_blks)>
+<!ELEMENT cs_blk_dsp (cs_dsp_lines)>
+
+<!ELEMENT cs_txt_units (ce_txt_unit_wysiwyg | ce_txt_unit_emph | ce_txt_unit_c_ref)+>
+<!ELEMENT cs_dsp_lines (ce_dsp_line_no_lbl | ce_dsp_line_lbld)+>
+
+<!ELEMENT ce_dsp_line_no_lbl (cs_dsp_line_no_lbl)>
+<!ELEMENT ce_dsp_line_lbld (cr_dsp_line_lbld)>
+<!ELEMENT cs_dsp_line_no_lbl (cs_txt_units)>
+<!ELEMENT cr_dsp_line_lbld ((ce_lbl_auto | ce_lbl_custom)?, cr_id?, cs_txt_units)>
+
+<!ELEMENT ce_txt_unit_wysiwyg (cs_txt_unit_wysiwyg)>
+<!ELEMENT ce_txt_unit_emph (cs_txt_unit_emph)>
+<!ELEMENT ce_txt_unit_c_ref (cs_txt_unit_c_ref)>
+
+<!ELEMENT cs_txt_unit_wysiwyg (#PCDATA+)>
+<!ELEMENT cs_txt_unit_emph (#PCDATA+)>
+<!ELEMENT cs_txt_unit_c_ref (cs_c_ref)>
+<!ELEMENT cs_c_ref (cr_id)>
+
+<!ELEMENT cr_id (cs_tag, cs_name)>
+<!ELEMENT ce_tag_or_id_tag (cs_tag)>
+<!ELEMENT ce_tag_or_id_id (cr_id)>
+<!ELEMENT cs_hdr (cs_txt_units)>
+<!ELEMENT ce_lbl_auto (cs_lbl_auto)>
+<!ELEMENT cs_lbl_auto EMPTY>
+<!ELEMENT ce_lbl_custom (cs_lbl_custom)>
+<!ELEMENT cs_lbl_custom (#PCDATA+)>
+<!ELEMENT cs_tag (#PCDATA+)>
+<!ELEMENT cs_name (#PCDATA+)>

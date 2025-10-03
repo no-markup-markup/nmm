@@ -1,0 +1,338 @@
+(*
+type xml = Xml_light_types.xml =
+  | Element of (string * (string * string) list * xml list)
+  | PCData of string
+*)
+
+open Doc_types
+
+exception Error of string
+
+let string_of_xml_list (xml_list:Xml.xml list):string=
+	String.concat "\n" (List.map Xml_right.to_string xml_list)
+
+let rec f_tr_doc_of_xml (xml:Xml.xml):tr_doc =
+    match xml with
+    |Xml.Element ("cr_doc",[],xml_list) -> 
+        {   
+            fld_doc_preamble    =   f_ts_preamble_opt_of_xml_list xml_list;
+            fld_doc_title       =   f_ts_title_opt_of_xml_list xml_list;
+            fld_doc_author      =   f_ts_author_opt_of_xml_list xml_list;
+            fld_doc_abstract    =   f_ts_abstract_opt_of_xml_list xml_list;
+            fld_doc_main        =   f_te_doc_main_of_xml_list xml_list;
+            fld_doc_refs        =   f_ts_doc_refs_opt_of_xml_list xml_list;
+        }
+    |_ -> raise (Error (String.concat "%" ["Expected cr_doc, got:";string_of_xml_list [xml]]))
+
+and f_ts_preamble_opt_of_xml_list (xml_list:Xml.xml list):ts_preamble option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_preamble",[],pcdata_list) -> Some (Cs_preamble (f_string_of_pcdata_list pcdata_list))
+        |_ -> f_ts_preamble_opt_of_xml_list tl
+
+and f_ts_title_opt_of_xml_list (xml_list:Xml.xml list):ts_title option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_title",[],pcdata_list) -> Some (Cs_title (f_string_of_pcdata_list pcdata_list))
+        |_ -> f_ts_title_opt_of_xml_list tl
+
+and f_ts_author_opt_of_xml_list (xml_list:Xml.xml list):ts_author option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_author",[],pcdata_list) -> Some (Cs_author (f_string_of_pcdata_list pcdata_list))
+        |_ -> f_ts_author_opt_of_xml_list tl
+
+
+and f_ts_abstract_opt_of_xml_list (xml_list:Xml.xml list):ts_abstract option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_abstract",[],[xml]) -> Some (Cs_abstract (f_ts_blks_of_xml xml))
+        |_ -> f_ts_abstract_opt_of_xml_list tl
+
+and f_te_doc_main_of_xml_list (xml_list:Xml.xml list):te_doc_main =
+    match xml_list with
+    |hd::tl -> (
+        match hd with
+        |Xml.Element ("ce_doc_main_chs",[],[xml]) -> Ce_doc_main_chs (f_ts_chs_of_xml xml)
+        |Xml.Element ("ce_doc_main_secs",[],[xml]) -> Ce_doc_main_secs (f_ts_secs_of_xml xml)
+        |Xml.Element ("ce_doc_main_pars",[],[xml]) -> Ce_doc_main_pars (f_ts_pars_of_xml xml)
+        |Xml.Element ("ce_doc_main_blks",[],[xml]) -> Ce_doc_main_blks (f_ts_blks_of_xml xml)
+        |_ -> f_te_doc_main_of_xml_list tl
+    )
+    |[] -> raise (Error "doc_main cannot be empty")
+
+and f_ts_doc_refs_opt_of_xml_list (xml_list):ts_refs option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_refs",[],[xml]) -> Some (Cs_refs (f_ts_blks_of_xml xml))
+        |_ -> f_ts_doc_refs_opt_of_xml_list tl
+
+and f_ts_chs_of_xml (xml:Xml.xml):ts_chs =
+    match xml with
+    |Xml.Element ("cs_chs",[],xml_list) -> Cs_chs (List.map f_tr_ch_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_chs, got: ";string_of_xml_list [xml]]))
+
+and f_ts_secs_of_xml (xml:Xml.xml):ts_secs =
+    match xml with
+    |Xml.Element ("cs_secs",[],xml_list) -> Cs_secs (List.map f_tr_sec_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_secs, got: "; string_of_xml_list [xml]]))
+
+and f_ts_pars_of_xml (xml:Xml.xml):ts_pars =
+    match xml with
+    |Xml.Element ("cs_pars",[],xml_list) -> Cs_pars (List.map f_tr_par_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_pars, got: ";string_of_xml_list [xml]]))
+
+and f_ts_blks_of_xml (xml:Xml.xml):ts_blks =
+    match xml with
+    |Xml.Element ("cs_blks",[],xml_list) -> Cs_blks (List.map f_te_blk_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_blks, got: ";string_of_xml_list [xml]]))
+
+and f_tr_ch_of_xml (xml:Xml.xml):tr_ch =
+    match xml with
+    |Xml.Element ("cr_ch",[],xml_list) -> 
+        {   
+            fld_ch_tag_or_id    =   f_te_tag_or_id_opt_of_xml_list xml_list;
+            fld_ch_hdr          =   f_ts_hdr_opt_of_xml_list xml_list;
+            fld_ch_main         =   f_te_secs_pars_or_blks_of_xml_list xml_list;
+        }
+    |_ -> raise (Error (String.concat "" ["expected cr_ch, got: ";string_of_xml_list [xml]]))
+
+
+and f_tr_sec_of_xml (xml:Xml.xml):tr_sec =
+    match xml with
+    |Xml.Element ("cr_sec",[],xml_list) -> 
+        {   
+            fld_sec_tag_or_id    =   f_te_tag_or_id_opt_of_xml_list xml_list;
+            fld_sec_hdr          =   f_ts_hdr_opt_of_xml_list xml_list;
+            fld_sec_main         =   f_te_pars_or_blks_of_xml_list xml_list;
+        }
+    |_ -> raise (Error (String.concat "" ["expected cr_sec, got: ";string_of_xml_list [xml]]))
+
+and f_tr_par_of_xml (xml:Xml.xml):tr_par =
+    match xml with
+    |Xml.Element ("cr_par",[],xml_list) ->
+        {   
+            fld_par_tag_or_id    =   f_te_tag_or_id_opt_of_xml_list xml_list;
+            fld_par_hdr          =   f_ts_hdr_opt_of_xml_list xml_list;
+            fld_par_main         =   f_ts_blks_of_xml_list xml_list;
+        }
+    |_ -> raise (Error (String.concat "" ["expected cr_par, got: ";string_of_xml_list [xml]]))
+
+and f_te_tag_or_id_opt_of_xml_list (xml_list:Xml.xml list):te_tag_or_id option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("ce_tag_or_id_tag",[],[xml]) -> Some (Ce_tag_or_id_tag (f_ts_tag_of_xml xml))
+        |Xml.Element ("ce_tag_or_id_id",[],[xml]) -> Some (Ce_tag_or_id_id (f_tr_id_of_xml xml))
+        |_ -> f_te_tag_or_id_opt_of_xml_list tl
+
+and f_ts_hdr_opt_of_xml_list (xml_list:Xml.xml list):ts_hdr option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_hdr",[],[xml]) -> Some (Cs_hdr (f_ts_txt_units_of_xml xml))
+        |_ -> f_ts_hdr_opt_of_xml_list tl
+
+and f_te_secs_pars_or_blks_of_xml_list (xml_list:Xml.xml list):te_secs_pars_or_blks =
+    match xml_list with
+    |hd::tl -> (
+        match hd with
+        |Xml.Element ("ce_secs_pars_or_blks_secs",[],[xml]) -> Ce_secs_pars_or_blks_secs (f_ts_secs_of_xml xml)
+        |Xml.Element ("ce_secs_pars_or_blks_pars",[],[xml]) -> Ce_secs_pars_or_blks_pars (f_ts_pars_of_xml xml)
+        |Xml.Element ("ce_secs_pars_or_blks_blks",[],[xml]) -> Ce_secs_pars_or_blks_blks (f_ts_blks_of_xml xml)
+        |_ -> f_te_secs_pars_or_blks_of_xml_list tl
+    )
+    |_ -> raise (Error "ch_main cannot be empty")
+
+
+and f_te_pars_or_blks_of_xml_list (xml_list:Xml.xml list):te_pars_or_blks =
+    match xml_list with
+    |hd::tl -> (
+        match hd with
+        |Xml.Element ("ce_pars_or_blks_pars",[],[xml]) -> Ce_pars_or_blks_pars (f_ts_pars_of_xml xml)
+        |Xml.Element ("ce_pars_or_blks_blks",[],[xml]) -> Ce_pars_or_blks_blks (f_ts_blks_of_xml xml)
+        |_ -> f_te_pars_or_blks_of_xml_list tl
+    )
+    |_ -> raise (Error "sec_main cannot be empty")
+
+and f_ts_blks_of_xml_list (xml_list:Xml.xml list):ts_blks =
+    match xml_list with
+    |hd::tl -> (
+        match hd with
+        |Xml.Element ("cs_blks",_,_) -> f_ts_blks_of_xml hd
+        |_ -> f_ts_blks_of_xml_list tl
+    )
+    |_ -> raise (Error "par_main cannot be empty")
+
+and f_te_blk_of_xml (xml:Xml.xml):te_blk =
+    match xml with
+    |Xml.Element ("ce_blk_txt",[],[x]) -> Ce_blk_txt (f_ts_blk_txt_of_xml x)
+    |Xml.Element ("ce_blk_blt",[],[x]) -> Ce_blk_blt (f_ts_blk_blt_of_xml x)
+    |Xml.Element ("ce_blk_itm",[],[x]) -> Ce_blk_itm (f_tr_blk_itm_of_xml x)
+    |Xml.Element ("ce_blk_dsp",[],[x]) -> Ce_blk_dsp (f_ts_blk_dsp_of_xml x)
+    |_ -> raise (Error (String.concat "" ["expected ce_blk_txt, ce_blk_blt, ce_blk_itm, or ce_blk_dsp, got: ";string_of_xml_list [xml]]))
+
+and f_ts_blk_txt_of_xml (xml:Xml.xml):ts_blk_txt =
+    match xml with
+    |Xml.Element ("cs_blk_txt",[],[x]) -> Cs_blk_txt (f_ts_txt_units_of_xml x)
+    |_ -> raise (Error (String.concat "" ["expected cs_blk_txt, got: ";string_of_xml_list [xml]]))
+
+and f_ts_blk_blt_of_xml (xml:Xml.xml):ts_blk_blt =
+    match xml with
+    |Xml.Element ("cs_blk_blt",[],[x]) -> Cs_blk_blt (f_ts_blks_of_xml x)
+    |_ -> raise (Error (String.concat "" ["expected cs_blk_blt, got: ";string_of_xml_list [xml]]))
+
+and f_tr_blk_itm_of_xml (xml:Xml.xml):tr_blk_itm =
+    match xml with
+    |Xml.Element ("cr_blk_itm",[],xml_list) -> 
+        {   
+            fld_blk_itm_lbl         =   f_te_lbl_of_xml_list xml_list;
+            fld_blk_itm_id          =   f_tr_id_opt_of_xml_list xml_list;
+            fld_blk_itm_main        =   f_ts_blks_of_xml_list xml_list;
+        }
+    |_ -> raise (Error (String.concat "" ["expected cr_blk_itm, got: ";string_of_xml_list [xml]]))
+
+and f_ts_blk_dsp_of_xml (xml:Xml.xml):ts_blk_dsp =
+    match xml with
+    |Xml.Element ("cs_blk_dsp",[],[x]) -> Cs_blk_dsp (f_ts_dsp_lines_of_xml x)
+    |_ -> raise (Error (String.concat "" ["expected cs_blk_dsp, got: ";string_of_xml_list [xml]]))
+
+and f_te_lbl_of_xml_list (xml_list:Xml.xml list):te_lbl =
+    match xml_list with
+    |hd::tl -> (
+        match hd with
+        |Xml.Element ("ce_lbl_auto",[],[xml]) -> Ce_lbl_auto (f_ts_lbl_auto_of_xml xml)
+        |Xml.Element ("ce_lbl_custom",[],[xml]) -> Ce_lbl_custom (f_ts_lbl_custom_of_xml xml)
+        |_ -> f_te_lbl_of_xml_list tl
+    )
+    |_ -> raise (Error (String.concat "" ["expected list to contain ce_lbl_auto or ce_lbl_custom, got: ";string_of_xml_list xml_list]))
+
+and f_ts_lbl_auto_of_xml (xml:Xml.xml):ts_lbl_auto=
+	match xml with 
+	|Xml.Element ("cs_lbl_auto",[],[]) -> Cs_lbl_auto
+    |_ -> raise (Error (String.concat "" ["expected cs_lbl_auto, got: ";string_of_xml_list [xml]]))
+
+and f_ts_lbl_custom_of_xml (xml:Xml.xml):ts_lbl_custom=
+	match xml with 
+	|Xml.Element ("cs_lbl_custom",[],pcdata_list) -> Cs_lbl_custom (f_string_of_pcdata_list pcdata_list) 
+    |_ -> raise (Error (String.concat "" ["expected cs_lbl_custom, got: ";string_of_xml_list [xml]]))
+
+and f_ts_tag_of_xml (xml:Xml.xml):ts_tag =
+    match xml with
+    |Xml.Element ("cs_tag",[],pcdata_list) -> Cs_tag (f_string_of_pcdata_list pcdata_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_tag, got: ";string_of_xml_list [xml]]))
+
+
+and f_ts_txt_units_of_xml (xml:Xml.xml):ts_txt_units =
+    match xml with
+    |Xml.Element ("cs_txt_units",[],xml_list) -> Cs_txt_units (List.map f_te_txt_unit_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_txt_units, got: ";string_of_xml_list [xml]]))
+
+and f_te_txt_unit_of_xml (xml:Xml.xml):te_txt_unit =
+    match xml with
+    |Xml.Element ("ce_txt_unit_wysiwyg",[],[xml]) -> Ce_txt_unit_wysiwyg (f_ts_txt_unit_wysiwyg_of_xml xml)
+    |Xml.Element ("ce_txt_unit_emph",[],[xml]) -> Ce_txt_unit_emph (f_ts_txt_unit_emph_of_xml xml)
+    |Xml.Element ("ce_txt_unit_c_ref",[],[xml]) -> Ce_txt_unit_c_ref (f_ts_txt_unit_c_ref xml) 
+    |_-> raise (Error (String.concat "" ["expected ce_txt_unit_wysiwyg, ce_txt_unit_emph, or ce_txt_unit_c_ref, got: ";string_of_xml_list [xml]]))
+
+and f_ts_txt_unit_wysiwyg_of_xml (xml:Xml.xml):ts_txt_unit_wysiwyg=
+	match xml with 
+	|Xml.Element ("cs_txt_unit_wysiwyg",[],pcdata_list) -> Cs_txt_unit_wysiwyg (f_string_of_pcdata_list pcdata_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_txt_unit_wysiwyg, got: ";string_of_xml_list [xml]]))
+
+and f_ts_txt_unit_emph_of_xml (xml:Xml.xml):ts_txt_unit_emph=
+	match xml with 
+	|Xml.Element ("cs_txt_unit_emph",[],pcdata_list) -> Cs_txt_unit_emph (f_string_of_pcdata_list pcdata_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_txt_unit_emph, got: ";string_of_xml_list [xml]]))
+
+and f_ts_txt_unit_c_ref (xml:Xml.xml):ts_txt_unit_c_ref=
+	match xml with 
+	|Xml.Element ("cs_txt_unit_c_ref",[],[xml]) -> Cs_txt_unit_c_ref (f_ts_c_ref_of_xml xml)
+    |_ -> raise (Error (String.concat "" ["expected cs_txt_unit_c_ref, got: ";string_of_xml_list [xml]]))
+
+and f_ts_dsp_lines_of_xml (xml:Xml.xml):ts_dsp_lines =
+    match xml with
+    |Xml.Element ("cs_dsp_lines",[],xml_list) -> Cs_dsp_lines (List.map f_tr_dsp_line_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_dsp_lines, got: ";string_of_xml_list [xml]]))
+
+and f_tr_dsp_line_of_xml (xml:Xml.xml):tr_dsp_line =
+    match xml with
+    |Xml.Element ("ce_dsp_line_no_lbl",[],[Xml.Element ("cs_dsp_line_no_lbl",[],[x])]) ->
+        {   
+            fld_dsp_line_lbl        =   None;
+            fld_dsp_line_id         =   None;
+            fld_dsp_line_units      =   f_ts_txt_units_of_xml x;
+        }
+    |Xml.Element ("ce_dsp_line_lbld",[],[Xml.Element ("cr_dsp_line_lbld",[],xml_list)]) -> 
+        {   
+            fld_dsp_line_lbl        =   f_te_lbl_opt_of_xml_list xml_list;
+            fld_dsp_line_id         =   f_tr_id_opt_of_xml_list xml_list;
+            fld_dsp_line_units      =   f_ts_txt_units_of_xml_list xml_list;
+        }
+    |_ -> raise (Error (String.concat "" ["expected ce_dsp_line_no_lbl or ce_dsp_line_lbld, got: ";string_of_xml_list [xml]]))
+
+and f_tr_id_opt_of_xml_list (xml_list:Xml.xml list):tr_id option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cr_id",_,_) -> Some (f_tr_id_of_xml hd)
+        |_ -> f_tr_id_opt_of_xml_list tl
+
+and f_te_lbl_opt_of_xml_list (xml_list:Xml.xml list):te_lbl option =
+    match xml_list with
+    |[] -> None
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("ce_lbl_auto",[],[xml]) -> Some (Ce_lbl_auto (f_ts_lbl_auto_of_xml xml))
+        |Xml.Element ("ce_lbl_custom",[],[xml]) -> Some (Ce_lbl_custom (f_ts_lbl_custom_of_xml xml))
+        |_ -> f_te_lbl_opt_of_xml_list tl
+
+
+and f_ts_txt_units_of_xml_list (xml_list:Xml.xml list):ts_txt_units =
+    match xml_list with
+    |hd::tl -> (
+        match hd with
+        |Xml.Element ("cs_txt_units",_,_) -> f_ts_txt_units_of_xml hd
+        |_ -> f_ts_txt_units_of_xml_list tl
+    )
+    |_ -> raise (Error (String.concat "" ["expected list to contain cs_txt_units, got: ";string_of_xml_list xml_list]))
+
+and f_tr_id_of_xml (xml:Xml.xml):tr_id =
+    match xml with
+    |Xml.Element ("cr_id",[],[x;y]) -> 
+        {
+            fld_id_tag      =   f_ts_tag_of_xml x;
+            fld_id_name     =   f_ts_name_of_xml y;
+        }
+    |_ -> raise (Error (String.concat "" ["expected cr_id, got: ";string_of_xml_list [xml]]))
+
+and f_ts_name_of_xml (xml:Xml.xml):ts_name =
+    match xml with
+    |Xml.Element ("cs_name",[],pcdata_list) -> Cs_name (f_string_of_pcdata_list pcdata_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_name, got: ";string_of_xml_list [xml]]))
+
+and f_ts_c_ref_of_xml (xml:Xml.xml):ts_c_ref=
+	match xml with 
+	|Xml.Element ("cs_c_ref",[],[xml]) -> Cs_c_ref (f_tr_id_of_xml xml)
+	|_ -> raise (Error (String.concat "" ["expected cs_c_ref, got: ";string_of_xml_list [xml]]))
+
+and f_string_of_pcdata_list (pcdata_list:Xml.xml list):string=
+	String.concat "" (List.map f_string_of_pcdata pcdata_list)
+
+and f_string_of_pcdata (pcdata:Xml.xml):string=
+	match pcdata with
+	|Xml.PCData s -> s
+	|_ -> raise (Error (String.concat "" ["expected pcdata, got: ";string_of_xml_list [pcdata]]))
