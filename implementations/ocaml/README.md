@@ -20,7 +20,7 @@ In this foler, type
 
 ``bash test.sh``
 
-This will produce a folder ``example_output`` containing the output of ``example_input``.
+This will produce a folder ``example_output`` containing the txt- and html-output of ``example_input``, plus a copy of ``css/html.css``.
 
 It will also check that the xml-schema ``dtd/axml.dtd`` is well defined, and that every xml-file in ``example_output`` is valid with respect to it.
 
