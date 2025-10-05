@@ -89,8 +89,12 @@ def nmm2xml(file_path: str) -> None:
 ### XML2TXT
 
 def xml2txt(file_path: str) -> None:
-  print("TODO",file=sys.stderr)
-  sys.exit(1)
+  completed_process : F[subprocess.CompletedProcess[bytes]] = subprocess.run([
+    get_bin_path('nmm-ocaml'),
+    'txt-of-xml',
+    get_realpath_as_str(file_path),
+  ])
+  sys.exit(completed_process.returncode)
 
 ### VALIDATE-XML
 
