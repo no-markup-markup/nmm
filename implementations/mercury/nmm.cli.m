@@ -93,7 +93,7 @@ p_lex(        FILE_PATH, !IO) :-
     (
       RES = c_lex_file_res_err(ERR),
       io.set_exit_status(1,!IO),
-      io.write_string(io.stderr_stream,ERR,!IO)
+      io.write_string(io.stderr_stream,ERR,!IO),
       io.write_string("\n",!IO)
     );
     (
