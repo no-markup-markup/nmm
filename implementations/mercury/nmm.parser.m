@@ -729,6 +729,7 @@ f_refs_to_xml(cs_refs(BLKS)) =
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN) --> (
+  r_chs(    CHS)  -> {DOC_MAIN = ce_doc_main_chs( CHS)};
   r_secs(   SECS) -> {DOC_MAIN = ce_doc_main_secs(SECS)};
   r_pars(   PARS) -> {DOC_MAIN = ce_doc_main_pars(PARS)};
   r_blks(0u,BLKS) -> {DOC_MAIN = ce_doc_main_blks(BLKS)};
@@ -863,8 +864,7 @@ f_blks_to_xml(cs_blks(BLKS)) = (
 
 r_ch(cr_ch(MAYBE_TAG_OR_ID,MAYBE_HDR,MAIN)) --> (
   r_str("CH"),
-  *([r_sp]),
-  ?([],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
+  ?([*([r_sp])],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
   r_lb,
   ?([],r_hdr,MAYBE_HDR,[]),
   +([r_lb]),
@@ -921,8 +921,7 @@ f_ch_to_xml(CH) = XML :- (
 
 r_sec(cr_sec(MAYBE_TAG_OR_ID,MAYBE_HDR,MAIN)) --> (
   r_str("§"),
-  *([r_sp]),
-  ?([],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
+  ?([*([r_sp])],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
   r_lb,
   ?([],r_hdr,MAYBE_HDR,[]),
   +([r_lb]),
@@ -979,8 +978,7 @@ f_sec_to_xml(SEC) = XML :- (
 
 r_par(cr_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS)) -->
   r_str("¶"),
-  *([r_sp]),
-  ?([],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
+  ?([*([r_sp])],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
   r_lb,
   ?([],r_hdr,MAYBE_HDR,[]),
   +([r_lb]),
