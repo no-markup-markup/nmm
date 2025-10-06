@@ -7,6 +7,7 @@ import os
 import os.path
 import subprocess
 import sys
+import tempfile
 
 from typing import Callable, Final as F
 
@@ -71,9 +72,21 @@ def get_realpath_as_str(file_path: str) -> str:
 
 ### NMM2TXT
 
-def nmm2txt(file_path: str) -> None:
-  print("TODO",file=sys.stderr)
-  sys.exit(1)
+def nmm2txt(file_path:str) -> None:
+  xml_file_path : F[str] = tempfile.mkstemp()[1]
+  with open(xml_file_path,'w') as f:
+    completed_proc_1 : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+      [get_bin_path('nmm-mercury'),'nmm2xml',get_realpath_as_str(file_path)],
+      stdout=f,
+    )
+  if completed_proc_1.returncode != 0:
+    sys.exit(completed_proc_1.returncode)
+  completed_proc_2 : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [get_bin_path('nmm-ocaml'),'txt-of-xml',xml_file_path],
+  )
+  with open(xml_file_path,'w') as f:
+    os.remove(xml_file_path)
+  sys.exit(completed_proc_2.returncode)
 
 ### NMM2XML
 
