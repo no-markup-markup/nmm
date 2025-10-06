@@ -16,8 +16,8 @@ This is a no-markup-markup source made up of some blocks.
 
 -	Sometimes one might want to use ‘\’. Sometimes it escapes the
 	next character. Then one uses ‘\\\\’, for example if one for one
-	reason want to produce ‘\\[PAR:something]’, in which case
-	one uses ‘\\\\[PAR:something]’.
+	reason want to produce ‘\\\[PAR:something]’, in which case
+	one uses ‘\\\\\\\[PAR:something]’.
 
 -	The following usage of a left bracket does not require escaping:
 	f[α,β]---this because ‘f[α,β]’ is never valid syntax for a
