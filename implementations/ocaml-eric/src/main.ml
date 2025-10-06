@@ -41,7 +41,7 @@ let html_of_axml (path:string) (uri:string) (lang:string option):string =
 	let author:string = 
 		match doc.fld_doc_author with
 		|None -> ""
-		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">\n"]
+		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\"/>\n"]
 	in
 
 	let lang_attr=
@@ -74,7 +74,7 @@ let check_xml_schema (path:string):string =
 
 let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):string =
 	let print_tokens = false in 
-	try 
+	try
 		let dtd:Dtd.dtd=Dtd.parse_file path_to_dtd in
 		let checked_dtd:Dtd.checked=Dtd.check dtd in
 		let xml:Xml.xml=
