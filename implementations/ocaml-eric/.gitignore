@@ -4,3 +4,4 @@ src/nmm_parser.mly
 src/nmm_lexer.mly
 src/doc_of_nmm.ml
 src/main.ml
+_*
