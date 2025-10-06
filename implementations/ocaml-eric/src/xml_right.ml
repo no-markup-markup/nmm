@@ -17,6 +17,9 @@ let lexer (print_tokens:bool) (b:Lexing.lexbuf):Xml_right_parser.token=
 	|false -> t
 
 let rec parse_file (print_tokens:bool) (s:string):Xml.xml =
+	match Sys.file_exists s with
+	|false -> raise (Error ("cannot read from " ^ s ^ ": No such file"))
+	|true -> 
 	try
 		let ic=open_in s in
 		let lexbuf=Lexing.from_channel ic in
@@ -45,10 +48,20 @@ let rec parse_string (print_tokens:bool) (s:string):Xml.xml =
 			parse_string true s
 		|true -> raise (Error "parsing failed")
 
+
 let parse_stdin (print_tokens:bool):Xml.xml =
-	let lexbuf=Lexing.from_channel stdin in
-	let parse=Xml_right_parser.main (lexer print_tokens) in
-	parse lexbuf
+	let input : string = In_channel.input_all stdin in
+	try
+		let lexbuf = Lexing.from_string input in
+		let parse = Xml_right_parser.main (lexer print_tokens) in
+		parse lexbuf
+	with
+	|_ ->
+		let _=Printf.eprintf "%s\n" ("Xml_right failed, read the following tokens from stdin:") in
+		let print_tokens =  true in
+		let lexbuf = Lexing.from_string input in
+		let parse = Xml_right_parser.main (lexer print_tokens) in
+		parse lexbuf
 
 
 let rec to_string_fmt (xml:Xml.xml):string=
