@@ -81,13 +81,15 @@
 :- pred r_abstract(ts_abstract::out,ta_tkns::in,ta_tkns::out) is semidet.
 
 
-%% RULE R_REFS (TODO), SIMPLE TYPE TS_REFS, INSTANCE TS_REFS XMLABLE
+%% RULE R_REFS, SIMPLE TYPE TS_REFS, INSTANCE TS_REFS XMLABLE
 
 :- type ts_refs ---> cs_refs(ts_blks).
 
 :- instance term_to_xml.xmlable(ts_refs).
 
 :- pred r_refs(ts_refs::out,ta_tkns::in,ta_tkns::out) is semidet.
+
+:- pred r_refs_start_marker(ta_tkns::in,ta_tkns::out) is semidet.
 
 
 %% RULE R_DOC_MAIN, ENUM TYPE TE_DOC_MAIN, INSTANCE TE_DOC_MAIN XMLABLE
@@ -500,12 +502,14 @@ r_doc(cr_doc(
   MAIN,
   MAYBE_REFS)
 ) --> (
-  ?([],r_preamble,MAYBE_PREAMBLE,[+([r_lb])]),
-  ?([],r_title,   MAYBE_TITLE,   [+([r_lb])]),
-  ?([],r_author,  MAYBE_AUTHOR,  [+([r_lb])]),
-  ?([],r_abstract,MAYBE_ABSTRACT,[+([r_lb])]),
+  ?([],         r_preamble,MAYBE_PREAMBLE,[+([r_lb])]),
+  ?([],         r_title,   MAYBE_TITLE,   [+([r_lb])]),
+  ?([],         r_author,  MAYBE_AUTHOR,  [+([r_lb])]),
+  ?([],         r_abstract,MAYBE_ABSTRACT,[+([r_lb])]),
   r_doc_main(MAIN),
-  ?([],r_refs,    MAYBE_REFS,    [+([r_lb])])
+  ?([+([r_lb])],r_refs,    MAYBE_REFS,    []),
+  *([r_lb]),
+  r_eof
 ).
 
 %%% XMLABLE
@@ -695,12 +699,18 @@ f_abstract_to_xml(cs_abstract(BLKS)) =
   term_to_xml.elem("cs_abstract",[],[f_blks_to_xml(BLKS)]).
 
 
-%% R_REFS (TODO), TS_REFS XMLABLE
+%% R_REFS, TS_REFS XMLABLE
 
 %%% R_REFS
 
-:- pragma no_determinism_warning(r_refs/3).
-r_refs(cs_refs(_)) --> {false}.
+r_refs(cs_refs(BLKS)) --> r_refs_start_marker, +([r_lb]), r_blks(0u,BLKS).
+
+r_refs_start_marker --> (
+  r_str("CH"), +([r_sp]), r_str("REFS"), r_lb -> {true};
+  r_str("§"),  +([r_sp]), r_str("REFS"), r_lb -> {true};
+  r_str("¶"),  +([r_sp]), r_str("REFS"), r_lb -> {true};
+                                                 {false}
+).
 
 %%% XMLABLE
 
@@ -719,10 +729,10 @@ f_refs_to_xml(cs_refs(BLKS)) =
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN) --> (
-  r_secs(   SECS), *([r_lb]), r_eof -> {DOC_MAIN = ce_doc_main_secs(SECS)};
-  r_pars(   PARS), *([r_lb]), r_eof -> {DOC_MAIN = ce_doc_main_pars(PARS)};
-  r_blks(0u,BLKS), *([r_lb]), r_eof -> {DOC_MAIN = ce_doc_main_blks(BLKS)};
-                                       {false}
+  r_secs(   SECS) -> {DOC_MAIN = ce_doc_main_secs(SECS)};
+  r_pars(   PARS) -> {DOC_MAIN = ce_doc_main_pars(PARS)};
+  r_blks(0u,BLKS) -> {DOC_MAIN = ce_doc_main_blks(BLKS)};
+                     {false}
 ).
 
 %%% XMLABLE
@@ -1350,7 +1360,8 @@ f_tag_or_id_to_xml(ce_tag_or_id_id(ID))   =
 
 %% R_TAG AND INSTANCE TS_TAG XMLABLE
 
-r_tag(cs_tag(S)) --> r(ce_r_nws,k_forbidden_strs_in_tags_names,S).
+r_tag(cs_tag(S)) -->
+  r(ce_r_nws,k_forbidden_strs_in_tags_names,S), {S \= "REFS"}.
 
 :- instance term_to_xml.xmlable(ts_tag) where [
   func(to_xml/1) is f_tag_to_xml
@@ -1428,6 +1439,9 @@ r_blk_txt(LVL,cs_blk_txt(UNITS)) --> (
         r_str("¶"),
         ?([*([r_sp])],r_tag_or_id,_,[]),
         r_lb
+      ),
+      not (
+        r_refs_start_marker
       )
     else
       {true}

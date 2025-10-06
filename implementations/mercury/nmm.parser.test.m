@@ -823,7 +823,7 @@ p_test_r_doc_main_1 :- r_doc_main(
         ])))
       ])))
     ])),
-    f_str2tkns("HOJ!\nHAJ!\n\n-\t*TJO\n\tTJO*\n") ++ [nmm.lexer.c_tkn_eof],
+    f_str2tkns("HOJ!\nHAJ!\n\n-\t*TJO\n\tTJO*\n"),
     []
 ).
 
@@ -1073,6 +1073,21 @@ p_test_r_blk_itm_4 :- r_blk_itm(
   f_str2tkns("[]\tDEF:name\n\thej\n\thej\n\n\thej\n"),
   []
 ).
+
+%%% P_TEST_R_REFS_START_MARKER_1
+
+:- pred p_test_r_refs_start_marker_1 is semidet.
+p_test_r_refs_start_marker_1 :- r_refs_start_marker(f_str2tkns("CH REFS\n"),[]).
+
+%%% P_TEST_R_REFS_START_MARKER_2
+
+:- pred p_test_r_refs_start_marker_2 is semidet.
+p_test_r_refs_start_marker_2 :- r_refs_start_marker(f_str2tkns("§ REFS\n"),[]).
+
+%%% P_TEST_R_REFS_START_MARKER_3
+
+:- pred p_test_r_refs_start_marker_3 is semidet.
+p_test_r_refs_start_marker_3 :- r_refs_start_marker(f_str2tkns("¶ REFS\n"),[]).
 
 %%% THE PREDICATE
 
@@ -1572,6 +1587,27 @@ p_test(!IO) :- (
     if not p_test_r_blk_itm_4 then
       io.set_exit_status(1,!IO),
       io.write_string("p_test_r_blk_itm_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_refs_start_marker_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_refs_start_marker_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_refs_start_marker_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_refs_start_marker_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_refs_start_marker_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_refs_start_marker_3 failed\n",!IO)
     else
       true
   )
