@@ -1,7 +1,7 @@
 compilation
 example_output
 src/nmm_parser.mly
-src/nmm_lexer.mly
+src/nmm_lexer.mll
 src/doc_of_nmm.ml
-src/main.ml
+src/main_complete.ml
 _*
