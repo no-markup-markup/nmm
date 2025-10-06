@@ -28,7 +28,7 @@
 :- type ta_lvl == uint.
 
 
-%% RULE R_DOC (TODO), TYPE TR_DOC, INSTANCE TR_DOC XMLABLE
+%% RULE R_DOC, TYPE TR_DOC, INSTANCE TR_DOC XMLABLE
 
 :- type tr_doc ---> cr_doc(
   fld_doc_preamble :: maybe(ts_preamble),
@@ -51,16 +51,16 @@
 
 :- instance term_to_xml.xmlable(ts_preamble).
 
- %% :- pred r_preamble(ts_preamble::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_preamble(ts_preamble::out, ta_tkns::in, ta_tkns::out) is semidet.
 
 
-%% RULE R_TITLE (TODO), SIMPLE TYPE TS_TITLE, INSTANCE TS_TITLE XMLABLE
+%% RULE R_TITLE, SIMPLE TYPE TS_TITLE, INSTANCE TS_TITLE XMLABLE
 
 :- type ts_title ---> cs_title(str).
 
 :- instance term_to_xml.xmlable(ts_title).
 
- %% :- pred r_title(ts_title::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_title(ts_title::out, ta_tkns::in, ta_tkns::out) is semidet.
 
 
 %% RULE R_AUTHOR, SIMPLE TYPE TS_AUTHOR, INSTANCE TS_AUTHOR XMLABLE
@@ -72,11 +72,13 @@
 :- pred r_author(ts_author::out, ta_tkns::in, ta_tkns::out) is semidet.
 
 
-%% RULE R_ABSTRACT (TODO), SIMPLE TYPE TS_ABSTRACT, INSTANCE TS_ABSTRACT XMLABLE
+%% RULE R_ABSTRACT, SIMPLE TYPE TS_ABSTRACT, INSTANCE TS_ABSTRACT XMLABLE
 
 :- type ts_abstract ---> cs_abstract(ts_blks).
 
 :- instance term_to_xml.xmlable(ts_abstract).
+
+:- pred r_abstract(ts_abstract::out,ta_tkns::in,ta_tkns::out) is semidet.
 
 
 %% RULE R_REFS (TODO), SIMPLE TYPE TS_REFS, INSTANCE TS_REFS XMLABLE
@@ -84,6 +86,8 @@
 :- type ts_refs ---> cs_refs(ts_blks).
 
 :- instance term_to_xml.xmlable(ts_refs).
+
+:- pred r_refs(ts_refs::out,ta_tkns::in,ta_tkns::out) is semidet.
 
 
 %% RULE R_DOC_MAIN, ENUM TYPE TE_DOC_MAIN, INSTANCE TE_DOC_MAIN XMLABLE
@@ -484,11 +488,25 @@
 :- func k_forbidden_strs_in_tags_names = strs.
 k_forbidden_strs_in_tags_names = ["\\", "[", "]", "(", ")", ":", ",", ";", "*"].
 
-%% R_DOC (TODO), INSTANCE TR_DOC XMLABLE
+%% R_DOC, INSTANCE TR_DOC XMLABLE
 
-%%% R_DOC (TODO)
+%%% R_DOC
 
-r_doc(cr_doc(maybe.no,maybe.no,maybe.no,MAIN,maybe.no)) --> r_doc_main(MAIN).
+r_doc(cr_doc(
+  MAYBE_PREAMBLE,
+  MAYBE_TITLE,
+  MAYBE_AUTHOR,
+  MAYBE_ABSTRACT,
+  MAIN,
+  MAYBE_REFS)
+) --> (
+  ?([],r_preamble,MAYBE_PREAMBLE,[+([r_lb])]),
+  ?([],r_title,   MAYBE_TITLE,   [+([r_lb])]),
+  ?([],r_author,  MAYBE_AUTHOR,  [+([r_lb])]),
+  ?([],r_abstract,MAYBE_ABSTRACT,[+([r_lb])]),
+  r_doc_main(MAIN),
+  ?([],r_refs,    MAYBE_REFS,    [+([r_lb])])
+).
 
 %%% XMLABLE
 
@@ -573,6 +591,9 @@ f_doc_to_xml(DOC) = XML :- (
 
 %%% R_PREAMBLE
 
+:- pragma no_determinism_warning(r_preamble/3).
+r_preamble(_) --> {false}.
+
 %%% XMLABLE
 
 :- instance term_to_xml.xmlable(ts_preamble) where [
@@ -587,9 +608,24 @@ f_preamble_to_xml(cs_preamble(STR)) =
   term_to_xml.elem("cs_preamble",[],[term_to_xml.data(STR)]).
 
 
-%% R_TITLE (TODO), TS_TITLE XMLABLE
+%% R_TITLE, TS_TITLE XMLABLE
 
 %%% R_TITLE
+
+r_title(cs_title(STR)) --> (
+  r_str("TITLE:"),
+  +([r_lb]),
+  +([r_tab],r_title_line,LINES,[]),
+  {STR = string.join_list(" ",LINES)}
+).
+
+:- pred r_title_line(str::out,ta_tkns::in,ta_tkns::out) is semidet.
+r_title_line(LINE) -->
+  +([],r_title_line_chr,CS,[]), r_lb, {LINE = chrs2str(CS)}.
+
+% needed because some mode error otherwise
+:- pred r_title_line_chr(chr::out,ta_tkns::in,ta_tkns::out) is semidet.
+r_title_line_chr(        C) --> r_c(C).
 
 %%% XMLABLE
 
@@ -634,9 +670,16 @@ f_author_to_xml(cs_author(STR)) =
   term_to_xml.elem("cs_author",[],[term_to_xml.data(STR)]).
 
 
-%% R_ABSTRACT (TODO), TS_ABSTRACT XMLABLE
+%% R_ABSTRACT, TS_ABSTRACT XMLABLE
 
 %%% R_ABSTRACT
+
+r_abstract(cs_abstract(BLKS)) --> (
+  r_str("ABSTRACT:"),
+  +([r_lb]),
+  r_tab,
+  r_blks(1u,BLKS)
+).
 
 %%% XMLABLE
 
@@ -655,6 +698,9 @@ f_abstract_to_xml(cs_abstract(BLKS)) =
 %% R_REFS (TODO), TS_REFS XMLABLE
 
 %%% R_REFS
+
+:- pragma no_determinism_warning(r_refs/3).
+r_refs(cs_refs(_)) --> {false}.
 
 %%% XMLABLE
 
