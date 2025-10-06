@@ -22,6 +22,7 @@ subcommands : F[tuple[str,...]] = (
   'nmm2xml',
   'xml2txt',
   'validate-xml',
+  'lex2txt',
 )
 
 
@@ -34,6 +35,8 @@ description_by_subcommand : F[dict[str,str]] = {
     'turn a no-markup-markup source file into an XML representation of its AST',
   'xml2txt'      :
     'turn an XML representation of a no-markup-markup AST into raw text',
+  'lex2txt'      :
+    'turn a no-markup-markup source file into a raw text representation of its lexical tokenization',
   'validate-xml' :
     'check that an XML file represents a no-markup-markup AST',
 }
@@ -47,6 +50,7 @@ argument_w_help_by_subcommand : F[dict[str,tuple[str,str]]] = {
   'nmm2txt'      : ('path', 'path to nmm source file'),
   'nmm2xml'      : ('path', 'path to nmm source file'),
   'xml2txt'      : ('path', 'path to xml file'),
+  'lex2txt'      : ('path', 'path to nmm source file'),
   'validate-xml' : ('path', 'path to xml file'),
 }
 
@@ -69,6 +73,14 @@ def get_bin_path(bin_name:str) -> str:
 
 def get_realpath_as_str(file_path:str) -> str:
   return str(os.path.realpath(file_path))
+
+### LEX2TXT
+
+def lex2txt(file_path:str) -> None:
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [get_bin_path('nmm-mercury'),'lex2txt',get_realpath_as_str(file_path)],
+  )
+  sys.exit(completed_proc.returncode)
 
 ### NMM2TXT
 
@@ -119,6 +131,7 @@ handler_by_subcommand : F[dict[str,Callable[[str],None]]] = {
   'nmm2xml'      : nmm2xml,
   'xml2txt'      : xml2txt,
   'validate-xml' : validate_xml,
+  'lex2txt'      : lex2txt,
 }
 
 assert set(handler_by_subcommand.keys()) == set(subcommands)
