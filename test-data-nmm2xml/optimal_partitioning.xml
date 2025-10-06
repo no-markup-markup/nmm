@@ -1,16 +1,8 @@
 <?xml version="1.0"?>
 <cr_doc>
-<ce_doc_main_secs>
-<cs_secs>
-<cr_sec>
-<cs_hdr>
-<cs_txt_units>
-<ce_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>OPTIMAL PARTITIONING</cs_txt_unit_wysiwyg>
-</ce_txt_unit_wysiwyg>
-</cs_txt_units>
-</cs_hdr>
-<ce_pars_or_blks_pars>
+<cs_title>Optimal partitioning</cs_title>
+<cs_author>Eric Johannesson</cs_author>
+<ce_doc_main_pars>
 <cs_pars>
 <cr_par>
 <cs_hdr>
@@ -609,8 +601,5 @@
 </cs_blks>
 </cr_par>
 </cs_pars>
-</ce_pars_or_blks_pars>
-</cr_sec>
-</cs_secs>
-</ce_doc_main_secs>
+</ce_doc_main_pars>
 </cr_doc>
