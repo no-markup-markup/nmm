@@ -33,6 +33,7 @@
 :- type tr_doc ---> cr_doc(
   fld_doc_preamble :: maybe(ts_preamble),
   fld_doc_title    :: maybe(ts_title),
+  fld_doc_author   :: maybe(ts_author),
   fld_doc_abstract :: maybe(ts_abstract),
   fld_doc_main     :: te_doc_main,
   fld_doc_refs     :: maybe(ts_refs)
@@ -60,6 +61,15 @@
 :- instance term_to_xml.xmlable(ts_title).
 
  %% :- pred r_title(ts_title::out, ta_tkns::in, ta_tkns::out) is semidet.
+
+
+%% RULE R_AUTHOR, SIMPLE TYPE TS_AUTHOR, INSTANCE TS_AUTHOR XMLABLE
+
+:- type ts_author ---> cs_author(str).
+
+:- instance term_to_xml.xmlable(ts_author).
+
+:- pred r_author(ts_author::out, ta_tkns::in, ta_tkns::out) is semidet.
 
 
 %% RULE R_ABSTRACT (TODO), SIMPLE TYPE TS_ABSTRACT, INSTANCE TS_ABSTRACT XMLABLE
@@ -511,6 +521,16 @@ f_doc_to_xml(DOC) = XML :- (
   ),
   (
     (
+      fld_doc_author(DOC) = maybe.no,
+      AUTHOR_XML_LIST      = []
+    );
+    (
+      fld_doc_author(DOC) = maybe.yes(AUTHOR),
+      AUTHOR_XML_LIST     = [f_author_to_xml(AUTHOR)]
+    )
+  ),
+  (
+    (
       fld_doc_abstract(DOC) = maybe.no,
       ABSTRACT_XML_LIST     = []
     );
@@ -536,6 +556,8 @@ f_doc_to_xml(DOC) = XML :- (
       PREAMBLE_XML_LIST
       ++
       TITLE_XML_LIST
+      ++
+      AUTHOR_XML_LIST
       ++
       ABSTRACT_XML_LIST
       ++
@@ -579,6 +601,37 @@ f_preamble_to_xml(cs_preamble(STR)) =
 ) is det.
 f_title_to_xml(cs_title(STR)) =
   term_to_xml.elem("cs_title",[],[term_to_xml.data(STR)]).
+
+
+%% R_AUTHOR, TS_AUTHOR XMLABLE
+
+%%% R_AUTHOR
+
+r_author(cs_author(STR)) --> (
+  r_str("AUTHOR:"),
+  +([r_lb]),
+  +([r_tab],r_author_line,LINES,[]),
+  {STR = string.join_list(" ",LINES)}
+).
+
+:- pred r_author_line(str::out,ta_tkns::in,ta_tkns::out) is semidet.
+r_author_line(LINE) -->
+  +([],r_author_line_chr,CS,[]), r_lb, {LINE = chrs2str(CS)}.
+
+% needed because some mode error otherwise
+:- pred r_author_line_chr(chr::out,ta_tkns::in,ta_tkns::out) is semidet.
+r_author_line_chr(        C) --> r_c(C).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_author) where [
+  func(to_xml/1) is f_author_to_xml
+].
+:- func (
+  f_author_to_xml(ts_author::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_author_to_xml(cs_author(STR)) =
+  term_to_xml.elem("cs_author",[],[term_to_xml.data(STR)]).
 
 
 %% R_ABSTRACT (TODO), TS_ABSTRACT XMLABLE
