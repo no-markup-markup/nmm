@@ -95,6 +95,18 @@ p_test_r_str_2(!IO) :- (
     io.write_string("parser helpers test p_test_r_str_2 failed\n",!IO)
 ).
 
+%% P_TEST_R_STR_3
+
+:- pred p_test_r_str_3(io.io::di, io.io::uo) is det.
+p_test_r_str_3(!IO) :- (
+  if r_str("HC",f_str2tkns("HatGPT"),TKNS) then
+    io.write(TKNS,!IO),
+    io.set_exit_status(1,!IO),
+    io.write_string("parser helpers test p_test_r_str_3 failed\n",!IO)
+  else
+    true
+).
+
 
 %% P_TEST_R_TAB_1
 
@@ -201,6 +213,7 @@ p(!IO) :-
   p_test_r_4(!IO),
   p_test_r_str_1(!IO),
   p_test_r_str_2(!IO),
+  p_test_r_str_3(!IO),
   p_test_r_tab_1(!IO),
   p_test_r_tab_2(!IO),
   p_test_r_tab_3(!IO),

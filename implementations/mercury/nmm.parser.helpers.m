@@ -116,15 +116,13 @@ r_c(ce_r_any,     C) --> [nmm.lexer.c_tkn_esc(_,C)].
 r_c(              C) --> r_c(ce_r_any,C).
 
 
-%%% R_STR
+%% R_STR
 
-r_str(S) --> if {S = ""} then {true} else r_str_rec(str2chrs(S)).
+r_str(S) --> r_str_chrs(str2chrs(S)).
 
-:- pred r_str_rec(chrs::in, t_tkns::in, t_tkns::out) is semidet.
-r_str_rec(        [C|CS]) --> (
-  r_c(ce_r_nws_sps,C), r_str_rec(CS) -> [];
-                                        r_c(ce_r_nws_sps,C)
-).
+:- pred r_str_chrs(chrs::in, t_tkns::in, t_tkns::out) is semidet.
+r_str_chrs([])     --> {true}.
+r_str_chrs([C|CS]) --> r_c(ce_r_nws_sps,C), r_str_chrs(CS).
 
 
 %% R
