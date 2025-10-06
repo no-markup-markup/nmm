@@ -19,8 +19,8 @@ let txt_of_axml (path:string):string =
 		|"-" -> Xml_right.parse_stdin print_tokens 
 		|_ -> Xml_right.parse_file print_tokens path
 	in
-	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_xml axml in
-	Compiler_of_doc.txt_string_of_doc doc
+	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
+	Compiler_of_doc.txt_of_tr_doc doc
 
 let html_of_axml (path:string) (uri:string) (lang:string option):string =
 	let print_tokens = false in
@@ -29,8 +29,8 @@ let html_of_axml (path:string) (uri:string) (lang:string option):string =
 		|"-" -> Xml_right.parse_stdin print_tokens 
 		|_ -> Xml_right.parse_file print_tokens path
 	in
-	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_xml axml in
-	let exml:Xml.xml = Compiler_of_doc.xml_of_doc doc in
+	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
+	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
 	let html:Xml.xml = Html_of_exml.html_of_exml exml in
 	let html_string:string = Xml_right.to_string_fmt html in
 	let title:string = 

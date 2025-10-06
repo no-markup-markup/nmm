@@ -1,3 +1,5 @@
+exception Error of string
+
 let string_of_token (t:Xml_right_parser.token):string =
 	match t with
 	|Xml_right_parser.EOF -> "EOF"
@@ -11,25 +13,43 @@ let string_of_token (t:Xml_right_parser.token):string =
 let lexer (print_tokens:bool) (b:Lexing.lexbuf):Xml_right_parser.token=
 	let t:Xml_right_parser.token=Xml_right_lexer.token b in
 	match print_tokens with
-	|true -> let _=print_endline ("Line " ^ (Xml_right_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in t
+	|true -> let _=Printf.eprintf "%s\n" ("Line " ^ (Xml_right_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in t
 	|false -> t
 
-let parse_file (print_tokens:bool) (s:string):Xml.xml =
-	let ic=open_in s in
-	let lexbuf=Lexing.from_channel ic in
-	let parse=Xml_right_parser.main (lexer print_tokens) in
-	let result=parse lexbuf in
-	let _=close_in ic in result
+let rec parse_file (print_tokens:bool) (s:string):Xml.xml =
+	try
+		let ic=open_in s in
+		let lexbuf=Lexing.from_channel ic in
+		let parse=Xml_right_parser.main (lexer print_tokens) in
+		let result=parse lexbuf in
+		let _=close_in ic in result
+	with
+	|_ ->
+		match print_tokens with
+		|false -> 
+			let _=Printf.eprintf "%s\n" ("Xml_right failed, read the following tokens from " ^ s ^ ":") in
+			parse_file true s
+		|true -> raise (Error "parsing failed")
 
-let parse_string (print_tokens:bool) (s:string):Xml.xml =
-	let lexbuf=Lexing.from_string s in
-	let parse=Xml_right_parser.main (lexer print_tokens) in
-	parse lexbuf
+
+let rec parse_string (print_tokens:bool) (s:string):Xml.xml =
+	try
+		let lexbuf=Lexing.from_string s in
+		let parse=Xml_right_parser.main (lexer print_tokens) in
+		parse lexbuf
+	with
+	|_ ->
+		match print_tokens with
+		|false -> 
+			let _=Printf.eprintf "%s\n" ("Xml_right failed, read the following tokens from \"" ^ s ^ "\":") in
+			parse_string true s
+		|true -> raise (Error "parsing failed")
 
 let parse_stdin (print_tokens:bool):Xml.xml =
 	let lexbuf=Lexing.from_channel stdin in
 	let parse=Xml_right_parser.main (lexer print_tokens) in
 	parse lexbuf
+
 
 let rec to_string_fmt (xml:Xml.xml):string=
 	string_of_xml true xml

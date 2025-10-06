@@ -6,7 +6,7 @@ type xml = Xml_light_types.xml =
 
 open Doc_types
 
-let rec xml_of_tr_doc (doc:tr_doc):Xml.xml=
+let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
 	match doc.fld_doc_title, doc.fld_doc_author with
 	|None, None -> Xml.Element ("cr_doc",[],[xml_of_te_doc_main doc.fld_doc_main])
 	|Some (title:ts_title), None -> Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_te_doc_main doc.fld_doc_main])

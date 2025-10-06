@@ -35,8 +35,8 @@ let doc_log:t_doc_log = { content = [] }
 let log (s : string) : unit = 
 	doc_log.content <- s :: doc_log.content
 
-let rec string_of_ts_c_ref (pos : t_path) (c_ref : ts_c_ref) : string =
-	match c_ref with Cs_c_ref (id:tr_id) ->
+let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string =
+	match c_ref with Cs_c_ref (id : Doc_types.tr_id) ->
 	let s : string =
 		match string_of_path pos pos with 
 		| None -> "document" 
@@ -45,7 +45,7 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : ts_c_ref) : string =
 	let rec aux (cref_table : t_cref_table) : string option =
 		match cref_table with
 		| [] -> None
-		| ((id_entry : tr_id), (path_entry : t_path)) :: tl -> 
+		| ((id_entry : Doc_types.tr_id), (path_entry : t_path)) :: tl -> 
 			match id = id_entry with
 			| true -> string_of_path path_entry (sub_path_of_cref_path pos path_entry)
 			| false -> aux tl
@@ -88,12 +88,12 @@ and sub_path_of_cref_path (pos : t_path) (path : t_path) : t_path =
 
 and string_of_path (full_path:t_path) (path : t_path) : string option =
 	match full_path,path with
-	| _,[] -> None
+	| _, [] -> None
 	| full_path_hd::full_path_tl,path_hd :: path_tl -> (
 		match path_hd with 
-		|CH_NODE _ 
-		|SEC_NODE _
-		|PAR_NODE _ -> (
+		| CH_NODE _ 
+		| SEC_NODE _
+		| PAR_NODE _ -> (
 			match (string_of_node full_path_tl path_hd) with
 			| Some s -> Some s
 			| None -> None
@@ -106,7 +106,7 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 			| None, None -> None
 		)
 	)
-	|[],_ -> raise (Error "full path shorter than path")
+	| [], _ -> raise (Error "full path shorter than path")
 
 and string_of_node (pos : t_path) (node : t_node) : string option =
 	match node with
@@ -151,14 +151,14 @@ and dsp_line_node_of_itm_node (a : t_itm_node) : t_dsp_line_node =
 	| ITM_STRING s -> DSP_STRING s
 
 
-and node_of_blk_itm (auto_nr : int) (a : tr_blk_itm) : t_node =
+and node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
 	let itm_node : t_itm_node =
 		match a.fld_blk_itm_lbl with
 		| Ce_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
 		| Ce_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
 	in ITM_NODE itm_node
 
-and node_of_dsp_line (auto_nr : int) (a : tr_dsp_line) : t_node =
+and node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
 	let dsp_line_node : t_dsp_line_node =
 		match a.fld_dsp_line_lbl with
 		| Some (Ce_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
@@ -166,8 +166,6 @@ and node_of_dsp_line (auto_nr : int) (a : tr_dsp_line) : t_node =
 		| None -> NONE
 	in 
 	DSP_LINE_NODE dsp_line_node
-
-
 
 and lower_case_latin_letters : string array =
 	[|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]

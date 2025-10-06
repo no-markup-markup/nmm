@@ -11,7 +11,7 @@ exception Error of string
 let string_of_xml_list (xml_list:Xml.xml list):string=
 	String.concat "\n" (List.map Xml_right.to_string xml_list)
 
-let rec f_tr_doc_of_xml (xml:Xml.xml):tr_doc =
+let rec f_tr_doc_of_axml (xml:Xml.xml):tr_doc =
     match xml with
     |Xml.Element ("cr_doc",[],xml_list) -> 
         {   

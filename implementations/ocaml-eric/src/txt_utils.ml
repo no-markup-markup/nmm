@@ -7,55 +7,52 @@ type t_doc_settings = {
 	mutable sec_symbol: string option;
 	mutable par_symbol : string option;
 	mutable tab_length : int;
-	mutable abstract_indent : int;
-	mutable qtn_indent : int;
 }
 
 let doc_settings : t_doc_settings = {
-	doc_width = 75;
+	doc_width = 74;
 	par_indent = 6;
-	sec_symbol = Some "§";
-	par_symbol = Some "¶";
+	sec_symbol = None;
+	par_symbol = None;
 	tab_length = 6;
-	abstract_indent = 0;
-	qtn_indent = 4;
 }
 
 
-let rec lines_of_ts_hdr (path:t_path) (a:ts_hdr):string list =
+let rec lines_of_ts_hdr (path : Cref_utils.t_path) (a : Doc_types.ts_hdr) : string list =
 	match a with
-	|Cs_hdr (b:ts_txt_units) -> 
+	| Cs_hdr (b : Doc_types.ts_txt_units) -> 
 		match lines_of_ts_txt_units path b with
-		|hd::tl -> decoration_of_head path ((insert_mark path hd)::tl)
-		|[] -> []
+		| hd::tl -> decoration_of_head path ((insert_mark path hd)::tl)
+		| [] -> []
 
 
-and lines_of_ts_title (title:ts_title):string list=
+and lines_of_ts_title (title : Doc_types.ts_title) : string list =
 	match title with
-	|Cs_title (s:string) -> List.concat [decoration_of_head [] (lines_of_string 0 s);[""]]
+	|Cs_title (s : string) -> List.concat [decoration_of_head [] (lines_of_string 0 s); [""]]
 
-and lines_of_ts_author (author:ts_author):string list=
+and lines_of_ts_author (author : Doc_types.ts_author) : string list =
 	match author with
-	|Cs_author (s:string) -> List.concat [lines_of_string 0 s;[""]]
+	|Cs_author (s : string) -> List.concat [lines_of_string 0 s; [""]]
 
 
-and decoration_of_head (path:t_path) (lines:string list):string list =
+and decoration_of_head (path : Cref_utils.t_path) (lines : string list) : string list =
 	match path with
-	|hd::tl -> (
+	| hd::tl -> (
 		match hd with
-		|PAR_NODE _ -> 
-			let line =
+		| PAR_NODE _ -> 
+			let line : string =
 				String.concat "" [
 				String.make doc_settings.par_indent ' ';
 				make_string (doc_settings.doc_width - doc_settings.par_indent) "-";
 				] 
 			in List.concat [[line];lines;[line]]
-		|SEC_NODE _ -> 
-			let line = make_string doc_settings.doc_width "=" in
-			List.concat [[line];lines;[line]]
-		|CH_NODE _ -> 
-			let line = make_string doc_settings.doc_width "≡" in
-			List.concat [[line];lines;[line]]
+		| SEC_NODE _ -> 
+			let line : string = 
+			make_string doc_settings.doc_width "=" in
+			List.concat [[line]; lines; [line]]
+		| CH_NODE _ -> 
+			let line : string = make_string doc_settings.doc_width "≡" in
+			List.concat [[line]; lines; [line]]
 		|_ -> lines
 	)
 	|[] -> lines
@@ -63,12 +60,12 @@ and decoration_of_head (path:t_path) (lines:string list):string list =
 		List.concat [[line];lines;[line]]
 *)
 
-and make_string (n:int) (s:string):string=
+and make_string (n:int) (s:string) : string=
 	let rec aux (i:int) (acc:string) = 
 		if i > n then acc else aux (i+1) (acc ^ s) 
 	in aux 0 ""
 
-and lines_of_ts_txt_units (path : t_path) (a : ts_txt_units) : string list =
+and lines_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : string list =
 	let lines_of_string_function : int -> string -> string list = (
 		match path with
 		| [] -> lines_of_string
@@ -80,11 +77,11 @@ and lines_of_ts_txt_units (path : t_path) (a : ts_txt_units) : string list =
 	in 
 	lines_of_string_function (indent_of_path path) (string_of_txt_units path a)
 
-and string_of_txt_units (path : t_path) (a : ts_txt_units) : string =
-	match a with Cs_txt_units (b:te_txt_unit list) ->
+and string_of_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : string =
+	match a with Cs_txt_units (b: Doc_types.te_txt_unit list) ->
 	String.concat "" (List.map (string_of_txt_unit path) b)
 
-and string_of_txt_unit (path : t_path) (a : te_txt_unit) : string =
+and string_of_txt_unit (path : Cref_utils.t_path) (a : Doc_types.te_txt_unit) : string =
 	match a with
 	| Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
 	| Ce_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
@@ -136,12 +133,12 @@ and line_break (line_width : int) (s : string) : string * string =
 				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
 			| false -> (s, "")
 
-and insert_mark (path : t_path) (s : string) : string =
+and insert_mark (path : Cref_utils.t_path) (s : string) : string =
 	match mark_of_path_opt path with
 	| None -> s
 	| Some (t : string) -> insert_string t (pos_of_mark path) s
 
-and pos_of_mark (path : t_path) : int =
+and pos_of_mark (path : Cref_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl ->
@@ -163,7 +160,7 @@ and insert_string (mark : string) (pos : int) (s : string) : string =
 	in
 	String.concat mark [ s1; s2 ]
 
-and mark_of_path_opt (path : t_path) : string option =
+and mark_of_path_opt (path : Cref_utils.t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
@@ -186,12 +183,12 @@ and mark_of_path_opt (path : t_path) : string option =
 		| DSP_LINE_NODE _ -> s
 		| _ -> None
 
-and mark_of_path (path:t_path):string=
+and mark_of_path (path : Cref_utils.t_path) : string=
 	match mark_of_path_opt path with
-	|None -> ""
-	|Some (s:string)->s
+	| None -> ""
+	| Some (s : string) -> s
 
-and indent_of_path (path : t_path) : int =
+and indent_of_path (path : Cref_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl -> 
