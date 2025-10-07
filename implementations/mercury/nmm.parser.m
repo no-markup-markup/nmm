@@ -502,10 +502,10 @@ r_doc(cr_doc(
   MAIN,
   MAYBE_REFS)
 ) --> (
-  ?([],         r_preamble,MAYBE_PREAMBLE,[+([r_lb])]),
-  ?([],         r_title,   MAYBE_TITLE,   [+([r_lb])]),
-  ?([],         r_author,  MAYBE_AUTHOR,  [+([r_lb])]),
-  ?([],         r_abstract,MAYBE_ABSTRACT,[+([r_lb])]),
+  ?([],         r_preamble,MAYBE_PREAMBLE,[*([r_lb])]),
+  ?([],         r_title,   MAYBE_TITLE,   [*([r_lb])]),
+  ?([],         r_author,  MAYBE_AUTHOR,  [*([r_lb])]),
+  ?([],         r_abstract,MAYBE_ABSTRACT,[*([r_lb])]),
   r_doc_main(MAIN),
   ?([+([r_lb])],r_refs,    MAYBE_REFS,    []),
   *([r_lb]),
