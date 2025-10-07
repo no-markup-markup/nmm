@@ -23,6 +23,7 @@
       ##   # TODO "x86_64-windows"
       ## ];
       systems = linux-systems ++ darwin-systems; ## TODO ++ windows-systems;
+      version = "0";
     in
       flake-utils.lib.eachSystem systems (system:
         let
@@ -43,7 +44,6 @@
             pkgs.ocamlPackages.findlib
             pkgs.ocamlPackages.menhir
             pkgs.ocamlPackages.menhirLib
-            pkgs.ocamlPackages.sedlex
             pkgs.ocamlPackages.uuseg
             pkgs.ocamlPackages.xml-light
           ];
@@ -73,6 +73,28 @@
           };
           devShells.github = pkgs.mkShell {
             buildInputs = pkgs_common ++ pkgs_github;
+          };
+          packages.default = pkgs.stdenv.mkDerivation {
+            name        = "no-markup-markup-${version}";
+            buildInputs = (
+              [pkgs.makeWrapper]
+              ++
+              pkgs_common
+              ++
+              pkgs_mercury
+              ++
+              pkgs_ocaml
+            );
+            src          = ./.;
+            buildPhase   = ''
+              make bin
+            '';
+            installPhase = ''
+              mkdir -p $out/bin
+              cp bin/nmm         $out/bin/
+              cp bin/nmm-mercury $out/bin/
+              cp bin/nmm-ocaml   $out/bin/
+            '';
           };
         }
       );
