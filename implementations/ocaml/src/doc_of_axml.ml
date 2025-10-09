@@ -11,7 +11,7 @@ exception Error of string
 let string_of_xml_list (xml_list:Xml.xml list):string=
 	String.concat "\n" (List.map Xml_right.to_string xml_list)
 
-let rec f_tr_doc_of_xml (xml:Xml.xml):tr_doc =
+let rec f_tr_doc_of_axml (xml:Xml.xml):tr_doc =
     match xml with
     |Xml.Element ("cr_doc",[],xml_list) -> 
         {   
@@ -22,7 +22,7 @@ let rec f_tr_doc_of_xml (xml:Xml.xml):tr_doc =
             fld_doc_main        =   f_te_doc_main_of_xml_list xml_list;
             fld_doc_refs        =   f_ts_doc_refs_opt_of_xml_list xml_list;
         }
-    |_ -> raise (Error (String.concat "%" ["Expected cr_doc, got:";string_of_xml_list [xml]]))
+    |_ -> raise (Error (String.concat "" ["Expected cr_doc, got: ";string_of_xml_list [xml]]))
 
 and f_ts_preamble_opt_of_xml_list (xml_list:Xml.xml list):ts_preamble option =
     match xml_list with
@@ -334,5 +334,5 @@ and f_string_of_pcdata_list (pcdata_list:Xml.xml list):string=
 
 and f_string_of_pcdata (pcdata:Xml.xml):string=
 	match pcdata with
-	|Xml.PCData s -> s
+	|Xml.PCData s -> Exml_utils.string_of_pcdata s
 	|_ -> raise (Error (String.concat "" ["expected pcdata, got: ";string_of_xml_list [pcdata]]))

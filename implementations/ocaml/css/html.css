@@ -1,0 +1,227 @@
+div.doc {
+	display:block;
+	--font_family:monospace;
+	--font_size:12px;
+	--left_margin:12ch;
+	--tab_length:6ch;
+	font-family:var(--font_family);
+	font-size:var(--font-size);
+}
+
+
+h1.title {
+	display:block;
+	font-size:var(--font-size);
+	margin-left:var(--left_margin);
+}
+
+
+p.author {
+	display:block;
+	margin-left:var(--left_margin);
+}
+
+
+div.doc_main {
+	display:block;
+}
+
+
+div.sec {
+	display:block;
+}
+
+
+div.sec + div.sec {
+	margin-top:3ch;
+}
+
+
+div.sec_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+}
+
+
+h3.sec_hdr {
+	display:block;
+	font-size:var(--font-size);
+	margin-left:var(--left_margin);
+}
+
+
+div.sec_main {
+	display:block;
+}
+
+
+div.sec_lbl + div.sec_main::before {	/* prevents par from jumping up when left_margin is 0 */
+	content:" ";
+	white-space:pre;
+}
+
+
+div.par {
+	display:block;
+}
+
+
+div.par + div.par {
+	margin-top:2ch;
+}
+
+
+div.par_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+}
+
+
+h4.par_hdr {
+	display:none;	/* content of par_hdr is moved inside par_main for inline display */
+}
+
+
+div.par_main {
+	display:block;
+}
+
+
+p.blk_txt {
+	display:block;
+	hyphens:auto;
+	white-space:pre-wrap;
+}
+
+
+div.par_main > p.blk_txt {
+	margin-left:var(--left_margin);
+}
+
+
+div.sec_main > p.blk_txt {
+	margin-left:var(--left_margin);
+}
+
+
+div.blk_blt {
+	display:block;
+}
+
+
+div.par_main > div.blk_blt {
+	margin-left:var(--left_margin)
+}
+
+
+div.sec_main > div.blk_blt {
+	margin-left:var(--left_margin);
+}
+
+
+div.blk_blt_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+}
+
+
+div.blk_blt_main {
+	display:block;
+	margin-left:var(--tab_length);
+}
+
+
+div.blk_itm {
+	display:block;
+}
+
+
+div.par_main > div.blk_itm {
+	margin-left:var(--left_margin);
+}
+
+
+div.sec_main > div.blk_itm {
+	margin-left:var(--left_margin);
+}
+
+
+div.blk_itm_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+}
+
+
+div.blk_itm_main {
+	display:block;
+	margin-left:var(--tab_length);
+}
+
+
+div.blk_dsp {
+	display:block;
+	white-space:nowrap;
+}
+
+
+div.par_main > div.blk_dsp {
+	margin-left:var(--left_margin);
+}
+
+
+div.sec_main > div.blk_dsp {
+	margin-left:var(--left_margin);
+}
+
+
+div.dsp_line {
+	display:block;
+}
+
+
+div.dsp_line_lbl {
+	display:block;
+	float:left;
+	margin-right:1ch;
+}
+
+
+div.dsp_line_main {
+	display:block;
+	white-space:pre;
+	margin-left:var(--tab_length);
+}
+
+
+a {
+	text-decoration:none;
+}
+
+
+@media print {
+	.sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+		page-break-after:avoid;
+	}
+
+/* For one-sided printing:*/
+	@page {
+		size:a4;
+		margin-top:20mm;
+		margin-left:20mm;
+		margin-right:20mm;
+		margin-bottom:30mm;
+
+		@top-center {
+			content:" ";
+		}
+
+		@bottom-center {
+			padding:10mm;
+			content: counter(page) " of " counter(pages);
+		}
+	}
+}

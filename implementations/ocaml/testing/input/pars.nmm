@@ -1,0 +1,58 @@
+¶ PAR:named_paragraph
+
+This is a no-markup-markup document, sporting the following cool features:
+
+[]	Bullet lists:
+
+	-	Here is one bullet item.
+
+	-	Here is another one.
+
+
+
+[]	Numbered lists with labels that are either
+
+	[]	automatic, or
+
+	[*]	custom.
+
+	Furthermore, each item can be *named* and *referred to*:
+
+	[]	ITM:x
+		The named item can be referred to anywhere in the document.
+
+	[]	ITM:y
+		When referring to [ITM:x] above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to [ITM:z] below.
+
+	[æ]	ITM:z
+		Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or [ITM:z] occurring elsewhere may appear differently.
+
+[]	Displayed lines of text suitable for mathematical equations, which are either
+
+	()	automatically labeled (and named),	DSP:one
+	(+)	custom labeled (and named), or,		DSP:two
+		unlike [DSP:one] above, unlabeled.
+
+¶
+
+We may also refer to [ITM:x] or [ITM:y] from another paragraph. These references will appear differently than when occurring in [PAR:named_paragraph].
+
+
+
+
+¶
+Paragraph header, which is a text block
+that may contain *emph text* and a reference to [DSP:one].
+
+This is a paragraph with a header. As we shall se in [PAR:named_paragraph_with_header] below, paragraphs with headers can also be named.
+
+¶ PAR:named_paragraph_with_header
+Header of the named paragraph
+
+Believe it or not, it actually works!
+
+
+
+

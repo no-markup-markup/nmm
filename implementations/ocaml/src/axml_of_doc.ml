@@ -6,20 +6,36 @@ type xml = Xml_light_types.xml =
 
 open Doc_types
 
-let rec xml_of_tr_doc (doc:tr_doc):Xml.xml=
-	match doc.fld_doc_title, doc.fld_doc_author with
-	|None, None -> Xml.Element ("cr_doc",[],[xml_of_te_doc_main doc.fld_doc_main])
-	|Some (title:ts_title), None -> Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_te_doc_main doc.fld_doc_main])
-	|None, Some (author:ts_author) -> Xml.Element ("cr_doc",[],[xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
-	|Some (title:ts_title), Some (author:ts_author) -> Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
+let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
+	match doc.fld_doc_preamble, doc.fld_doc_title, doc.fld_doc_author with
+	|None, None, None -> 
+		Xml.Element ("cr_doc",[],[xml_of_te_doc_main doc.fld_doc_main])
+	|None, Some (title:ts_title), None -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_te_doc_main doc.fld_doc_main])
+	|None, None, Some (author:ts_author) -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
+	|None, Some (title:ts_title), Some (author:ts_author) -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
+	|Some (preamble : ts_preamble), None, None -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_te_doc_main doc.fld_doc_main])
+	|Some (preamble : ts_preamble), Some (title:ts_title), None -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_ts_title title; xml_of_te_doc_main doc.fld_doc_main])
+	|Some (preamble : ts_preamble), None, Some (author:ts_author) -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
+	|Some (preamble : ts_preamble), Some (title:ts_title), Some (author:ts_author) -> 
+		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_ts_title title; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
+
+and xml_of_ts_preamble (preamble : ts_preamble) : Xml.xml =
+	match preamble with
+	| Cs_preamble (s : string) -> Xml.Element ("cs_preamble",[],[xml_of_string s])
 
 and xml_of_ts_title (title:ts_title):Xml.xml=
 	match title with
-	|Cs_title (s:string) -> Xml.Element ("cs_title",[],[PCData s])
+	|Cs_title (s:string) -> Xml.Element ("cs_title",[],[xml_of_string s])
 
 and xml_of_ts_author (author:ts_author):Xml.xml=
 	match author with
-	|Cs_author (s:string) -> Xml.Element ("cs_author",[],[PCData s])
+	|Cs_author (s:string) -> Xml.Element ("cs_author",[],[xml_of_string s])
 
 and xml_of_te_doc_main (doc_main:te_doc_main):Xml.xml=
 	match doc_main with
@@ -203,4 +219,4 @@ and xml_of_ts_name (name:ts_name):Xml.xml=
 	|Cs_name (s:string) -> Xml.Element ("cs_name",[],[xml_of_string s])
 
 and xml_of_string (s:string):Xml.xml=
-	PCData s
+	PCData (Exml_utils.pcdata_of_string s)

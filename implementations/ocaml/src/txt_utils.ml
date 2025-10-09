@@ -3,72 +3,126 @@ open Cref_utils
 
 type t_doc_settings = {
 	mutable doc_width : int;
-	mutable par_indent : int;
+	mutable left_margin: int;
+	mutable title_indent: int;
+	mutable author_indent: int;
+	mutable tab_length : int;
 	mutable sec_symbol: string option;
 	mutable par_symbol : string option;
-	mutable tab_length : int;
-	mutable abstract_indent : int;
-	mutable qtn_indent : int;
 }
 
 let doc_settings : t_doc_settings = {
-	doc_width = 75;
-	par_indent = 6;
+	doc_width = 80;
+	left_margin = 12;
+	title_indent = 12;
+	author_indent = 12;
+	tab_length = 6;
 	sec_symbol = Some "§";
 	par_symbol = Some "¶";
-	tab_length = 6;
-	abstract_indent = 0;
-	qtn_indent = 4;
 }
 
+let remove_empty_endlines (lines : string list) : string list =
+	let rec aux (lst : string list) : string list =
+		match lst with
+		|""::tl -> aux tl
+		|_ -> lst
+	in
+	List.rev (aux (List.rev lines))
 
-let rec lines_of_ts_hdr (path:t_path) (a:ts_hdr):string list =
+
+let rec doc_settings_of_ts_preamble_opt (preamble_opt : Doc_types.ts_preamble option) : unit = 
+	match preamble_opt with
+	| None -> ()
+	| Some (preamble : Doc_types.ts_preamble) -> doc_settings_of_ts_preamble preamble
+
+and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
+	let rec aux (str_list : string list) : unit =
+		match str_list with
+		| hd :: tl -> 
+			let _ : unit =
+				match key_value_pair_of_string_opt hd with
+				|Some ("doc_width", v) -> set_doc_width v
+				|Some ("left_margin", v) -> set_left_margin v
+				|Some ("title_indent", v) -> set_title_indent v
+				|Some ("author_indent", v) -> set_author_indent v
+				|Some ("tab_length", v) -> set_tab_length v
+				|Some ("sec_symbol", v) -> set_sec_symbol v
+				|Some ("par_symbol", v) -> set_par_symbol v
+				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
+			in aux tl
+		| [] -> ()
+	in
+	match preamble with
+	|Cs_preamble (s : string) -> 
+		let str_list : string list = List.map String.trim (String.split_on_char ' ' s) in
+		aux str_list
+
+and key_value_pair_of_string_opt (s : string): (string*string) option=
+	match String.split_on_char '=' s with
+	|[key;value] -> Some (key, value)
+	| _ -> None
+
+and set_doc_width (v : string) : unit =
+	try doc_settings.doc_width <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+
+and set_left_margin (v : string) : unit =
+	try doc_settings.left_margin <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+
+and set_title_indent (v : string) : unit =
+	try doc_settings.title_indent <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+
+and set_author_indent (v : string) : unit =
+	try doc_settings.author_indent <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+
+and set_tab_length (v : string) : unit =
+	try doc_settings.tab_length <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"\n";"using default value"])
+
+and set_sec_symbol (v : string) : unit =
+	try doc_settings.sec_symbol <- (symbol_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_symbol value: ";v;"\n";"using default value"])
+
+and set_par_symbol (v : string) : unit =
+	try doc_settings.par_symbol <- (symbol_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_symbol value: ";v;"\n";"using default value"])
+
+and symbol_value_of_string (v : string) : string option =
+	match v with
+	|"None" | "none" | "" | "\"\"" -> None
+	| _ -> Some v
+
+and lines_of_ts_hdr (path : Cref_utils.t_path) (a : Doc_types.ts_hdr) : string list =
 	match a with
-	|Cs_hdr (b:ts_txt_units) -> 
-		match lines_of_ts_txt_units path b with
-		|hd::tl -> decoration_of_head path ((insert_mark path hd)::tl)
-		|[] -> []
+	| Cs_hdr (b : Doc_types.ts_txt_units) -> 
+		let hdr_string = string_of_ts_txt_units path b in
+		let underline = String.concat "" [
+			make_string doc_settings.left_margin " ";
+			make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─";
+		]
+		in
+		match lines_of_string doc_settings.left_margin hdr_string with
+		| hd::tl -> List.concat [(insert_mark path hd)::tl;[underline]]
+		| [] -> []
 
 
-and lines_of_ts_title (title:ts_title):string list=
+and lines_of_ts_title (title : Doc_types.ts_title) : string list =
 	match title with
-	|Cs_title (s:string) -> List.concat [decoration_of_head [] (lines_of_string 0 s);[""]]
+	|Cs_title (s : string) -> List.concat [lines_of_string doc_settings.title_indent s; [""]]
 
-and lines_of_ts_author (author:ts_author):string list=
+and lines_of_ts_author (author : Doc_types.ts_author) : string list =
 	match author with
-	|Cs_author (s:string) -> List.concat [lines_of_string 0 s;[""]]
+	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings.author_indent s; [""]]
 
-
-and decoration_of_head (path:t_path) (lines:string list):string list =
-	match path with
-	|hd::tl -> (
-		match hd with
-		|PAR_NODE _ -> 
-			let line =
-				String.concat "" [
-				String.make doc_settings.par_indent ' ';
-				make_string (doc_settings.doc_width - doc_settings.par_indent) "-";
-				] 
-			in List.concat [[line];lines;[line]]
-		|SEC_NODE _ -> 
-			let line = make_string doc_settings.doc_width "=" in
-			List.concat [[line];lines;[line]]
-		|CH_NODE _ -> 
-			let line = make_string doc_settings.doc_width "≡" in
-			List.concat [[line];lines;[line]]
-		|_ -> lines
-	)
-	|[] -> lines
-(*		let line = make_string doc_settings.doc_width "—" in
-		List.concat [[line];lines;[line]]
-*)
-
-and make_string (n:int) (s:string):string=
+and make_string (n:int) (s:string) : string=
 	let rec aux (i:int) (acc:string) = 
-		if i > n then acc else aux (i+1) (acc ^ s) 
+		if i > n - 1 then acc else aux (i+1) (acc ^ s) 
 	in aux 0 ""
 
-and lines_of_ts_txt_units (path : t_path) (a : ts_txt_units) : string list =
+and lines_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : string list =
 	let lines_of_string_function : int -> string -> string list = (
 		match path with
 		| [] -> lines_of_string
@@ -78,13 +132,13 @@ and lines_of_ts_txt_units (path : t_path) (a : ts_txt_units) : string list =
 			| _ -> lines_of_string
 	)
 	in 
-	lines_of_string_function (indent_of_path path) (string_of_txt_units path a)
+	lines_of_string_function (indent_of_path path) (string_of_ts_txt_units path a)
 
-and string_of_txt_units (path : t_path) (a : ts_txt_units) : string =
-	match a with Cs_txt_units (b:te_txt_unit list) ->
-	String.concat "" (List.map (string_of_txt_unit path) b)
+and string_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : string =
+	match a with Cs_txt_units (b: Doc_types.te_txt_unit list) ->
+	String.concat "" (List.map (string_of_ts_txt_unit path) b)
 
-and string_of_txt_unit (path : t_path) (a : te_txt_unit) : string =
+and string_of_ts_txt_unit (path : Cref_utils.t_path) (a : Doc_types.te_txt_unit) : string =
 	match a with
 	| Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
 	| Ce_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
@@ -136,17 +190,16 @@ and line_break (line_width : int) (s : string) : string * string =
 				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
 			| false -> (s, "")
 
-and insert_mark (path : t_path) (s : string) : string =
+and insert_mark (path : Cref_utils.t_path) (s : string) : string =
 	match mark_of_path_opt path with
 	| None -> s
 	| Some (t : string) -> insert_string t (pos_of_mark path) s
 
-and pos_of_mark (path : t_path) : int =
+and pos_of_mark (path : Cref_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl ->
 		match hd with
-		| PAR_NODE _ -> 0
 		| ITM_NODE _ -> indent_of_path path - doc_settings.tab_length
 		| BLT_NODE -> indent_of_path path - doc_settings.tab_length
 		| DSP_LINE_NODE _ -> indent_of_path path - doc_settings.tab_length
@@ -155,15 +208,17 @@ and pos_of_mark (path : t_path) : int =
 and insert_string (mark : string) (pos : int) (s : string) : string =
 	let string_len : int = String.length s in
 	let mark_len : int = utf8_length mark in
+	let target : string = String.sub s pos mark_len in
+	let ideal_target : string = String.make mark_len ' ' in
 	let s1 : string = String.sub s 0 pos in
 	let s2 : string =
-		match 0<=(string_len - pos - mark_len) && mark_len<doc_settings.tab_length with
+		match (*0<=(string_len - pos - mark_len) && mark_len<doc_settings.tab_length &&*) target = ideal_target with
 		|true -> String.sub s (pos + mark_len) (string_len - pos - mark_len)
 		|false -> ("\n"^s)
 	in
 	String.concat mark [ s1; s2 ]
 
-and mark_of_path_opt (path : t_path) : string option =
+and mark_of_path_opt (path : Cref_utils.t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
@@ -172,13 +227,13 @@ and mark_of_path_opt (path : t_path) : string option =
 		| SEC_NODE _ -> (
 			match (doc_settings.sec_symbol, s) with
 			| None, Some s -> Some s
-			| Some u, Some s -> Some (u ^ " " ^ s)
+			| Some u, Some s -> Some (u ^ "\u{00A0}" ^ s)
 			| _, None-> None
 		)
 		| PAR_NODE _ -> (
 			match (doc_settings.par_symbol, s) with
 			| None, Some s -> Some s
-			| Some u, Some s -> Some (u ^ " " ^ s)
+			| Some u, Some s -> Some (u ^ "\u{00A0}" ^ s)
 			| _, None-> None
 		)
 		| ITM_NODE _ -> s
@@ -186,18 +241,18 @@ and mark_of_path_opt (path : t_path) : string option =
 		| DSP_LINE_NODE _ -> s
 		| _ -> None
 
-and mark_of_path (path:t_path):string=
+and mark_of_path (path : Cref_utils.t_path) : string=
 	match mark_of_path_opt path with
-	|None -> ""
-	|Some (s:string)->s
+	| None -> ""
+	| Some (s : string) -> s
 
-and indent_of_path (path : t_path) : int =
+and indent_of_path (path : Cref_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl -> 
 		match hd with
-		| SEC_NODE _ -> doc_settings.par_indent
-		| PAR_NODE _ -> doc_settings.par_indent
+		| SEC_NODE _ -> doc_settings.left_margin
+		| PAR_NODE _ -> doc_settings.left_margin
 		| ITM_NODE _ -> indent_of_path tl + doc_settings.tab_length
 		| BLT_NODE -> indent_of_path tl + doc_settings.tab_length
 		| DSP_NODE -> indent_of_path tl + doc_settings.tab_length

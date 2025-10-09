@@ -1,0 +1,21 @@
+<cr_doc>
+<ce_doc_main_blks>
+<cs_blks>
+<ce_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<ce_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The forbidden characters look like this</cs_txt_unit_wysiwyg>
+</ce_txt_unit_wysiwyg>
+<ce_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</ce_txt_unit_wysiwyg>
+<ce_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> &lt; &gt; &amp; &apos; &quot;</cs_txt_unit_wysiwyg>
+</ce_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</ce_blk_txt>
+</cs_blks>
+</ce_doc_main_blks>
+</cr_doc>

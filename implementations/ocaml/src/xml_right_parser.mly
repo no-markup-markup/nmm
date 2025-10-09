@@ -2,15 +2,6 @@
 
 exception Error of string
 
-let string_of_predefined_entity (s:string):string=
-	match s with
-	| "&lt;" -> "<"
-	| "&gt;" -> ">"
-	| "&amp;" -> "&"
-	| "&apos;" -> "'"
-	| "&quot;" -> "\""
-	| _ -> s
-
 let first (pair:'a*'a):'a =
 	match pair with
 	|(x,_) -> x
@@ -36,9 +27,7 @@ let attr_list_of_string (s:string):(string*string) list=
 %}
 
 %token				EOF
-%token <string>			NON_SPECIAL_DATA
-%token <string>			SPECIAL_DATA
-%token <string>			PREDEFINED_ENTITY
+%token <string>			PCDATA
 %token <string*string>		TAG_OPEN
 %token <string*string>		TAG_OPEN_CLOSE
 %token <string>			TAG_CLOSE
@@ -59,15 +48,9 @@ xml_list:
 ;
 
 xml:
-	|data					{ Xml.PCData $1 }
+	|PCDATA					{ Xml.PCData $1 }
 	|TAG_OPEN xml_list TAG_CLOSE		{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
 	|TAG_OPEN_CLOSE				{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
 	|TAG_OPEN TAG_CLOSE			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-;
-
-data:
-	|NON_SPECIAL_DATA			{ $1:string }
-	|SPECIAL_DATA				{ $1:string }
-	|PREDEFINED_ENTITY			{ (string_of_predefined_entity $1):string }
 ;
 

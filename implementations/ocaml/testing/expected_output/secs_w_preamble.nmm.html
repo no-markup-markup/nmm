@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="../../css/html.css"/>
+</head>
+<body>
+<div class="doc">
+<div class="doc_main">
+<div class="sec" id="SEC:named_section" tag="SEC">
+<div class="sec_lbl">§ 1</div>
+<h3 class="sec_hdr">Introduction</h3>
+<div class="sec_main">
+<div class="par" id="PAR:named_paragraph" tag="PAR">
+<div class="par_lbl">¶ 1.1</div>
+<div class="par_main">
+<p class="blk_txt">This is a no-markup-markup document, sporting the following cool features:</p>
+<div class="blk_itm">
+<div class="blk_itm_lbl">(1)</div>
+<div class="blk_itm_main">
+<p class="blk_txt"><em class="txt_unit_emph">Emphasized text spanning multiple lines in the source code without breaking a sweat</em>.</p>
+</div>
+</div>
+<div class="blk_itm">
+<div class="blk_itm_lbl">(2)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Bullet lists:</p>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">Here is one bullet item.</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">Here is another one.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="blk_itm">
+<div class="blk_itm_lbl">(3)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Numbered lists with labels that are either</p>
+<div class="blk_itm">
+<div class="blk_itm_lbl">(a)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">automatic, or</p>
+</div>
+</div>
+<div class="blk_itm">
+<div class="blk_itm_lbl">(*)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">custom.</p>
+</div>
+</div>
+<p class="blk_txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
+<div class="blk_itm" id="ITM:x" tag="ITM">
+<div class="blk_itm_lbl">(b)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">The named item can be referred to anywhere in the document.</p>
+</div>
+</div>
+<div class="blk_itm" id="ITM:y" tag="ITM">
+<div class="blk_itm_lbl">(c)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above in a local manner (which is default), any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(†)</a> below.</p>
+</div>
+</div>
+<div class="blk_itm" id="ITM:z" tag="ITM">
+<div class="blk_itm_lbl">(†)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Of course, items with custom labels can also be named!</p>
+</div>
+</div>
+</div>
+</div>
+<p class="blk_txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(3)(c)</a>, a local reference to <a class="txt_unit_c_ref" href="#ITM:x">(3)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(3)(†)</a> occurring elsewhere may appear differently.</p>
+<div class="blk_itm">
+<div class="blk_itm_lbl">(4)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Displayed lines of text suitable for mathematical equations, which are either</p>
+<div class="blk_dsp">
+<div class="dsp_line" id="DSP:one" tag="DSP">
+<div class="dsp_line_lbl">(a)</div>
+<div class="dsp_line_main">automatically labeled (and named),</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(+)</div>
+<div class="dsp_line_main">custom labeled (and named), or,</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">unlike <a class="txt_unit_c_ref" href="#DSP:one">(a)</a> above, unlabeled.</div>
+</div>
+</div>
+</div>
+</div>
+<p class="blk_txt">Displayed lines can also be used for drawing tables and such:</p>
+<div class="blk_dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">    |    0    |      1      |    2      | . . .</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">───────────────────────────────────────────────</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">f₀  | f₀(0) + 1 | f₀(1)     | f₀(2)     |</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">f₁  | f₁(0)     | f₁(1) + 1 | f₁(2)     |</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">f₂  | f₂(0)     | f₂(1)     | f₂(2) + 1 |</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">.                                         .</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">.                                           .</div>
+</div>
+<div class="dsp_line">
+<div class="dsp_line_main">.                                             .</div>
+</div>
+</div>
+<p class="blk_txt">This is what a reference to <a class="txt_unit_c_ref" href="#DSP:one">(4)(a)</a> looks like.</p>
+</div>
+</div>
+<div class="par">
+<div class="par_lbl">¶ 1.2</div>
+<div class="par_main">
+<p class="blk_txt">We may also refer to <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> from another paragraph. These references will appear differently than when occurring in paragraph <a class="txt_unit_c_ref" href="#PAR:named_paragraph">1.1</a> above.</p>
+<p class="blk_txt">This is what a reference to <a class="txt_unit_c_ref" href="#DSP:one">1.1(4)(a)</a> looks like.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sec">
+<div class="sec_lbl">§ 2</div>
+<h3 class="sec_hdr">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h3>
+<div class="sec_main">
+<div class="par">
+<div class="par_lbl">¶ 2.1</div>
+<div class="par_main">
+<p class="blk_txt">The same goes for paragraph headers. As we shall see in <a class="txt_unit_c_ref" href="#PAR:named_paragraph_with_header">2.2</a> below, paragraphs with headers can also be named.</p>
+</div>
+</div>
+<div class="par" id="PAR:named_paragraph_with_header" tag="PAR">
+<div class="par_lbl">¶ 2.2</div>
+<h4 class="par_hdr">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> and <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR:named_paragraph">1.1</a>.</h4>
+<div class="par_main">
+<p class="blk_txt">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> and <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR:named_paragraph">1.1</a>.  Putting references in a header does not look very nice.</p>
+</div>
+</div>
+<div class="par" id="DEF:semcons" tag="DEF">
+<div class="par_lbl">¶ 2.3</div>
+<div class="par_main">
+<p class="blk_txt">DEFINITION  We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</p>
+</div>
+</div>
+<div class="par" id="DEF:provability" tag="DEF">
+<div class="par_lbl">¶ 2.4</div>
+<h4 class="par_hdr">Provability</h4>
+<div class="par_main">
+<p class="blk_txt">DEFINITION (Provability)  We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</p>
+</div>
+</div>
+<div class="par" id="FCT:compl" tag="FCT">
+<div class="par_lbl">¶ 2.5</div>
+<div class="par_main">
+<p class="blk_txt">FACT  For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sec">
+<div class="sec_lbl">§ 3</div>
+<div class="sec_main">
+<div class="par">
+<div class="par_lbl">¶ 3.1</div>
+<div class="par_main">
+<p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus massa, eleifend id libero eu, luctus pulvinar lectus. Quisque ac lobortis elit, vitae feugiat est. Pellentesque vitae pharetra turpis. In felis massa, interdum eu leo ut, auctor maximus urna. Phasellus ligula felis, pulvinar quis eros ut, pulvinar rutrum lacus. Vivamus non urna fringilla, auctor neque vitae, mattis massa. Curabitur mi velit, rutrum et aliquet at, scelerisque sed mi. Praesent feugiat, sapien eu vulputate dictum, mauris turpis tincidunt turpis, ut blandit metus diam quis erat. Cras cursus dolor elit. Ut laoreet aliquet magna, eu dapibus nibh efficitur quis. Duis est mi, ornare sit amet ligula id, condimentum scelerisque nulla. Nulla sed mauris id nisi eleifend sollicitudin quis et augue.</p>
+<p class="blk_txt">Aenean volutpat elit id augue consequat accumsan. Phasellus placerat mi sed ex faucibus maximus. Vivamus ac consequat arcu. Suspendisse eu commodo nibh. Vivamus est tellus, consectetur quis cursus id, accumsan eu urna. Quisque ornare dictum lacus, et ultricies augue efficitur eu. Morbi varius metus non vulputate vulputate. Ut ac lorem lacinia, aliquam ante in, sagittis sapien. Curabitur cursus ante id dui commodo, quis facilisis est pretium. Curabitur condimentum, massa vel varius egestas, eros dolor auctor elit, eu volutpat tellus mauris eu mauris. Quisque facilisis tellus eget aliquam imperdiet. Cras pretium odio ut nisi consectetur, eget elementum tellus consectetur. Donec non ullamcorper justo, ac mollis dolor. Ut auctor odio elit, vel gravida enim lacinia sit amet.</p>
+<p class="blk_txt">Cras hendrerit purus dolor, ut rutrum sapien aliquet ac. Curabitur dui magna, fermentum id libero eget, luctus facilisis tellus. Mauris ullamcorper tellus eu molestie consectetur. Praesent viverra magna vel nibh auctor rhoncus. Sed enim libero, cursus vel metus in, pretium gravida justo. Suspendisse pellentesque, lectus id auctor eleifend, diam ex posuere neque, a facilisis tellus libero in orci. Morbi in fermentum ex. Cras eu felis accumsan velit finibus pretium sed ut sem.</p>
+<p class="blk_txt">Cras accumsan nibh eget erat aliquam, vel placerat dolor mollis. Integer efficitur, enim eu sollicitudin tincidunt, lacus magna vestibulum sapien, at finibus lacus est in tellus. Sed at accumsan magna. Etiam pellentesque pretium vestibulum. Fusce pulvinar porta purus, at placerat augue scelerisque nec. Vestibulum facilisis tellus non condimentum suscipit. Ut varius pellentesque lectus, et tincidunt nulla egestas quis. Suspendisse et leo sit amet ex condimentum molestie. Vivamus porttitor sit amet arcu et consectetur. Donec non tincidunt odio. Vivamus facilisis nunc felis, vel sodales mauris cursus sed.</p>
+<p class="blk_txt">In rhoncus ante et massa volutpat aliquet. Nunc magna arcu, maximus quis accumsan non, mattis a metus. Nam faucibus est vel tempor egestas. Proin nec odio vitae felis pharetra molestie at in urna. Aliquam erat volutpat. Nulla nisl diam, varius suscipit augue quis, viverra consectetur nibh. Vivamus imperdiet lacus erat, et blandit turpis sollicitudin vitae. Praesent odio eros, tempus eu viverra nec, aliquam quis sem. Integer ac ante vel lectus imperdiet sagittis a nec libero. Sed molestie mauris felis, nec vestibulum neque volutpat vel. Nam accumsan lacinia ante sit amet lacinia.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

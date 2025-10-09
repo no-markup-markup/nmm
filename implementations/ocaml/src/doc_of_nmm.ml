@@ -1,0 +1,81 @@
+open Nmm_parser
+
+exception Error of string
+
+(******* For debugging purposes: *************) 
+
+let string_of_token (t:Nmm_parser.token):string=
+	match t with
+	|SECTION -> "SECTION"
+	|SECTION_NL -> "SECTION_NL"
+	|PILCROW -> "PILCROW"
+	|PILCROW_NL -> "PILCROW_NL"
+	|DASH_TAB -> "DASH_TAB"
+	|DSP_AUTO_TAB -> "DSP_AUTO_TAB"
+	|ITM_AUTO_TAB -> "ITM_AUTO_TAB"
+	|NL -> "NL"
+	|NL_TAB -> "NL_TAB"
+	|NL_TAB_TAB -> "NL_TAB_TAB"
+	|NL_TAB_TAB_TAB -> "NL_TAB_TAB_TAB"
+	|STAR -> "STAR"
+	|TAB -> "TAB"
+	|LBR -> "LBR"
+	|RBR -> "RBR"
+	|COLON -> "COLON"
+	|EOF -> "EOF"
+	|SECTION_SPACES_TAG_OR_ID_NL s -> ("SECTION_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+	|PILCROW_SPACES_TAG_OR_ID_NL s -> ("PILCROW_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+	|TXT s -> ("TXT " ^ "\"" ^ s ^ "\"")
+	|DSP_CUSTOM_TAB s -> ("DSP_CUSTOM_TAB " ^ "\"" ^ s ^ "\"")
+	|ITM_CUSTOM_TAB s -> ("ITM_CUSTOM_TAB " ^ "\"" ^ s ^ "\"")
+	|ITM_ID s -> ("ITM_ID " ^ "\"" ^ s ^ "\"")
+	|DSP_ID s -> ("DSP_ID " ^ "\"" ^ s ^ "\"")
+	|C_REF s -> ("C_REF " ^ "\"" ^ s ^ "\"")
+	|TITLE s -> ("TITLE " ^ "\"" ^ s ^ "\"")
+	|AUTHOR s -> ("AUTHOR " ^ "\"" ^ s ^ "\"")
+	|PREAMBLE s -> ("PREAMBLE " ^ "\"" ^ s ^ "\"")
+
+let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
+	let t:Nmm_parser.token=Nmm_lexer.lex b in
+	let start_pos,end_pos=Sedlexing.lexing_positions b in
+	match print_tokens with
+	|true -> let _=Printf.eprintf "%s\n" ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in (t,start_pos,end_pos)
+	|false -> (t,start_pos,end_pos)
+
+
+(******************************************************************)
+
+let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
+	match Sys.file_exists filename with
+	|false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
+	|true -> 
+	try
+		let ic=open_in filename in
+		let lexbuf=Sedlexing.Utf8.from_channel ic in
+		let revised_lexer () = (lexer print_tokens) lexbuf in 
+		let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
+		let doc=revised_parser revised_lexer in
+		let _=close_in ic in doc
+	with
+	| _ ->
+		match print_tokens with
+		|false -> 
+			let _ = Printf.eprintf "%s\n" ("Parsing failed, read the the following tokens from " ^ filename ^ ":") in 
+			doc_of_nmm_file true filename
+		|true -> raise (Error "parsing failed")
+
+let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
+	try
+		let lexbuf=Sedlexing.Utf8.from_string s in
+		let revised_lexer () = (lexer print_tokens) lexbuf in 
+		let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
+		revised_parser revised_lexer
+	with
+	| _ ->
+		match print_tokens with
+		|false -> 
+			let _ = Printf.eprintf "%s\n" ("Parsing failed, read the the following tokens from \"" ^ s ^ "\":") in 
+			doc_of_nmm_file true s
+		|true -> raise (Error "parsing failed")
+	
+

@@ -1,35 +1,66 @@
+exception Error of string
+
 let string_of_token (t:Xml_right_parser.token):string =
 	match t with
 	|Xml_right_parser.EOF -> "EOF"
-	|Xml_right_parser.NON_SPECIAL_DATA s -> String.concat "" ["NON_SPECIAL_DATA";" ";"\'";s;"\'"]
-	|Xml_right_parser.SPECIAL_DATA s -> String.concat "" ["SPECIAL_DATA";" ";"\'";s;"\'"]
-	|Xml_right_parser.PREDEFINED_ENTITY s -> String.concat "" ["PREDEFINED_ENTITY";" ";"\'";s;"\'"]
-	|Xml_right_parser.TAG_OPEN (x,y)	-> String.concat "" ["TAG_OPEN";" ";"\'";x;"'";" ";"\'";y;"\'"]
+	|Xml_right_parser.PCDATA s -> String.concat "" ["PCDATA";" ";"\'";s;"\'"]
+	|Xml_right_parser.TAG_OPEN (x,y) -> String.concat "" ["TAG_OPEN";" ";"\'";x;"'";" ";"\'";y;"\'"]
 	|Xml_right_parser.TAG_OPEN_CLOSE (x,y) -> String.concat "" ["TAG_OPEN_CLOSE";" ";"\'";x;"\'";" ";"\'";y;"\'"]
 	|Xml_right_parser.TAG_CLOSE s -> String.concat "" ["TAG_CLOSE";" ";"\'";s;"\'"]
 
 let lexer (print_tokens:bool) (b:Lexing.lexbuf):Xml_right_parser.token=
 	let t:Xml_right_parser.token=Xml_right_lexer.token b in
 	match print_tokens with
-	|true -> let _=print_endline ("Line " ^ (Xml_right_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in t
+	|true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Xml_right_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in t
 	|false -> t
 
-let parse_file (print_tokens:bool) (s:string):Xml.xml =
-	let ic=open_in s in
-	let lexbuf=Lexing.from_channel ic in
-	let parse=Xml_right_parser.main (lexer print_tokens) in
-	let result=parse lexbuf in
-	let _=close_in ic in result
+let rec parse_file (print_tokens:bool) (s:string):Xml.xml =
+	match Sys.file_exists s with
+	|false -> raise (Error ("cannot read from " ^ s ^ ": No such file"))
+	|true -> 
+	try
+		let ic=open_in s in
+		let lexbuf=Lexing.from_channel ic in
+		let parse=Xml_right_parser.main (lexer print_tokens) in
+		let result=parse lexbuf in
+		let _=close_in ic in result
+	with
+	|_ ->
+		match print_tokens with
+		|false -> 
+			let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from " ^ s ^ ":") in
+			parse_file true s
+		|true -> raise (Error "parsing failed")
 
-let parse_string (print_tokens:bool) (s:string):Xml.xml =
-	let lexbuf=Lexing.from_string s in
-	let parse=Xml_right_parser.main (lexer print_tokens) in
-	parse lexbuf
+
+let rec parse_string (print_tokens:bool) (s:string):Xml.xml =
+	try
+		let lexbuf = Lexing.from_string s in
+		let parse = Xml_right_parser.main (lexer print_tokens) in
+		parse lexbuf
+	with
+	|_ ->
+		match print_tokens with
+		|false -> 
+			let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from \"" ^ s ^ "\":") in
+			parse_string true s
+		|true -> raise (Error "parsing failed")
+
 
 let parse_stdin (print_tokens:bool):Xml.xml =
-	let lexbuf=Lexing.from_channel stdin in
-	let parse=Xml_right_parser.main (lexer print_tokens) in
-	parse lexbuf
+	let input : string = In_channel.input_all stdin in
+	try
+		let lexbuf = Lexing.from_string input in
+		let parse = Xml_right_parser.main (lexer print_tokens) in
+		parse lexbuf
+	with
+	|_ ->
+		let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from stdin:") in
+		let print_tokens =  true in
+		let lexbuf = Lexing.from_string input in
+		let parse = Xml_right_parser.main (lexer print_tokens) in
+		parse lexbuf
+
 
 let rec to_string_fmt (xml:Xml.xml):string=
 	string_of_xml true xml
