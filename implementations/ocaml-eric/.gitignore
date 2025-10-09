@@ -1,7 +1,0 @@
-compilation
-example_output
-src/nmm_parser.mly
-src/nmm_lexer.ml
-src/doc_of_nmm.ml
-src/main_complete.ml
-_*
