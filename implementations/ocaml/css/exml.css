@@ -2,6 +2,8 @@ doc {
 	display:block;
 	--font_family:monospace;
 	--font_size:12px;
+	--title_indent:12ch;
+	--author_indent:12;
 	--left_margin:12ch;
 	--tab_length:6ch;
 	font-family:var(--font_family);
@@ -13,13 +15,13 @@ title {
 	display:block;
 	font-weight:bold;
 	font-size:var(--font-size);
-	margin-left:var(--left_margin);
+	margin-left:var(--title_indent);
 	margin-bottom:2ch;
 }
 
 author {
 	display:block;
-	margin-left:var(--left_margin);
+	margin-left:var(--author_indent);
 	margin-bottom:2ch;
 }
 

@@ -2,6 +2,8 @@ div.doc {
 	display:block;
 	--font_family:monospace;
 	--font_size:12px;
+	--title_indent:12ch;
+	--author_indent:12ch;
 	--left_margin:12ch;
 	--tab_length:6ch;
 	font-family:var(--font_family);
@@ -12,13 +14,13 @@ div.doc {
 h1.title {
 	display:block;
 	font-size:var(--font-size);
-	margin-left:var(--left_margin);
+	margin-left:var(--title_indent);
 }
 
 
 p.author {
 	display:block;
-	margin-left:var(--left_margin);
+	margin-left:var(--author_indent);
 }
 
 
