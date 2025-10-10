@@ -34,18 +34,19 @@
             else
               nixpkgs-unstable
           );
-          pkgs         = nixpkgs.legacyPackages.${system};
-          pkgs_common  = [pkgs.bash pkgs.gnumake pkgs.xmldiff];
-          pkgs_mercury = [pkgs.mercury];
-          pkgs_rocq    = [pkgs.coq];
-          pkgs_ocaml   = [
-            pkgs.ocaml
-            pkgs.ocamlPackages.findlib
-            pkgs.ocamlPackages.menhir
-            pkgs.ocamlPackages.menhirLib
-            pkgs.ocamlPackages.sedlex
-            pkgs.ocamlPackages.uuseg
-            pkgs.ocamlPackages.xml-light
+          pkgs          = nixpkgs.legacyPackages.${system};
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          pkgs_common  = [pkgs.bash pkgs.gnumake pkgs.python313 pkgs.xmldiff];
+          pkgs_mercury  = [pkgs.mercury];
+          pkgs_rocq     = [pkgs.coq];
+          pkgs_ocaml    = [
+            pkgs-unstable.ocaml
+            pkgs-unstable.ocamlPackages.findlib
+            pkgs-unstable.ocamlPackages.menhir
+            pkgs-unstable.ocamlPackages.menhirLib
+            pkgs-unstable.ocamlPackages.sedlex
+            pkgs-unstable.ocamlPackages.uuseg
+            pkgs-unstable.ocamlPackages.xml-light
           ];
           pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
         in {
