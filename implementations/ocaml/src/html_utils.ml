@@ -14,8 +14,7 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 
 let css_for_html ( doc_settings : Txt_utils.t_doc_settings) : string = 
 
-"div.doc {
-        display:block;
+"html {
         --font_family:monospace;
         --font_size:12px;
         --title_indent:" ^ (string_of_int doc_settings.title_indent) ^ "ch;
@@ -24,6 +23,10 @@ let css_for_html ( doc_settings : Txt_utils.t_doc_settings) : string =
         --tab_length:" ^ (string_of_int doc_settings.tab_length) ^ "ch;
         font-family:var(--font_family);
         font-size:var(--font-size);
+}
+
+div.doc {
+        display:block;
 }
 
 
@@ -97,8 +100,11 @@ div.par_lbl {
 }
 
 
-h4.par_hdr {
-        display:none;   /* content of par_hdr is moved inside par_main for inline display */
+h4.par_hdr {                      /* content of par_hdr is moved inside par_main for inline display */
+        visibility:hidden;
+        height:0ch;
+        width:0ch;
+        float:left;
 }
 
 
