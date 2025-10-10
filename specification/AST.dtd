@@ -1,7 +1,7 @@
 <!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_author?, cs_abstract?, (ce_doc_main_chs | ce_doc_main_secs | ce_doc_main_pars | ce_doc_main_blks), cs_refs?)>
-<!ELEMENT cs_preamble (#PCDATA+)>
-<!ELEMENT cs_title (#PCDATA+)>
-<!ELEMENT cs_author (#PCDATA+)>
+<!ELEMENT cs_preamble (#PCDATA)>
+<!ELEMENT cs_title (#PCDATA)>
+<!ELEMENT cs_author (#PCDATA)>
 <!ELEMENT cs_abstract (cs_blks)>
 
 <!ELEMENT ce_doc_main_chs (cs_chs)>
@@ -49,8 +49,8 @@
 <!ELEMENT ce_txt_unit_emph (cs_txt_unit_emph)>
 <!ELEMENT ce_txt_unit_c_ref (cs_txt_unit_c_ref)>
 
-<!ELEMENT cs_txt_unit_wysiwyg (#PCDATA+)>
-<!ELEMENT cs_txt_unit_emph (#PCDATA+)>
+<!ELEMENT cs_txt_unit_wysiwyg (#PCDATA)>
+<!ELEMENT cs_txt_unit_emph (#PCDATA)>
 <!ELEMENT cs_txt_unit_c_ref (cs_c_ref)>
 <!ELEMENT cs_c_ref (cr_id)>
 
@@ -61,6 +61,6 @@
 <!ELEMENT ce_lbl_auto (cs_lbl_auto)>
 <!ELEMENT cs_lbl_auto EMPTY>
 <!ELEMENT ce_lbl_custom (cs_lbl_custom)>
-<!ELEMENT cs_lbl_custom (#PCDATA+)>
-<!ELEMENT cs_tag (#PCDATA+)>
-<!ELEMENT cs_name (#PCDATA+)>
+<!ELEMENT cs_lbl_custom (#PCDATA)>
+<!ELEMENT cs_tag (#PCDATA)>
+<!ELEMENT cs_name (#PCDATA)>
