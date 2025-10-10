@@ -77,7 +77,7 @@ eu fugiat nulla pariatur.
 ```
 [!]	item block 1
 
-[!!]	item block 2
+[?]	item block 2
 ```
 
 ### Unlabeled displayed blocks
