@@ -19,3 +19,6 @@ test:
 	cd mercury
 	make test
 	cd -
+	cd ocaml
+	make test
+	cd -

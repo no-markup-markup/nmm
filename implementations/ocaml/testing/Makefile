@@ -8,9 +8,9 @@ MAKEFLAGS += --no-builtin-rules
 .PHONY: clean test
 
 test: test.sh
-	cd -
+	cd ..
 	make bin/nmm-ocaml
-	cd
+	cd -
 	./test.sh
 
 clean:
