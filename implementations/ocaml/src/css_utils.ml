@@ -1,7 +1,6 @@
-<html lang="en">
-<head>
-<style>
-div.doc {
+let css_for_html : string = 
+
+"div.doc {
         display:block;
         --font_family:monospace;
         --font_size:12px;
@@ -62,7 +61,7 @@ div.sec_main {
 
 
 div.sec_lbl + div.sec_main::before {    /* prevents par from jumping up when left_margin is 0 */
-        content:" ";
+        content:\" \";
         white-space:pre;
 }
 
@@ -221,24 +220,13 @@ a {
                 margin-bottom:30mm;
 
                 @top-center {
-                        content:" ";
+                        content:\" \";
                 }
 
                 @bottom-center {
                         padding:10mm;
-                        content: counter(page) " of " counter(pages);
+                        content: counter(page) \" of \" counter(pages);
                 }
         }
-}
-</style>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body>
-<div class="doc">
-<div class="doc_main">
-<p class="blk_txt">The forbidden characters look like this: &lt; &gt; &amp; &apos; &quot;</p>
-</div>
-</div>
-</body>
-</html>
+}"
+

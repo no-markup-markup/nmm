@@ -5,15 +5,13 @@ let usage:string=
 
 nmm-ocaml [
 
- | txt-of-axml { <path-to-axml-file> | - }
- | html-of-axml <URI-of-css-file> [<language-code>] { <path-to-axml-file> | - }
- | exml-of-axml <URI-of-css-file> { <path-to-axml-file> | - }
+ | txt-of-xml { <path-to-xml-file> | - }
+ | html-of-xml { <URI-of-css-file> | none } { [ <language-code> | none } { <path-to-xml-file> | - }
 
- | axml-of-nmm <path-to-nmm-file>
+ | xml-of-nmm <path-to-nmm-file>
 
  | txt-of-nmm <path-to-nmm-file>
- | html-of-nmm <URI-of-css-file> [<language-code>] <path-to-nmm-file>
- | exml-of-nmm <path-to-nmm-file> <URI-of-css-file>
+ | html-of-nmm { <URI-of-css-file> | none } { <language-code> | none } <path-to-nmm-file>
 
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
@@ -24,9 +22,14 @@ nmm-ocaml [
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin."
 
-let html_of_nmm_file (path:string) (uri:string) (lang:string option):string =
+let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	let print_tokens = false in
-	let doc:Doc_types.tr_doc = Doc_of_nmm.doc_of_nmm_file print_tokens path in
+	Doc_of_nmm.doc_of_nmm_file print_tokens path
+
+let txt_of_doc (doc : Doc_types.tr_doc) : string =
+	Compiler_of_doc.txt_of_tr_doc doc
+
+let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : string =
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
 	let html:Xml.xml = Html_of_exml.html_of_exml exml in
 	let html_string:string = Xml_right.to_string_fmt html in
@@ -42,115 +45,58 @@ let html_of_nmm_file (path:string) (uri:string) (lang:string option):string =
 	in
 	let lang_attr=
 	match lang with 
-		| None -> "" 
-		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
+		| "none" -> "" 
+		| _ -> (" lang=\"" ^ lang ^ "\"") 
+	in
+	let internal_css: string = ("<style>\n" ^ Css_utils.css_for_html ^ "\n</style>\n")
+	in
+	let external_css: string = 
+		match uri with
+		|"none" -> ""
+		| _ ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\"/>\n")
 	in
 	let intro:string = (
 		"<html" ^ lang_attr ^ ">\n" ^
-		"<head>\n" ^ title ^ author ^
+		"<head>\n" ^ title ^ author ^ internal_css ^ external_css ^
 		"<meta charset=\"utf-8\"/>\n" ^
 		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n" ^
-		"<link rel=\"stylesheet\" href=\"" ^ uri ^ "\"/>\n" ^
 		"</head>\n" ^
 		"<body>\n"
-	) in
+	) 
+	in
 	let outro:string = (
 		"\n</body>\n" ^
 		"</html>"
-	) in (intro ^ html_string ^ outro)
-
-let txt_of_nmm_file (path:string):string =
-	let print_tokens = false in
-	let doc:Doc_types.tr_doc = Doc_of_nmm.doc_of_nmm_file print_tokens path in
-	Compiler_of_doc.txt_of_tr_doc doc
-
-let txt_of_axml (path:string):string =
-	let print_tokens = false in
-	let axml:Xml.xml =
-		match path with
-		|"-" -> Xml_right.parse_stdin print_tokens
-		|_ -> Xml_right.parse_file print_tokens path 
-	in
-	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
-	Compiler_of_doc.txt_of_tr_doc doc
-
-let html_of_axml (path:string) (uri:string) (lang:string option):string =
-	let print_tokens = false in
-	let axml:Xml.xml =
-		match path with
-		|"-" -> Xml_right.parse_stdin print_tokens
-		|_ -> Xml_right.parse_file print_tokens path 
-	in
-	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
-	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
-	let html:Xml.xml = Html_of_exml.html_of_exml exml in
-	let html_string:string = Xml_right.to_string_fmt html in
-	let title:string = 
-		match doc.fld_doc_title with
-		|None -> ""
-		|Some (Cs_title s) -> String.concat "" ["<title>";s;"</title>\n"]
-	in
-	let author:string = 
-		match doc.fld_doc_author with
-		|None -> ""
-		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\"/>\n"]
-	in
-	let lang_attr=
-	match lang with 
-		| None -> "" 
-		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
-	in
-	let intro:string = (
-		"<html" ^ lang_attr ^ ">\n" ^
-		"<head>\n" ^ title ^ author ^
-		"<meta charset=\"utf-8\"/>\n" ^
-		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n" ^
-		"<link rel=\"stylesheet\" href=\"" ^ uri ^ "\"/>\n" ^
-		"</head>\n" ^
-		"<body>\n"
-	) in
-	let outro:string = (
-		"\n</body>\n" ^
-		"</html>"
-	) in (intro ^ html_string ^ outro)
-
-
-let axml_of_nmm_file (path:string):string =
-	let print_tokens = false in
-	let doc:Doc_types.tr_doc=Doc_of_nmm.doc_of_nmm_file print_tokens path in
-	let axml:Xml.xml=Axml_of_doc.axml_of_tr_doc doc in
-	Xml_right.to_string_fmt axml
-
-
-let exml_of_nmm_file (path:string) (uri:string):string =
-	let print_tokens = false in
-	let doc:Doc_types.tr_doc=Doc_of_nmm.doc_of_nmm_file print_tokens path in
-	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in 
-	let declarations:string = (
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ^
-		"<?xml-stylesheet type=\"text/css\" href=\"" ^ uri ^ "\"?>\n"
 	)
-	in
-	let exml_string:string = Xml_right.to_string exml in 
-	(declarations ^ exml_string)
+	in 
+	(intro ^ html_string ^ outro)
 
-let exml_of_axml (path : string) (uri:string):string =
+let doc_of_axml (path : string) : Doc_types.tr_doc = 
 	let print_tokens = false in
 	let axml:Xml.xml =
 		match path with
 		|"-" -> Xml_right.parse_stdin print_tokens
 		|_ -> Xml_right.parse_file print_tokens path 
 	in
-	let doc:Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
-	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
-	let declarations:string = (
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ^
-		"<?xml-stylesheet type=\"text/css\" href=\"" ^ uri ^ "\"?>\n"
-	)
-	in
-	let exml_string:string = Xml_right.to_string exml in 
-	(declarations ^ exml_string)
+	Doc_of_axml.f_tr_doc_of_axml axml
 
+let axml_of_doc (doc : Doc_types.tr_doc) : string =
+	Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc)
+
+let html_of_nmm (uri:string) (lang:string) (path:string) : string =
+	html_of_doc uri lang (doc_of_nmm path)
+
+let txt_of_nmm (path:string):string =
+	txt_of_doc (doc_of_nmm path)
+
+let txt_of_axml (path : string) : string =
+	txt_of_doc (doc_of_axml path) 
+
+let html_of_axml (uri:string) (lang:string) (path:string) : string =
+	html_of_doc uri lang (doc_of_axml path)
+
+let axml_of_nmm (path:string) : string =
+	axml_of_doc (doc_of_nmm path)
 
 let check_xml_schema (path:string):string =
 	try
@@ -189,25 +135,17 @@ let _ : unit =
 	match Array.length argv with
 	|3 -> (
 		match argv.(1),argv.(2) with
-		|"txt-of-nmm", path -> print_endline (txt_of_nmm_file path)
-		|"axml-of-nmm", path -> print_endline (axml_of_nmm_file path)
+		|"txt-of-nmm", path -> print_endline (txt_of_nmm path)
+		|"txt-of-xml", path -> print_endline (txt_of_axml path)
+		|"xml-of-nmm", path -> print_endline (axml_of_nmm path)
 		|"check-xml-schema", path -> print_endline (check_xml_schema path)
-		|"txt-of-axml", path -> print_endline (txt_of_axml path)
 		|"test", path -> test path
-		|_-> print_endline usage
-	)
-	|4 -> (
-		match argv.(1),argv.(2),argv.(3) with
-		|"html-of-nmm", uri, path -> print_endline (html_of_nmm_file path uri None)
-		|"exml-of-nmm", uri, path -> print_endline (exml_of_nmm_file path uri)
-		|"html-of-axml", uri, path -> print_endline (html_of_axml path uri None)
-		|"exml-of-axml", uri, path -> print_endline (exml_of_axml path uri)
 		|_-> print_endline usage
 	)
 	|5 -> (
 		match argv.(1),argv.(2),argv.(3),argv.(4) with
-		|"html-of-nmm", uri, lang, path -> print_endline (html_of_nmm_file path uri (Some lang))
-		|"html-of-axml", uri, lang, path -> print_endline (html_of_axml path uri (Some lang))
+		|"html-of-nmm", uri, lang, path -> print_endline (html_of_nmm uri lang path)
+		|"html-of-xml", uri, lang, path -> print_endline (html_of_axml uri lang path)
 		|"validate-xml", path_to_dtd, entry_point, path_to_xml -> print_endline (validate_xml path_to_dtd entry_point path_to_xml)
 		|_-> print_endline usage
 	)

@@ -5,20 +5,18 @@ for file in $(ls input/*.nmm)
 do
 	echo $file:
 	../bin/nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt
-	../bin/nmm-ocaml html-of-nmm "../../css/html.css" "en" $file > output/$(basename $file).html
-	../bin/nmm-ocaml exml-of-nmm "../../css/exml.css" $file > output/$(basename $file).e.xml
-	../bin/nmm-ocaml axml-of-nmm $file > output/$(basename $file).a.xml
+	../bin/nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html
+	../bin/nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml
 
 	../bin/nmm-ocaml test $file
 done
 
-for file in $(ls input/*.a.xml)
+for file in $(ls input/*.xml)
 do
 	echo $file:
-	../bin/nmm-ocaml txt-of-axml $file > output/$(basename $file).txt
-	../bin/nmm-ocaml html-of-axml "../../css/html.css" "en" $file > output/$(basename $file).html
-	../bin/nmm-ocaml exml-of-axml "../../css/exml.css" $file > output/$(basename $file).e.xml
+	../bin/nmm-ocaml txt-of-xml $file > output/$(basename $file).txt
+	../bin/nmm-ocaml html-of-xml none en $file > output/$(basename $file).html
 done
 
-echo "diff expected_output output:"
-diff --color expected_output output
+echo "diff output expected_output:"
+diff --color output expected_output
