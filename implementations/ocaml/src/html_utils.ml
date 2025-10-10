@@ -54,7 +54,7 @@ div.sec {
 
 
 div.sec + div.sec {
-        margin-top:3ch;
+        margin-top:2em;
 }
 
 
@@ -77,7 +77,8 @@ div.sec_main {
 }
 
 
-div.sec_lbl + div.sec_main::before {    /* prevents par from jumping up when left_margin is 0 */
+/* prevents par from jumping up when left_margin is 0 */
+div.sec_lbl + div.sec_main::before {
         content:\" \";
         white-space:pre;
 }
@@ -88,8 +89,8 @@ div.par {
 }
 
 
-div.par + div.par {
-        margin-top:2ch;
+div.sec_main > div.par {
+        margin-top:2em;
 }
 
 
@@ -100,7 +101,8 @@ div.par_lbl {
 }
 
 
-h4.par_hdr {                      /* content of par_hdr is moved inside par_main for inline display */
+/* content of par_hdr has been copied to par_main for inline display */
+h4.par_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
