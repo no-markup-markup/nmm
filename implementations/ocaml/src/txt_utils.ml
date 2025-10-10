@@ -30,10 +30,17 @@ let remove_empty_endlines (lines : string list) : string list =
 	List.rev (aux (List.rev lines))
 
 
-let rec doc_settings_of_ts_preamble_opt (preamble_opt : Doc_types.ts_preamble option) : unit = 
-	match preamble_opt with
-	| None -> ()
-	| Some (preamble : Doc_types.ts_preamble) -> doc_settings_of_ts_preamble preamble
+let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
+	let _ : unit = (
+		match doc.fld_doc_main with
+			|Ce_doc_main_blks _ -> 
+				let _ : unit = doc_settings.title_indent <- 0 in doc_settings.author_indent <- 0
+			| _ -> ()
+	)
+	in
+	match doc.fld_doc_preamble with
+	|None -> ()
+	|Some preamble -> doc_settings_of_ts_preamble preamble 
 
 and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 	let rec aux (str_list : string list) : unit =
@@ -52,8 +59,8 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 			in aux tl
 		| [] -> ()
 	in
-	match preamble with
-	|Cs_preamble (s : string) -> 
+	match preamble with 
+	(Cs_preamble (s : string)) -> 
 		let str_list : string list = List.map String.trim (String.split_on_char ' ' s) in
 		aux str_list
 

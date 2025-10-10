@@ -31,7 +31,7 @@ let txt_of_doc (doc : Doc_types.tr_doc) : string =
 
 let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : string =
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
-	let html:Xml.xml = Html_of_exml.html_of_exml exml in
+	let html:Xml.xml = Html_utils.html_of_exml exml in
 	let html_string:string = Xml_right.to_string_fmt html in
 	let title:string = 
 		match doc.fld_doc_title with
@@ -48,7 +48,7 @@ let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : strin
 		| "none" -> "" 
 		| _ -> (" lang=\"" ^ lang ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ Css_utils.css_for_html ^ "\n</style>\n")
+	let internal_css: string = ("<style>\n" ^ (Html_utils.css_for_html Txt_utils.doc_settings) ^ "\n</style>\n")
 	in
 	let external_css: string = 
 		match uri with

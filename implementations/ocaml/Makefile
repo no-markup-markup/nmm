@@ -17,7 +17,7 @@ bin/nmm-ocaml: src
 	# generates xml_right_parser.cmo, xml_right_parser.cmi:
 	ocamlfind ocamlc -c -package xml-light xml_right_parser.mli
 	# generate executable nmm-ocaml:
-	ocamlfind ocamlopt -o nmm-ocaml -linkpkg -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str debug_utils.ml xml_right_parser.ml xml_right_lexer.ml xml_right.ml nmm_lexer.ml nmm_parser.ml doc_of_nmm.ml cref_utils.ml txt_utils.ml exml_utils.ml special_par_tags.ml par_hdr_mod.ml compiler_of_doc.ml axml_of_doc.ml doc_of_axml.ml html_of_exml.ml test.ml css_utils.ml main.ml
+	ocamlfind ocamlopt -o nmm-ocaml -linkpkg -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str debug_utils.ml xml_right_parser.ml xml_right_lexer.ml xml_right.ml nmm_lexer.ml nmm_parser.ml doc_of_nmm.ml cref_utils.ml txt_utils.ml exml_utils.ml par_hdr_mod.ml compiler_of_doc.ml axml_of_doc.ml doc_of_axml.ml html_utils.ml test.ml main.ml
 	mv nmm-ocaml ../bin/
 	cd -
 

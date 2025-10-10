@@ -1,5 +1,14 @@
 open Doc_types
 
+let expand (s : string) : string option =
+	match s with
+	|"DEF" -> Some "DEFINITION"
+	|"PRF" -> Some "PROOF"
+	|"FCT" -> Some "FACT"
+	|"LMA" -> Some "LEMMA"
+	|"THM" -> Some "THEOREM"
+	| _  -> None
+
 let space : te_txt_unit =  Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ")
 let lpar : te_txt_unit = Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(")
 let rpar : te_txt_unit = Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")")
@@ -11,7 +20,7 @@ let special_tag (a : te_tag_or_id option) : te_txt_unit option =
 		match b with
 		|Ce_tag_or_id_tag (Cs_tag s) 
 		|Ce_tag_or_id_id { fld_id_tag = Cs_tag s; fld_id_name = _ } ->
-			match Special_par_tags.expand s with
+			match expand s with
 			| Some (t: string) -> Some (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg t))
 			| None -> None
 

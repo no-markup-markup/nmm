@@ -7,25 +7,24 @@ exception Error of string
 
 type t_acc = CREF_TABLE of Cref_utils.t_cref_table | LINES of (string list) | EXML of (Xml.xml list)
 
-let rec txt_of_tr_doc (doc : Doc_types.tr_doc) : string =
-	let _ : unit = Txt_utils.doc_settings_of_ts_preamble_opt doc.fld_doc_preamble in
+let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Cref_utils.t_cref_table =
+	match acc_of_tr_doc (CREF_TABLE []) doc with
+	| CREF_TABLE table -> List.rev table
+	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+
+and txt_of_tr_doc (doc : Doc_types.tr_doc) : string =
 	String.concat "\n" (lines_of_tr_doc doc)
+
+and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
+	match xml_list_of_tr_doc doc with
+	| hd::[] -> hd
+	| _ -> raise (Error "function expected to return an exml-list with exactly one element")
 
 and lines_of_tr_doc (doc : Doc_types.tr_doc) : string list =
 	let _ : unit = Cref_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
 	match acc_of_tr_doc (LINES []) doc with
 	| LINES lines -> Txt_utils.remove_empty_endlines lines
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
-
-and cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Cref_utils.t_cref_table =
-	match acc_of_tr_doc (CREF_TABLE []) doc with
-	| CREF_TABLE table -> List.rev table
-	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
-
-and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
-	match xml_list_of_tr_doc doc with
-	| hd::[] -> hd
-	| _ -> raise (Error "function expected to return an exml-list with exactly one element")
 
 and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 	let _ : unit = Cref_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
@@ -34,6 +33,7 @@ and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
+	let _ : unit = Txt_utils.doc_settings_of_tr_doc doc in
 	match acc with
 	| CREF_TABLE _ ->  acc_of_te_doc_main acc doc.fld_doc_main
 	| LINES _ -> (
