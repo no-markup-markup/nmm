@@ -20,10 +20,6 @@ following senses:
   source. Thus using these XML representations, one may implement one's own
   semantics—though doing so most likely would be a non-trivial amount of work.)
 
-## Features
-
-TODO
-
 ## Project status
 
 Heavily work-in-progress:
@@ -32,6 +28,54 @@ Heavily work-in-progress:
 
 - not very user friendly—quite uninformative error messages, and inadequate
   documentation.
+
+## Features
+
+- Bullet blocks:
+
+  ```
+  -	bullet 1
+
+  -	bullet 2
+  ```
+
+- Automatically labeled item blocks:
+
+  ```
+  []	item 1
+
+  []	item 2
+  ```
+
+- Manually labeled item blocks:
+
+  ```
+  [!]	item 1
+
+  [!!]	item 2
+  ```
+
+- Automatically labeled displayed blocks:
+
+  ```
+  ()	a²+b² = c²
+  ```
+
+- Manually labeled displayed blocks:
+
+  ```
+  (P)	a²+b² = c²
+  ```
+
+- Text blocks:
+
+  ```
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+  eu fugiat nulla pariatur.
+  ```
 
 ## Try it out
 
