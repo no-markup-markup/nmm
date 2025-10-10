@@ -22,7 +22,7 @@ bin/nmm-ocaml: src
 	cd -
 
 clean:
-	rm -r compilation*
+	rm -r compilation-artifacts
 	rm bin/nmm-ocaml
 	rm -r testing/output
 
