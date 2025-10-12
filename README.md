@@ -267,6 +267,14 @@ than ‘\*’ is needed.
 
 ```
 
+## Why design another markup language for scientific writing? What is wrong with, for example, Markdown?
+
+-	While Markdown is indeed quite WYSIWYG, the inventor of the language wanted
+    even more WYSIWYG—in particular, WYSIWYG with respect to the intended
+    semantics.
+
+-	It has so far been a fun project!
+
 ## Try it out
 
 TODO
