@@ -48,11 +48,27 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
 eu fugiat nulla pariatur.
 ```
 
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu
+fugiat nulla pariatur.
+  </pre>
+</details>
+
 ### Text marked to be emphasized by the semantics
 
 ```
 *Lorem ipsum dolor sit amet.*
 ```
+
+<b>raw text semantics</b>
+<pre>
+L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.̲
+</pre>
 
 ### Bullet blocks
 
@@ -64,6 +80,17 @@ eu fugiat nulla pariatur.
 -	bullet block 3
 ```
 
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+─     bullet block 1
+
+─     bullet block 2
+
+─     bullet block 3
+  </pre>
+</details>
+
 ### Automatically labeled item blocks
 
 ```
@@ -71,6 +98,15 @@ eu fugiat nulla pariatur.
 
 []	item block 2
 ```
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+(1)   item block 1
+
+(2)   item block 2
+  </pre>
+</details>
 
 ### Manually labeled item blocks
 
@@ -80,6 +116,12 @@ eu fugiat nulla pariatur.
 [?]	item block 2
 ```
 
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
+
 ### Unlabeled displayed blocks
 
 ```
@@ -87,6 +129,12 @@ By Pythagoras we have:
 
 	a²+b² = c²
 ```
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
 
 ### Automatically labeled displayed blocks
 
@@ -96,6 +144,12 @@ By Pythagoras we have:
 ()	a²+b² = c²
 ```
 
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
+
 ### Manually labeled displayed blocks
 
 ```
@@ -104,6 +158,12 @@ By Pythagoras we have:
 (P)	a²+b² = c²
 ```
 
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
+
 ### Displayed block spanning more than one row
 
 ```
@@ -111,6 +171,12 @@ By Pythagoras we have:
 	  = 1+1
 	  = 2
 ```
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
 
 ### Nested blocks
 
@@ -124,10 +190,16 @@ By Pythagoras we have:
 []	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 	tempor incididunt ut labore et dolore magna aliqua.
 
-	- a bullet
+	-	a bullet
 
-	- another bullet
+	-	another bullet
 ```
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
 
 ### Tags, names, IDs and cross-references
 
@@ -142,17 +214,24 @@ By Pythagoras we have:
 
 []	Names need not be unique but IDs must be.
 
-[]	Neither tags nor names may include whitespace, thus removing virtually
-	any need practical need for escaping valid tags or IDs.
+[]	Neither tags nor names may include whitespace, which together with where
+	they must be placed removes virtually any practical need for escaping valid
+	tags or IDs.
 
-[]	Tags allow the semantics to have special treatments for blocks with
-	certain tags.
+[]	Tags allow the semantics to have special treatment of blocks with certain
+	tags.
 
 This is a reference to the item block with ID ‘ITM:name’: [ITM:name]. The
 following displayed block has the ID ‘DSP:Q5’.
 
 ()	x+Sy = S(x+y)	DSP:Q5
 ```
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
 
 ### Chapters, sections, appendices and paragraphs
 
@@ -218,6 +297,12 @@ An nmm source is made up of the following, in that order:
 -	*The main part of a paragraph* must consist of blocks.
 ```
 
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
+
 ### Under typical circumstances, no need for escape sequences
 
 Even under most atypical circumstances there is no need:
@@ -229,9 +314,9 @@ Even under most atypical circumstances there is no need:
 
 While a line ‘¶’ (followed by an optional header and an empty line) always
 marks the start of a paragraph, ‘¶ ← this’ does not. Thus no need for escaping
-in preceeding text block.
+in the preceeding text block.
 
-\¶ If one wants to, one may still escape any magic---as in used for special
+\¶ If one wants to, one may still escape any magic---as in used for
 markup---character.
 
 
@@ -266,6 +351,12 @@ than ‘\*’ is needed.
 	and thus needs no escaping.
 
 ```
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+  <pre>
+  </pre>
+</details>
 
 ## Why design another markup language for scientific writing? What is wrong with, for example, Markdown?
 
