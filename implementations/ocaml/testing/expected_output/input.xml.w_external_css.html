@@ -1,0 +1,409 @@
+<html lang="en">
+<head>
+<style>
+html {
+        --font_family:monospace;
+        --font_size:12px;
+        --title_indent:12ch;
+        --author_indent:12ch;
+        --left_margin:12ch;
+        --tab_length:6ch;
+        font-family:var(--font_family);
+        font-size:var(--font-size);
+}
+
+div.doc {
+        display:block;
+}
+
+
+h1.title {
+        display:block;
+        font-size:var(--font-size);
+        margin-left:var(--title_indent);
+}
+
+
+p.author {
+        display:block;
+        margin-left:var(--author_indent);
+}
+
+
+div.doc_main {
+        display:block;
+}
+
+
+div.sec {
+        display:block;
+}
+
+
+div.sec + div.sec {
+        margin-top:2em;
+}
+
+
+div.sec_lbl {
+        display:block;
+        float:left;
+        margin-right:1ch;
+}
+
+
+h3.sec_hdr {
+        display:block;
+        font-size:var(--font-size);
+        margin-left:var(--left_margin);
+}
+
+
+div.sec_main {
+        display:block;
+}
+
+
+/* prevents par from jumping up when left_margin is 0 */
+div.sec_lbl + div.sec_main::before {
+        content:" ";
+        white-space:pre;
+}
+
+
+div.par {
+        display:block;
+}
+
+
+div.sec_main > div.par {
+        margin-top:2em;
+}
+
+
+div.par_lbl {
+        display:block;
+        float:left;
+        margin-right:1ch;
+}
+
+
+/* content of par_hdr has been copied to par_main for inline display */
+h4.par_hdr {
+        visibility:hidden;
+        height:0ch;
+        width:0ch;
+        float:left;
+}
+
+
+div.par_main {
+        display:block;
+}
+
+
+p.blk_txt {
+        display:block;
+        hyphens:auto;
+        white-space:pre-wrap;
+}
+
+
+div.par_main > p.blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+div.sec_main > p.blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+div.blk_blt {
+        display:block;
+}
+
+
+div.par_main > div.blk_blt {
+        margin-left:var(--left_margin)
+}
+
+
+div.sec_main > div.blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+div.blk_blt_lbl {
+        display:block;
+        float:left;
+        margin-right:1ch;
+}
+
+
+div.blk_blt_main {
+        display:block;
+        margin-left:var(--tab_length);
+}
+
+
+div.blk_itm {
+        display:block;
+}
+
+
+div.par_main > div.blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+div.sec_main > div.blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+div.blk_itm_lbl {
+        display:block;
+        float:left;
+        margin-right:1ch;
+}
+
+
+div.blk_itm_main {
+        display:block;
+        margin-left:var(--tab_length);
+}
+
+
+div.blk_dsp {
+        display:block;
+        white-space:nowrap;
+}
+
+
+div.par_main > div.blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+div.sec_main > div.blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+div.dsp_line {
+        display:block;
+}
+
+
+div.dsp_line_lbl {
+        display:block;
+        float:left;
+        margin-right:1ch;
+}
+
+
+div.dsp_line_main {
+        display:block;
+        white-space:pre;
+        margin-left:var(--tab_length);
+}
+
+
+a {
+        text-decoration:none;
+}
+
+
+@media print {
+        .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+                page-break-after:avoid;
+        }
+
+/* For one-sided printing:*/
+        @page {
+                size:a4;
+                margin-top:20mm;
+                margin-left:20mm;
+                margin-right:20mm;
+                margin-bottom:30mm;
+
+                @top-center {
+                        content:" ";
+                }
+
+                @bottom-center {
+                        padding:10mm;
+                        content: counter(page) " of " counter(pages);
+                }
+        }
+}
+</style>
+<link rel="stylesheet" href="../css/external.css"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div class="doc">
+<div class="doc_main">
+<div class="ch">
+<div class="ch_lbl">CHAPTER 1</div>
+<h2 class="ch_hdr">This is this chapter&apos;s (optional) header</h2>
+<div class="ch_main">
+<div class="sec">
+<div class="sec_lbl">§ 1.1</div>
+<h3 class="sec_hdr">This is this section&apos;s (optional) header</h3>
+<div class="sec_main">
+<div class="par">
+<div class="par_lbl">¶ 1.1.1</div>
+<h4 class="par_hdr">This is this paragraph&apos;s (optional) header</h4>
+<div class="par_main">
+<p class="blk_txt">This is this paragraph&apos;s (optional) header  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua:</p>
+<div class="blk_dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">a²+b² = c²</div>
+</div>
+</div>
+</div>
+</div>
+<div class="par">
+<div class="par_lbl">¶ 1.1.2</div>
+<div class="par_main">
+<p class="blk_txt">This is another paragraph.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sec" tag="APP">
+<div class="sec_lbl">§ 1.2</div>
+<div class="sec_main">
+<p class="blk_txt">This is an appendix. The optional header was omitted. Neither a section nor an appendix must consist of paragraphs, as this text block demonstrates.</p>
+<p class="blk_txt">An nmm source is made up of the following, in that order:</p>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">an optional <em class="txt_unit_emph">preamble part</em>,</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">an optional <em class="txt_unit_emph">title part</em>,</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">an optional <em class="txt_unit_emph">author part</em>,</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">an optional <em class="txt_unit_emph">abstract part</em>,</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">a non-optional <em class="txt_unit_emph">main part</em>, and</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">an optional <em class="txt_unit_emph">references part</em>.</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">The main part must consist of either of:</p>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">chapters;</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">sections (appendices count as sections);</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">paragraphs;</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">blocks.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt"><em class="txt_unit_emph">The main part of a chapter</em> must consist of either of:</p>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">sections (appendices count as sections);</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">paragraphs;</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">blocks.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt"><em class="txt_unit_emph">The main part of a section</em>, or <em class="txt_unit_emph">of an appendix</em>, must consist of either of:</p>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">paragraphs;</p>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">blocks.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt"><em class="txt_unit_emph">The main part of a paragraph</em> must consist of blocks.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ch">
+<div class="ch_lbl">CHAPTER 2</div>
+<div class="ch_main">
+<p class="blk_txt">Another chapter</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

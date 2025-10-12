@@ -95,7 +95,6 @@
 
 § 3
 
-
 ¶ 3.1       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
             metus massa, eleifend id libero eu, luctus pulvinar lectus. Quisque
             ac lobortis elit, vitae feugiat est. Pellentesque vitae pharetra
