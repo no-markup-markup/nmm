@@ -34,7 +34,9 @@ let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 	let _ : unit = (
 		match doc.fld_doc_main with
 			|Ce_doc_main_blks _ -> 
-				let _ : unit = doc_settings.title_indent <- 0 in doc_settings.author_indent <- 0
+				let _ : unit = doc_settings.title_indent <- 0 in 
+				let _ : unit = doc_settings.author_indent <- 0 in
+				doc_settings.doc_width <- 68
 			| _ -> ()
 	)
 	in
