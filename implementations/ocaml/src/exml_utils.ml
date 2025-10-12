@@ -16,11 +16,11 @@ and xml_list_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_un
 
 and xml_of_te_txt_unit (path : Cref_utils.t_path) (a : Doc_types.te_txt_unit) : Xml.xml =
 	match a with
-	| Ce_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwug b
+	| Ce_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwyg b
 	| Ce_txt_unit_emph (b : ts_txt_unit_emph) -> xml_of_ts_txt_unit_emph b
 	| Ce_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref path b 
 
-and xml_of_ts_txt_unit_wysiwug (a : ts_txt_unit_wysiwyg) : Xml.xml =
+and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 	match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [Xml.PCData (pcdata_of_string b)])
 
 and xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : Xml.xml =
