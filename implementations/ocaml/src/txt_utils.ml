@@ -108,13 +108,17 @@ and lines_of_ts_hdr (path : Cref_utils.t_path) (a : Doc_types.ts_hdr) : string l
 	match a with
 	| Cs_hdr (b : Doc_types.ts_txt_units) -> 
 		let hdr_string = string_of_ts_txt_units path b in
-		let underline = String.concat "" [
-			make_string doc_settings.left_margin " ";
-			make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─";
-		]
-		in
 		match lines_of_string doc_settings.left_margin hdr_string with
-		| hd::tl -> List.concat [(insert_mark path hd)::tl;[underline]]
+		| hd::tl -> (
+			match path with 
+			|path_hd::path_tl -> (
+				match path_hd with
+				|SEC_NODE _ -> List.concat [(insert_mark path hd)::tl]
+				|CH_NODE _ -> hd::tl
+				| _ -> []
+			)
+			|[] -> []
+		)
 		| [] -> []
 
 
@@ -235,20 +239,26 @@ and mark_of_path_opt (path : Cref_utils.t_path) : string option =
 		match hd with
 		| SEC_NODE _ -> (
 			match (doc_settings.sec_symbol, s) with
-			| None, Some s -> Some s
-			| Some u, Some s -> Some (u ^ "\u{00A0}" ^ s)
+			| None, Some t -> Some t
+			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
 		| PAR_NODE _ -> (
 			match (doc_settings.par_symbol, s) with
-			| None, Some s -> Some s
-			| Some u, Some s -> Some (u ^ "\u{00A0}" ^ s)
+			| None, Some t -> Some t
+			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
 		| ITM_NODE _ -> s
 		| BLT_NODE -> s
 		| DSP_LINE_NODE _ -> s
-		| _ -> None
+		| CH_NODE _ -> (
+			match s with
+			|None -> None
+			|Some t -> 
+				Some ("CHAPTER " ^ t)
+		)
+		| _ -> s
 
 and mark_of_path (path : Cref_utils.t_path) : string=
 	match mark_of_path_opt path with
@@ -260,6 +270,7 @@ and indent_of_path (path : Cref_utils.t_path) : int =
 	| [] -> 0
 	| hd :: tl -> 
 		match hd with
+		| CH_NODE _ -> doc_settings.left_margin
 		| SEC_NODE _ -> doc_settings.left_margin
 		| PAR_NODE _ -> doc_settings.left_margin
 		| ITM_NODE _ -> indent_of_path tl + doc_settings.tab_length
