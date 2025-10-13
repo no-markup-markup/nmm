@@ -16,7 +16,7 @@
 
 
 
-§ A.2
+§ 1.A
 
             This is an appendix. The optional header was omitted. Neither a
             section nor an appendix must consist of paragraphs, as this text
