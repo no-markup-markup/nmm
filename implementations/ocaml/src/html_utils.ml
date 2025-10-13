@@ -17,9 +17,9 @@ let css_for_html ( doc_settings : Txt_utils.t_doc_settings) : string =
 "html {
         --font_family:monospace;
         --font_size:12px;
-        --title_indent:" ^ (string_of_int doc_settings.title_indent) ^ "ch;
-        --author_indent:" ^ (string_of_int doc_settings.author_indent) ^ "ch;
-        --left_margin:" ^ (string_of_int doc_settings.left_margin) ^ "ch;
+        --title_indent:" ^ (string_of_int (doc_settings.title_indent * 2)) ^ "mm;
+        --author_indent:" ^ (string_of_int (doc_settings.author_indent * 2)) ^ "mm;
+        --left_margin:" ^ (string_of_int (doc_settings.left_margin * 2)) ^ "mm;
         --tab_length:" ^ (string_of_int doc_settings.tab_length) ^ "ch;
         font-family:var(--font_family);
         font-size:var(--font-size);
@@ -48,6 +48,30 @@ div.doc_main {
 }
 
 
+div.ch {
+        display:block;
+}
+
+
+div.ch + div.ch {
+        margin-top:3em;
+}
+
+
+div.ch_lbl {
+        display:block;
+        font-size:14px;
+        margin-left:var(--left_margin);
+}
+
+
+h2.ch_hdr {
+        display:block;
+        font-size:14px;
+        margin-left:var(--left_margin);
+}
+
+
 div.sec {
         display:block;
 }
@@ -67,7 +91,7 @@ div.sec_lbl {
 
 h3.sec_hdr {
         display:block;
-        font-size:var(--font-size);
+        font-size:var(--fontsize);
         margin-left:var(--left_margin);
 }
 
@@ -88,8 +112,7 @@ div.par {
         display:block;
 }
 
-
-div.sec_main > div.par {
+div.par + div.par {
         margin-top:2em;
 }
 
@@ -126,6 +149,10 @@ div.par_main > p.blk_txt {
         margin-left:var(--left_margin);
 }
 
+div.ch_main > p.blk_txt {
+        margin-left:var(--left_margin);
+}
+
 
 div.sec_main > p.blk_txt {
         margin-left:var(--left_margin);
@@ -136,14 +163,18 @@ div.blk_blt {
         display:block;
 }
 
-
-div.par_main > div.blk_blt {
-        margin-left:var(--left_margin)
+div.ch_main > div.blk_blt {
+        margin-left:var(--left_margin);
 }
 
 
 div.sec_main > div.blk_blt {
         margin-left:var(--left_margin);
+}
+
+
+div.par_main > div.blk_blt {
+        margin-left:var(--left_margin)
 }
 
 
@@ -165,12 +196,17 @@ div.blk_itm {
 }
 
 
-div.par_main > div.blk_itm {
+div.ch_main > div.blk_itm {
         margin-left:var(--left_margin);
 }
 
 
 div.sec_main > div.blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+div.par_main > div.blk_itm {
         margin-left:var(--left_margin);
 }
 
@@ -194,12 +230,17 @@ div.blk_dsp {
 }
 
 
-div.par_main > div.blk_dsp {
+div.ch_main > div.blk_dsp {
         margin-left:var(--left_margin);
 }
 
 
 div.sec_main > div.blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+div.par_main > div.blk_dsp {
         margin-left:var(--left_margin);
 }
 
