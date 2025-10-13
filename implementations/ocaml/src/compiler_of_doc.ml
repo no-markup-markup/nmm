@@ -199,7 +199,7 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 				|Cs_hdr (t : Doc_types.ts_txt_units) -> Some (Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units path t))
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.mark_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
 		in 
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
@@ -241,7 +241,7 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 				|Cs_hdr (t:ts_txt_units) -> Some (Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units path t))
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.mark_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
@@ -263,7 +263,7 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 	|LINES acc_lines -> (
 		let new_par = Par_hdr_mod.copy_hdr_to_main a in
 		match acc_of_ts_blks path (LINES []) new_par.fld_par_main with
-		|LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_mark path hd];tl])
+		|LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label path hd];tl])
 		|_ -> raise (Error "par_main cannot be empty")
 	)
 	|EXML acc_list -> (
@@ -282,7 +282,7 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 				|Cs_hdr (t:ts_txt_units) -> Some (Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t))
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.mark_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("par_lbl",[],xml_list_lbl) in
@@ -339,7 +339,7 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		match acc_of_ts_blks path (LINES []) b with
 		| LINES (lines : string list) -> (
 			let head : string = List.hd lines in
-			let newhead : string = Txt_utils.insert_mark path head in
+			let newhead : string = Txt_utils.insert_label path head in
 			let newlines : string list = newhead :: List.tl lines in
 			LINES (List.concat [ acc_lines; newlines; ])
 		)
@@ -353,7 +353,7 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.mark_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[],xml_list_lbl) in
@@ -373,7 +373,7 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		match acc_of_ts_blks path (LINES []) a.fld_blk_itm_main with
 		| LINES (lines : string list) -> (
 			let head : string = List.hd lines in
-			let newhead : string = Txt_utils.insert_mark path head in
+			let newhead : string = Txt_utils.insert_label path head in
 			let newlines : string list = newhead :: List.tl lines in
 			LINES (List.concat [ acc_lines; newlines ])
 		)
@@ -387,7 +387,7 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.mark_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
 		in
 		let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
 		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
@@ -437,14 +437,14 @@ and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc
 	)
 	| LINES acc_lines -> (
 		match a.fld_dsp_line_lbl, Txt_utils.lines_of_ts_txt_units path a.fld_dsp_line_units with
-		|Some _, hd::tl -> LINES (List.concat [acc_lines;[Txt_utils.insert_mark path hd];tl])
+		|Some _, hd::tl -> LINES (List.concat [acc_lines;[Txt_utils.insert_label path hd];tl])
 		|None, lines -> LINES (List.concat [acc_lines;lines])
 		|_,[] -> raise (Error "dps_line cannot be empty")
 	)
 	| EXML acc_list -> (
 		let xml_list_main:Xml.xml list = Exml_utils.xml_list_of_ts_txt_units path a.fld_dsp_line_units in 
 		let xml_list_lbl:Xml.xml list = 
-			match Txt_utils.mark_of_path_opt path with
+			match Txt_utils.label_of_path_opt path with
 			|None -> []
 			|Some (s:string) -> [Xml.PCData (Exml_utils.pcdata_of_string s)]
 		in

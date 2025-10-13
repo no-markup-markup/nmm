@@ -19,12 +19,12 @@ let rec lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts
 		match path with
 		| hd::tl -> (
 			match hd with
-			|SEC_NODE _ | APP_NODE _ -> [mark_of_path path;""]
+			|SEC_NODE _ | APP_NODE _ -> [label_of_path path;""]
 			|CH_NODE _ ->
 				let indent : string = String.make (doc_settings.left_margin) ' ' in
-				let mark : string = mark_of_path path in
-				let underline :string = make_string (utf8_length mark) "═" in
-				[indent ^ mark; indent ^ underline; ""]
+				let label : string = label_of_path path in
+				let underline :string = make_string (utf8_length label) "═" in
+				[indent ^ label; indent ^ underline; ""]
 			| _ -> []
 		)
 		| [] -> []
@@ -41,11 +41,11 @@ and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : stri
 			|SEC_NODE _ | APP_NODE _ -> (
 				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
 				match hdr_lines with
-				| hd::tl -> List.concat [[insert_mark path hd];tl;[indent ^ underline;""]]
+				| hd::tl -> List.concat [[insert_label path hd];tl;[indent ^ underline;""]]
 				| [] -> raise (Error "section header cannot be empty")
 			)
 			|CH_NODE _ ->
-				let mark : string = mark_of_path path in
+				let mark : string = label_of_path path in
 				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
 				List.concat [[indent ^ mark]; hdr_lines; [indent ^ underline; ""]]
 			| _ -> []
@@ -134,12 +134,12 @@ and line_break (line_width : int) (s : string) : string * string =
 				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
 			| false -> (s, "")
 
-and insert_mark (path : Common_utils.t_path) (s : string) : string =
-	match mark_of_path_opt path with
+and insert_label (path : Common_utils.t_path) (s : string) : string =
+	match label_of_path_opt path with
 	| None -> s
-	| Some (t : string) -> insert_string t (pos_of_mark path) s
+	| Some (t : string) -> insert_string t (pos_of_label path) s
 
-and pos_of_mark (path : Common_utils.t_path) : int =
+and pos_of_label (path : Common_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl ->
@@ -149,20 +149,20 @@ and pos_of_mark (path : Common_utils.t_path) : int =
 		| DSP_LINE_NODE _ -> indent_of_path path - doc_settings.tab_length
 		| _ -> 0
 
-and insert_string (mark : string) (pos : int) (s : string) : string =
+and insert_string (label : string) (pos : int) (s : string) : string =
 	let string_len : int = String.length s in
-	let mark_len : int = utf8_length mark in
-	let target : string = String.sub s pos mark_len in
-	let ideal_target : string = String.make mark_len ' ' in
+	let label_len : int = utf8_length label in
+	let target : string = String.sub s pos label_len in
+	let ideal_target : string = String.make label_len ' ' in
 	let s1 : string = String.sub s 0 pos in
 	let s2 : string =
 		match (*0<=(string_len - pos - mark_len) && mark_len<doc_settings.tab_length &&*) target = ideal_target with
-		|true -> String.sub s (pos + mark_len) (string_len - pos - mark_len)
+		|true -> String.sub s (pos + label_len) (string_len - pos - label_len)
 		|false -> ("\n"^s)
 	in
-	String.concat mark [ s1; s2 ]
+	String.concat label [ s1; s2 ]
 
-and mark_of_path_opt (path : Common_utils.t_path) : string option =
+and label_of_path_opt (path : Common_utils.t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
@@ -192,8 +192,8 @@ and mark_of_path_opt (path : Common_utils.t_path) : string option =
 		)
 		| _ -> s
 
-and mark_of_path (path : Common_utils.t_path) : string=
-	match mark_of_path_opt path with
+and label_of_path (path : Common_utils.t_path) : string=
+	match label_of_path_opt path with
 	| None -> ""
 	| Some (s : string) -> s
 
