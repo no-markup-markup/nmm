@@ -4,9 +4,9 @@
 html {
         --font_family:monospace;
         --font_size:12px;
-        --title_indent:0mm;
-        --author_indent:0mm;
-        --left_margin:24mm;
+        --title_indent:0px;
+        --author_indent:0px;
+        --left_margin:96px;
         --tab_length:6ch;
         font-family:var(--font_family);
         font-size:var(--font-size);
@@ -257,7 +257,7 @@ a {
 
 
 @media print {
-        .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+        .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
                 page-break-after:avoid;
         }
 

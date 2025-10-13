@@ -17,9 +17,9 @@ let css_for_html ( doc_settings : Txt_utils.t_doc_settings) : string =
 "html {
         --font_family:monospace;
         --font_size:12px;
-        --title_indent:" ^ (string_of_int (doc_settings.title_indent * 2)) ^ "mm;
-        --author_indent:" ^ (string_of_int (doc_settings.author_indent * 2)) ^ "mm;
-        --left_margin:" ^ (string_of_int (doc_settings.left_margin * 2)) ^ "mm;
+        --title_indent:" ^ (string_of_int (doc_settings.title_indent * 8)) ^ "px;
+        --author_indent:" ^ (string_of_int (doc_settings.author_indent * 8)) ^ "px;
+        --left_margin:" ^ (string_of_int (doc_settings.left_margin * 8)) ^ "px;
         --tab_length:" ^ (string_of_int doc_settings.tab_length) ^ "ch;
         font-family:var(--font_family);
         font-size:var(--font-size);
@@ -270,7 +270,7 @@ a {
 
 
 @media print {
-        .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+        .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
                 page-break-after:avoid;
         }
 
