@@ -9,9 +9,12 @@ html {
 	border-radius:1ch;
 }
 
-.sec_hdr {
-	font-weight:normal;
-	text-decoration:underline;
+.ch_hdr, .ch_lbl {
+	font-size:20px;
+}
+
+.sec_hdr, .sec_lbl {
+	font-size:16px;
 }
 
 .blk_blt, .blk_itm {

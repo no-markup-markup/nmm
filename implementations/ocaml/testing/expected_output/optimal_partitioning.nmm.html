@@ -14,99 +14,99 @@ html {
         font-size:var(--font-size);
 }
 
-div.doc {
+.doc {
         display:block;
 }
 
 
-h1.title {
+.title {
         display:block;
         font-size:var(--font-size);
         margin-left:var(--title_indent);
 }
 
 
-p.author {
+.author {
         display:block;
         margin-left:var(--author_indent);
 }
 
 
-div.doc_main {
+.doc_main {
         display:block;
 }
 
 
-div.ch {
+.ch {
         display:block;
 }
 
 
-div.ch + div.ch {
+.ch + .ch {
         margin-top:3em;
 }
 
 
-div.ch_lbl {
+.ch_lbl {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
 }
 
 
-h2.ch_hdr {
+.ch_hdr {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
 }
 
 
-div.sec {
+.sec {
         display:block;
 }
 
 
-div.sec + div.sec {
+.sec + .sec {
         margin-top:2em;
 }
 
 
-div.sec_lbl {
+.sec_lbl {
         display:block;
         float:left;
         margin-right:1ch;
 }
 
 
-h3.sec_hdr {
+.sec_hdr {
         display:block;
         font-size:var(--fontsize);
         margin-left:var(--left_margin);
 }
 
 
-div.sec_main {
+.sec_main {
         display:block;
 }
 
 
 /* prevents par from jumping up when left_margin is 0 */
-div.sec_lbl + div.sec_main::before {
+.sec_lbl + .sec_main::before {
         content:" ";
         white-space:pre;
 }
 
 
-div.par {
+.par {
         display:block;
 }
 
-div.par + div.par {
+.par + .par {
         margin-top:2em;
 }
 
 
-div.par_lbl {
+.par_lbl {
         display:block;
         float:left;
         margin-right:1ch;
@@ -114,7 +114,7 @@ div.par_lbl {
 
 
 /* content of par_hdr has been copied to par_main for inline display */
-h4.par_hdr {
+.par_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -122,131 +122,131 @@ h4.par_hdr {
 }
 
 
-div.par_main {
+.par_main {
         display:block;
 }
 
 
-p.blk_txt {
+.blk_txt {
         display:block;
         hyphens:auto;
         white-space:pre-wrap;
 }
 
 
-div.par_main > p.blk_txt {
+.par_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
-div.ch_main > p.blk_txt {
-        margin-left:var(--left_margin);
-}
-
-
-div.sec_main > p.blk_txt {
+.ch_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
 
-div.blk_blt {
+.sec_main > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.blk_blt {
         display:block;
 }
 
-div.ch_main > div.blk_blt {
+.ch_main > .blk_blt {
         margin-left:var(--left_margin);
 }
 
 
-div.sec_main > div.blk_blt {
+.sec_main > .blk_blt {
         margin-left:var(--left_margin);
 }
 
 
-div.par_main > div.blk_blt {
+.par_main > .blk_blt {
         margin-left:var(--left_margin)
 }
 
 
-div.blk_blt_lbl {
+.blk_blt_lbl {
         display:block;
         float:left;
         margin-right:1ch;
 }
 
 
-div.blk_blt_main {
+.blk_blt_main {
         display:block;
         margin-left:var(--tab_length);
 }
 
 
-div.blk_itm {
+.blk_itm {
         display:block;
 }
 
 
-div.ch_main > div.blk_itm {
+.ch_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
 
-div.sec_main > div.blk_itm {
+.sec_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
 
-div.par_main > div.blk_itm {
+.par_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
 
-div.blk_itm_lbl {
+.blk_itm_lbl {
         display:block;
         float:left;
         margin-right:1ch;
 }
 
 
-div.blk_itm_main {
+.blk_itm_main {
         display:block;
         margin-left:var(--tab_length);
 }
 
 
-div.blk_dsp {
+.blk_dsp {
         display:block;
         white-space:nowrap;
 }
 
 
-div.ch_main > div.blk_dsp {
+.ch_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
 
-div.sec_main > div.blk_dsp {
+.sec_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
 
-div.par_main > div.blk_dsp {
+.par_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
 
-div.dsp_line {
+.dsp_line {
         display:block;
 }
 
 
-div.dsp_line_lbl {
+.dsp_line_lbl {
         display:block;
         float:left;
         margin-right:1ch;
 }
 
 
-div.dsp_line_main {
+.dsp_line_main {
         display:block;
         white-space:pre;
         margin-left:var(--tab_length);
