@@ -2,6 +2,8 @@ open Doc_types
 
 exception Error of string
 
+(**************************** document settings ************************)
+
 type t_doc_settings = {
 	mutable doc_width : int;
 	mutable left_margin: int;
@@ -98,10 +100,9 @@ and symbol_value_of_string (v : string) : string option =
 	|"None" | "none" | "" | "\"\"" -> None
 	| _ -> Some v
 
+(**************************** labels and cross-references *********************************)
 
-type t_cref_table = (Doc_types.tr_id * t_path) list
-
-and t_path = t_node list
+type t_path = t_node list
 
 and t_node =
 	| CH_NODE of int
@@ -119,6 +120,8 @@ and t_dsp_line_node =
 	| DSP_INT of int
 	| DSP_STRING of string
 	| NONE
+
+type t_cref_table = (Doc_types.tr_id * t_path) list
 
 type t_doc_cref_table = { mutable content : t_cref_table }
 
@@ -299,4 +302,39 @@ and upper_case_roman_numerals : string array =
 
 and bullets : string array = [| "─" |]
 
+
+and label_of_path_opt (path : t_path) : string option =
+	match path with
+	| [] -> None
+	| hd :: tl ->
+		let s = string_of_node tl hd in
+		match hd with
+		| SEC_NODE _
+		| APP_NODE _ -> (
+			match (doc_settings.sec_symbol, s) with
+			| None, Some t -> Some t
+			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
+			| _, None-> None
+		)
+		| PAR_NODE _ -> (
+			match (doc_settings.par_symbol, s) with
+			| None, Some t -> Some t
+			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
+			| _, None-> None
+		)
+		| ITM_NODE _ -> s
+		| BLT_NODE -> s
+		| DSP_LINE_NODE _ -> s
+		| CH_NODE _ -> (
+			match s with
+			|None -> None
+			|Some t -> 
+				Some ("CHAPTER " ^ t)
+		)
+		| _ -> s
+
+and label_of_path (path : t_path) : string=
+	match label_of_path_opt path with
+	| None -> ""
+	| Some (s : string) -> s
 

@@ -199,7 +199,7 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 				|Cs_hdr (t : Doc_types.ts_txt_units) -> Some (Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units path t))
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in 
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
@@ -241,7 +241,7 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 				|Cs_hdr (t:ts_txt_units) -> Some (Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units path t))
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
@@ -282,7 +282,7 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 				|Cs_hdr (t:ts_txt_units) -> Some (Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t))
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("par_lbl",[],xml_list_lbl) in
@@ -353,7 +353,7 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[],xml_list_lbl) in
@@ -387,7 +387,7 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Txt_utils.label_of_path path))]
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
 		let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
 		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
@@ -444,7 +444,7 @@ and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc
 	| EXML acc_list -> (
 		let xml_list_main:Xml.xml list = Exml_utils.xml_list_of_ts_txt_units path a.fld_dsp_line_units in 
 		let xml_list_lbl:Xml.xml list = 
-			match Txt_utils.label_of_path_opt path with
+			match Common_utils.label_of_path_opt path with
 			|None -> []
 			|Some (s:string) -> [Xml.PCData (Exml_utils.pcdata_of_string s)]
 		in

@@ -162,40 +162,6 @@ and insert_string (label : string) (pos : int) (s : string) : string =
 	in
 	String.concat label [ s1; s2 ]
 
-and label_of_path_opt (path : Common_utils.t_path) : string option =
-	match path with
-	| [] -> None
-	| hd :: tl ->
-		let s = string_of_node tl hd in
-		match hd with
-		| SEC_NODE _
-		| APP_NODE _ -> (
-			match (doc_settings.sec_symbol, s) with
-			| None, Some t -> Some t
-			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
-			| _, None-> None
-		)
-		| PAR_NODE _ -> (
-			match (doc_settings.par_symbol, s) with
-			| None, Some t -> Some t
-			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
-			| _, None-> None
-		)
-		| ITM_NODE _ -> s
-		| BLT_NODE -> s
-		| DSP_LINE_NODE _ -> s
-		| CH_NODE _ -> (
-			match s with
-			|None -> None
-			|Some t -> 
-				Some ("CHAPTER " ^ t)
-		)
-		| _ -> s
-
-and label_of_path (path : Common_utils.t_path) : string=
-	match label_of_path_opt path with
-	| None -> ""
-	| Some (s : string) -> s
 
 and indent_of_path (path : Common_utils.t_path) : int =
 	match path with
