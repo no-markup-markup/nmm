@@ -1,5 +1,5 @@
 open Doc_types
-open Cref_utils
+open Common_utils
 
 let rec xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
 	match title with
@@ -10,11 +10,11 @@ and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
 
 
-and xml_list_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
+and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with
 	| Cs_txt_units (b : Doc_types.te_txt_unit list) -> List.map (xml_of_te_txt_unit path) b
 
-and xml_of_te_txt_unit (path : Cref_utils.t_path) (a : Doc_types.te_txt_unit) : Xml.xml =
+and xml_of_te_txt_unit (path : Common_utils.t_path) (a : Doc_types.te_txt_unit) : Xml.xml =
 	match a with
 	| Ce_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwyg b
 	| Ce_txt_unit_emph (b : ts_txt_unit_emph) -> xml_of_ts_txt_unit_emph b
@@ -26,11 +26,11 @@ and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 and xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : Xml.xml =
 	match a with Cs_txt_unit_emph (b : string) -> Xml.Element ("txt_unit_emph", [], [Xml.PCData (pcdata_of_string b)])
 
-and xml_of_ts_txt_unit_c_ref (path : Cref_utils.t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
+and xml_of_ts_txt_unit_c_ref (path : Common_utils.t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
 	match a with Cs_txt_unit_c_ref (b : ts_c_ref) -> Xml.Element ("txt_unit_c_ref", attr_list_of_ts_c_ref b, [xml_of_ts_c_ref path b])
 
-and xml_of_ts_c_ref (path : Cref_utils.t_path) (a : ts_c_ref) : Xml.xml =
-	Xml.PCData (pcdata_of_string (Cref_utils.string_of_ts_c_ref path a))
+and xml_of_ts_c_ref (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
+	Xml.PCData (pcdata_of_string (Common_utils.string_of_ts_c_ref path a))
 
 and attr_list_of_ts_c_ref (a : Doc_types.ts_c_ref) : (string*string) list =
 	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (string_of_tr_id id))]

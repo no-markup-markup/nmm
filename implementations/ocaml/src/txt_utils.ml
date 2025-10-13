@@ -1,5 +1,5 @@
 open Doc_types
-open Cref_utils
+open Common_utils
 
 type t_doc_settings = {
 	mutable doc_width : int;
@@ -104,7 +104,7 @@ and symbol_value_of_string (v : string) : string option =
 	|"None" | "none" | "" | "\"\"" -> None
 	| _ -> Some v
 
-and lines_of_ts_hdr_opt (path : Cref_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
+and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
 	match hdr_opt with
 	| Some (hdr : Doc_types.ts_hdr) -> lines_of_ts_hdr path hdr
 	| None ->
@@ -121,7 +121,7 @@ and lines_of_ts_hdr_opt (path : Cref_utils.t_path) (hdr_opt : Doc_types.ts_hdr o
 		)
 		| [] -> []
 
-and lines_of_ts_hdr (path : Cref_utils.t_path) (hdr : Doc_types.ts_hdr) : string list =
+and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : string list =
 	match hdr with 
 	Cs_hdr (txt_units : ts_txt_units) ->
 		match path with
@@ -158,7 +158,7 @@ and make_string (n:int) (s:string) : string=
 		if i > n - 1 then acc else aux (i+1) (acc ^ s) 
 	in aux 0 ""
 
-and lines_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : string list =
+and lines_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string list =
 	let lines_of_string_function : int -> string -> string list = (
 		match path with
 		| [] -> lines_of_string
@@ -170,11 +170,11 @@ and lines_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units
 	in 
 	lines_of_string_function (indent_of_path path) (string_of_ts_txt_units path a)
 
-and string_of_ts_txt_units (path : Cref_utils.t_path) (a : Doc_types.ts_txt_units) : string =
+and string_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string =
 	match a with Cs_txt_units (b: Doc_types.te_txt_unit list) ->
 	String.concat "" (List.map (string_of_ts_txt_unit path) b)
 
-and string_of_ts_txt_unit (path : Cref_utils.t_path) (a : Doc_types.te_txt_unit) : string =
+and string_of_ts_txt_unit (path : Common_utils.t_path) (a : Doc_types.te_txt_unit) : string =
 	match a with
 	| Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
 	| Ce_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
@@ -226,12 +226,12 @@ and line_break (line_width : int) (s : string) : string * string =
 				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
 			| false -> (s, "")
 
-and insert_mark (path : Cref_utils.t_path) (s : string) : string =
+and insert_mark (path : Common_utils.t_path) (s : string) : string =
 	match mark_of_path_opt path with
 	| None -> s
 	| Some (t : string) -> insert_string t (pos_of_mark path) s
 
-and pos_of_mark (path : Cref_utils.t_path) : int =
+and pos_of_mark (path : Common_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl ->
@@ -254,7 +254,7 @@ and insert_string (mark : string) (pos : int) (s : string) : string =
 	in
 	String.concat mark [ s1; s2 ]
 
-and mark_of_path_opt (path : Cref_utils.t_path) : string option =
+and mark_of_path_opt (path : Common_utils.t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
@@ -284,12 +284,12 @@ and mark_of_path_opt (path : Cref_utils.t_path) : string option =
 		)
 		| _ -> s
 
-and mark_of_path (path : Cref_utils.t_path) : string=
+and mark_of_path (path : Common_utils.t_path) : string=
 	match mark_of_path_opt path with
 	| None -> ""
 	| Some (s : string) -> s
 
-and indent_of_path (path : Cref_utils.t_path) : int =
+and indent_of_path (path : Common_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl -> 

@@ -1,13 +1,13 @@
 open Doc_types
-open Cref_utils
+open Common_utils
 open Txt_utils
 open Exml_utils
 
 exception Error of string
 
-type t_acc = CREF_TABLE of Cref_utils.t_cref_table | LINES of (string list) | EXML of (Xml.xml list)
+type t_acc = CREF_TABLE of Common_utils.t_cref_table | LINES of (string list) | EXML of (Xml.xml list)
 
-let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Cref_utils.t_cref_table =
+let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Common_utils.t_cref_table =
 	match acc_of_tr_doc (CREF_TABLE []) doc with
 	| CREF_TABLE table -> List.rev table
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -21,13 +21,13 @@ and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
 	| _ -> raise (Error "function expected to return an exml-list with exactly one element")
 
 and lines_of_tr_doc (doc : Doc_types.tr_doc) : string list =
-	let _ : unit = Cref_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
+	let _ : unit = Common_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
 	match acc_of_tr_doc (LINES []) doc with
 	| LINES lines -> Txt_utils.remove_empty_endlines lines
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
-	let _ : unit = Cref_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
+	let _ : unit = Common_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
 	match acc_of_tr_doc (EXML []) doc with
 	| EXML xml_list -> xml_list
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -79,12 +79,12 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 
 and acc_of_te_doc_main (acc : t_acc) (a : Doc_types.te_doc_main) : t_acc =
 	match a with
-	| Ce_doc_main_chs (b : Doc_types.ts_chs) -> acc_of_ts_chs ([] : Cref_utils.t_path) acc b
-	| Ce_doc_main_secs (b : Doc_types.ts_secs) -> acc_of_ts_secs ([] : Cref_utils.t_path) acc b
-	| Ce_doc_main_pars (b : Doc_types.ts_pars) -> acc_of_ts_pars ([] : Cref_utils.t_path) acc b
-	| Ce_doc_main_blks (b : Doc_types.ts_blks) -> acc_of_ts_blks ([] : Cref_utils.t_path) acc b
+	| Ce_doc_main_chs (b : Doc_types.ts_chs) -> acc_of_ts_chs ([] : Common_utils.t_path) acc b
+	| Ce_doc_main_secs (b : Doc_types.ts_secs) -> acc_of_ts_secs ([] : Common_utils.t_path) acc b
+	| Ce_doc_main_pars (b : Doc_types.ts_pars) -> acc_of_ts_pars ([] : Common_utils.t_path) acc b
+	| Ce_doc_main_blks (b : Doc_types.ts_blks) -> acc_of_ts_blks ([] : Common_utils.t_path) acc b
 
-and acc_of_ts_chs (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_chs) : t_acc =
+and acc_of_ts_chs (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_chs) : t_acc =
 	match a with Cs_chs (b : Doc_types.tr_ch list) ->
 	let rec aux (ch_nr : int) (acc : t_acc) (b : tr_ch list) : t_acc = (
 		match b with
@@ -100,7 +100,7 @@ and add_empty_lines_after_ch (tl:tr_ch list) (acc : t_acc) : t_acc =
 	|_, _ -> acc
 
 
-and acc_of_ts_secs (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_secs) : t_acc =
+and acc_of_ts_secs (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_secs) : t_acc =
 	match a with | Cs_secs (b : Doc_types.tr_sec list) ->
 	let rec aux (sec_nr : int) (app_nr : int) (acc : t_acc) (b : tr_sec list) : t_acc = (
 		match b with
@@ -138,7 +138,7 @@ and add_empty_lines_after_sec (tl:tr_sec list) (acc : t_acc) : t_acc =
 	|_, _ -> acc
 
 
-and acc_of_ts_pars (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_pars) : t_acc =
+and acc_of_ts_pars (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_pars) : t_acc =
 	match a with Cs_pars (b : Doc_types.tr_par list) ->
 	let rec aux (par_nr : int) (acc : t_acc) (b : tr_par list) : t_acc = (
 		match b with
@@ -154,7 +154,7 @@ and add_empty_lines_after_par (tl:tr_par list) (acc : t_acc) : t_acc =
 	|_, _ -> acc
 
 
-and acc_of_ts_blks (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blks) : t_acc =
+and acc_of_ts_blks (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blks) : t_acc =
 	match a with Cs_blks (b : Doc_types.te_blk list) ->
 	let rec aux (auto_nr : int) (acc : t_acc) (b : te_blk list) : t_acc = (
 		match b with
@@ -168,7 +168,7 @@ and acc_of_ts_blks (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_bl
 	aux 0 acc b
 
 
-and acc_of_tr_ch (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) : t_acc =
+and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) : t_acc =
 	match acc with
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
@@ -209,7 +209,7 @@ and acc_of_tr_ch (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) 
 		|Some xml_hdr -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])
 
 
-and acc_of_tr_sec (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec) : t_acc =
+and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec) : t_acc =
 	match acc with
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
@@ -250,7 +250,7 @@ and acc_of_tr_sec (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl; xml_main])]])
 		|Some xml_hdr -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
 
-and acc_of_tr_par (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_par) : t_acc =
+and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_par) : t_acc =
 	match acc with
 	|CREF_TABLE table -> (
 		let newacc : t_acc = CREF_TABLE (
@@ -292,24 +292,24 @@ and acc_of_tr_par (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_par
 		|Some xml_hdr -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list, [xml_lbl; xml_hdr; xml_main])]])
 	)
 
-and acc_of_ch_main (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.te_secs_pars_or_blks) : t_acc =
+and acc_of_ch_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.te_secs_pars_or_blks) : t_acc =
 	match a with
 	| Ce_secs_pars_or_blks_secs (b : Doc_types.ts_secs) -> acc_of_ts_secs path acc b
 	| Ce_secs_pars_or_blks_pars (b : Doc_types.ts_pars) -> acc_of_ts_pars path acc b
 	| Ce_secs_pars_or_blks_blks (b : Doc_types.ts_blks) -> acc_of_ts_blks path acc b
 
-and acc_of_sec_main (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.te_pars_or_blks) : t_acc =
+and acc_of_sec_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.te_pars_or_blks) : t_acc =
 	match a with
 	| Ce_pars_or_blks_pars (b : Doc_types.ts_pars) -> acc_of_ts_pars path acc b
 	| Ce_pars_or_blks_blks (b : Doc_types.ts_blks) -> acc_of_ts_blks path acc b
 
-and acc_of_par_main (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blks) : t_acc =
+and acc_of_par_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blks) : t_acc =
 	acc_of_ts_blks path acc a
 
-and acc_of_te_blk (auto_nr : int) (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.te_blk) : t_acc * int =
+and acc_of_te_blk (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.te_blk) : t_acc * int =
 	match a with
 	| Ce_blk_itm (b : Doc_types.tr_blk_itm) ->
-		let node : Cref_utils.t_node = Cref_utils.node_of_blk_itm auto_nr b in
+		let node : Common_utils.t_node = Common_utils.node_of_blk_itm auto_nr b in
 		let next_auto_nr =
 			match b.fld_blk_itm_lbl with 
 			|Ce_lbl_auto Cs_lbl_auto -> auto_nr + 1 
@@ -317,21 +317,21 @@ and acc_of_te_blk (auto_nr : int) (path : Cref_utils.t_path) (acc : t_acc) (a : 
 		in 
 		(acc_of_tr_blk_itm (node :: path) acc b, next_auto_nr)
 	| Ce_blk_dsp (b : Doc_types.ts_blk_dsp) ->
-		let node : Cref_utils.t_node = DSP_NODE in
+		let node : Common_utils.t_node = DSP_NODE in
 		acc_of_ts_blk_dsp auto_nr (node :: path) acc b
 	| Ce_blk_txt (b : Doc_types.ts_blk_txt) -> (acc_of_ts_blk_txt path acc b, auto_nr)
 	| Ce_blk_blt (b : Doc_types.ts_blk_blt) ->
-		let node : Cref_utils.t_node = BLT_NODE in
+		let node : Common_utils.t_node = BLT_NODE in
 		(acc_of_ts_blk_blt (node :: path) acc b, auto_nr)
 
-and acc_of_ts_blk_txt (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_txt) : t_acc =
+and acc_of_ts_blk_txt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_txt) : t_acc =
 	match a with Cs_blk_txt (b : Doc_types.ts_txt_units) ->
 		match acc with
 		| CREF_TABLE _ -> acc
 		| LINES acc -> LINES (List.concat [ acc; Txt_utils.lines_of_ts_txt_units path b; [""] ])
 		| EXML acc_list -> EXML (List.concat [acc_list; [Xml.Element ("blk_txt",[], Exml_utils.xml_list_of_ts_txt_units path b)]])
 
-and acc_of_ts_blk_blt (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_blt) : t_acc =
+and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_blt) : t_acc =
 	match a with Cs_blk_blt (b : Doc_types.ts_blks) ->
 	match acc with
 	| CREF_TABLE _ -> acc_of_ts_blks path acc b
@@ -360,7 +360,7 @@ and acc_of_ts_blk_blt (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts
 		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[],[xml_lbl;xml_main])]])
 
 
-and acc_of_tr_blk_itm (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_blk_itm) : t_acc =
+and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_blk_itm) : t_acc =
 	match acc with
 	| CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
@@ -395,14 +395,14 @@ and acc_of_tr_blk_itm (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr
 		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_main])]])
 
 
-and acc_of_ts_blk_dsp (auto_nr : int) (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_dsp) : t_acc * int =
+and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_dsp) : t_acc * int =
 	match a with Cs_blk_dsp (b : Doc_types.ts_dsp_lines) ->
 	match b with Cs_dsp_lines (c : Doc_types.tr_dsp_line list) ->
 	let rec aux (auto_nr : int) (acc : t_acc) (c : tr_dsp_line list) : t_acc * int = (
 		match c with
 		| [] -> (acc, auto_nr)
 		| hd :: tl ->
-			let node : Cref_utils.t_node = Cref_utils.node_of_dsp_line auto_nr hd in
+			let node : Common_utils.t_node = Common_utils.node_of_dsp_line auto_nr hd in
 			let next_auto_nr =
 				match hd.fld_dsp_line_lbl with 
 				| Some (Ce_lbl_auto Cs_lbl_auto) -> auto_nr + 1 
@@ -428,7 +428,7 @@ and acc_of_ts_blk_dsp (auto_nr : int) (path : Cref_utils.t_path) (acc : t_acc) (
 
 	)
 
-and acc_of_tr_dsp_line (path : Cref_utils.t_path) (auto_nr : int) (acc : t_acc) (a : Doc_types.tr_dsp_line) : t_acc =
+and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc) (a : Doc_types.tr_dsp_line) : t_acc =
 	match acc with
 	| CREF_TABLE table -> (
 		match a.fld_dsp_line_id with
