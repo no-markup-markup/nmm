@@ -184,7 +184,7 @@ and emph (a : string) : string = underline a
 
 and underline (s : string) : string =
 	let lst = utf8_of_string s in
-	let map (el : string) : string = el ^ "\u{0331}" in 
+	let map (el : string) : string = el ^ "\u{0332}" in
 	String.concat "" (List.map map lst)
 
 and lines_of_string (indent : int) (s : string) : string list =
