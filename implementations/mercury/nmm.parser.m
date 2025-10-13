@@ -500,8 +500,8 @@ r_doc(cr_doc(
   MAYBE_AUTHOR,
   MAYBE_ABSTRACT,
   MAIN,
-  MAYBE_REFS)
-) --> (
+  MAYBE_REFS
+)) --> (
   ?([],         r_preamble,MAYBE_PREAMBLE,[*([r_lb])]),
   ?([],         r_title,   MAYBE_TITLE,   [*([r_lb])]),
   ?([],         r_author,  MAYBE_AUTHOR,  [*([r_lb])]),
