@@ -24,17 +24,17 @@
 
             An nmm source is made up of the following, in that order:
 
-            ─     an optional p̱ṟe̱a̱m̱ḇḻe̱ ̱p̱a̱ṟṯ,
+            ─     an optional p̲r̲e̲a̲m̲b̲l̲e̲ ̲p̲a̲r̲t̲,
 
-            ─     an optional ṯi̱ṯḻe̱ ̱p̱a̱ṟṯ,
+            ─     an optional t̲i̲t̲l̲e̲ ̲p̲a̲r̲t̲,
 
-            ─     an optional a̱u̱ṯẖo̱ṟ ̱p̱a̱ṟṯ,
+            ─     an optional a̲u̲t̲h̲o̲r̲ ̲p̲a̲r̲t̲,
 
-            ─     an optional a̱ḇs̱ṯṟa̱c̱ṯ ̱p̱a̱ṟṯ,
+            ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲p̲a̲r̲t̲,
 
-            ─     a non-optional m̱a̱i̱ṉ ̱p̱a̱ṟṯ, and
+            ─     a non-optional m̲a̲i̲n̲ ̲p̲a̲r̲t̲, and
 
-            ─     an optional ṟe̱f̱e̱ṟe̱ṉc̱e̱s̱ ̱p̱a̱ṟṯ.
+            ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲p̲a̲r̲t̲.
 
             ─     The main part must consist of either of:
 
@@ -46,7 +46,7 @@
 
                   ─     blocks.
 
-            ─     Ṯẖe̱ ̱m̱a̱i̱ṉ ̱p̱a̱ṟṯ ̱o̱f̱ ̱a̱ ̱c̱ẖa̱p̱ṯe̱ṟ must consist of either of:
+            ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲p̲t̲e̲r̲ must consist of either of:
 
                   ─     sections (appendices count as sections);
 
@@ -54,14 +54,14 @@
 
                   ─     blocks.
 
-            ─     Ṯẖe̱ ̱m̱a̱i̱ṉ ̱p̱a̱ṟṯ ̱o̱f̱ ̱a̱ ̱s̱e̱c̱ṯi̱o̱ṉ, or o̱f̱ ̱a̱ṉ ̱a̱p̱p̱e̱ṉḏi̱x̱, must consist of
+            ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲p̲p̲e̲n̲d̲i̲x̲, must consist of
                   either of:
 
                   ─     paragraphs;
 
                   ─     blocks.
 
-            ─     Ṯẖe̱ ̱m̱a̱i̱ṉ ̱p̱a̱ṟṯ ̱o̱f̱ ̱a̱ ̱p̱a̱ṟa̱g̱ṟa̱p̱ẖ must consist of blocks.
+            ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲p̲a̲r̲a̲g̲r̲a̲p̲h̲ must consist of blocks.
 
 
 
