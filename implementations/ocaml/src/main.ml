@@ -48,7 +48,7 @@ let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : strin
 		| "none" -> "" 
 		| _ -> (" lang=\"" ^ lang ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ (Html_utils.css_for_html Txt_utils.doc_settings) ^ "\n</style>\n")
+	let internal_css: string = ("<style>\n" ^ (Html_utils.css_for_html Common_utils.doc_settings) ^ "\n</style>\n")
 	in
 	let external_css: string = 
 		match uri with

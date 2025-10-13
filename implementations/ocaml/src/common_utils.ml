@@ -2,6 +2,101 @@ open Doc_types
 
 exception Error of string
 
+type t_doc_settings = {
+	mutable doc_width : int;
+	mutable left_margin: int;
+	mutable title_indent: int;
+	mutable author_indent: int;
+	mutable tab_length : int;
+	mutable sec_symbol: string option;
+	mutable par_symbol : string option;
+}
+
+let doc_settings : t_doc_settings = {
+	doc_width = 80;
+	left_margin = 12;
+	title_indent = 12;
+	author_indent = 12;
+	tab_length = 6;
+	sec_symbol = Some "§";
+	par_symbol = Some "¶";
+}
+
+let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
+	let _ : unit = (
+		match doc.fld_doc_main with
+			|Ce_doc_main_blks _ -> 
+				let _ : unit = doc_settings.title_indent <- 0 in 
+				let _ : unit = doc_settings.author_indent <- 0 in
+				doc_settings.doc_width <- 68
+			| _ -> ()
+	)
+	in
+	match doc.fld_doc_preamble with
+	|None -> ()
+	|Some preamble -> doc_settings_of_ts_preamble preamble 
+
+and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
+	let rec aux (str_list : string list) : unit =
+		match str_list with
+		| hd :: tl -> 
+			let _ : unit =
+				match key_value_pair_of_string_opt hd with
+				|Some ("doc_width", v) -> set_doc_width v
+				|Some ("left_margin", v) -> set_left_margin v
+				|Some ("title_indent", v) -> set_title_indent v
+				|Some ("author_indent", v) -> set_author_indent v
+				|Some ("tab_length", v) -> set_tab_length v
+				|Some ("sec_symbol", v) -> set_sec_symbol v
+				|Some ("par_symbol", v) -> set_par_symbol v
+				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
+			in aux tl
+		| [] -> ()
+	in
+	match preamble with 
+	(Cs_preamble (s : string)) -> 
+		let str_list : string list = List.map String.trim (String.split_on_char ' ' s) in
+		aux str_list
+
+and key_value_pair_of_string_opt (s : string): (string*string) option=
+	match String.split_on_char '=' s with
+	|[key;value] -> Some (key, value)
+	| _ -> None
+
+and set_doc_width (v : string) : unit =
+	try doc_settings.doc_width <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+
+and set_left_margin (v : string) : unit =
+	try doc_settings.left_margin <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+
+and set_title_indent (v : string) : unit =
+	try doc_settings.title_indent <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+
+and set_author_indent (v : string) : unit =
+	try doc_settings.author_indent <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+
+and set_tab_length (v : string) : unit =
+	try doc_settings.tab_length <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"\n";"using default value"])
+
+and set_sec_symbol (v : string) : unit =
+	try doc_settings.sec_symbol <- (symbol_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_symbol value: ";v;"\n";"using default value"])
+
+and set_par_symbol (v : string) : unit =
+	try doc_settings.par_symbol <- (symbol_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_symbol value: ";v;"\n";"using default value"])
+
+and symbol_value_of_string (v : string) : string option =
+	match v with
+	|"None" | "none" | "" | "\"\"" -> None
+	| _ -> Some v
+
+
 type t_cref_table = (Doc_types.tr_id * t_path) list
 
 and t_path = t_node list

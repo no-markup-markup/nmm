@@ -12,7 +12,7 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	|Xml.Element (tag,attr_list, xml_list) -> Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
 	|Xml.PCData s -> Xml.PCData s
 
-let css_for_html ( doc_settings : Txt_utils.t_doc_settings) : string = 
+let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string = 
 
 "html {
         --font_family:monospace;

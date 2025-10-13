@@ -33,7 +33,7 @@ and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
-	let _ : unit = Txt_utils.doc_settings_of_tr_doc doc in
+	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
 	match acc with
 	| CREF_TABLE _ ->  acc_of_te_doc_main acc doc.fld_doc_main
 	| LINES _ -> (
