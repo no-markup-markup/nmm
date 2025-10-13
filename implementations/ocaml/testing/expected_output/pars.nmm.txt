@@ -37,12 +37,12 @@
 
 
 ¶ 2         We may also refer to 1(2)(b) or 1(2)(c) from another paragraph.
-            These references will appear differently than when occurring in 1.
+            These references will appear differently than when occurring in ¶ 1.
 
 
 ¶ 3         Paragraph header, which is a text block that may contain e̲m̲p̲h̲ ̲t̲e̲x̲t̲
             and a reference to 1(3)(a).  This is a paragraph with a header. As
-            we shall se in 4 below, paragraphs with headers can also be named.
+            we shall se in ¶ 4 below, paragraphs with headers can also be named.
 
 
 ¶ 4         Header of the named paragraph  Believe it or not, it actually works!

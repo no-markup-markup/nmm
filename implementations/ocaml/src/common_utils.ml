@@ -8,6 +8,7 @@ type t_doc_settings = {
 	mutable title_indent: int;
 	mutable author_indent: int;
 	mutable tab_length : int;
+	mutable ch_symbol: string option;
 	mutable sec_symbol: string option;
 	mutable par_symbol : string option;
 }
@@ -18,6 +19,7 @@ let doc_settings : t_doc_settings = {
 	title_indent = 12;
 	author_indent = 12;
 	tab_length = 6;
+	ch_symbol = Some "CHAPTER";
 	sec_symbol = Some "§";
 	par_symbol = Some "¶";
 }
@@ -134,8 +136,31 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 		| [] -> None
 		| ((id_entry : Doc_types.tr_id), (path_entry : t_path)) :: tl -> 
 			match id = id_entry with
-			| true -> string_of_path path_entry (sub_path_of_cref_path pos path_entry)
+			| true -> (
+				match path_entry, string_of_path path_entry (sub_path_of_cref_path pos path_entry) with
+				|hd::tl, Some (s : string) -> (
+					match hd with
+					|CH_NODE _ -> (
+						match doc_settings.ch_symbol with
+						|None -> Some s
+						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
+					)
+					|SEC_NODE _ -> (
+						match doc_settings.sec_symbol with
+						|None -> Some s
+						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
+					)
+					|PAR_NODE _ -> (
+						match doc_settings.par_symbol with
+						|None -> Some s
+						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
+					)
+					| _ -> Some s
+				)
+				|[],None -> raise (Error "path entry in cref_table cannot be empty")
+			)
 			| false -> aux tl
+
 	in
 	match aux doc_cref_table.content with
 	| None ->
