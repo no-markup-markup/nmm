@@ -133,7 +133,8 @@ and lines_of_ts_hdr (path : Cref_utils.t_path) (hdr : Doc_types.ts_hdr) : string
 			|SEC_NODE _ | APP_NODE _ -> (
 				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
 				match hdr_lines with
-				|hd::tl -> List.concat [[insert_mark path hd];tl;[indent ^ underline;""]]
+				| hd::tl -> List.concat [[insert_mark path hd];tl;[indent ^ underline;""]]
+				| [] -> raise (Error "section header cannot be empty")
 			)
 			|CH_NODE _ ->
 				let mark : string = mark_of_path path in
@@ -141,6 +142,7 @@ and lines_of_ts_hdr (path : Cref_utils.t_path) (hdr : Doc_types.ts_hdr) : string
 				List.concat [[indent ^ mark]; hdr_lines; [indent ^ underline; ""]]
 			| _ -> []
 		)
+		|[] -> raise (Error "path to chapter or section cannot be empty")
 
 
 and lines_of_ts_title (title : Doc_types.ts_title) : string list =
