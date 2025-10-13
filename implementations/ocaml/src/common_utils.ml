@@ -160,7 +160,7 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 					)
 					| _ -> Some s
 				)
-				|[],None -> raise (Error "path entry in cref_table cannot be empty")
+				| _ , _ -> raise (Error "path in cref_table not expected to be empty")
 			)
 			| false -> aux tl
 
