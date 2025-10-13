@@ -112,7 +112,7 @@ and string_of_node (pos : t_path) (node : t_node) : string option =
 	)
 	| APP_NODE (n : int) -> (
 		match string_of_path pos pos with
-		|Some s ->  Some (s ^ "." ^ upper_case_latin_letters.(n))
+		|Some s -> (try Some (s ^ "." ^ upper_case_latin_letters.(n)) with _ -> raise (Error "You have too many appendices!"))
 		|None -> Some upper_case_latin_letters.(n)
 	)
 	| DSP_NODE -> None
