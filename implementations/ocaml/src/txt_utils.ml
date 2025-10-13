@@ -104,22 +104,43 @@ and symbol_value_of_string (v : string) : string option =
 	|"None" | "none" | "" | "\"\"" -> None
 	| _ -> Some v
 
-and lines_of_ts_hdr (path : Cref_utils.t_path) (a : Doc_types.ts_hdr) : string list =
-	match a with
-	| Cs_hdr (b : Doc_types.ts_txt_units) -> 
-		let hdr_string = string_of_ts_txt_units path b in
-		match lines_of_string doc_settings.left_margin hdr_string with
+and lines_of_ts_hdr_opt (path : Cref_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
+	match hdr_opt with
+	| Some (hdr : Doc_types.ts_hdr) -> lines_of_ts_hdr path hdr
+	| None ->
+		match path with
 		| hd::tl -> (
-			match path with 
-			|path_hd::path_tl -> (
-				match path_hd with
-				|SEC_NODE _ -> List.concat [(insert_mark path hd)::tl]
-				|CH_NODE _ -> hd::tl
-				| _ -> []
-			)
-			|[] -> []
+			match hd with
+			|SEC_NODE _ | APP_NODE _ -> [mark_of_path path;""]
+			|CH_NODE _ ->
+				let indent : string = String.make (doc_settings.left_margin) ' ' in
+				let mark : string = mark_of_path path in
+				let underline :string = make_string (utf8_length mark) "═" in
+				[indent ^ mark; indent ^ underline; ""]
+			| _ -> []
 		)
 		| [] -> []
+
+and lines_of_ts_hdr (path : Cref_utils.t_path) (hdr : Doc_types.ts_hdr) : string list =
+	match hdr with 
+	Cs_hdr (txt_units : ts_txt_units) ->
+		match path with
+		|path_hd::path_tl -> (
+			let indent : string = String.make (doc_settings.left_margin) ' ' in
+			let hdr_string : string = string_of_ts_txt_units path txt_units in
+			let hdr_lines : string list = lines_of_string doc_settings.left_margin hdr_string in
+			match path_hd with
+			|SEC_NODE _ | APP_NODE _ -> (
+				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
+				match hdr_lines with
+				|hd::tl -> List.concat [[insert_mark path hd];tl;[indent ^ underline;""]]
+			)
+			|CH_NODE _ ->
+				let mark : string = mark_of_path path in
+				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
+				List.concat [[indent ^ mark]; hdr_lines; [indent ^ underline; ""]]
+			| _ -> []
+		)
 
 
 and lines_of_ts_title (title : Doc_types.ts_title) : string list =
@@ -237,7 +258,8 @@ and mark_of_path_opt (path : Cref_utils.t_path) : string option =
 	| hd :: tl ->
 		let s = string_of_node tl hd in
 		match hd with
-		| SEC_NODE _ -> (
+		| SEC_NODE _
+		| APP_NODE _ -> (
 			match (doc_settings.sec_symbol, s) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)

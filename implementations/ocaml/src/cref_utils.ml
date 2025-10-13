@@ -9,6 +9,7 @@ and t_path = t_node list
 and t_node =
 	| CH_NODE of int
 	| SEC_NODE of int
+	| APP_NODE of int
 	| PAR_NODE of int
 	| ITM_NODE of t_itm_node
 	| DSP_NODE
@@ -84,6 +85,7 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 		match path_hd with 
 		| CH_NODE _ 
 		| SEC_NODE _
+		| APP_NODE _
 		| PAR_NODE _ -> (
 			match (string_of_node full_path_tl path_hd) with
 			| Some s -> Some s
@@ -107,6 +109,11 @@ and string_of_node (pos : t_path) (node : t_node) : string option =
 		match string_of_path pos pos with
 		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 		|None -> Some (string_of_int (n + 1))
+	)
+	| APP_NODE (n : int) -> (
+		match string_of_path pos pos with
+		|Some s ->  Some (s ^ "." ^ upper_case_latin_letters.(n))
+		|None -> Some upper_case_latin_letters.(n)
 	)
 	| DSP_NODE -> None
 	| DSP_LINE_NODE (a : t_dsp_line_node) -> (

@@ -102,13 +102,35 @@ and add_empty_lines_after_ch (tl:tr_ch list) (acc : t_acc) : t_acc =
 
 and acc_of_ts_secs (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.ts_secs) : t_acc =
 	match a with | Cs_secs (b : Doc_types.tr_sec list) ->
-	let rec aux (sec_nr : int) (acc : t_acc) (b : tr_sec list) : t_acc = (
+	let rec aux (sec_nr : int) (app_nr : int) (acc : t_acc) (b : tr_sec list) : t_acc = (
 		match b with
 		| [] -> acc
-		| hd :: tl -> aux (sec_nr + 1) (add_empty_lines_after_sec tl (acc_of_tr_sec (SEC_NODE sec_nr :: path) acc hd)) tl
+		| hd :: tl -> 
+			match is_appendix hd with
+			|true -> aux sec_nr (app_nr + 1) (add_empty_lines_after_sec tl (acc_of_tr_sec (APP_NODE app_nr :: path) acc hd)) tl
+			|false -> aux (sec_nr + 1) app_nr (add_empty_lines_after_sec tl (acc_of_tr_sec (SEC_NODE sec_nr :: path) acc hd)) tl
 	)
 	in 
-	aux 0 acc b
+	aux 0 0 acc b
+
+and is_appendix (a : tr_sec) : bool =
+	match a.fld_sec_tag_or_id with
+	|None -> false
+	|Some (b : te_tag_or_id) -> 
+		match b with
+		|Ce_tag_or_id_tag (tag : ts_tag) -> (
+			match tag with
+			|Cs_tag (s : string) ->
+				match s with
+				|"APP" -> true
+				|_ -> false
+		)
+		|Ce_tag_or_id_id (id : tr_id) ->
+			match id.fld_id_tag with
+			|Cs_tag (s : string) ->
+				match s with
+				|"APP" -> true
+				|_ -> false
 
 and add_empty_lines_after_sec (tl:tr_sec list) (acc : t_acc) : t_acc =
 	match tl, acc with
@@ -158,17 +180,7 @@ and acc_of_tr_ch (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) 
 		acc_of_ch_main path newacc a.fld_ch_main
 	|LINES acc_lines -> 
 		let newacc : t_acc = LINES (
-			let indent=String.make (Txt_utils.doc_settings.left_margin) ' ' in
-			let mark = Txt_utils.mark_of_path path in
-			match a.fld_ch_hdr with
-			|None -> 
-				let underline = Txt_utils.make_string (Txt_utils.utf8_length mark) "═" in
-				List.concat [acc_lines; [indent ^ mark; indent ^ underline; ""]]
-			|Some (hdr : Doc_types.ts_hdr) -> 
-				let hdr_lines = Txt_utils.lines_of_ts_hdr path hdr in
-				let hdr_string = match hdr with Cs_hdr (u: ts_txt_units) -> Txt_utils.string_of_ts_txt_units path u in
-				let underline = Txt_utils.make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
-				List.concat [acc_lines; [indent ^ mark]; hdr_lines; [indent ^ underline;""]]
+			List.concat [acc_lines;Txt_utils.lines_of_ts_hdr_opt path a.fld_ch_hdr]
 		)
 		in 
 		acc_of_ch_main path newacc a.fld_ch_main
@@ -209,14 +221,7 @@ and acc_of_tr_sec (path : Cref_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec
 		acc_of_sec_main path newacc a.fld_sec_main
 	|LINES acc_lines -> (
 		let newacc : t_acc = LINES (
-			let indent=String.make (Txt_utils.doc_settings.left_margin) ' ' in
-			match a.fld_sec_hdr with
-			|None -> List.concat [acc_lines;[Txt_utils.mark_of_path path;""]]
-			|Some (hdr : ts_hdr) ->
-				let hdr_lines = Txt_utils.lines_of_ts_hdr path hdr in
-				let hdr_string = match hdr with Cs_hdr (u: ts_txt_units) -> Txt_utils.string_of_ts_txt_units path u in
-				let underline = Txt_utils.make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
-				List.concat [acc_lines; hdr_lines; [indent ^ underline;""]]
+			List.concat [acc_lines;Txt_utils.lines_of_ts_hdr_opt path a.fld_sec_hdr]
 		)
 		in 
 		acc_of_sec_main path newacc a.fld_sec_main
