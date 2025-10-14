@@ -546,7 +546,7 @@ than ‘\*’ is needed.
 ¶ 3         At least theoretically there are situations where escaping of
             something other than ‘*’ is needed.
 
-            ─     This is a reference to the first paragraph: 1. This is the
+            ─     This is a reference to the first paragraph: ¶ 1. This is the
                   markup that was used to produce that reference:
                   ‘[EX:no_escape]’. (This is the markup that was used to produce
                   ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
