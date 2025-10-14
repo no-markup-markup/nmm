@@ -1,0 +1,76 @@
+CH
+This is this chapter's (optional) header
+
+§
+This is this section's (optional) header
+
+¶
+This is this paragraph's (optional) header
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua:
+
+	a²+b² = c²
+
+¶
+
+This is another paragraph. It has no header. As mentioned above, section headers
+may also be omitted. This results in poor layout however, as the following
+section demonstrates.
+
+§
+
+This is a section without a header.
+
+§ APP
+An appendix
+
+This is an appendix. Neither a section nor an appendix must consist of
+paragraphs, as this text block demonstrates.
+
+An nmm source is made up of the following, in that order:
+
+-	an optional *preamble part*,
+
+-	an optional *title part*,
+
+-	an optional *author part*,
+
+-	an optional *abstract part*,
+
+-	a non-optional *main part*, and
+
+-	an optional *references part*.
+
+-	The main part must consist of either of:
+
+	-	chapters;
+
+	-	sections (appendices count as sections);
+
+	-	paragraphs;
+
+	-	blocks.
+
+-	*The main part of a chapter* must consist of either of:
+
+	-	sections (appendices count as sections);
+
+	-	paragraphs;
+
+	-	blocks.
+
+-	*The main part of a section*, or *of an appendix*, must consist of
+	either of:
+
+	-	paragraphs;
+
+	-	blocks.
+
+-	*The main part of a paragraph* must consist of blocks.
+
+CH
+
+¶
+
+This chapter's header is omitted.

@@ -1,0 +1,21 @@
+#! /usr/bin/env python3.13
+
+import os
+
+from typing import Final as F
+
+# change CWD to this script's dir
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+with open('./template.md') as f_template, open('./README.md','w') as f_readme:
+  for line in f_template.readlines():
+    if not line.startswith('INCLUDE-FILE'):
+      print(line,end='',file=f_readme)
+    else:
+      path_to_file_to_include : F[str] = os.path.abspath(
+        line.replace('INCLUDE-FILE ','').replace('\n','')
+      )
+      assert os.path.isfile(path_to_file_to_include), path_to_file_to_include
+      with open(path_to_file_to_include) as f:
+        for line in f.readlines():
+          print(line,end='',file=f_readme)

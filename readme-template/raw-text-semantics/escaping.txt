@@ -1,0 +1,40 @@
+¶ 1         ¶ ← this is the paragraph symbol.
+
+            While a line ‘¶’ (optional followed by tag or id, then optionally
+            followed by a header and one or more empty lines) always marks the
+            start of a paragraph, ‘¶ ← this’ does not. Thus no need for escaping
+            in the preceeding text block.
+
+            ¶ If one wants to, one may still escape any magic---as in used for
+            markup---character.
+
+
+¶ 2         One possible exception to the intended no need for escaping is the
+            need for sometimes escaping the symbol ‘*’ (by writing ‘\*’). The
+            creators of No-Markup-Markup acknowledges that this is unfortunate.
+            However, they think that in most scientific writing ‘*’ should be
+            reserved for footnotes*.
+
+            ─     Instead of using ‘*’ for multiplication one should use ‘×’.
+                  (One should not use the abonimation ‘⋅’!)
+
+            ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲p̲e̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
+                  resort to escaping. As the No-Markup-Markup grammar uses ‘*’
+                  as the notation for this operator, this is somewhat ironic.
+
+            ─     For including code snippets, which of course may unavoidably
+                  include ‘*’, support for verbatim input of files is planned.
+
+            * No-Markup-Markup support for footnotes is planned.
+
+
+¶ 3         At least theoretically there are situations where escaping of
+            something other than ‘*’ is needed.
+
+            ─     This is a reference to the first paragraph: 1. This is the
+                  markup that was used to produce that reference:
+                  ‘[EX:no_escape]’. (This is the markup that was used to produce
+                  ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
+
+            ─     But, for example, ‘[x,y,z]’ is not valid syntax for a
+                  cross-reference, and thus needs no escaping.

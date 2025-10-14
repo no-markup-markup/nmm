@@ -1,0 +1,21 @@
+[]	ITM:name
+	This item block has the tag ‘ITM’ and the name ‘name’ and the ID
+	‘ITM:name’.
+
+[]	DEF
+	This item block has the tag ‘DEF’. It has no name, and thus
+	neither an ID.
+
+[]	Names need not be unique but IDs must be.
+
+[]	Neither tags nor names may include whitespace, which together
+	with where they must be placed removes virtually any practical
+	need for escaping valid tags or IDs.
+
+[]	Tags allow the semantics to have special treatment of blocks
+	with certain tags.
+
+This is a reference to the item block with ID ‘ITM:name’: [ITM:name].
+The following displayed block has the ID ‘DSP:Q5’.
+
+()	x+Sy = S(x+y)	DSP:Q5

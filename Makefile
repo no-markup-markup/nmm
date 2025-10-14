@@ -20,6 +20,11 @@ clean:
 	make clean
 	cd -
 
+readme:
+	cd readme-template
+	make
+	cd -
+
 test: test-mercury-nmm2xml
 	cd implementations
 	make test
