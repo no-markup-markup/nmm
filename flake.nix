@@ -98,6 +98,10 @@
               cp bin/nmm-ocaml   $out/bin/
             '';
           };
+          apps.default = {
+            type    = "app";
+            program = "${self.packages.${system}.default}/bin/nmm";
+          };
         }
       );
 }
