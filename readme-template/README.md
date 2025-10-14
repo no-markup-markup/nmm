@@ -43,7 +43,8 @@ Heavily work-in-progress:
 ## Examples
 
 Do note that the nmm source below include tabs. These tabs cannot be turned into
-spaces.
+spaces. When working with nmm sources, a tab width of 6 spaces corresponds to
+the raw text semantics.
 
 <details>
   <summary><b>nmm source:</b></summary>
@@ -75,7 +76,7 @@ This is a no-markup-markup document, sporting the following features:
 		and the location of its referent will be omitted. The same
 		applies with respect to [ITM:z] below.
 
-	[?]	ITM:z
+	[S]	ITM:z
 		Of course, items with custom labels can also be named!
 
 Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or
@@ -117,12 +118,12 @@ features:
       (c)   When referring to (b) above, any common initial path
             shared between the location of the referring expression
             and the location of its referent will be omitted. The
-            same applies with respect to (?) below.
+            same applies with respect to (S) below.
 
-      (?)   Of course, items with custom labels can also be named!
+      (S)   Of course, items with custom labels can also be named!
 
 Due to the feature mentioned in (2)(c), a reference to (2)(b) or
-(2)(?) occurring elsewhere may appear differently.
+(2)(S) occurring elsewhere may appear differently.
 
 (3)   Displayed lines of text suitable for mathematical equations,
       which are either

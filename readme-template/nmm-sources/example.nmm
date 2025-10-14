@@ -24,7 +24,7 @@ This is a no-markup-markup document, sporting the following features:
 		and the location of its referent will be omitted. The same
 		applies with respect to [ITM:z] below.
 
-	[?]	ITM:z
+	[S]	ITM:z
 		Of course, items with custom labels can also be named!
 
 Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or

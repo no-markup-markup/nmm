@@ -43,7 +43,8 @@ Heavily work-in-progress:
 ## Examples
 
 Do note that the nmm source below include tabs. These tabs cannot be turned into
-spaces.
+spaces. When working with nmm sources, a tab width of 6 spaces corresponds to
+the raw text semantics.
 
 <details>
   <summary><b>nmm source:</b></summary>
