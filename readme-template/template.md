@@ -42,7 +42,26 @@ Heavily work-in-progress:
 
 ## Examples
 
-TODO
+Do note that the nmm source below include tabs. These tabs cannot be turned into
+spaces.
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+INCLUDE-FILE ./nmm-sources/example.nmm
+```
+</details>
+
+<details>
+  <summary><b>raw text semantics:</b></summary>
+
+```
+INCLUDE-FILE ./raw-text-semantics/example.txt
+```
+</details>
+
+More examples in TODO
 
 ## Try it out
 
@@ -72,7 +91,7 @@ TODO
 
 ## Features
 
-Do note that most of the nmm sources below include tabs. These tabs cannot be
+Do note that many of the nmm sources below include tabs. These tabs cannot be
 turned into spaces.
 
 ### Text blocks

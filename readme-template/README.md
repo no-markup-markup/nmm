@@ -42,7 +42,97 @@ Heavily work-in-progress:
 
 ## Examples
 
-TODO
+Do note that the nmm source below include tabs. These tabs cannot be turned into
+spaces.
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+This is a no-markup-markup document, sporting the following features:
+
+[]	Bullet lists:
+
+	-	Here is one bullet item.
+
+	-	Here is another one.
+
+[]	Numbered lists with labels that are either
+
+	[]	automatic, or
+
+	[!]	custom.
+
+	Furthermore, each item can be *named* and *referred to*:
+
+	[]	ITM:x
+		The named item can be referred to anywhere in the document.
+
+	[]	ITM:y
+		When referring to [ITM:x] above, any common initial path
+		shared between the location of the referring expression
+		and the location of its referent will be omitted. The same
+		applies with respect to [ITM:z] below.
+
+	[!!]	ITM:z
+		Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or
+[ITM:z] occurring elsewhere may appear differently.
+
+[]	Displayed lines of text suitable for mathematical equations,
+	which are either
+
+	()	automatically labeled (and named),	DSP:one
+	(+)	custom labeled (and named), or,		DSP:two
+		unlike [DSP:one] above, unlabeled.
+```
+</details>
+
+<details>
+  <summary><b>raw text semantics:</b></summary>
+
+```
+This is a no-markup-markup document, sporting the following
+features:
+
+(1)   Bullet lists:
+
+      ─     Here is one bullet item.
+
+      ─     Here is another one.
+
+(2)   Numbered lists with labels that are either
+
+      (a)   automatic, or
+
+      (!)   custom.
+
+      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
+
+      (b)   The named item can be referred to anywhere in the
+            document.
+
+      (c)   When referring to (b) above, any common initial path
+            shared between the location of the referring expression
+            and the location of its referent will be omitted. The
+            same applies with respect to (!!) below.
+
+      (!!)  Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in (2)(c), a reference to (2)(b) or
+(2)(!!) occurring elsewhere may appear differently.
+
+(3)   Displayed lines of text suitable for mathematical equations,
+      which are either
+
+      (a)   automatically labeled (and named),
+      (+)   custom labeled (and named), or,
+            unlike (a) above, unlabeled.
+```
+</details>
+
+More examples in TODO
 
 ## Try it out
 
@@ -72,7 +162,7 @@ TODO
 
 ## Features
 
-Do note that most of the nmm sources below include tabs. These tabs cannot be
+Do note that many of the nmm sources below include tabs. These tabs cannot be
 turned into spaces.
 
 ### Text blocks
