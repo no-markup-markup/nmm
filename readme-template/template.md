@@ -10,16 +10,18 @@ following senses:
 - In line with the WYSIWYG goal, available markup options are very few. Users
   are expected to make heavy use of the quite generous Unicode coverage of
   symbols used in scientific writing. For example, instead of LaTeX's `$\alpha$`
-  the user is expected to simply write `α` (U+03B1), or even `𝛼` (U+1D6FC
+  users are expected to simply write `α` (U+03B1), or even `𝛼` (U+1D6FC
   “Mathematical Italic Small Alpha”).
 
-- Currently, nmm has two semantics: raw text and HTML. These are not
-  flexible—they reflect a specific approach to manuscript organization and
-  layout that the nmm's creators like. (Of course, one may write one's own
-  semantics. nmm is capable of generating an XML representation of the abstract
-  syntax tree of an nmm source. Thus using these XML representations, one may
-  implement one's own semantics—though doing so most likely would be a
-  non-trivial amount of work.)
+- Currently, nmm has two semantics: raw text and HTML. The raw text semantics is
+  not flexible at all: it reflects a specific approach to manuscript
+  organization and layout that the nmm creators like. The HTML semantics is
+  flexible only in the sense that one might override the default CSS. (One may
+  of course also do some JavaScript magic—please do not!) Of course, one may
+  write one's own semantics. nmm is capable of generating an XML representation
+  of the abstract syntax tree of an nmm source. Thus using these XML
+  representations, one may implement one's own semantics—though doing so most
+  likely would be a non-trivial amount of work.
 
 ## Project status
 
@@ -30,33 +32,76 @@ Heavily work-in-progress:
 - not user friendly—unforgiving grammar, uninformative error messages and
   inadequate documentation.
 
+## Why design another markup language for scientific writing? What is wrong with, for example, Markdown?
+
+- While Markdown is indeed quite WYSIWYG, the designer of the language wanted
+  even more WYSIWYG—in particular, WYSIWYG with respect to the intended
+  semantics.
+
+- It has so far been a fun project!
+
 ## Examples
 
 TODO
 
+## Try it out
+
+- With a flake-enabled* install of the [Nix package manager](https://nixos.org):
+
+  ```
+  nix run --refresh github:no-markup-markup/nmm
+  ```
+
+  (The `--refresh` flag may be omitted once a first version is released.)
+
+  * This one should work-out-of-the box:
+
+  <https://github.com/DeterminateSystems/nix-installer>
+
+- Without a flake-enabled install of the Nix package manager: sorry, but
+  currently you are on your own.† The following might work:
+
+  - Check `flake.nix` for `buildInputs` and make sure you have these installed.
+
+  - Clone this repo and run `make bin`.
+
+  - Run `./bin/nmm`.
+
+  † Help with how to package for other systems very much appreciated! The
+  creators of nmm has no packaging experience outside of the nix ecosystem.
+
 ## Features
+
+Do note that most of the nmm sources below include tabs. These tabs cannot be
+turned into spaces.
 
 ### Text blocks
 
-<b>nmm-source:</b>
+<details>
+  <summary><b>nmm source:</b></summary>
 
 ```
-INCLUDE-FILE ./nmm-sources/bullet-blocks.nmm
+INCLUDE-FILE ./nmm-sources/text-blocks.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics:</b></summary>
 
 ```
-INCLUDE-FILE ./raw-text-semantics/bullet-blocks.txt
+INCLUDE-FILE ./raw-text-semantics/text-blocks.txt
 ```
 </details>
 
 ### Text marked to be emphasized by the semantics
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/emphasized-text.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -68,9 +113,13 @@ INCLUDE-FILE ./raw-text-semantics/emphasized-text.txt
 
 ### Bullet blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/bullet-blocks.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -82,9 +131,13 @@ INCLUDE-FILE ./raw-text-semantics/bullet-blocks.txt
 
 ### Automatically labeled item blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/item-blocks-auto.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -96,9 +149,13 @@ INCLUDE-FILE ./raw-text-semantics/item-blocks-auto.txt
 
 ### Manually labeled item blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/item-blocks-manual.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -110,9 +167,13 @@ INCLUDE-FILE ./raw-text-semantics/item-blocks-manual.txt
 
 ### Unlabeled displayed blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/displayed-blocks-unlabeled.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -124,9 +185,13 @@ INCLUDE-FILE ./raw-text-semantics/displayed-blocks-unlabeled.txt
 
 ### Automatically labeled displayed blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/displayed-blocks-auto.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -138,9 +203,13 @@ INCLUDE-FILE ./raw-text-semantics/displayed-blocks-auto.txt
 
 ### Manually labeled displayed blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/displayed-blocks-manual.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -152,9 +221,13 @@ INCLUDE-FILE ./raw-text-semantics/displayed-blocks-manual.txt
 
 ### Displayed block spanning more than one row
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/displayed-blocks-multple-lines.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -166,9 +239,13 @@ INCLUDE-FILE ./raw-text-semantics/displayed-blocks-multple-lines.txt
 
 ### Nested blocks
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/nested-blocks.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -180,9 +257,13 @@ INCLUDE-FILE ./raw-text-semantics/nested-blocks.txt
 
 ### Tags, names, IDs and cross-references
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/tags-names-c-refs.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -194,9 +275,13 @@ INCLUDE-FILE ./raw-text-semantics/tags-names-c-refs.txt
 
 ### Chapters, sections, appendices and paragraphs
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/chapters-sections-appendices-paragraphs.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -210,9 +295,13 @@ INCLUDE-FILE ./raw-text-semantics/chapters-sections-appendices-paragraphs.txt
 
 Even under most atypical circumstances there is no need:
 
+<details>
+  <summary><b>nmm source:</b></summary>
+
 ```
 INCLUDE-FILE ./nmm-sources/escaping.nmm
 ```
+</details>
 
 <details>
   <summary><b>raw text semantics</b></summary>
@@ -222,22 +311,6 @@ INCLUDE-FILE ./raw-text-semantics/escaping.txt
 ```
 </details>
 
-## Why design another markup language for scientific writing? What is wrong with, for example, Markdown?
-
--	While Markdown is indeed quite WYSIWYG, the inventor of the language wanted
-    even more WYSIWYG—in particular, WYSIWYG with respect to the intended
-    semantics.
-
--	It has so far been a fun project!
-
-## Try it out
-
-TODO
-
 ## Help out
-
-TODO
-
-## Introduction to the language
 
 TODO
