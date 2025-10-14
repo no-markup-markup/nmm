@@ -21,12 +21,12 @@ features:
       (c)   When referring to (b) above, any common initial path
             shared between the location of the referring expression
             and the location of its referent will be omitted. The
-            same applies with respect to (!!) below.
+            same applies with respect to (?) below.
 
-      (!!)  Of course, items with custom labels can also be named!
+      (?)   Of course, items with custom labels can also be named!
 
 Due to the feature mentioned in (2)(c), a reference to (2)(b) or
-(2)(!!) occurring elsewhere may appear differently.
+(2)(?) occurring elsewhere may appear differently.
 
 (3)   Displayed lines of text suitable for mathematical equations,
       which are either

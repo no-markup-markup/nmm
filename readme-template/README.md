@@ -66,7 +66,8 @@ This is a no-markup-markup document, sporting the following features:
 	Furthermore, each item can be *named* and *referred to*:
 
 	[]	ITM:x
-		The named item can be referred to anywhere in the document.
+		The named item can be referred to anywhere in the
+		document.
 
 	[]	ITM:y
 		When referring to [ITM:x] above, any common initial path
@@ -74,7 +75,7 @@ This is a no-markup-markup document, sporting the following features:
 		and the location of its referent will be omitted. The same
 		applies with respect to [ITM:z] below.
 
-	[!!]	ITM:z
+	[?]	ITM:z
 		Of course, items with custom labels can also be named!
 
 Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or
@@ -116,12 +117,12 @@ features:
       (c)   When referring to (b) above, any common initial path
             shared between the location of the referring expression
             and the location of its referent will be omitted. The
-            same applies with respect to (!!) below.
+            same applies with respect to (?) below.
 
-      (!!)  Of course, items with custom labels can also be named!
+      (?)   Of course, items with custom labels can also be named!
 
 Due to the feature mentioned in (2)(c), a reference to (2)(b) or
-(2)(!!) occurring elsewhere may appear differently.
+(2)(?) occurring elsewhere may appear differently.
 
 (3)   Displayed lines of text suitable for mathematical equations,
       which are either
