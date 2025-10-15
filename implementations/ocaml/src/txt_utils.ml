@@ -10,9 +10,42 @@ let remove_empty_endlines (lines : string list) : string list =
 	in
 	List.rev (aux (List.rev lines))
 
+let rec lines_of_ts_title_opt (title_opt : Doc_types.ts_title option) : string list =
+	match title_opt with
+	|None -> []
+	|Some title -> lines_of_ts_title title
+
+and lines_of_ts_author_opt (author_opt : Doc_types.ts_author option) : string list =
+	match author_opt with
+	|None -> []
+	|Some author -> lines_of_ts_author author
+
+and lines_of_ts_abstract_opt (path : Common_utils.t_path) (abstract_opt : Doc_types.ts_abstract option) : string list =
+	match abstract_opt with
+	|None -> []
+	|Some abstract -> lines_of_ts_abstract path abstract
+
+and lines_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_abstract) : string list =
+	match abstract with
+	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> 
+		let abstract_main : string list = lines_of_ts_blks_txt path blks_txt in
+		let abstract_hdr : string list = 
+			match doc_settings.abstract_symbol with
+			| None -> []
+			| Some (symbol : string) -> lines_of_string (indent_of_path path) symbol
+		in
+		List.concat [abstract_hdr;abstract_main;["";"";"";""]]
+
+and lines_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_blks_txt): string list =
+	match blks_txt with
+	|Cs_blks_txt (blk_txt_list : Doc_types.ts_blk_txt list) -> List.concat (List.map (lines_of_ts_blk_txt path) blk_txt_list)
+
+and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =
+	match blk_txt with
+	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> lines_of_ts_txt_units path txt_units
 
 
-let rec lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
+and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
 	match hdr_opt with
 	| Some (hdr : Doc_types.ts_hdr) -> lines_of_ts_hdr path hdr
 	| None ->
@@ -168,6 +201,7 @@ and indent_of_path (path : Common_utils.t_path) : int =
 	| [] -> 0
 	| hd :: tl -> 
 		match hd with
+		| ABSTRACT_NODE -> doc_settings.left_margin
 		| CH_NODE _ -> doc_settings.left_margin
 		| SEC_NODE _ -> doc_settings.left_margin
 		| PAR_NODE _ -> doc_settings.left_margin

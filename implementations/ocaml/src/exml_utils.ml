@@ -1,7 +1,22 @@
 open Doc_types
 open Common_utils
 
-let rec xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
+let rec xml_list_of_ts_title_opt (title_opt : Doc_types.ts_title option) : Xml.xml list =
+	match title_opt with
+	|None -> []
+	|Some title -> [xml_of_ts_title title]
+
+and xml_list_of_ts_author_opt (author_opt : Doc_types.ts_author option) : Xml.xml list =
+	match author_opt with
+	|None -> []
+	|Some author -> [xml_of_ts_author author]
+
+and xml_list_of_ts_abstract_opt (path : Common_utils.t_path) (abstract_opt : Doc_types.ts_abstract option) : Xml.xml list =
+	match abstract_opt with
+	|None -> []
+	|Some abstract -> [xml_of_ts_abstract path abstract]
+
+and xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
 	match title with
 	| Cs_title (s : string) -> Xml.Element ("title", [], [Xml.PCData (pcdata_of_string s)])
 
@@ -9,6 +24,17 @@ and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	match author with
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
 
+and xml_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_abstract) : Xml.xml =
+	match abstract with
+	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> Xml.Element ("abstract", [], xml_list_of_ts_blks_txt path blks_txt)
+
+and xml_list_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_blks_txt) : Xml.xml list=
+	match blks_txt with
+	|Cs_blks_txt (blk_txt_list : Doc_types.ts_blk_txt list) -> List.map (xml_of_ts_blk_txt path) blk_txt_list
+
+and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
+	match blk_txt with
+	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units path txt_units)
 
 and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with

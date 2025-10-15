@@ -7,23 +7,34 @@ type xml = Xml_light_types.xml =
 open Doc_types
 
 let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
-	match doc.fld_doc_preamble, doc.fld_doc_title, doc.fld_doc_author with
-	|None, None, None -> 
-		Xml.Element ("cr_doc",[],[xml_of_te_doc_main doc.fld_doc_main])
-	|None, Some (title:ts_title), None -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_te_doc_main doc.fld_doc_main])
-	|None, None, Some (author:ts_author) -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
-	|None, Some (title:ts_title), Some (author:ts_author) -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_title title; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
-	|Some (preamble : ts_preamble), None, None -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_te_doc_main doc.fld_doc_main])
-	|Some (preamble : ts_preamble), Some (title:ts_title), None -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_ts_title title; xml_of_te_doc_main doc.fld_doc_main])
-	|Some (preamble : ts_preamble), None, Some (author:ts_author) -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
-	|Some (preamble : ts_preamble), Some (title:ts_title), Some (author:ts_author) -> 
-		Xml.Element ("cr_doc",[],[xml_of_ts_preamble preamble; xml_of_ts_title title; xml_of_ts_author author; xml_of_te_doc_main doc.fld_doc_main])
+	let xml_list_preamble : Xml.xml list = xml_list_of_ts_preamble_opt doc.fld_doc_preamble in
+	let xml_list_title : Xml.xml list = xml_list_of_ts_title_opt doc.fld_doc_title in
+	let xml_list_author : Xml.xml list = xml_list_of_ts_author_opt doc.fld_doc_author in
+	let xml_list_abstract : Xml.xml list = xml_list_of_ts_abstract_opt doc.fld_doc_abstract in
+	let xml_list_main : Xml.xml list = [xml_of_te_doc_main doc.fld_doc_main] in
+	let xml_list_doc : Xml.xml list = List.concat [xml_list_preamble; xml_list_title; xml_list_author; xml_list_abstract; xml_list_main] in
+	Xml.Element ("cr_doc",[],xml_list_doc)
+
+and xml_list_of_ts_preamble_opt (preamble_opt : ts_preamble option) : Xml.xml list =
+	match preamble_opt with
+	| None -> []
+	| Some preamble -> [xml_of_ts_preamble preamble]
+
+and xml_list_of_ts_title_opt (title_opt : ts_title option) : Xml.xml list =
+	match title_opt with
+	| None -> []
+	| Some title -> [xml_of_ts_title title]
+
+and xml_list_of_ts_author_opt (author_opt : ts_author option) : Xml.xml list =
+	match author_opt with
+	| None -> []
+	| Some author -> [xml_of_ts_author author]
+
+and xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) : Xml.xml list =
+	match abstract_opt with
+	| None -> []
+	| Some abstract -> [xml_of_ts_abstract abstract]
+
 
 and xml_of_ts_preamble (preamble : ts_preamble) : Xml.xml =
 	match preamble with
@@ -36,6 +47,15 @@ and xml_of_ts_title (title:ts_title):Xml.xml=
 and xml_of_ts_author (author:ts_author):Xml.xml=
 	match author with
 	|Cs_author (s:string) -> Xml.Element ("cs_author",[],[xml_of_string s])
+
+and xml_of_ts_abstract (abstract:ts_abstract):Xml.xml = 
+	match abstract with
+	|Cs_abstract (blks_txt: ts_blks_txt) ->
+		Xml.Element ("cs_abstract",[], [xml_of_ts_blks_txt blks_txt])
+
+and xml_of_ts_blks_txt (blks_txt : ts_blks_txt) : Xml.xml =
+	match blks_txt with
+	|Cs_blks_txt (blk_txt_list : ts_blk_txt list) -> Xml.Element ("cs_blks_txt",[],List.map xml_of_ts_blk_txt blk_txt_list)
 
 and xml_of_te_doc_main (doc_main:te_doc_main):Xml.xml=
 	match doc_main with

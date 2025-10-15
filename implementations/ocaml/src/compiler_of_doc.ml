@@ -37,45 +37,31 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 	match acc with
 	| CREF_TABLE _ ->  acc_of_te_doc_main acc doc.fld_doc_main
 	| LINES _ -> (
+		let lines_title:string list = Txt_utils.lines_of_ts_title_opt doc.fld_doc_title in
+		let lines_author:string list = Txt_utils.lines_of_ts_author_opt doc.fld_doc_author in
+		let lines_abstract:string list = Txt_utils.lines_of_ts_abstract_opt [ABSTRACT_NODE] doc.fld_doc_abstract in
 		let lines_main:string list = (
 			match acc_of_te_doc_main acc doc.fld_doc_main with
 			|LINES lines -> lines 
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		match doc.fld_doc_title, doc.fld_doc_author with
-		| None, None -> LINES lines_main
-		| Some (title : Doc_types.ts_title), None -> 
-			let lines_title : string list = lines_of_ts_title title in
-			LINES (List.concat [lines_title;lines_main])
-		| None, Some (author : Doc_types.ts_author) -> 
-			let lines_author : string list = lines_of_ts_author author in
-			LINES (List.concat [lines_author;lines_main])
-		| Some (title : Doc_types.ts_title), Some (author : Doc_types.ts_author) -> 
-			let lines_title : string list = lines_of_ts_title title in
-			let lines_author : string list = lines_of_ts_author author in
-			LINES (List.concat [lines_title;lines_author;lines_main])
+		let lines_doc = List.concat [lines_title;lines_author;lines_abstract;lines_main] in
+		LINES lines_doc
+
 	)
-	| EXML _ -> (
+	| EXML _ ->
+		let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc.fld_doc_title in
+		let xml_list_author:Xml.xml list = Exml_utils.xml_list_of_ts_author_opt doc.fld_doc_author in
+		let xml_list_abstract:Xml.xml list = Exml_utils.xml_list_of_ts_abstract_opt [ABSTRACT_NODE] doc.fld_doc_abstract in
 		let xml_main:Xml.xml = (
 			match acc_of_te_doc_main acc doc.fld_doc_main with
 			|EXML xml_list -> Xml.Element ("doc_main",[],xml_list) 
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		match doc.fld_doc_title, doc.fld_doc_author with
-		| None, None -> EXML [Xml.Element ("doc",[],[xml_main])]
-		| Some (title : Doc_types.ts_title), None -> 
-			let xml_title : Xml.xml = xml_of_ts_title title in
-			EXML [Xml.Element ("doc",[],[xml_title;xml_main])]
-		| None, Some (author : Doc_types.ts_author) -> 
-			let xml_author : Xml.xml = xml_of_ts_author author in
-			EXML [Xml.Element ("doc",[],[xml_author;xml_main])]
-		| Some (title:ts_title), Some (author:ts_author) -> 
-			let xml_title : Xml.xml = xml_of_ts_title title in
-			let xml_author : Xml.xml = xml_of_ts_author author in
-			EXML [Xml.Element ("doc",[],[xml_title;xml_author;xml_main])]
-	)
+		let xml_list_doc = List.concat [xml_list_title;xml_list_author;xml_list_abstract;[xml_main]] in
+		EXML [Xml.Element ("doc",[],xml_list_doc)]
 
 and acc_of_te_doc_main (acc : t_acc) (a : Doc_types.te_doc_main) : t_acc =
 	match a with

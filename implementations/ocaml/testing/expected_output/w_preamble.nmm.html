@@ -8,6 +8,7 @@ html {
         --font_size:12px;
         --title_indent:0px;
         --author_indent:0px;
+        --abstract_indent:96px;
         --left_margin:56px;
         --tab_length:6ch;
         font-family:var(--font_family);
@@ -21,7 +22,7 @@ html {
 
 .title {
         display:block;
-        font-size:var(--font-size);
+        font-size:20px;
         margin-left:var(--title_indent);
 }
 
@@ -31,6 +32,19 @@ html {
         margin-left:var(--author_indent);
 }
 
+
+.abstract {
+        display:block;
+        margin-left:var(--abstract_indent);
+        margin-bottom:3em;
+}
+
+
+.abstract_hdr {
+        display:block;
+        font-weight:normal;
+        font-size:14px;
+}
 
 .doc_main {
         display:block;

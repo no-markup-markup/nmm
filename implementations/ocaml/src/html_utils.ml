@@ -2,6 +2,8 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	match element with
 	|Xml.Element ("title", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("abstract", attr_list,xml_list) -> 
+		Xml.Element ("div",("class", "abstract")::attr_list, (Xml.Element ("h2", [("class", "abstract_hdr")],[Xml.PCData "ABSTRACT"]))::(List.map html_of_exml xml_list))
 	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
@@ -19,6 +21,7 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
         --font_size:12px;
         --title_indent:" ^ (string_of_int (doc_settings.title_indent * 8)) ^ "px;
         --author_indent:" ^ (string_of_int (doc_settings.author_indent * 8)) ^ "px;
+        --abstract_indent:" ^ (string_of_int (doc_settings.abstract_indent * 8)) ^ "px;
         --left_margin:" ^ (string_of_int (doc_settings.left_margin * 8)) ^ "px;
         --tab_length:" ^ (string_of_int doc_settings.tab_length) ^ "ch;
         font-family:var(--font_family);
@@ -32,7 +35,7 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .title {
         display:block;
-        font-size:var(--font-size);
+        font-size:20px;
         margin-left:var(--title_indent);
 }
 
@@ -42,6 +45,19 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
         margin-left:var(--author_indent);
 }
 
+
+.abstract {
+        display:block;
+        margin-left:var(--abstract_indent);
+        margin-bottom:3em;
+}
+
+
+.abstract_hdr {
+        display:block;
+        font-weight:normal;
+        font-size:14px;
+}
 
 .doc_main {
         display:block;

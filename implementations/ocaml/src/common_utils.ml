@@ -9,7 +9,9 @@ type t_doc_settings = {
 	mutable left_margin: int;
 	mutable title_indent: int;
 	mutable author_indent: int;
+	mutable abstract_indent: int;
 	mutable tab_length : int;
+	mutable abstract_symbol: string option;
 	mutable ch_symbol: string option;
 	mutable sec_symbol: string option;
 	mutable par_symbol : string option;
@@ -20,7 +22,9 @@ let doc_settings : t_doc_settings = {
 	left_margin = 12;
 	title_indent = 12;
 	author_indent = 12;
+	abstract_indent = 12;
 	tab_length = 6;
+	abstract_symbol = Some "ABSTRACT";
 	ch_symbol = Some "CHAPTER";
 	sec_symbol = Some "§";
 	par_symbol = Some "¶";
@@ -110,6 +114,7 @@ and symbol_value_of_string (v : string) : string option =
 type t_path = t_node list
 
 and t_node =
+	| ABSTRACT_NODE
 	| CH_NODE of int
 	| SEC_NODE of int
 	| APP_NODE of int
@@ -261,6 +266,7 @@ and string_of_node (pos : t_path) (node : t_node) : string option =
 	| BLT_NODE ->
 		let l : int = lvl_of_path pos in
 		Some bullets.(l mod Array.length bullets)
+	| _ -> None
 
 and lvl_of_path (path : t_path) : int =
 	match path with
@@ -314,6 +320,7 @@ and label_of_path_opt (path : t_path) : string option =
 	| hd :: tl ->
 		let s = string_of_node tl hd in
 		match hd with
+		| ABSTRACT_NODE -> doc_settings.abstract_symbol
 		| CH_NODE _ -> (
 			match (doc_settings.ch_symbol, s) with
 			| None, Some t -> Some t

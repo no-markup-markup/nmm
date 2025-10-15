@@ -16,7 +16,8 @@ nmm-ocaml [
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
 
- | test <path-to-nmm-file>
+ | test-with-nmm <path-to-nmm-file>
+ | test-with-xml <path-to-xml-file>
 
 ]
 
@@ -125,8 +126,11 @@ let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):
 	|Xml_light_errors.Xml_error e -> String.concat " " [path_to_xml;"-> ERROR:";Xml.error e]
 
 
-let test (path_to_nmm_file : string) : unit =
-	Test.test path_to_nmm_file 
+let test_w_nmm (path_to_nmm_file : string) : unit =
+	Test.test_w_nmm path_to_nmm_file 
+
+let test_w_xml (path_to_xml_file : string) : unit =
+	Test.test_w_xml path_to_xml_file 
 
 
 let argv=Sys.argv
@@ -139,7 +143,8 @@ let _ : unit =
 		|"txt-of-xml", path -> print_endline (txt_of_axml path)
 		|"xml-of-nmm", path -> print_endline (axml_of_nmm path)
 		|"check-xml-schema", path -> print_endline (check_xml_schema path)
-		|"test", path -> test path
+		|"test-with-nmm", path -> test_w_nmm path
+		|"test-with-xml", path -> test_w_xml path
 		|_-> print_endline usage
 	)
 	|5 -> (

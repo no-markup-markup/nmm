@@ -4,35 +4,44 @@ mkdir -p output
 
 for file in $(ls input/*.nmm)
 do
-	echo "# ../bin/nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt:"
+	echo "# nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt:"
 	../bin/nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt
-	echo "# ../bin/nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html:"
+	echo "# nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html:"
 	../bin/nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html
-	echo "# ../bin/nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml:"
+	echo "# nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml:"
 	../bin/nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml
-	echo "# ../bin/nmm-ocaml test $file:"
-	../bin/nmm-ocaml test $file
+	echo "# nmm-ocaml test-with-nmm $file:"
+	../bin/nmm-ocaml test-with-nmm $file
 done
 
 for file in $(ls input/*.xml)
 do
-	echo "# ../bin/nmm-ocaml txt-of-xml $file > output/$(basename $file).txt:"
+	echo "# nmm-ocaml txt-of-xml $file > output/$(basename $file).txt:"
 	../bin/nmm-ocaml txt-of-xml $file > output/$(basename $file).txt
-	echo "# ../bin/nmm-ocaml html-of-xml none en $file > output/$(basename $file).html:"
+	echo "# nmm-ocaml html-of-xml none en $file > output/$(basename $file).html:"
 	../bin/nmm-ocaml html-of-xml none en $file > output/$(basename $file).html
-	echo "# ../bin/nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).color.html:"
+	echo "# nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).color.html:"
 	../bin/nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).w_external_css.html
+	echo "# nmm-ocaml test-with-xml $file:"
+	../bin/nmm-ocaml test-with-xml $file
 
 done
 
-echo "# ../bin/nmm-ocaml check-xml-schema ../dtd/axml.dtd:"
+echo "# nmm-ocaml check-xml-schema ../dtd/axml.dtd:"
 ../bin/nmm-ocaml check-xml-schema dtd/axml.dtd
 
 for file in $(ls output/*.xml)
 do
-	echo "# ../bin/nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file:"
+	echo "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file:"
 	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file
 done
+
+for file in $(ls input/*.xml)
+do
+	echo "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file:"
+	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file
+done
+
 
 for file in $(ls output)
 do

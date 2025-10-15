@@ -13,7 +13,9 @@ and ts_title = Cs_title of string
 
 and ts_author = Cs_author of string
 
-and ts_abstract = Cs_abstract of ts_blks
+and ts_abstract = Cs_abstract of ts_blks_txt
+
+and ts_blks_txt = Cs_blks_txt of ts_blk_txt list
 
 and te_doc_main =
   | Ce_doc_main_chs of ts_chs
