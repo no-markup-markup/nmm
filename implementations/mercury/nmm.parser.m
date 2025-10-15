@@ -74,7 +74,7 @@
 
 %% RULE R_ABSTRACT, SIMPLE TYPE TS_ABSTRACT, INSTANCE TS_ABSTRACT XMLABLE
 
-:- type ts_abstract ---> cs_abstract(ts_blks).
+:- type ts_abstract ---> cs_abstract(ts_blks_txt).
 
 :- instance term_to_xml.xmlable(ts_abstract).
 
@@ -144,6 +144,16 @@
 
 :- pred r_blks(ta_lvl, ts_blks, ta_tkns, ta_tkns).
 :- mode r_blks(in,     out,     in,      out) is semidet.
+
+
+%% RULE R_BLKS_TXT, SIMPLE TYPE TS_BLKS_TXT, INSTANCE TS_BLKS_TXT_XMLABLE
+
+:- type ts_blks_txt ---> cs_blks_txt(list(ts_blk_txt)).
+
+:- instance term_to_xml.xmlable(ts_blks).
+
+:- pred r_blks_txt(ta_lvl, ts_blks_txt, ta_tkns, ta_tkns).
+:- mode r_blks_txt(in,     out,         in,      out) is semidet.
 
 
 %% RULE R_CH, RECORD TYPE TR_CH, INSTANCE TR_CH XMLABLE
@@ -682,7 +692,7 @@ r_abstract(cs_abstract(BLKS)) --> (
   r_str("ABSTRACT:"),
   +([r_lb]),
   r_tab,
-  r_blks(1u,BLKS)
+  r_blks_txt(1u,BLKS)
 ).
 
 %%% XMLABLE
@@ -695,8 +705,8 @@ r_abstract(cs_abstract(BLKS)) --> (
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_abstract_to_xml(cs_abstract(BLKS)) =
-  term_to_xml.elem("cs_abstract",[],[f_blks_to_xml(BLKS)]).
+f_abstract_to_xml(cs_abstract(BLKS_TXT)) =
+  term_to_xml.elem("cs_abstract",[],[f_blks_txt_to_xml(BLKS_TXT)]).
 
 
 %% R_REFS, TS_REFS XMLABLE
@@ -855,6 +865,35 @@ r_blks(LVL,BLKS) --> (
 ) is det.
 f_blks_to_xml(cs_blks(BLKS)) = (
   term_to_xml.elem("cs_blks",[],list.map(f_blk_to_xml,BLKS))
+).
+
+
+%% R_BLKS_TXT, INSTANCE TS_BLKS_TXT_XMLABLE
+
+%%% R_BLKS_TXT
+
+r_blks_txt(LVL,BLKS) --> (
+  r_blk_txt(LVL,BLK),
+  (
+    +([r_lb]), r_tabs(LVL), r_blks_txt(LVL,cs_blks_txt(BLKS_)) -> (
+      {BLKS = cs_blks_txt([BLK]++BLKS_)}
+    );
+    {BLKS = cs_blks_txt([BLK])}
+  )
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_blks_txt) where [
+  func(to_xml/1) is f_blks_txt_to_xml
+].
+:- func (
+  f_blks_txt_to_xml(ts_blks_txt::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_blks_txt_to_xml(cs_blks_txt(BLKS)) = (
+  term_to_xml.elem("cs_blks_txt",[],list.map(f_blk_txt_to_xml,BLKS))
 ).
 
 

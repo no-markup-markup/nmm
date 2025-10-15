@@ -3,8 +3,7 @@
 <cs_title>Some chapters</cs_title>
 <cs_author>Donald Duck and Mickey Mouse</cs_author>
 <cs_abstract>
-<cs_blks>
-<ce_blk_txt>
+<cs_blks_txt>
 <cs_blk_txt>
 <cs_txt_units>
 <ce_txt_unit_wysiwyg>
@@ -30,8 +29,7 @@
 </ce_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
-</ce_blk_txt>
-</cs_blks>
+</cs_blks_txt>
 </cs_abstract>
 <ce_doc_main_chs>
 <cs_chs>

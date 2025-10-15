@@ -126,6 +126,8 @@ Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
 Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
   := match blk_itm with cr_blk_itm _   _  blks => blks end.
 
+Inductive ts_blks_txt : Type := cs_blks_txt : list ts_blk_txt -> ts_blks_txt.
+
 Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
 
 Record tr_par : Type := cr_par {
@@ -167,15 +169,15 @@ Inductive te_doc_main : Type :=
 | ce_doc_main_blks : ts_blks -> te_doc_main
 .
 
-Inductive ts_refs     : Type := cs_refs     : ts_blks -> ts_refs.
+Inductive ts_refs     : Type := cs_refs     : ts_blks     -> ts_refs.
 
-Inductive ts_abstract : Type := cs_abstract : ts_blks -> ts_abstract.
+Inductive ts_abstract : Type := cs_abstract : ts_blks_txt -> ts_abstract.
 
-Inductive ts_title    : Type := cs_title    : t_str   -> ts_title.
+Inductive ts_title    : Type := cs_title    : t_str       -> ts_title.
 
-Inductive ts_author   : Type := cs_author   : t_str   -> ts_author.
+Inductive ts_author   : Type := cs_author   : t_str       -> ts_author.
 
-Inductive ts_preamble : Type := cs_preamble : t_str   -> ts_preamble.
+Inductive ts_preamble : Type := cs_preamble : t_str       -> ts_preamble.
 
 Record tr_doc : Type := cr_doc {
   fld_doc_preamble : option ts_preamble;
