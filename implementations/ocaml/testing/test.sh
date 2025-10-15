@@ -38,20 +38,20 @@ do
 
 done
 
-color "# nmm-ocaml check-xml-schema ../dtd/axml.dtd 1> /dev/null:"
+color "# nmm-ocaml check-xml-schema ../dtd/axml.dtd > /dev/null:"
 ../bin/nmm-ocaml check-xml-schema dtd/axml.dtd > /dev/null
-color "# nmm-ocaml check-xml-schema ../dtd/exml.dtd 1> /dev/null:"
+color "# nmm-ocaml check-xml-schema ../dtd/exml.dtd > /dev/null:"
 ../bin/nmm-ocaml check-xml-schema dtd/exml.dtd > /dev/null
 
 for file in $(ls output/*.xml)
 do
-	color "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file 1> /dev/null:"
+	color "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file > /dev/null:"
 	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file > /dev/null
 done
 
 for file in $(ls input/*.xml)
 do
-	color "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file 1> /dev/null:"
+	color "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file > /dev/null:"
 	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file > /dev/null
 done
 
