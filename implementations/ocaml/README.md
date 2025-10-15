@@ -7,10 +7,12 @@ It also includes an experimental LR(1) parser of no-markup-markup source code, g
 
 ## Usage
 ```
+Usage:
+
 nmm-ocaml [
 
  | txt-of-xml { <path-to-xml-file> | - }
- | html-of-xml { <URI-of-css-file> | none } { [ <language-code> | none } { <path-to-xml-file> | - }
+ | html-of-xml { <URI-of-css-file> | none } { <language-code> | none } { <path-to-xml-file> | - }
 
  | xml-of-nmm <path-to-nmm-file>
 
@@ -20,7 +22,8 @@ nmm-ocaml [
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
 
- | test <path-to-nmm-file>
+ | test-with-xml <path-to-xml-file>
+ | test-with-nmm <path-to-nmm-file>
 
 ]
 
