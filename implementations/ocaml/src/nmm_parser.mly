@@ -25,10 +25,11 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL
+%token <string>                 ESC_CHAR
 %token <string>                 TITLE AUTHOR PREAMBLE
 %token <string>                 TXT C_REF
 %token <string>                 ITM_ID DSP_ID
-%token <string>                 SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL
+%token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL
 %token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB  
 
 %type <Doc_types.tr_doc>                  main doc
@@ -37,6 +38,9 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 %type <Doc_types.ts_author>               doc_author
 %type <string>                            lines
 %type <Doc_types.te_doc_main>             doc_main
+%type <Doc_types.tr_ch>                   ch
+%type <Doc_types.te_secs_pars_or_blks>    ch_main
+%type <Doc_types.tr_ch list>              chs
 %type <Doc_types.tr_sec>                  sec
 %type <Doc_types.te_pars_or_blks>         sec_main
 %type <Doc_types.tr_sec list>             secs
@@ -60,7 +64,7 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 %type <Doc_types.te_txt_unit list>        txt_units0 txt_units1 txt_units2 txt_units3 dsp_units
 %type <Doc_types.ts_lbl_custom>           dsp_custom_tab itm_custom_tab
 %type <Doc_types.ts_lbl_auto>             dsp_auto_tab itm_auto_tab
-%type <string>                            norm_txt_unit emph_txt_unit emph_txt_units emph_txt_units0 emph_txt_units1 emph_txt_units2 emph_txt_units3
+%type <string>                            txt emph_txt emph_txt0 emph_txt1 emph_txt2 emph_txt3
 %type <unit>                              dash_tab lb0 lb1 lb2 lb3 pilcrow_nl section_nl tabs
 
 %start main
@@ -113,11 +117,6 @@ doc:
                                                    }
 ;
 
-nls:
-  | NL                                             { }
-  | NL nls                                         { }
-;
-
 doc_preamble:
   | PREAMBLE TAB lines                             { (Cs_preamble $3) : ts_preamble }
   | PREAMBLE NL_TAB lines                          { (Cs_preamble $3) : ts_preamble }
@@ -139,6 +138,7 @@ lines:
 ;
 
 doc_main:
+  |chs                                            { (Ce_doc_main_chs (Cs_chs $1)):te_doc_main }
   |secs                                           { (Ce_doc_main_secs (Cs_secs $1)):te_doc_main }
   |pars                                           { (Ce_doc_main_pars (Cs_pars $1)):te_doc_main }
   |blks0                                          { (Ce_doc_main_blks (Cs_blks $1)):te_doc_main }
@@ -146,16 +146,32 @@ doc_main:
 *)
 ;
 
+chs:
+  |ch                                             { ($1::[]):tr_ch list }
+  |ch chs                                         { ($1::$2):tr_ch list }
+;
+
 secs:
   |sec                                            { ($1::[]):tr_sec list }
   |sec secs                                       { ($1::$2):tr_sec list }
 ;
 
+ch:
+  |ch_nl nls ch_main                              { {fld_ch_tag_or_id=Some $1;fld_ch_hdr=None;fld_ch_main=$3}:tr_ch }
+  |ch_nl hdr nls ch_main                          { {fld_ch_tag_or_id=Some $1;fld_ch_hdr=Some $2;fld_ch_main=$4}:tr_ch }
+;
+
+ch_main:
+  |secs                                           { (Ce_secs_pars_or_blks_secs (Cs_secs $1)):te_secs_pars_or_blks }
+  |pars                                           { (Ce_secs_pars_or_blks_pars (Cs_pars $1)):te_secs_pars_or_blks }
+  |blks0                                          { (Ce_secs_pars_or_blks_blks (Cs_blks $1)):te_secs_pars_or_blks }
+;
+
 sec:
-  |section_nl lb0 sec_main                        { {fld_sec_tag_or_id=None;fld_sec_hdr=None;fld_sec_main=$3}:tr_sec }
-  |section_spaces_tag_or_id_nl lb0 sec_main       { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$3}:tr_sec }
-  |section_nl hdr lb0 sec_main                    { {fld_sec_tag_or_id=None;fld_sec_hdr=Some $2;fld_sec_main=$4}:tr_sec }
-  |section_spaces_tag_or_id_nl hdr lb0 sec_main   { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$4}:tr_sec }
+  |section_nl nls sec_main                        { {fld_sec_tag_or_id=None;fld_sec_hdr=None;fld_sec_main=$3}:tr_sec }
+  |section_spaces_tag_or_id_nl nls sec_main       { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$3}:tr_sec }
+  |section_nl hdr nls sec_main                    { {fld_sec_tag_or_id=None;fld_sec_hdr=Some $2;fld_sec_main=$4}:tr_sec }
+  |section_spaces_tag_or_id_nl hdr nls sec_main   { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$4}:tr_sec }
 ;
 
 sec_main:
@@ -169,10 +185,10 @@ pars:
 ;
 
 par:
-  |pilcrow_nl lb0 par_main                        { {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$3}:tr_par }
-  |pilcrow_spaces_tag_or_id_nl lb0 par_main       { {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$3}:tr_par }
-  |pilcrow_nl hdr lb0 par_main                    { {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$4}:tr_par }
-  |pilcrow_spaces_tag_or_id_nl hdr lb0 par_main   { {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$4}:tr_par }
+  |pilcrow_nl nls par_main                        { {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$3}:tr_par }
+  |pilcrow_spaces_tag_or_id_nl nls par_main       { {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$3}:tr_par }
+  |pilcrow_nl hdr nls par_main                    { {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$4}:tr_par }
+  |pilcrow_spaces_tag_or_id_nl hdr nls par_main   { {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$4}:tr_par }
 ;
 
 par_main:
@@ -211,14 +227,14 @@ txt_units0:
 ;
 
 txt_unit0:
-  |norm_txt_unit                                  { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt_units0 STAR                      { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
+  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
+  |STAR emph_txt0 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
   |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
 ;
 
-emph_txt_units0:
-  |emph_txt_units                                 { $1:string }
-  |emph_txt_units lb0 emph_txt_units0             { ($1 ^ " " ^ $3):string }
+emph_txt0:
+  |emph_txt                                       { $1:string }
+  |emph_txt lb0 emph_txt0                         { ($1 ^ " " ^ $3):string }
  ;
 
 
@@ -275,6 +291,7 @@ blk(n):
   |blk_blt(n)                                             { (Ce_blk_blt $1):te_blk }
   |blk_itm(n)                                             { (Ce_blk_itm $1):te_blk }
   |blk_dsp(n)                                             { (Ce_blk_dsp $1):te_blk }
+  |NL blk(n)                                              { $2:te_blk }
 ;
 
 blk_txt(n):
@@ -288,14 +305,14 @@ txt_units(n):
 ;
 
 txt_unit(n):
-  |norm_txt_unit                                          { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt_units(n) STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }
+  |txt                                                    { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
+  |STAR emph_txt(n) STAR                                  { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }
   |LBR crefs RBR                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
 ;
 
-emph_txt_units(n):
-  |emph_txt_units                                         { $1:string }
-  |emph_txt_units lb(n) emph_txt_units(n)                 { ($1 ^ " " ^ $3):string }
+emph_txt(n):
+  |emph_txt                                               { $1:string }
+  |emph_txt lb(n) emph_txt(n)                             { ($1 ^ " " ^ $3):string }
 ;
 
 blk_blt(n):
@@ -351,6 +368,7 @@ blk1:
   |blk_blt1                                       { (Ce_blk_blt $1):te_blk }
   |blk_itm1                                       { (Ce_blk_itm $1):te_blk }
   |blk_dsp1                                       { (Ce_blk_dsp $1):te_blk }
+  |NL blk1                                        { $2:te_blk }
 ;
 
 blk_txt1:
@@ -364,14 +382,14 @@ txt_units1:
 ;
 
 txt_unit1:
-  |norm_txt_unit                                  { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt_units1 STAR                      { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }
+  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
+  |STAR emph_txt1 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }
   |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
 ;
 
-emph_txt_units1:
-  |emph_txt_units                                 { $1:string }
-  |emph_txt_units lb1 emph_txt_units1             { ($1 ^ " " ^ $3):string }
+emph_txt1:
+  |emph_txt                                       { $1:string }
+  |emph_txt lb1 emph_txt1                         { ($1 ^ " " ^ $3):string }
 ;
 
 blk_blt1:
@@ -426,6 +444,7 @@ blk2:
   |blk_blt2                                       { (Ce_blk_blt $1):te_blk }
   |blk_itm2                                       { (Ce_blk_itm $1):te_blk }
   |blk_dsp2                                       { (Ce_blk_dsp $1):te_blk }
+  |NL blk2                                        { $2:te_blk }
 ;
 
 blk_txt2:
@@ -439,14 +458,14 @@ txt_units2:
 ;
 
 txt_unit2:
-  |norm_txt_unit                                  { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt_units2 STAR                      { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
+  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
+  |STAR emph_txt2 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
   |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
 ;
 
-emph_txt_units2:
-  |emph_txt_units                                 { $1:string }
-  |emph_txt_units lb2 emph_txt_units2             { ($1 ^ " " ^ $3):string }
+emph_txt2:
+  |emph_txt                                       { $1:string }
+  |emph_txt lb2 emph_txt2                         { ($1 ^ " " ^ $3):string }
 ;
 
 blk_blt2:
@@ -493,6 +512,7 @@ blks3:
 blk3:
   |blk_txt3                                       { (Ce_blk_txt $1):te_blk }
   (* et cetera *)
+  |NL blk3                                        { $2:te_blk }
 ;
 
 blk_txt3:
@@ -506,14 +526,14 @@ txt_units3:
 ;
 
 txt_unit3:
-  |norm_txt_unit                                  { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt_units3 STAR                      { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
+  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
+  |STAR emph_txt3 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
   |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
 ;
 
-emph_txt_units3:
-  |emph_txt_units                                 { $1:string }
-  |emph_txt_units lb3 emph_txt_units3             { ($1 ^ " " ^ $3):string }
+emph_txt3:
+  |emph_txt                                       { $1:string }
+  |emph_txt lb3 emph_txt3                         { ($1 ^ " " ^ $3):string }
 ;
 
 lb3:
@@ -537,12 +557,12 @@ dsp_units:
 ;
 
 dsp_unit:
-  |norm_txt_unit                                  { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt_units STAR                       { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
+  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
+  |STAR emph_txt STAR                             { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
   |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
 ;
 
-norm_txt_unit:
+txt:
   |TXT                                            { $1:string }
   |COLON                                          { ":":string }
   |LBR                                            { "[":string }
@@ -552,24 +572,12 @@ norm_txt_unit:
   |PREAMBLE                                       { $1:string }
   |TITLE                                          { $1:string }
   |AUTHOR                                         { $1:string }
-(*|STAR                                           { "*":string } *)
+  |ESC_CHAR                                       { $1:string }
 ;
 
-emph_txt_units:
-  |emph_txt_unit                                  { $1:string }
-  |emph_txt_unit emph_txt_units                   { ($1 ^ $2):string }
-;
-
-emph_txt_unit:
-  |TXT                                            { $1:string }
-  |COLON                                          { ":":string }
-  |LBR                                            { "[":string }
-  |RBR                                            { "]":string }
-  |PILCROW                                        { "¶":string }
-  |SECTION                                        { "§":string }
-  |PREAMBLE                                       { $1:string }
-  |TITLE                                          { $1:string }
-  |AUTHOR                                         { $1:string }
+emph_txt:
+  |txt                                           { $1:string }
+  |txt emph_txt                                  { ($1 ^ $2):string }
 ;
 
 c_ref:
@@ -582,6 +590,10 @@ itm_id:
 
 dsp_id:
   |DSP_ID                                         { (id_of_string $1):tr_id }
+;
+
+ch_nl:
+  |CH_TAG_OR_ID_NL                                { tag_or_id_of_string $1 }
 ;
 
 section_nl:
@@ -639,3 +651,7 @@ tabs:
   |tabs TAB                                       { }
 ;
 
+nls:
+  |NL                                             { }
+  |NL nls                                         { }
+;

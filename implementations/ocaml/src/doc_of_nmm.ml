@@ -23,6 +23,7 @@ let string_of_token (t:Nmm_parser.token):string=
 	|RBR -> "RBR"
 	|COLON -> "COLON"
 	|EOF -> "EOF"
+	|CH_TAG_OR_ID_NL s -> ("CH_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
 	|SECTION_SPACES_TAG_OR_ID_NL s -> ("SECTION_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
 	|PILCROW_SPACES_TAG_OR_ID_NL s -> ("PILCROW_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
 	|TXT s -> ("TXT " ^ "\"" ^ s ^ "\"")
@@ -34,6 +35,7 @@ let string_of_token (t:Nmm_parser.token):string=
 	|TITLE s -> ("TITLE " ^ "\"" ^ s ^ "\"")
 	|AUTHOR s -> ("AUTHOR " ^ "\"" ^ s ^ "\"")
 	|PREAMBLE s -> ("PREAMBLE " ^ "\"" ^ s ^ "\"")
+	|ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
 
 let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
 	let t:Nmm_parser.token=Nmm_lexer.lex b in
