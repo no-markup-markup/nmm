@@ -6,19 +6,19 @@
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
 <!ELEMENT refs (blk_txt | blk_blt | blk_itm | blk_dsp)+>
 
-<!ELEMENT ch (ch_lbl?, ch_hdr?, ch_main)>
+<!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main)>
 <!ATTLIST ch 
 	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT sec (sec_lbl?, sec_hdr?, sec_main)>
+<!ELEMENT sec (sec_lbl, (sec_hdr | sec_lbl_hdr), sec_main)>
 <!ATTLIST sec 
 	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT par (par_lbl?, par_hdr?, par_main)>
+<!ELEMENT par (par_lbl, (par_hdr | par_lbl_hdr), par_main)>
 <!ATTLIST par 
 	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
@@ -46,8 +46,11 @@
 <!ELEMENT par_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
 
 <!ELEMENT ch_lbl (#PCDATA)>
+<!ELEMENT ch_lbl_hdr (#PCDATA)>
 <!ELEMENT sec_lbl (#PCDATA)>
+<!ELEMENT sec_lbl_hdr (#PCDATA)>
 <!ELEMENT par_lbl (#PCDATA)>
+<!ELEMENT par_lbl_hdr (#PCDATA)>
 <!ELEMENT blk_blt_lbl (#PCDATA)>
 <!ELEMENT blk_itm_lbl (#PCDATA)>
 <!ELEMENT dsp_line_lbl (#PCDATA)>

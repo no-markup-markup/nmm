@@ -177,22 +177,21 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let xml_hdr_opt : Xml.xml option= (
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
+		let xml_hdr : Xml.xml = (
 			match a.fld_ch_hdr with
-			|None -> None
-			|Some (hdr : Doc_types.ts_hdr) -> 
+			|None -> Xml.Element ("ch_lbl_hdr", [], xml_list_lbl)
+			|Some (hdr : Doc_types.ts_hdr) ->
 				match hdr with
-				|Cs_hdr (t : Doc_types.ts_txt_units) -> Some (Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units path t))
+				|Cs_hdr (t : Doc_types.ts_txt_units) -> Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units path t)
 		)
-		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
-		in 
+		in
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tag_or_id a.fld_ch_tag_or_id in
-		match xml_hdr_opt with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl; xml_main])]])
-		|Some xml_hdr -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])
+		match a.fld_ch_hdr with
+		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_hdr;xml_main])]])
+		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])
 
 
 and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec) : t_acc =
@@ -219,22 +218,19 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let xml_hdr_opt:Xml.xml option= (
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
+		let xml_hdr:Xml.xml = (
 			match a.fld_sec_hdr with
-			|None -> None
+			|None -> Xml.Element ("sec_lbl_hdr",[],xml_list_lbl)
 			|Some (hdr : ts_hdr) -> 
 				match hdr with
-				|Cs_hdr (t:ts_txt_units) -> Some (Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units path t))
+				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units path t)
 		)
-		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
 		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tag_or_id a.fld_sec_tag_or_id in
-		match xml_hdr_opt with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl; xml_main])]])
-		|Some xml_hdr -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
 
 and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_par) : t_acc =
 	match acc with
@@ -260,22 +256,19 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let xml_hdr_opt:Xml.xml option= (
+		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
+		let xml_hdr:Xml.xml = (
 			match a.fld_par_hdr with
-			|None -> None
+			|None -> Xml.Element ("par_lbl_hdr",[],xml_list_lbl)
 			|Some (hdr : ts_hdr) -> 
 				match hdr with
-				|Cs_hdr (t:ts_txt_units) -> Some (Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t))
+				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t)
 		)
 		in 
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
-		in
 		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("par_lbl",[],xml_list_lbl) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tag_or_id a.fld_par_tag_or_id in
-		match xml_hdr_opt with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list, [xml_lbl; xml_main])]])
-		|Some xml_hdr -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list, [xml_lbl; xml_hdr; xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list, [xml_lbl; xml_hdr; xml_main])]])
 	)
 
 and acc_of_ch_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.te_secs_pars_or_blks) : t_acc =

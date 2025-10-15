@@ -28,6 +28,7 @@ html {
 .author {
         display:block;
         margin-left:var(--author_indent);
+        font-size:14px;
 }
 
 
@@ -59,16 +60,17 @@ html {
 }
 
 
-.ch_lbl {
+.ch_lbl, .ch_lbl_hdr {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
+        font-weight:normal;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:14px;
+        font-size:18px;
         margin-left:var(--left_margin);
 }
 
@@ -87,15 +89,20 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--fontsize);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
+.sec_lbl_hdr {
+        visibility:hidden;
+        font-size:16px;
+}
 
 .sec_main {
         display:block;
@@ -126,7 +133,7 @@ html {
 
 
 /* content of par_hdr has been copied to par_main for inline display */
-.par_hdr {
+.par_hdr, .par_lbl_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;

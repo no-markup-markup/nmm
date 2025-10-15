@@ -28,6 +28,7 @@ html {
 .author {
         display:block;
         margin-left:var(--author_indent);
+        font-size:14px;
 }
 
 
@@ -59,16 +60,17 @@ html {
 }
 
 
-.ch_lbl {
+.ch_lbl, .ch_lbl_hdr {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
+        font-weight:normal;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:14px;
+        font-size:18px;
         margin-left:var(--left_margin);
 }
 
@@ -87,15 +89,20 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--fontsize);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
+.sec_lbl_hdr {
+        visibility:hidden;
+        font-size:16px;
+}
 
 .sec_main {
         display:block;
@@ -126,7 +133,7 @@ html {
 
 
 /* content of par_hdr has been copied to par_main for inline display */
-.par_hdr {
+.par_hdr, .par_lbl_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -323,6 +330,7 @@ a {
 </div>
 <div class="par">
 <div class="par_lbl">¶ 1.1.2</div>
+<h4 class="par_lbl_hdr">¶ 1.1.2</h4>
 <div class="par_main">
 <p class="blk_txt">This is another paragraph.</p>
 </div>
@@ -331,6 +339,7 @@ a {
 </div>
 <div class="sec" tag="APP">
 <div class="sec_lbl">§ 1.A</div>
+<h3 class="sec_lbl_hdr">§ 1.A</h3>
 <div class="sec_main">
 <p class="blk_txt">This is an appendix. The optional header was omitted. Neither a section nor an appendix must consist of paragraphs, as this text block demonstrates.</p>
 <p class="blk_txt">An nmm source is made up of the following, in that order:</p>
@@ -453,7 +462,7 @@ a {
 </div>
 </div>
 <div class="ch">
-<div class="ch_lbl">CHAPTER 2</div>
+<h2 class="ch_lbl_hdr">CHAPTER 2</h2>
 <div class="ch_main">
 <p class="blk_txt">Another chapter</p>
 </div>

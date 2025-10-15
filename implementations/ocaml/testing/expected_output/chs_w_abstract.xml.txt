@@ -29,8 +29,7 @@
 
 
             CHAPTER 2
-            Second chapter
-            ══════════════
+            ═════════
 
 ¶ 2.1       First paragraph of second chapter  Lorem ipsum dolor sit amet,
             consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

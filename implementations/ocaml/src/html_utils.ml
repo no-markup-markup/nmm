@@ -5,8 +5,11 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	|Xml.Element ("abstract", attr_list,xml_list) -> 
 		Xml.Element ("div",("class", "abstract")::attr_list, (Xml.Element ("h2", [("class", "abstract_hdr")],[Xml.PCData "ABSTRACT"]))::(List.map html_of_exml xml_list))
 	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("par_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("blk_txt", attr_list, xml_list) -> Xml.Element ("p", ("class", "blk_txt")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("txt_unit_wysiwyg", attr_list, [Xml.PCData s]) -> Xml.PCData s
 	|Xml.Element ("txt_unit_emph", attr_list, xml_list) -> Xml.Element ("em", ("class", "txt_unit_emph")::attr_list, List.map html_of_exml xml_list)
@@ -43,6 +46,7 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
 .author {
         display:block;
         margin-left:var(--author_indent);
+        font-size:14px;
 }
 
 
@@ -74,16 +78,17 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.ch_lbl {
+.ch_lbl, .ch_lbl_hdr {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
+        font-weight:normal;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:14px;
+        font-size:18px;
         margin-left:var(--left_margin);
 }
 
@@ -102,15 +107,20 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
         display:block;
         float:left;
         margin-right:1ch;
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--fontsize);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
+.sec_lbl_hdr {
+        visibility:hidden;
+        font-size:16px;
+}
 
 .sec_main {
         display:block;
@@ -141,7 +151,7 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 /* content of par_hdr has been copied to par_main for inline display */
-.par_hdr {
+.par_hdr, .par_lbl_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;

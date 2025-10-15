@@ -28,6 +28,7 @@ html {
 .author {
         display:block;
         margin-left:var(--author_indent);
+        font-size:14px;
 }
 
 
@@ -59,16 +60,17 @@ html {
 }
 
 
-.ch_lbl {
+.ch_lbl, .ch_lbl_hdr {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
+        font-weight:normal;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:14px;
+        font-size:18px;
         margin-left:var(--left_margin);
 }
 
@@ -87,15 +89,20 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--fontsize);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
+.sec_lbl_hdr {
+        visibility:hidden;
+        font-size:16px;
+}
 
 .sec_main {
         display:block;
@@ -126,7 +133,7 @@ html {
 
 
 /* content of par_hdr has been copied to par_main for inline display */
-.par_hdr {
+.par_hdr, .par_lbl_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -302,6 +309,7 @@ a {
 <div class="doc_main">
 <div class="par" id="PAR:named_paragraph" tag="PAR">
 <div class="par_lbl">¶ 1</div>
+<h4 class="par_lbl_hdr">¶ 1</h4>
 <div class="par_main">
 <p class="blk_txt">This is a no-markup-markup document, sporting the following cool features:</p>
 <div class="blk_itm">
@@ -383,6 +391,7 @@ a {
 </div>
 <div class="par">
 <div class="par_lbl">¶ 2</div>
+<h4 class="par_lbl_hdr">¶ 2</h4>
 <div class="par_main">
 <p class="blk_txt">We may also refer to <a class="txt_unit_c_ref" href="#ITM:x">1(2)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:y">1(2)(c)</a> from another paragraph. These references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR:named_paragraph">¶ 1</a>.</p>
 </div>

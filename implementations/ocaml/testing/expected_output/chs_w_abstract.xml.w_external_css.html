@@ -30,6 +30,7 @@ html {
 .author {
         display:block;
         margin-left:var(--author_indent);
+        font-size:14px;
 }
 
 
@@ -61,16 +62,17 @@ html {
 }
 
 
-.ch_lbl {
+.ch_lbl, .ch_lbl_hdr {
         display:block;
         font-size:14px;
         margin-left:var(--left_margin);
+        font-weight:normal;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:14px;
+        font-size:18px;
         margin-left:var(--left_margin);
 }
 
@@ -89,15 +91,20 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--fontsize);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
+.sec_lbl_hdr {
+        visibility:hidden;
+        font-size:16px;
+}
 
 .sec_main {
         display:block;
@@ -128,7 +135,7 @@ html {
 
 
 /* content of par_hdr has been copied to par_main for inline display */
-.par_hdr {
+.par_hdr, .par_lbl_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -318,8 +325,7 @@ a {
 </div>
 </div>
 <div class="ch">
-<div class="ch_lbl">CHAPTER 2</div>
-<h2 class="ch_hdr">Second chapter</h2>
+<h2 class="ch_lbl_hdr">CHAPTER 2</h2>
 <div class="ch_main">
 <div class="par">
 <div class="par_lbl">¶ 2.1</div>
@@ -330,6 +336,7 @@ a {
 </div>
 <div class="par">
 <div class="par_lbl">¶ 2.2</div>
+<h4 class="par_lbl_hdr">¶ 2.2</h4>
 <div class="par_main">
 <p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
@@ -342,6 +349,7 @@ a {
 <div class="ch_main">
 <div class="sec">
 <div class="sec_lbl">§ 3.1</div>
+<h3 class="sec_lbl_hdr">§ 3.1</h3>
 <div class="sec_main">
 <p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
@@ -352,12 +360,14 @@ a {
 <div class="sec_main">
 <div class="par">
 <div class="par_lbl">¶ 3.2.1</div>
+<h4 class="par_lbl_hdr">¶ 3.2.1</h4>
 <div class="par_main">
 <p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 </div>
 </div>
 <div class="par">
 <div class="par_lbl">¶ 3.2.2</div>
+<h4 class="par_lbl_hdr">¶ 3.2.2</h4>
 <div class="par_main">
 <p class="blk_txt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
