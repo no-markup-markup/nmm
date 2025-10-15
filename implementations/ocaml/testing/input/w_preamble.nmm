@@ -1,4 +1,4 @@
-Preamble:
+PREAMBLE:
 	doc_width=75
 	title_indent=0
 	author_indent=0
@@ -6,8 +6,8 @@ Preamble:
 	sec_symbol=""
 	par_symbol=""
 
-Title:	OPTIMAL PARTITIONING
-Author:	Eric Johannesson
+TITLE:	OPTIMAL PARTITIONING
+AUTHOR:	Eric Johannesson
 
 §
 Introduction
