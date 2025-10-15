@@ -63,7 +63,7 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 	| _ ->
 		match print_tokens with
 		|false -> 
-			let _ = Printf.eprintf "%s\n" ("Parsing failed, read the the following tokens from " ^ filename ^ ":") in 
+			let _ = Debug_utils.print_to_stderr ("Parsing failed, read the the following tokens from " ^ filename ^ ":") in 
 			doc_of_nmm_file true filename
 		|true -> raise (Error "parsing failed")
 
@@ -78,7 +78,7 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 	| _ ->
 		match print_tokens with
 		|false -> 
-			let _ = Printf.eprintf "%s\n" ("Parsing failed, read the the following tokens from \"" ^ s ^ "\":") in 
+			let _ = Debug_utils.print_to_stderr ("Parsing failed, read the the following tokens from \"" ^ s ^ "\":") in 
 			doc_of_nmm_file true s
 		|true -> raise (Error "parsing failed")
 	
