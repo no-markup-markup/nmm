@@ -105,7 +105,7 @@ let check_xml_schema (path:string):string =
 		let _:Dtd.checked=Dtd.check dtd in
 		String.concat " " [path;"is a well-defined xml-schema"]
 	with 
-	|Xml_light_errors.Dtd_check_error e -> String.concat " " [path; "-> ERROR:";Dtd.check_error e]
+	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path; "-> ERROR:";Dtd.check_error e]))
 
 let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):string =
 	let print_tokens = false in 
@@ -120,10 +120,10 @@ let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):
 		let _=Dtd.prove checked_dtd entry_point xml in 
 		String.concat " " [path_to_xml;"is an instance of";path_to_dtd;"with entry-point";entry_point]
 	with 
-	|Xml_light_errors.Dtd_parse_error e -> String.concat " " [path_to_dtd;"-> ERROR:";Dtd.parse_error e]
-	|Xml_light_errors.Dtd_check_error e -> String.concat " " [path_to_dtd;"-> ERROR:";Dtd.check_error e]
-	|Xml_light_errors.Dtd_prove_error e -> String.concat " " [path_to_dtd;entry_point;path_to_xml;"-> ERROR:";Dtd.prove_error e]
-	|Xml_light_errors.Xml_error e -> String.concat " " [path_to_xml;"-> ERROR:";Xml.error e]
+	|Xml_light_errors.Dtd_parse_error e -> raise (Error (String.concat " " [path_to_dtd;"-> ERROR:";Dtd.parse_error e]))
+	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"-> ERROR:";Dtd.check_error e]))
+	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;entry_point;path_to_xml;"-> ERROR:";Dtd.prove_error e]))
+	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"-> ERROR:";Xml.error e]))
 
 
 let test_w_nmm (path_to_nmm_file : string) : unit =
