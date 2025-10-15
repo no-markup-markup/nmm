@@ -51,6 +51,7 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("title_indent", v) -> set_title_indent v
 				|Some ("author_indent", v) -> set_author_indent v
 				|Some ("tab_length", v) -> set_tab_length v
+				|Some ("ch_symbol", v) -> set_ch_symbol v
 				|Some ("sec_symbol", v) -> set_sec_symbol v
 				|Some ("par_symbol", v) -> set_par_symbol v
 				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
@@ -86,6 +87,10 @@ and set_author_indent (v : string) : unit =
 and set_tab_length (v : string) : unit =
 	try doc_settings.tab_length <- (int_of_string v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"\n";"using default value"])
+
+and set_ch_symbol (v : string) : unit =
+	try doc_settings.ch_symbol <- (symbol_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid ch_symbol value: ";v;"\n";"using default value"])
 
 and set_sec_symbol (v : string) : unit =
 	try doc_settings.sec_symbol <- (symbol_value_of_string v) with _ ->
@@ -309,6 +314,12 @@ and label_of_path_opt (path : t_path) : string option =
 	| hd :: tl ->
 		let s = string_of_node tl hd in
 		match hd with
+		| CH_NODE _ -> (
+			match (doc_settings.ch_symbol, s) with
+			| None, Some t -> Some t
+			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
+			| _, None-> None
+		)
 		| SEC_NODE _
 		| APP_NODE _ -> (
 			match (doc_settings.sec_symbol, s) with
@@ -325,12 +336,6 @@ and label_of_path_opt (path : t_path) : string option =
 		| ITM_NODE _ -> s
 		| BLT_NODE -> s
 		| DSP_LINE_NODE _ -> s
-		| CH_NODE _ -> (
-			match s with
-			|None -> None
-			|Some t -> 
-				Some ("CHAPTER " ^ t)
-		)
 		| _ -> s
 
 and label_of_path (path : t_path) : string=
