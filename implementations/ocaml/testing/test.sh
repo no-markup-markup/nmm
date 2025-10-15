@@ -1,50 +1,63 @@
 #! /usr/bin/env bash
 
+#set -e
+
+color(){
+	printf "\e[36m%s\e[0m\n" "$1"
+}
+
+if [ -d output ]
+then
+		rm -r output
+fi
+
 mkdir -p output
 
 for file in $(ls input/*.nmm)
 do
-	echo "# nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt:"
+	color "# nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt:"
 	../bin/nmm-ocaml txt-of-nmm $file > output/$(basename $file).txt
-	echo "# nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html:"
+	color "# nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html:"
 	../bin/nmm-ocaml html-of-nmm none en $file > output/$(basename $file).html
-	echo "# nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml:"
+	color "# nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml:"
 	../bin/nmm-ocaml xml-of-nmm $file > output/$(basename $file).xml
-	echo "# nmm-ocaml test-with-nmm $file:"
+	color "# nmm-ocaml test-with-nmm $file:"
 	../bin/nmm-ocaml test-with-nmm $file
 done
 
 for file in $(ls input/*.xml)
 do
-	echo "# nmm-ocaml txt-of-xml $file > output/$(basename $file).txt:"
+	color "# nmm-ocaml txt-of-xml $file > output/$(basename $file).txt:"
 	../bin/nmm-ocaml txt-of-xml $file > output/$(basename $file).txt
-	echo "# nmm-ocaml html-of-xml none en $file > output/$(basename $file).html:"
+	color "# nmm-ocaml html-of-xml none en $file 1 output/$(basename $file).html:"
 	../bin/nmm-ocaml html-of-xml none en $file > output/$(basename $file).html
-	echo "# nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).color.html:"
+	color "# nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).color.html:"
 	../bin/nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).w_external_css.html
-	echo "# nmm-ocaml test-with-xml $file:"
+	color "# nmm-ocaml test-with-xml $file:"
 	../bin/nmm-ocaml test-with-xml $file
 
 done
 
-echo "# nmm-ocaml check-xml-schema ../dtd/axml.dtd:"
-../bin/nmm-ocaml check-xml-schema dtd/axml.dtd
+color "# nmm-ocaml check-xml-schema ../dtd/axml.dtd 1> /dev/null:"
+../bin/nmm-ocaml check-xml-schema dtd/axml.dtd > /dev/null
+color "# nmm-ocaml check-xml-schema ../dtd/exml.dtd 1> /dev/null:"
+../bin/nmm-ocaml check-xml-schema dtd/exml.dtd > /dev/null
 
 for file in $(ls output/*.xml)
 do
-	echo "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file:"
-	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file
+	color "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file 1> /dev/null:"
+	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file > /dev/null
 done
 
 for file in $(ls input/*.xml)
 do
-	echo "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file:"
-	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file
+	color "# nmm-ocaml validate-xml ../dtd/axml.dtd cr_doc $file 1> /dev/null:"
+	../bin/nmm-ocaml validate-xml dtd/axml.dtd cr_doc $file > /dev/null
 done
 
 
 for file in $(ls output)
 do
-	echo "# diff expected_output/$file output/$file:"
+	color "# diff expected_output/$file output/$file:"
 	diff --color expected_output/$file output/$file 
 done
