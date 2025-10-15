@@ -20,7 +20,7 @@ do
 	../bin/nmm-ocaml txt-of-xml $file > output/$(basename $file).txt
 	echo "# ../bin/nmm-ocaml html-of-xml none en $file > output/$(basename $file).html:"
 	../bin/nmm-ocaml html-of-xml none en $file > output/$(basename $file).html
-	echo "# ../bin/nmm-ocaml html-of-xml ../css/color.css en $file > output/$(basename $file).color.html:"
+	echo "# ../bin/nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).color.html:"
 	../bin/nmm-ocaml html-of-xml ../css/external.css en $file > output/$(basename $file).w_external_css.html
 
 done
