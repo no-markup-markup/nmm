@@ -1,4 +1,4 @@
-            CHAPTER 1
+            CHAPTER 1
             This is this chapter's (optional) header
             ════════════════════════════════════════
 
@@ -74,7 +74,7 @@
 
 
 
-            CHAPTER 2
+            CHAPTER 2
             ═════════
 
 ¶ 2.1       This chapter's header is omitted.

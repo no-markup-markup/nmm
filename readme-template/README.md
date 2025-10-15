@@ -555,7 +555,7 @@ This chapter's header is omitted.
   <summary><b>raw text semantics</b></summary>
 
 ```
-            CHAPTER 1
+            CHAPTER 1
             This is this chapter's (optional) header
             ════════════════════════════════════════
 
@@ -631,10 +631,112 @@ This chapter's header is omitted.
 
 
 
-            CHAPTER 2
+            CHAPTER 2
             ═════════
 
 ¶ 2.1       This chapter's header is omitted.
+```
+</details>
+
+### Title, author, abstract, references
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+TITLE:
+	Some chapters
+
+AUTHOR:
+	Donald Duck and Mickey Mouse
+
+ABSTRACT:
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+	eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+	enim ad minim veniam, quis nostrud exercitation ullamco laboris
+	nisi ut aliquip ex ea commodo consequat.
+
+	Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+	cupidatat non proident, sunt in culpa qui officia deserunt
+	mollit anim id est laborum.
+
+CH
+First chapter
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
+
+CH
+Second chapter
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
+
+§ REFS
+
+-	Euler, Leonhard (1740): De summis serierum reciprocarum. In:
+	Commentarii academiae scientiarum Petropolitanae, volume 7,
+	pages 123–134
+
+-	Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
+	Robinson (1953): Undecidable Theories; North-Holland Publishing
+	Company; Amsterdam.
+```
+</details>
+
+<details>
+  <summary><b>raw text semantics</b></summary>
+
+```
+            Some chapters
+
+            Donald Duck and Mickey Mouse
+
+            CHAPTER 1
+            First chapter
+            ═════════════
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+
+
+
+
+            CHAPTER 2
+            Second chapter
+            ══════════════
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
 ```
 </details>
 
