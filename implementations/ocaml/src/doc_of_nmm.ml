@@ -48,6 +48,7 @@ let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.posi
 (******************************************************************)
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
+	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
 	match Sys.file_exists filename with
 	|false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
 	|true -> 
@@ -67,6 +68,7 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 		|true -> raise (Error "parsing failed")
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
+	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
 	try
 		let lexbuf=Sedlexing.Utf8.from_string s in
 		let revised_lexer () = (lexer print_tokens) lexbuf in 
