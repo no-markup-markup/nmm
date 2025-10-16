@@ -4,6 +4,8 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	|Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("abstract", attr_list,xml_list) -> 
 		Xml.Element ("div",("class", "abstract")::attr_list, (Xml.Element ("h2", [("class", "abstract_hdr")],[Xml.PCData "ABSTRACT"]))::(List.map html_of_exml xml_list))
+	|Xml.Element ("refs", attr_list,xml_list) -> 
+		Xml.Element ("div",("class", "refs")::attr_list, (Xml.Element ("h2", [("class", "refs_hdr")],[Xml.PCData "REFERENCES"]))::(List.map html_of_exml xml_list))
 	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
@@ -62,6 +64,20 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
         font-weight:normal;
         font-size:14px;
 }
+
+.refs {
+        display:block;
+        margin-left:var(--refs_indent);
+        margin-top:3em;
+}
+
+
+.refs_hdr {
+        display:block;
+        font-weight:normal;
+        font-size:14px;
+}
+
 
 .doc_main {
         display:block;

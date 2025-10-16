@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<cr_doc>
+	<cs_title>Some chapters</cs_title>
+	<cs_author>Donald Duck and Mickey Mouse</cs_author>
+	<cs_abstract>
+		<cs_blks_txt>
+			<cs_blk_txt>
+				<cs_txt_units>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>enim ad minim veniam, quis nostrud exercitation ullamco laboris</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>nisi ut aliquip ex ea commodo consequat.</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+				</cs_txt_units>
+			</cs_blk_txt>
+			<cs_blk_txt>
+				<cs_txt_units>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>Duis aute irure dolor in reprehenderit in voluptate velit esse</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>cupidatat non proident, sunt in culpa qui officia deserunt</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+					<ce_txt_unit_wysiwyg>
+						<cs_txt_unit_wysiwyg>mollit anim id est laborum.</cs_txt_unit_wysiwyg>
+					</ce_txt_unit_wysiwyg>
+				</cs_txt_units>
+			</cs_blk_txt>
+		</cs_blks_txt>
+	</cs_abstract>
+	<ce_doc_main_chs>
+		<cs_chs>
+			<cr_ch>
+				<cs_hdr>
+					<cs_txt_units>
+						<ce_txt_unit_wysiwyg>
+							<cs_txt_unit_wysiwyg>First chapter</cs_txt_unit_wysiwyg>
+						</ce_txt_unit_wysiwyg>
+					</cs_txt_units>
+				</cs_hdr>
+				<ce_secs_pars_or_blks_blks>
+					<cs_blks>
+						<ce_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>minim veniam, quis nostrud exercitation ullamco laboris nisi ut</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>aliquip ex ea commodo consequat.</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</ce_blk_txt>
+						<ce_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>proident, sunt in culpa qui officia deserunt mollit anim id est</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>laborum.</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</ce_blk_txt>
+					</cs_blks>
+				</ce_secs_pars_or_blks_blks>
+			</cr_ch>
+			<cr_ch>
+				<cs_hdr>
+					<cs_txt_units>
+						<ce_txt_unit_wysiwyg>
+							<cs_txt_unit_wysiwyg>Second chapter</cs_txt_unit_wysiwyg>
+						</ce_txt_unit_wysiwyg>
+					</cs_txt_units>
+				</cs_hdr>
+				<ce_secs_pars_or_blks_blks>
+					<cs_blks>
+						<ce_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>minim veniam, quis nostrud exercitation ullamco laboris nisi ut</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>aliquip ex ea commodo consequat.</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</ce_blk_txt>
+						<ce_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>proident, sunt in culpa qui officia deserunt mollit anim id est</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>laborum.</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</ce_blk_txt>
+					</cs_blks>
+				</ce_secs_pars_or_blks_blks>
+			</cr_ch>
+		</cs_chs>
+	</ce_doc_main_chs>
+	<cs_refs>
+		<cs_blks>
+			<ce_blk_blt>
+				<cs_blk_blt>
+					<cs_blks>
+						<ce_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Euler, Leonhard (1740): De summis serierum reciprocarum. In:</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Commentarii academiae scientiarum Petropolitanae, volume 7,</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>pages 123–134</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</ce_blk_txt>
+					</cs_blks>
+				</cs_blk_blt>
+			</ce_blk_blt>
+			<ce_blk_blt>
+				<cs_blk_blt>
+					<cs_blks>
+						<ce_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Tarski, Alfred, and Andrzej Mostowski, and Raphael M.</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Robinson (1953): Undecidable Theories; North-Holland Publishing</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+									<ce_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Company; Amsterdam.</cs_txt_unit_wysiwyg>
+									</ce_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</ce_blk_txt>
+					</cs_blks>
+				</cs_blk_blt>
+			</ce_blk_blt>
+		</cs_blks>
+	</cs_refs>
+</cr_doc>

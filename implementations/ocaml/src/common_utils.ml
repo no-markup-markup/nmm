@@ -10,8 +10,10 @@ type t_doc_settings = {
 	mutable title_indent: int;
 	mutable author_indent: int;
 	mutable abstract_indent: int;
+	mutable refs_indent: int;
 	mutable tab_length : int;
 	mutable abstract_symbol: string option;
+	mutable refs_symbol: string option;
 	mutable ch_symbol: string option;
 	mutable sec_symbol: string option;
 	mutable par_symbol : string option;
@@ -23,8 +25,10 @@ let doc_settings : t_doc_settings = {
 	title_indent = 12;
 	author_indent = 12;
 	abstract_indent = 12;
+	refs_indent = 12;
 	tab_length = 6;
 	abstract_symbol = Some "ABSTRACT";
+	refs_symbol = Some "REFERENCES";
 	ch_symbol = Some "CHAPTER";
 	sec_symbol = Some "§";
 	par_symbol = Some "¶";
@@ -32,17 +36,39 @@ let doc_settings : t_doc_settings = {
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 	let _ : unit = (
-		match doc.fld_doc_main with
-			|Ce_doc_main_blks _ -> 
+		match contains_sec_or_par doc with
+			|false -> 
 				let _ : unit = doc_settings.title_indent <- 0 in 
 				let _ : unit = doc_settings.author_indent <- 0 in
+				let _ : unit = doc_settings.abstract_indent <- 0 in
+				let _ : unit = doc_settings.refs_indent <- 0 in
+				let _ : unit = doc_settings.left_margin <- 0 in
 				doc_settings.doc_width <- 68
-			| _ -> ()
+			|true -> ()
 	)
 	in
 	match doc.fld_doc_preamble with
 	|None -> ()
 	|Some preamble -> doc_settings_of_ts_preamble preamble 
+
+and contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
+	match doc.fld_doc_main with
+	| Ce_doc_main_blks _ -> false
+	| Ce_doc_main_chs (chs : Doc_types.ts_chs) -> (
+		let rec aux (ch_list : Doc_types.tr_ch list) : bool =
+			match ch_list with
+			|[] -> false
+			|hd::tl -> 
+				match hd.fld_ch_main with
+				| Ce_secs_pars_or_blks_secs _ -> true
+				| Ce_secs_pars_or_blks_pars _ -> true
+				| Ce_secs_pars_or_blks_blks _ -> aux tl
+		in
+		match chs with
+		|Cs_chs ch_list -> aux ch_list
+	)
+	| Ce_doc_main_secs _ -> true
+	| Ce_doc_main_pars _ -> true
 
 and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 	let rec aux (str_list : string list) : unit =
@@ -123,6 +149,7 @@ and t_node =
 	| DSP_NODE
 	| BLT_NODE
 	| DSP_LINE_NODE of t_dsp_line_node
+	| REFS_NODE
 
 and t_itm_node = ITM_INT of int | ITM_STRING of string
 
@@ -321,6 +348,7 @@ and label_of_path_opt (path : t_path) : string option =
 		let s = string_of_node tl hd in
 		match hd with
 		| ABSTRACT_NODE -> doc_settings.abstract_symbol
+		| REFS_NODE -> doc_settings.refs_symbol
 		| CH_NODE _ -> (
 			match (doc_settings.ch_symbol, s) with
 			| None, Some t -> Some t

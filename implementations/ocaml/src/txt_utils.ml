@@ -36,6 +36,16 @@ and lines_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_a
 		in
 		List.concat [abstract_hdr;abstract_main;["";"";"";""]]
 
+and lines_of_refs_hdr () : string list = 
+	match Common_utils.doc_settings.refs_symbol with
+	|None -> []
+	|Some (symbol : string) -> 
+		let indent : string = String.make (doc_settings.refs_indent) ' ' in
+		let hdr_string : string = symbol in
+		let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) "─" in
+		let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr_string in
+		List.concat [hdr_lines;[indent ^ underline;""]]
+
 and lines_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_blks_txt): string list =
 	match blks_txt with
 	|Cs_blks_txt (blk_txt_list : Doc_types.ts_blk_txt list) -> List.concat (List.map (lines_of_ts_blk_txt path) blk_txt_list)
@@ -88,11 +98,15 @@ and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : stri
 
 and lines_of_ts_title (title : Doc_types.ts_title) : string list =
 	match title with
-	|Cs_title (s : string) -> List.concat [lines_of_string doc_settings.title_indent s; [""]]
+	|Cs_title (s : string) -> 
+		let indent : string = String.make doc_settings.title_indent ' ' in
+		let overline : string = make_string (doc_settings.doc_width - doc_settings.title_indent) "═" in
+		let underline : string = overline in
+		List.concat [[indent ^ overline]; lines_of_string doc_settings.title_indent s;[indent ^ underline;""]]
 
 and lines_of_ts_author (author : Doc_types.ts_author) : string list =
 	match author with
-	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings.author_indent s; [""]]
+	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings.author_indent s; ["";""]]
 
 and make_string (n:int) (s:string) : string=
 	let rec aux (i:int) (acc:string) = 
@@ -201,7 +215,8 @@ and indent_of_path (path : Common_utils.t_path) : int =
 	| [] -> 0
 	| hd :: tl -> 
 		match hd with
-		| ABSTRACT_NODE -> doc_settings.left_margin
+		| REFS_NODE -> doc_settings.refs_indent
+		| ABSTRACT_NODE -> doc_settings.abstract_indent
 		| CH_NODE _ -> doc_settings.left_margin
 		| SEC_NODE _ -> doc_settings.left_margin
 		| PAR_NODE _ -> doc_settings.left_margin

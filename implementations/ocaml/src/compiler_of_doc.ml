@@ -40,13 +40,21 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 		let lines_title:string list = Txt_utils.lines_of_ts_title_opt doc.fld_doc_title in
 		let lines_author:string list = Txt_utils.lines_of_ts_author_opt doc.fld_doc_author in
 		let lines_abstract:string list = Txt_utils.lines_of_ts_abstract_opt [ABSTRACT_NODE] doc.fld_doc_abstract in
+		let lines_refs:string list = 
+			match doc.fld_doc_refs with
+			|None -> []
+			|Some (refs : ts_refs) -> 
+				match acc_of_ts_refs [REFS_NODE] (LINES []) refs with
+				|LINES lines -> lines
+				| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+		in
 		let lines_main:string list = (
-			match acc_of_te_doc_main acc doc.fld_doc_main with
+			match acc_of_te_doc_main (LINES []) doc.fld_doc_main with
 			|LINES lines -> lines 
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let lines_doc = List.concat [lines_title;lines_author;lines_abstract;lines_main] in
+		let lines_doc = List.concat [lines_title;lines_author;lines_abstract;lines_main;lines_refs] in
 		LINES lines_doc
 
 	)
@@ -54,14 +62,38 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 		let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc.fld_doc_title in
 		let xml_list_author:Xml.xml list = Exml_utils.xml_list_of_ts_author_opt doc.fld_doc_author in
 		let xml_list_abstract:Xml.xml list = Exml_utils.xml_list_of_ts_abstract_opt [ABSTRACT_NODE] doc.fld_doc_abstract in
+		let xml_list_refs:Xml.xml list = 
+			match doc.fld_doc_refs with
+			|None -> []
+			|Some (refs : ts_refs) -> 
+				match acc_of_ts_refs [REFS_NODE] (EXML []) refs with
+				|EXML xml_list -> xml_list
+				| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+		in
 		let xml_main:Xml.xml = (
 			match acc_of_te_doc_main acc doc.fld_doc_main with
 			|EXML xml_list -> Xml.Element ("doc_main",[],xml_list) 
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let xml_list_doc = List.concat [xml_list_title;xml_list_author;xml_list_abstract;[xml_main]] in
+		let xml_list_doc = List.concat [xml_list_title;xml_list_author;xml_list_abstract;[xml_main];xml_list_refs] in
 		EXML [Xml.Element ("doc",[],xml_list_doc)]
+
+and acc_of_ts_refs (path : Common_utils.t_path) (acc : t_acc) (a : ts_refs) : t_acc =
+	match a with
+	|Cs_refs (b : ts_blks) -> 
+		match acc with
+		|LINES _ -> (
+			match acc_of_ts_blks path (LINES []) b with
+			|LINES lines -> LINES (List.concat [["";"";""];Txt_utils.lines_of_refs_hdr (); lines])
+			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+		)
+		|EXML _ -> (
+			match acc_of_ts_blks path (EXML []) b with
+			|EXML xml_list -> EXML [Xml.Element ("refs",[],xml_list)]
+			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+		)
+		| _ -> acc_of_ts_blks path acc b
 
 and acc_of_te_doc_main (acc : t_acc) (a : Doc_types.te_doc_main) : t_acc =
 	match a with

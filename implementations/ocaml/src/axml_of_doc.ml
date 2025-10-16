@@ -12,7 +12,8 @@ let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
 	let xml_list_author : Xml.xml list = xml_list_of_ts_author_opt doc.fld_doc_author in
 	let xml_list_abstract : Xml.xml list = xml_list_of_ts_abstract_opt doc.fld_doc_abstract in
 	let xml_list_main : Xml.xml list = [xml_of_te_doc_main doc.fld_doc_main] in
-	let xml_list_doc : Xml.xml list = List.concat [xml_list_preamble; xml_list_title; xml_list_author; xml_list_abstract; xml_list_main] in
+	let xml_list_refs : Xml.xml list = xml_list_of_ts_refs_opt doc.fld_doc_refs in
+	let xml_list_doc : Xml.xml list = List.concat [xml_list_preamble; xml_list_title; xml_list_author; xml_list_abstract; xml_list_main;xml_list_refs] in
 	Xml.Element ("cr_doc",[],xml_list_doc)
 
 and xml_list_of_ts_preamble_opt (preamble_opt : ts_preamble option) : Xml.xml list =
@@ -35,6 +36,11 @@ and xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) : Xml.xml li
 	| None -> []
 	| Some abstract -> [xml_of_ts_abstract abstract]
 
+and xml_list_of_ts_refs_opt (refs_opt : ts_refs option) : Xml.xml list =
+	match refs_opt with
+	| None -> []
+	| Some refs -> [xml_of_ts_refs refs]
+
 
 and xml_of_ts_preamble (preamble : ts_preamble) : Xml.xml =
 	match preamble with
@@ -52,6 +58,12 @@ and xml_of_ts_abstract (abstract:ts_abstract):Xml.xml =
 	match abstract with
 	|Cs_abstract (blks_txt: ts_blks_txt) ->
 		Xml.Element ("cs_abstract",[], [xml_of_ts_blks_txt blks_txt])
+
+and xml_of_ts_refs (refs:ts_refs):Xml.xml = 
+	match refs with
+	|Cs_refs (blks: ts_blks) ->
+		Xml.Element ("cs_refs",[], [xml_of_ts_blks blks])
+
 
 and xml_of_ts_blks_txt (blks_txt : ts_blks_txt) : Xml.xml =
 	match blks_txt with
