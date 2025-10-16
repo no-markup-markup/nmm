@@ -35,7 +35,15 @@ and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
 	match acc with
-	| CREF_TABLE _ ->  acc_of_te_doc_main acc doc.fld_doc_main
+	| CREF_TABLE acc_table -> (
+		match doc.fld_doc_refs with
+		|None -> acc_of_te_doc_main acc doc.fld_doc_main
+		|Some (refs : ts_refs) -> 
+				match acc_of_ts_refs [REFS_NODE] (CREF_TABLE []) refs with
+				|CREF_TABLE table ->
+					acc_of_te_doc_main (CREF_TABLE (List.concat [acc_table;table])) doc.fld_doc_main
+				| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+	)
 	| LINES _ -> (
 		let lines_title:string list = Txt_utils.lines_of_ts_title_opt doc.fld_doc_title in
 		let lines_author:string list = Txt_utils.lines_of_ts_author_opt doc.fld_doc_author in

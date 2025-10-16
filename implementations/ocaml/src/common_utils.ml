@@ -166,7 +166,7 @@ let doc_cref_table : t_doc_cref_table = { content = [] }
 
 let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string =
 	match c_ref with Cs_c_ref (id : Doc_types.tr_id) ->
-	let s : string =
+	let pos_string : string =
 		match string_of_path pos pos with 
 		| None -> "document" 
 		| Some s -> s
@@ -180,12 +180,12 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 				match path_entry, string_of_path path_entry (sub_path_of_cref_path pos path_entry) with
 				|hd::tl, Some (s : string) -> (
 					match hd with
-					|CH_NODE _ -> (
+(*					|CH_NODE _ -> (
 						match doc_settings.ch_symbol with
 						|None -> Some s
 						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
 					)
-					|SEC_NODE _ -> (
+*)					|SEC_NODE _ -> (
 						match doc_settings.sec_symbol with
 						|None -> Some s
 						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
@@ -204,7 +204,7 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 	in
 	match aux doc_cref_table.content with
 	| None ->
-		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference in " ^ s) in 
+		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference in " ^ pos_string) in 
 		"??"
 	| Some (t : string) -> t
 
@@ -212,7 +212,7 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 and sub_path_of_cref_path (pos : t_path) (path : t_path) : t_path =
 	let rev_pos : t_path = List.rev pos in
 	let rev_path : t_path = List.rev path in
-	let s : string =
+	let pos_string : string =
 		match string_of_path pos pos with 
 		| None -> "document" 
 		| Some s -> s
@@ -225,13 +225,13 @@ and sub_path_of_cref_path (pos : t_path) (path : t_path) : t_path =
 			| false -> List.rev rev_path
 		)
 		| [], [] -> 
-			let _ : unit = Debug_utils.print_to_stderr ("WARNING: self-reference in " ^ s) in
+			let _ : unit = Debug_utils.print_to_stderr ("WARNING: self-reference in " ^ pos_string) in
 			[List.hd path]
 		| pos_hd :: pos_tl, [] ->
-			let _ : unit = Debug_utils.print_to_stderr ("WARNING: reference to parent node in " ^ s) in
+			let _ : unit = Debug_utils.print_to_stderr ("WARNING: reference to parent node in " ^ pos_string) in
 			[List.hd path]
 		| [], path_hd :: path_tl ->
-		(*	let _:unit=Debug_utils.print_to_stderr ("WARNING: reference to child node in "^s) in *)
+		(*	let _:unit=Debug_utils.print_to_stderr ("WARNING: reference to child node in " ^ pos_string) in *)
 			List.rev rev_path
 	)
 	in 
@@ -262,6 +262,14 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 	| [], _ -> raise (Error "full path shorter than path")
 
 and string_of_node (pos : t_path) (node : t_node) : string option =
+	let lpar,rpar = 
+		match pos with
+		|[] -> "(",")"
+		|hd::tl ->
+			match hd with
+			|REFS_NODE -> "[","]"
+			| _ -> "(",")"
+	in
 	match node with
 	| CH_NODE (n : int)
 	| SEC_NODE (n : int)
@@ -285,8 +293,8 @@ and string_of_node (pos : t_path) (node : t_node) : string option =
 				| 0 -> string_of_int (n + 1)
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
-			in Some (String.concat s [ "("; ")" ])
-		| DSP_STRING (s : string) -> Some (String.concat s [ "("; ")" ])
+			in Some (String.concat s [ lpar; rpar ])
+		| DSP_STRING (s : string) -> Some (String.concat s [ lpar; rpar ])
 	)
 	| ITM_NODE (a : t_itm_node) ->
 		string_of_node pos (DSP_LINE_NODE (dsp_line_node_of_itm_node a))
@@ -345,33 +353,31 @@ and label_of_path_opt (path : t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
-		let s = string_of_node tl hd in
+		let s_opt : string option = string_of_node tl hd in
 		match hd with
-		| ABSTRACT_NODE -> doc_settings.abstract_symbol
-		| REFS_NODE -> doc_settings.refs_symbol
 		| CH_NODE _ -> (
-			match (doc_settings.ch_symbol, s) with
+			match (doc_settings.ch_symbol, s_opt) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
 		| SEC_NODE _
 		| APP_NODE _ -> (
-			match (doc_settings.sec_symbol, s) with
+			match (doc_settings.sec_symbol, s_opt) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
 		| PAR_NODE _ -> (
-			match (doc_settings.par_symbol, s) with
+			match (doc_settings.par_symbol, s_opt) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
-		| ITM_NODE _ -> s
-		| BLT_NODE -> s
-		| DSP_LINE_NODE _ -> s
-		| _ -> s
+		| ITM_NODE _ -> s_opt
+		| BLT_NODE -> s_opt
+		| DSP_LINE_NODE _ -> s_opt
+		| _ -> s_opt
 
 and label_of_path (path : t_path) : string=
 	match label_of_path_opt path with

@@ -34,7 +34,7 @@ and lines_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_a
 			| None -> []
 			| Some (symbol : string) -> lines_of_string (indent_of_path path) symbol
 		in
-		List.concat [abstract_hdr;abstract_main;["";"";"";""]]
+		List.concat [abstract_hdr;abstract_main;["";"";""]]
 
 and lines_of_refs_hdr () : string list = 
 	match Common_utils.doc_settings.refs_symbol with
@@ -52,7 +52,7 @@ and lines_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_b
 
 and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =
 	match blk_txt with
-	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> lines_of_ts_txt_units path txt_units
+	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> List.concat [lines_of_ts_txt_units path txt_units;[""]]
 
 
 and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
@@ -88,9 +88,9 @@ and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : stri
 				| [] -> raise (Error "section header cannot be empty")
 			)
 			|CH_NODE _ ->
-				let mark : string = label_of_path path in
+				let label : string = label_of_path path in
 				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
-				List.concat [[indent ^ mark]; hdr_lines; [indent ^ underline; ""]]
+				List.concat [[indent ^ label]; hdr_lines; [indent ^ underline; ""]]
 			| _ -> []
 		)
 		|[] -> raise (Error "path to chapter or section cannot be empty")
