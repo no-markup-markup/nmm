@@ -24,9 +24,9 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
-%token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL
+%token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS
 %token <string>                 ESC_CHAR
-%token <string>                 TITLE AUTHOR PREAMBLE
+%token <string>                 TITLE AUTHOR PREAMBLE ABSTRACT
 %token <string>                 TXT C_REF
 %token <string>                 ITM_ID DSP_ID
 %token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL
@@ -115,7 +115,29 @@ doc:
                                                       fld_doc_refs = $3.fld_doc_refs;
                                                      } : tr_doc 
                                                    }
+  | doc_abstract nls doc                             {
+                                                    {
+                                                      fld_doc_preamble = $3.fld_doc_preamble;
+                                                      fld_doc_title = $3.fld_doc_title;
+                                                      fld_doc_author = $3.fld_doc_author;
+                                                      fld_doc_abstract = Some $1;
+                                                      fld_doc_main = $3.fld_doc_main;
+                                                      fld_doc_refs = $3.fld_doc_refs;
+                                                     } : tr_doc 
+                                                   }
+  | doc_main doc_refs                              {
+                                                    {
+                                                      fld_doc_preamble = None;
+                                                      fld_doc_title = None;
+                                                      fld_doc_author = None;
+                                                      fld_doc_abstract = None;
+                                                      fld_doc_main = $1;
+                                                      fld_doc_refs = Some $2;
+                                                     } : tr_doc 
+                                                   }
 ;
+
+
 
 doc_preamble:
   | PREAMBLE TAB lines                             { (Cs_preamble $3) : ts_preamble }
@@ -132,6 +154,15 @@ doc_author:
   | AUTHOR NL_TAB lines                            { (Cs_author $3) : ts_author }
 ;
 
+doc_abstract:
+  | ABSTRACT TAB blks_txt                          { (Cs_abstract (Cs_blks_txt $3)) : ts_abstract }
+  | ABSTRACT NL_TAB blks_txt                       { (Cs_abstract (Cs_blks_txt $3)) : ts_abstract }
+;
+
+doc_refs:
+  | SECTION_REFS_NLS blks0                         { (Cs_refs (Cs_blks $2)) : ts_refs }
+;
+
 lines:
   | TXT                                            { $1 : string }
   | TXT NL_TAB lines                               { ($1 ^ " " ^ $3) : string }
@@ -142,8 +173,6 @@ doc_main:
   |secs                                           { (Ce_doc_main_secs (Cs_secs $1)):te_doc_main }
   |pars                                           { (Ce_doc_main_pars (Cs_pars $1)):te_doc_main }
   |blks0                                          { (Ce_doc_main_blks (Cs_blks $1)):te_doc_main }
-(*|doc_main NL                                    { $1:te_doc_main }
-*)
 ;
 
 chs:
@@ -194,6 +223,12 @@ par:
 par_main:
   |blks0                                          { (Cs_blks $1):ts_blks }
 ;
+
+blks_txt:
+  |blk_txt1                                       { ($1::[]) : ts_blk_txt list }
+  |blk_txt1 lb1 blks_txt                          { ($1::$3) : ts_blk_txt list }
+;
+
 
 (* Level 0: *)
 
@@ -572,6 +607,7 @@ txt:
   |PREAMBLE                                       { $1:string }
   |TITLE                                          { $1:string }
   |AUTHOR                                         { $1:string }
+  |ABSTRACT                                       { $1:string }
   |ESC_CHAR                                       { $1:string }
 ;
 

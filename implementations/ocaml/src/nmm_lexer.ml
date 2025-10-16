@@ -39,6 +39,8 @@ let section_spaces_tag_or_id_nl = [%sedlex.regexp? Utf8 "§", Star " ", sec_tag_
 let preamble = [%sedlex.regexp? "PREAMBLE:"]
 let title = [%sedlex.regexp? "TITLE:"]
 let author = [%sedlex.regexp? "AUTHOR:"]
+let abstract = [%sedlex.regexp? "ABSTRACT:"]
+let section_refs_nl = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
 
 let esc_char = [%sedlex.regexp? '\\', any]
 
@@ -70,12 +72,14 @@ let rec lex (lexbuf:Sedlexing.lexbuf):Nmm_parser.token=
 	|preamble			->	PREAMBLE (lexeme lexbuf)
 	|title				->	TITLE (lexeme lexbuf)
 	|author				->	AUTHOR (lexeme lexbuf)
+	|abstract				->	ABSTRACT (lexeme lexbuf)
 	|ch_tag_or_id_nl			->	CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
 	|c_ref				->	C_REF (lexeme lexbuf)
 	|section_nl			->	SECTION_NL
 	|section_spaces_tag_or_id_nl	->	SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
 	|pilcrow_nl			->	PILCROW_NL
 	|pilcrow_spaces_tag_or_id_nl	->	PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+	|section_refs_nl			->	SECTION_REFS_NLS
 	|"\t"				->	TAB 
 	|"-\t"				->	DASH_TAB
 	|"()\t"				->	DSP_AUTO_TAB 

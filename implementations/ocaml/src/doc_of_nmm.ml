@@ -36,6 +36,8 @@ let string_of_token (t:Nmm_parser.token):string=
 	|AUTHOR s -> ("AUTHOR " ^ "\"" ^ s ^ "\"")
 	|PREAMBLE s -> ("PREAMBLE " ^ "\"" ^ s ^ "\"")
 	|ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
+	|ABSTRACT s -> ("ABSTRACT " ^ "\"" ^ s ^ "\"")
+	|SECTION_REFS_NLS -> "SECTION_REFS_NLS"
 
 let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
 	let t:Nmm_parser.token=Nmm_lexer.lex b in
