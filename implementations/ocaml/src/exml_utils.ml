@@ -76,7 +76,7 @@ and attr_list_of_ts_tag (tag : Doc_types.ts_tag) : (string*string) list =
 and attr_list_of_tr_id (id_opt : Doc_types.tr_id option) : (string*string) list =
 	match id_opt with
 	| None -> []
-	| Some id -> ("id", string_of_tr_id id)::(attr_list_of_ts_tag id.fld_id_tag)
+	| Some id -> [("id", string_of_tr_id id)]
 
 and string_of_tr_id (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag with

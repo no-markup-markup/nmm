@@ -42,7 +42,7 @@ let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : strin
 	let author:string = 
 		match doc.fld_doc_author with
 		|None -> ""
-		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\"/>\n"]
+		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">\n"]
 	in
 	let lang_attr=
 	match lang with 
@@ -54,13 +54,15 @@ let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : strin
 	let external_css: string = 
 		match uri with
 		|"none" -> ""
-		| _ ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\"/>\n")
+		| _ ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n")
 	in
 	let intro:string = (
+		"<!DOCTYPE html>\n" ^
 		"<html" ^ lang_attr ^ ">\n" ^
-		"<head>\n" ^ title ^ author ^ internal_css ^ external_css ^
-		"<meta charset=\"utf-8\"/>\n" ^
-		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n" ^
+		"<head>\n" ^
+		"<meta charset=\"UTF-8\">\n" ^
+		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ^
+		title ^ author ^ internal_css ^ external_css ^
 		"</head>\n" ^
 		"<body>\n"
 	) 
@@ -82,7 +84,8 @@ let doc_of_axml (path : string) : Doc_types.tr_doc =
 	Doc_of_axml.f_tr_doc_of_axml axml
 
 let axml_of_doc (doc : Doc_types.tr_doc) : string =
-	Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc)
+	"<?xml version=\"1.0\"?>\n" ^ 
+	(Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc))
 
 let html_of_nmm (uri:string) (lang:string) (path:string) : string =
 	html_of_doc uri lang (doc_of_nmm path)
