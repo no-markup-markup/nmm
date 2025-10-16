@@ -27,6 +27,7 @@ let css_for_html ( doc_settings : Common_utils.t_doc_settings) : string =
         --title_indent:" ^ (string_of_int (doc_settings.title_indent * 8)) ^ "px;
         --author_indent:" ^ (string_of_int (doc_settings.author_indent * 8)) ^ "px;
         --abstract_indent:" ^ (string_of_int (doc_settings.abstract_indent * 8)) ^ "px;
+        --refs_indent:" ^ (string_of_int (doc_settings.refs_indent * 8)) ^ "px;
         --left_margin:" ^ (string_of_int (doc_settings.left_margin * 8)) ^ "px;
         --tab_length:" ^ (string_of_int doc_settings.tab_length) ^ "ch;
         font-family:var(--font_family);
