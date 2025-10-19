@@ -22,9 +22,6 @@ nmm-ocaml [
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
 
- | test-with-xml <path-to-xml-file>
- | test-with-nmm <path-to-nmm-file>
-
 ]
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin.

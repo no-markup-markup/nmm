@@ -37,6 +37,7 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 %type <Doc_types.ts_title>                doc_title
 %type <Doc_types.ts_author>               doc_author
 %type <string>                            lines
+%type <string>                            preamble_lines
 %type <Doc_types.te_doc_main>             doc_main
 %type <Doc_types.tr_ch>                   ch
 %type <Doc_types.te_secs_pars_or_blks>    ch_main
@@ -52,6 +53,7 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 %type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
 %type <Doc_types.tr_blk_itm>              blk_itm0 blk_itm1 blk_itm2
 %type <Doc_types.ts_blk_txt>              blk_txt0 blk_txt1 blk_txt2 blk_txt3
+%type <Doc_types.ts_blk_txt list>         blks_txt
 %type <Doc_types.te_blk list>             blks0 blks1 blks2 blks3 special_blks0 special_blks1 special_blks2
 %type <Doc_types.ts_c_ref>                c_ref
 %type <Doc_types.tr_dsp_line>             dsp_line special_dsp_line
@@ -140,8 +142,8 @@ doc:
 
 
 doc_preamble:
-  | PREAMBLE TAB lines                             { (Cs_preamble $3) : ts_preamble }
-  | PREAMBLE NL_TAB lines                          { (Cs_preamble $3) : ts_preamble }
+  | PREAMBLE TAB preamble_lines                    { (Cs_preamble $3) : ts_preamble }
+  | PREAMBLE NL_TAB preamble_lines                 { (Cs_preamble $3) : ts_preamble }
 ;
 
 doc_title:
@@ -166,6 +168,11 @@ doc_refs:
 lines:
   | TXT                                            { $1 : string }
   | TXT NL_TAB lines                               { ($1 ^ " " ^ $3) : string }
+;
+
+preamble_lines:
+  | TXT                                            { $1 : string }
+  | TXT NL_TAB preamble_lines                      { ($1 ^ ";" ^ $3) : string }
 ;
 
 doc_main:

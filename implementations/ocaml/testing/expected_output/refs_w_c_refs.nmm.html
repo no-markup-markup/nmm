@@ -1,41 +1,20 @@
-let rec html_of_exml (element:Xml.xml):Xml.xml=
-	match element with
-	|Xml.Element ("title", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract", attr_list,xml_list) -> 
-		Xml.Element ("div",("class", "abstract")::attr_list, (Xml.Element ("h2", [("class", "abstract_hdr")],[Xml.PCData "ABSTRACT"]))::(List.map html_of_exml xml_list))
-	|Xml.Element ("refs", attr_list,xml_list) -> 
-		Xml.Element ("div",("class", "refs")::attr_list, (Xml.Element ("h2", [("class", "refs_hdr")],[Xml.PCData "REFERENCES"]))::(List.map html_of_exml xml_list))
-	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("par_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("blk_txt", attr_list, xml_list) -> Xml.Element ("p", ("class", "blk_txt")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("txt_unit_wysiwyg", attr_list, [Xml.PCData s]) -> Xml.PCData s
-	|Xml.Element ("txt_unit_emph", attr_list, xml_list) -> Xml.Element ("em", ("class", "txt_unit_emph")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -> Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element (tag,attr_list, xml_list) -> Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
-	|Xml.PCData s -> Xml.PCData s
-
-let internal_css ( doc_settings : Common_utils.t_doc_settings) : string = 
-	let n : int = 8 in
-	let title_indent : string = string_of_int (doc_settings.title_indent * n) in
-	let author_indent : string = string_of_int (doc_settings.author_indent * n) in
-	let abstract_indent : string = string_of_int (doc_settings.abstract_indent * n) in
-	let refs_indent : string = string_of_int (doc_settings.refs_indent * n) in
-	let left_margin : string = string_of_int (doc_settings.left_margin * n) in
-	let tab_length : string = string_of_int doc_settings.tab_length in
-"html {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referring to named items under REFERENCES</title>
+<meta name="author" content="Eric Johannesson">
+<style>
+html {
         --font_family:monospace;
         --font_size:12px;
-        --title_indent:" ^ title_indent ^ "px;
-        --author_indent:" ^ author_indent ^ "px;
-        --abstract_indent:" ^ abstract_indent ^ "px;
-        --refs_indent:" ^ refs_indent ^ "px;
-        --left_margin:" ^ left_margin ^ "px;
-        --tab_length:" ^ tab_length ^ "ch;
+        --title_indent:0px;
+        --author_indent:0px;
+        --abstract_indent:0px;
+        --refs_indent:0px;
+        --left_margin:0px;
+        --tab_length:6ch;
         font-family:var(--font_family);
         font-size:var(--font-size);
 }
@@ -152,7 +131,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 /* prevents par from jumping up when left_margin is 0 */
 .sec_lbl + .sec_main::before {
-        content:\" \";
+        content:" ";
         white-space:pre;
 }
 
@@ -332,13 +311,53 @@ a {
                 margin-bottom:30mm;
 
                 @top-center {
-                        content:\" \";
+                        content:" ";
                 }
 
                 @bottom-center {
                         padding:10mm;
-                        content: counter(page) \" of \" counter(pages);
+                        content: counter(page) " of " counter(pages);
                 }
         }
-}"
-
+}
+</style>
+</head>
+<body>
+<div class="doc">
+<h1 class="title">Referring to named items under REFERENCES</h1>
+<p class="author">Eric Johannesson</p>
+<div class="doc_main">
+<p class="blk_txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
+<div class="blk_itm" id="ITM:alt1">
+<div class="blk_itm_lbl">(1)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">‘REFERENCES(1)’ (or something similar), or</p>
+</div>
+</div>
+<div class="blk_itm" id="ITM:alt2">
+<div class="blk_itm_lbl">(2)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
+</div>
+</div>
+<p class="blk_txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">[1]</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">[2]</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
+<p class="blk_txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
+</div>
+<div class="refs">
+<h2 class="refs_hdr">REFERENCES</h2>
+<div class="blk_itm" id="ITM:Euler">
+<div class="blk_itm_lbl">[1]</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
+</div>
+</div>
+<div class="blk_itm" id="ITM:Tarski">
+<div class="blk_itm_lbl">[2]</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

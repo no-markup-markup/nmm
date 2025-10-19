@@ -72,6 +72,6 @@ REFERENCES
       Robinson (1953): Undecidable Theories; North-Holland
       Publishing Company; Amsterdam.
 
-─     Reference to 2.
+─     Reference to CHAPTER 2.
 
 A reference to [1].

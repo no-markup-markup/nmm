@@ -12,11 +12,11 @@ type t_doc_settings = {
 	mutable abstract_indent: int;
 	mutable refs_indent: int;
 	mutable tab_length : int;
-	mutable abstract_symbol: string option;
-	mutable refs_symbol: string option;
-	mutable ch_symbol: string option;
-	mutable sec_symbol: string option;
-	mutable par_symbol : string option;
+	mutable abstract_prefix: string option;
+	mutable refs_prefix: string option;
+	mutable ch_prefix: string option;
+	mutable sec_prefix: string option;
+	mutable par_prefix : string option;
 }
 
 let doc_settings : t_doc_settings = {
@@ -27,11 +27,11 @@ let doc_settings : t_doc_settings = {
 	abstract_indent = 12;
 	refs_indent = 12;
 	tab_length = 6;
-	abstract_symbol = Some "ABSTRACT";
-	refs_symbol = Some "REFERENCES";
-	ch_symbol = Some "CHAPTER";
-	sec_symbol = Some "§";
-	par_symbol = Some "¶";
+	abstract_prefix = Some "ABSTRACT";
+	refs_prefix = Some "REFERENCES";
+	ch_prefix = Some "CHAPTER";
+	sec_prefix = Some "§";
+	par_prefix = Some "¶";
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
@@ -81,16 +81,18 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("title_indent", v) -> set_title_indent v
 				|Some ("author_indent", v) -> set_author_indent v
 				|Some ("tab_length", v) -> set_tab_length v
-				|Some ("ch_symbol", v) -> set_ch_symbol v
-				|Some ("sec_symbol", v) -> set_sec_symbol v
-				|Some ("par_symbol", v) -> set_par_symbol v
+				|Some ("ch_prefix", v) -> set_ch_prefix v
+				|Some ("sec_prefix", v) -> set_sec_prefix v
+				|Some ("par_prefix", v) -> set_par_prefix v
+				|Some ("abstract_prefix", v) -> set_abstract_prefix v
+				|Some ("refs_prefix", v) -> set_refs_prefix v
 				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
 			in aux tl
 		| [] -> ()
 	in
 	match preamble with 
 	(Cs_preamble (s : string)) -> 
-		let str_list : string list = List.map String.trim (String.split_on_char ' ' s) in
+		let str_list : string list = String.split_on_char ';' s in
 		aux str_list
 
 and key_value_pair_of_string_opt (s : string): (string*string) option=
@@ -118,19 +120,27 @@ and set_tab_length (v : string) : unit =
 	try doc_settings.tab_length <- (int_of_string v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"\n";"using default value"])
 
-and set_ch_symbol (v : string) : unit =
-	try doc_settings.ch_symbol <- (symbol_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid ch_symbol value: ";v;"\n";"using default value"])
+and set_ch_prefix (v : string) : unit =
+	try doc_settings.ch_prefix <- (prefix_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid ch_prefix value: ";v;"\n";"using default value"])
 
-and set_sec_symbol (v : string) : unit =
-	try doc_settings.sec_symbol <- (symbol_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_symbol value: ";v;"\n";"using default value"])
+and set_sec_prefix (v : string) : unit =
+	try doc_settings.sec_prefix <- (prefix_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_prefix value: ";v;"\n";"using default value"])
 
-and set_par_symbol (v : string) : unit =
-	try doc_settings.par_symbol <- (symbol_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_symbol value: ";v;"\n";"using default value"])
+and set_par_prefix (v : string) : unit =
+	try doc_settings.par_prefix <- (prefix_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_prefix value: ";v;"\n";"using default value"])
 
-and symbol_value_of_string (v : string) : string option =
+and set_abstract_prefix (v : string) : unit =
+	try doc_settings.abstract_prefix <- (prefix_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_prefix value: ";v;"\n";"using default value"])
+
+and set_refs_prefix (v : string) : unit =
+	try doc_settings.refs_prefix <- (prefix_value_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_prefix value: ";v;"\n";"using default value"])
+
+and prefix_value_of_string (v : string) : string option =
 	match v with
 	|"None" | "none" | "" | "\"\"" -> None
 	| _ -> Some v
@@ -180,20 +190,20 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 				match path_entry, string_of_path path_entry (sub_path_of_cref_path pos path_entry) with
 				|hd::tl, Some (s : string) -> (
 					match hd with
-(*					|CH_NODE _ -> (
-						match doc_settings.ch_symbol with
+					|CH_NODE _ -> (
+						match doc_settings.ch_prefix with
 						|None -> Some s
-						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
+						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
 					)
-*)					|SEC_NODE _ -> (
-						match doc_settings.sec_symbol with
+					|SEC_NODE _ -> (
+						match doc_settings.sec_prefix with
 						|None -> Some s
-						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
+						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
 					)
 					|PAR_NODE _ -> (
-						match doc_settings.par_symbol with
+						match doc_settings.par_prefix with
 						|None -> Some s
-						|Some symbol -> Some (String.concat "\u{00A0}" [symbol;s])
+						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
 					)
 					| _ -> Some s
 				)
@@ -246,11 +256,8 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 		| CH_NODE _ 
 		| SEC_NODE _
 		| APP_NODE _
-		| PAR_NODE _ -> (
-			match (string_of_node full_path_tl path_hd) with
-			| Some s -> Some s
-			| None -> None
-		)
+		| PAR_NODE _ -> 
+			string_of_node full_path_tl path_hd
 		| _ -> (
 			match (string_of_path full_path_tl path_tl, string_of_node full_path_tl path_hd) with
 			| Some s, Some t -> Some (s ^ t)
@@ -261,25 +268,25 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 	)
 	| [], _ -> raise (Error "full path shorter than path")
 
-and string_of_node (pos : t_path) (node : t_node) : string option =
+and string_of_node (tail : t_path) (head : t_node) : string option =
 	let lpar,rpar = 
-		match pos with
+		match tail with
 		|[] -> "(",")"
 		|hd::tl ->
 			match hd with
 			|REFS_NODE -> "[","]"
 			| _ -> "(",")"
 	in
-	match node with
+	match head with
 	| CH_NODE (n : int)
 	| SEC_NODE (n : int)
 	| PAR_NODE (n : int) -> (
-		match string_of_path pos pos with
+		match string_of_path tail tail with
 		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 		|None -> Some (string_of_int (n + 1))
 	)
 	| APP_NODE (n : int) -> (
-		match string_of_path pos pos with
+		match string_of_path tail tail with
 		|Some s -> (try Some (s ^ "." ^ upper_case_latin_letters.(n)) with _ -> raise (Error "You have too many appendices!"))
 		|None -> Some upper_case_latin_letters.(n)
 	)
@@ -289,7 +296,7 @@ and string_of_node (pos : t_path) (node : t_node) : string option =
 		| NONE -> None
 		| DSP_INT (n : int) ->
 			let s : string =
-				match lvl_of_path pos mod 3 with
+				match lvl_of_path tail mod 3 with
 				| 0 -> string_of_int (n + 1)
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
@@ -297,9 +304,9 @@ and string_of_node (pos : t_path) (node : t_node) : string option =
 		| DSP_STRING (s : string) -> Some (String.concat s [ lpar; rpar ])
 	)
 	| ITM_NODE (a : t_itm_node) ->
-		string_of_node pos (DSP_LINE_NODE (dsp_line_node_of_itm_node a))
+		string_of_node tail (DSP_LINE_NODE (dsp_line_node_of_itm_node a))
 	| BLT_NODE ->
-		let l : int = lvl_of_path pos in
+		let l : int = lvl_of_path tail in
 		Some bullets.(l mod Array.length bullets)
 	| _ -> None
 
@@ -356,20 +363,20 @@ and label_of_path_opt (path : t_path) : string option =
 		let s_opt : string option = string_of_node tl hd in
 		match hd with
 		| CH_NODE _ -> (
-			match (doc_settings.ch_symbol, s_opt) with
+			match (doc_settings.ch_prefix, s_opt) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
 		| SEC_NODE _
 		| APP_NODE _ -> (
-			match (doc_settings.sec_symbol, s_opt) with
+			match (doc_settings.sec_prefix, s_opt) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None
 		)
 		| PAR_NODE _ -> (
-			match (doc_settings.par_symbol, s_opt) with
+			match (doc_settings.par_prefix, s_opt) with
 			| None, Some t -> Some t
 			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
 			| _, None-> None

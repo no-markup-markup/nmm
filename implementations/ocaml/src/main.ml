@@ -1,6 +1,6 @@
 exception Error of string
 
-let usage:string=
+let usage : string=
 "Usage:
 
 nmm-ocaml [
@@ -16,9 +16,6 @@ nmm-ocaml [
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
 
- | test-with-xml <path-to-xml-file>
- | test-with-nmm <path-to-nmm-file>
-
 ]
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin."
@@ -30,7 +27,7 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 let txt_of_doc (doc : Doc_types.tr_doc) : string =
 	Compiler_of_doc.txt_of_tr_doc doc
 
-let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : string =
+let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc_types.tr_doc) : string =
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
 	let html:Xml.xml = Html_utils.html_of_exml exml in
 	let html_string:string = Xml_right.to_string_fmt html in
@@ -45,16 +42,16 @@ let html_of_doc (uri : string) (lang : string)  (doc : Doc_types.tr_doc) : strin
 		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">\n"]
 	in
 	let lang_attr=
-	match lang with 
-		| "none" -> "" 
-		| _ -> (" lang=\"" ^ lang ^ "\"") 
+	match lang_opt with 
+		| None -> "" 
+		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ (Html_utils.css_for_html Common_utils.doc_settings) ^ "\n</style>\n")
+	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css Common_utils.doc_settings) ^ "\n</style>\n")
 	in
 	let external_css: string = 
-		match uri with
-		|"none" -> ""
-		| _ ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n")
+		match uri_opt with
+		|None -> ""
+		|Some uri ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n")
 	in
 	let intro:string = (
 		"<!DOCTYPE html>\n" ^
@@ -87,8 +84,8 @@ let axml_of_doc (doc : Doc_types.tr_doc) : string =
 	"<?xml version=\"1.0\"?>\n" ^ 
 	(Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc))
 
-let html_of_nmm (uri:string) (lang:string) (path:string) : string =
-	html_of_doc uri lang (doc_of_nmm path)
+let html_of_nmm (uri_opt : string option) (lang_opt : string option) (path : string) : string =
+	html_of_doc uri_opt lang_opt (doc_of_nmm path)
 
 let txt_of_nmm (path:string):string =
 	txt_of_doc (doc_of_nmm path)
@@ -96,10 +93,10 @@ let txt_of_nmm (path:string):string =
 let txt_of_axml (path : string) : string =
 	txt_of_doc (doc_of_axml path) 
 
-let html_of_axml (uri:string) (lang:string) (path:string) : string =
-	html_of_doc uri lang (doc_of_axml path)
+let html_of_axml (uri_opt : string option) (lang_opt : string option) (path : string) : string =
+	html_of_doc uri_opt lang_opt (doc_of_axml path)
 
-let axml_of_nmm (path:string) : string =
+let axml_of_nmm (path : string) : string =
 	axml_of_doc (doc_of_nmm path)
 
 let check_xml_schema (path:string):string =
@@ -130,11 +127,10 @@ let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):
 
 
 let test_w_nmm (path_to_nmm_file : string) : unit =
-	Test.test_w_nmm path_to_nmm_file 
+	Test.test_w_nmm path_to_nmm_file
 
 let test_w_xml (path_to_xml_file : string) : unit =
-	Test.test_w_xml path_to_xml_file 
-
+	Test.test_w_xml path_to_xml_file
 
 let argv=Sys.argv
 
@@ -152,8 +148,14 @@ let _ : unit =
 	)
 	|5 -> (
 		match argv.(1),argv.(2),argv.(3),argv.(4) with
-		|"html-of-nmm", uri, lang, path -> print_endline (html_of_nmm uri lang path)
-		|"html-of-xml", uri, lang, path -> print_endline (html_of_axml uri lang path)
+		|"html-of-nmm", "none", "none", path -> print_endline (html_of_nmm None None path)
+		|"html-of-nmm", "none", lang, path -> print_endline (html_of_nmm None (Some lang) path)
+		|"html-of-nmm", uri, "none", path -> print_endline (html_of_nmm (Some uri) None path)
+		|"html-of-nmm", uri, lang, path -> print_endline (html_of_nmm (Some uri) (Some lang) path)
+		|"html-of-xml", "none", "none", path -> print_endline (html_of_axml None None path)
+		|"html-of-xml", "none", lang, path -> print_endline (html_of_axml None (Some lang) path)
+		|"html-of-xml", uri, "none", path -> print_endline (html_of_axml (Some uri) None path)
+		|"html-of-xml", uri, lang, path -> print_endline (html_of_axml (Some uri) (Some lang) path)
 		|"validate-xml", path_to_dtd, entry_point, path_to_xml -> print_endline (validate_xml path_to_dtd entry_point path_to_xml)
 		|_-> print_endline usage
 	)

@@ -1,0 +1,36 @@
+TITLE:
+	Referring to named items under REFERENCES
+
+AUTHOR:
+	Eric Johannesson
+
+
+Given a named item under REFERENCES, say with the the name ‘ITM\:Euler’,
+what should the cross reference ‘[ITM\:Euler]’ look like?
+Assuming it is the first item on the list, one could either go for
+
+[]	ITM:alt1
+	‘REFERENCES(1)’ (or something similar), or
+
+[]	ITM:alt2
+	my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as
+	‘[1]’, ‘[2]’, etc.
+
+Having implemented [ITM:alt2], I can refer to [ITM:Euler] and [ITM:Tarski] below, as just indicated.
+I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.
+
+In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero).
+But for now, I think this would suffice.
+
+§ REFS
+
+[]	ITM:Euler
+	Euler, Leonhard (1740): De summis serierum reciprocarum. In:
+	Commentarii academiae scientiarum Petropolitanae, volume 7,
+	pages 123–134
+
+[]	ITM:Tarski
+	Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
+	Robinson (1953): Undecidable Theories; North-Holland Publishing
+	Company; Amsterdam.
+

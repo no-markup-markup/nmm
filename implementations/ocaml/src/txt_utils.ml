@@ -30,18 +30,18 @@ and lines_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_a
 	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> 
 		let abstract_main : string list = lines_of_ts_blks_txt path blks_txt in
 		let abstract_hdr : string list = 
-			match doc_settings.abstract_symbol with
+			match doc_settings.abstract_prefix with
 			| None -> []
-			| Some (symbol : string) -> lines_of_string (indent_of_path path) symbol
+			| Some (prefix : string) -> lines_of_string (indent_of_path path) prefix
 		in
 		List.concat [abstract_hdr;abstract_main;["";"";""]]
 
 and lines_of_refs_hdr () : string list = 
-	match Common_utils.doc_settings.refs_symbol with
+	match Common_utils.doc_settings.refs_prefix with
 	|None -> []
-	|Some (symbol : string) -> 
+	|Some (prefix : string) -> 
 		let indent : string = String.make (doc_settings.refs_indent) ' ' in
-		let hdr_string : string = symbol in
+		let hdr_string : string = prefix in
 		let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) "─" in
 		let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr_string in
 		List.concat [hdr_lines;[indent ^ underline;""]]

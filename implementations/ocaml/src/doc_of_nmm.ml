@@ -43,7 +43,7 @@ let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.posi
 	let t:Nmm_parser.token=Nmm_lexer.lex b in
 	let start_pos,end_pos=Sedlexing.lexing_positions b in
 	match print_tokens with
-	|true -> let _=Printf.eprintf "%s\n" ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in (t,start_pos,end_pos)
+	|true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in (t,start_pos,end_pos)
 	|false -> (t,start_pos,end_pos)
 
 

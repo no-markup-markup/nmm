@@ -3,11 +3,12 @@ PREAMBLE:
 	title_indent=0
 	author_indent=0
 	left_margin=7
-	sec_symbol=""
-	par_symbol=""
+	sec_prefix=
+	par_prefix=
 
 TITLE:	OPTIMAL PARTITIONING
 AUTHOR:	Eric Johannesson
+
 
 §
 Introduction
