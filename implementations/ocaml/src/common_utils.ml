@@ -20,6 +20,8 @@ type t_doc_settings = {
 	mutable expand_tag: Doc_types.ts_tag -> string option;
 }
 
+type t_doc_type = CHS | SECS | PARS | BLKS
+
 let expand_tag_default (tag : Doc_types.ts_tag) : string option =
 	match tag with
 	|Cs_tag "DEF" -> Some "DEFINITION"
@@ -62,6 +64,13 @@ let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 	match doc.fld_doc_preamble with
 	|None -> ()
 	|Some preamble -> doc_settings_of_ts_preamble preamble 
+
+and doc_type_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_type =
+	match doc.fld_doc_main with
+	|Cu_doc_main_chs _ -> CHS
+	|Cu_doc_main_secs _ -> SECS
+	|Cu_doc_main_pars _ -> PARS
+	|Cu_doc_main_blks _ -> BLKS
 
 and contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
 	match doc.fld_doc_main with

@@ -36,13 +36,18 @@ and lines_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_a
 		in
 		List.concat [abstract_hdr;abstract_main;["";"";""]]
 
-and lines_of_refs_hdr () : string list = 
+and lines_of_refs_hdr (doc_type : Common_utils.t_doc_type) : string list =
+	let underline_symbol : string =
+		match doc_type with
+		|CHS -> "═"
+		| _ -> "─"
+	in
 	match Common_utils.doc_settings.refs_prefix with
 	|None -> []
 	|Some (prefix : string) -> 
 		let indent : string = String.make (doc_settings.refs_indent) ' ' in
 		let hdr_string : string = prefix in
-		let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) "─" in
+		let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
 		let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr_string in
 		List.concat [hdr_lines;[indent ^ underline;""]]
 

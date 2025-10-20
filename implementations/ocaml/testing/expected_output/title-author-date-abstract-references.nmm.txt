@@ -63,7 +63,7 @@
 
 
             REFERENCES
-            ──────────
+            ══════════
 
             [1]   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
                   Commentarii academiae scientiarum Petropolitanae, volume 7,

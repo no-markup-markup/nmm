@@ -16,6 +16,9 @@ type t_doc_settings = {
   mutable expand_tag: Doc_types.ts_tag -> string option;
 }
 
+type t_doc_type = CHS | SECS | PARS | BLKS
+
+
 val expand_tag_default : Doc_types.ts_tag -> string option
 (**
 {[expand_tag_default tag]}
@@ -87,6 +90,8 @@ INT := ['0'-'9']+
 STRING := [! ';']*
 v}
 *)
+
+val doc_type_of_tr_doc: Doc_types.tr_doc -> t_doc_type
 
 type t_itm_node = 
 |	ITM_INT of int
