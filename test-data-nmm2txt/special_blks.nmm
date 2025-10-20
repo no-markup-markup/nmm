@@ -1,0 +1,63 @@
+This is a no-markup-markup document, sporting the following cool features:
+
+()	labled display line at level 0
+	unlabeled display lines at level 0
+	more unlabeled display lines at level 0
+()	labeled display lines at level 0
+
+[]	Bullet lists:
+
+	here preceded by a text block at level 1, whose (lack of) linebreaks are not respected.
+
+	()	preceded by labeled display lines at level 1
+		preceded by unlabeled display line at level 1, whose (lack of) linebreaks are respected.
+
+	-	Here is one bullet item.
+
+			unlabled display line at level 2, whose (lack of) linebreaks are respected.
+
+	-	Here is another one.
+
+		but this is interpreted as a text block at level 2, whose (lack of) linebreaks are not respected.
+
+	this is interpreted as a text block at level 1, whose (lack of) linebreaks are not respected.
+
+In fact, here are some more unlabled display lines:
+
+	this one
+	and this one
+()	followed by a labeled one
+	followed by an unlabeled one
+()	labeled with name		DSP:some_name
+
+[]	Numbered lists with labels that are either
+
+	[]	automatic, or
+
+	[*]	custom.
+
+	Furthermore, each item can be *named* and *referred to*:
+
+	[]	ITM:x
+		The named item can be referred to anywhere in the document.
+
+	[]	ITM:y
+		When referring to [ITM:x] above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to [ITM:z] below.
+
+	[**]	ITM:z
+		Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or [ITM:z] occurring elsewhere may appear differently.
+
+[]	ITM:one
+	Displayed lines of text suitable for mathematical equations, which are either
+
+		unlabeled
+	()	automatically labeled (and named),	DSP:one
+	(+)	custom labeled (and named), or,		DSP:two
+		unlike [DSP:one] above, unlabeled.
+
+It can even end with
+
+	unlabled display block
+

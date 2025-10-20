@@ -35,5 +35,8 @@ bin:
 	make
 	cd -
 
+test-nmm2txt: bin
+	./test-nmm2txt.sh
+
 test-mercury-nmm2xml: bin
 	./test-mercury-nmm2xml.sh
