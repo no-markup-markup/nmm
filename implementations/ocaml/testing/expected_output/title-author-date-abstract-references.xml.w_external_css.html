@@ -9,10 +9,6 @@
 html {
         --font_family:monospace;
         --font_size:12px;
-        --title_indent:0px;
-        --author_indent:0px;
-        --abstract_indent:0px;
-        --refs_indent:0px;
         --left_margin:0px;
         --tab_length:6ch;
         font-family:var(--font_family);
@@ -27,13 +23,13 @@ html {
 .title {
         display:block;
         font-size:24px;
-        margin-left:var(--title_indent);
+        margin-left:var(--left_margin);
 }
 
 
 .author {
         display:block;
-        margin-left:var(--author_indent);
+        margin-left:var(--left_margin);
         font-size:14px;
         margin-bottom:3em;
 }
@@ -41,26 +37,26 @@ html {
 
 .abstract {
         display:block;
-        margin-left:var(--abstract_indent);
         margin-bottom:3em;
 }
 
 
 .abstract_hdr {
         display:block;
+        margin-left:var(--left_margin);
         font-weight:normal;
         font-size:14px;
 }
 
 .refs {
         display:block;
-        margin-left:var(--refs_indent);
         margin-top:3em;
 }
 
 
 .refs_hdr {
         display:block;
+        margin-left:var(--left_margin);
         font-weight:normal;
         font-size:14px;
 }
@@ -173,14 +169,61 @@ this ensures that par_hdr shows up in disposition when printing to pdf with weas
         display:block;
         hyphens:auto;
         white-space:pre-wrap;
+}
+
+
+
+.abstract > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+.refs > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.ch_main > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
 
 .blk_blt {
         display:block;
+}
+
+.abstract > .blk_blt {
         margin-left:var(--left_margin);
 }
+
+.refs > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+.ch_main > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
 
 .blk_blt_lbl {
         display:block;
@@ -197,6 +240,27 @@ this ensures that par_hdr shows up in disposition when printing to pdf with weas
 
 .blk_itm {
         display:block;
+}
+
+.abstract > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+.refs > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+.ch_main > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
@@ -217,6 +281,28 @@ this ensures that par_hdr shows up in disposition when printing to pdf with weas
 .blk_dsp {
         display:block;
         white-space:nowrap;
+}
+
+.abstract > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+.refs > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+.ch_main > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 

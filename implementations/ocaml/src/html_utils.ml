@@ -18,19 +18,11 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 
 let internal_css ( doc_settings : Common_utils.t_doc_settings) : string = 
 	let n : int = 8 in
-	let title_indent : string = Int.to_string (doc_settings.title_indent * n) in
-	let author_indent : string = Int.to_string (doc_settings.author_indent * n) in
-	let abstract_indent : string = Int.to_string (doc_settings.abstract_indent * n) in
-	let refs_indent : string = Int.to_string (doc_settings.refs_indent * n) in
 	let left_margin : string = Int.to_string (doc_settings.left_margin * n) in
 	let tab_length : string = Int.to_string doc_settings.tab_length in
 "html {
         --font_family:monospace;
         --font_size:12px;
-        --title_indent:" ^ title_indent ^ "px;
-        --author_indent:" ^ author_indent ^ "px;
-        --abstract_indent:" ^ abstract_indent ^ "px;
-        --refs_indent:" ^ refs_indent ^ "px;
         --left_margin:" ^ left_margin ^ "px;
         --tab_length:" ^ tab_length ^ "ch;
         font-family:var(--font_family);
@@ -45,13 +37,13 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .title {
         display:block;
         font-size:24px;
-        margin-left:var(--title_indent);
+        margin-left:var(--left_margin);
 }
 
 
 .author {
         display:block;
-        margin-left:var(--author_indent);
+        margin-left:var(--left_margin);
         font-size:14px;
         margin-bottom:3em;
 }
@@ -59,26 +51,26 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .abstract {
         display:block;
-        margin-left:var(--abstract_indent);
         margin-bottom:3em;
 }
 
 
 .abstract_hdr {
         display:block;
+        margin-left:var(--left_margin);
         font-weight:normal;
         font-size:14px;
 }
 
 .refs {
         display:block;
-        margin-left:var(--refs_indent);
         margin-top:3em;
 }
 
 
 .refs_hdr {
         display:block;
+        margin-left:var(--left_margin);
         font-weight:normal;
         font-size:14px;
 }
@@ -191,14 +183,61 @@ this ensures that par_hdr shows up in disposition when printing to pdf with weas
         display:block;
         hyphens:auto;
         white-space:pre-wrap;
+}
+
+
+
+.abstract > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+.refs > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.ch_main > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_txt {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
 
 .blk_blt {
         display:block;
+}
+
+.abstract > .blk_blt {
         margin-left:var(--left_margin);
 }
+
+.refs > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+.ch_main > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_blt {
+        margin-left:var(--left_margin);
+}
+
 
 .blk_blt_lbl {
         display:block;
@@ -215,6 +254,27 @@ this ensures that par_hdr shows up in disposition when printing to pdf with weas
 
 .blk_itm {
         display:block;
+}
+
+.abstract > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+.refs > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+.ch_main > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_itm {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
@@ -235,6 +295,28 @@ this ensures that par_hdr shows up in disposition when printing to pdf with weas
 .blk_dsp {
         display:block;
         white-space:nowrap;
+}
+
+.abstract > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+.refs > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+.ch_main > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+.sec_main > .blk_dsp {
+        margin-left:var(--left_margin);
+}
+
+
+.par_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
