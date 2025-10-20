@@ -39,13 +39,13 @@ and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_t
 
 and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with
-	| Cs_txt_units (b : Doc_types.te_txt_unit list) -> List.map (xml_of_te_txt_unit path) b
+	| Cs_txt_units (b : Doc_types.tu_txt_unit list) -> List.map (xml_of_tu_txt_unit path) b
 
-and xml_of_te_txt_unit (path : Common_utils.t_path) (a : Doc_types.te_txt_unit) : Xml.xml =
+and xml_of_tu_txt_unit (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : Xml.xml =
 	match a with
-	| Ce_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwyg b
-	| Ce_txt_unit_emph (b : ts_txt_unit_emph) -> xml_of_ts_txt_unit_emph b
-	| Ce_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref path b 
+	| Cu_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwyg b
+	| Cu_txt_unit_emph (b : ts_txt_unit_emph) -> xml_of_ts_txt_unit_emph b
+	| Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref path b 
 
 and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 	match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [Xml.PCData (pcdata_of_string b)])
@@ -62,13 +62,13 @@ and xml_of_ts_c_ref (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
 and attr_list_of_ts_c_ref (a : Doc_types.ts_c_ref) : (string*string) list =
 	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (string_of_tr_id id))]
 
-and attr_list_of_tag_or_id (a : Doc_types.te_tag_or_id option) : (string*string) list=
+and attr_list_of_tag_or_id (a : Doc_types.tu_tag_or_id option) : (string*string) list=
 	match a with
 	| None -> []
-	| Some (tag_or_id : Doc_types.te_tag_or_id) -> 
+	| Some (tag_or_id : Doc_types.tu_tag_or_id) -> 
 		match tag_or_id with
-		| Ce_tag_or_id_tag (tag : Doc_types.ts_tag) -> attr_list_of_ts_tag tag
-		| Ce_tag_or_id_id (id : Doc_types.tr_id)-> attr_list_of_tr_id (Some id)
+		| Cu_tag_or_id_tag (tag : Doc_types.ts_tag) -> attr_list_of_ts_tag tag
+		| Cu_tag_or_id_id (id : Doc_types.tr_id)-> attr_list_of_tr_id (Some id)
 
 and attr_list_of_ts_tag (tag : Doc_types.ts_tag) : (string*string) list =
 	match tag with

@@ -65,22 +65,22 @@ let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 
 and contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
 	match doc.fld_doc_main with
-	| Ce_doc_main_blks _ -> false
-	| Ce_doc_main_chs (chs : Doc_types.ts_chs) -> (
+	| Cu_doc_main_blks _ -> false
+	| Cu_doc_main_chs (chs : Doc_types.ts_chs) -> (
 		let rec aux (ch_list : Doc_types.tr_ch list) : bool =
 			match ch_list with
 			|[] -> false
 			|hd::tl -> 
 				match hd.fld_ch_main with
-				| Ce_secs_pars_or_blks_secs _ -> true
-				| Ce_secs_pars_or_blks_pars _ -> true
-				| Ce_secs_pars_or_blks_blks _ -> aux tl
+				| Cu_secs_pars_or_blks_secs _ -> true
+				| Cu_secs_pars_or_blks_pars _ -> true
+				| Cu_secs_pars_or_blks_blks _ -> aux tl
 		in
 		match chs with
 		|Cs_chs ch_list -> aux ch_list
 	)
-	| Ce_doc_main_secs _ -> true
-	| Ce_doc_main_pars _ -> true
+	| Cu_doc_main_secs _ -> true
+	| Cu_doc_main_pars _ -> true
 
 and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 	let rec aux (str_list : string list) : unit =
@@ -358,15 +358,15 @@ and dsp_line_node_of_itm_node (a : t_itm_node) : t_dsp_line_node =
 and node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
 	let itm_node : t_itm_node =
 		match a.fld_blk_itm_lbl with
-		| Ce_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
-		| Ce_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
+		| Cu_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
+		| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
 	in ITM_NODE itm_node
 
 and node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
 	let dsp_line_node : t_dsp_line_node =
 		match a.fld_dsp_line_lbl with
-		| Some (Ce_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
-		| Some (Ce_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_STRING s
+		| Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
+		| Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_STRING s
 		| None -> NONE
 	in 
 	DSP_LINE_NODE dsp_line_node

@@ -48,11 +48,11 @@ p(!IO) :- (
  %%      TKNS_OR_ERRS = nmm.lexer.f_tknize(str2chrs(FILE_AS_STR)),
  %%      (
  %%        (
- %%          TKNS_OR_ERRS = c_tknize_res_err(ERR_MSG),
+ %%          TKNS_OR_ERRS = cu_tknize_res_err(ERR_MSG),
  %%          io.write_string(ERR_MSG,!IO)
  %%        );
  %%        (
- %%          TKNS_OR_ERRS = c_tknize_res_ok(TKNS),
+ %%          TKNS_OR_ERRS = cu_tknize_res_ok(TKNS),
  %%          io.write_string(f_tkns2str(TKNS),!IO)
  %%        )
  %%      )

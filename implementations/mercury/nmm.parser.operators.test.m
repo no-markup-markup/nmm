@@ -29,19 +29,12 @@
 :- use_module char, string.
 
 
-%% TYPE ABBREVIATIONS
-
-:- type ta_chr  == char.char.
-:- type ta_chrs == list(ta_chr).
-:- type ta_str  == string.
-
-
 %% DCG RULES R_A AND R_B
 
-:- pred r_a(ta_chrs::in,ta_chrs::out) is semidet.
+:- pred r_a(chrs::in,chrs::out) is semidet.
 r_a --> ['a'].
 
-:- pred r_b(ta_chrs::in,ta_chrs::out) is semidet.
+:- pred r_b(chrs::in,chrs::out) is semidet.
 r_b --> ['b'].
 
 
@@ -49,7 +42,7 @@ r_b --> ['b'].
 
 %%% TESTS 1A AND TEST 1B
 
-:- pred r_1(ta_chrs::in,ta_chrs::out) is semidet.
+:- pred r_1(chrs::in,chrs::out) is semidet.
 r_1 --> +([r_a, +([r_b])]).
 
 :- pred test_1a is semidet.
@@ -60,7 +53,7 @@ test_1b :- not r_1(str2chrs("ababa"),str2chrs("ababa")).
 
 %%% TESTS 2A AND TEST 2B
 
-:- pred r_2(ta_chrs::in,ta_chrs::out) is semidet.
+:- pred r_2(chrs::in,chrs::out) is semidet.
 r_2 --> +([r_a, ?([r_b])]).
 
 :- pred test_2a is semidet.
@@ -71,7 +64,7 @@ test_2b :- not r_2(str2chrs("aba"),str2chrs("aba")).
 
 %%% TESTS 3A AND TEST 3B
 
-:- pred r_3(ta_chrs::in,ta_chrs::out) is semidet.
+:- pred r_3(chrs::in,chrs::out) is semidet.
 r_3 --> ?([r_a, *([r_b])]).
 
 :- pred test_3a is semidet.

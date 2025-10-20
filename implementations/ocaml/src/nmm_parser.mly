@@ -3,10 +3,10 @@ open Doc_types
 
 exception ERROR of string
 
-let tag_or_id_of_string (s:string):Doc_types.te_tag_or_id=
+let tag_or_id_of_string (s:string):Doc_types.tu_tag_or_id=
         match String.split_on_char ':' s with
-        |[tag;name]-> Ce_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name }
-        |[tag]-> Ce_tag_or_id_tag (Cs_tag tag)
+        |[tag;name]-> Cu_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name }
+        |[tag]-> Cu_tag_or_id_tag (Cs_tag tag)
         |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let id_of_string (s:string):Doc_types.tr_id =
@@ -38,32 +38,32 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
 %type <Doc_types.ts_author>               doc_author
 %type <string>                            lines
 %type <string>                            preamble_lines
-%type <Doc_types.te_doc_main>             doc_main
+%type <Doc_types.tu_doc_main>             doc_main
 %type <Doc_types.tr_ch>                   ch
-%type <Doc_types.te_secs_pars_or_blks>    ch_main
+%type <Doc_types.tu_secs_pars_or_blks>    ch_main
 %type <Doc_types.tr_ch list>              chs
 %type <Doc_types.tr_sec>                  sec
-%type <Doc_types.te_pars_or_blks>         sec_main
+%type <Doc_types.tu_pars_or_blks>         sec_main
 %type <Doc_types.tr_sec list>             secs
 %type <Doc_types.tr_par>                  par
 %type <Doc_types.ts_blks>                 par_main
 %type <Doc_types.tr_par list>             pars
-%type <Doc_types.te_blk>                  blk0 blk1 blk2 blk3
+%type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
 %type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
 %type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
 %type <Doc_types.tr_blk_itm>              blk_itm0 blk_itm1 blk_itm2
 %type <Doc_types.ts_blk_txt>              blk_txt0 blk_txt1 blk_txt2 blk_txt3
 %type <Doc_types.ts_blk_txt list>         blks_txt
-%type <Doc_types.te_blk list>             blks0 blks1 blks2 blks3 special_blks0 special_blks1 special_blks2
+%type <Doc_types.tu_blk list>             blks0 blks1 blks2 blks3 special_blks0 special_blks1 special_blks2
 %type <Doc_types.ts_c_ref>                c_ref
 %type <Doc_types.tr_dsp_line>             dsp_line special_dsp_line
 %type <Doc_types.tr_dsp_line list>        dsp_lines0 dsp_lines1 dsp_lines2  special_dsp_lines0 special_dsp_lines1 special_dsp_lines2
-%type <Doc_types.te_tag_or_id>            pilcrow_spaces_tag_or_id_nl section_spaces_tag_or_id_nl
+%type <Doc_types.tu_tag_or_id>            pilcrow_spaces_tag_or_id_nl section_spaces_tag_or_id_nl
 %type <Doc_types.tr_id>                   itm_id dsp_id
 %type <Doc_types.ts_hdr>                  hdr
-%type <Doc_types.te_lbl>                  itm_lbl_tab dsp_lbl_tab
-%type <Doc_types.te_txt_unit>             txt_unit0 txt_unit1 txt_unit2 txt_unit3 dsp_unit
-%type <Doc_types.te_txt_unit list>        txt_units0 txt_units1 txt_units2 txt_units3 dsp_units
+%type <Doc_types.tu_lbl>                  itm_lbl_tab dsp_lbl_tab
+%type <Doc_types.tu_txt_unit>             txt_unit0 txt_unit1 txt_unit2 txt_unit3 dsp_unit
+%type <Doc_types.tu_txt_unit list>        txt_units0 txt_units1 txt_units2 txt_units3 dsp_units
 %type <Doc_types.ts_lbl_custom>           dsp_custom_tab itm_custom_tab
 %type <Doc_types.ts_lbl_auto>             dsp_auto_tab itm_auto_tab
 %type <string>                            txt emph_txt emph_txt0 emph_txt1 emph_txt2 emph_txt3
@@ -176,10 +176,10 @@ preamble_lines:
 ;
 
 doc_main:
-  |chs                                            { (Ce_doc_main_chs (Cs_chs $1)):te_doc_main }
-  |secs                                           { (Ce_doc_main_secs (Cs_secs $1)):te_doc_main }
-  |pars                                           { (Ce_doc_main_pars (Cs_pars $1)):te_doc_main }
-  |blks0                                          { (Ce_doc_main_blks (Cs_blks $1)):te_doc_main }
+  |chs                                            { (Cu_doc_main_chs (Cs_chs $1)):tu_doc_main }
+  |secs                                           { (Cu_doc_main_secs (Cs_secs $1)):tu_doc_main }
+  |pars                                           { (Cu_doc_main_pars (Cs_pars $1)):tu_doc_main }
+  |blks0                                          { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
 ;
 
 chs:
@@ -198,9 +198,9 @@ ch:
 ;
 
 ch_main:
-  |secs                                           { (Ce_secs_pars_or_blks_secs (Cs_secs $1)):te_secs_pars_or_blks }
-  |pars                                           { (Ce_secs_pars_or_blks_pars (Cs_pars $1)):te_secs_pars_or_blks }
-  |blks0                                          { (Ce_secs_pars_or_blks_blks (Cs_blks $1)):te_secs_pars_or_blks }
+  |secs                                           { (Cu_secs_pars_or_blks_secs (Cs_secs $1)):tu_secs_pars_or_blks }
+  |pars                                           { (Cu_secs_pars_or_blks_pars (Cs_pars $1)):tu_secs_pars_or_blks }
+  |blks0                                          { (Cu_secs_pars_or_blks_blks (Cs_blks $1)):tu_secs_pars_or_blks }
 ;
 
 sec:
@@ -211,8 +211,8 @@ sec:
 ;
 
 sec_main:
-  |pars                                           { (Ce_pars_or_blks_pars (Cs_pars $1)):te_pars_or_blks }
-  |blks0                                          { (Ce_pars_or_blks_blks (Cs_blks $1)):te_pars_or_blks }
+  |pars                                           { (Cu_pars_or_blks_pars (Cs_pars $1)):tu_pars_or_blks }
+  |blks0                                          { (Cu_pars_or_blks_blks (Cs_blks $1)):tu_pars_or_blks }
 ;
 
 pars:
@@ -240,22 +240,22 @@ blks_txt:
 (* Level 0: *)
 
 blks0:
-  |blk0 lb0                                       { ($1::[]):te_blk list }
-  |blk0 lb0 blks0                                 { ($1::$3):te_blk list }
-  |special_blks0                                  { $1:te_blk list }
+  |blk0 lb0                                       { ($1::[]):tu_blk list }
+  |blk0 lb0 blks0                                 { ($1::$3):tu_blk list }
+  |special_blks0                                  { $1:tu_blk list }
 ;
 
 special_blks0:
-  |blk_txt0 lb1 special_blk_dsp0  lb0             { [Ce_blk_txt $1;Ce_blk_dsp $3]:te_blk list }
-  |blk_txt0 lb1 special_blk_dsp0  lb0 blks0       { ((Ce_blk_txt $1)::((Ce_blk_dsp $3)::$5)):te_blk list }
+  |blk_txt0 lb1 special_blk_dsp0  lb0             { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
+  |blk_txt0 lb1 special_blk_dsp0  lb0 blks0       { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
 ;
 
 blk0:
-  |blk_txt0                                       { (Ce_blk_txt $1):te_blk }
-  |blk_blt0                                       { (Ce_blk_blt $1):te_blk }
-  |blk_itm0                                       { (Ce_blk_itm $1):te_blk }
-  |blk_dsp0                                       { (Ce_blk_dsp $1):te_blk }
-  |blk0 NL                                        { $1:te_blk }
+  |blk_txt0                                       { (Cu_blk_txt $1):tu_blk }
+  |blk_blt0                                       { (Cu_blk_blt $1):tu_blk }
+  |blk_itm0                                       { (Cu_blk_itm $1):tu_blk }
+  |blk_dsp0                                       { (Cu_blk_dsp $1):tu_blk }
+  |blk0 NL                                        { $1:tu_blk }
 ;
 
 blk_txt0:
@@ -263,15 +263,15 @@ blk_txt0:
 ;
 
 txt_units0:
-  |txt_unit0 lb0                                  { ($1::[]):te_txt_unit list }
-  |txt_unit0 txt_units0                           { ($1::$2):te_txt_unit list }
-  |txt_unit0 lb0 txt_units0                       { ($1::((Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):te_txt_unit list }
+  |txt_unit0 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit0 txt_units0                           { ($1::$2):tu_txt_unit list }
+  |txt_unit0 lb0 txt_units0                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit0:
-  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt0 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
-  |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
+  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt0 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
+  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
 emph_txt0:
@@ -318,22 +318,22 @@ lb0:
 (* General recipe for n>0:
 
 blks(n):
-  |blk(n)                                                 { ($1::[]):te_blk list }
-  |blk(n) lb(n) blks(n)                                   { ($1::$3):te_blk list }
-  |special_blks(n)                                        { $1:te_blk list }
+  |blk(n)                                                 { ($1::[]):tu_blk list }
+  |blk(n) lb(n) blks(n)                                   { ($1::$3):tu_blk list }
+  |special_blks(n)                                        { $1:tu_blk list }
 ;
 
 special_blks(n):
-  |blk_txt(n) lb(n+1) special_blk_dsp(n)                  { [Ce_blk_txt $1;Ce_blk_dsp $3]:te_blk list }
-  |blk_txt(n) lb(n+1) special_blk_dsp(n)  lb(n) blks(n)   { (Ce_blk_txt $1::((Ce_blk_dsp $3)::$5)):te_blk list }
+  |blk_txt(n) lb(n+1) special_blk_dsp(n)                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
+  |blk_txt(n) lb(n+1) special_blk_dsp(n)  lb(n) blks(n)   { (Cu_blk_txt $1::((Cu_blk_dsp $3)::$5)):tu_blk list }
 ;
 
 blk(n):
-  |blk_txt(n)                                             { (Ce_blk_txt $1):te_blk }
-  |blk_blt(n)                                             { (Ce_blk_blt $1):te_blk }
-  |blk_itm(n)                                             { (Ce_blk_itm $1):te_blk }
-  |blk_dsp(n)                                             { (Ce_blk_dsp $1):te_blk }
-  |NL blk(n)                                              { $2:te_blk }
+  |blk_txt(n)                                             { (Cu_blk_txt $1):tu_blk }
+  |blk_blt(n)                                             { (Cu_blk_blt $1):tu_blk }
+  |blk_itm(n)                                             { (Cu_blk_itm $1):tu_blk }
+  |blk_dsp(n)                                             { (Cu_blk_dsp $1):tu_blk }
+  |NL blk(n)                                              { $2:tu_blk }
 ;
 
 blk_txt(n):
@@ -341,15 +341,15 @@ blk_txt(n):
 ;
 
 txt_units(n):
-  |txt_unit(n) lb0                                        { ($1::[]):te_txt_unit list }
-  |txt_unit(n) txt_units(n)                               { ($1::$2):te_txt_unit list }
-  |txt_unit(n) lb(n) txt_units(n)                         { ($1::((Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):te_txt_unit list }
+  |txt_unit(n) lb0                                        { ($1::[]):tu_txt_unit list }
+  |txt_unit(n) txt_units(n)                               { ($1::$2):tu_txt_unit list }
+  |txt_unit(n) lb(n) txt_units(n)                         { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit(n):
-  |txt                                                    { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt(n) STAR                                  { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }
-  |LBR crefs RBR                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
+  |txt                                                    { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt(n) STAR                                  { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
+  |LBR crefs RBR                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
 emph_txt(n):
@@ -395,22 +395,22 @@ lb(n):
 (* Level 1: *)
 
 blks1:
-  |blk1                                           { ($1::[]):te_blk list }
-  |blk1 lb1 blks1                                 { ($1::$3):te_blk list }
-  |special_blks1                                  { $1:te_blk list }
+  |blk1                                           { ($1::[]):tu_blk list }
+  |blk1 lb1 blks1                                 { ($1::$3):tu_blk list }
+  |special_blks1                                  { $1:tu_blk list }
 ;
 
 special_blks1:
-  |blk_txt1 lb2 special_blk_dsp1                  { [Ce_blk_txt $1;Ce_blk_dsp $3]:te_blk list }
-  |blk_txt1 lb2 special_blk_dsp1  lb1 blks1       { ((Ce_blk_txt $1)::((Ce_blk_dsp $3)::$5)):te_blk list }
+  |blk_txt1 lb2 special_blk_dsp1                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
+  |blk_txt1 lb2 special_blk_dsp1  lb1 blks1       { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
 ;
 
 blk1:
-  |blk_txt1                                       { (Ce_blk_txt $1):te_blk }
-  |blk_blt1                                       { (Ce_blk_blt $1):te_blk }
-  |blk_itm1                                       { (Ce_blk_itm $1):te_blk }
-  |blk_dsp1                                       { (Ce_blk_dsp $1):te_blk }
-  |NL blk1                                        { $2:te_blk }
+  |blk_txt1                                       { (Cu_blk_txt $1):tu_blk }
+  |blk_blt1                                       { (Cu_blk_blt $1):tu_blk }
+  |blk_itm1                                       { (Cu_blk_itm $1):tu_blk }
+  |blk_dsp1                                       { (Cu_blk_dsp $1):tu_blk }
+  |NL blk1                                        { $2:tu_blk }
 ;
 
 blk_txt1:
@@ -418,15 +418,15 @@ blk_txt1:
 ;
 
 txt_units1:
-  |txt_unit1 lb0                                  { ($1::[]):te_txt_unit list }
-  |txt_unit1 txt_units1                           { ($1::$2):te_txt_unit list }
-  |txt_unit1 lb1 txt_units1                       { ($1::((Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):te_txt_unit list }
+  |txt_unit1 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit1 txt_units1                           { ($1::$2):tu_txt_unit list }
+  |txt_unit1 lb1 txt_units1                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit1:
-  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt1 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }
-  |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
+  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt1 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
+  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
 emph_txt1:
@@ -471,22 +471,22 @@ lb1:
 (* Level 2: *)
 
 blks2:
-  |blk2                                           { ($1::[]):te_blk list }
-  |blk2 lb2 blks2                                 { ($1::$3):te_blk list }
-  |special_blks2                                  { $1:te_blk list }
+  |blk2                                           { ($1::[]):tu_blk list }
+  |blk2 lb2 blks2                                 { ($1::$3):tu_blk list }
+  |special_blks2                                  { $1:tu_blk list }
 ;
 
 special_blks2:
-  |blk_txt2 lb3 special_blk_dsp2                  { [Ce_blk_txt $1;Ce_blk_dsp $3]:te_blk list }
-  |blk_txt2 lb3 special_blk_dsp2  lb2 blks2       { ((Ce_blk_txt $1)::((Ce_blk_dsp $3)::$5)):te_blk list }
+  |blk_txt2 lb3 special_blk_dsp2                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
+  |blk_txt2 lb3 special_blk_dsp2  lb2 blks2       { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
 ;
 
 blk2:
-  |blk_txt2                                       { (Ce_blk_txt $1):te_blk }
-  |blk_blt2                                       { (Ce_blk_blt $1):te_blk }
-  |blk_itm2                                       { (Ce_blk_itm $1):te_blk }
-  |blk_dsp2                                       { (Ce_blk_dsp $1):te_blk }
-  |NL blk2                                        { $2:te_blk }
+  |blk_txt2                                       { (Cu_blk_txt $1):tu_blk }
+  |blk_blt2                                       { (Cu_blk_blt $1):tu_blk }
+  |blk_itm2                                       { (Cu_blk_itm $1):tu_blk }
+  |blk_dsp2                                       { (Cu_blk_dsp $1):tu_blk }
+  |NL blk2                                        { $2:tu_blk }
 ;
 
 blk_txt2:
@@ -494,15 +494,15 @@ blk_txt2:
 ;
 
 txt_units2:
-  |txt_unit2 lb0                                  { ($1::[]):te_txt_unit list }
-  |txt_unit2 txt_units2                           { ($1::$2):te_txt_unit list }
-  |txt_unit2 lb2 txt_units2                       { ($1::((Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):te_txt_unit list }
+  |txt_unit2 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit2 txt_units2                           { ($1::$2):tu_txt_unit list }
+  |txt_unit2 lb2 txt_units2                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit2:
-  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt2 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
-  |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
+  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt2 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
+  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
 emph_txt2:
@@ -547,14 +547,14 @@ lb2:
 (* Level 3: *)
 
 blks3:
-  |blk3                                           { ($1::[]):te_blk list }
-  |blk3 lb3 blks3                                 { ($1::$3):te_blk list }
+  |blk3                                           { ($1::[]):tu_blk list }
+  |blk3 lb3 blks3                                 { ($1::$3):tu_blk list }
 ;
 
 blk3:
-  |blk_txt3                                       { (Ce_blk_txt $1):te_blk }
+  |blk_txt3                                       { (Cu_blk_txt $1):tu_blk }
   (* et cetera *)
-  |NL blk3                                        { $2:te_blk }
+  |NL blk3                                        { $2:tu_blk }
 ;
 
 blk_txt3:
@@ -562,15 +562,15 @@ blk_txt3:
 ;
 
 txt_units3:
-  |txt_unit3 lb0                                  { ($1::[]):te_txt_unit list }
-  |txt_unit3 txt_units3                           { ($1::$2):te_txt_unit list }
-  |txt_unit3 lb3 txt_units3                       { ($1::((Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):te_txt_unit list }
+  |txt_unit3 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit3 txt_units3                           { ($1::$2):tu_txt_unit list }
+  |txt_unit3 lb3 txt_units3                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit3:
-  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt3 STAR                            { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
-  |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
+  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt3 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
+  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
 emph_txt3:
@@ -594,14 +594,14 @@ special_dsp_line:
 ;
 
 dsp_units:
-  |dsp_unit                                       { ($1::[]):te_txt_unit list }
-  |dsp_unit dsp_units                             { ($1::$2):te_txt_unit list }
+  |dsp_unit                                       { ($1::[]):tu_txt_unit list }
+  |dsp_unit dsp_units                             { ($1::$2):tu_txt_unit list }
 ;
 
 dsp_unit:
-  |txt                                            { (Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):te_txt_unit }
-  |STAR emph_txt STAR                             { (Ce_txt_unit_emph (Cs_txt_unit_emph $2)):te_txt_unit }   
-  |c_ref                                          { (Ce_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):te_txt_unit }
+  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt STAR                             { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
+  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
 txt:
@@ -644,7 +644,7 @@ section_nl:
 ;
 
 section_spaces_tag_or_id_nl:
-  |SECTION_SPACES_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):te_tag_or_id }
+  |SECTION_SPACES_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):tu_tag_or_id }
 ;
 
 pilcrow_nl:
@@ -652,7 +652,7 @@ pilcrow_nl:
 ;
 
 pilcrow_spaces_tag_or_id_nl:
-  |PILCROW_SPACES_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):te_tag_or_id }
+  |PILCROW_SPACES_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):tu_tag_or_id }
 ;
 
 hdr:
@@ -660,8 +660,8 @@ hdr:
 ;
 
 dsp_lbl_tab:
-  |dsp_auto_tab                                   { (Ce_lbl_auto $1):te_lbl }
-  |dsp_custom_tab                                 { (Ce_lbl_custom $1):te_lbl }
+  |dsp_auto_tab                                   { (Cu_lbl_auto $1):tu_lbl }
+  |dsp_custom_tab                                 { (Cu_lbl_custom $1):tu_lbl }
 ;
 
 dsp_auto_tab:
@@ -673,8 +673,8 @@ dsp_custom_tab:
 ;
 
 itm_lbl_tab:
-  |itm_auto_tab                                   { (Ce_lbl_auto $1):te_lbl }
-  |itm_custom_tab                                 { (Ce_lbl_custom $1):te_lbl }
+  |itm_auto_tab                                   { (Cu_lbl_auto $1):tu_lbl }
+  |itm_custom_tab                                 { (Cu_lbl_custom $1):tu_lbl }
 ;
 
 itm_auto_tab:

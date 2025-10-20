@@ -138,8 +138,8 @@ val node_of_blk_itm : int -> Doc_types.tr_blk_itm -> t_node
 {[node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
   let itm_node : t_itm_node =
     match a.fld_blk_itm_lbl with
-    | Ce_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
-    | Ce_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
+    | Cu_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
+    | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
   in ITM_NODE itm_node
 ]}
 *)
@@ -148,8 +148,8 @@ val node_of_dsp_line : int -> Doc_types.tr_dsp_line -> t_node
 (**
 {[dsp_line_node : t_dsp_line_node =
   match a.fld_dsp_line_lbl with
-    | Some (Ce_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
-    | Some (Ce_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_STRING s
+    | Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
+    | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_STRING s
     | None -> NONE
   in 
   DSP_LINE_NODE dsp_line_node

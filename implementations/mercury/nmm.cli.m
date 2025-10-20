@@ -30,10 +30,10 @@
 :- use_module term_to_xml, nmm.lexer, nmm.parser, nmm.test.
 
 
-%% TYPE ABBREVIATIONS T_TKN AND T_TKNS
+%% TYPE ABBREVIATIONS TU_TKN AND TS_TKNS
 
-:- type t_tkn  == nmm.lexer.t_tkn.
-:- type t_tkns == nmm.lexer.t_tkns.
+:- type tu_tkn  == nmm.lexer.tu_tkn.
+:- type ts_tkns == nmm.lexer.ts_tkns.
 
 
 %% P_WRITE_USAGE
@@ -53,31 +53,32 @@ p_write_usage(!IO) :-
 
 
 
-%% TYPE T_LEX_FILE_RES AND HELPER P_LEX_FILE
+%% UNION TYPE TU_LEX_FILE_RES AND HELPER P_LEX_FILE
 
-:- type t_lex_file_res --->
-  c_lex_file_res_ok(t_tkns);
-  c_lex_file_res_err(str).
+:- type tu_lex_file_res --->
+  cu_lex_file_res_ok(ts_tkns);
+  cu_lex_file_res_err(str).
 
-:- pred p_lex_file(str::in,   t_lex_file_res::out, io.io::di, io.io::uo) is det.
-p_lex_file(        FILE_PATH, RES,                 !IO) :-
+:- pred p_lex_file(str,       tu_lex_file_res, io.io, io.io).
+:- mode p_lex_file(in,        out,             di,    uo) is det.
+p_lex_file(        FILE_PATH, RES,             !IO) :-
   io.read_named_file_as_string(FILE_PATH,RES_,!IO),
   (
     (
       RES_ = io.error(ERR_CODE),
-      RES  = c_lex_file_res_err(io.error_message(ERR_CODE))
+      RES  = cu_lex_file_res_err(io.error_message(ERR_CODE))
     );
     (
       RES_         = io.ok(FILE_AS_STR),
       TKNS_OR_ERRS = nmm.lexer.f_tknize(str2chrs(FILE_AS_STR)),
       (
         (
-          TKNS_OR_ERRS = nmm.lexer.c_tknize_res_err(ERR_MSG),
-          RES          = c_lex_file_res_err(ERR_MSG)
+          TKNS_OR_ERRS = nmm.lexer.cu_tknize_res_err(ERR_MSG),
+          RES          = cu_lex_file_res_err(ERR_MSG)
         );
         (
-          TKNS_OR_ERRS = nmm.lexer.c_tknize_res_ok(TKNS),
-          RES          = c_lex_file_res_ok(TKNS)
+          TKNS_OR_ERRS = nmm.lexer.cu_tknize_res_ok(TKNS),
+          RES          = cu_lex_file_res_ok(TKNS)
         )
       )
     )
@@ -91,13 +92,13 @@ p_lex(        FILE_PATH, !IO) :-
   p_lex_file(FILE_PATH,RES,!IO),
   (
     (
-      RES = c_lex_file_res_err(ERR),
+      RES = cu_lex_file_res_err(ERR),
       io.set_exit_status(1,!IO),
       io.write_string(io.stderr_stream,ERR,!IO),
       io.write_string("\n",!IO)
     );
     (
-      RES = c_lex_file_res_ok(TKNS),
+      RES = cu_lex_file_res_ok(TKNS),
       io.write_string(nmm.lexer.f_tkns2str(TKNS),!IO)
     )
   ).
@@ -108,7 +109,7 @@ p_lex(        FILE_PATH, !IO) :-
 %%% HELPER P_PARSE_AS_FAR_AS_POSSIBLE
 
 :- pred p_parse_as_far_as_possible(
-  t_tkns::in, nmm.lexer.t_line_no::out, nmm.parser.tr_doc::out
+  ts_tkns::in, nmm.lexer.ta_line_no::out, nmm.parser.tr_doc::out
 ) is semidet.
 p_parse_as_far_as_possible(
   TKNS,       LINE_NO_BEFORE_FAIL,      DOC
@@ -118,7 +119,7 @@ p_parse_as_far_as_possible(
   % a binary search for longest possible parsing ought to be performed instead
   list.last(TKNS,LAST_TKN),
   (
-    if nmm.parser.r_doc(DOC_,TKNS++[nmm.lexer.c_tkn_eof],[]) then (
+    if nmm.parser.r_doc(DOC_,TKNS++[nmm.lexer.cu_tkn_eof],[]) then (
       DOC = DOC_,
       nmm.lexer.p_tkn_line_no(LAST_TKN,LINE_NO_BEFORE_FAIL)
     ) else (
@@ -130,7 +131,7 @@ p_parse_as_far_as_possible(
 
 %%% HELPER P_HANDLE_PARSE_FAILURE
 
-:- pred p_handle_parse_failure(t_tkns::in, io.io::di, io.io::uo) is det.
+:- pred p_handle_parse_failure(ts_tkns::in, io.io::di, io.io::uo) is det.
 p_handle_parse_failure(        TKNS,       !IO) :-
   io.set_exit_status(1,!IO),
   io.write_string(
@@ -164,13 +165,13 @@ p_parse(        FILE_PATH, !IO) :-
   p_lex_file(FILE_PATH,RES,!IO),
   (
     (
-      RES = c_lex_file_res_err(ERR),
+      RES = cu_lex_file_res_err(ERR),
       io.set_exit_status(1,!IO),
       io.write_string(io.stderr_stream,ERR,!IO),
       io.write_string("\n",!IO)
     );
     (
-      RES = c_lex_file_res_ok(TKNS),
+      RES = cu_lex_file_res_ok(TKNS),
       (
         if nmm.parser.r_doc(DOC,TKNS,[]) then
           term_to_xml.write_xml_doc(io.stdout_stream,DOC,!IO)

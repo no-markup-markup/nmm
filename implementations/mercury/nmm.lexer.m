@@ -12,44 +12,44 @@
 :- include_module lexer.test.
 
 
-%% TYPE T_LINE_NO
+%% ALIAS TYPE TA_LINE_NO (= UINT)
 
-:- type t_line_no == uint.
+:- type ta_line_no == uint.
 
 
-%% TYPES T_TKN AND T_TKNS
+%% UNION TYPE TU_TKN AND SIMPLE TYPE TS_TKNS
 
-:- type t_tkn --->
-  c_tkn_nws(t_line_no,chr); % non-whitespace character
-  c_tkn_sp( t_line_no,chr); % non-tab space character
-  c_tkn_esc(t_line_no,chr); % escaped character
-  c_tkn_tab(t_line_no);
-  c_tkn_lb( t_line_no);     % line break
-  c_tkn_eof.
+:- type tu_tkn --->
+  cu_tkn_nws(ta_line_no,chr); % non-whitespace character
+  cu_tkn_sp( ta_line_no,chr); % non-tab space character
+  cu_tkn_esc(ta_line_no,chr); % escaped character
+  cu_tkn_tab(ta_line_no);
+  cu_tkn_lb( ta_line_no);     % line break
+  cu_tkn_eof.
 
-:- type t_tkns == list(t_tkn).
+:- type ts_tkns == list(tu_tkn).
 
 
 %% PREDICATE P_TKN_LINE_NO
 
-:- pred p_tkn_line_no(t_tkn::in,t_line_no::out) is semidet.
+:- pred p_tkn_line_no(tu_tkn::in,ta_line_no::out) is semidet.
 
 
-%% TYPE T_TKNIZE_RES
+%% UNION TYPE TU_TKNIZE_RES
 
-:- type t_tknize_res --->
-  c_tknize_res_ok(t_tkns);
-  c_tknize_res_err(str).
+:- type tu_tknize_res --->
+  cu_tknize_res_ok(ts_tkns);
+  cu_tknize_res_err(str).
 
 
 %% FUNCTION F_TKNIZE
 
-:- func f_tknize(chrs) = t_tknize_res is det.
+:- func f_tknize(chrs) = tu_tknize_res is det.
 
 
 %% FUNCTION F_TKNS2STR
 
-:- func f_tkns2str(t_tkns) = str.
+:- func f_tkns2str(ts_tkns) = str.
 
 
 
@@ -69,11 +69,11 @@
 
 %% P_TKN_LINE_NO
 
-p_tkn_line_no(c_tkn_nws(LINE_NO,_),LINE_NO).
-p_tkn_line_no(c_tkn_sp( LINE_NO,_),LINE_NO).
-p_tkn_line_no(c_tkn_esc(LINE_NO,_),LINE_NO).
-p_tkn_line_no(c_tkn_tab(LINE_NO),  LINE_NO).
-p_tkn_line_no(c_tkn_lb( LINE_NO),  LINE_NO).
+p_tkn_line_no(cu_tkn_nws(LINE_NO,_),LINE_NO).
+p_tkn_line_no(cu_tkn_sp( LINE_NO,_),LINE_NO).
+p_tkn_line_no(cu_tkn_esc(LINE_NO,_),LINE_NO).
+p_tkn_line_no(cu_tkn_tab(LINE_NO),  LINE_NO).
+p_tkn_line_no(cu_tkn_lb( LINE_NO),  LINE_NO).
 
 
 %% F_TKNIZE
@@ -85,10 +85,10 @@ f_tknize(CHRS) = RES :- (
   (
     (
       ERRS = [],
-      RES  = c_tknize_res_ok(TKNS)
+      RES  = cu_tknize_res_ok(TKNS)
     );
       ERRS = [_|_],
-      RES = c_tknize_res_err(string.join_list("\n",ERRS)++"\n")
+      RES  = cu_tknize_res_err(string.join_list("\n",ERRS)++"\n")
   )
 ).
 
@@ -96,9 +96,9 @@ f_tknize(CHRS) = RES :- (
 
 %%%% THE PREDICATE
 
-:- pred p_tknize(t_line_no, chrs, t_tkns,  strs,    t_tkns,   strs).
-:- mode p_tknize(in,        in,   in,      in,      out,      out) is det.
-p_tknize(        LINE_NO,   CHRS, TKNS_IN, ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
+:- pred p_tknize(ta_line_no, chrs, ts_tkns,  strs,    ts_tkns,  strs).
+:- mode p_tknize(in,         in,   in,       in,      out,      out) is det.
+p_tknize(        LINE_NO,    CHRS, TKNS_IN,  ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
   if CHRS = [C|CHRS_TL],p_unsupported(char.to_int(C),CP,N) then
     ERRS_IN_NEW =
     (
@@ -118,16 +118,16 @@ p_tknize(        LINE_NO,   CHRS, TKNS_IN, ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
     ),
     p_tknize(LINE_NO,CHRS_TL,TKNS_IN,ERRS_IN_NEW,TKNS_OUT,ERRS_OUT)
   else if p_leading_esc_chr(CHRS,ESC_CHR,CHRS_TL) then
-    TKNS_IN_NEW = TKNS_IN++[c_tkn_esc(LINE_NO,ESC_CHR)],
+    TKNS_IN_NEW = TKNS_IN++[cu_tkn_esc(LINE_NO,ESC_CHR)],
     p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
   else if p_leading_line_break(CHRS,CHRS_TL) then
-    TKNS_IN_NEW = TKNS_IN++[c_tkn_lb(LINE_NO)],
+    TKNS_IN_NEW = TKNS_IN++[cu_tkn_lb(LINE_NO)],
     p_tknize(LINE_NO+1u,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
   else if CHRS = ['\t'|CHRS_TL] then
-    TKNS_IN_NEW = TKNS_IN++[c_tkn_tab(LINE_NO)],
+    TKNS_IN_NEW = TKNS_IN++[cu_tkn_tab(LINE_NO)],
     p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
   else if CHRS = [C|CHRS_TL], p_sp_but_not_tab(C) then
-    TKNS_IN_NEW = TKNS_IN++[c_tkn_sp(LINE_NO,C)],
+    TKNS_IN_NEW = TKNS_IN++[cu_tkn_sp(LINE_NO,C)],
     p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
   else (
     (
@@ -135,7 +135,7 @@ p_tknize(        LINE_NO,   CHRS, TKNS_IN, ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
       p_tknize(
         LINE_NO,
         CHRS_TL,
-        TKNS_IN++[c_tkn_nws(LINE_NO,C)],
+        TKNS_IN++[cu_tkn_nws(LINE_NO,C)],
         ERRS_IN,
         TKNS_OUT,
         ERRS_OUT
@@ -143,16 +143,10 @@ p_tknize(        LINE_NO,   CHRS, TKNS_IN, ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
     );
     (
       CHRS     = [],
-      TKNS_OUT = TKNS_IN++[c_tkn_eof],
+      TKNS_OUT = TKNS_IN++[cu_tkn_eof],
       ERRS_OUT = ERRS_IN
     )
   )
- %%  else if CHRS = [C|CHRS_TL] then
- %%    TKNS_IN_NEW = TKNS_IN++[c_tkn_nws(LINE_NO,C)],
- %%    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
- %%  else
- %%    TKNS_OUT = TKNS_IN++[c_tkn_eof],
- %%    ERRS_OUT = ERRS_IN
 ).
 
 %%%% HELPER PREDICATE P_UNSUPPORTED
@@ -237,15 +231,15 @@ f_tkns2str(TKNS) = string.append_list(list.map(f_tkn2str,TKNS)).
 
 %%% HELPER FUNCTION F_TKN2STR
 
-:- func f_tkn2str(t_tkn) = str.
-f_tkn2str(c_tkn_nws(_,C)) = S :- (
+:- func f_tkn2str(tu_tkn) = str.
+f_tkn2str(cu_tkn_nws(_,C)) = S :- (
   if list.member(C,['␛','␉','␤','␄']) then
     S = string.append("␛",chr2str(C))
   else
     S = chr2str(C)
 ).
-f_tkn2str(c_tkn_sp(_,C))  = chr2str(C).
-f_tkn2str(c_tkn_esc(_,C)) = string.append("␛",chr2str(C)).
-f_tkn2str(c_tkn_tab(_))   = "␉\t".
-f_tkn2str(c_tkn_lb(_))    = "␤\n".
-f_tkn2str(c_tkn_eof)      = "␄\n".
+f_tkn2str(cu_tkn_sp(_,C))  = chr2str(C).
+f_tkn2str(cu_tkn_esc(_,C)) = string.append("␛",chr2str(C)).
+f_tkn2str(cu_tkn_tab(_))   = "␉\t".
+f_tkn2str(cu_tkn_lb(_))    = "␤\n".
+f_tkn2str(cu_tkn_eof)      = "␄\n".

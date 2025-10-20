@@ -17,15 +17,15 @@
 :- use_module term_to_xml, nmm.lexer.
 
 
-%% TYPE ABBREVIATIONS TA_TKN AND TA_TKNS
-
-:- type ta_tkn  == nmm.lexer.t_tkn.
-:- type ta_tkns == nmm.lexer.t_tkns.
-
-
 %% ALIAS TYPE TA_LVL (= UINT)
 
 :- type ta_lvl == uint.
+
+
+%% TYPE ABBREVIATIONS TU_TKN AND TS_TKNS
+
+:- type tu_tkn  == nmm.lexer.tu_tkn.
+:- type ts_tkns == nmm.lexer.ts_tkns.
 
 
 %% RULE R_DOC, TYPE TR_DOC, INSTANCE TR_DOC XMLABLE
@@ -35,13 +35,13 @@
   fld_doc_title    :: maybe(ts_title),
   fld_doc_author   :: maybe(ts_author),
   fld_doc_abstract :: maybe(ts_abstract),
-  fld_doc_main     :: te_doc_main,
+  fld_doc_main     :: tu_doc_main,
   fld_doc_refs     :: maybe(ts_refs)
 ).
 
 :- instance term_to_xml.xmlable(tr_doc).
 
-:- pred r_doc(tr_doc, ta_tkns, ta_tkns).
+:- pred r_doc(tr_doc, ts_tkns, ts_tkns).
 :- mode r_doc(out,    in,      out) is semidet.
 
 
@@ -51,7 +51,7 @@
 
 :- instance term_to_xml.xmlable(ts_preamble).
 
-:- pred r_preamble(ts_preamble::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_preamble(ts_preamble::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_TITLE, SIMPLE TYPE TS_TITLE, INSTANCE TS_TITLE XMLABLE
@@ -60,7 +60,7 @@
 
 :- instance term_to_xml.xmlable(ts_title).
 
-:- pred r_title(ts_title::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_title(ts_title::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_AUTHOR, SIMPLE TYPE TS_AUTHOR, INSTANCE TS_AUTHOR XMLABLE
@@ -69,7 +69,7 @@
 
 :- instance term_to_xml.xmlable(ts_author).
 
-:- pred r_author(ts_author::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_author(ts_author::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_ABSTRACT, SIMPLE TYPE TS_ABSTRACT, INSTANCE TS_ABSTRACT XMLABLE
@@ -78,7 +78,7 @@
 
 :- instance term_to_xml.xmlable(ts_abstract).
 
-:- pred r_abstract(ts_abstract::out,ta_tkns::in,ta_tkns::out) is semidet.
+:- pred r_abstract(ts_abstract::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_REFS, SIMPLE TYPE TS_REFS, INSTANCE TS_REFS XMLABLE
@@ -87,22 +87,22 @@
 
 :- instance term_to_xml.xmlable(ts_refs).
 
-:- pred r_refs(ts_refs::out,ta_tkns::in,ta_tkns::out) is semidet.
+:- pred r_refs(ts_refs::out, ts_tkns::in, ts_tkns::out) is semidet.
 
-:- pred r_refs_start_marker(ta_tkns::in,ta_tkns::out) is semidet.
+:- pred r_refs_start_marker(ts_tkns::in, ts_tkns::out) is semidet.
 
 
-%% RULE R_DOC_MAIN, ENUM TYPE TE_DOC_MAIN, INSTANCE TE_DOC_MAIN XMLABLE
+%% RULE R_DOC_MAIN, UNION TYPE TU_DOC_MAIN, INSTANCE TU_DOC_MAIN XMLABLE
 
-:- type te_doc_main --->
-  ce_doc_main_chs(ts_chs);
-  ce_doc_main_secs(ts_secs);
-  ce_doc_main_pars(ts_pars);
-  ce_doc_main_blks(ts_blks).
+:- type tu_doc_main --->
+  cu_doc_main_chs(ts_chs);
+  cu_doc_main_secs(ts_secs);
+  cu_doc_main_pars(ts_pars);
+  cu_doc_main_blks(ts_blks).
 
-:- instance term_to_xml.xmlable(te_doc_main).
+:- instance term_to_xml.xmlable(tu_doc_main).
 
-:- pred r_doc_main(te_doc_main, ta_tkns, ta_tkns).
+:- pred r_doc_main(tu_doc_main, ts_tkns, ts_tkns).
 :- mode r_doc_main(out,         in,      out) is semidet.
 
 
@@ -112,7 +112,7 @@
 
 :- instance term_to_xml.xmlable(ts_chs).
 
-:- pred r_chs(ts_chs, ta_tkns, ta_tkns).
+:- pred r_chs(ts_chs, ts_tkns, ts_tkns).
 :- mode r_chs(out,    in,      out) is semidet.
 
 
@@ -122,7 +122,7 @@
 
 :- instance term_to_xml.xmlable(ts_secs).
 
-:- pred r_secs(ts_secs, ta_tkns, ta_tkns).
+:- pred r_secs(ts_secs, ts_tkns, ts_tkns).
 :- mode r_secs(out,     in,      out) is semidet.
 
 
@@ -132,17 +132,17 @@
 
 :- instance term_to_xml.xmlable(ts_pars).
 
-:- pred r_pars(ts_pars, ta_tkns, ta_tkns).
+:- pred r_pars(ts_pars, ts_tkns, ts_tkns).
 :- mode r_pars(out,     in,      out) is semidet.
 
 
 %% RULE R_BLKS, SIMPLE TYPE TS_BLKS, INSTANCE TS_BLKS_XMLABLE
 
-:- type ts_blks ---> cs_blks(list(te_blk)).
+:- type ts_blks ---> cs_blks(list(tu_blk)).
 
 :- instance term_to_xml.xmlable(ts_blks).
 
-:- pred r_blks(ta_lvl, ts_blks, ta_tkns, ta_tkns).
+:- pred r_blks(ta_lvl, ts_blks, ts_tkns, ts_tkns).
 :- mode r_blks(in,     out,     in,      out) is semidet.
 
 
@@ -152,63 +152,63 @@
 
 :- instance term_to_xml.xmlable(ts_blks).
 
-:- pred r_blks_txt(ta_lvl, ts_blks_txt, ta_tkns, ta_tkns).
+:- pred r_blks_txt(ta_lvl, ts_blks_txt, ts_tkns, ts_tkns).
 :- mode r_blks_txt(in,     out,         in,      out) is semidet.
 
 
 %% RULE R_CH, RECORD TYPE TR_CH, INSTANCE TR_CH XMLABLE
 
 :- type tr_ch ---> cr_ch(
-  fld_ch_tag_or_id :: maybe(te_tag_or_id),
+  fld_ch_tag_or_id :: maybe(tu_tag_or_id),
   fld_ch_hdr       :: maybe(ts_hdr),
-  fld_ch_main      :: te_secs_pars_or_blks
+  fld_ch_main      :: tu_secs_pars_or_blks
 ).
 
 :- instance term_to_xml.xmlable(tr_ch).
 
-:- pred r_ch(tr_ch,  ta_tkns, ta_tkns).
+:- pred r_ch(tr_ch,  ts_tkns, ts_tkns).
 :- mode r_ch(out,    in,      out) is semidet.
 
 
 %% RULE R_SEC, RECORD TYPE TR_SEC, INSTANCE TR_SEC XMLABLE
 
 :- type tr_sec ---> cr_sec(
-  fld_sec_tag_or_id :: maybe(te_tag_or_id),
+  fld_sec_tag_or_id :: maybe(tu_tag_or_id),
   fld_sec_hdr       :: maybe(ts_hdr),
-  fld_sec_main      :: te_pars_or_blks
+  fld_sec_main      :: tu_pars_or_blks
 ).
 
 :- instance term_to_xml.xmlable(tr_sec).
 
-:- pred r_sec(tr_sec, ta_tkns, ta_tkns).
+:- pred r_sec(tr_sec, ts_tkns, ts_tkns).
 :- mode r_sec(out,    in,      out) is semidet.
 
 
 %% RULE R_PAR, RECORD TYPE TR_PAR, INSTANCE TR_PAR XMLABLE
 
 :- type tr_par ---> cr_par(
-  fld_par_tag_or_id :: maybe(te_tag_or_id),
+  fld_par_tag_or_id :: maybe(tu_tag_or_id),
   fld_par_hdr       :: maybe(ts_hdr),
   fld_par_main      :: ts_blks
 ).
 
 :- instance term_to_xml.xmlable(tr_par).
 
-:- pred r_par(tr_par, ta_tkns, ta_tkns).
+:- pred r_par(tr_par, ts_tkns, ts_tkns).
 :- mode r_par(out,    in,      out) is semidet.
 
 
-%% RULE R_BLK, ENUM TYPE TE_BLK, INSTANCE TE_BLK XMLABLE
+%% RULE R_BLK, UNION TYPE TU_BLK, INSTANCE TU_BLK XMLABLE
 
-:- type te_blk --->
-  ce_blk_txt(ts_blk_txt);
-  ce_blk_blt(ts_blk_blt);
-  ce_blk_itm(tr_blk_itm);
-  ce_blk_dsp(ts_blk_dsp).
+:- type tu_blk --->
+  cu_blk_txt(ts_blk_txt);
+  cu_blk_blt(ts_blk_blt);
+  cu_blk_itm(tr_blk_itm);
+  cu_blk_dsp(ts_blk_dsp).
 
-:- instance term_to_xml.xmlable(te_blk).
+:- instance term_to_xml.xmlable(tu_blk).
 
-:- pred r_blk(ta_lvl, te_blk, ta_tkns, ta_tkns).
+:- pred r_blk(ta_lvl, tu_blk, ts_tkns, ts_tkns).
 :- mode r_blk(in,     out,    in,      out) is semidet.
 
 
@@ -218,47 +218,47 @@
 
 :- instance term_to_xml.xmlable(ts_hdr).
 
-:- pred r_hdr(ts_hdr, ta_tkns, ta_tkns).
+:- pred r_hdr(ts_hdr, ts_tkns, ts_tkns).
 :- mode r_hdr(out,    in,      out) is semidet.
 
 
-%% RULE R_SECS_PARS_OR_BLKS, ENUM TYPE TE_SECS_PARS_OR_BLKS, INSTANCE TE_SECS_PARS_OR_BLKS XMLABLE
+%% RULE R_SECS_PARS_OR_BLKS, UNION TYPE TU_SECS_PARS_OR_BLKS, INSTANCE TU_SECS_PARS_OR_BLKS XMLABLE
 
-:- type te_secs_pars_or_blks ---> (
-  ce_secs_pars_or_blks_secs(ts_secs);
-  ce_secs_pars_or_blks_pars(ts_pars);
-  ce_secs_pars_or_blks_blks(ts_blks)
+:- type tu_secs_pars_or_blks ---> (
+  cu_secs_pars_or_blks_secs(ts_secs);
+  cu_secs_pars_or_blks_pars(ts_pars);
+  cu_secs_pars_or_blks_blks(ts_blks)
 ).
 
-:- instance term_to_xml.xmlable(te_secs_pars_or_blks).
+:- instance term_to_xml.xmlable(tu_secs_pars_or_blks).
 
-:- pred r_secs_pars_or_blks(te_secs_pars_or_blks, ta_tkns, ta_tkns).
+:- pred r_secs_pars_or_blks(tu_secs_pars_or_blks, ts_tkns, ts_tkns).
 :- mode r_secs_pars_or_blks(out,                  in,      out) is semidet.
 
 
-%% RULE R_PARS_OR_BLKS, ENUM TYPE TE_PARS_OR_BLKS, INSTANCE TE_PARS_OR_BLKS XMLABLE
+%% RULE R_PARS_OR_BLKS, UNION TYPE TU_PARS_OR_BLKS, INSTANCE TU_PARS_OR_BLKS XMLABLE
 
-:- type te_pars_or_blks ---> (
-  ce_pars_or_blks_pars(ts_pars);
-  ce_pars_or_blks_blks(ts_blks)
+:- type tu_pars_or_blks ---> (
+  cu_pars_or_blks_pars(ts_pars);
+  cu_pars_or_blks_blks(ts_blks)
 ).
 
-:- instance term_to_xml.xmlable(te_pars_or_blks).
+:- instance term_to_xml.xmlable(tu_pars_or_blks).
 
-:- pred r_pars_or_blks(te_pars_or_blks, ta_tkns, ta_tkns).
+:- pred r_pars_or_blks(tu_pars_or_blks, ts_tkns, ts_tkns).
 :- mode r_pars_or_blks(out,             in,      out) is semidet.
 
 
-%% RULE R_TXT_UNIT, ENUM TYPE TE_TXT_UNIT, INSTANCE TE_TXT_UNIT XMLABLE
+%% RULE R_TXT_UNIT, UNION TYPE TU_TXT_UNIT, INSTANCE TU_TXT_UNIT XMLABLE
 
-:- type te_txt_unit --->
-  ce_txt_unit_c_ref(ts_txt_unit_c_ref);
-  ce_txt_unit_emph(ts_txt_unit_emph);
-  ce_txt_unit_wysiwyg(ts_txt_unit_wysiwyg).
+:- type tu_txt_unit --->
+  cu_txt_unit_c_ref(ts_txt_unit_c_ref);
+  cu_txt_unit_emph(ts_txt_unit_emph);
+  cu_txt_unit_wysiwyg(ts_txt_unit_wysiwyg).
 
-:- instance term_to_xml.xmlable(te_txt_unit).
+:- instance term_to_xml.xmlable(tu_txt_unit).
 
-:- pred r_txt_unit(ta_lvl, te_txt_unit, ta_tkns, ta_tkns).
+:- pred r_txt_unit(ta_lvl, tu_txt_unit, ts_tkns, ts_tkns).
 :- mode r_txt_unit(in,     out,         in,      out) is semidet.
 
 
@@ -268,7 +268,7 @@
 
 :- instance term_to_xml.xmlable(ts_txt_unit_emph).
 
-:- pred r_txt_unit_emph(ta_lvl, ts_txt_unit_emph, ta_tkns, ta_tkns).
+:- pred r_txt_unit_emph(ta_lvl, ts_txt_unit_emph, ts_tkns, ts_tkns).
 :- mode r_txt_unit_emph(in,     out,              in,      out) is semidet.
 
 %% RULE R_TXT_UNIT_WYSIWYG, SIMPLE TYPE TS_TXT_UNIT_WYSIWYG, INSTANCE TS_TXT_UNIT_WYSIWYG XMLABLE
@@ -278,13 +278,13 @@
 :- instance term_to_xml.xmlable(ts_txt_unit_wysiwyg).
 
 :- pred r_txt_unit_wysiwyg(
-  ta_lvl::in, ts_txt_unit_wysiwyg::out, ta_tkns::in, ta_tkns::out
+  ta_lvl::in, ts_txt_unit_wysiwyg::out, ts_tkns::in, ts_tkns::out
 ) is semidet.
 
 
 %% RULE R_TXT_UNIT_CREF, SIMPLE TYPE TS_TXT_UNIT_CREF, INSTANCE TS_TXT_UNIT_CREF XMLABLE
 
-:- pred r_txt_unit_c_ref(ts_txt_unit_c_ref, ta_tkns, ta_tkns).
+:- pred r_txt_unit_c_ref(ts_txt_unit_c_ref, ts_tkns, ts_tkns).
 :- mode r_txt_unit_c_ref(out,               in,      out) is semidet.
 
 :- type ts_txt_unit_c_ref ---> cs_txt_unit_c_ref(ts_c_ref).
@@ -294,11 +294,11 @@
 
 %% RULE R_TXT_UNITS, SIMPLE TYPE TS_TXT_UNITS, INSTANCE TS_TXT_UNITS XMLABLE
 
-:- type ts_txt_units ---> cs_txt_units(list(te_txt_unit)).
+:- type ts_txt_units ---> cs_txt_units(list(tu_txt_unit)).
 
 :- instance term_to_xml.xmlable(ts_txt_units).
 
-:- pred r_txt_units(ta_lvl, ts_txt_units, ta_tkns, ta_tkns).
+:- pred r_txt_units(ta_lvl, ts_txt_units, ts_tkns, ts_tkns).
 :- mode r_txt_units(in,     out,          in,      out) is semidet.
 
 
@@ -308,7 +308,7 @@
 
 :- instance term_to_xml.xmlable(ts_lbl_auto).
 
-:- pred r_lbl_auto(ts_lbl_auto::out, ta_tkns::in, ta_tkns::out) is det.
+:- pred r_lbl_auto(ts_lbl_auto::out, ts_tkns::in, ts_tkns::out) is det.
 
 
 %% RULE R_LBL_CUSTOM, SIMPLE TYPE TS_LBL_CUSTOM, INSTANCE TS_LBL_CUSTOM XMLABLE
@@ -317,29 +317,29 @@
 
 :- instance term_to_xml.xmlable(ts_lbl_custom).
 
-:- pred r_lbl_custom(ts_lbl_custom::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_lbl_custom(ts_lbl_custom::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
-%% RULE R_LBL, ENUM TYPE TE_LBL, INSTANCE TE_LBL XMLABLE
+%% RULE R_LBL, UNION TYPE TU_LBL, INSTANCE TU_LBL XMLABLE
 
-:- type te_lbl --->
-  ce_lbl_auto(ts_lbl_auto);
-  ce_lbl_custom(ts_lbl_custom).
+:- type tu_lbl --->
+  cu_lbl_auto(ts_lbl_auto);
+  cu_lbl_custom(ts_lbl_custom).
 
-:- instance term_to_xml.xmlable(te_lbl).
+:- instance term_to_xml.xmlable(tu_lbl).
 
-:- pred r_lbl(te_lbl::out, ta_tkns::in, ta_tkns::out) is det.
+:- pred r_lbl(tu_lbl::out, ts_tkns::in, ts_tkns::out) is det.
 
 
-%% RULE R_TAG_OR_ID, ENUM TYPE TE_TAG_OR_ID, INSTANCE TE_TAG_OR_ID_XMLABLE
+%% RULE R_TAG_OR_ID, UNION TYPE TU_TAG_OR_ID, INSTANCE TU_TAG_OR_ID_XMLABLE
 
-:- type te_tag_or_id --->
-  ce_tag_or_id_tag(ts_tag);
-  ce_tag_or_id_id(tr_id).
+:- type tu_tag_or_id --->
+  cu_tag_or_id_tag(ts_tag);
+  cu_tag_or_id_id(tr_id).
 
-:- instance term_to_xml.xmlable(te_tag_or_id).
+:- instance term_to_xml.xmlable(tu_tag_or_id).
 
-:- pred r_tag_or_id(te_tag_or_id, ta_tkns, ta_tkns).
+:- pred r_tag_or_id(tu_tag_or_id, ts_tkns, ts_tkns).
 :- mode r_tag_or_id(out,          in,      out) is semidet.
 
 %% RULE R_TAG, SIMPLE TYPE TS_TAG, INSTANCE TS_TAG XMLABLE
@@ -348,7 +348,7 @@
 
 :- instance term_to_xml.xmlable(ts_tag).
 
-:- pred r_tag(ts_tag::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_tag(ts_tag::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 %% RULE R_NAME, SIMPLE TYPE TS_NAME, INSTANCE TS_NAME XMLABLE
 
@@ -356,7 +356,7 @@
 
 :- instance term_to_xml.xmlable(ts_name).
 
-:- pred r_name(ts_name::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_name(ts_name::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 %% RULE R_ID, RECORD TYPE TR_ID, INSTANCE TR_ID XMLABLE
 
@@ -367,7 +367,7 @@
 
 :- instance term_to_xml.xmlable(tr_id).
 
-:- pred r_id(tr_id::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_id(tr_id::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 %% RULE R_C_REF, SIMPLE TYPE TS_C_REF, INSTANCE TS_C_REF XMLABLE
 
@@ -375,7 +375,7 @@
 
 :- instance term_to_xml.xmlable(ts_c_ref).
 
-:- pred r_c_ref(ts_c_ref::out, ta_tkns::in, ta_tkns::out) is semidet.
+:- pred r_c_ref(ts_c_ref::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_BLK_TXT, SIMPLE TYPE TS_BLK_TXT, INSTANCE TS_BLK_TXT XMLABLE
@@ -384,7 +384,7 @@
 
 :- instance term_to_xml.xmlable(ts_blk_txt).
 
-:- pred r_blk_txt(ta_lvl, ts_blk_txt, ta_tkns, ta_tkns).
+:- pred r_blk_txt(ta_lvl, ts_blk_txt, ts_tkns, ts_tkns).
 :- mode r_blk_txt(in,     out,        in,      out) is semidet.
 
 %% RULE R_BLK_BLT, SIMPLE TYPE TS_BLK_BLT, INSTANCE TS_BLK_BLT XMLABLE
@@ -393,21 +393,21 @@
 
 :- instance term_to_xml.xmlable(ts_blk_blt).
 
-:- pred r_blk_blt(ta_lvl, ts_blk_blt, ta_tkns, ta_tkns).
+:- pred r_blk_blt(ta_lvl, ts_blk_blt, ts_tkns, ts_tkns).
 :- mode r_blk_blt(in,     out,        in,      out) is semidet.
 
 
 %% RULE R_BLK_ITM, RECORD TYPE TR_BLK_ITM, INSTANCE TR_BLK_ITM XMLABLE
 
 :- type tr_blk_itm ---> cr_blk_itm(
-  fld_blk_itm_lbl  :: te_lbl,
+  fld_blk_itm_lbl  :: tu_lbl,
   fld_blk_itm_id   :: maybe(tr_id),
   fld_blk_itm_main :: ts_blks
 ).
 
 :- instance term_to_xml.xmlable(tr_blk_itm).
 
-:- pred r_blk_itm(ta_lvl, tr_blk_itm, ta_tkns, ta_tkns).
+:- pred r_blk_itm(ta_lvl, tr_blk_itm, ts_tkns, ts_tkns).
 :- mode r_blk_itm(in,     out,        in,      out) is semidet.
 
 %% RULE R_BLK_DSP, SIMPLE TYPE TS_BLK_DSP, INSTANCE TS_BLK_DSP XMLABLE
@@ -416,41 +416,41 @@
 
 :- instance term_to_xml.xmlable(ts_blk_dsp).
 
-:- pred r_blk_dsp(ta_lvl, ts_blk_dsp, ta_tkns, ta_tkns).
+:- pred r_blk_dsp(ta_lvl, ts_blk_dsp, ts_tkns, ts_tkns).
 :- mode r_blk_dsp(in,     out,        in,      out) is semidet.
 
 %% RULE R_DSP_LINES, SIMPLE TYPE TS_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
 
-:- type ts_dsp_lines ---> cs_dsp_lines(list(te_dsp_line)).
+:- type ts_dsp_lines ---> cs_dsp_lines(list(tu_dsp_line)).
 
 :- instance term_to_xml.xmlable(ts_dsp_lines).
 
-:- pred r_dsp_lines(ta_lvl, ts_dsp_lines, ta_tkns, ta_tkns).
+:- pred r_dsp_lines(ta_lvl, ts_dsp_lines, ts_tkns, ts_tkns).
 :- mode r_dsp_lines(in,     out,          in,      out) is semidet.
 
 
-%% RULE R_DSP_LINE, ENUM TYPE TE_DSP_LINE, INSTANCE TE_DSP_LINE XMLABLE
+%% RULE R_DSP_LINE, UNION TYPE TU_DSP_LINE, INSTANCE TU_DSP_LINE XMLABLE
 
-:- type te_dsp_line --->
-  ce_dsp_line_lbld(tr_dsp_line_lbld);
-  ce_dsp_line_no_lbl(ts_dsp_line_no_lbl).
+:- type tu_dsp_line --->
+  cu_dsp_line_lbld(tr_dsp_line_lbld);
+  cu_dsp_line_no_lbl(ts_dsp_line_no_lbl).
 
-:- instance term_to_xml.xmlable(te_dsp_line).
+:- instance term_to_xml.xmlable(tu_dsp_line).
 
-:- pred r_dsp_line(te_dsp_line, ta_tkns, ta_tkns).
+:- pred r_dsp_line(tu_dsp_line, ts_tkns, ts_tkns).
 :- mode r_dsp_line(out,         in,      out) is semidet.
 
 %% RULE R_DSP_LINE_LBLD, RECORD TYPE TR_DSP_LINE_LBLD, INSTANCE TR_DSP_LINE_LBLD XMLABLE
 
 :- type tr_dsp_line_lbld ---> cr_dsp_line_lbld(
-  fld_dsp_line_lbld_lbl   :: te_lbl,
+  fld_dsp_line_lbld_lbl   :: tu_lbl,
   fld_dsp_line_lbld_id    :: maybe(tr_id),
   fld_dsp_line_lbld_units :: ts_txt_units
 ).
 
 :- instance term_to_xml.xmlable(tr_dsp_line_lbld).
 
-:- pred r_dsp_line_lbld(tr_dsp_line_lbld, ta_tkns, ta_tkns).
+:- pred r_dsp_line_lbld(tr_dsp_line_lbld, ts_tkns, ts_tkns).
 :- mode r_dsp_line_lbld(out,              in,      out) is semidet.
 
 
@@ -460,13 +460,13 @@
 
 :- instance term_to_xml.xmlable(ts_dsp_line_no_lbl).
 
-:- pred r_dsp_line_no_lbl(ts_dsp_line_no_lbl, ta_tkns, ta_tkns).
+:- pred r_dsp_line_no_lbl(ts_dsp_line_no_lbl, ts_tkns, ts_tkns).
 :- mode r_dsp_line_no_lbl(out,                in,      out) is semidet.
 
 
 %% RULE R_DSP_UNIT
 
-:- pred r_dsp_unit(te_txt_unit, ta_tkns, ta_tkns).
+:- pred r_dsp_unit(tu_txt_unit, ts_tkns, ts_tkns).
 :- mode r_dsp_unit(out,         in,      out) is semidet.
 
 
@@ -633,12 +633,12 @@ r_title(cs_title(STR)) --> (
   {STR = string.join_list(" ",LINES)}
 ).
 
-:- pred r_title_line(str::out,ta_tkns::in,ta_tkns::out) is semidet.
-r_title_line(LINE) -->
+:- pred r_title_line(str::out, ts_tkns::in, ts_tkns::out) is semidet.
+r_title_line(        LINE) -->
   +([],r_title_line_chr,CS,[]), r_lb, {LINE = chrs2str(CS)}.
 
 % needed because some mode error otherwise
-:- pred r_title_line_chr(chr::out,ta_tkns::in,ta_tkns::out) is semidet.
+:- pred r_title_line_chr(chr::out, ts_tkns::in, ts_tkns::out) is semidet.
 r_title_line_chr(        C) --> r_c(C).
 
 %%% XMLABLE
@@ -664,12 +664,12 @@ r_author(cs_author(STR)) --> (
   {STR = string.join_list(" ",LINES)}
 ).
 
-:- pred r_author_line(str::out,ta_tkns::in,ta_tkns::out) is semidet.
-r_author_line(LINE) -->
+:- pred r_author_line(str::out, ts_tkns::in, ts_tkns::out) is semidet.
+r_author_line(        LINE) -->
   +([],r_author_line_chr,CS,[]), r_lb, {LINE = chrs2str(CS)}.
 
 % needed because some mode error otherwise
-:- pred r_author_line_chr(chr::out,ta_tkns::in,ta_tkns::out) is semidet.
+:- pred r_author_line_chr(chr::out, ts_tkns::in, ts_tkns::out) is semidet.
 r_author_line_chr(        C) --> r_c(C).
 
 %%% XMLABLE
@@ -734,36 +734,36 @@ f_refs_to_xml(cs_refs(BLKS)) =
   term_to_xml.elem("cs_refs",[],[f_blks_to_xml(BLKS)]).
 
 
-%% R_DOC_MAIN, INSTANCE TE_DOC_MAIN XMLABLE
+%% R_DOC_MAIN, INSTANCE TU_DOC_MAIN XMLABLE
 
 %%% R_DOC_MAIN
 
 r_doc_main(DOC_MAIN) --> (
-  r_chs(    CHS)  -> {DOC_MAIN = ce_doc_main_chs( CHS)};
-  r_secs(   SECS) -> {DOC_MAIN = ce_doc_main_secs(SECS)};
-  r_pars(   PARS) -> {DOC_MAIN = ce_doc_main_pars(PARS)};
-  r_blks(0u,BLKS) -> {DOC_MAIN = ce_doc_main_blks(BLKS)};
+  r_chs(    CHS)  -> {DOC_MAIN = cu_doc_main_chs( CHS)};
+  r_secs(   SECS) -> {DOC_MAIN = cu_doc_main_secs(SECS)};
+  r_pars(   PARS) -> {DOC_MAIN = cu_doc_main_pars(PARS)};
+  r_blks(0u,BLKS) -> {DOC_MAIN = cu_doc_main_blks(BLKS)};
                      {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_doc_main) where [
+:- instance term_to_xml.xmlable(tu_doc_main) where [
   func(to_xml/1) is f_doc_main_to_xml
 ].
 :- func (
-  f_doc_main_to_xml(te_doc_main::in)
+  f_doc_main_to_xml(tu_doc_main::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_doc_main_to_xml(ce_doc_main_chs(CHS))   =
-  term_to_xml.elem("ce_doc_main_chs", [],[f_chs_to_xml(CHS)]).
-f_doc_main_to_xml(ce_doc_main_secs(SECS)) =
-  term_to_xml.elem("ce_doc_main_secs",[],[f_secs_to_xml(SECS)]).
-f_doc_main_to_xml(ce_doc_main_pars(PARS)) =
-  term_to_xml.elem("ce_doc_main_pars",[],[f_pars_to_xml(PARS)]).
-f_doc_main_to_xml(ce_doc_main_blks(BLKS)) =
-  term_to_xml.elem("ce_doc_main_blks",[],[f_blks_to_xml(BLKS)]).
+f_doc_main_to_xml(cu_doc_main_chs(CHS))   =
+  term_to_xml.elem("cu_doc_main_chs", [],[f_chs_to_xml(CHS)]).
+f_doc_main_to_xml(cu_doc_main_secs(SECS)) =
+  term_to_xml.elem("cu_doc_main_secs",[],[f_secs_to_xml(SECS)]).
+f_doc_main_to_xml(cu_doc_main_pars(PARS)) =
+  term_to_xml.elem("cu_doc_main_pars",[],[f_pars_to_xml(PARS)]).
+f_doc_main_to_xml(cu_doc_main_blks(BLKS)) =
+  term_to_xml.elem("cu_doc_main_blks",[],[f_blks_to_xml(BLKS)]).
 
 
 %% R_CHS, INSTANCE TS_CHS_XMLABLE
@@ -1061,33 +1061,33 @@ f_par_to_xml(PAR) = XML :- (
 ).
 
 
-%% R_BLK, INSTANCE TE_BLK XMLABLE
+%% R_BLK, INSTANCE TU_BLK XMLABLE
 
 %%% R_BLK
 
 r_blk(LVL,BLK) -->
-  r_blk_txt(LVL,BLK_TXT) -> {BLK = ce_blk_txt(BLK_TXT)};
-  r_blk_blt(LVL,BLK_BLT) -> {BLK = ce_blk_blt(BLK_BLT)};
-  r_blk_itm(LVL,BLK_ITM) -> {BLK = ce_blk_itm(BLK_ITM)};
-  r_blk_dsp(LVL,BLK_DSP) -> {BLK = ce_blk_dsp(BLK_DSP)};
+  r_blk_txt(LVL,BLK_TXT) -> {BLK = cu_blk_txt(BLK_TXT)};
+  r_blk_blt(LVL,BLK_BLT) -> {BLK = cu_blk_blt(BLK_BLT)};
+  r_blk_itm(LVL,BLK_ITM) -> {BLK = cu_blk_itm(BLK_ITM)};
+  r_blk_dsp(LVL,BLK_DSP) -> {BLK = cu_blk_dsp(BLK_DSP)};
                             {false}.
 
 %%% INSTANCE XMLABLE
 
-:- instance term_to_xml.xmlable(te_blk) where [
+:- instance term_to_xml.xmlable(tu_blk) where [
   func(to_xml/1) is f_blk_to_xml
 ].
 :- func (
-  f_blk_to_xml(te_blk::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  f_blk_to_xml(tu_blk::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_blk_to_xml(ce_blk_txt(BLK)) =
-  term_to_xml.elem("ce_blk_txt",[],[f_blk_txt_to_xml(BLK)]).
-f_blk_to_xml(ce_blk_blt(BLK)) =
-  term_to_xml.elem("ce_blk_blt",[],[f_blk_blt_to_xml(BLK)]).
-f_blk_to_xml(ce_blk_itm(BLK)) =
-  term_to_xml.elem("ce_blk_itm",[],[f_blk_itm_to_xml(BLK)]).
-f_blk_to_xml(ce_blk_dsp(BLK)) =
-  term_to_xml.elem("ce_blk_dsp",[],[f_blk_dsp_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_txt(BLK)) =
+  term_to_xml.elem("cu_blk_txt",[],[f_blk_txt_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_blt(BLK)) =
+  term_to_xml.elem("cu_blk_blt",[],[f_blk_blt_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_itm(BLK)) =
+  term_to_xml.elem("cu_blk_itm",[],[f_blk_itm_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_dsp(BLK)) =
+  term_to_xml.elem("cu_blk_dsp",[],[f_blk_dsp_to_xml(BLK)]).
 
 
 %% R_HDR, INSTANCE TS_HDR XMLABLE
@@ -1108,113 +1108,113 @@ f_hdr_to_xml(cs_hdr(UNITS)) =
   term_to_xml.elem("cs_hdr",[],[f_txt_units_to_xml(UNITS)]).
 
 
-%% R_SECS_PARS_OR_BLKS AND TE_SECS_PARS_OR_BLKS_XMLABLE
+%% R_SECS_PARS_OR_BLKS AND TU_SECS_PARS_OR_BLKS_XMLABLE
 
 %%% R_SECS_PARS_OR_BLKS
 
 r_secs_pars_or_blks(SECS_PARS_OR_BLKS) --> (
-  r_secs(   SECS) -> {SECS_PARS_OR_BLKS = ce_secs_pars_or_blks_secs(SECS)};
-  r_pars(   PARS) -> {SECS_PARS_OR_BLKS = ce_secs_pars_or_blks_pars(PARS)};
-  r_blks(0u,BLKS) -> {SECS_PARS_OR_BLKS = ce_secs_pars_or_blks_blks(BLKS)};
+  r_secs(   SECS) -> {SECS_PARS_OR_BLKS = cu_secs_pars_or_blks_secs(SECS)};
+  r_pars(   PARS) -> {SECS_PARS_OR_BLKS = cu_secs_pars_or_blks_pars(PARS)};
+  r_blks(0u,BLKS) -> {SECS_PARS_OR_BLKS = cu_secs_pars_or_blks_blks(BLKS)};
   {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_secs_pars_or_blks) where [
+:- instance term_to_xml.xmlable(tu_secs_pars_or_blks) where [
   func(to_xml/1) is f_secs_pars_or_blks_to_xml
 ].
 :- func (
-  f_secs_pars_or_blks_to_xml(te_secs_pars_or_blks::in)
+  f_secs_pars_or_blks_to_xml(tu_secs_pars_or_blks::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
 f_secs_pars_or_blks_to_xml(SECS_PARS_OR_BLKS) = XML :- (
   (
-    SECS_PARS_OR_BLKS = ce_secs_pars_or_blks_secs(SECS),
+    SECS_PARS_OR_BLKS = cu_secs_pars_or_blks_secs(SECS),
     XML               =
-      term_to_xml.elem("ce_secs_pars_or_blks_secs",[],[f_secs_to_xml(SECS)])
+      term_to_xml.elem("cu_secs_pars_or_blks_secs",[],[f_secs_to_xml(SECS)])
   );
   (
-    SECS_PARS_OR_BLKS = ce_secs_pars_or_blks_pars(PARS),
+    SECS_PARS_OR_BLKS = cu_secs_pars_or_blks_pars(PARS),
     XML               =
-      term_to_xml.elem("ce_secs_pars_or_blks_pars",[],[f_pars_to_xml(PARS)])
+      term_to_xml.elem("cu_secs_pars_or_blks_pars",[],[f_pars_to_xml(PARS)])
   );
   (
-    SECS_PARS_OR_BLKS = ce_secs_pars_or_blks_blks(BLKS),
+    SECS_PARS_OR_BLKS = cu_secs_pars_or_blks_blks(BLKS),
     XML               =
-      term_to_xml.elem("ce_secs_pars_or_blks_blks",[],[f_blks_to_xml(BLKS)])
+      term_to_xml.elem("cu_secs_pars_or_blks_blks",[],[f_blks_to_xml(BLKS)])
   )
 ).
 
 
-%% R_PARS_OR_BLKS AND TE_PARS_OR_BLKS_XMLABLE
+%% R_PARS_OR_BLKS AND TU_PARS_OR_BLKS_XMLABLE
 
 %%% R_PARS_OR_BLKS
 
 r_pars_or_blks(PARS_OR_BLKS) --> (
-  r_pars(   PARS) -> {PARS_OR_BLKS = ce_pars_or_blks_pars(PARS)};
-  r_blks(0u,BLKS) -> {PARS_OR_BLKS = ce_pars_or_blks_blks(BLKS)};
+  r_pars(   PARS) -> {PARS_OR_BLKS = cu_pars_or_blks_pars(PARS)};
+  r_blks(0u,BLKS) -> {PARS_OR_BLKS = cu_pars_or_blks_blks(BLKS)};
                      {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_pars_or_blks) where [
+:- instance term_to_xml.xmlable(tu_pars_or_blks) where [
   func(to_xml/1) is f_pars_or_blks_to_xml
 ].
 
 :- func (
-  f_pars_or_blks_to_xml(te_pars_or_blks::in)
+  f_pars_or_blks_to_xml(tu_pars_or_blks::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
 f_pars_or_blks_to_xml(PARS_OR_BLKS) = XML :- (
   (
-    PARS_OR_BLKS = ce_pars_or_blks_pars(PARS),
+    PARS_OR_BLKS = cu_pars_or_blks_pars(PARS),
     XML          =
-      term_to_xml.elem("ce_pars_or_blks_pars",[],[f_pars_to_xml(PARS)])
+      term_to_xml.elem("cu_pars_or_blks_pars",[],[f_pars_to_xml(PARS)])
   );
   (
-    PARS_OR_BLKS = ce_pars_or_blks_blks(BLKS),
+    PARS_OR_BLKS = cu_pars_or_blks_blks(BLKS),
     XML          =
-      term_to_xml.elem("ce_pars_or_blks_blks",[],[f_blks_to_xml(BLKS)])
+      term_to_xml.elem("cu_pars_or_blks_blks",[],[f_blks_to_xml(BLKS)])
   )
 ).
 
 
 
 
-%% R_TXT_UNIT, T_TXT_UNIT XMLABLE
+%% R_TXT_UNIT, TU_TXT_UNIT XMLABLE
 
 %%% R_TXT_UNIT
 
 r_txt_unit(LVL,U) --> (
   r_c_ref(CR)                ->
-    {U = ce_txt_unit_c_ref(cs_txt_unit_c_ref(CR))};
+    {U = cu_txt_unit_c_ref(cs_txt_unit_c_ref(CR))};
   r_txt_unit_emph(LVL,U_)    ->
-    {U = ce_txt_unit_emph(U_)};
+    {U = cu_txt_unit_emph(U_)};
   r_txt_unit_wysiwyg(LVL,U_) ->
-    {U = ce_txt_unit_wysiwyg(U_)};
+    {U = cu_txt_unit_wysiwyg(U_)};
   {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_txt_unit) where [
+:- instance term_to_xml.xmlable(tu_txt_unit) where [
   func(to_xml/1) is f_txt_unit_to_xml
 ].
 :- func (
-  f_txt_unit_to_xml(te_txt_unit::in)
+  f_txt_unit_to_xml(tu_txt_unit::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_txt_unit_to_xml(ce_txt_unit_c_ref(C_REF))  =
-  term_to_xml.elem("ce_txt_unit_c_ref",  [],[f_txt_unit_c_ref_to_xml(C_REF)]).
-f_txt_unit_to_xml(ce_txt_unit_wysiwyg(U)) =
-  term_to_xml.elem("ce_txt_unit_wysiwyg",[],[f_txt_unit_wysiwyg_to_xml(U)]).
-f_txt_unit_to_xml(ce_txt_unit_emph(U))    =
-  term_to_xml.elem("ce_txt_unit_emph",   [],[f_txt_unit_emph_to_xml(U)]).
+f_txt_unit_to_xml(cu_txt_unit_c_ref(C_REF))  =
+  term_to_xml.elem("cu_txt_unit_c_ref",  [],[f_txt_unit_c_ref_to_xml(C_REF)]).
+f_txt_unit_to_xml(cu_txt_unit_wysiwyg(U)) =
+  term_to_xml.elem("cu_txt_unit_wysiwyg",[],[f_txt_unit_wysiwyg_to_xml(U)]).
+f_txt_unit_to_xml(cu_txt_unit_emph(U))    =
+  term_to_xml.elem("cu_txt_unit_emph",   [],[f_txt_unit_emph_to_xml(U)]).
 
 
 %% R_TXT_UNIT_EMPH, INSTANCE TS_TXT_UNIT_EMPH XMLABLE
@@ -1224,10 +1224,10 @@ f_txt_unit_to_xml(ce_txt_unit_emph(U))    =
 r_txt_unit_emph(LVL,cs_txt_unit_emph(STR)) -->
   r_str("*"), r_txt_unit_emph_str(LVL,STR), r_str("*").
 
-:- pred r_txt_unit_emph_str(uint, str, ta_tkns, ta_tkns).
-:- mode r_txt_unit_emph_str(in,   out, in,     out) is semidet.
+:- pred r_txt_unit_emph_str(uint, str, ts_tkns, ts_tkns).
+:- mode r_txt_unit_emph_str(in,   out, in,      out) is semidet.
 r_txt_unit_emph_str(        LVL,  S) --> (
-  r(ce_r_any,["*"],S_),
+  r(cu_r_any,["*"],S_),
   (
     r_lb, r_tabs(LVL) -> r_txt_unit_emph_str(LVL,S__), {S = S_++" "++S__};
                          {S = S_}
@@ -1253,14 +1253,14 @@ f_txt_unit_emph_to_xml(cs_txt_unit_emph(STR)) =
 r_txt_unit_wysiwyg(LVL,cs_txt_unit_wysiwyg(STR)) -->
   +([],r_txt_unit_wysiwyg_chr,LVL,CHRS,[]), {STR = chrs2str(CHRS)}.
 
-:- pred r_txt_unit_wysiwyg_chr(ta_lvl, chr, ta_tkns, ta_tkns).
+:- pred r_txt_unit_wysiwyg_chr(ta_lvl, chr, ts_tkns, ts_tkns).
 :- mode r_txt_unit_wysiwyg_chr(in,     out, in,      out) is semidet.
 r_txt_unit_wysiwyg_chr(        LVL,    C) --> (
   not r_tab,
   not r_lb,
   not r_c_ref(_),
   not r_txt_unit_emph(LVL,_),
-  r_c(ce_r_any,C)
+  r_c(cu_r_any,C)
 ).
 
 
@@ -1333,7 +1333,7 @@ f_lbl_auto_to_xml(cs_lbl_auto)  = term_to_xml.elem("cs_lbl_auto",[],[]).
 
 %% R_LBL_CUSTOM, TS_LBL_CUSTOM XMLABLE
 
-r_lbl_custom(cs_lbl_custom(S)) --> r(ce_r_any,["(",")","[","]"],S).
+r_lbl_custom(cs_lbl_custom(S)) --> r(cu_r_any,["(",")","[","]"],S).
 
 :- instance term_to_xml.xmlable(ts_lbl_custom) where [
   func(to_xml/1) is f_lbl_custom_to_xml
@@ -1346,59 +1346,59 @@ r_lbl_custom(cs_lbl_custom(S)) --> r(ce_r_any,["(",")","[","]"],S).
 f_lbl_custom_to_xml(cs_lbl_custom(S)) =
   term_to_xml.elem("cs_lbl_custom",[],[term_to_xml.data(S)]).
 
-%% R_LBL, TE_LBL XMLABLE
+%% R_LBL, TU_LBL XMLABLE
 
 %%% R_LBL
 
 r_lbl(LBL) --> (
-  r_lbl_custom(LBL_) -> {LBL = ce_lbl_custom(LBL_)};
-  r_lbl_auto(LBL_)   -> {LBL = ce_lbl_auto(LBL_)};
+  r_lbl_custom(LBL_) -> {LBL = cu_lbl_custom(LBL_)};
+  r_lbl_auto(LBL_)   -> {LBL = cu_lbl_auto(LBL_)};
                         {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_lbl) where [
+:- instance term_to_xml.xmlable(tu_lbl) where [
   func(to_xml/1) is f_lbl_to_xml
 ].
 :- func (
-  f_lbl_to_xml(te_lbl::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  f_lbl_to_xml(tu_lbl::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_lbl_to_xml(ce_lbl_auto(LBL))      =
-  term_to_xml.elem("ce_lbl_auto",[],[f_lbl_auto_to_xml(LBL)]).
-f_lbl_to_xml(ce_lbl_custom(LBL)) =
-  term_to_xml.elem("ce_lbl_custom",[],[f_lbl_custom_to_xml(LBL)]).
+f_lbl_to_xml(cu_lbl_auto(LBL))      =
+  term_to_xml.elem("cu_lbl_auto",[],[f_lbl_auto_to_xml(LBL)]).
+f_lbl_to_xml(cu_lbl_custom(LBL)) =
+  term_to_xml.elem("cu_lbl_custom",[],[f_lbl_custom_to_xml(LBL)]).
 
 
-%% R_TAG_OR_ID, INSTANCE TE_TAG_OR_ID XMLABLE
+%% R_TAG_OR_ID, INSTANCE TU_TAG_OR_ID XMLABLE
 
 %%% R_TAG_OR_ID
 
 r_tag_or_id(TAG_OR_ID) --> (
-  r_id(ID)   -> {TAG_OR_ID = ce_tag_or_id_id(ID)};
-  r_tag(TAG) -> {TAG_OR_ID = ce_tag_or_id_tag(TAG)};
+  r_id(ID)   -> {TAG_OR_ID = cu_tag_or_id_id(ID)};
+  r_tag(TAG) -> {TAG_OR_ID = cu_tag_or_id_tag(TAG)};
                 {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_tag_or_id) where [
+:- instance term_to_xml.xmlable(tu_tag_or_id) where [
   func(to_xml/1) is f_tag_or_id_to_xml
 ].
 :- func (
-  f_tag_or_id_to_xml(te_tag_or_id::in)
+  f_tag_or_id_to_xml(tu_tag_or_id::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_tag_or_id_to_xml(ce_tag_or_id_tag(TAG)) =
-  term_to_xml.elem("ce_tag_or_id_tag",[],[f_tag_to_xml(TAG)]).
-f_tag_or_id_to_xml(ce_tag_or_id_id(ID))   =
-  term_to_xml.elem("ce_tag_or_id_id", [],[f_id_to_xml(ID)]).
+f_tag_or_id_to_xml(cu_tag_or_id_tag(TAG)) =
+  term_to_xml.elem("cu_tag_or_id_tag",[],[f_tag_to_xml(TAG)]).
+f_tag_or_id_to_xml(cu_tag_or_id_id(ID))   =
+  term_to_xml.elem("cu_tag_or_id_id", [],[f_id_to_xml(ID)]).
 
 %% R_TAG AND INSTANCE TS_TAG XMLABLE
 
 r_tag(cs_tag(S)) -->
-  r(ce_r_nws,k_forbidden_strs_in_tags_names,S), {S \= "REFS"}.
+  r(cu_r_nws,k_forbidden_strs_in_tags_names,S), {S \= "REFS"}.
 
 :- instance term_to_xml.xmlable(ts_tag) where [
   func(to_xml/1) is f_tag_to_xml
@@ -1411,7 +1411,7 @@ f_tag_to_xml(cs_tag(S)) = term_to_xml.elem("cs_tag",[],[term_to_xml.data(S)]).
 
 %% R_NAME AND INSTANCE TS_NAME XMLABLE
 
-r_name(cs_name(S)) --> r(ce_r_nws,k_forbidden_strs_in_tags_names,S).
+r_name(cs_name(S)) --> r(cu_r_nws,k_forbidden_strs_in_tags_names,S).
 
 :- instance term_to_xml.xmlable(ts_name) where [
   func(to_xml/1) is f_name_to_xml
@@ -1440,7 +1440,7 @@ f_id_to_xml(cr_id(TAG,NAME)) =
   term_to_xml.elem("cr_id",[],[f_tag_to_xml(TAG),f_name_to_xml(NAME)]).
 
 
-%% R_C_REF AND INSTANCE T_C_REF XMLABLE
+%% R_C_REF AND INSTANCE TS_C_REF XMLABLE
 
 r_c_ref(cs_c_ref(ID)) --> r_str("["), r_id(ID), r_str("]").
 
@@ -1486,18 +1486,18 @@ r_blk_txt(LVL,cs_blk_txt(UNITS)) --> (
   r_blk_txt_lines(LVL,UNITS)
 ).
 
-:- pred r_blk_txt_lines(ta_lvl, ts_txt_units, ta_tkns, ta_tkns).
+:- pred r_blk_txt_lines(ta_lvl, ts_txt_units, ts_tkns, ts_tkns).
 :- mode r_blk_txt_lines(in,     out,          in,      out) is semidet.
 r_blk_txt_lines(        LVL,    cs_txt_units(US)) --> (
   r_blk_txt_line(LVL,cs_txt_units(US_)),
   (
     r_tabs(LVL), r_blk_txt_lines(LVL,cs_txt_units(US__)) ->
-      {US = US_ ++ [ce_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" "))] ++ US__};
+      {US = US_ ++ [cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" "))] ++ US__};
     {US = US_}
   )
 ).
 
-:- pred r_blk_txt_line(ta_lvl, ts_txt_units, ta_tkns, ta_tkns).
+:- pred r_blk_txt_line(ta_lvl, ts_txt_units, ts_tkns, ts_tkns).
 :- mode r_blk_txt_line(in,     out,          in,      out) is semidet.
 r_blk_txt_line(        LVL,    US) --> r_txt_units(LVL,US), r_lb.
 
@@ -1615,25 +1615,25 @@ f_dsp_lines_to_xml(cs_dsp_lines(LINES)) =
 %%% R_DSP_LINE
 
 r_dsp_line(LINE) --> (
-  r_dsp_line_no_lbl(LINE_) -> {LINE = ce_dsp_line_no_lbl(LINE_)};
-  r_dsp_line_lbld(  LINE_) -> {LINE = ce_dsp_line_lbld(  LINE_)};
+  r_dsp_line_no_lbl(LINE_) -> {LINE = cu_dsp_line_no_lbl(LINE_)};
+  r_dsp_line_lbld(  LINE_) -> {LINE = cu_dsp_line_lbld(  LINE_)};
                               {false}
 ).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(te_dsp_line) where [
+:- instance term_to_xml.xmlable(tu_dsp_line) where [
   func(to_xml/1) is f_dsp_line_to_xml
 ].
 :- func (
-  f_dsp_line_to_xml(te_dsp_line::in)
+  f_dsp_line_to_xml(tu_dsp_line::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_dsp_line_to_xml(ce_dsp_line_no_lbl(L)) =
-  term_to_xml.elem("ce_dsp_line_no_lbl",[],[f_dsp_line_no_lbl_to_xml(L)]).
-f_dsp_line_to_xml(ce_dsp_line_lbld(  L)) =
-  term_to_xml.elem("ce_dsp_line_lbld",  [],[f_dsp_line_lbld_to_xml(  L)]).
+f_dsp_line_to_xml(cu_dsp_line_no_lbl(L)) =
+  term_to_xml.elem("cu_dsp_line_no_lbl",[],[f_dsp_line_no_lbl_to_xml(L)]).
+f_dsp_line_to_xml(cu_dsp_line_lbld(  L)) =
+  term_to_xml.elem("cu_dsp_line_lbld",  [],[f_dsp_line_lbld_to_xml(  L)]).
 
 
 %% R_DSP_LINE_LBLD, TR_DSP_LINE_LBLD XMLABLE
@@ -1712,7 +1712,7 @@ f_dsp_line_no_lbl_to_xml(cs_dsp_line_no_lbl(TXT_UNITS)) = term_to_xml.elem(
 %%% R_DSP_UNIT
 
 r_dsp_unit(U) --> (
-  r_c_ref(CR)            -> {U = ce_txt_unit_c_ref(cs_txt_unit_c_ref(CR))};
+  r_c_ref(CR)            -> {U = cu_txt_unit_c_ref(cs_txt_unit_c_ref(CR))};
   r_dsp_unit_emph(U_)    -> {U = U_};
   r_dsp_unit_wysiwyg(U_) -> {U = U_};
   {false}
@@ -1720,12 +1720,12 @@ r_dsp_unit(U) --> (
 
 %%% R_DSP_UNIT_EMPH
 
-:- pred r_dsp_unit_emph(te_txt_unit::out, ta_tkns::in, ta_tkns::out) is semidet.
-r_dsp_unit_emph(        ce_txt_unit_emph(U)) -->
-  r_str("*"), r(ce_r_any,["*"],S), r_str("*"), {U = cs_txt_unit_emph(S)}.
+:- pred r_dsp_unit_emph(tu_txt_unit::out, ts_tkns::in, ts_tkns::out) is semidet.
+r_dsp_unit_emph(        cu_txt_unit_emph(U)) -->
+  r_str("*"), r(cu_r_any,["*"],S), r_str("*"), {U = cs_txt_unit_emph(S)}.
 
 %%% R_DSP_UNIT_WYSIWYG
 
-:- pred r_dsp_unit_wysiwyg(te_txt_unit, ta_tkns, ta_tkns).
+:- pred r_dsp_unit_wysiwyg(tu_txt_unit, ts_tkns, ts_tkns).
 :- mode r_dsp_unit_wysiwyg(out,         in,      out) is semidet.
-r_dsp_unit_wysiwyg(ce_txt_unit_wysiwyg(U)) --> r_txt_unit_wysiwyg(0u,U).
+r_dsp_unit_wysiwyg(cu_txt_unit_wysiwyg(U)) --> r_txt_unit_wysiwyg(0u,U).

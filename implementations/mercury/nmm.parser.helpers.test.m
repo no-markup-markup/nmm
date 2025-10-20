@@ -38,7 +38,7 @@ p_test_r_1(!IO) :- (
 
 :- pred p_test_r_2(io.io::di, io.io::uo) is det.
 p_test_r_2(!IO) :- (
-  if r(ce_r_nws,"hej",f_str2tkns("hej hej"),f_str2tkns(" hej")) then
+  if r(cu_r_nws,"hej",f_str2tkns("hej hej"),f_str2tkns(" hej")) then
     true
   else
     io.set_exit_status(1,!IO),
@@ -51,7 +51,7 @@ p_test_r_2(!IO) :- (
 :- pred p_test_r_3(io.io::di, io.io::uo) is det.
 p_test_r_3(!IO) :- (
   if (
-    r(ce_r_nws_sps,["xyz","STOP"],"ab",f_str2tkns("abSTOP"),f_str2tkns("STOP"))
+    r(cu_r_nws_sps,["xyz","STOP"],"ab",f_str2tkns("abSTOP"),f_str2tkns("STOP"))
   ) then
     true
   else
@@ -64,7 +64,7 @@ p_test_r_3(!IO) :- (
 
 :- pred p_test_r_4(io.io::di, io.io::uo) is det.
 p_test_r_4(!IO) :- (
-  if r(ce_r_any,"[test\\]¶",f_str2tkns("\\[test\\]\\¶"),[]) then
+  if r(cu_r_any,"[test\\]¶",f_str2tkns("\\[test\\]\\¶"),[]) then
     true
   else
     io.set_exit_status(1,!IO),
@@ -124,7 +124,7 @@ p_test_r_tab_1(!IO) :- (
 
 :- pred p_test_r_tab_2(io.io::di, io.io::uo) is det.
 p_test_r_tab_2(!IO) :- (
-  if r_tab(f_str2tkns("\t\t"),[nmm.lexer.c_tkn_tab(1u)]) then
+  if r_tab(f_str2tkns("\t\t"),[nmm.lexer.cu_tkn_tab(1u)]) then
     true
   else
     io.set_exit_status(1,!IO),

@@ -126,14 +126,14 @@ and lines_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_uni
 	lines_of_string_function (indent_of_path path) (string_of_ts_txt_units path a)
 
 and string_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string =
-	match a with Cs_txt_units (b: Doc_types.te_txt_unit list) ->
+	match a with Cs_txt_units (b: Doc_types.tu_txt_unit list) ->
 	String.concat "" (List.map (string_of_ts_txt_unit path) b)
 
-and string_of_ts_txt_unit (path : Common_utils.t_path) (a : Doc_types.te_txt_unit) : string =
+and string_of_ts_txt_unit (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : string =
 	match a with
-	| Ce_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
-	| Ce_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
-	| Ce_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref path b
+	| Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
+	| Cu_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
+	| Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref path b
 
 and emph (a : string) : string = underline a
 

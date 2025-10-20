@@ -1,480 +1,480 @@
 <?xml version="1.0"?>
 <cr_doc>
-	<ce_doc_main_secs>
+	<cu_doc_main_secs>
 		<cs_secs>
 			<cr_sec>
-				<ce_tag_or_id_id>
+				<cu_tag_or_id_id>
 					<cr_id>
 						<cs_tag>SEC</cs_tag>
 						<cs_name>nsf-induction-proofs</cs_name>
 					</cr_id>
-				</ce_tag_or_id_id>
+				</cu_tag_or_id_id>
 				<cs_hdr>
 					<cs_txt_units>
-						<ce_txt_unit_wysiwyg>
+						<cu_txt_unit_wysiwyg>
 							<cs_txt_unit_wysiwyg>Non-straightforward induction proofs</cs_txt_unit_wysiwyg>
-						</ce_txt_unit_wysiwyg>
+						</cu_txt_unit_wysiwyg>
 					</cs_txt_units>
 				</cs_hdr>
-				<ce_pars_or_blks_pars>
+				<cu_pars_or_blks_pars>
 					<cs_pars>
 						<cr_par>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>To get everybody on the same page, let us look at two examples</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
-											<ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
-											<ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>demonstrating the seeming need for what I have chosen to call</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
-											<ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
-											<ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>‘non-straightforward induction proofs’.</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
+								</cu_blk_txt>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>For each natural number 𝘯:</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
-								<ce_blk_dsp>
+								</cu_blk_txt>
+								<cu_blk_dsp>
 									<cs_blk_dsp>
 										<cs_dsp_lines>
-											<ce_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg> 1     1     1     1           1</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
-											<ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>─── + ─── + ─── + ─── + ⋯ + ──────── &lt; 2.</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
-											<ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg> 1²    2²    3²    4²        (𝘯+1)²</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
 										</cs_dsp_lines>
 									</cs_blk_dsp>
-								</ce_blk_dsp>
+								</cu_blk_dsp>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>With recursion instead of ellipsis, we have the following.</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
+								</cu_blk_txt>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
-							<ce_tag_or_id_id>
+							<cu_tag_or_id_id>
 								<cr_id>
 									<cs_tag>DEF</cs_tag>
 									<cs_name>Σ₁</cs_name>
 								</cr_id>
-							</ce_tag_or_id_id>
+							</cu_tag_or_id_id>
 							<cs_blks>
-								<ce_blk_dsp>
+								<cu_blk_dsp>
 									<cs_blk_dsp>
 										<cs_dsp_lines>
-											<ce_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Σ₁      :  ℕ ─→ ℚ</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
-											<ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Σ₁(0)   := 1</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
-											<ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Σ₁(𝘯+1) := Σ₁(𝘯)+(𝘯+2)⁻²</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
 										</cs_dsp_lines>
 									</cs_blk_dsp>
-								</ce_blk_dsp>
+								</cu_blk_dsp>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
-							<ce_tag_or_id_id>
+							<cu_tag_or_id_id>
 								<cr_id>
 									<cs_tag>FCT</cs_tag>
 									<cs_name>basel</cs_name>
 								</cr_id>
-							</ce_tag_or_id_id>
+							</cu_tag_or_id_id>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>For each natural number 𝘯:</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
-								<ce_blk_dsp>
+								</cu_blk_txt>
+								<cu_blk_dsp>
 									<cs_blk_dsp>
 										<cs_dsp_lines>
-											<ce_dsp_line_no_lbl>
+											<cu_dsp_line_no_lbl>
 												<cs_dsp_line_no_lbl>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Σ₁(𝘯) &lt; 2.</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_dsp_line_no_lbl>
-											</ce_dsp_line_no_lbl>
+											</cu_dsp_line_no_lbl>
 										</cs_dsp_lines>
 									</cs_blk_dsp>
-								</ce_blk_dsp>
+								</cu_blk_dsp>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
 							<cs_hdr>
 								<cs_txt_units>
-									<ce_txt_unit_wysiwyg>
+									<cu_txt_unit_wysiwyg>
 										<cs_txt_unit_wysiwyg>PROOF ATTEMPT</cs_txt_unit_wysiwyg>
-									</ce_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
 								</cs_txt_units>
 							</cs_hdr>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>Straightforward induction:</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
-								<ce_blk_blt>
+								</cu_blk_txt>
+								<cu_blk_blt>
 									<cs_blk_blt>
 										<cs_blks>
-											<ce_blk_txt>
+											<cu_blk_txt>
 												<cs_blk_txt>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Base case:</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_blk_txt>
-											</ce_blk_txt>
-											<ce_blk_dsp>
+											</cu_blk_txt>
+											<cu_blk_dsp>
 												<cs_blk_dsp>
 													<cs_dsp_lines>
-														<ce_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>Σ₁(0) = 1  (by definition)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>      &lt; 2.</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
 													</cs_dsp_lines>
 												</cs_blk_dsp>
-											</ce_blk_dsp>
+											</cu_blk_dsp>
 										</cs_blks>
 									</cs_blk_blt>
-								</ce_blk_blt>
-								<ce_blk_blt>
+								</cu_blk_blt>
+								<cu_blk_blt>
 									<cs_blk_blt>
 										<cs_blks>
-											<ce_blk_txt>
+											<cu_blk_txt>
 												<cs_blk_txt>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Induction step:</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_blk_txt>
-											</ce_blk_txt>
-											<ce_blk_dsp>
+											</cu_blk_txt>
+											<cu_blk_dsp>
 												<cs_blk_dsp>
 													<cs_dsp_lines>
-														<ce_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>Σ₁(𝘯+1) = Σ₁(𝘯)+(𝘯+2)⁻²  (by definition)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>        &lt; 2+(𝘯+2)⁻²      (by induction hypothesis).</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
 													</cs_dsp_lines>
 												</cs_blk_dsp>
-											</ce_blk_dsp>
-											<ce_blk_txt>
+											</cu_blk_dsp>
+											<cu_blk_txt>
 												<cs_blk_txt>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>We have 2+(𝘯+2)⁻² ≮ 2 for all 𝘯──so how do we proceed from here?</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
-														<ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
-														<ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>It seems like this proof attempt is “stuck”.</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_blk_txt>
-											</ce_blk_txt>
+											</cu_blk_txt>
 										</cs_blks>
 									</cs_blk_blt>
-								</ce_blk_blt>
+								</cu_blk_blt>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>We abort the proof attempt. Instead we prove the following stronger</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
-											<ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
-											<ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>fact. (In what sense is it stronger?)</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
+								</cu_blk_txt>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
-							<ce_tag_or_id_id>
+							<cu_tag_or_id_id>
 								<cr_id>
 									<cs_tag>FCT</cs_tag>
 									<cs_name>basel-stronger</cs_name>
 								</cr_id>
-							</ce_tag_or_id_id>
+							</cu_tag_or_id_id>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>For all natural numbers 𝘯: Σ₁(𝘯) ≤ 2-(𝘯+1)⁻¹.</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
+								</cu_blk_txt>
 							</cs_blks>
 						</cr_par>
 						<cr_par>
-							<ce_tag_or_id_id>
+							<cu_tag_or_id_id>
 								<cr_id>
 									<cs_tag>PRF</cs_tag>
 									<cs_name>basel-stronger</cs_name>
 								</cr_id>
-							</ce_tag_or_id_id>
+							</cu_tag_or_id_id>
 							<cs_blks>
-								<ce_blk_txt>
+								<cu_blk_txt>
 									<cs_blk_txt>
 										<cs_txt_units>
-											<ce_txt_unit_wysiwyg>
+											<cu_txt_unit_wysiwyg>
 												<cs_txt_unit_wysiwyg>Straightforward induction:</cs_txt_unit_wysiwyg>
-											</ce_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
 										</cs_txt_units>
 									</cs_blk_txt>
-								</ce_blk_txt>
-								<ce_blk_blt>
+								</cu_blk_txt>
+								<cu_blk_blt>
 									<cs_blk_blt>
 										<cs_blks>
-											<ce_blk_txt>
+											<cu_blk_txt>
 												<cs_blk_txt>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Base case:</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_blk_txt>
-											</ce_blk_txt>
-											<ce_blk_dsp>
+											</cu_blk_txt>
+											<cu_blk_dsp>
 												<cs_blk_dsp>
 													<cs_dsp_lines>
-														<ce_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>Σ₁(0) = 1          (by definition)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>      ≤ 1</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>      = 2-(0+1)⁻¹.</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
 													</cs_dsp_lines>
 												</cs_blk_dsp>
-											</ce_blk_dsp>
+											</cu_blk_dsp>
 										</cs_blks>
 									</cs_blk_blt>
-								</ce_blk_blt>
-								<ce_blk_blt>
+								</cu_blk_blt>
+								<cu_blk_blt>
 									<cs_blk_blt>
 										<cs_blks>
-											<ce_blk_txt>
+											<cu_blk_txt>
 												<cs_blk_txt>
 													<cs_txt_units>
-														<ce_txt_unit_wysiwyg>
+														<cu_txt_unit_wysiwyg>
 															<cs_txt_unit_wysiwyg>Induction step:</cs_txt_unit_wysiwyg>
-														</ce_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
 													</cs_txt_units>
 												</cs_blk_txt>
-											</ce_blk_txt>
-											<ce_blk_dsp>
+											</cu_blk_txt>
+											<cu_blk_dsp>
 												<cs_blk_dsp>
 													<cs_dsp_lines>
-														<ce_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>Σ₁(𝘯+1)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>  = Σ₁(𝘯)+(𝘯+2)⁻²             (by definition)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>  ≤ 2-(𝘯+1)⁻¹+(𝘯+2)⁻²         (by induction hypothesis)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>  = 2-(𝘯+2)⁻¹-(𝘯+1)⁻¹(𝘯+2)⁻²  (by some arithmetic)</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>  ≤ 2-(𝘯+2)⁻¹</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
-														<ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
+														<cu_dsp_line_no_lbl>
 															<cs_dsp_line_no_lbl>
 																<cs_txt_units>
-																	<ce_txt_unit_wysiwyg>
+																	<cu_txt_unit_wysiwyg>
 																		<cs_txt_unit_wysiwyg>  = 2-((n+1)+1)⁻¹.</cs_txt_unit_wysiwyg>
-																	</ce_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
 																</cs_txt_units>
 															</cs_dsp_line_no_lbl>
-														</ce_dsp_line_no_lbl>
+														</cu_dsp_line_no_lbl>
 													</cs_dsp_lines>
 												</cs_blk_dsp>
-											</ce_blk_dsp>
+											</cu_blk_dsp>
 										</cs_blks>
 									</cs_blk_blt>
-								</ce_blk_blt>
+								</cu_blk_blt>
 							</cs_blks>
 						</cr_par>
 					</cs_pars>
-				</ce_pars_or_blks_pars>
+				</cu_pars_or_blks_pars>
 			</cr_sec>
 		</cs_secs>
-	</ce_doc_main_secs>
+	</cu_doc_main_secs>
 </cr_doc>
