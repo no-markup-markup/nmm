@@ -97,8 +97,9 @@ and acc_of_ts_refs (path : Common_utils.t_path) (acc : t_acc) (a : ts_refs) : t_
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
+			let hdr : Xml.xml = Xml.Element ("refs_hdr",[],[PCData (pcdata_of_string (Common_utils.label_of_path path))]) in
 			match acc_of_ts_blks path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("refs",[],xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks path acc b
@@ -283,14 +284,14 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 		in acc_of_ts_blks path newacc a.fld_par_main
 	)
 	|LINES acc_lines -> (
-		let new_par = Par_hdr_mod.copy_hdr_to_main a in
+		let new_par = Par_hdr_mod.copy_hdr_to_main_and_lbl_to_hdr path a in
 		match acc_of_ts_blks path (LINES []) new_par.fld_par_main with
 		|LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label path hd];tl])
 		|_ -> raise (Error "par_main cannot be empty")
 	)
 	|EXML acc_list -> (
+		let new_par = Par_hdr_mod.copy_hdr_to_main_and_lbl_to_hdr path a in
 		let xml_list_main:Xml.xml list= (
-			let new_par = Par_hdr_mod.copy_hdr_to_main a in
 			match acc_of_par_main path (EXML []) new_par.fld_par_main with
 			|EXML xml_list -> xml_list
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -298,8 +299,8 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 		in
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
 		let xml_hdr:Xml.xml = (
-			match a.fld_par_hdr with
-			|None -> Xml.Element ("par_lbl_hdr",[],xml_list_lbl)
+			match new_par.fld_par_hdr with
+			|None -> raise (Error "new par expected to have a hdr")
 			|Some (hdr : ts_hdr) -> 
 				match hdr with
 				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t)
