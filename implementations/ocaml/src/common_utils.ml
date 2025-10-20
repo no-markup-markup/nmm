@@ -17,7 +17,18 @@ type t_doc_settings = {
 	mutable ch_prefix: string option;
 	mutable sec_prefix: string option;
 	mutable par_prefix : string option;
+	mutable expand_tag: Doc_types.ts_tag -> string option;
 }
+
+let expand_tag_default (tag : Doc_types.ts_tag) : string option =
+	match tag with
+	|Cs_tag "DEF" -> Some "DEFINITION"
+	|Cs_tag "PRF" -> Some "PROOF"
+	|Cs_tag "FCT" -> Some "FACT"
+	|Cs_tag "LMA" -> Some "LEMMA"
+	|Cs_tag "THM" -> Some "THEOREM"
+	| _  -> None
+
 
 let doc_settings : t_doc_settings = {
 	doc_width = 80;
@@ -32,6 +43,7 @@ let doc_settings : t_doc_settings = {
 	ch_prefix = Some "CHAPTER";
 	sec_prefix = Some "§";
 	par_prefix = Some "¶";
+	expand_tag = expand_tag_default;
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
@@ -86,6 +98,7 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("par_prefix", v) -> set_par_prefix v
 				|Some ("abstract_prefix", v) -> set_abstract_prefix v
 				|Some ("refs_prefix", v) -> set_refs_prefix v
+				|Some ("expand_tag", v) -> set_expand_tag doc_settings.expand_tag v
 				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
 			in aux tl
 		| [] -> ()
@@ -140,10 +153,27 @@ and set_refs_prefix (v : string) : unit =
 	try doc_settings.refs_prefix <- (prefix_value_of_string v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_prefix value: ";v;"\n";"using default value"])
 
+and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
+	try doc_settings.expand_tag <- (expand_tag_value_of_string expand_tag_old v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid expand_tag value: ";v;"\n";"using default value"])
+
 and prefix_value_of_string (v : string) : string option =
 	match v with
 	|"None" | "none" | "" | "\"\"" -> None
 	| _ -> Some v
+
+and expand_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : (Doc_types.ts_tag -> string option) =
+	match String.split_on_char '>' v with
+	|[tag_string; expanded_tag_string] -> (
+		let expand_tag_new ( tag : Doc_types.ts_tag) : string option = 
+			match tag with
+			|Cs_tag (s : string) ->
+				match s = tag_string with
+				|true -> Some expanded_tag_string
+				|false -> expand_tag_old tag
+		in expand_tag_new
+	)
+	| _ -> raise (Error "invalid expand_tag value")
 
 (**************************** labels and cross-references *********************************)
 
@@ -384,10 +414,13 @@ and label_of_path_opt (path : t_path) : string option =
 		| ITM_NODE _ -> s_opt
 		| BLT_NODE -> s_opt
 		| DSP_LINE_NODE _ -> s_opt
+		| ABSTRACT_NODE -> doc_settings.abstract_prefix
+		| REFS_NODE -> doc_settings.refs_prefix
 		| _ -> s_opt
 
 and label_of_path (path : t_path) : string=
 	match label_of_path_opt path with
 	| None -> ""
 	| Some (s : string) -> s
+
 

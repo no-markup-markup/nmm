@@ -13,9 +13,24 @@ type t_doc_settings = {
   mutable ch_prefix : string option;
   mutable sec_prefix : string option;
   mutable par_prefix : string option;
+  mutable expand_tag: Doc_types.ts_tag -> string option;
 }
 
-val doc_settings : t_doc_settings  
+val expand_tag_default : Doc_types.ts_tag -> string option
+(**
+{[expand_tag_default tag]}
+evaluates to
+{[
+match tag with
+|Cs_tag "DEF" -> Some "DEFINITION"
+|Cs_tag "PRF" -> Some "PROOF"
+|Cs_tag "FCT" -> Some "FACT"
+|Cs_tag "LMA" -> Some "LEMMA"
+|Cs_tag "THM" -> Some "THEOREM"
+| _  -> None
+]}
+*)
+val doc_settings : t_doc_settings
 (**
 {[ = {
     doc_width       = 80;
@@ -30,6 +45,7 @@ val doc_settings : t_doc_settings
     ch_prefix       = Some "CHAPTER";
     sec_prefix      = Some "§";
     par_prefix      = Some "¶";
+    expand_tag      = expand_tag_default;
 }
 ]}
 
@@ -43,7 +59,30 @@ first checks if [doc] contains any sections or paragraphs. If not, it sets [doc_
 
 Secondly, it checks if [doc] has a preamble. If so, it attempts to parse that preamble and adjusts [doc_settings] accordingly (possibly overriding the default settings). 
 
-Prints a warning to [stderr] is parsing fails, and keeps the default value.
+Prints a warning to [stderr] if parsing fails, and keeps the default value.
+
+[Cs_preamble (preamble : string)] is valid for parsing just in case [preamble] has the following format:
+{v
+PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
+
+KEY_VALUE := | 'doc_width=' INT
+             | 'left_margin=' INT
+             | 'title_indent=' INT
+             | 'author_indent=' INT
+             | 'abstract_indent=' INT
+             | 'refs_indent=' INT
+             | 'tab_length=' INT
+             | 'abstract_prefix=' STRING
+             | 'refs_prefix=' STRING
+             | 'ch_prefix=' STRING
+             | 'sec_prefix=' STRING
+             | 'par_prefix=' STRING
+             | 'expand_tag=' STRING '>' STRING
+
+INT := ['0'-'9']+
+
+STRING := [! ';']*
+v}
 *)
 
 type t_itm_node = 
@@ -146,3 +185,4 @@ val label_of_path : t_path -> string
   | Some (s : string) -> s
 ]}
 *)
+
