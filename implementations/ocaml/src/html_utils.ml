@@ -2,31 +2,28 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	match element with
 	|Xml.Element ("title", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract", attr_list,xml_list) -> 
-		Xml.Element ("div",("class", "abstract")::attr_list, (Xml.Element ("h2", [("class", "abstract_hdr")],[Xml.PCData "ABSTRACT"]))::(List.map html_of_exml xml_list))
-	|Xml.Element ("refs", attr_list,xml_list) -> 
-		Xml.Element ("div",("class", "refs")::attr_list, (Xml.Element ("h2", [("class", "refs_hdr")],[Xml.PCData "REFERENCES"]))::(List.map html_of_exml xml_list))
+	|Xml.Element ("abstract_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("refs_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr")::attr_list,List.map html_of_exml xml_list)
 	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("par_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("blk_txt", attr_list, xml_list) -> Xml.Element ("p", ("class", "blk_txt")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("txt_unit_wysiwyg", attr_list, [Xml.PCData s]) -> Xml.PCData s
 	|Xml.Element ("txt_unit_emph", attr_list, xml_list) -> Xml.Element ("em", ("class", "txt_unit_emph")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -> Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element (tag,attr_list, xml_list) -> Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element (tag, attr_list, xml_list) -> Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
 	|Xml.PCData s -> Xml.PCData s
 
 let internal_css ( doc_settings : Common_utils.t_doc_settings) : string = 
 	let n : int = 8 in
-	let title_indent : string = string_of_int (doc_settings.title_indent * n) in
-	let author_indent : string = string_of_int (doc_settings.author_indent * n) in
-	let abstract_indent : string = string_of_int (doc_settings.abstract_indent * n) in
-	let refs_indent : string = string_of_int (doc_settings.refs_indent * n) in
-	let left_margin : string = string_of_int (doc_settings.left_margin * n) in
-	let tab_length : string = string_of_int doc_settings.tab_length in
+	let title_indent : string = Int.to_string (doc_settings.title_indent * n) in
+	let author_indent : string = Int.to_string (doc_settings.author_indent * n) in
+	let abstract_indent : string = Int.to_string (doc_settings.abstract_indent * n) in
+	let refs_indent : string = Int.to_string (doc_settings.refs_indent * n) in
+	let left_margin : string = Int.to_string (doc_settings.left_margin * n) in
+	let tab_length : string = Int.to_string doc_settings.tab_length in
 "html {
         --font_family:monospace;
         --font_size:12px;
@@ -47,7 +44,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .title {
         display:block;
-        font-size:20px;
+        font-size:24px;
         margin-left:var(--title_indent);
 }
 
@@ -56,6 +53,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
         display:block;
         margin-left:var(--author_indent);
         font-size:14px;
+        margin-bottom:3em;
 }
 
 
@@ -111,7 +109,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .ch_hdr {
         display:block;
-        font-size:18px;
+        font-size:20px;
         margin-left:var(--left_margin);
 }
 
@@ -140,6 +138,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
         margin-left:var(--left_margin);
 }
 
+/* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
 .sec_lbl_hdr {
         visibility:hidden;
         font-size:16px;
@@ -173,8 +172,9 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-/* content of par_hdr has been copied to par_main for inline display */
-.par_hdr, .par_lbl_hdr {
+/* content of par_hdr has been copied to par_main for inline display.
+this ensures that par_hdr shows up in disposition when printing to pdf with weasyprint */
+.par_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -191,41 +191,14 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
         display:block;
         hyphens:auto;
         white-space:pre-wrap;
-}
-
-
-.par_main > .blk_txt {
-        margin-left:var(--left_margin);
-}
-
-.ch_main > .blk_txt {
-        margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
 
 .blk_blt {
         display:block;
-}
-
-.ch_main > .blk_blt {
         margin-left:var(--left_margin);
 }
-
-
-.sec_main > .blk_blt {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_blt {
-        margin-left:var(--left_margin)
-}
-
 
 .blk_blt_lbl {
         display:block;
@@ -242,20 +215,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .blk_itm {
         display:block;
-}
-
-
-.ch_main > .blk_itm {
-        margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_itm {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
@@ -276,22 +235,9 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .blk_dsp {
         display:block;
         white-space:nowrap;
-}
-
-
-.ch_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
-
-.sec_main > .blk_dsp {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_dsp {
-        margin-left:var(--left_margin);
-}
 
 
 .dsp_line {
