@@ -25,7 +25,7 @@ readme:
 	make
 	cd -
 
-test: test-mercury-nmm2xml
+test: test-mercury-nmm2xml test-nmm2txt
 	cd implementations
 	make test
 	cd -
