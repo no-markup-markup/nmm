@@ -25,8 +25,9 @@ and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
 
 and xml_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_abstract) : Xml.xml =
+	let hdr : Xml.xml = Xml.Element ("abstract_hdr",[],[PCData (pcdata_of_string (Common_utils.label_of_path path))]) in
 	match abstract with
-	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> Xml.Element ("abstract", [], xml_list_of_ts_blks_txt path blks_txt)
+	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> Xml.Element ("abstract", [],hdr::(xml_list_of_ts_blks_txt path blks_txt))
 
 and xml_list_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_blks_txt) : Xml.xml list=
 	match blks_txt with
