@@ -2,9 +2,12 @@
 
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT author (#PCDATA)>
-<!ELEMENT abstract (blk_txt+)>
+<!ELEMENT abstract (abstract_hdr, blk_txt+)>
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
-<!ELEMENT refs (blk_txt | blk_blt | blk_itm | blk_dsp)+>
+<!ELEMENT refs (refs_hdr, (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
+
+<!ELEMENT abstract_hdr (#PCDATA)>
+<!ELEMENT refs_hdr (#PCDATA)>
 
 <!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main)>
 <!ATTLIST ch 
@@ -18,7 +21,7 @@
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT par (par_lbl, (par_hdr | par_lbl_hdr), par_main)>
+<!ELEMENT par (par_lbl, par_hdr, par_main)>
 <!ATTLIST par 
 	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
@@ -50,7 +53,6 @@
 <!ELEMENT sec_lbl (#PCDATA)>
 <!ELEMENT sec_lbl_hdr (#PCDATA)>
 <!ELEMENT par_lbl (#PCDATA)>
-<!ELEMENT par_lbl_hdr (#PCDATA)>
 <!ELEMENT blk_blt_lbl (#PCDATA)>
 <!ELEMENT blk_itm_lbl (#PCDATA)>
 <!ELEMENT dsp_line_lbl (#PCDATA)>
