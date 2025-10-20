@@ -1,0 +1,5 @@
+¶ 1         TEOREM (Main)  Nothing lasts forever.
+
+
+¶ 2         BEVIS (of ¶ 1)  By straightforward induction on the complexity of
+            nothing.

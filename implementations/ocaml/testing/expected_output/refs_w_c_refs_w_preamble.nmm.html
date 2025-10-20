@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referring to named items under REFERENCES</title>
+<meta name="author" content="Eric Johannesson">
 <style>
 html {
         --font_family:monospace;
@@ -271,84 +273,43 @@ a {
 </head>
 <body>
 <div class="doc">
+<h1 class="title">Referring to named items under REFERENCES</h1>
+<p class="author">Eric Johannesson</p>
+<div class="abstract">
+<h2 class="abstract_hdr">SUMMARY</h2>
+<p class="blk_txt">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
+</div>
 <div class="doc_main">
-<p class="blk_txt">This is a no-markup-markup document, sporting the following cool features:</p>
-<div class="blk_itm">
+<p class="blk_txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
+<div class="blk_itm" id="ITM:alt1">
 <div class="blk_itm_lbl">(1)</div>
 <div class="blk_itm_main">
-<p class="blk_txt">Bullet lists:</p>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
-<p class="blk_txt">Here is one bullet item.</p>
+<p class="blk_txt">‘REFERENCES(1)’ (or something similar), or</p>
 </div>
 </div>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
-<p class="blk_txt">Here is another one.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="blk_itm">
+<div class="blk_itm" id="ITM:alt2">
 <div class="blk_itm_lbl">(2)</div>
 <div class="blk_itm_main">
-<p class="blk_txt">Numbered lists with labels that are either</p>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(a)</div>
+<p class="blk_txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
+</div>
+</div>
+<p class="blk_txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">[1]</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">[2]</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
+<p class="blk_txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
+</div>
+<div class="refs">
+<h2 class="refs_hdr">CITED WORKS</h2>
+<div class="blk_itm" id="ITM:Euler">
+<div class="blk_itm_lbl">[1]</div>
 <div class="blk_itm_main">
-<p class="blk_txt">automatic, or</p>
+<p class="blk_txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(ö)</div>
+<div class="blk_itm" id="ITM:Tarski">
+<div class="blk_itm_lbl">[2]</div>
 <div class="blk_itm_main">
-<p class="blk_txt">custom.</p>
+<p class="blk_txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
-<p class="blk_txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
-<div class="blk_itm" id="ITM:x">
-<div class="blk_itm_lbl">(b)</div>
-<div class="blk_itm_main">
-<p class="blk_txt">The named item can be referred to anywhere in the document.</p>
-</div>
-</div>
-<div class="blk_itm" id="ITM:y">
-<div class="blk_itm_lbl">(c)</div>
-<div class="blk_itm_main">
-<p class="blk_txt">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(ä)</a> below.</p>
-</div>
-</div>
-<div class="blk_itm" id="ITM:z">
-<div class="blk_itm_lbl">(ä)</div>
-<div class="blk_itm_main">
-<p class="blk_txt">Of course, items with custom labels can also be named!</p>
-</div>
-</div>
-</div>
-</div>
-<p class="blk_txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(2)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(2)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(2)(ä)</a> occurring elsewhere may appear differently.</p>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(3)</div>
-<div class="blk_itm_main">
-<p class="blk_txt">Displayed lines of text suitable for mathematical equations, which are either</p>
-<div class="blk_dsp">
-<div class="dsp_line" id="DSP:one">
-<div class="dsp_line_lbl">(a)</div>
-<div class="dsp_line_main">automatically labeled (and named),</div>
-</div>
-<div class="dsp_line" id="DSP:two">
-<div class="dsp_line_lbl">(+)</div>
-<div class="dsp_line_main">custom labeled (and named), or,</div>
-</div>
-<div class="dsp_line">
-<div class="dsp_line_main">unlike <a class="txt_unit_c_ref" href="#DSP:one">(a)</a> above, unlabeled.</div>
-</div>
-</div>
-</div>
-</div>
-<p class="blk_txt">Testing the forbidden characters: &lt; &gt; &amp; &apos; &quot;</p>
 </div>
 </div>
 </body>

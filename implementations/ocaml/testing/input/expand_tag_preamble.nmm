@@ -1,0 +1,14 @@
+PREAMBLE:
+	expand_tag=PRF>BEVIS
+	expand_tag=THM>TEOREM
+
+
+¶ THM:main
+Main
+
+Nothing lasts forever.
+
+¶ PRF:proof
+of [THM:main]
+
+By straightforward induction on the complexity of nothing.

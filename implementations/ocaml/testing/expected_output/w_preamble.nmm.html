@@ -26,7 +26,7 @@ html {
 
 .title {
         display:block;
-        font-size:20px;
+        font-size:24px;
         margin-left:var(--title_indent);
 }
 
@@ -35,6 +35,7 @@ html {
         display:block;
         margin-left:var(--author_indent);
         font-size:14px;
+        margin-bottom:3em;
 }
 
 
@@ -90,7 +91,7 @@ html {
 
 .ch_hdr {
         display:block;
-        font-size:18px;
+        font-size:20px;
         margin-left:var(--left_margin);
 }
 
@@ -119,6 +120,7 @@ html {
         margin-left:var(--left_margin);
 }
 
+/* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
 .sec_lbl_hdr {
         visibility:hidden;
         font-size:16px;
@@ -152,8 +154,9 @@ html {
 }
 
 
-/* content of par_hdr has been copied to par_main for inline display */
-.par_hdr, .par_lbl_hdr {
+/* content of par_hdr has been copied to par_main for inline display.
+this ensures that par_hdr shows up in disposition when printing to pdf with weasyprint */
+.par_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -170,41 +173,14 @@ html {
         display:block;
         hyphens:auto;
         white-space:pre-wrap;
-}
-
-
-.par_main > .blk_txt {
-        margin-left:var(--left_margin);
-}
-
-.ch_main > .blk_txt {
-        margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
 
 .blk_blt {
         display:block;
-}
-
-.ch_main > .blk_blt {
         margin-left:var(--left_margin);
 }
-
-
-.sec_main > .blk_blt {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_blt {
-        margin-left:var(--left_margin)
-}
-
 
 .blk_blt_lbl {
         display:block;
@@ -221,20 +197,6 @@ html {
 
 .blk_itm {
         display:block;
-}
-
-
-.ch_main > .blk_itm {
-        margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_itm {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
@@ -255,22 +217,9 @@ html {
 .blk_dsp {
         display:block;
         white-space:nowrap;
-}
-
-
-.ch_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
-
-.sec_main > .blk_dsp {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_dsp {
-        margin-left:var(--left_margin);
-}
 
 
 .dsp_line {
@@ -333,21 +282,21 @@ a {
 <div class="sec_main">
 <div class="par">
 <div class="par_lbl">1.1</div>
-<h4 class="par_hdr">Parapgraph header</h4>
+<h4 class="par_hdr">1.1 Parapgraph header</h4>
 <div class="par_main">
 <p class="blk_txt">Parapgraph header  Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated. Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system. </p>
 </div>
 </div>
 <div class="par">
 <div class="par_lbl">1.2</div>
-<h4 class="par_lbl_hdr">1.2</h4>
+<h4 class="par_hdr">1.2</h4>
 <div class="par_main">
 <p class="blk_txt">Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ. </p>
 </div>
 </div>
 <div class="par">
 <div class="par_lbl">1.3</div>
-<h4 class="par_lbl_hdr">1.3</h4>
+<h4 class="par_hdr">1.3</h4>
 <div class="par_main">
 <p class="blk_txt">Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between. </p>
 </div>

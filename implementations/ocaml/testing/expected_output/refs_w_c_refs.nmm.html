@@ -26,7 +26,7 @@ html {
 
 .title {
         display:block;
-        font-size:20px;
+        font-size:24px;
         margin-left:var(--title_indent);
 }
 
@@ -35,6 +35,7 @@ html {
         display:block;
         margin-left:var(--author_indent);
         font-size:14px;
+        margin-bottom:3em;
 }
 
 
@@ -90,7 +91,7 @@ html {
 
 .ch_hdr {
         display:block;
-        font-size:18px;
+        font-size:20px;
         margin-left:var(--left_margin);
 }
 
@@ -119,6 +120,7 @@ html {
         margin-left:var(--left_margin);
 }
 
+/* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
 .sec_lbl_hdr {
         visibility:hidden;
         font-size:16px;
@@ -152,8 +154,9 @@ html {
 }
 
 
-/* content of par_hdr has been copied to par_main for inline display */
-.par_hdr, .par_lbl_hdr {
+/* content of par_hdr has been copied to par_main for inline display.
+this ensures that par_hdr shows up in disposition when printing to pdf with weasyprint */
+.par_hdr {
         visibility:hidden;
         height:0ch;
         width:0ch;
@@ -170,41 +173,14 @@ html {
         display:block;
         hyphens:auto;
         white-space:pre-wrap;
-}
-
-
-.par_main > .blk_txt {
-        margin-left:var(--left_margin);
-}
-
-.ch_main > .blk_txt {
-        margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_txt {
         margin-left:var(--left_margin);
 }
 
 
 .blk_blt {
         display:block;
-}
-
-.ch_main > .blk_blt {
         margin-left:var(--left_margin);
 }
-
-
-.sec_main > .blk_blt {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_blt {
-        margin-left:var(--left_margin)
-}
-
 
 .blk_blt_lbl {
         display:block;
@@ -221,20 +197,6 @@ html {
 
 .blk_itm {
         display:block;
-}
-
-
-.ch_main > .blk_itm {
-        margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_itm {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_itm {
         margin-left:var(--left_margin);
 }
 
@@ -255,22 +217,9 @@ html {
 .blk_dsp {
         display:block;
         white-space:nowrap;
-}
-
-
-.ch_main > .blk_dsp {
         margin-left:var(--left_margin);
 }
 
-
-.sec_main > .blk_dsp {
-        margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_dsp {
-        margin-left:var(--left_margin);
-}
 
 
 .dsp_line {
