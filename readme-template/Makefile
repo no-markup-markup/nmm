@@ -7,7 +7,7 @@ MAKEFLAGS += --no-builtin-rules
 
 .PHONY: clean
 
-README.md: template.md nmm-sources/*.nmm raw-text-semantics/*.txt
+README.md: template.md nmm-sources/*.nmm raw-text-semantics/*.txt ../bin/* ../implementations/mercury/*.m ../implementations/ocaml/src/*
 	cd ..
 	make bin
 	cd -
