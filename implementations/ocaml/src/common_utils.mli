@@ -18,6 +18,20 @@ type t_doc_settings = {
 
 type t_doc_type = CHS | SECS | PARS | BLKS
 
+val doc_type_of_tr_doc: Doc_types.tr_doc -> t_doc_type
+(**
+{[doc_type_of_tr_doc doc]}
+
+evaluates to
+
+{[
+match doc.fld_doc_main with
+|Cu_doc_main_chs _ -> CHS
+|Cu_doc_main_secs _ -> SECS
+|Cu_doc_main_pars _ -> PARS
+|Cu_doc_main_blks _ -> BLKS
+]}
+*)
 
 val expand_tag_default : Doc_types.ts_tag -> string option
 (**
@@ -91,7 +105,8 @@ STRING := [! ';']*
 v}
 *)
 
-val doc_type_of_tr_doc: Doc_types.tr_doc -> t_doc_type
+
+
 
 type t_itm_node = 
 |	ITM_INT of int

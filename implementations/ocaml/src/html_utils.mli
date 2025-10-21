@@ -24,5 +24,5 @@ match element with
 
 val internal_css : Common_utils.t_doc_type -> Common_utils.t_doc_settings -> string
 (**
-With the default [doc_settings], [internal_css doc_settings] evaluates to a string corresponding to {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css}default.css}. 
+With the default [doc_settings], [internal_css CHS doc_settings] evaluates to a string corresponding to {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default_chs.css}default_chs.css}. 
 *)
