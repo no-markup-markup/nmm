@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Doc_of_nmm.html">
+<link rel="next" href="Compiler_of_doc.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Common_utils</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Doc_of_nmm.html" title="Doc_of_nmm">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Compiler_of_doc.html" title="Compiler_of_doc">Next</a>
+</div>
+<h1>Module <a href="type_Common_utils.html">Common_utils</a></h1>
+
+<pre><span id="MODULECommon_utils"><span class="keyword">module</span> Common_utils</span>: <code class="code">sig</code> <a href="Common_utils.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><code><span id="TYPEt_doc_settings"><span class="keyword">type</span> <code class="type"></code>t_doc_settings</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.doc_width">doc_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.left_margin">left_margin</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.title_indent">title_indent</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.author_indent">author_indent</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.abstract_indent">abstract_indent</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.refs_indent">refs_indent</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.tab_length">tab_length</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.abstract_prefix">abstract_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.refs_prefix">refs_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.ch_prefix">ch_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.sec_prefix">sec_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.par_prefix">par_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.expand_tag">expand_tag</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><code><span id="TYPEt_doc_type"><span class="keyword">type</span> <code class="type"></code>t_doc_type</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_type.CHS"><span class="constructor">CHS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_type.SECS"><span class="constructor">SECS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_type.PARS"><span class="constructor">PARS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_type.BLKS"><span class="constructor">BLKS</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALdoc_type_of_tr_doc"><span class="keyword">val</span> doc_type_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_type">t_doc_type</a></code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">doc_type_of_tr_doc doc</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code">match doc.fld_doc_main with
+|Cu_doc_main_chs _ -&gt; CHS
+|Cu_doc_main_secs _ -&gt; SECS
+|Cu_doc_main_pars _ -&gt; PARS
+|Cu_doc_main_blks _ -&gt; BLKS
+</code></pre></div>
+</div>
+
+<pre><span id="VALexpand_tag_default"><span class="keyword">val</span> expand_tag_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">expand_tag_default tag</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code">match tag with
+|Cs_tag "DEF" -&gt; Some "DEFINITION"
+|Cs_tag "PRF" -&gt; Some "PROOF"
+|Cs_tag "FCT" -&gt; Some "FACT"
+|Cs_tag "LMA" -&gt; Some "LEMMA"
+|Cs_tag "THM" -&gt; Some "THEOREM"
+| _  -&gt; None
+</code></pre></div>
+</div>
+
+<pre><span id="VALdoc_settings"><span class="keyword">val</span> doc_settings</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code"> = {
+    doc_width       = 80;
+    left_margin     = 12;
+    title_indent    = 12;
+    author_indent   = 12;
+    abstract_indent = 12;
+    refs_indent     = 12;
+    tab_length      = 6;
+    abstract_prefix = Some "ABSTRACT";
+    refs_prefix     = Some "REFERENCES";
+    ch_prefix       = Some "CHAPTER";
+    sec_prefix      = Some "§";
+    par_prefix      = Some "¶";
+    expand_tag      = expand_tag_default;
+}
+</code></pre>
+<p>These are the default settings.</p>
+</div>
+</div>
+
+<pre><span id="VALdoc_settings_of_tr_doc"><span class="keyword">val</span> doc_settings_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; unit</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">doc_settings_of_tr_doc doc</code></pre>
+<p>first checks if <code class="code">doc</code> contains any sections or paragraphs. If not, it sets <code class="code">doc_settings.left_margin</code> to <code class="code">0</code>.</p>
+
+<p>Secondly, it checks if <code class="code">doc</code> has a preamble. If so, it attempts to parse that preamble and adjusts <code class="code">doc_settings</code> accordingly (possibly overriding the default settings).</p>
+
+<p>Prints a warning to <code class="code">stderr</code> if parsing fails, and keeps the default value.</p>
+
+<p><code class="code">Cs_preamble (preamble : string)</code> is valid for parsing just in case <code class="code">preamble</code> has the following format:</p>
+<pre class="verbatim">PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
+
+KEY_VALUE := | 'doc_width=' INT
+             | 'left_margin=' INT
+             | 'title_indent=' INT
+             | 'author_indent=' INT
+             | 'abstract_indent=' INT
+             | 'refs_indent=' INT
+             | 'tab_length=' INT
+             | 'abstract_prefix=' STRING
+             | 'refs_prefix=' STRING
+             | 'ch_prefix=' STRING
+             | 'sec_prefix=' STRING
+             | 'par_prefix=' STRING
+             | 'expand_tag=' STRING '&gt;' STRING
+
+INT := ['0'-'9']+
+
+STRING := [! ';']*</pre></div>
+</div>
+
+<pre><code><span id="TYPEt_itm_node"><span class="keyword">type</span> <code class="type"></code>t_itm_node</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_itm_node.ITM_INT"><span class="constructor">ITM_INT</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_itm_node.ITM_STRING"><span class="constructor">ITM_STRING</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_dsp_line_node"><span class="keyword">type</span> <code class="type"></code>t_dsp_line_node</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_dsp_line_node.DSP_INT"><span class="constructor">DSP_INT</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_dsp_line_node.DSP_STRING"><span class="constructor">DSP_STRING</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_dsp_line_node.NONE"><span class="constructor">NONE</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_node"><span class="keyword">type</span> <code class="type"></code>t_node</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.ABSTRACT_NODE"><span class="constructor">ABSTRACT_NODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.CH_NODE"><span class="constructor">CH_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.SEC_NODE"><span class="constructor">SEC_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.APP_NODE"><span class="constructor">APP_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.PAR_NODE"><span class="constructor">PAR_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.ITM_NODE"><span class="constructor">ITM_NODE</span></span> <span class="keyword">of</span> <code class="type"><a href="Common_utils.html#TYPEt_itm_node">t_itm_node</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.DSP_NODE"><span class="constructor">DSP_NODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.BLT_NODE"><span class="constructor">BLT_NODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.DSP_LINE_NODE"><span class="constructor">DSP_LINE_NODE</span></span> <span class="keyword">of</span> <code class="type"><a href="Common_utils.html#TYPEt_dsp_line_node">t_dsp_line_node</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_node.REFS_NODE"><span class="constructor">REFS_NODE</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="TYPEt_path"><span class="keyword">type</span> <code class="type"></code>t_path</span> = <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> list</code> </pre>
+
+
+<pre><span id="TYPEt_cref_table"><span class="keyword">type</span> <code class="type"></code>t_cref_table</span> = <code class="type">(<a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> * <a href="Common_utils.html#TYPEt_path">t_path</a>) list</code> </pre>
+
+
+<pre><code><span id="TYPEt_doc_cref_table"><span class="keyword">type</span> <code class="type"></code>t_doc_cref_table</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_cref_table.content">content</span>&nbsp;: <code class="type"><a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a></code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><span id="VALdoc_cref_table"><span class="keyword">val</span> doc_cref_table</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_cref_table">t_doc_cref_table</a></code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">= {
+    content = [];
+}</code></pre>
+<p>Starts as an empty table.</p>
+</div>
+</div>
+
+<pre><span id="VALstring_of_ts_c_ref"><span class="keyword">val</span> string_of_ts_c_ref</span> : <code class="type"><a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_c_ref">Doc_types.ts_c_ref</a> -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">string_of_ts_c_ref path c_ref</code></pre>
+<p>attempts to match <code class="code">c_ref</code> ocurring at <code class="code">path</code> with an <code class="code">id</code> in <code class="code">doc_cref_table</code>, and return a string representation of the path to <code class="code">id</code> relative to the closest common ancestor of <code class="code">c_ref</code> and <code class="code">id</code>.</p>
+
+<p>For instance, if <code class="code">c_ref</code> is located at path <code class="code">[ITM_NODE (ITM_INT 1); PAR_NODE 1; SEC_NODE 1]</code>, and <code class="code">id</code> is located at path <code class="code">[ITM_NODE (ITM_INT 3); PAR_NODE 2; SEC_NODE 1]</code>, the function will return <code class="code">"2(3)"</code> rather than <code class="code">"1.2(3)"</code>.</p>
+
+<p>Prints a warning to <code class="code">stderr</code> if no match is found, and returns <code class="code">"??"</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code">let itm_node : t_itm_node =
+  match a.fld_blk_itm_lbl with
+  | Cu_lbl_auto Cs_lbl_auto -&gt; ITM_INT auto_nr
+  | Cu_lbl_custom (Cs_lbl_custom (s : string)) -&gt; ITM_STRING s
+in ITM_NODE itm_node
+</code></pre></div>
+</div>
+
+<pre><span id="VALnode_of_dsp_line"><span class="keyword">val</span> node_of_dsp_line</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line)</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code">match a.fld_dsp_line_lbl with
+  | Some (Cu_lbl_auto Cs_lbl_auto)-&gt; DSP_INT auto_nr
+  | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -&gt; DSP_STRING s
+  | None -&gt; NONE
+in DSP_LINE_NODE dsp_line_node
+</code></pre></div>
+</div>
+
+<pre><span id="VALlabel_of_path_opt"><span class="keyword">val</span> label_of_path_opt</span> : <code class="type"><a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; string option</code></pre><div class="info ">
+<div class="info-desc">
+<p>With default <code class="code">doc_settings</code>,</p>
+
+<p><code class="code">label_of_path_opt [CH_NODE 1]</code> evaluates to <code class="code">Some "CHAPTER 1"</code></p>
+
+<p><code class="code">label_of_path_opt [SEC_NODE 1]</code> evaluates to <code class="code">Some "§ 2"</code></p>
+
+<p><code class="code">label_of_path_opt [SEC_NODE 1; CH_NODE 2]</code> evaluates to <code class="code">Some "§ 2.1"</code></p>
+
+<p><code class="code">label_of_path_opt [PAR_NODE 1]</code> evaluates to <code class="code">Some "¶ 1"</code></p>
+
+<p><code class="code">label_of_path_opt [PAR_NODE 1; SEC_NODE 2]</code> evaluates to <code class="code">Some "¶ 2.1"</code></p>
+
+<p><code class="code">label_of_path_opt [PAR_NODE 1; SEC_NODE 2; CH_NODE 3]</code> evaluates to <code class="code">Some "¶ 3.2.1"</code></p>
+
+<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1)]::tail</code> evaluates to <code class="code">Some "(1)"</code></p>
+
+<p><code class="code">label_of_path_opt [ITM_NODE (ITM_STRING "a")]::tail</code> evaluates to <code class="code">Some "(a)"</code></p>
+
+<p><code class="code">label_of_path_opt [DSP_LINE_NODE (DSP_INT 1)]::tail</code> evaluates to <code class="code">Some "(1)"</code></p>
+
+<p><code class="code">label_of_path_opt [DSP_LINE_NODE (DSP_STRING "a")]::tail</code> evaluates to <code class="code">Some "(a)"</code></p>
+
+<p><code class="code">label_of_path_opt [DSP_LINE_NODE NONE]::tail</code> evaluates to <code class="code">None</code></p>
+
+<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]</code> evaluates to <code class="code">Some "[1]"</code></p>
+
+<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]</code> evaluates to <code class="code">Some "ABSTRACT(1)"</code></p>
+</div>
+</div>
+
+<pre><span id="VALlabel_of_path"><span class="keyword">val</span> label_of_path</span> : <code class="type"><a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">label_of_path path</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code">match label_of_path_opt path with
+| None -&gt; ""
+| Some (s : string) -&gt; s
+</code></pre></div>
+</div>
+</body></html>
