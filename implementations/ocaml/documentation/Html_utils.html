@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Doc_of_axml.html">
+<link rel="next" href="Main.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Html_utils</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Doc_of_axml.html" title="Doc_of_axml">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Main.html" title="Main">Next</a>
+</div>
+<h1>Module <a href="type_Html_utils.html">Html_utils</a></h1>
+
+<pre><span id="MODULEHtml_utils"><span class="keyword">module</span> Html_utils</span>: <code class="code">sig</code> <a href="Html_utils.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="VALhtml_of_exml"><span class="keyword">val</span> html_of_exml</span> : <code class="type">Xml.xml -&gt; Xml.xml</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">html_of_exml element</code></pre>
+<p>evaluates recursively to</p>
+
+<pre class="codepre"><code class="code">match element with
+|Xml.Element ("title_chs", attr_list, xml_list) -&gt; Xml.Element ("h1", ("class", "title_chs")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("title_secs", attr_list, xml_list) -&gt; Xml.Element ("h1", ("class", "title_secs")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("title_pars", attr_list, xml_list) -&gt; Xml.Element ("h1", ("class", "title_pars")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("title_blks", attr_list, xml_list) -&gt; Xml.Element ("h1", ("class", "title_blks")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("author", attr_list, xml_list) -&gt; Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("abstract_hdr_chs", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "abstract_hdr_chs")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("abstract_hdr_secs", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "abstract_hdr_secs")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("abstract_hdr_pars", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "abstract_hdr_pars")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("abstract_hdr_blks", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "abstract_hdr_blks")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("refs_hdr_chs", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "refs_hdr_chs")::attr_list,List.map html_of_exml xml_list)
+|Xml.Element ("refs_hdr_secs", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "refs_hdr_secs")::attr_list,List.map html_of_exml xml_list)
+|Xml.Element ("refs_hdr_pars", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "refs_hdr_pars")::attr_list,List.map html_of_exml xml_list)
+|Xml.Element ("refs_hdr_blks", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "refs_hdr_blks")::attr_list,List.map html_of_exml xml_list)
+|Xml.Element ("ch_hdr", attr_list, xml_list) -&gt; Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -&gt; Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("sec_hdr", attr_list, xml_list) -&gt; Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -&gt; Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("par_hdr", attr_list, xml_list) -&gt; Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("blk_txt", attr_list, xml_list) -&gt; Xml.Element ("p", ("class", "blk_txt")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("txt_unit_wysiwyg", attr_list, [Xml.PCData s]) -&gt; Xml.PCData s
+|Xml.Element ("txt_unit_emph", attr_list, xml_list) -&gt; Xml.Element ("em", ("class", "txt_unit_emph")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -&gt; Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element (tag, attr_list, xml_list) -&gt; Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
+|Xml.PCData s -&gt; Xml.PCData s
+</code></pre></div>
+</div>
+
+<pre><span id="VALinternal_css"><span class="keyword">val</span> internal_css</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<p>With the default <code class="code">doc_settings</code>, <code class="code">internal_css doc_settings</code> evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
+</div>
+</div>
+</body></html>

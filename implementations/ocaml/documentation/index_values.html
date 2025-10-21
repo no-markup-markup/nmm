@@ -1,0 +1,264 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><div>A</div></td></tr>
+<tr><td><a href="Main.html#VALaxml_of_doc">axml_of_doc</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">axml_of_doc doc</code></pre><p>evaluates to</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALaxml_of_nmm">axml_of_nmm</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">axml_of_nmm path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">axml_of_doc (doc_of_nmm path)</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Axml_of_doc.html#VALaxml_of_tr_doc">axml_of_tr_doc</a> [<a href="Axml_of_doc.html">Axml_of_doc</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">axml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>C</div></td></tr>
+<tr><td><a href="Main.html#VALcheck_xml_schema">check_xml_schema</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">check_xml_schema "path/to/xml-schema.dtd"</code></pre><p>calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is a well-defined xml-schema in the format dtd.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Compiler_of_doc.html#VALcref_table_of_tr_doc">cref_table_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre><p>searches <code class="code">doc</code> for id:s, and adds them and their path to <a href="Common_utils.html#VALdoc_cref_table"><code class="code">Common_utils.doc_cref_table</code></a>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>D</div></td></tr>
+<tr><td><a href="Common_utils.html#VALdoc_cref_table">doc_cref_table</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">= {
+    content = [];
+}</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALdoc_of_axml">doc_of_axml</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">doc_of_axml "path/to/file"</code></pre><p>evaluates to</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALdoc_of_nmm">doc_of_nmm</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">doc_of_nmm "path/to/file"</code></pre><p>evaluates to</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_file">doc_of_nmm_file</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">doc_of_nmm_file true "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code">Doc_types.tr_doc</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_string">doc_of_nmm_string</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
+<td><div class="info">
+<p>Same as <code class="code">doc_of_nmm_file</code>, except that it reads from the provided string.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALdoc_settings">doc_settings</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code"> = {
+    doc_width       = 80;
+    left_margin     = 12;
+    title_indent    = 12;
+    author_indent   = 12;
+    abstract_indent = 12;
+    refs_indent     = 12;
+    tab_length      = 6;
+    abstract_prefix = Some "ABSTRACT";
+    refs_prefix     = Some "REFERENCES";
+    ch_prefix       = Some "CHAPTER";
+    sec_prefix      = Some "§";
+    par_prefix      = Some "¶";
+    expand_tag      = expand_tag_default;
+}
+</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALdoc_settings_of_tr_doc">doc_settings_of_tr_doc</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">doc_settings_of_tr_doc doc</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALdoc_type_of_tr_doc">doc_type_of_tr_doc</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">doc_type_of_tr_doc doc</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><div>E</div></td></tr>
+<tr><td><a href="Compiler_of_doc.html#VALexml_of_tr_doc">exml_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">exml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALexpand_tag_default">expand_tag_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">expand_tag_default tag</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><div>F</div></td></tr>
+<tr><td><a href="Doc_of_axml.html#VALf_tr_doc_of_axml">f_tr_doc_of_axml</a> [<a href="Doc_of_axml.html">Doc_of_axml</a>]</td>
+<td><div class="info">
+<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>H</div></td></tr>
+<tr><td><a href="Main.html#VALhtml_of_axml">html_of_axml</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">html_of_axml uri_opt lang_opt path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_axml path)</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALhtml_of_doc">html_of_doc</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">html_of_doc None None doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Html_utils.html#VALhtml_of_exml">html_of_exml</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">html_of_exml element</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALhtml_of_nmm">html_of_nmm</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">html_of_nmm uri_opt lang_opt path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_nmm path)</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><div>I</div></td></tr>
+<tr><td><a href="Html_utils.html#VALinternal_css">internal_css</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td><div class="info">
+<p>With the default <code class="code">doc_settings</code>, <code class="code">internal_css doc_settings</code> evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>L</div></td></tr>
+<tr><td><a href="Common_utils.html#VALlabel_of_path">label_of_path</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">label_of_path path</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALlabel_of_path_opt">label_of_path_opt</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<p>With default <code class="code">doc_settings</code>,</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>N</div></td></tr>
+<tr><td><a href="Common_utils.html#VALnode_of_blk_itm">node_of_blk_itm</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALnode_of_dsp_line">node_of_dsp_line</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line)</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><div>P</div></td></tr>
+<tr><td><a href="Xml_right.html#VALparse_file">parse_file</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">parse_file true "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Xml_right.html#VALparse_stdin">parse_stdin</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+<p>Same as <code class="code">parse_file</code>, except that it reads from <code class="code">stdin</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Xml_right.html#VALparse_string">parse_string</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+<p>Same as <code class="code">parse_file</code>, except that it reads from the provided string.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>S</div></td></tr>
+<tr><td><a href="Common_utils.html#VALstring_of_ts_c_ref">string_of_ts_c_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">string_of_ts_c_ref path c_ref</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="Xml_right.html#VALto_string">to_string</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">to_string xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with no white-space between elements.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Xml_right.html#VALto_string_fmt">to_string_fmt</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">to_string_fmt xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by newlines.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALtxt_of_axml">txt_of_axml</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">txt_of_axml path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">txt_of_doc (doc_of_axml path)</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALtxt_of_doc">txt_of_doc</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">txt_of_doc doc</code></pre><p>evaluates to</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALtxt_of_nmm">txt_of_nmm</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">txt_of_nmm path</code></pre><p>evaluate to</p>
+<pre class="codepre"><code class="code">txt_of_doc (doc_of_nmm path)</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Compiler_of_doc.html#VALtxt_of_tr_doc">txt_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
+<td><div class="info">
+<p>Implements the raw text semantics of no-markup-markup.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>V</div></td></tr>
+<tr><td><a href="Main.html#VALvalidate_xml">validate_xml</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">validate_xml "path/to/xml-schema.dtd" main_tag "path/to/xml-file.xml"</code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is well-defined.</p>
+
+</div>
+</td></tr>
+</table>
+</body>
+</html>

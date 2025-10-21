@@ -1,9 +1,11 @@
 val html_of_exml : Xml.xml -> Xml.xml
 (**
-{[html_of_exml exml]}
+{[html_of_exml element]}
+
 evaluates recursively to
+
 {[
-match exml with
+match element with
 |Xml.Element ("title_chs", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_chs")::attr_list, List.map html_of_exml xml_list)
 |Xml.Element ("title_secs", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_secs")::attr_list, List.map html_of_exml xml_list)
 |Xml.Element ("title_pars", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_pars")::attr_list, List.map html_of_exml xml_list)
