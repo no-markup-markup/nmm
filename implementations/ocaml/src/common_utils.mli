@@ -189,7 +189,7 @@ in DSP_LINE_NODE dsp_line_node
 
 val label_of_path_opt : t_path -> string option
 (**
-Some examples:
+With default [doc_settings], 
 
 [label_of_path_opt [CH_NODE 1]] evaluates to [Some "CHAPTER 1"]
 
@@ -212,6 +212,10 @@ Some examples:
 [label_of_path_opt [DSP_LINE_NODE (DSP_STRING "a")]::tail] evaluates to [Some "(a)"]
 
 [label_of_path_opt [DSP_LINE_NODE NONE]::tail] evaluates to [None]
+
+[label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]] evaluates to [Some "[1]"]
+
+[label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]] evaluates to [Some "ABSTRACT(1)"]
 
 *)
 

@@ -24,7 +24,7 @@ bibliography system compatible with standard bibliography tools
 (e.g. zotero). But for now, I think this would suffice.
 
 
-References
+REFERENCES
 ──────────
 
 [1]   Euler, Leonhard (1740): De summis serierum reciprocarum. In:

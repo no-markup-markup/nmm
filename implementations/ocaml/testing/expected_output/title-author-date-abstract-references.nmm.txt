@@ -5,7 +5,7 @@
             Donald Duck and Mickey Mouse
 
 
-            Abstract
+            ABSTRACT
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -38,11 +38,11 @@
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
 
-            Reference to named item in abstract: Abstract(1).
+            Reference to named item in abstract: ABSTRACT(1).
 
-            Reference to another one: Abstract(2).
+            Reference to another one: ABSTRACT(2).
 
-            Reference to another one: Abstract(2)(a).
+            Reference to another one: ABSTRACT(2)(a).
 
             Duis aute irure dolor in reprehenderit in voluptate velit esse
             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
@@ -74,7 +74,7 @@
 
 
 
-            References
+            REFERENCES
             ══════════
 
             [1]   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
