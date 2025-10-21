@@ -7,9 +7,12 @@ let special_tag (a : tu_tag_or_id option) : tu_txt_unit option =
 		match b with
 		|Cu_tag_or_id_tag (tag : ts_tag) 
 		|Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
-			match Common_utils.doc_settings.expand_tag tag with
-			| Some (s: string) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg s))
-			| None -> None
+			match Common_utils.doc_settings.expand_tag_singular tag with
+			| Some (singular: string) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg singular))
+			| None ->
+				match Common_utils.doc_settings.expand_tag_plural tag with
+				|Some (_,plural) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg plural))
+				|None -> None
 
 let copy_hdr_to_main_and_lbl_to_hdr (path : Common_utils.t_path) (par : tr_par): tr_par = 
 	let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in

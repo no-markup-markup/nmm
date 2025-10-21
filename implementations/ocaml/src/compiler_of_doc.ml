@@ -228,7 +228,7 @@ and acc_of_ts_pars (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 	let rec aux (par_nr : int) (acc : t_acc) (b : tr_par list) : t_acc = (
 		match b with
 		| [] -> acc
-		| hd :: tl -> aux (par_nr + 1) (add_empty_lines_after_par tl (acc_of_tr_par (PAR_NODE par_nr :: path) acc hd)) tl
+		| hd :: tl -> aux (par_nr + 1) (add_empty_lines_after_par tl (acc_of_tr_par ((Common_utils.node_of_tr_par par_nr hd):: path) acc hd)) tl
 	)
 	in 
 	aux 0 acc b
@@ -387,10 +387,15 @@ and acc_of_par_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts
 and acc_of_tu_blk (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_blk) : t_acc * int =
 	match a with
 	| Cu_blk_itm (b : Doc_types.tr_blk_itm) ->
-		let node : Common_utils.t_node = Common_utils.node_of_blk_itm auto_nr b in
+		let path_hd_opt : Common_utils.t_node option=
+			match path with
+			|hd::tl -> Some hd
+			|[] -> None
+		in
+		let node : Common_utils.t_node = Common_utils.node_of_blk_itm path_hd_opt auto_nr b in
 		let next_auto_nr =
 			match b.fld_blk_itm_lbl with 
-			|Cu_lbl_auto Cs_lbl_auto -> auto_nr + 1 
+			|Cu_lbl_auto Cs_lbl_auto -> auto_nr + 1
 			| _ -> auto_nr
 		in 
 		(acc_of_tr_blk_itm (node :: path) acc b, next_auto_nr)

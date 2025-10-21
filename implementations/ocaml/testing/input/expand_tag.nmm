@@ -1,0 +1,58 @@
+§
+
+¶ THM:main
+Main
+
+[]	ITM:1
+	Nothing lasts forever.
+
+[]	ITM:2
+	All is well.
+
+	[]	ITM:2a
+		sometimes
+
+	[]	ITM:2b
+		forever
+
+'[ITM\:1]' -> [ITM:1]
+
+'[ITM\:2]' -> [ITM:2]
+
+'[ITM\:2a]' -> [ITM:2a]
+
+'[ITM\:2b]' -> [ITM:2b]
+
+
+¶ PRF:proof
+of [THM:main]
+
+By straightforward induction on the complexity of nothing.
+
+'[THM\:main]' -> [THM:main]
+
+'[ITM\:1]' -> [ITM:1]
+
+'[ITM\:2]' -> [ITM:2]
+
+'[ITM\:2a]' -> [ITM:2a]
+
+'[ITM\:2b]' -> [ITM:2b]
+
+§
+
+¶ PRF
+of [THM:main]
+
+By straightforward induction on the complexity of nothing.
+
+'[THM\:main]' -> [THM:main]
+
+'[ITM\:1]' -> [ITM:1]
+
+'[ITM\:2]' -> [ITM:2]
+
+'[ITM\:2a]' -> [ITM:2a]
+
+'[ITM\:2b]' -> [ITM:2b]
+

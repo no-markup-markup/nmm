@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 html {
-        --left_margin:0px;
+        --left_margin:96px;
         --tab_length:6ch;
         font-family:monospace;
         font-size:12px;
@@ -393,7 +393,99 @@ a {
 <body>
 <div class="doc">
 <div class="doc_main">
-<p class="blk_txt">The forbidden characters look like this: &lt; &gt; &amp; &apos; &quot;</p>
+<div class="sec">
+<div class="sec_lbl">§ 1</div>
+<h3 class="sec_hdr">Some definitions</h3>
+<div class="sec_main">
+<div class="par" id="DEF:goodness">
+<div class="par_lbl">¶ 1.1</div>
+<h4 class="par_hdr">¶ 1.1 DEFINITION (Goodness)</h4>
+<div class="par_main">
+<p class="blk_txt">DEFINITION (Goodness)  A thing is good iff it is desirable.</p>
+</div>
+</div>
+<div class="par" tag="DEF">
+<div class="par_lbl">¶ 1.2</div>
+<h4 class="par_hdr">¶ 1.2 DEFINITION (Stupidity)</h4>
+<div class="par_main">
+<p class="blk_txt">DEFINITION (Stupidity)  To think that <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a> is useful.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sec">
+<div class="sec_lbl">§ 2</div>
+<h3 class="sec_hdr">Our main results</h3>
+<div class="sec_main">
+<div class="par" id="THMS:main">
+<div class="par_lbl">¶ 2.1</div>
+<h4 class="par_hdr">¶ 2.1 THEOREMS (Main)</h4>
+<div class="par_main">
+<p class="blk_txt">THEOREMS (Main)</p>
+<div class="blk_itm" id="ITM:1">
+<div class="blk_itm_lbl">(1)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Nothing lasts forever.</p>
+</div>
+</div>
+<div class="blk_itm" id="ITM:2">
+<div class="blk_itm_lbl">(2)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">All is well iff</p>
+<div class="blk_itm" id="ITM:2a">
+<div class="blk_itm_lbl">(a)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">nothing is bad, and</p>
+</div>
+</div>
+<div class="blk_itm" id="ITM:2b">
+<div class="blk_itm_lbl">(b)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">I know that &apos;[ITM:2a]&apos; is rendered nicely, like this: <a class="txt_unit_c_ref" href="#ITM:2a">(a)</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="par" id="PRF:main">
+<div class="par_lbl">¶ 2.2</div>
+<h4 class="par_hdr">¶ 2.2 PROOF (of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a>)</h4>
+<div class="par_main">
+<p class="blk_txt">PROOF (of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a>)  By straightforward induction on the complexity of nothing.</p>
+</div>
+</div>
+<div class="par">
+<div class="par_lbl">¶ 2.3</div>
+<h4 class="par_hdr">¶ 2.3</h4>
+<div class="par_main">
+<p class="blk_txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
+<p class="blk_txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
+<p class="blk_txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">THEOREM (2) of ¶ 2.1</a></p>
+<p class="blk_txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">2.1(2)(a)</a></p>
+<p class="blk_txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">2.1(2)(b)</a></p>
+</div>
+</div>
+<div class="par" id="PRF:1">
+<div class="par_lbl">¶ 2.4</div>
+<h4 class="par_hdr">¶ 2.4 PROOF (of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a>)</h4>
+<div class="par_main">
+<p class="blk_txt">PROOF (of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a>)  Obvious by definition <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sec">
+<div class="sec_lbl">§ 3</div>
+<h3 class="sec_hdr">References to previous section</h3>
+<div class="sec_main">
+<p class="blk_txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
+<p class="blk_txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
+<p class="blk_txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">THEOREM (2) of ¶ 2.1</a></p>
+<p class="blk_txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">2.1(2)(a)</a></p>
+<p class="blk_txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">2.1(2)(b)</a></p>
+</div>
+</div>
 </div>
 </div>
 </body>

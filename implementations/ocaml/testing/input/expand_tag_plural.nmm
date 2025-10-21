@@ -1,0 +1,69 @@
+§
+Some definitions
+
+¶ DEF:goodness
+Goodness
+
+A thing is good iff it is desirable.
+
+¶ DEF
+Stupidity
+
+To think that [DEF:goodness] is useful.
+
+
+§
+Our main results
+
+¶ THMS:main
+Main
+
+[]	ITM:1
+	Nothing lasts forever.
+
+[]	ITM:2
+	All is well iff
+
+	[]	ITM:2a
+		nothing is bad, and
+
+	[]	ITM:2b
+		I know that '[ITM\:2a]' is rendered nicely, like this: [ITM:2a].
+
+
+¶ PRF:main
+of [THMS:main]
+
+By straightforward induction on the complexity of nothing.
+
+¶
+
+'[THMS\:main]' -> [THMS:main]
+
+'[ITM\:1]' -> [ITM:1]
+
+'[ITM\:2]' -> [ITM:2]
+
+'[ITM\:2a]' -> [ITM:2a]
+
+'[ITM\:2b]' -> [ITM:2b]
+
+
+¶ PRF:1
+of [ITM:1]
+
+Obvious by definition [DEF:goodness].
+
+§
+References to previous section
+
+'[THMS\:main]' -> [THMS:main]
+
+'[ITM\:1]' -> [ITM:1]
+
+'[ITM\:2]' -> [ITM:2]
+
+'[ITM\:2a]' -> [ITM:2a]
+
+'[ITM\:2b]' -> [ITM:2b]
+

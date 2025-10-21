@@ -17,18 +17,28 @@ type t_doc_settings = {
 	mutable ch_prefix: string option;
 	mutable sec_prefix: string option;
 	mutable par_prefix : string option;
-	mutable expand_tag: Doc_types.ts_tag -> string option;
+	mutable expand_tag_singular: Doc_types.ts_tag -> string option;
+	mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
 }
 
 type t_doc_type = CHS | SECS | PARS | BLKS
 
-let expand_tag_default (tag : Doc_types.ts_tag) : string option =
+let expand_tag_singular_default (tag : Doc_types.ts_tag) : string option =
 	match tag with
 	|Cs_tag "DEF" -> Some "DEFINITION"
 	|Cs_tag "PRF" -> Some "PROOF"
 	|Cs_tag "FCT" -> Some "FACT"
 	|Cs_tag "LMA" -> Some "LEMMA"
 	|Cs_tag "THM" -> Some "THEOREM"
+	| _  -> None
+
+let expand_tag_plural_default (tag : Doc_types.ts_tag) : (string * string) option =
+	match tag with
+	|Cs_tag "DEFS" -> Some ("DEFINITION", "DEFINITIONS")
+	|Cs_tag "PRFS" -> Some ("PROOF", "PROOFS")
+	|Cs_tag "FCTS" -> Some ("FACT", "FACTS")
+	|Cs_tag "LMAS" -> Some ("LEMMA", "LEMMAS")
+	|Cs_tag "THMS" -> Some ("THEOREM", "THEOREMS")
 	| _  -> None
 
 
@@ -45,7 +55,8 @@ let doc_settings : t_doc_settings = {
 	ch_prefix = Some "CHAPTER";
 	sec_prefix = Some "§";
 	par_prefix = Some "¶";
-	expand_tag = expand_tag_default;
+	expand_tag_singular = expand_tag_singular_default;
+	expand_tag_plural = expand_tag_plural_default;
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
@@ -107,7 +118,7 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("par_prefix", v) -> set_par_prefix v
 				|Some ("abstract_prefix", v) -> set_abstract_prefix v
 				|Some ("refs_prefix", v) -> set_refs_prefix v
-				|Some ("expand_tag", v) -> set_expand_tag doc_settings.expand_tag v
+				|Some ("expand_tag", v) -> set_expand_tag doc_settings.expand_tag_singular v
 				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
 			in aux tl
 		| [] -> ()
@@ -163,7 +174,7 @@ and set_refs_prefix (v : string) : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_prefix value: ";v;"\n";"using default value"])
 
 and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
-	try doc_settings.expand_tag <- (expand_tag_value_of_string expand_tag_old v) with _ ->
+	try doc_settings.expand_tag_singular <- (expand_tag_value_of_string expand_tag_old v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid expand_tag value: ";v;"\n";"using default value"])
 
 and prefix_value_of_string (v : string) : string option =
@@ -193,14 +204,16 @@ and t_node =
 	| CH_NODE of int
 	| SEC_NODE of int
 	| APP_NODE of int
-	| PAR_NODE of int
+	| PAR_NODE of t_par_node
 	| ITM_NODE of t_itm_node
 	| DSP_NODE
 	| BLT_NODE
 	| DSP_LINE_NODE of t_dsp_line_node
 	| REFS_NODE
 
-and t_itm_node = ITM_INT of int | ITM_STRING of string
+and t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
+
+and t_itm_node = ITM_INT of int | ITM_STRING of string | ITM_TAG_INT of (string * int) | ITM_TAG_STRING of (string * string)
 
 and t_dsp_line_node =
 	| DSP_INT of int
@@ -239,11 +252,29 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 						|None -> Some s
 						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
 					)
-					|PAR_NODE _ -> (
-						match doc_settings.par_prefix, doc_settings.expand_tag id.fld_id_tag with
-						|None, None -> Some s
-						|Some prefix, None -> Some (String.concat "\u{00A0}" [prefix;s])
-						|_ , Some expansion -> Some (String.concat "\u{00A0}" [expansion;s])
+					|PAR_NODE (par_node : t_par_node) -> (
+						match par_node with
+						|NO_TAG (prefix_opt,_) -> (
+							match prefix_opt with
+							|None -> Some s
+							|Some prefix -> Some (String.concat "\u{00A0}" [prefix; s])
+						)
+						|SINGULAR_TAG (singular, _) -> Some (String.concat "\u{00A0}" [singular; s])
+						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; s])
+					)
+					|ITM_NODE (ITM_TAG_INT (singular,_)) -> (
+						match tl with 
+						|(PAR_NODE (PLURAL_TAG (_,_,_)))::_ -> 
+							let parent : string = label_of_path tl in
+							Some (String.concat "\u{00A0}" [singular;label_of_path path_entry;"of";parent])
+						|_ -> Some (String.concat "\u{00A0}" [singular;s])
+					)
+					|ITM_NODE (ITM_TAG_STRING (singular,_)) -> (
+						match tl with 
+						|(PAR_NODE (PLURAL_TAG (_,_,_)))::_ -> 
+							let parent : string = label_of_path tl in
+							Some (String.concat "\u{00A0}" [singular;s;"of";parent])
+						|_ -> Some (String.concat "\u{00A0}" [singular;s])
 					)
 					| _ -> Some s
 				)
@@ -319,11 +350,28 @@ and string_of_node (tail : t_path) (head : t_node) : string option =
 	in
 	match head with
 	| CH_NODE (n : int)
-	| SEC_NODE (n : int)
-	| PAR_NODE (n : int) -> (
+	| SEC_NODE (n : int) -> (
 		match string_of_path tail tail with
 		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 		|None -> Some (string_of_int (n + 1))
+	)
+	| PAR_NODE (par_node : t_par_node) -> (
+		match par_node with
+		|NO_TAG (_,n) -> (
+			match string_of_path tail tail with
+			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
+			|None -> Some (string_of_int (n + 1))
+		)
+		|SINGULAR_TAG (_, n) -> (
+			match string_of_path tail tail with
+			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
+			|None -> Some (string_of_int (n + 1))
+		)
+		|PLURAL_TAG (_, _, n) -> (
+			match string_of_path tail tail with
+			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
+			|None -> Some (string_of_int (n + 1))
+		)
 	)
 	| APP_NODE (n : int) -> (
 		match string_of_path tail tail with
@@ -341,10 +389,36 @@ and string_of_node (tail : t_path) (head : t_node) : string option =
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
 			in Some (String.concat s [ lpar; rpar ])
-		| DSP_STRING (s : string) -> Some (String.concat s [ lpar; rpar ])
+		| DSP_STRING (s : string) -> Some (String.concat s [lpar; rpar])
 	)
-	| ITM_NODE (a : t_itm_node) ->
-		string_of_node tail (DSP_LINE_NODE (dsp_line_node_of_itm_node a))
+	| ITM_NODE (a : t_itm_node) -> (
+		match a with
+		|ITM_INT n -> (
+			let s : string =
+				match lvl_of_path tail mod 3 with
+				| 0 -> string_of_int (n + 1)
+				| 1 -> lower_case_latin_letters.(n)
+				| _ -> lower_case_roman_numerals.(n)
+			in Some (String.concat s [ lpar; rpar ])
+		)
+		|ITM_STRING s -> Some (String.concat s [lpar; rpar])
+		|ITM_TAG_INT (_,n) -> (
+			let s : string =
+				match lvl_of_path tail mod 3 with
+				| 0 -> string_of_int (n + 1)
+				| 1 -> lower_case_latin_letters.(n)
+				| _ -> lower_case_roman_numerals.(n)
+			in
+			match string_of_path tail tail with
+			|None -> Some (String.concat "" [lpar; s; rpar])
+			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
+		)
+		|ITM_TAG_STRING (_,s) -> (
+			match string_of_path tail tail with
+			|None -> Some (String.concat "" [lpar; s; rpar])
+			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
+		)
+	)
 	| BLT_NODE ->
 		let l : int = lvl_of_path tail in
 		Some bullets.(l mod Array.length bullets)
@@ -360,17 +434,42 @@ and lvl_of_path (path : t_path) : int =
 		| BLT_NODE -> lvl_of_path tl + 1
 		| _ -> lvl_of_path tl
 
-and dsp_line_node_of_itm_node (a : t_itm_node) : t_dsp_line_node =
-	match a with
-	| ITM_INT i -> DSP_INT i
-	| ITM_STRING s -> DSP_STRING s
 
+and node_of_tr_par (auto_nr) (par : Doc_types.tr_par) : t_node =
+	match par.fld_par_tag_or_id with
+	|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
+	|Some (tag_or_id : tu_tag_or_id) ->
+		match tag_or_id with
+		|Cu_tag_or_id_tag (tag : ts_tag) -> (
+			match doc_settings.expand_tag_singular tag with
+			|Some (expansion : string) -> PAR_NODE (SINGULAR_TAG (expansion,auto_nr))
+			|None ->
+				match doc_settings.expand_tag_plural tag with
+				|Some (singular,plural) -> PAR_NODE (PLURAL_TAG (singular,plural,auto_nr))
+				|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix, auto_nr))
+		)
+		|Cu_tag_or_id_id (id : tr_id) -> (
+			match doc_settings.expand_tag_singular id.fld_id_tag with
+			|Some (expansion : string) -> PAR_NODE (SINGULAR_TAG (expansion,auto_nr))
+			|None ->
+				match doc_settings.expand_tag_plural id.fld_id_tag with
+				|Some (singular,plural) -> PAR_NODE (PLURAL_TAG (singular,plural,auto_nr))
+				|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix, auto_nr))
+		)
 
-and node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
+and node_of_blk_itm (path_hd_opt : t_node option) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
 	let itm_node : t_itm_node =
-		match a.fld_blk_itm_lbl with
-		| Cu_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
-		| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
+		match path_hd_opt with
+		| Some (PAR_NODE (PLURAL_TAG (singular, _, _))) -> (
+			match a.fld_blk_itm_lbl with
+			| Cu_lbl_auto Cs_lbl_auto -> ITM_TAG_INT (singular,auto_nr)
+			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_TAG_STRING (singular,s)
+		)
+		|_ -> (
+			match a.fld_blk_itm_lbl with
+			| Cu_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
+			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
+		)
 	in ITM_NODE itm_node
 
 and node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =

@@ -13,10 +13,12 @@ type t_doc_settings = {
   mutable ch_prefix : string option;
   mutable sec_prefix : string option;
   mutable par_prefix : string option;
-  mutable expand_tag: Doc_types.ts_tag -> string option;
+  mutable expand_tag_singular: Doc_types.ts_tag -> string option;
+  mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
 }
 
 type t_doc_type = CHS | SECS | PARS | BLKS
+
 
 val doc_type_of_tr_doc: Doc_types.tr_doc -> t_doc_type
 (**
@@ -33,9 +35,10 @@ match doc.fld_doc_main with
 ]}
 *)
 
-val expand_tag_default : Doc_types.ts_tag -> string option
+
+val expand_tag_singular_default : Doc_types.ts_tag -> string option
 (**
-{[expand_tag_default tag]}
+{[expand_tag_singular_default tag]}
 
 evaluates to
 
@@ -49,27 +52,48 @@ match tag with
 | _  -> None
 ]}
 *)
+
+val expand_tag_plural_default : Doc_types.ts_tag -> (string * string) option
+(**
+{[expand_tag_plural_default tag]}
+
+evaluates to
+
+{[
+match tag with
+|Cs_tag "DEFS" -> Some ("DEFINITION", "DEFINITIONS")
+|Cs_tag "PRFS" -> Some ("PROOF", "PROOFS")
+|Cs_tag "FCTS" -> Some ("FACT", "FACTS")
+|Cs_tag "LMAS" -> Some ("LEMMA", "LEMMAS")
+|Cs_tag "THMS" -> Some ("THEOREM", "THEOREMS")
+| _  -> None
+]}
+*)
+
+
 val doc_settings : t_doc_settings
 (**
 {[ = {
-    doc_width       = 80;
-    left_margin     = 12;
-    title_indent    = 12;
-    author_indent   = 12;
-    abstract_indent = 12;
-    refs_indent     = 12;
-    tab_length      = 6;
-    abstract_prefix = Some "ABSTRACT";
-    refs_prefix     = Some "REFERENCES";
-    ch_prefix       = Some "CHAPTER";
-    sec_prefix      = Some "§";
-    par_prefix      = Some "¶";
-    expand_tag      = expand_tag_default;
+    doc_width           = 80;
+    left_margin         = 12;
+    title_indent        = 12;
+    author_indent       = 12;
+    abstract_indent     = 12;
+    refs_indent         = 12;
+    tab_length          = 6;
+    abstract_prefix     = Some "ABSTRACT";
+    refs_prefix         = Some "REFERENCES";
+    ch_prefix           = Some "CHAPTER";
+    sec_prefix          = Some "§";
+    par_prefix          = Some "¶";
+    expand_tag_singular = expand_tag_singular_default;
+    expand_tag_plural   = expand_tag_plural_default;
 }
 ]}
 
 These are the default settings.
 *)
+
 
 val doc_settings_of_tr_doc : Doc_types.tr_doc -> unit
 (**
@@ -106,28 +130,30 @@ v}
 *)
 
 
-
+type t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
 
 type t_itm_node = 
-|	ITM_INT of int
-|	ITM_STRING of string
+	|ITM_INT of int
+	|ITM_STRING of string
+	|ITM_TAG_INT of (string * int)
+	|ITM_TAG_STRING of (string * string)
 
 type t_dsp_line_node = 
-|	DSP_INT of int
-|	DSP_STRING of string
-|	NONE
+	|DSP_INT of int
+	|DSP_STRING of string
+	|NONE
 
 type t_node = 
-|	ABSTRACT_NODE
-|	CH_NODE of int
-|	SEC_NODE of int
-|	APP_NODE of int
-|	PAR_NODE of int
-|	ITM_NODE of t_itm_node
-|	DSP_NODE
-|	BLT_NODE
-|	DSP_LINE_NODE of t_dsp_line_node
-|	REFS_NODE
+	|ABSTRACT_NODE
+	|CH_NODE of int
+	|SEC_NODE of int
+	|APP_NODE of int
+	|PAR_NODE of t_par_node
+	|ITM_NODE of t_itm_node
+	|DSP_NODE
+	|BLT_NODE
+	|DSP_LINE_NODE of t_dsp_line_node
+	|REFS_NODE
 
 type t_path = t_node list 
 
@@ -136,6 +162,7 @@ type t_cref_table = (Doc_types.tr_id * t_path) list
 type t_doc_cref_table = {
   	mutable content : t_cref_table;
 }
+
 
 val doc_cref_table : t_doc_cref_table
 (**
@@ -146,6 +173,7 @@ val doc_cref_table : t_doc_cref_table
 Starts as an empty table.
 *)
 
+
 val string_of_ts_c_ref : t_path -> Doc_types.ts_c_ref -> string
 (**
 {[string_of_ts_c_ref path c_ref]}
@@ -154,10 +182,15 @@ attempts to match [c_ref] ocurring at [path] with an [id] in [doc_cref_table], a
 
 For instance, if [c_ref] is located at path [[ITM_NODE (ITM_INT 1); PAR_NODE 1; SEC_NODE 1]], and [id] is located at path [[ITM_NODE (ITM_INT 3); PAR_NODE 2; SEC_NODE 1]], the function will return ["2(3)"] rather than ["1.2(3)"].
 
+If [c_ref] evaluates to [Cs_c_ref id], and [id] is located at [[PAR_NODE "1"]], and if [doc_settings.expand_tag id.fld_id_tag] evaluates to [Some "DEFINITION"], then [string_of_ts_c_ref [] c_ref] evaluates to ["DEFINITION 1"] rather than ["¶ 1"]. 
+
 Prints a warning to [stderr] if no match is found, and returns ["??"].
 *)
 
-val node_of_blk_itm : int -> Doc_types.tr_blk_itm -> t_node
+val node_of_tr_par : int -> Doc_types.tr_par -> t_node
+
+
+val node_of_blk_itm : t_node option -> int -> Doc_types.tr_blk_itm -> t_node
 (**
 {[node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)]}
 
@@ -171,6 +204,7 @@ let itm_node : t_itm_node =
 in ITM_NODE itm_node
 ]}
 *)
+
 
 val node_of_dsp_line : int -> Doc_types.tr_dsp_line -> t_node
 (**
@@ -186,6 +220,7 @@ match a.fld_dsp_line_lbl with
 in DSP_LINE_NODE dsp_line_node
 ]}
 *)
+
 
 val label_of_path_opt : t_path -> string option
 (**
@@ -218,6 +253,7 @@ With default [doc_settings],
 [label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]] evaluates to [Some "ABSTRACT(1)"]
 
 *)
+
 
 val label_of_path : t_path -> string
 (**
