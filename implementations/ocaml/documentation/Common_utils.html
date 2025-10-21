@@ -122,7 +122,14 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.expand_tag">expand_tag</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code>;</code></td>
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.expand_tag_singular">expand_tag_singular</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.expand_tag_plural">expand_tag_plural</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code>;</code></td>
 
 </tr></table>
 <code>}</code>
@@ -174,9 +181,9 @@
 </code></pre></div>
 </div>
 
-<pre><span id="VALexpand_tag_default"><span class="keyword">val</span> expand_tag_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code></pre><div class="info ">
+<pre><span id="VALexpand_tag_singular_default"><span class="keyword">val</span> expand_tag_singular_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">expand_tag_default tag</code></pre>
+<pre class="codepre"><code class="code">expand_tag_singular_default tag</code></pre>
 <p>evaluates to</p>
 
 <pre class="codepre"><code class="code">match tag with
@@ -189,22 +196,38 @@
 </code></pre></div>
 </div>
 
+<pre><span id="VALexpand_tag_plural_default"><span class="keyword">val</span> expand_tag_plural_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">expand_tag_plural_default tag</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code">match tag with
+|Cs_tag "DEFS" -&gt; Some ("DEFINITION", "DEFINITIONS")
+|Cs_tag "PRFS" -&gt; Some ("PROOF", "PROOFS")
+|Cs_tag "FCTS" -&gt; Some ("FACT", "FACTS")
+|Cs_tag "LMAS" -&gt; Some ("LEMMA", "LEMMAS")
+|Cs_tag "THMS" -&gt; Some ("THEOREM", "THEOREMS")
+| _  -&gt; None
+</code></pre></div>
+</div>
+
 <pre><span id="VALdoc_settings"><span class="keyword">val</span> doc_settings</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code"> = {
-    doc_width       = 80;
-    left_margin     = 12;
-    title_indent    = 12;
-    author_indent   = 12;
-    abstract_indent = 12;
-    refs_indent     = 12;
-    tab_length      = 6;
-    abstract_prefix = Some "ABSTRACT";
-    refs_prefix     = Some "REFERENCES";
-    ch_prefix       = Some "CHAPTER";
-    sec_prefix      = Some "§";
-    par_prefix      = Some "¶";
-    expand_tag      = expand_tag_default;
+    doc_width           = 80;
+    left_margin         = 12;
+    title_indent        = 12;
+    author_indent       = 12;
+    abstract_indent     = 12;
+    refs_indent         = 12;
+    tab_length          = 6;
+    abstract_prefix     = Some "ABSTRACT";
+    refs_prefix         = Some "REFERENCES";
+    ch_prefix           = Some "CHAPTER";
+    sec_prefix          = Some "§";
+    par_prefix          = Some "¶";
+    expand_tag_singular = expand_tag_singular_default;
+    expand_tag_plural   = expand_tag_plural_default;
 }
 </code></pre>
 <p>These are the default settings.</p>
@@ -242,6 +265,31 @@ INT := ['0'-'9']+
 STRING := [! ';']*</pre></div>
 </div>
 
+<pre><code><span id="TYPEt_par_node"><span class="keyword">type</span> <code class="type"></code>t_par_node</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_par_node.NO_TAG"><span class="constructor">NO_TAG</span></span> <span class="keyword">of</span> <code class="type">(string option * int)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_par_node.SINGULAR_TAG"><span class="constructor">SINGULAR_TAG</span></span> <span class="keyword">of</span> <code class="type">(string * int)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_par_node.PLURAL_TAG"><span class="constructor">PLURAL_TAG</span></span> <span class="keyword">of</span> <code class="type">(string * string * int)</code></code></td>
+
+</tr></table>
+
+
+
 <pre><code><span id="TYPEt_itm_node"><span class="keyword">type</span> <code class="type"></code>t_itm_node</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -255,6 +303,20 @@ STRING := [! ';']*</pre></div>
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTt_itm_node.ITM_STRING"><span class="constructor">ITM_STRING</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_itm_node.ITM_TAG_INT"><span class="constructor">ITM_TAG_INT</span></span> <span class="keyword">of</span> <code class="type">(string * int)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_itm_node.ITM_TAG_STRING"><span class="constructor">ITM_TAG_STRING</span></span> <span class="keyword">of</span> <code class="type">(string * string)</code></code></td>
 
 </tr></table>
 
@@ -318,7 +380,7 @@ STRING := [! ';']*</pre></div>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_node.PAR_NODE"><span class="constructor">PAR_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+<code><span id="TYPEELTt_node.PAR_NODE"><span class="constructor">PAR_NODE</span></span> <span class="keyword">of</span> <code class="type"><a href="Common_utils.html#TYPEt_par_node">t_par_node</a></code></code></td>
 
 </tr>
 <tr>
@@ -393,11 +455,14 @@ STRING := [! ';']*</pre></div>
 
 <p>For instance, if <code class="code">c_ref</code> is located at path <code class="code">[ITM_NODE (ITM_INT 1); PAR_NODE 1; SEC_NODE 1]</code>, and <code class="code">id</code> is located at path <code class="code">[ITM_NODE (ITM_INT 3); PAR_NODE 2; SEC_NODE 1]</code>, the function will return <code class="code">"2(3)"</code> rather than <code class="code">"1.2(3)"</code>.</p>
 
+<p>If <code class="code">c_ref</code> evaluates to <code class="code">Cs_c_ref id</code>, and <code class="code">id</code> is located at <code class="code">[PAR_NODE "1"]</code>, and if <code class="code">doc_settings.expand_tag id.fld_id_tag</code> evaluates to <code class="code">Some "DEFINITION"</code>, then <code class="code">string_of_ts_c_ref [] c_ref</code> evaluates to <code class="code">"DEFINITION 1"</code> rather than <code class="code">"¶ 1"</code>.</p>
+
 <p>Prints a warning to <code class="code">stderr</code> if no match is found, and returns <code class="code">"??"</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
+<pre><span id="VALnode_of_tr_par"><span class="keyword">val</span> node_of_tr_par</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_par">Doc_types.tr_par</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre>
+<pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> option -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)</code></pre>
 <p>evaluates to</p>

@@ -90,19 +90,20 @@
 <tr><td><a href="Common_utils.html#VALdoc_settings">doc_settings</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code"> = {
-    doc_width       = 80;
-    left_margin     = 12;
-    title_indent    = 12;
-    author_indent   = 12;
-    abstract_indent = 12;
-    refs_indent     = 12;
-    tab_length      = 6;
-    abstract_prefix = Some "ABSTRACT";
-    refs_prefix     = Some "REFERENCES";
-    ch_prefix       = Some "CHAPTER";
-    sec_prefix      = Some "§";
-    par_prefix      = Some "¶";
-    expand_tag      = expand_tag_default;
+    doc_width           = 80;
+    left_margin         = 12;
+    title_indent        = 12;
+    author_indent       = 12;
+    abstract_indent     = 12;
+    refs_indent         = 12;
+    tab_length          = 6;
+    abstract_prefix     = Some "ABSTRACT";
+    refs_prefix         = Some "REFERENCES";
+    ch_prefix           = Some "CHAPTER";
+    sec_prefix          = Some "§";
+    par_prefix          = Some "¶";
+    expand_tag_singular = expand_tag_singular_default;
+    expand_tag_plural   = expand_tag_plural_default;
 }
 </code></pre>
 </div>
@@ -124,9 +125,14 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Common_utils.html#VALexpand_tag_default">expand_tag_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<tr><td><a href="Common_utils.html#VALexpand_tag_plural_default">expand_tag_plural_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">expand_tag_default tag</code></pre>
+<pre class="codepre"><code class="code">expand_tag_plural_default tag</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALexpand_tag_singular_default">expand_tag_singular_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">expand_tag_singular_default tag</code></pre>
 </div>
 </td></tr>
 <tr><td align="left"><div>F</div></td></tr>
@@ -190,6 +196,8 @@
 <pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line)</code></pre>
 </div>
 </td></tr>
+<tr><td><a href="Common_utils.html#VALnode_of_tr_par">node_of_tr_par</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
 <tr><td align="left"><div>P</div></td></tr>
 <tr><td><a href="Xml_right.html#VALparse_file">parse_file</a> [<a href="Xml_right.html">Xml_right</a>]</td>
 <td><div class="info">
