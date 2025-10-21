@@ -28,6 +28,7 @@ let txt_of_doc (doc : Doc_types.tr_doc) : string =
 	Compiler_of_doc.txt_of_tr_doc doc
 
 let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc_types.tr_doc) : string =
+	let doc_type : Common_utils.t_doc_type = Common_utils.doc_type_of_tr_doc doc in
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
 	let html:Xml.xml = Html_utils.html_of_exml exml in
 	let html_string:string = Xml_right.to_string_fmt html in
@@ -46,7 +47,7 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 		| None -> "" 
 		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css Common_utils.doc_settings) ^ "\n</style>\n")
+	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css doc_type Common_utils.doc_settings) ^ "\n</style>\n")
 	in
 	let external_css: string = 
 		match uri_opt with

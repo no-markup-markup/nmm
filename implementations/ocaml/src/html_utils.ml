@@ -16,17 +16,30 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	|Xml.Element (tag, attr_list, xml_list) -> Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
 	|Xml.PCData s -> Xml.PCData s
 
-let internal_css ( doc_settings : Common_utils.t_doc_settings) : string = 
+let internal_css (doc_type : Common_utils.t_doc_type) ( doc_settings : Common_utils.t_doc_settings) : string = 
 	let n : int = 8 in
 	let left_margin : string = Int.to_string (doc_settings.left_margin * n) in
 	let tab_length : string = Int.to_string doc_settings.tab_length in
+	let title_font_size : string = 
+		match doc_type with
+		|CHS -> "24px"
+		|SECS -> "20px"
+		|_ -> "16px"
+	in
+	let refs_hdr_font_size : string = 
+		match doc_type with
+		|CHS -> "var(--ch_hdr_font_size)"
+		|SECS -> "var(--sec_hdr_font_size)"
+		|_ -> "var(--small_hdr_font_size)"
+	in
 "html {
-        --font_family:monospace;
-        --font_size:12px;
+        --ch_hdr_font_size:20px;
+        --sec_hdr_font_size:16px;
+        --small_hdr_font_size:14px;
         --left_margin:" ^ left_margin ^ "px;
         --tab_length:" ^ tab_length ^ "ch;
-        font-family:var(--font_family);
-        font-size:var(--font-size);
+        font-family:monospace;
+        font-size:12px;
 }
 
 .doc {
@@ -36,7 +49,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .title {
         display:block;
-        font-size:24px;
+        font-size:" ^ title_font_size ^ ";
         margin-left:var(--left_margin);
 }
 
@@ -58,8 +71,8 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .abstract_hdr {
         display:block;
         margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:14px;
+        font-weight:bold;
+        font-size:var(--small_hdr_font_size);
 }
 
 .refs {
@@ -72,7 +85,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:14px;
+        font-size:" ^ refs_hdr_font_size ^ ";
 }
 
 
@@ -93,7 +106,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:14px;
+        font-size:var(--ch_hdr_font_size);
         margin-left:var(--left_margin);
         font-weight:normal;
 }
@@ -101,7 +114,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .ch_hdr {
         display:block;
-        font-size:20px;
+        font-size:var(--ch_hdr_font_size);
         margin-left:var(--left_margin);
 }
 
@@ -120,13 +133,13 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:16px;
+        font-size:var(--sec_hdr_font_size);
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:16px;
+        font-size:var(--sec_hdr_font_size);
         margin-left:var(--left_margin);
 }
 

@@ -7,12 +7,13 @@
 <meta name="author" content="Eric Johannesson">
 <style>
 html {
-        --font_family:monospace;
-        --font_size:12px;
+        --ch_hdr_font_size:20px;
+        --sec_hdr_font_size:16px;
+        --small_hdr_font_size:14px;
         --left_margin:56px;
         --tab_length:6ch;
-        font-family:var(--font_family);
-        font-size:var(--font-size);
+        font-family:monospace;
+        font-size:12px;
 }
 
 .doc {
@@ -22,7 +23,7 @@ html {
 
 .title {
         display:block;
-        font-size:24px;
+        font-size:20px;
         margin-left:var(--left_margin);
 }
 
@@ -44,8 +45,8 @@ html {
 .abstract_hdr {
         display:block;
         margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:14px;
+        font-weight:bold;
+        font-size:var(--small_hdr_font_size);
 }
 
 .refs {
@@ -58,7 +59,7 @@ html {
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:14px;
+        font-size:var(--sec_hdr_font_size);
 }
 
 
@@ -79,7 +80,7 @@ html {
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:14px;
+        font-size:var(--ch_hdr_font_size);
         margin-left:var(--left_margin);
         font-weight:normal;
 }
@@ -87,7 +88,7 @@ html {
 
 .ch_hdr {
         display:block;
-        font-size:20px;
+        font-size:var(--ch_hdr_font_size);
         margin-left:var(--left_margin);
 }
 
@@ -106,13 +107,13 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:16px;
+        font-size:var(--sec_hdr_font_size);
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:16px;
+        font-size:var(--sec_hdr_font_size);
         margin-left:var(--left_margin);
 }
 

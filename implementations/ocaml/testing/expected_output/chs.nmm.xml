@@ -257,42 +257,6 @@
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
-<cu_blk_txt>
-<cs_blk_txt>
-<cs_txt_units>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>An escaped star</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>*</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-</cs_txt_units>
-</cs_blk_txt>
-</cu_blk_txt>
-<cu_blk_txt>
-<cs_blk_txt>
-<cs_txt_units>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>An escaped escape</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>\</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-</cs_txt_units>
-</cs_blk_txt>
-</cu_blk_txt>
 </cs_blks>
 </cr_par>
 </cs_pars>
@@ -300,6 +264,24 @@
 </cr_sec>
 </cs_secs>
 </cu_secs_pars_or_blks_secs>
+</cr_ch>
+<cr_ch>
+<cu_tag_or_id_tag>
+<cs_tag>CH</cs_tag>
+</cu_tag_or_id_tag>
+<cu_secs_pars_or_blks_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Chapter without header.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_secs_pars_or_blks_blks>
 </cr_ch>
 </cs_chs>
 </cu_doc_main_chs>

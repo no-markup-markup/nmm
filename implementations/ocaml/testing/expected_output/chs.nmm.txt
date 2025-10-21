@@ -64,6 +64,10 @@
 ¶ 3.2.2     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
             officia deserunt mollit anim id est laborum.
 
-            An escaped star: *
 
-            An escaped escape: \
+
+
+            CHAPTER 4
+            ═════════
+
+            Chapter without header.
