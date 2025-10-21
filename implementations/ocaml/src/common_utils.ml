@@ -240,9 +240,10 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
 					)
 					|PAR_NODE _ -> (
-						match doc_settings.par_prefix with
-						|None -> Some s
-						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
+						match doc_settings.par_prefix, doc_settings.expand_tag id.fld_id_tag with
+						|None, None -> Some s
+						|Some prefix, None -> Some (String.concat "\u{00A0}" [prefix;s])
+						|_ , Some expansion -> Some (String.concat "\u{00A0}" [expansion;s])
 					)
 					| _ -> Some s
 				)
