@@ -11,6 +11,12 @@
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
 
+            (1)   A named item in abstract.
+
+            (2)   Another one.
+
+                  (a)   Another one.
+
             Duis aute irure dolor in reprehenderit in voluptate velit esse
             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident, sunt in culpa qui officia deserunt mollit
@@ -31,6 +37,12 @@
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
+
+            Reference to named item in abstract: Abstract(1).
+
+            Reference to another one: Abstract(2).
+
+            Reference to another one: Abstract(2)(a).
 
             Duis aute irure dolor in reprehenderit in voluptate velit esse
             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat

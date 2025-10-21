@@ -347,6 +347,7 @@ and string_of_node (tail : t_path) (head : t_node) : string option =
 	| BLT_NODE ->
 		let l : int = lvl_of_path tail in
 		Some bullets.(l mod Array.length bullets)
+	| ABSTRACT_NODE -> doc_settings.abstract_prefix
 	| _ -> None
 
 and lvl_of_path (path : t_path) : int =

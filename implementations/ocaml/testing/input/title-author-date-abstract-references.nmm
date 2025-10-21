@@ -10,6 +10,15 @@ ABSTRACT:
 	enim ad minim veniam, quis nostrud exercitation ullamco laboris
 	nisi ut aliquip ex ea commodo consequat.
 
+	[]	ITM:in_abstract
+		A named item in abstract.
+
+	[]	ITM:second
+		Another one.
+
+		[]	ITM:another
+			Another one.
+
 	Duis aute irure dolor in reprehenderit in voluptate velit esse
 	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
 	cupidatat non proident, sunt in culpa qui officia deserunt
@@ -27,6 +36,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
 minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo consequat.
+
+Reference to named item in abstract: [ITM:in_abstract].
+
+Reference to another one: [ITM:second].
+
+Reference to another one: [ITM:another].
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
