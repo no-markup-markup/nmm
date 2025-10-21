@@ -20,21 +20,11 @@ and lines_of_ts_author_opt (author_opt : Doc_types.ts_author option) : string li
 	|None -> []
 	|Some author -> lines_of_ts_author author
 
-and lines_of_ts_abstract_opt (path : Common_utils.t_path) (abstract_opt : Doc_types.ts_abstract option) : string list =
-	match abstract_opt with
-	|None -> []
-	|Some abstract -> lines_of_ts_abstract path abstract
 
-and lines_of_ts_abstract (path : Common_utils.t_path) (abstract : Doc_types.ts_abstract) : string list =
-	match abstract with
-	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> 
-		let abstract_main : string list = lines_of_ts_blks_txt path blks_txt in
-		let abstract_hdr : string list = 
-			match doc_settings.abstract_prefix with
-			| None -> []
-			| Some (prefix : string) -> lines_of_string (indent_of_path path) prefix
-		in
-		List.concat [abstract_hdr;abstract_main;["";"";""]]
+and lines_of_abstract_hdr (doc_type : Common_utils.t_doc_type) : string list =
+	match Common_utils.doc_settings.abstract_prefix with
+	| None -> []
+	| Some (prefix : string) -> lines_of_string (Common_utils.doc_settings.abstract_indent) prefix
 
 and lines_of_refs_hdr (doc_type : Common_utils.t_doc_type) : string list =
 	let underline_symbol : string =
@@ -45,15 +35,12 @@ and lines_of_refs_hdr (doc_type : Common_utils.t_doc_type) : string list =
 	match Common_utils.doc_settings.refs_prefix with
 	|None -> []
 	|Some (prefix : string) -> 
-		let indent : string = String.make (doc_settings.refs_indent) ' ' in
+		let indent : string = String.make (Common_utils.doc_settings.refs_indent) ' ' in
 		let hdr_string : string = prefix in
 		let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
 		let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr_string in
 		List.concat [hdr_lines;[indent ^ underline;""]]
 
-and lines_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_blks_txt): string list =
-	match blks_txt with
-	|Cs_blks_txt (blk_txt_list : Doc_types.ts_blk_txt list) -> List.concat (List.map (lines_of_ts_blk_txt path) blk_txt_list)
 
 and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =
 	match blk_txt with

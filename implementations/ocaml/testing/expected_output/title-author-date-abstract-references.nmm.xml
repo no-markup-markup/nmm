@@ -3,7 +3,8 @@
 <cs_title>Some chapters</cs_title>
 <cs_author>Donald Duck and Mickey Mouse</cs_author>
 <cs_abstract>
-<cs_blks_txt>
+<cs_blks>
+<cu_blk_txt>
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -29,6 +30,8 @@
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -54,6 +57,8 @@
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -74,7 +79,8 @@
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
-</cs_blks_txt>
+</cu_blk_txt>
+</cs_blks>
 </cs_abstract>
 <cu_doc_main_chs>
 <cs_chs>

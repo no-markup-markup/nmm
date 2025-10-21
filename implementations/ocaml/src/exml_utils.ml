@@ -11,11 +11,6 @@ and xml_list_of_ts_author_opt (author_opt : Doc_types.ts_author option) : Xml.xm
 	|None -> []
 	|Some author -> [xml_of_ts_author author]
 
-and xml_list_of_ts_abstract_opt (doc_type : Common_utils.t_doc_type) (path : Common_utils.t_path) (abstract_opt : Doc_types.ts_abstract option) : Xml.xml list =
-	match abstract_opt with
-	|None -> []
-	|Some abstract -> [xml_of_ts_abstract doc_type path abstract]
-
 and xml_of_ts_title (doc_type : Common_utils.t_doc_type) (title : Doc_types.ts_title) : Xml.xml =
 	match title with Cs_title (s : string) -> 
 	let content : Xml.xml list = [Xml.PCData (pcdata_of_string s)] in 
@@ -28,11 +23,6 @@ and xml_of_ts_title (doc_type : Common_utils.t_doc_type) (title : Doc_types.ts_t
 and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	match author with
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
-
-and xml_of_ts_abstract (doc_type : Common_utils.t_doc_type) (path : Common_utils.t_path) (abstract : Doc_types.ts_abstract) : Xml.xml =
-	let hdr : Xml.xml = xml_of_abstract_hdr doc_type in 
-	match abstract with
-	| Cs_abstract (blks_txt : Doc_types.ts_blks_txt) -> Xml.Element ("abstract", [],hdr::(xml_list_of_ts_blks_txt path blks_txt))
 
 and xml_of_abstract_hdr (doc_type : Common_utils.t_doc_type) : Xml.xml =
 	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [ABSTRACT_NODE]))] in
@@ -50,10 +40,6 @@ and xml_of_refs_hdr (doc_type : Common_utils.t_doc_type) : Xml.xml =
 	|SECS -> Xml.Element ("refs_hdr_secs",[],content)
 	|PARS -> Xml.Element ("refs_hdr_pars",[],content)
 	|BLKS -> Xml.Element ("refs_hdr_blks",[],content)
-
-and xml_list_of_ts_blks_txt (path : Common_utils.t_path) (blks_txt : Doc_types.ts_blks_txt) : Xml.xml list=
-	match blks_txt with
-	|Cs_blks_txt (blk_txt_list : Doc_types.ts_blk_txt list) -> List.map (xml_of_ts_blk_txt path) blk_txt_list
 
 and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
 	match blk_txt with

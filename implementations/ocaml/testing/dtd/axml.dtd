@@ -2,9 +2,7 @@
 <!ELEMENT cs_preamble (#PCDATA)>
 <!ELEMENT cs_title (#PCDATA)>
 <!ELEMENT cs_author (#PCDATA)>
-<!ELEMENT cs_abstract (cs_blks_txt)>
-
-<!ELEMENT cs_blks_txt (cs_blk_txt+)>
+<!ELEMENT cs_abstract (cs_blks)>
 
 <!ELEMENT cu_doc_main_chs (cs_chs)>
 <!ELEMENT cu_doc_main_secs (cs_secs)>

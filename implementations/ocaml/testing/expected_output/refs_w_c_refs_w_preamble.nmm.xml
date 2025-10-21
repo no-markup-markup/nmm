@@ -4,7 +4,8 @@
 <cs_title>Referring to named items under REFERENCES</cs_title>
 <cs_author>Eric Johannesson</cs_author>
 <cs_abstract>
-<cs_blks_txt>
+<cs_blks>
+<cu_blk_txt>
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -18,7 +19,8 @@
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
-</cs_blks_txt>
+</cu_blk_txt>
+</cs_blks>
 </cs_abstract>
 <cu_doc_main_blks>
 <cs_blks>

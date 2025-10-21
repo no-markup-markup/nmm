@@ -54,13 +54,8 @@ and f_ts_abstract_opt_of_xml_list (xml_list:Xml.xml list):ts_abstract option =
     |[] -> None
     |hd::tl ->
         match hd with
-        |Xml.Element ("cs_abstract",[],[xml]) -> Some (Cs_abstract (f_ts_blks_txt_of_xml xml))
+        |Xml.Element ("cs_abstract",[],[xml]) -> Some (Cs_abstract (f_ts_blks_of_xml xml))
         |_ -> f_ts_abstract_opt_of_xml_list tl
-
-and f_ts_blks_txt_of_xml (xml:Xml.xml):ts_blks_txt =
-      match xml with
-      |Xml.Element ("cs_blks_txt",[],xml_list) -> Cs_blks_txt (List.map f_ts_blk_txt_of_xml xml_list)
-      |_ -> raise (Error (String.concat "" ["expected cs_blks_txt, got: ";string_of_xml_list [xml]]))
 
 and f_tu_doc_main_of_xml_list (xml_list:Xml.xml list):tu_doc_main =
     match xml_list with

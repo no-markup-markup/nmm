@@ -56,18 +56,13 @@ and xml_of_ts_author (author:ts_author):Xml.xml=
 
 and xml_of_ts_abstract (abstract:ts_abstract):Xml.xml = 
 	match abstract with
-	|Cs_abstract (blks_txt: ts_blks_txt) ->
-		Xml.Element ("cs_abstract",[], [xml_of_ts_blks_txt blks_txt])
+	|Cs_abstract (blks: ts_blks) ->
+		Xml.Element ("cs_abstract",[], [xml_of_ts_blks blks])
 
 and xml_of_ts_refs (refs:ts_refs):Xml.xml = 
 	match refs with
 	|Cs_refs (blks: ts_blks) ->
 		Xml.Element ("cs_refs",[], [xml_of_ts_blks blks])
-
-
-and xml_of_ts_blks_txt (blks_txt : ts_blks_txt) : Xml.xml =
-	match blks_txt with
-	|Cs_blks_txt (blk_txt_list : ts_blk_txt list) -> Xml.Element ("cs_blks_txt",[],List.map xml_of_ts_blk_txt blk_txt_list)
 
 and xml_of_tu_doc_main (doc_main:tu_doc_main):Xml.xml=
 	match doc_main with

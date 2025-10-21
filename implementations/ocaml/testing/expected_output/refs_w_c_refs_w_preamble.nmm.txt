@@ -10,8 +10,6 @@ Discussing the problem of referring to items in the bibliography,
 with a proposed solution.
 
 
-
-
 Given a named item under REFERENCES, say with the the name
 ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look
 like? Assuming it is the first item on the list, one could either go
@@ -29,8 +27,6 @@ familiar from the default in LaTex.
 In the future, one would perhaps like to implement som fancier
 bibliography system compatible with standard bibliography tools
 (e.g. zotero). But for now, I think this would suffice.
-
-
 
 
 CITED WORKS

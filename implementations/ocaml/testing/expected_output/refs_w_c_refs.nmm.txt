@@ -24,8 +24,6 @@ bibliography system compatible with standard bibliography tools
 (e.g. zotero). But for now, I think this would suffice.
 
 
-
-
 References
 ──────────
 
