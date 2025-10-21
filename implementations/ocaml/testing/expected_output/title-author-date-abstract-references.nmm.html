@@ -7,9 +7,6 @@
 <meta name="author" content="Donald Duck and Mickey Mouse">
 <style>
 html {
-        --ch_hdr_font_size:20px;
-        --sec_hdr_font_size:16px;
-        --small_hdr_font_size:14px;
         --left_margin:96px;
         --tab_length:6ch;
         font-family:monospace;
@@ -21,12 +18,29 @@ html {
 }
 
 
-.title {
+.title_chs {
+        display:block;
+        font-size:28px;
+        margin-left:var(--left_margin);
+}
+
+.title_secs {
         display:block;
         font-size:24px;
         margin-left:var(--left_margin);
 }
 
+.title_pars {
+        display:block;
+        font-size:20px;
+        margin-left:var(--left_margin);
+}
+
+.title_blks {
+        display:block;
+        font-size:16px;
+        margin-left:var(--left_margin);
+}
 
 .author {
         display:block;
@@ -42,11 +56,18 @@ html {
 }
 
 
-.abstract_hdr {
+.abstract_hdr_chs {
         display:block;
         margin-left:var(--left_margin);
         font-weight:bold;
-        font-size:var(--small_hdr_font_size);
+        font-size:16px;
+}
+
+.abstract_hdr_secs, .abstract_hdr_pars, .abstract_hdr_blks {
+        display:block;
+        margin-left:var(--left_margin);
+        font-weight:bold;
+        font-size:14px;
 }
 
 .refs {
@@ -55,13 +76,26 @@ html {
 }
 
 
-.refs_hdr {
+.refs_hdr_chs {
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:var(--ch_hdr_font_size);
+        font-size:20px;
 }
 
+.refs_hdr_secs {
+        display:block;
+        margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:16px;
+}
+
+.refs_hdr_pars, .refs_hdr_blks {
+        display:block;
+        margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:14px;
+}
 
 .doc_main {
         display:block;
@@ -80,7 +114,7 @@ html {
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:var(--ch_hdr_font_size);
+        font-size:20px;
         margin-left:var(--left_margin);
         font-weight:normal;
 }
@@ -88,7 +122,7 @@ html {
 
 .ch_hdr {
         display:block;
-        font-size:var(--ch_hdr_font_size);
+        font-size:20px;
         margin-left:var(--left_margin);
 }
 
@@ -107,13 +141,13 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:var(--sec_hdr_font_size);
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--sec_hdr_font_size);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
@@ -360,10 +394,10 @@ a {
 </head>
 <body>
 <div class="doc">
-<h1 class="title">Some chapters</h1>
+<h1 class="title_chs">Some chapters</h1>
 <p class="author">Donald Duck and Mickey Mouse</p>
 <div class="abstract">
-<h2 class="abstract_hdr">Abstract</h2>
+<h2 class="abstract_hdr_chs">Abstract</h2>
 <p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 <p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <p class="blk_txt">Reference to <a class="txt_unit_c_ref" href="#ITM:Euler">[1]</a>.</p>
@@ -407,7 +441,7 @@ a {
 </div>
 </div>
 <div class="refs">
-<h2 class="refs_hdr">References</h2>
+<h2 class="refs_hdr_chs">References</h2>
 <div class="blk_itm" id="ITM:Euler">
 <div class="blk_itm_lbl">[1]</div>
 <div class="blk_itm_main">

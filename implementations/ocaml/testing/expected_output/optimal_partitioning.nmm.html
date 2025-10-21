@@ -7,9 +7,6 @@
 <meta name="author" content="Eric Johannesson">
 <style>
 html {
-        --ch_hdr_font_size:20px;
-        --sec_hdr_font_size:16px;
-        --small_hdr_font_size:14px;
         --left_margin:96px;
         --tab_length:6ch;
         font-family:monospace;
@@ -21,12 +18,29 @@ html {
 }
 
 
-.title {
+.title_chs {
+        display:block;
+        font-size:28px;
+        margin-left:var(--left_margin);
+}
+
+.title_secs {
+        display:block;
+        font-size:24px;
+        margin-left:var(--left_margin);
+}
+
+.title_pars {
         display:block;
         font-size:20px;
         margin-left:var(--left_margin);
 }
 
+.title_blks {
+        display:block;
+        font-size:16px;
+        margin-left:var(--left_margin);
+}
 
 .author {
         display:block;
@@ -42,11 +56,18 @@ html {
 }
 
 
-.abstract_hdr {
+.abstract_hdr_chs {
         display:block;
         margin-left:var(--left_margin);
         font-weight:bold;
-        font-size:var(--small_hdr_font_size);
+        font-size:16px;
+}
+
+.abstract_hdr_secs, .abstract_hdr_pars, .abstract_hdr_blks {
+        display:block;
+        margin-left:var(--left_margin);
+        font-weight:bold;
+        font-size:14px;
 }
 
 .refs {
@@ -55,13 +76,26 @@ html {
 }
 
 
-.refs_hdr {
+.refs_hdr_chs {
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:var(--sec_hdr_font_size);
+        font-size:20px;
 }
 
+.refs_hdr_secs {
+        display:block;
+        margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:16px;
+}
+
+.refs_hdr_pars, .refs_hdr_blks {
+        display:block;
+        margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:14px;
+}
 
 .doc_main {
         display:block;
@@ -80,7 +114,7 @@ html {
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:var(--ch_hdr_font_size);
+        font-size:20px;
         margin-left:var(--left_margin);
         font-weight:normal;
 }
@@ -88,7 +122,7 @@ html {
 
 .ch_hdr {
         display:block;
-        font-size:var(--ch_hdr_font_size);
+        font-size:20px;
         margin-left:var(--left_margin);
 }
 
@@ -107,13 +141,13 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:var(--sec_hdr_font_size);
+        font-size:16px;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:var(--sec_hdr_font_size);
+        font-size:16px;
         margin-left:var(--left_margin);
 }
 
@@ -360,7 +394,7 @@ a {
 </head>
 <body>
 <div class="doc">
-<h1 class="title">OPTIMAL PARTITIONING</h1>
+<h1 class="title_secs">OPTIMAL PARTITIONING</h1>
 <p class="author">Eric Johannesson</p>
 <div class="doc_main">
 <div class="sec">

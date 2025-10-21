@@ -68,9 +68,9 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 
 	)
 	| EXML _ ->
-		let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc.fld_doc_title in
+		let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc_type doc.fld_doc_title in
 		let xml_list_author:Xml.xml list = Exml_utils.xml_list_of_ts_author_opt doc.fld_doc_author in
-		let xml_list_abstract:Xml.xml list = Exml_utils.xml_list_of_ts_abstract_opt [ABSTRACT_NODE] doc.fld_doc_abstract in
+		let xml_list_abstract:Xml.xml list = Exml_utils.xml_list_of_ts_abstract_opt doc_type [ABSTRACT_NODE] doc.fld_doc_abstract in
 		let xml_list_refs:Xml.xml list = 
 			match doc.fld_doc_refs with
 			|None -> []
@@ -93,12 +93,13 @@ and acc_of_ts_refs (doc_type : Common_utils.t_doc_type) (path : Common_utils.t_p
 	|Cs_refs (b : ts_blks) -> 
 		match acc with
 		|LINES _ -> (
+			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_type in
 			match acc_of_ts_blks path (LINES []) b with
-			|LINES lines -> LINES (List.concat [["";"";""];Txt_utils.lines_of_refs_hdr doc_type; lines])
+			|LINES lines -> LINES (List.concat [["";"";""]; hdr; lines])
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Xml.Element ("refs_hdr",[],[PCData (pcdata_of_string (Common_utils.label_of_path path))]) in
+			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr doc_type in
 			match acc_of_ts_blks path (EXML []) b with
 			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
