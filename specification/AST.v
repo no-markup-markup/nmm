@@ -126,8 +126,6 @@ Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
 Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
   := match blk_itm with cr_blk_itm _   _  blks => blks end.
 
-Inductive ts_blks_txt : Type := cs_blks_txt : list ts_blk_txt -> ts_blks_txt.
-
 Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
 
 Record tr_par : Type := cr_par {
@@ -171,7 +169,7 @@ Inductive tu_doc_main : Type :=
 
 Inductive ts_refs     : Type := cs_refs     : ts_blks        -> ts_refs.
 
-Inductive ts_abstract : Type := cs_abstract : ts_blks_txt    -> ts_abstract.
+Inductive ts_abstract : Type := cs_abstract : ts_blks        -> ts_abstract.
 
 Inductive ts_title    : Type := cs_title    : t_str          -> ts_title.
 
