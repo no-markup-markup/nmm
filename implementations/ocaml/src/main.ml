@@ -16,6 +16,8 @@ nmm-ocaml [
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
 
+ | show-default-css
+
 ]
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin."
@@ -143,10 +145,18 @@ let test_w_nmm (path_to_nmm_file : string) : unit =
 let test_w_xml (path_to_xml_file : string) : unit =
 	Test.test_w_xml path_to_xml_file
 
+let default_css : string =
+	Html_utils.internal_css Common_utils.doc_settings
+
 let argv=Sys.argv
 
 let _ : unit =
 	match Array.length argv with
+	|2 -> (
+		match argv.(1) with
+		|"show-default-css" -> print_endline default_css
+		|_-> print_endline usage
+	)
 	|3 -> (
 		match argv.(1),argv.(2) with
 		|"txt-of-nmm", path -> print_endline (txt_of_nmm path)

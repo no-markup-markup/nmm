@@ -1,23 +1,13 @@
-<!ELEMENT doc ((title_chs | title_secs | title_pars | title_blks)?, author?, abstract?, doc_main, refs?)>
+<!ELEMENT doc (title?, author?, abstract?, doc_main, refs?)>
 
-<!ELEMENT title_chs (#PCDATA)>
-<!ELEMENT title_secs (#PCDATA)>
-<!ELEMENT title_pars (#PCDATA)>
-<!ELEMENT title_blks (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
 <!ELEMENT author (#PCDATA)>
-<!ELEMENT abstract ((abstract_hdr_chs | abstract_hdr_secs | abstract_hdr_pars | abstract_hdr_blks) , blk_txt+)>
+<!ELEMENT abstract (abstract_hdr , blk_txt+)>
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
-<!ELEMENT refs ((refs_hdr_chs | refs_hdr_secs | refs_hdr_pars | refs_hdr_blks), (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
+<!ELEMENT refs (refs_hdr, (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
 
-<!ELEMENT abstract_hdr_chs (#PCDATA)>
-<!ELEMENT abstract_hdr_secs (#PCDATA)>
-<!ELEMENT abstract_hdr_pars (#PCDATA)>
-<!ELEMENT abstract_hdr_blks (#PCDATA)>
-
-<!ELEMENT refs_hdr_chs (#PCDATA)>
-<!ELEMENT refs_hdr_secs (#PCDATA)>
-<!ELEMENT refs_hdr_pars (#PCDATA)>
-<!ELEMENT refs_hdr_blks (#PCDATA)>
+<!ELEMENT abstract_hdr (#PCDATA)>
+<!ELEMENT refs_hdr (#PCDATA)>
 
 <!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main)>
 <!ATTLIST ch 

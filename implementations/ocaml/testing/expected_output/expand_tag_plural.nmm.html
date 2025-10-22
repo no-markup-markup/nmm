@@ -5,94 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 html {
-        --left_margin:96px;
+        --left_margin:8rem;
         --tab_length:6ch;
         font-family:monospace;
-        font-size:12px;
+        font-size:medium;
 }
 
-.doc {
+.doc_chs, .doc_secs, .doc_pars, .doc_blks {
         display:block;
 }
 
 
-.title_chs {
+.title {
         display:block;
-        font-size:28px;
         margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:large;
 }
 
-.title_secs {
-        display:block;
-        font-size:24px;
-        margin-left:var(--left_margin);
+.doc_chs .title {
+        font-size:xx-large;
 }
 
-.title_pars {
-        display:block;
-        font-size:20px;
-        margin-left:var(--left_margin);
+.doc_secs .title {
+        font-size:x-large;
 }
 
-.title_blks {
-        display:block;
-        font-size:16px;
-        margin-left:var(--left_margin);
-}
 
 .author {
         display:block;
         margin-left:var(--left_margin);
-        font-size:14px;
         margin-bottom:3em;
 }
 
+.doc_chs .author {
+       font-size:large;
+}
+
+.doc_secs .author {
+       font-size:large;
+}
 
 .abstract {
         display:block;
         margin-bottom:3em;
 }
 
-
-.abstract_hdr_chs {
+.abstract_hdr {
         display:block;
         margin-left:var(--left_margin);
-        font-weight:bold;
-        font-size:16px;
+        font-weight:normal;
+        font-size:large;
 }
 
-.abstract_hdr_secs, .abstract_hdr_pars, .abstract_hdr_blks {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:bold;
-        font-size:14px;
-}
+
 
 .refs {
         display:block;
         margin-top:3em;
 }
 
-
-.refs_hdr_chs {
+.refs_hdr {
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:20px;
+        font-size:large;
 }
 
-.refs_hdr_secs {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:16px;
+.doc_chs .refs_hdr {
+       font-size:x-large;
 }
 
-.refs_hdr_pars, .refs_hdr_blks {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:14px;
+.doc_secs .refs_hdr {
+       font-size:large;
 }
 
 .doc_main {
@@ -112,16 +97,16 @@ html {
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:20px;
         margin-left:var(--left_margin);
         font-weight:normal;
+        font-size:x-large;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:20px;
         margin-left:var(--left_margin);
+        font-size:x-large;
 }
 
 
@@ -139,14 +124,14 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:16px;
+        font-size:large;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:16px;
         margin-left:var(--left_margin);
+        font-size:large;
 }
 
 /* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
@@ -183,12 +168,11 @@ html {
 }
 
 
-/* content of par_hdr has been copied to par_main for inline display.
-this ensures that par_hdr shows up in disposition when printing to pdf with weasyprint */
+/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
+by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
 .par_hdr {
-        visibility:hidden;
-        height:0ch;
-        width:0ch;
+        height:0;
+        width:0;
         float:left;
 }
 
@@ -391,7 +375,7 @@ a {
 </style>
 </head>
 <body>
-<div class="doc">
+<div class="doc_secs">
 <div class="doc_main">
 <div class="sec">
 <div class="sec_lbl">§ 1</div>
@@ -399,14 +383,14 @@ a {
 <div class="sec_main">
 <div class="par" id="DEF:goodness">
 <div class="par_lbl">¶ 1.1</div>
-<h4 class="par_hdr">¶ 1.1 DEFINITION (Goodness)</h4>
+<h4 class="par_hdr" style="visibility:hidden">¶ 1.1 DEFINITION (Goodness)</h4>
 <div class="par_main">
 <p class="blk_txt">DEFINITION (Goodness)  A thing is good iff it is desirable.</p>
 </div>
 </div>
 <div class="par" tag="DEF">
 <div class="par_lbl">¶ 1.2</div>
-<h4 class="par_hdr">¶ 1.2 DEFINITION (Stupidity)</h4>
+<h4 class="par_hdr" style="visibility:hidden">¶ 1.2 DEFINITION (Stupidity)</h4>
 <div class="par_main">
 <p class="blk_txt">DEFINITION (Stupidity)  To think that <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a> is useful.</p>
 </div>
@@ -419,7 +403,7 @@ a {
 <div class="sec_main">
 <div class="par" id="THMS:main">
 <div class="par_lbl">¶ 2.1</div>
-<h4 class="par_hdr">¶ 2.1 THEOREMS (Main)</h4>
+<h4 class="par_hdr" style="visibility:hidden">¶ 2.1 THEOREMS (Main)</h4>
 <div class="par_main">
 <p class="blk_txt">THEOREMS (Main)</p>
 <div class="blk_itm" id="ITM:1">
@@ -472,14 +456,14 @@ a {
 </div>
 <div class="par" id="PRF:main">
 <div class="par_lbl">¶ 2.2</div>
-<h4 class="par_hdr">¶ 2.2 PROOF (of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a>)</h4>
+<h4 class="par_hdr" style="visibility:hidden">¶ 2.2 PROOF (of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a>)</h4>
 <div class="par_main">
 <p class="blk_txt">PROOF (of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a>)  By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>
 <div class="par">
 <div class="par_lbl">¶ 2.3</div>
-<h4 class="par_hdr">¶ 2.3</h4>
+<h4 class="par_hdr" style="visibility:hidden">¶ 2.3</h4>
 <div class="par_main">
 <p class="blk_txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
 <p class="blk_txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
@@ -492,7 +476,7 @@ a {
 </div>
 <div class="par" id="PRF:1">
 <div class="par_lbl">¶ 2.4</div>
-<h4 class="par_hdr">¶ 2.4 PROOF (of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a>)</h4>
+<h4 class="par_hdr" style="visibility:hidden">¶ 2.4 PROOF (of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a>)</h4>
 <div class="par_main">
 <p class="blk_txt">PROOF (of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a>)  Obvious by <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a>.</p>
 </div>

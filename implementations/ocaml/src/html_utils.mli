@@ -6,19 +6,10 @@ evaluates recursively to
 
 {[
 match element with
-|Xml.Element ("title_chs", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_chs")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("title_secs", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_secs")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("title_pars", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_pars")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("title_blks", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_blks")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("title", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
 |Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("abstract_hdr_chs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_chs")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("abstract_hdr_secs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_secs")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("abstract_hdr_pars", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_pars")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("abstract_hdr_blks", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_blks")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("refs_hdr_chs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_chs")::attr_list,List.map html_of_exml xml_list)
-|Xml.Element ("refs_hdr_secs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_secs")::attr_list,List.map html_of_exml xml_list)
-|Xml.Element ("refs_hdr_pars", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_pars")::attr_list,List.map html_of_exml xml_list)
-|Xml.Element ("refs_hdr_blks", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_blks")::attr_list,List.map html_of_exml xml_list)
+|Xml.Element ("abstract_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("refs_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr")::attr_list,List.map html_of_exml xml_list)
 |Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
 |Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 |Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)

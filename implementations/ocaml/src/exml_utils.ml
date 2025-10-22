@@ -1,45 +1,24 @@
 open Doc_types
 open Common_utils
 
-let rec xml_list_of_ts_title_opt (doc_type : Common_utils.t_doc_type) (title_opt : Doc_types.ts_title option) : Xml.xml list =
+let rec xml_list_of_ts_title_opt (title_opt : Doc_types.ts_title option) : Xml.xml list =
 	match title_opt with
 	|None -> []
-	|Some title -> [xml_of_ts_title doc_type title]
+	|Some title -> [xml_of_ts_title title]
 
 and xml_list_of_ts_author_opt (author_opt : Doc_types.ts_author option) : Xml.xml list =
 	match author_opt with
 	|None -> []
 	|Some author -> [xml_of_ts_author author]
 
-and xml_of_ts_title (doc_type : Common_utils.t_doc_type) (title : Doc_types.ts_title) : Xml.xml =
+and xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
 	match title with Cs_title (s : string) -> 
 	let content : Xml.xml list = [Xml.PCData (pcdata_of_string s)] in 
-	match doc_type with
-	|CHS -> Xml.Element ("title_chs",[],content)
-	|SECS -> Xml.Element ("title_secs",[],content)
-	|PARS -> Xml.Element ("title_pars",[],content)
-	|BLKS -> Xml.Element ("title_blks",[],content)
-
+	Xml.Element ("title",[],content)
+	
 and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	match author with
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
-
-and xml_of_abstract_hdr (doc_type : Common_utils.t_doc_type) : Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [ABSTRACT_NODE]))] in
-	match doc_type with
-	|CHS -> Xml.Element ("abstract_hdr_chs",[],content)
-	|SECS -> Xml.Element ("abstract_hdr_secs",[],content)
-	|PARS -> Xml.Element ("abstract_hdr_pars",[],content)
-	|BLKS -> Xml.Element ("abstract_hdr_blks",[],content)
-
-
-and xml_of_refs_hdr (doc_type : Common_utils.t_doc_type) : Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [REFS_NODE]))] in
-	match doc_type with
-	|CHS -> Xml.Element ("refs_hdr_chs",[],content)
-	|SECS -> Xml.Element ("refs_hdr_secs",[],content)
-	|PARS -> Xml.Element ("refs_hdr_pars",[],content)
-	|BLKS -> Xml.Element ("refs_hdr_blks",[],content)
 
 and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
 	match blk_txt with
@@ -93,8 +72,6 @@ and string_of_tr_id (id : Doc_types.tr_id) : string =
 		match id.fld_id_name with
 		|Cs_name (name_string : string) -> (tag_string ^ ":" ^ name_string)
 
-
-
 and pcdata_of_string (s: string): string = 
 	let s_amp = Str.global_replace (Str.regexp "&") "&amp;" s in
 	let s_lt = Str.global_replace (Str.regexp "<") "&lt;" s_amp in
@@ -128,4 +105,12 @@ and predefined_entity_of_string (s : string) : string =
 	| "\'" -> "&apos;"
 	| "\"" -> "&quot;"
 	| _ -> s
+
+let xml_of_abstract_hdr : Xml.xml =
+	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [ABSTRACT_NODE]))] in
+	Xml.Element ("abstract_hdr",[],content)
+
+let xml_of_refs_hdr : Xml.xml =
+	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [REFS_NODE]))] in
+	Xml.Element ("refs_hdr",[],content)
 

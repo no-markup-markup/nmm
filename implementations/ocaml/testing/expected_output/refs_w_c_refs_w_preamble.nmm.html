@@ -7,94 +7,79 @@
 <meta name="author" content="Eric Johannesson">
 <style>
 html {
-        --left_margin:0px;
+        --left_margin:0rem;
         --tab_length:6ch;
         font-family:monospace;
-        font-size:12px;
+        font-size:medium;
 }
 
-.doc {
+.doc_chs, .doc_secs, .doc_pars, .doc_blks {
         display:block;
 }
 
 
-.title_chs {
+.title {
         display:block;
-        font-size:28px;
         margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:large;
 }
 
-.title_secs {
-        display:block;
-        font-size:24px;
-        margin-left:var(--left_margin);
+.doc_chs .title {
+        font-size:xx-large;
 }
 
-.title_pars {
-        display:block;
-        font-size:20px;
-        margin-left:var(--left_margin);
+.doc_secs .title {
+        font-size:x-large;
 }
 
-.title_blks {
-        display:block;
-        font-size:16px;
-        margin-left:var(--left_margin);
-}
 
 .author {
         display:block;
         margin-left:var(--left_margin);
-        font-size:14px;
         margin-bottom:3em;
 }
 
+.doc_chs .author {
+       font-size:large;
+}
+
+.doc_secs .author {
+       font-size:large;
+}
 
 .abstract {
         display:block;
         margin-bottom:3em;
 }
 
-
-.abstract_hdr_chs {
+.abstract_hdr {
         display:block;
         margin-left:var(--left_margin);
-        font-weight:bold;
-        font-size:16px;
+        font-weight:normal;
+        font-size:large;
 }
 
-.abstract_hdr_secs, .abstract_hdr_pars, .abstract_hdr_blks {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:bold;
-        font-size:14px;
-}
+
 
 .refs {
         display:block;
         margin-top:3em;
 }
 
-
-.refs_hdr_chs {
+.refs_hdr {
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:20px;
+        font-size:large;
 }
 
-.refs_hdr_secs {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:16px;
+.doc_chs .refs_hdr {
+       font-size:x-large;
 }
 
-.refs_hdr_pars, .refs_hdr_blks {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:14px;
+.doc_secs .refs_hdr {
+       font-size:large;
 }
 
 .doc_main {
@@ -114,16 +99,16 @@ html {
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:20px;
         margin-left:var(--left_margin);
         font-weight:normal;
+        font-size:x-large;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:20px;
         margin-left:var(--left_margin);
+        font-size:x-large;
 }
 
 
@@ -141,14 +126,14 @@ html {
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:16px;
+        font-size:large;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:16px;
         margin-left:var(--left_margin);
+        font-size:large;
 }
 
 /* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
@@ -185,12 +170,11 @@ html {
 }
 
 
-/* content of par_hdr has been copied to par_main for inline display.
-this ensures that par_hdr shows up in disposition when printing to pdf with weasyprint */
+/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
+by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
 .par_hdr {
-        visibility:hidden;
-        height:0ch;
-        width:0ch;
+        height:0;
+        width:0;
         float:left;
 }
 
@@ -393,11 +377,11 @@ a {
 </style>
 </head>
 <body>
-<div class="doc">
-<h1 class="title_blks">Referring to named items under REFERENCES</h1>
+<div class="doc_blks">
+<h1 class="title">Referring to named items under REFERENCES</h1>
 <p class="author">Eric Johannesson</p>
 <div class="abstract">
-<h2 class="abstract_hdr_blks">SUMMARY</h2>
+<h2 class="abstract_hdr">ABSTRACT</h2>
 <p class="blk_txt">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
 </div>
 <div class="doc_main">
@@ -414,19 +398,19 @@ a {
 <p class="blk_txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
 </div>
 </div>
-<p class="blk_txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">[1] of CITED WORKS</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">[2] of CITED WORKS</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
+<p class="blk_txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of CITED WORKS</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of CITED WORKS</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
 <p class="blk_txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
 </div>
 <div class="refs">
-<h2 class="refs_hdr_blks">CITED WORKS</h2>
+<h2 class="refs_hdr">REFERENCES</h2>
 <div class="blk_itm" id="ITM:Euler">
-<div class="blk_itm_lbl">[1]</div>
+<div class="blk_itm_lbl">(1)</div>
 <div class="blk_itm_main">
 <p class="blk_txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
 <div class="blk_itm" id="ITM:Tarski">
-<div class="blk_itm_lbl">[2]</div>
+<div class="blk_itm_lbl">(2)</div>
 <div class="blk_itm_main">
 <p class="blk_txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>

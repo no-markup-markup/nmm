@@ -1,18 +1,9 @@
 let rec html_of_exml (element:Xml.xml):Xml.xml=
 	match element with
-	|Xml.Element ("title_chs", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_chs")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("title_secs", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_secs")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("title_pars", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_pars")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("title_blks", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title_blks")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("title", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract_hdr_chs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_chs")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract_hdr_secs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_secs")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract_hdr_pars", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_pars")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract_hdr_blks", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr_blks")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("refs_hdr_chs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_chs")::attr_list,List.map html_of_exml xml_list)
-	|Xml.Element ("refs_hdr_secs", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_secs")::attr_list,List.map html_of_exml xml_list)
-	|Xml.Element ("refs_hdr_pars", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_pars")::attr_list,List.map html_of_exml xml_list)
-	|Xml.Element ("refs_hdr_blks", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr_blks")::attr_list,List.map html_of_exml xml_list)
+	|Xml.Element ("abstract_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("refs_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr")::attr_list,List.map html_of_exml xml_list)
 	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
@@ -26,97 +17,82 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	|Xml.PCData s -> Xml.PCData s
 
 let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
-	let left_margin : string = (Int.to_string (doc_settings.left_margin * 8)) ^ "px" in
+	let left_margin : string = (Int.to_string (Int.max 0 (doc_settings.left_margin - 4))) ^ "rem" in
 	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
 "html {
         --left_margin:" ^ left_margin ^ ";
         --tab_length:" ^ tab_length ^ ";
         font-family:monospace;
-        font-size:12px;
+        font-size:medium;
 }
 
-.doc {
+.doc_chs, .doc_secs, .doc_pars, .doc_blks {
         display:block;
 }
 
 
-.title_chs {
+.title {
         display:block;
-        font-size:28px;
         margin-left:var(--left_margin);
+        font-weight:normal;
+        font-size:large;
 }
 
-.title_secs {
-        display:block;
-        font-size:24px;
-        margin-left:var(--left_margin);
+.doc_chs .title {
+        font-size:xx-large;
 }
 
-.title_pars {
-        display:block;
-        font-size:20px;
-        margin-left:var(--left_margin);
+.doc_secs .title {
+        font-size:x-large;
 }
 
-.title_blks {
-        display:block;
-        font-size:16px;
-        margin-left:var(--left_margin);
-}
 
 .author {
         display:block;
         margin-left:var(--left_margin);
-        font-size:14px;
         margin-bottom:3em;
 }
 
+.doc_chs .author {
+       font-size:large;
+}
+
+.doc_secs .author {
+       font-size:large;
+}
 
 .abstract {
         display:block;
         margin-bottom:3em;
 }
 
-
-.abstract_hdr_chs {
+.abstract_hdr {
         display:block;
         margin-left:var(--left_margin);
-        font-weight:bold;
-        font-size:16px;
+        font-weight:normal;
+        font-size:large;
 }
 
-.abstract_hdr_secs, .abstract_hdr_pars, .abstract_hdr_blks {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:bold;
-        font-size:14px;
-}
+
 
 .refs {
         display:block;
         margin-top:3em;
 }
 
-
-.refs_hdr_chs {
+.refs_hdr {
         display:block;
         margin-left:var(--left_margin);
         font-weight:normal;
-        font-size:20px;
+        font-size:large;
 }
 
-.refs_hdr_secs {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:16px;
+.doc_chs .refs_hdr {
+       font-size:x-large;
 }
 
-.refs_hdr_pars, .refs_hdr_blks {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:14px;
+.doc_secs .refs_hdr {
+       font-size:large;
 }
 
 .doc_main {
@@ -136,16 +112,16 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .ch_lbl, .ch_lbl_hdr {
         display:block;
-        font-size:20px;
         margin-left:var(--left_margin);
         font-weight:normal;
+        font-size:x-large;
 }
 
 
 .ch_hdr {
         display:block;
-        font-size:20px;
         margin-left:var(--left_margin);
+        font-size:x-large;
 }
 
 
@@ -163,14 +139,14 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
         display:block;
         float:left;
         margin-right:1ch;
-        font-size:16px;
+        font-size:large;
 }
 
 
 .sec_hdr {
         display:block;
-        font-size:16px;
         margin-left:var(--left_margin);
+        font-size:large;
 }
 
 /* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
@@ -207,12 +183,11 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-/* content of par_hdr has been copied to par_main for inline display.
-this ensures that par_hdr shows up in disposition when printing to pdf with weasyprint */
+/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
+by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
 .par_hdr {
-        visibility:hidden;
-        height:0ch;
-        width:0ch;
+        height:0;
+        width:0;
         float:left;
 }
 

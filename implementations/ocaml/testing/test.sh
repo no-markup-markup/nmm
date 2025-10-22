@@ -6,6 +6,8 @@ color(){
 	printf "\e[36m%s\e[0m\n" "$1"
 }
 
+../bin/nmm-ocaml show-default-css > css/default.css
+
 if [ -d output ]
 then
 		rm -r output

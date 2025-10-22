@@ -22,7 +22,7 @@
             cupidatat non proident, sunt in culpa qui officia deserunt mollit
             anim id est laborum.
 
-            Reference to [1] of REFERENCES.
+            Reference to (1) of REFERENCES.
 
             '[ITM:in_abstract]' -> (1)
 
@@ -51,7 +51,7 @@
             cupidatat non proident, sunt in culpa qui officia deserunt mollit
             anim id est laborum.
 
-            Reference to [2] of REFERENCES.
+            Reference to (2) of REFERENCES.
 
 
 
@@ -79,14 +79,14 @@
             REFERENCES
             ══════════
 
-            [1]   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
+            (1)   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
                   Commentarii academiae scientiarum Petropolitanae, volume 7,
                   pages 123–134
 
-            [2]   Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
+            (2)   Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
                   Robinson (1953): Undecidable Theories; North-Holland
                   Publishing Company; Amsterdam.
 
             ─     Reference to CHAPTER 2.
 
-            A reference to [1].
+            A reference to (1).

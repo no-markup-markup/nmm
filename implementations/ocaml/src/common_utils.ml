@@ -366,14 +366,6 @@ and string_of_sub_path_opt (full_path:t_path) (sub_path : t_path) : string optio
 	| [], _ -> raise (Error "full_path shorter than sub_path")
 
 and string_of_node_opt (tail : t_path) (head : t_node) : string option =
-	let lpar,rpar = 
-		match tail with
-		|[] -> "(",")"
-		|hd::tl ->
-			match hd with
-			|REFS_NODE -> "[","]"
-			| _ -> "(",")"
-	in
 	match head with
 	| CH_NODE (n : int)
 	| SEC_NODE (n : int) -> (
@@ -414,8 +406,8 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 				| 0 -> string_of_int (n + 1)
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
-			in Some (String.concat s [ lpar; rpar ])
-		| DSP_STRING (s : string) -> Some (String.concat s [lpar; rpar])
+			in Some (String.concat s ["(";")"])
+		| DSP_STRING (s : string) -> Some (String.concat s ["(";")"])
 	)
 	| ITM_NODE (a : t_itm_node) -> (
 		match a with
@@ -425,9 +417,9 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 				| 0 -> string_of_int (n + 1)
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
-			in Some (String.concat s [ lpar; rpar ])
+			in Some (String.concat s ["(";")"])
 		)
-		|ITM_STRING s -> Some (String.concat s [lpar; rpar])
+		|ITM_STRING s -> Some (String.concat s ["(";")"])
 		|ITM_TAG_INT (_,n) -> (
 			let s : string =
 				match lvl_of_path tail mod 3 with
@@ -436,13 +428,13 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 				| _ -> lower_case_roman_numerals.(n)
 			in
 			match string_of_path_opt tail with
-			|None -> Some (String.concat "" [lpar; s; rpar])
-			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
+			|None -> Some (String.concat "" ["("; s;")"])
+			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
 		)
 		|ITM_TAG_STRING (_,s) -> (
 			match string_of_path_opt tail with
-			|None -> Some (String.concat "" [lpar; s; rpar])
-			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
+			|None -> Some (String.concat "" ["("; s;")"])
+			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
 		)
 	)
 	| BLT_NODE ->

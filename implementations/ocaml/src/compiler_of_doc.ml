@@ -88,7 +88,7 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 		LINES (List.concat [lines_title;lines_author;lines_abstract;lines_main;lines_refs])
 	)
 	| EXML _ ->
-		let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc_type doc.fld_doc_title in
+		let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc.fld_doc_title in
 		let xml_list_author:Xml.xml list = Exml_utils.xml_list_of_ts_author_opt doc.fld_doc_author in
 		let xml_list_abstract : Xml.xml list = 
 			match doc.fld_doc_abstract with
@@ -113,7 +113,11 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 		)
 		in
 		let xml_list_doc = List.concat [xml_list_title;xml_list_author;xml_list_abstract;[xml_main];xml_list_refs] in
-		EXML [Xml.Element ("doc",[],xml_list_doc)]
+		match doc_type with
+		|CHS -> EXML [Xml.Element ("doc_chs",[],xml_list_doc)]
+		|SECS -> EXML [Xml.Element ("doc_secs",[],xml_list_doc)]
+		|PARS -> EXML [Xml.Element ("doc_pars",[],xml_list_doc)]
+		|BLKS -> EXML [Xml.Element ("doc_blks",[],xml_list_doc)]
 
 and acc_of_ts_abstract (doc_type : Common_utils.t_doc_type) (path : Common_utils.t_path) (acc : t_acc) (a : ts_abstract) : t_acc =
 	match a with
@@ -132,7 +136,7 @@ and acc_of_ts_abstract (doc_type : Common_utils.t_doc_type) (path : Common_utils
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr doc_type in
+			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr in
 			match acc_of_ts_blks path (EXML []) b with
 			|EXML xml_list -> EXML [Xml.Element ("abstract",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -156,7 +160,7 @@ and acc_of_ts_refs (doc_type : Common_utils.t_doc_type) (path : Common_utils.t_p
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr doc_type in
+			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr in
 			match acc_of_ts_blks path (EXML []) b with
 			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -361,8 +365,9 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 			match new_par.fld_par_hdr with
 			|None -> raise (Error "new par expected to have a hdr")
 			|Some (hdr : ts_hdr) -> 
+				let par_hdr_style : (string*string) list = [("style","visibility:hidden")] in
 				match hdr with
-				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t)
+				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",par_hdr_style,Exml_utils.xml_list_of_ts_txt_units path t)
 		)
 		in 
 		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in

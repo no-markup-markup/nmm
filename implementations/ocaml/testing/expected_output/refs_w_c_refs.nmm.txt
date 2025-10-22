@@ -15,8 +15,8 @@ for
 (2)   my preferred solution: ‘[1]’, with item labels under
       REFERENCES rendered as ‘[1]’, ‘[2]’, etc.
 
-Having implemented (2), I can refer to [1] of REFERENCES and
-[2] of REFERENCES below, as just indicated. I think it looks quite
+Having implemented (2), I can refer to (1) of REFERENCES and
+(2) of REFERENCES below, as just indicated. I think it looks quite
 nice. For good or bad, it is also familiar from the default in
 LaTex.
 
@@ -28,10 +28,10 @@ bibliography system compatible with standard bibliography tools
 REFERENCES
 ──────────
 
-[1]   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
+(1)   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
       Commentarii academiae scientiarum Petropolitanae, volume 7,
       pages 123–134
 
-[2]   Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
+(2)   Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
       Robinson (1953): Undecidable Theories; North-Holland
       Publishing Company; Amsterdam.
