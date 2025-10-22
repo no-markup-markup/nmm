@@ -26,6 +26,8 @@ ABSTRACT:
 
 	Reference to [ITM:Euler].
 
+	'[ITM\:in_abstract]' -> [ITM:in_abstract]
+
 CH
 First chapter
 
@@ -37,11 +39,11 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
 minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo consequat.
 
-Reference to named item in abstract: [ITM:in_abstract].
+'[ITM\:in_abstract]' -> [ITM:in_abstract]
 
-Reference to another one: [ITM:second].
+'[ITM\:second]' -> [ITM:second]
 
-Reference to another one: [ITM:another].
+'[ITM\:another]' -> [ITM:another]
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non

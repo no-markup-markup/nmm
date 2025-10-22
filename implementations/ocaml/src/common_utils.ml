@@ -229,7 +229,7 @@ let doc_cref_table : t_doc_cref_table = { content = [] }
 let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string =
 	match c_ref with Cs_c_ref (id : Doc_types.tr_id) ->
 	let pos_string : string =
-		match string_of_path pos pos with 
+		match string_of_path_opt pos pos with 
 		| None -> "document" 
 		| Some s -> s
 	in
@@ -239,44 +239,54 @@ let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string 
 		| ((id_entry : Doc_types.tr_id), (path_entry : t_path)) :: tl -> 
 			match id = id_entry with
 			| true -> (
-				match path_entry, string_of_path path_entry (sub_path_of_cref_path pos path_entry) with
-				|hd::tl, Some (s : string) -> (
-					match hd with
+				match path_entry, string_of_path_opt path_entry (sub_path_of_cref_path pos path_entry) with
+				|entry_hd::entry_tl, Some (sub : string) -> (
+					match List.rev entry_tl with 
+					|ABSTRACT_NODE::_ -> (
+						match List.rev pos with
+						|ABSTRACT_NODE::_ -> Some sub
+						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path [ABSTRACT_NODE]])
+					)
+					|REFS_NODE::_ -> (
+						match List.rev pos with
+						|REFS_NODE::_ -> Some sub
+						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path [REFS_NODE]])
+					)
+					|_ ->
+					match entry_hd with
 					|CH_NODE _ -> (
 						match doc_settings.ch_prefix with
-						|None -> Some s
-						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
+						|None -> Some sub
+						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;sub])
 					)
 					|SEC_NODE _ -> (
 						match doc_settings.sec_prefix with
-						|None -> Some s
-						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;s])
+						|None -> Some sub
+						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;sub])
 					)
 					|PAR_NODE (par_node : t_par_node) -> (
 						match par_node with
 						|NO_TAG (prefix_opt,_) -> (
 							match prefix_opt with
-							|None -> Some s
-							|Some prefix -> Some (String.concat "\u{00A0}" [prefix; s])
+							|None -> Some sub
+							|Some prefix -> Some (String.concat "\u{00A0}" [prefix; sub])
 						)
-						|SINGULAR_TAG (singular, _) -> Some (String.concat "\u{00A0}" [singular; s])
-						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; s])
+						|SINGULAR_TAG (singular, _) -> Some (String.concat "\u{00A0}" [singular; sub])
+						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; sub])
 					)
 					|ITM_NODE (ITM_TAG_INT (singular,_)) -> (
-						match tl with 
-						|(PAR_NODE (PLURAL_TAG (_,_,_)))::_ -> 
-							let parent : string = label_of_path tl in
-							Some (String.concat "\u{00A0}" [singular;label_of_path path_entry;"of";parent])
-						|_ -> Some (String.concat "\u{00A0}" [singular;s])
+						let label = label_of_path path_entry in
+						match label = sub with
+						|true -> Some (String.concat "\u{00A0}" [singular;label])
+						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path entry_tl])
 					)
 					|ITM_NODE (ITM_TAG_STRING (singular,_)) -> (
-						match tl with 
-						|(PAR_NODE (PLURAL_TAG (_,_,_)))::_ -> 
-							let parent : string = label_of_path tl in
-							Some (String.concat "\u{00A0}" [singular;s;"of";parent])
-						|_ -> Some (String.concat "\u{00A0}" [singular;s])
+						let label = label_of_path path_entry in
+						match label = sub with
+						|true -> Some (String.concat "\u{00A0}" [singular;label])
+						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path entry_tl])
 					)
-					| _ -> Some s
+					| _ -> Some sub
 				)
 				| _ , _ -> raise (Error "path in cref_table not expected to be empty")
 			)
@@ -294,7 +304,7 @@ and sub_path_of_cref_path (pos : t_path) (path : t_path) : t_path =
 	let rev_pos : t_path = List.rev pos in
 	let rev_path : t_path = List.rev path in
 	let pos_string : string =
-		match string_of_path pos pos with 
+		match string_of_path_opt pos pos with 
 		| None -> "document" 
 		| Some s -> s
 	in
@@ -318,8 +328,12 @@ and sub_path_of_cref_path (pos : t_path) (path : t_path) : t_path =
 	in 
 	aux rev_pos rev_path
 
+and string_of_path (path : t_path) : string =
+	match string_of_path_opt path path with
+	|None -> "None"
+	|Some s -> s
 
-and string_of_path (full_path:t_path) (path : t_path) : string option =
+and string_of_path_opt (full_path:t_path) (path : t_path) : string option =
 	match full_path,path with
 	| _, [] -> None
 	| full_path_hd::full_path_tl,path_hd :: path_tl -> (
@@ -328,9 +342,9 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 		| SEC_NODE _
 		| APP_NODE _
 		| PAR_NODE _ -> 
-			string_of_node full_path_tl path_hd
+			string_of_node_opt full_path_tl path_hd
 		| _ -> (
-			match (string_of_path full_path_tl path_tl, string_of_node full_path_tl path_hd) with
+			match (string_of_path_opt full_path_tl path_tl, string_of_node_opt full_path_tl path_hd) with
 			| Some s, Some t -> Some (s ^ t)
 			| None, Some t -> Some t
 			| Some s, None -> Some s
@@ -339,7 +353,7 @@ and string_of_path (full_path:t_path) (path : t_path) : string option =
 	)
 	| [], _ -> raise (Error "full path shorter than path")
 
-and string_of_node (tail : t_path) (head : t_node) : string option =
+and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 	let lpar,rpar = 
 		match tail with
 		|[] -> "(",")"
@@ -351,30 +365,30 @@ and string_of_node (tail : t_path) (head : t_node) : string option =
 	match head with
 	| CH_NODE (n : int)
 	| SEC_NODE (n : int) -> (
-		match string_of_path tail tail with
+		match string_of_path_opt tail tail with
 		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 		|None -> Some (string_of_int (n + 1))
 	)
 	| PAR_NODE (par_node : t_par_node) -> (
 		match par_node with
 		|NO_TAG (_,n) -> (
-			match string_of_path tail tail with
+			match string_of_path_opt tail tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 		|SINGULAR_TAG (_, n) -> (
-			match string_of_path tail tail with
+			match string_of_path_opt tail tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 		|PLURAL_TAG (_, _, n) -> (
-			match string_of_path tail tail with
+			match string_of_path_opt tail tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 	)
 	| APP_NODE (n : int) -> (
-		match string_of_path tail tail with
+		match string_of_path_opt tail tail with
 		|Some s -> (try Some (s ^ "." ^ upper_case_latin_letters.(n)) with _ -> raise (Error "You have too many appendices!"))
 		|None -> Some upper_case_latin_letters.(n)
 	)
@@ -409,12 +423,12 @@ and string_of_node (tail : t_path) (head : t_node) : string option =
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
 			in
-			match string_of_path tail tail with
+			match string_of_path_opt tail tail with
 			|None -> Some (String.concat "" [lpar; s; rpar])
 			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
 		)
 		|ITM_TAG_STRING (_,s) -> (
-			match string_of_path tail tail with
+			match string_of_path_opt tail tail with
 			|None -> Some (String.concat "" [lpar; s; rpar])
 			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
 		)
@@ -422,7 +436,6 @@ and string_of_node (tail : t_path) (head : t_node) : string option =
 	| BLT_NODE ->
 		let l : int = lvl_of_path tail in
 		Some bullets.(l mod Array.length bullets)
-	| ABSTRACT_NODE -> doc_settings.abstract_prefix
 	| _ -> None
 
 and lvl_of_path (path : t_path) : int =
@@ -500,7 +513,7 @@ and label_of_path_opt (path : t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
-		let s_opt : string option = string_of_node tl hd in
+		let s_opt : string option = string_of_node_opt tl hd in
 		match hd with
 		| CH_NODE _ -> (
 			match (doc_settings.ch_prefix, s_opt) with

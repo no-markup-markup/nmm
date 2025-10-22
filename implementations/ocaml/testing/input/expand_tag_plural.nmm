@@ -28,7 +28,23 @@ Main
 		nothing is bad, and
 
 	[]	ITM:2b
+		I know that '[ITM\:2+]' is rendered nicely, like this: [ITM:2+].
+
+	[+]	ITM:2+
 		I know that '[ITM\:2a]' is rendered nicely, like this: [ITM:2a].
+
+[X]	ITM:X
+	'[ITM\:2a]' -> [ITM:2a]
+
+-	'[ITM\:2+]' -> [ITM:2+]
+
+'[ITM\:2a]' -> [ITM:2a]
+
+'[ITM\:2+]' -> [ITM:2+]
+
+'[ITM\:1]' -> [ITM:1]
+
+'[ITM\:X]' -> [ITM:X]
 
 
 ¶ PRF:main
@@ -48,11 +64,14 @@ By straightforward induction on the complexity of nothing.
 
 '[ITM\:2b]' -> [ITM:2b]
 
+'[ITM\:2+]' -> [ITM:2+]
+
+'[ITM\:X]' -> [ITM:X]
 
 ¶ PRF:1
 of [ITM:1]
 
-Obvious by definition [DEF:goodness].
+Obvious by [DEF:goodness].
 
 §
 References to previous section
@@ -66,4 +85,8 @@ References to previous section
 '[ITM\:2a]' -> [ITM:2a]
 
 '[ITM\:2b]' -> [ITM:2b]
+
+'[ITM\:2+]' -> [ITM:2+]
+
+'[ITM\:X]' -> [ITM:X]
 

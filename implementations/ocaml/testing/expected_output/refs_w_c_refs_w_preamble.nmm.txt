@@ -20,9 +20,10 @@ for
 (2)   my preferred solution: ‘[1]’, with item labels under
       REFERENCES rendered as ‘[1]’, ‘[2]’, etc.
 
-Having implemented (2), I can refer to [1] and [2] below, as just
-indicated. I think it looks quite nice. For good or bad, it is also
-familiar from the default in LaTex.
+Having implemented (2), I can refer to [1] of CITED WORKS and
+[2] of CITED WORKS below, as just indicated. I think it looks quite
+nice. For good or bad, it is also familiar from the default in
+LaTex.
 
 In the future, one would perhaps like to implement som fancier
 bibliography system compatible with standard bibliography tools

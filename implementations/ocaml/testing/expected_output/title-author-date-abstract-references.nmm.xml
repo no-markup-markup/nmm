@@ -146,6 +146,43 @@
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos;</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ITM</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>in_abstract</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos; -&gt; </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>in_abstract</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
 </cs_blks>
 </cs_abstract>
 <cu_doc_main_chs>
@@ -216,13 +253,25 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Reference to named item in abstract</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos;</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ITM</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>in_abstract</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos; -&gt; </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -234,9 +283,6 @@
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
@@ -244,13 +290,25 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Reference to another one</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos;</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ITM</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>second</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos; -&gt; </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -262,9 +320,6 @@
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
@@ -272,13 +327,25 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Reference to another one</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos;</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ITM</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>another</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos; -&gt; </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -290,9 +357,6 @@
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
