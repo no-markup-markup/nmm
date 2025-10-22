@@ -1,5 +1,19 @@
-¶ 1         TEOREM (Main)  Nothing lasts forever.
+¶ 1         Theorem (Main)  Nothing lasts forever.
 
 
-¶ 2         BEVIS (of TEOREM 1)  By straightforward induction on the complexity
+¶ 2         Proof (of Theorem 1)  By straightforward induction on the complexity
             of nothing.
+
+
+¶ 3         Theorems
+
+            (1)   This theorem states that ...
+
+            (2)   This theoren states that ...
+
+
+¶ 4         Proofs (of Theorems 3)
+
+            (1)   To prove Theorem (1) of ¶ 3, ...
+
+            (2)   To prove Theorem (2) of ¶ 3, ...
