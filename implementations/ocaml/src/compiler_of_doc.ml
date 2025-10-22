@@ -13,11 +13,9 @@ let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Common_utils.t_cref_tabl
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and txt_of_tr_doc (doc : Doc_types.tr_doc) : string =
-	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
 	String.concat "\n" (lines_of_tr_doc doc)
 
 and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
-	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
 	match xml_list_of_tr_doc doc with
 	| hd::[] -> hd
 	| _ -> raise (Error "function expected to return an exml-list with exactly one element")
@@ -35,6 +33,7 @@ and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
+	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
 	let doc_type : Common_utils.t_doc_type = Common_utils.doc_type_of_tr_doc doc in
 	match acc with
 	| CREF_TABLE _ -> (

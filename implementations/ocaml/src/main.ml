@@ -21,11 +21,8 @@ nmm-ocaml [
 In cases where '-' can be supplied instead of a path, the program reads from stdin."
 
 let doc_of_nmm (path : string) : Doc_types.tr_doc =
-	try
-		let print_tokens = false in
-		Doc_of_nmm.doc_of_nmm_file print_tokens path
-	with 
-	Doc_of_nmm.Error e -> raise (Error (String.concat "" [path;"->";"Doc_of_nmm.Error:";e]))
+	let print_tokens = false in
+	Doc_of_nmm.doc_of_nmm_file print_tokens path
 
 let txt_of_doc (doc : Doc_types.tr_doc) : string =
 	Compiler_of_doc.txt_of_tr_doc doc
@@ -75,7 +72,6 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 	(intro ^ html_string ^ outro)
 
 let doc_of_axml (path : string) : Doc_types.tr_doc = 
-	try
 	let print_tokens = false in
 	let axml:Xml.xml =
 		match path with
@@ -83,10 +79,6 @@ let doc_of_axml (path : string) : Doc_types.tr_doc =
 		|_ -> Xml_right.parse_file print_tokens path 
 	in
 	Doc_of_axml.f_tr_doc_of_axml axml
-	with
-	|Xml_right.Error e -> raise (Error (String.concat " " [path;"->";"Xml_right.Error:";e])) 
-	|Doc_of_axml.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_axml.Error:";e])) 
-
 
 let axml_of_doc (doc : Doc_types.tr_doc) : string =
 	"<?xml version=\"1.0\"?>\n" ^ 
@@ -102,10 +94,7 @@ let txt_of_axml (path : string) : string =
 	txt_of_doc (doc_of_axml path) 
 
 let html_of_axml (uri_opt : string option) (lang_opt : string option) (path : string) : string =
-	try 
-		html_of_doc uri_opt lang_opt (doc_of_axml path)
-	with
-	Compiler_of_doc.Error e -> raise (Error (String.concat " " [path;"->";"Compiler_of_doc.Error:";e]))
+	html_of_doc uri_opt lang_opt (doc_of_axml path)
 
 let axml_of_nmm (path : string) : string =
 	axml_of_doc (doc_of_nmm path)
@@ -116,7 +105,7 @@ let check_xml_schema (path:string):string =
 		let _:Dtd.checked=Dtd.check dtd in
 		String.concat " " [path;"is a well-defined xml-schema"]
 	with 
-	Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
+	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path; "-> ERROR:";Dtd.check_error e]))
 
 let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):string =
 	let print_tokens = false in 
@@ -131,10 +120,10 @@ let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):
 		let _=Dtd.prove checked_dtd entry_point xml in 
 		String.concat " " [path_to_xml;"is an instance of";path_to_dtd;"with entry-point";entry_point]
 	with 
-	|Xml_light_errors.Dtd_parse_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_parse_error:";Dtd.parse_error e]))
-	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
-	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;entry_point;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
-	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
+	|Xml_light_errors.Dtd_parse_error e -> raise (Error (String.concat " " [path_to_dtd;"-> ERROR:";Dtd.parse_error e]))
+	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"-> ERROR:";Dtd.check_error e]))
+	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;entry_point;path_to_xml;"-> ERROR:";Dtd.prove_error e]))
+	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"-> ERROR:";Xml.error e]))
 
 
 let test_w_nmm (path_to_nmm_file : string) : unit =

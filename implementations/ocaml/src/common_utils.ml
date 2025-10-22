@@ -118,9 +118,8 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("par_prefix", v) -> set_par_prefix v
 				|Some ("abstract_prefix", v) -> set_abstract_prefix v
 				|Some ("refs_prefix", v) -> set_refs_prefix v
-				|Some ("singular_tag", v) -> set_expand_tag_singular doc_settings.expand_tag_singular v
-				|Some ("plural_tag", v) -> set_expand_tag_plural doc_settings.expand_tag_plural v
-				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"])
+				|Some ("expand_tag", v) -> set_expand_tag doc_settings.expand_tag_singular v
+				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"\n";"ignoring it"])
 			in aux tl
 		| [] -> ()
 	in
@@ -152,42 +151,38 @@ and set_author_indent (v : string) : unit =
 
 and set_tab_length (v : string) : unit =
 	try doc_settings.tab_length <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"\n";"using default value"])
 
 and set_ch_prefix (v : string) : unit =
 	try doc_settings.ch_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid ch_prefix value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid ch_prefix value: ";v;"\n";"using default value"])
 
 and set_sec_prefix (v : string) : unit =
 	try doc_settings.sec_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_prefix value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_prefix value: ";v;"\n";"using default value"])
 
 and set_par_prefix (v : string) : unit =
 	try doc_settings.par_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_prefix value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_prefix value: ";v;"\n";"using default value"])
 
 and set_abstract_prefix (v : string) : unit =
 	try doc_settings.abstract_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_prefix value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_prefix value: ";v;"\n";"using default value"])
 
 and set_refs_prefix (v : string) : unit =
 	try doc_settings.refs_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_prefix value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_prefix value: ";v;"\n";"using default value"])
 
-and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
-	try doc_settings.expand_tag_singular <- (singular_tag_value_of_string expand_tag_old v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid singular_tag value: ";v;"; ";"using default value"])
-
-and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : unit =
-	try doc_settings.expand_tag_plural <- (plural_tag_value_of_string expand_tag_old v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
+and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
+	try doc_settings.expand_tag_singular <- (expand_tag_value_of_string expand_tag_old v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid expand_tag value: ";v;"\n";"using default value"])
 
 and prefix_value_of_string (v : string) : string option =
 	match v with
 	|"None" | "none" | "" | "\"\"" -> None
 	| _ -> Some v
 
-and singular_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : (Doc_types.ts_tag -> string option) =
+and expand_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : (Doc_types.ts_tag -> string option) =
 	match String.split_on_char '>' v with
 	|[tag_string; expanded_tag_string] -> (
 		let expand_tag_new ( tag : Doc_types.ts_tag) : string option = 
@@ -199,19 +194,6 @@ and singular_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> string op
 		in expand_tag_new
 	)
 	| _ -> raise (Error "invalid expand_tag value")
-
-and plural_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
-	match String.split_on_char '>' v with
-	|[tag_string; singular; plural] -> (
-		let expand_tag_new ( tag : Doc_types.ts_tag) : (string *  string) option = 
-			match tag with
-			|Cs_tag (s : string) ->
-				match s = tag_string with
-				|true -> Some (singular, plural)
-				|false -> expand_tag_old tag
-		in expand_tag_new
-	)
-	| _ -> raise (Error "invalid plural_tag value")
 
 (**************************** labels and cross-references *********************************)
 
@@ -244,29 +226,34 @@ type t_doc_cref_table = { mutable content : t_cref_table }
 
 let doc_cref_table : t_doc_cref_table = { content = [] }
 
-let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
-	match c_ref with Cs_c_ref (id_c_ref : Doc_types.tr_id) ->
+let rec string_of_ts_c_ref (pos : t_path) (c_ref : Doc_types.ts_c_ref) : string =
+	match c_ref with Cs_c_ref (id : Doc_types.tr_id) ->
+	let pos_string : string =
+		match string_of_path_opt pos pos with 
+		| None -> "document" 
+		| Some s -> s
+	in
 	let rec aux (cref_table : t_cref_table) : string option =
 		match cref_table with
 		| [] -> None
-		| ((id : Doc_types.tr_id), (id_loc : t_path)) :: c_ref_table_tl -> 
-			match id_c_ref = id with
+		| ((id_entry : Doc_types.tr_id), (path_entry : t_path)) :: tl -> 
+			match id = id_entry with
 			| true -> (
-				match id_loc, string_of_sub_path_opt id_loc (path_from_common_ancestor c_ref_loc id_loc) with
-				|id_loc_hd::id_loc_tl, Some (sub : string) -> (
-					match List.rev id_loc_tl with 
+				match path_entry, string_of_path_opt path_entry (sub_path_of_cref_path pos path_entry) with
+				|entry_hd::entry_tl, Some (sub : string) -> (
+					match List.rev entry_tl with 
 					|ABSTRACT_NODE::_ -> (
-						match List.rev c_ref_loc with
+						match List.rev pos with
 						|ABSTRACT_NODE::_ -> Some sub
 						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path [ABSTRACT_NODE]])
 					)
 					|REFS_NODE::_ -> (
-						match List.rev c_ref_loc with
+						match List.rev pos with
 						|REFS_NODE::_ -> Some sub
 						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path [REFS_NODE]])
 					)
 					|_ ->
-					match id_loc_hd with
+					match entry_hd with
 					|CH_NODE _ -> (
 						match doc_settings.ch_prefix with
 						|None -> Some sub
@@ -288,82 +275,83 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; sub])
 					)
 					|ITM_NODE (ITM_TAG_INT (singular,_)) -> (
-						let label = label_of_path id_loc in
+						let label = label_of_path path_entry in
 						match label = sub with
 						|true -> Some (String.concat "\u{00A0}" [singular;label])
-						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path id_loc_tl])
+						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path entry_tl])
 					)
 					|ITM_NODE (ITM_TAG_STRING (singular,_)) -> (
-						let label = label_of_path id_loc in
+						let label = label_of_path path_entry in
 						match label = sub with
 						|true -> Some (String.concat "\u{00A0}" [singular;label])
-						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path id_loc_tl])
+						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path entry_tl])
 					)
 					| _ -> Some sub
 				)
-				| _ , _ -> raise (Error "id_loc in cref_table not expected to be an empty path")
+				| _ , _ -> raise (Error "path in cref_table not expected to be empty")
 			)
-			| false -> aux c_ref_table_tl
+			| false -> aux tl
+
 	in
 	match aux doc_cref_table.content with
 	| None ->
-		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference in " ^ (string_of_path c_ref_loc)) in 
+		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference in " ^ pos_string) in 
 		"??"
-	| Some (s : string) -> s
+	| Some (t : string) -> t
 
 
-and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
-	let rev_c_ref_loc : t_path = List.rev c_ref_loc in
-	let rev_id_loc : t_path = List.rev id_loc in
-	let rec aux (rev_c_ref_loc : t_path) (rev_id_loc : t_path) : t_path = (
-		match (rev_c_ref_loc, rev_id_loc) with
-		| rev_c_ref_loc_hd :: rev_c_ref_loc_tl, rev_id_loc_hd :: rev_id_loc_tl -> (
-			match rev_c_ref_loc_hd = rev_id_loc_hd with
-			| true -> aux rev_c_ref_loc_tl rev_id_loc_tl
-			| false -> List.rev rev_id_loc
+and sub_path_of_cref_path (pos : t_path) (path : t_path) : t_path =
+	let rev_pos : t_path = List.rev pos in
+	let rev_path : t_path = List.rev path in
+	let pos_string : string =
+		match string_of_path_opt pos pos with 
+		| None -> "document" 
+		| Some s -> s
+	in
+	let rec aux (rev_pos : t_path) (rev_path : t_path) : t_path = (
+		match (rev_pos, rev_path) with
+		| pos_hd :: pos_tl, path_hd :: path_tl -> (
+			match pos_hd = path_hd with
+			| true -> aux pos_tl path_tl
+			| false -> List.rev rev_path
 		)
-		| [], [] -> (
-(*			let _ : unit = Debug_utils.print_to_stderr ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
-			try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
-		)
-		| _ :: _, [] -> (
-(*			let _ : unit = Debug_utils.print_to_stderr ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
-			try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
-		)
-		| [], _ :: _ ->
-(*			let _:unit=Debug_utils.print_to_stderr ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
-			List.rev rev_id_loc
+		| [], [] -> 
+			let _ : unit = Debug_utils.print_to_stderr ("WARNING: self-reference in " ^ pos_string) in
+			[List.hd path]
+		| pos_hd :: pos_tl, [] ->
+			let _ : unit = Debug_utils.print_to_stderr ("WARNING: reference to parent node in " ^ pos_string) in
+			[List.hd path]
+		| [], path_hd :: path_tl ->
+		(*	let _:unit=Debug_utils.print_to_stderr ("WARNING: reference to child node in " ^ pos_string) in *)
+			List.rev rev_path
 	)
 	in 
-	aux rev_c_ref_loc rev_id_loc
+	aux rev_pos rev_path
 
 and string_of_path (path : t_path) : string =
-	match string_of_path_opt path with
-	|None -> "document"
+	match string_of_path_opt path path with
+	|None -> "None"
 	|Some s -> s
 
-and string_of_path_opt (path : t_path) : string option =
-	string_of_sub_path_opt path path
-
-and string_of_sub_path_opt (full_path:t_path) (sub_path : t_path) : string option =
-	match full_path, sub_path with
+and string_of_path_opt (full_path:t_path) (path : t_path) : string option =
+	match full_path,path with
 	| _, [] -> None
-	| full_path_hd::full_path_tl,sub_path_hd :: sub_path_tl -> (
-		match sub_path_hd with 
+	| full_path_hd::full_path_tl,path_hd :: path_tl -> (
+		match path_hd with 
 		| CH_NODE _ 
 		| SEC_NODE _
 		| APP_NODE _
 		| PAR_NODE _ -> 
-			string_of_node_opt full_path_tl sub_path_hd
+			string_of_node_opt full_path_tl path_hd
 		| _ -> (
-			match (string_of_sub_path_opt full_path_tl sub_path_tl, string_of_node_opt full_path_tl sub_path_hd) with
+			match (string_of_path_opt full_path_tl path_tl, string_of_node_opt full_path_tl path_hd) with
 			| Some s, Some t -> Some (s ^ t)
 			| None, Some t -> Some t
 			| Some s, None -> Some s
 			| None, None -> None
 		)
 	)
-	| [], _ -> raise (Error "full_path shorter than sub_path")
+	| [], _ -> raise (Error "full path shorter than path")
 
 and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 	let lpar,rpar = 
@@ -377,30 +365,30 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 	match head with
 	| CH_NODE (n : int)
 	| SEC_NODE (n : int) -> (
-		match string_of_path_opt tail with
+		match string_of_path_opt tail tail with
 		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 		|None -> Some (string_of_int (n + 1))
 	)
 	| PAR_NODE (par_node : t_par_node) -> (
 		match par_node with
 		|NO_TAG (_,n) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt tail tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 		|SINGULAR_TAG (_, n) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt tail tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 		|PLURAL_TAG (_, _, n) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt tail tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 	)
 	| APP_NODE (n : int) -> (
-		match string_of_path_opt tail with
+		match string_of_path_opt tail tail with
 		|Some s -> (try Some (s ^ "." ^ upper_case_latin_letters.(n)) with _ -> raise (Error "You have too many appendices!"))
 		|None -> Some upper_case_latin_letters.(n)
 	)
@@ -435,12 +423,12 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
 			in
-			match string_of_path_opt tail with
+			match string_of_path_opt tail tail with
 			|None -> Some (String.concat "" [lpar; s; rpar])
 			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
 		)
 		|ITM_TAG_STRING (_,s) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt tail tail with
 			|None -> Some (String.concat "" [lpar; s; rpar])
 			|Some (t : string) -> Some (String.concat "" [lpar; s; rpar])
 		)

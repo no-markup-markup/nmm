@@ -121,14 +121,7 @@ KEY_VALUE := | 'doc_width=' INT
              | 'ch_prefix=' STRING
              | 'sec_prefix=' STRING
              | 'par_prefix=' STRING
-             | 'singular_tag=' TAG '>' SINGULAR_FORM
-             | 'plural_tag=' TAG '>' SINGULAR_FORM '>' PLURAL_FORM
-
-SINGULAR_FORM := TAG
-
-PLURAL_FORM := TAG
-
-TAG := [! ';' '>']*
+             | 'expand_tag=' STRING '>' STRING
 
 INT := ['0'-'9']+
 
@@ -257,7 +250,7 @@ With default [doc_settings],
 
 [label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]] evaluates to [Some "[1]"]
 
-[label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]] evaluates to [Some "(1)"]
+[label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]] evaluates to [Some "ABSTRACT(1)"]
 
 *)
 
