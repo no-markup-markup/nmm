@@ -258,7 +258,14 @@ KEY_VALUE := | 'doc_width=' INT
              | 'ch_prefix=' STRING
              | 'sec_prefix=' STRING
              | 'par_prefix=' STRING
-             | 'expand_tag=' STRING '&gt;' STRING
+             | 'singular_tag=' TAG '&gt;' SINGULAR_FORM
+             | 'plural_tag=' TAG '&gt;' SINGULAR_FORM '&gt;' PLURAL_FORM
+
+SINGULAR_FORM := TAG
+
+PLURAL_FORM := TAG
+
+TAG := [! ';' '&gt;']*
 
 INT := ['0'-'9']+
 
@@ -516,7 +523,7 @@ in DSP_LINE_NODE dsp_line_node
 
 <p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]</code> evaluates to <code class="code">Some "[1]"</code></p>
 
-<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]</code> evaluates to <code class="code">Some "ABSTRACT(1)"</code></p>
+<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]</code> evaluates to <code class="code">Some "(1)"</code></p>
 </div>
 </div>
 

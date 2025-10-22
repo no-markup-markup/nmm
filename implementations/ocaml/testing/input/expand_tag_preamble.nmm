@@ -1,7 +1,8 @@
 PREAMBLE:
-	expand_tag=PRF>BEVIS
-	expand_tag=THM>TEOREM
-
+	singular_tag=PRF>Proof
+	singular_tag=THM>Theorem
+	plural_tag=THMS>Theorem>Theorems
+	plural_tag=PRFS>Proof>Proofs
 
 ¶ THM:main
 Main
@@ -12,3 +13,18 @@ Nothing lasts forever.
 of [THM:main]
 
 By straightforward induction on the complexity of nothing.
+
+¶ THMS:aux
+
+[]	ITM:aux1
+	This theorem states that ...
+
+[]	ITM:aux2
+	This theoren states that ...
+
+¶ PRFS:aux
+of [THMS:aux]
+
+[]	To prove [ITM:aux1], ...
+
+[]	To prove [ITM:aux2], ...
