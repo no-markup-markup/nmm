@@ -13,7 +13,7 @@
 
 %% MODULE IMPORTS
 
-:- use_module nmm, nmm.lexer.
+:- use_module nmm.
 
 
 %% UNION TYPE TU_R FOR WHAT PARTS OF A LINE TO READ
@@ -94,6 +94,11 @@
 %% IMPLEMENTATION DECLARATION
 
 :- implementation.
+
+
+%% MOUDULE IMPORTS
+
+:- use_module nmm.lexer.
 
 
 %% R_C
