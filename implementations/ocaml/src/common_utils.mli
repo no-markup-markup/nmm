@@ -4,6 +4,21 @@ A toolkit used by {!module:Compiler_of_doc} for handling default and custom docu
 
 exception Error of string
 
+val class_of_tr_doc: Doc_types.tr_doc -> string
+(**
+{[class_of_tr_doc doc]}
+
+evaluates to
+
+{[
+match doc.fld_doc_main with
+|Cu_doc_main_chs _ -> "doc chs"
+|Cu_doc_main_secs _ -> "doc secs"
+|Cu_doc_main_pars _ -> "doc pars"
+|Cu_doc_main_blks _ -> "doc blks"
+]}
+*)
+
 
 (** <h2>Document settings</h2> *)
 
@@ -24,22 +39,6 @@ type t_doc_settings = {
   mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
 }
 
-
-
-val class_of_tr_doc: Doc_types.tr_doc -> string
-(**
-{[class_of_tr_doc doc]}
-
-evaluates to
-
-{[
-match doc.fld_doc_main with
-|Cu_doc_main_chs _ -> "doc chs"
-|Cu_doc_main_secs _ -> "doc secs"
-|Cu_doc_main_pars _ -> "doc pars"
-|Cu_doc_main_blks _ -> "doc blks"
-]}
-*)
 
 (** <h3>Default settings</h3> *)
 
@@ -109,7 +108,7 @@ val doc_settings_of_tr_doc : Doc_types.tr_doc -> unit
 (**
 {[doc_settings_of_tr_doc doc]} 
 
-first checks if [doc] contains any sections or paragraphs. If not, it sets [doc_settings.left_margin] to [0]. 
+first checks if [doc] contains any sections or paragraphs. If not, it sets [doc_settings.left_margin] to [0], and [doc_settings.doc_width] to [68].
 
 Secondly, it checks if [doc] has a preamble. If so, it attempts to parse that preamble and adjusts [doc_settings] accordingly (possibly overriding the default settings). 
 

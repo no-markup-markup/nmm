@@ -16,6 +16,8 @@
 <link title="Xml_right" rel="Chapter" href="Xml_right.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
@@ -42,18 +44,19 @@
 <p>evaluates recursively to</p>
 
 <pre class="codepre"><code class="code">match element with
-|Xml.Element ("title", attr_list, xml_list) -&gt; Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("author", attr_list, xml_list) -&gt; Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("abstract_hdr", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "abstract_hdr")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("refs_hdr", attr_list,xml_list) -&gt; Xml.Element ("h2", ("class", "refs_hdr")::attr_list,List.map html_of_exml xml_list)
-|Xml.Element ("ch_hdr", attr_list, xml_list) -&gt; Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -&gt; Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("sec_hdr", attr_list, xml_list) -&gt; Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -&gt; Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("doc", attr_list, xml_list) -&gt; Xml.Element ("div", attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("title", _, xml_list) -&gt; Xml.Element ("h1", [("class", "title")], List.map html_of_exml xml_list)
+|Xml.Element ("author", _, xml_list) -&gt; Xml.Element ("p", [("class", "author")], List.map html_of_exml xml_list)
+|Xml.Element ("abstract_hdr", _,xml_list) -&gt; Xml.Element ("h2", [("class", "abstract_hdr")], List.map html_of_exml xml_list)
+|Xml.Element ("refs_hdr", _,xml_list) -&gt; Xml.Element ("h2", [("class", "refs_hdr")],List.map html_of_exml xml_list)
+|Xml.Element ("ch_hdr", _, xml_list) -&gt; Xml.Element ("h2", [("class", "ch_hdr")], List.map html_of_exml xml_list)
+|Xml.Element ("ch_lbl_hdr", _, xml_list) -&gt; Xml.Element ("h2", [("class", "ch_lbl_hdr")], List.map html_of_exml xml_list)
+|Xml.Element ("sec_hdr", _, xml_list) -&gt; Xml.Element ("h3", [("class", "sec_hdr")], List.map html_of_exml xml_list)
+|Xml.Element ("sec_lbl_hdr", _, xml_list) -&gt; Xml.Element ("h3", [("class", "sec_lbl_hdr")], List.map html_of_exml xml_list)
 |Xml.Element ("par_hdr", attr_list, xml_list) -&gt; Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("blk_txt", attr_list, xml_list) -&gt; Xml.Element ("p", ("class", "blk_txt")::attr_list, List.map html_of_exml xml_list)
-|Xml.Element ("txt_unit_wysiwyg", attr_list, [Xml.PCData s]) -&gt; Xml.PCData s
-|Xml.Element ("txt_unit_emph", attr_list, xml_list) -&gt; Xml.Element ("em", ("class", "txt_unit_emph")::attr_list, List.map html_of_exml xml_list)
+|Xml.Element ("blk_txt", _, xml_list) -&gt; Xml.Element ("p", [("class", "blk_txt")], List.map html_of_exml xml_list)
+|Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -&gt; Xml.PCData s
+|Xml.Element ("txt_unit_emph", _, xml_list) -&gt; Xml.Element ("em", [("class", "txt_unit_emph")], List.map html_of_exml xml_list)
 |Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -&gt; Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map html_of_exml xml_list)
 |Xml.Element (tag, attr_list, xml_list) -&gt; Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
 |Xml.PCData s -&gt; Xml.PCData s

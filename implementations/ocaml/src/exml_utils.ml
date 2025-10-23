@@ -50,7 +50,7 @@ and xml_of_ts_c_ref (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
 and attr_list_of_ts_c_ref (a : Doc_types.ts_c_ref) : (string*string) list =
 	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (string_of_tr_id id))]
 
-and attr_list_of_tag_or_id (a : Doc_types.tu_tag_or_id option) : (string*string) list=
+and attr_list_of_tu_tag_or_id (a : Doc_types.tu_tag_or_id option) : (string*string) list=
 	match a with
 	| None -> []
 	| Some (tag_or_id : Doc_types.tu_tag_or_id) -> 

@@ -37,7 +37,7 @@ and lines_of_refs_hdr (doc_class : string) : string list =
 	|Some (prefix : string) -> 
 		let indent : string = String.make (Common_utils.doc_settings.refs_indent) ' ' in
 		let hdr_string : string = prefix in
-		let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
+		let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
 		let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr_string in
 		List.concat [hdr_lines;[indent ^ underline;""]]
 
@@ -58,7 +58,7 @@ and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr
 			|CH_NODE _ ->
 				let indent : string = String.make (doc_settings.left_margin) ' ' in
 				let label : string = label_of_path path in
-				let underline :string = make_string (utf8_length label) "═" in
+				let underline :string = make_string (utf_8_length label) "═" in
 				[indent ^ label; indent ^ underline; ""]
 			| _ -> []
 		)
@@ -74,14 +74,14 @@ and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : stri
 			let hdr_lines : string list = lines_of_string doc_settings.left_margin hdr_string in
 			match path_hd with
 			|SEC_NODE _ | APP_NODE _ -> (
-				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
+				let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
 				match hdr_lines with
 				| hd::tl -> List.concat [[insert_label path hd];tl;[indent ^ underline;""]]
 				| [] -> raise (Error "section header cannot be empty")
 			)
 			|CH_NODE _ ->
 				let label : string = label_of_path path in
-				let underline = make_string (Int.min (utf8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
+				let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
 				List.concat [[indent ^ label]; hdr_lines; [indent ^ underline; ""]]
 			| _ -> []
 		)
@@ -135,7 +135,7 @@ and string_of_ts_txt_unit (path : Common_utils.t_path) (a : Doc_types.tu_txt_uni
 and emph (a : string) : string = underline a
 
 and underline (s : string) : string =
-	let lst = utf8_of_string s in
+	let lst = utf_8_of_string s in
 	let map (el : string) : string = el ^ "\u{0332}" in
 	String.concat "" (List.map map lst)
 
@@ -157,14 +157,14 @@ and lines_of_string_dsp (indent : int) (s : string) : string list =
 	List.map (fun t -> ind ^ t) lst
 
 and line_break (line_width : int) (s : string) : string * string =
-	match utf8_length s <= line_width with
+	match utf_8_length s <= line_width with
 	| true -> (s, "")
 	| false -> 
 		let rec aux (line_width : int) (s : string) (i : int) : int = (
 			match String.index_from_opt s (i + 1) ' ' with
 			| None -> i
 			| Some (j : int) -> 
-				match utf8_length (String.sub s 0 j) <= line_width with
+				match utf_8_length (String.sub s 0 j) <= line_width with
 				| true -> aux line_width s j
 				| false -> i
 		)
@@ -172,7 +172,7 @@ and line_break (line_width : int) (s : string) : string * string =
 		match String.index_from_opt s 0 ' ' with
 		| None -> (s, "")
 		| Some (i : int) ->
-			match utf8_length (String.sub s 0 i) <= line_width with
+			match utf_8_length (String.sub s 0 i) <= line_width with
 			| true ->
 				let j = aux line_width s i in
 				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
@@ -195,7 +195,7 @@ and pos_of_label (path : Common_utils.t_path) : int =
 
 and insert_string (label : string) (pos : int) (s : string) : string =
 	let string_len : int = String.length s in
-	let label_len : int = utf8_length label in
+	let label_len : int = utf_8_length label in
 	let target : string = String.sub s pos label_len in
 	let ideal_target : string = String.make label_len ' ' in
 	let s1 : string = String.sub s 0 pos in
@@ -247,10 +247,10 @@ and utf_8_segments seg s =
   let segmenter = Uuseg.create seg in
   List.rev (loop buf [] s 0 (String.length s - 1) segmenter)
 
-and utf8_of_string (s : string) : string list =
+and utf_8_of_string (s : string) : string list =
   utf_8_segments `Grapheme_cluster s
 
-and utf8_length (s : string) : int =
+and utf_8_length (s : string) : int =
   List.length (utf_8_segments `Grapheme_cluster s)
 
 
