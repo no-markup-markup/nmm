@@ -41,10 +41,14 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 		|None -> ""
 		|Some (Cs_title s) -> String.concat "" ["<title>";s;"</title>\n"]
 	in
-	let author:string = 
-		match doc.fld_doc_author with
+	let authors:string = 
+		match doc.fld_doc_authors with
 		|None -> ""
-		|Some (Cs_author s) -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">\n"]
+		|Some (Cs_authors (author_list : Doc_types.ts_author list)) -> 
+			let map (author : Doc_types.ts_author) : string = 
+				match author with
+				|Cs_author s -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">"]
+			in String.concat "\n" (List.map map author_list)
 	in
 	let lang_attr=
 	match lang_opt with 
@@ -64,7 +68,7 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 		"<head>\n" ^
 		"<meta charset=\"UTF-8\">\n" ^
 		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ^
-		title ^ author ^ internal_css ^ external_css ^
+		title ^ authors ^ internal_css ^ external_css ^
 		"</head>\n" ^
 		"<body>\n"
 	) 

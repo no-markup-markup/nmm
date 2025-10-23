@@ -2,7 +2,9 @@
 <cr_doc>
 <cs_preamble>abstract_prefix=SUMMARY;refs_prefix=CITED WORKS</cs_preamble>
 <cs_title>Referring to named items under REFERENCES</cs_title>
+<cs_authors>
 <cs_author>Eric Johannesson</cs_author>
+</cs_authors>
 <cs_abstract>
 <cs_blks>
 <cu_blk_txt>

@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <cr_doc>
 <cs_title>OPTIMAL PARTITIONING</cs_title>
+<cs_authors>
 <cs_author>Eric Johannesson</cs_author>
+</cs_authors>
 <cu_doc_main_secs>
 <cs_secs>
 <cr_sec>

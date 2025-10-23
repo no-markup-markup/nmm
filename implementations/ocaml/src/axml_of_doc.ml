@@ -9,11 +9,11 @@ open Doc_types
 let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
 	let xml_list_preamble : Xml.xml list = xml_list_of_ts_preamble_opt doc.fld_doc_preamble in
 	let xml_list_title : Xml.xml list = xml_list_of_ts_title_opt doc.fld_doc_title in
-	let xml_list_author : Xml.xml list = xml_list_of_ts_author_opt doc.fld_doc_author in
+	let xml_list_authors : Xml.xml list = xml_list_of_ts_authors_opt doc.fld_doc_authors in
 	let xml_list_abstract : Xml.xml list = xml_list_of_ts_abstract_opt doc.fld_doc_abstract in
 	let xml_list_main : Xml.xml list = [xml_of_tu_doc_main doc.fld_doc_main] in
 	let xml_list_refs : Xml.xml list = xml_list_of_ts_refs_opt doc.fld_doc_refs in
-	let xml_list_doc : Xml.xml list = List.concat [xml_list_preamble; xml_list_title; xml_list_author; xml_list_abstract; xml_list_main;xml_list_refs] in
+	let xml_list_doc : Xml.xml list = List.concat [xml_list_preamble; xml_list_title; xml_list_authors; xml_list_abstract; xml_list_main;xml_list_refs] in
 	Xml.Element ("cr_doc",[],xml_list_doc)
 
 and xml_list_of_ts_preamble_opt (preamble_opt : ts_preamble option) : Xml.xml list =
@@ -26,10 +26,11 @@ and xml_list_of_ts_title_opt (title_opt : ts_title option) : Xml.xml list =
 	| None -> []
 	| Some title -> [xml_of_ts_title title]
 
-and xml_list_of_ts_author_opt (author_opt : ts_author option) : Xml.xml list =
-	match author_opt with
+and xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : Xml.xml list =
+	match authors_opt with
 	| None -> []
-	| Some author -> [xml_of_ts_author author]
+	| Some (Cs_authors (author_list : ts_author list)) -> 
+		[Xml.Element ("cs_authors",[],List.map xml_of_ts_author author_list)]
 
 and xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) : Xml.xml list =
 	match abstract_opt with

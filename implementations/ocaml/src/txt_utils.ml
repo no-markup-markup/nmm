@@ -15,10 +15,10 @@ let rec lines_of_ts_title_opt (title_opt : Doc_types.ts_title option) : string l
 	|None -> []
 	|Some title -> lines_of_ts_title title
 
-and lines_of_ts_author_opt (author_opt : Doc_types.ts_author option) : string list =
-	match author_opt with
+and lines_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : string list =
+	match authors_opt with
 	|None -> []
-	|Some author -> lines_of_ts_author author
+	|Some authors -> lines_of_ts_authors authors
 
 
 and lines_of_abstract_hdr (doc_class : string) : string list =
@@ -96,9 +96,14 @@ and lines_of_ts_title (title : Doc_types.ts_title) : string list =
 		let underline : string = overline in
 		List.concat [[indent ^ overline]; lines_of_string doc_settings.title_indent s;[indent ^ underline;""]]
 
+and lines_of_ts_authors (authors : Doc_types.ts_authors) : string list =
+	match authors with
+	|Cs_authors (author_list : ts_author list) -> List.concat [List.concat (List.map lines_of_ts_author author_list);[""]]
+
+
 and lines_of_ts_author (author : Doc_types.ts_author) : string list =
 	match author with
-	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings.author_indent s; ["";""]]
+	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings.author_indent s; [""]]
 
 and make_string (n:int) (s:string) : string=
 	let rec aux (i:int) (acc:string) = 

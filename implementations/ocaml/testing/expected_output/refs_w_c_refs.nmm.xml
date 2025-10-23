@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <cr_doc>
 <cs_title>Referring to named items under REFERENCES</cs_title>
+<cs_authors>
 <cs_author>Eric Johannesson</cs_author>
+</cs_authors>
 <cu_doc_main_blks>
 <cs_blks>
 <cu_blk_txt>

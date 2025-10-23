@@ -6,10 +6,11 @@ let rec xml_list_of_ts_title_opt (title_opt : Doc_types.ts_title option) : Xml.x
 	|None -> []
 	|Some title -> [xml_of_ts_title title]
 
-and xml_list_of_ts_author_opt (author_opt : Doc_types.ts_author option) : Xml.xml list =
-	match author_opt with
+and xml_list_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : Xml.xml list =
+	match authors_opt with
 	|None -> []
-	|Some author -> [xml_of_ts_author author]
+	|Some (Cs_authors (author_list : ts_author list)) -> 
+		[Xml.Element ("authors",[],List.map xml_of_ts_author author_list)]
 
 and xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
 	match title with Cs_title (s : string) -> 

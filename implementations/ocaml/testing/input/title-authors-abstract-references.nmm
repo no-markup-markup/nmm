@@ -1,0 +1,91 @@
+TITLE:
+	Some chapters
+
+AUTHOR:
+	Donald Duck
+
+AUTHOR:
+	Mickey Mouse
+
+ABSTRACT:
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+	eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+	enim ad minim veniam, quis nostrud exercitation ullamco laboris
+	nisi ut aliquip ex ea commodo consequat.
+
+	[]	ITM:in_abstract
+		A named item in abstract.
+
+	[]	ITM:second
+		Another one.
+
+		[]	ITM:another
+			Another one.
+
+	Duis aute irure dolor in reprehenderit in voluptate velit esse
+	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+	cupidatat non proident, sunt in culpa qui officia deserunt
+	mollit anim id est laborum.
+
+	Reference to [ITM:Euler].
+
+	'[ITM\:in_abstract]' -> [ITM:in_abstract]
+
+CH
+First chapter
+
+[]	ITM:one
+	An item
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+
+'[ITM\:in_abstract]' -> [ITM:in_abstract]
+
+'[ITM\:second]' -> [ITM:second]
+
+'[ITM\:another]' -> [ITM:another]
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
+
+Reference to [ITM:Tarski].
+
+CH:2
+Second chapter
+
+¶
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+
+¶
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
+
+Reference to [ITM:one].
+
+§ REFS
+
+[]	ITM:Euler
+	Euler, Leonhard (1740): De summis serierum reciprocarum. In:
+	Commentarii academiae scientiarum Petropolitanae, volume 7,
+	pages 123–134
+
+[]	ITM:Tarski
+	Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
+	Robinson (1953): Undecidable Theories; North-Holland Publishing
+	Company; Amsterdam.
+
+-	Reference to [CH:2].
+
+A reference to [ITM:Euler].

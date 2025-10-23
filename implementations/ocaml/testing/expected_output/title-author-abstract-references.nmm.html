@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Referring to named items under REFERENCES</title>
-<meta name="author" content="Eric Johannesson"><style>
+<title>Some chapters</title>
+<meta name="author" content="Donald Duck and Mickey Mouse"><style>
 html {
-  --left_margin:0rem;
+  --left_margin:8rem;
   --tab_length:6ch;
   font-family:monospace;
   font-size:medium;
@@ -398,31 +398,76 @@ a {
 </style>
 </head>
 <body>
-<div class="doc blks">
-<h1 class="title">Referring to named items under REFERENCES</h1>
+<div class="doc chs">
+<h1 class="title">Some chapters</h1>
 <div class="authors">
-<p class="author">Eric Johannesson</p>
+<p class="author">Donald Duck and Mickey Mouse</p>
 </div>
 <div class="abstract">
 <h2 class="abstract_hdr">ABSTRACT</h2>
-<p class="blk_txt">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
-</div>
-<div class="doc_main">
-<p class="blk_txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
-<div class="blk_itm" id="ITM:alt1">
+<p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="blk_itm" id="ITM:in_abstract">
 <div class="blk_itm_lbl">(1)</div>
 <div class="blk_itm_main">
-<p class="blk_txt">‘REFERENCES(1)’ (or something similar), or</p>
+<p class="blk_txt">A named item in abstract.</p>
 </div>
 </div>
-<div class="blk_itm" id="ITM:alt2">
+<div class="blk_itm" id="ITM:second">
 <div class="blk_itm_lbl">(2)</div>
 <div class="blk_itm_main">
-<p class="blk_txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
+<p class="blk_txt">Another one.</p>
+<div class="blk_itm" id="ITM:another">
+<div class="blk_itm_lbl">(a)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">Another one.</p>
 </div>
 </div>
-<p class="blk_txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of CITED WORKS</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of CITED WORKS</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
-<p class="blk_txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
+</div>
+</div>
+<p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="blk_txt">Reference to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of REFERENCES</a>.</p>
+<p class="blk_txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1)</a></p>
+</div>
+<div class="doc_main">
+<div class="ch">
+<div class="ch_lbl">CHAPTER 1</div>
+<h2 class="ch_hdr">First chapter</h2>
+<div class="ch_main">
+<div class="blk_itm" id="ITM:one">
+<div class="blk_itm_lbl">(1)</div>
+<div class="blk_itm_main">
+<p class="blk_txt">An item</p>
+</div>
+</div>
+<p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p class="blk_txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1) of ABSTRACT</a></p>
+<p class="blk_txt">&apos;[ITM:second]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:second">(2) of ABSTRACT</a></p>
+<p class="blk_txt">&apos;[ITM:another]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:another">(2)(a) of ABSTRACT</a></p>
+<p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="blk_txt">Reference to <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of REFERENCES</a>.</p>
+</div>
+</div>
+<div class="ch" id="CH:2">
+<div class="ch_lbl">CHAPTER 2</div>
+<h2 class="ch_hdr">Second chapter</h2>
+<div class="ch_main">
+<div class="par">
+<div class="par_lbl">¶ 2.1</div>
+<h4 class="par_hdr" style="visibility:hidden">¶ 2.1</h4>
+<div class="par_main">
+<p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+</div>
+<div class="par">
+<div class="par_lbl">¶ 2.2</div>
+<h4 class="par_hdr" style="visibility:hidden">¶ 2.2</h4>
+<div class="par_main">
+<p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="blk_txt">Reference to <a class="txt_unit_c_ref" href="#ITM:one">1(1)</a>.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="refs">
 <h2 class="refs_hdr">REFERENCES</h2>
@@ -438,6 +483,13 @@ a {
 <p class="blk_txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
+<div class="blk_blt">
+<div class="blk_blt_lbl">─</div>
+<div class="blk_blt_main">
+<p class="blk_txt">Reference to <a class="txt_unit_c_ref" href="#CH:2">CHAPTER 2</a>.</p>
+</div>
+</div>
+<p class="blk_txt">A reference to <a class="txt_unit_c_ref" href="#ITM:Euler">(1)</a>.</p>
 </div>
 </div>
 </body>
