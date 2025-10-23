@@ -24,21 +24,20 @@ type t_doc_settings = {
   mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
 }
 
-type t_doc_type = CHS | SECS | PARS | BLKS
 
 
-val doc_type_of_tr_doc: Doc_types.tr_doc -> t_doc_type
+val class_of_tr_doc: Doc_types.tr_doc -> string
 (**
-{[doc_type_of_tr_doc doc]}
+{[class_of_tr_doc doc]}
 
 evaluates to
 
 {[
 match doc.fld_doc_main with
-|Cu_doc_main_chs _ -> CHS
-|Cu_doc_main_secs _ -> SECS
-|Cu_doc_main_pars _ -> PARS
-|Cu_doc_main_blks _ -> BLKS
+|Cu_doc_main_chs _ -> "doc chs"
+|Cu_doc_main_secs _ -> "doc secs"
+|Cu_doc_main_pars _ -> "doc pars"
+|Cu_doc_main_blks _ -> "doc blks"
 ]}
 *)
 

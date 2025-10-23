@@ -14,7 +14,7 @@ html {
 }
 
 
-.doc_chs, .doc_secs, .doc_pars, .doc_blks {
+.doc {
   display:block;
 }
 
@@ -27,12 +27,12 @@ html {
 }
 
 
-.doc_chs .title {
+.chs .title {
   font-size:xx-large;
 }
 
 
-.doc_secs .title {
+.doc.secs .title {
   font-size:x-large;
 }
 
@@ -44,12 +44,12 @@ html {
 }
 
 
-.doc_chs .author {
+.doc.chs .author {
  font-size:large;
 }
 
 
-.doc_secs .author {
+.doc.secs .author {
  font-size:large;
 }
 
@@ -82,12 +82,12 @@ html {
 }
 
 
-.doc_chs .refs_hdr {
+.doc.chs .refs_hdr {
  font-size:x-large;
 }
 
 
-.doc_secs .refs_hdr {
+.doc.secs .refs_hdr {
  font-size:large;
 }
 
@@ -399,7 +399,7 @@ a {
 </style>
 </head>
 <body>
-<div class="doc_blks">
+<div class="doc blks">
 <h1 class="title">Referring to named items under REFERENCES</h1>
 <p class="author">Eric Johannesson</p>
 <div class="doc_main">

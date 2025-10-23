@@ -1,4 +1,7 @@
 <!ELEMENT doc (title?, author?, abstract?, doc_main, refs?)>
+<!ATTLIST doc
+	class CDATA #REQUIRED
+>
 
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT author (#PCDATA)>
@@ -11,19 +14,16 @@
 
 <!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main)>
 <!ATTLIST ch 
-	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 
 <!ELEMENT sec (sec_lbl, (sec_hdr | sec_lbl_hdr), sec_main)>
 <!ATTLIST sec 
-	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 
 <!ELEMENT par (par_lbl, par_hdr, par_main)>
 <!ATTLIST par 
-	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 
@@ -35,7 +35,6 @@
 <!ELEMENT blk_blt (blk_blt_lbl, blk_blt_main)>
 <!ELEMENT blk_itm (blk_itm_lbl, blk_itm_main)>
 <!ATTLIST blk_itm 
-	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 
@@ -47,6 +46,9 @@
 <!ELEMENT ch_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
 <!ELEMENT sec_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
 <!ELEMENT par_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
+<!ATTLIST par_hdr
+	style CDATA #REQUIRED
+>
 
 <!ELEMENT ch_lbl (#PCDATA)>
 <!ELEMENT ch_lbl_hdr (#PCDATA)>
@@ -60,11 +62,12 @@
 <!ELEMENT txt_unit_wysiwyg (#PCDATA)>
 <!ELEMENT txt_unit_emph (#PCDATA)>
 <!ELEMENT txt_unit_c_ref (#PCDATA)>
-<!ATTLIST txt_unit_c_ref href CDATA #REQUIRED>
+<!ATTLIST txt_unit_c_ref 
+	href CDATA #REQUIRED
+>
 
 <!ELEMENT dsp_line (dsp_line_lbl?, dsp_line_main)+>
 <!ATTLIST dsp_line 
-	tag CDATA #IMPLIED
 	id CDATA #IMPLIED
 >
 

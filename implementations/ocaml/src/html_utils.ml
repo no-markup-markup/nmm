@@ -1,17 +1,18 @@
 let rec html_of_exml (element:Xml.xml):Xml.xml=
 	match element with
-	|Xml.Element ("title", attr_list, xml_list) -> Xml.Element ("h1", ("class", "title")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("author", attr_list, xml_list) -> Xml.Element ("p", ("class", "author")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("abstract_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "abstract_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("refs_hdr", attr_list,xml_list) -> Xml.Element ("h2", ("class", "refs_hdr")::attr_list,List.map html_of_exml xml_list)
-	|Xml.Element ("ch_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("ch_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h2", ("class", "ch_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("sec_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("title", _, xml_list) -> Xml.Element ("h1", [("class", "title")], List.map html_of_exml xml_list)
+	|Xml.Element ("author", _, xml_list) -> Xml.Element ("p", [("class", "author")], List.map html_of_exml xml_list)
+	|Xml.Element ("abstract_hdr", _,xml_list) -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map html_of_exml xml_list)
+	|Xml.Element ("refs_hdr", _,xml_list) -> Xml.Element ("h2", [("class", "refs_hdr")],List.map html_of_exml xml_list)
+	|Xml.Element ("ch_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_hdr")], List.map html_of_exml xml_list)
+	|Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl_hdr")], List.map html_of_exml xml_list)
+	|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr")], List.map html_of_exml xml_list)
+	|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl_hdr")], List.map html_of_exml xml_list)
 	|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("blk_txt", attr_list, xml_list) -> Xml.Element ("p", ("class", "blk_txt")::attr_list, List.map html_of_exml xml_list)
-	|Xml.Element ("txt_unit_wysiwyg", attr_list, [Xml.PCData s]) -> Xml.PCData s
-	|Xml.Element ("txt_unit_emph", attr_list, xml_list) -> Xml.Element ("em", ("class", "txt_unit_emph")::attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk_txt")], List.map html_of_exml xml_list)
+	|Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
+	|Xml.Element ("txt_unit_emph", _, xml_list) -> Xml.Element ("em", [("class", "txt_unit_emph")], List.map html_of_exml xml_list)
 	|Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -> Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element (tag, attr_list, xml_list) -> Xml.Element ("div", ("class", tag)::attr_list, List.map html_of_exml xml_list)
 	|Xml.PCData s -> Xml.PCData s
@@ -27,7 +28,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.doc_chs, .doc_secs, .doc_pars, .doc_blks {
+.doc {
   display:block;
 }
 
@@ -40,12 +41,12 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.doc_chs .title {
+.chs .title {
   font-size:xx-large;
 }
 
 
-.doc_secs .title {
+.doc.secs .title {
   font-size:x-large;
 }
 
@@ -57,12 +58,12 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.doc_chs .author {
+.doc.chs .author {
  font-size:large;
 }
 
 
-.doc_secs .author {
+.doc.secs .author {
  font-size:large;
 }
 
@@ -95,12 +96,12 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.doc_chs .refs_hdr {
+.doc.chs .refs_hdr {
  font-size:x-large;
 }
 
 
-.doc_secs .refs_hdr {
+.doc.secs .refs_hdr {
  font-size:large;
 }
 

@@ -21,15 +21,15 @@ and lines_of_ts_author_opt (author_opt : Doc_types.ts_author option) : string li
 	|Some author -> lines_of_ts_author author
 
 
-and lines_of_abstract_hdr (doc_type : Common_utils.t_doc_type) : string list =
+and lines_of_abstract_hdr (doc_class : string) : string list =
 	match Common_utils.doc_settings.abstract_prefix with
 	| None -> []
 	| Some (prefix : string) -> lines_of_string (Common_utils.doc_settings.abstract_indent) prefix
 
-and lines_of_refs_hdr (doc_type : Common_utils.t_doc_type) : string list =
+and lines_of_refs_hdr (doc_class : string) : string list =
 	let underline_symbol : string =
-		match doc_type with
-		|CHS -> "═"
+		match doc_class with
+		|"doc chs" -> "═"
 		| _ -> "─"
 	in
 	match Common_utils.doc_settings.refs_prefix with

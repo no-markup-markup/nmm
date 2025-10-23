@@ -21,7 +21,6 @@ type t_doc_settings = {
 	mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
 }
 
-type t_doc_type = CHS | SECS | PARS | BLKS
 
 let expand_tag_singular_default (tag : Doc_types.ts_tag) : string option =
 	match tag with
@@ -76,12 +75,12 @@ let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 	|None -> ()
 	|Some preamble -> doc_settings_of_ts_preamble preamble 
 
-and doc_type_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_type =
+and class_of_tr_doc (doc : Doc_types.tr_doc) : string =
 	match doc.fld_doc_main with
-	|Cu_doc_main_chs _ -> CHS
-	|Cu_doc_main_secs _ -> SECS
-	|Cu_doc_main_pars _ -> PARS
-	|Cu_doc_main_blks _ -> BLKS
+	|Cu_doc_main_chs _ -> "doc chs"
+	|Cu_doc_main_secs _ -> "doc secs"
+	|Cu_doc_main_pars _ -> "doc pars"
+	|Cu_doc_main_blks _ -> "doc blks"
 
 and contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
 	match doc.fld_doc_main with

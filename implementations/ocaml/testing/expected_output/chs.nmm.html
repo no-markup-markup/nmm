@@ -14,7 +14,7 @@ html {
 }
 
 
-.doc_chs, .doc_secs, .doc_pars, .doc_blks {
+.doc {
   display:block;
 }
 
@@ -27,12 +27,12 @@ html {
 }
 
 
-.doc_chs .title {
+.chs .title {
   font-size:xx-large;
 }
 
 
-.doc_secs .title {
+.doc.secs .title {
   font-size:x-large;
 }
 
@@ -44,12 +44,12 @@ html {
 }
 
 
-.doc_chs .author {
+.doc.chs .author {
  font-size:large;
 }
 
 
-.doc_secs .author {
+.doc.secs .author {
  font-size:large;
 }
 
@@ -82,12 +82,12 @@ html {
 }
 
 
-.doc_chs .refs_hdr {
+.doc.chs .refs_hdr {
  font-size:x-large;
 }
 
 
-.doc_secs .refs_hdr {
+.doc.secs .refs_hdr {
  font-size:large;
 }
 
@@ -399,11 +399,11 @@ a {
 </style>
 </head>
 <body>
-<div class="doc_chs">
+<div class="doc chs">
 <h1 class="title">Some chapters</h1>
 <p class="author">Donald Duck and Mickey Mouse</p>
 <div class="doc_main">
-<div class="ch" tag="CH">
+<div class="ch">
 <div class="ch_lbl">CHAPTER 1</div>
 <h2 class="ch_hdr">First chapter</h2>
 <div class="ch_main">
@@ -411,7 +411,7 @@ a {
 <p class="blk_txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
 </div>
-<div class="ch" tag="CH">
+<div class="ch">
 <div class="ch_lbl">CHAPTER 2</div>
 <h2 class="ch_hdr">Second chapter</h2>
 <div class="ch_main">
@@ -431,7 +431,7 @@ a {
 </div>
 </div>
 </div>
-<div class="ch" tag="CH">
+<div class="ch">
 <div class="ch_lbl">CHAPTER 3</div>
 <h2 class="ch_hdr">Third chapter</h2>
 <div class="ch_main">
@@ -464,7 +464,7 @@ a {
 </div>
 </div>
 </div>
-<div class="ch" tag="CH">
+<div class="ch">
 <h2 class="ch_lbl_hdr">CHAPTER 4</h2>
 <div class="ch_main">
 <p class="blk_txt">Chapter without header.</p>

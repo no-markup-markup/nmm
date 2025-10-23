@@ -54,12 +54,9 @@ and attr_list_of_tag_or_id (a : Doc_types.tu_tag_or_id option) : (string*string)
 	| None -> []
 	| Some (tag_or_id : Doc_types.tu_tag_or_id) -> 
 		match tag_or_id with
-		| Cu_tag_or_id_tag (tag : Doc_types.ts_tag) -> attr_list_of_ts_tag tag
+		| Cu_tag_or_id_tag _ -> []
 		| Cu_tag_or_id_id (id : Doc_types.tr_id)-> attr_list_of_tr_id (Some id)
 
-and attr_list_of_ts_tag (tag : Doc_types.ts_tag) : (string*string) list =
-	match tag with
-	| Cs_tag (s : string) -> [("tag",s)]
 
 and attr_list_of_tr_id (id_opt : Doc_types.tr_id option) : (string*string) list =
 	match id_opt with

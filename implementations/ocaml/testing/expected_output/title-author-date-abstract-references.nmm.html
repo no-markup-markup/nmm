@@ -14,7 +14,7 @@ html {
 }
 
 
-.doc_chs, .doc_secs, .doc_pars, .doc_blks {
+.doc {
   display:block;
 }
 
@@ -27,12 +27,12 @@ html {
 }
 
 
-.doc_chs .title {
+.chs .title {
   font-size:xx-large;
 }
 
 
-.doc_secs .title {
+.doc.secs .title {
   font-size:x-large;
 }
 
@@ -44,12 +44,12 @@ html {
 }
 
 
-.doc_chs .author {
+.doc.chs .author {
  font-size:large;
 }
 
 
-.doc_secs .author {
+.doc.secs .author {
  font-size:large;
 }
 
@@ -82,12 +82,12 @@ html {
 }
 
 
-.doc_chs .refs_hdr {
+.doc.chs .refs_hdr {
  font-size:x-large;
 }
 
 
-.doc_secs .refs_hdr {
+.doc.secs .refs_hdr {
  font-size:large;
 }
 
@@ -399,7 +399,7 @@ a {
 </style>
 </head>
 <body>
-<div class="doc_chs">
+<div class="doc chs">
 <h1 class="title">Some chapters</h1>
 <p class="author">Donald Duck and Mickey Mouse</p>
 <div class="abstract">
@@ -428,7 +428,7 @@ a {
 <p class="blk_txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1)</a></p>
 </div>
 <div class="doc_main">
-<div class="ch" tag="CH">
+<div class="ch">
 <div class="ch_lbl">CHAPTER 1</div>
 <h2 class="ch_hdr">First chapter</h2>
 <div class="ch_main">
