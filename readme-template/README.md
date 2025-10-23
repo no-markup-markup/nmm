@@ -759,7 +759,7 @@ anim id est laborum.
 
 
 REFERENCES
-──────────
+══════════
 
 ─     Euler, Leonhard (1740): De summis serierum reciprocarum. In:
       Commentarii academiae scientiarum Petropolitanae, volume 7,
