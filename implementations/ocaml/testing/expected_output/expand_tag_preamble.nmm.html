@@ -5,372 +5,394 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 html {
-        --left_margin:8rem;
-        --tab_length:6ch;
-        font-family:monospace;
-        font-size:medium;
+  --left_margin:8rem;
+  --tab_length:6ch;
+  font-family:monospace;
+  font-size:medium;
 }
 
+
 .doc_chs, .doc_secs, .doc_pars, .doc_blks {
-        display:block;
+  display:block;
 }
 
 
 .title {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:large;
+  display:block;
+  margin-left:var(--left_margin);
+  font-weight:normal;
+  font-size:large;
 }
+
 
 .doc_chs .title {
-        font-size:xx-large;
+  font-size:xx-large;
 }
 
+
 .doc_secs .title {
-        font-size:x-large;
+  font-size:x-large;
 }
 
 
 .author {
-        display:block;
-        margin-left:var(--left_margin);
-        margin-bottom:3em;
+  display:block;
+  margin-left:var(--left_margin);
+  margin-bottom:3em;
 }
+
 
 .doc_chs .author {
-       font-size:large;
+ font-size:large;
 }
+
 
 .doc_secs .author {
-       font-size:large;
+ font-size:large;
 }
+
 
 .abstract {
-        display:block;
-        margin-bottom:3em;
+  display:block;
+  margin-bottom:3em;
 }
+
 
 .abstract_hdr {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:large;
+  display:block;
+  margin-left:var(--left_margin);
+  font-weight:normal;
+  font-size:large;
 }
-
 
 
 .refs {
-        display:block;
-        margin-top:3em;
+  display:block;
+  margin-top:3em;
 }
+
 
 .refs_hdr {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:large;
+  display:block;
+  margin-left:var(--left_margin);
+  font-weight:normal;
+  font-size:large;
 }
+
 
 .doc_chs .refs_hdr {
-       font-size:x-large;
+ font-size:x-large;
 }
+
 
 .doc_secs .refs_hdr {
-       font-size:large;
+ font-size:large;
 }
 
+
 .doc_main {
-        display:block;
+  display:block;
 }
 
 
 .ch {
-        display:block;
+  display:block;
 }
 
 
 .ch + .ch {
-        margin-top:3em;
+  margin-top:3em;
 }
 
 
 .ch_lbl, .ch_lbl_hdr {
-        display:block;
-        margin-left:var(--left_margin);
-        font-weight:normal;
-        font-size:x-large;
+  display:block;
+  margin-left:var(--left_margin);
+  font-weight:normal;
+  font-size:x-large;
 }
 
 
 .ch_hdr {
-        display:block;
-        margin-left:var(--left_margin);
-        font-size:x-large;
+  display:block;
+  margin-left:var(--left_margin);
+  font-size:x-large;
 }
 
 
 .sec {
-        display:block;
+  display:block;
 }
 
 
 .sec + .sec {
-        margin-top:2em;
+  margin-top:2em;
 }
 
 
 .sec_lbl {
-        display:block;
-        float:left;
-        margin-right:1ch;
-        font-size:large;
+  display:block;
+  float:left;
+  margin-right:1ch;
+  font-size:large;
 }
 
 
 .sec_hdr {
-        display:block;
-        margin-left:var(--left_margin);
-        font-size:large;
+  display:block;
+  margin-left:var(--left_margin);
+  font-size:large;
 }
+
 
 /* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
 .sec_lbl_hdr {
-        visibility:hidden;
-        font-size:16px;
+  visibility:hidden;
+  font-size:16px;
 }
 
+
 .sec_main {
-        display:block;
+  display:block;
 }
 
 
 /* prevents par from jumping up when left_margin is 0 */
 .sec_lbl + .sec_main::before {
-        content:" ";
-        white-space:pre;
+  content:" ";
+  white-space:pre;
 }
 
 
 .par {
-        display:block;
+  display:block;
 }
 
 .par + .par {
-        margin-top:2em;
+  margin-top:2em;
 }
 
 
 .par_lbl {
-        display:block;
-        float:left;
-        margin-right:1ch;
+  display:block;
+  float:left;
+  margin-right:1ch;
 }
 
 
 /* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
 by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
 .par_hdr {
-        height:0;
-        width:0;
-        float:left;
+  height:0;
+  width:0;
+  float:left;
 }
 
 
 .par_main {
-        display:block;
+  display:block;
 }
 
 
 .blk_txt {
-        display:block;
-        hyphens:auto;
-        white-space:pre-wrap;
+  display:block;
+  hyphens:auto;
+  white-space:pre-wrap;
 }
-
 
 
 .abstract > .blk_txt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 .refs > .blk_txt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .ch_main > .blk_txt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .sec_main > .blk_txt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .par_main > .blk_txt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .blk_blt {
-        display:block;
+  display:block;
 }
+
 
 .abstract > .blk_blt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
+
 .refs > .blk_blt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .ch_main > .blk_blt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .sec_main > .blk_blt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .par_main > .blk_blt {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .blk_blt_lbl {
-        display:block;
-        float:left;
-        margin-right:1ch;
+  display:block;
+  float:left;
+  margin-right:1ch;
 }
 
 
 .blk_blt_main {
-        display:block;
-        margin-left:var(--tab_length);
+  display:block;
+  margin-left:var(--tab_length);
 }
 
 
 .blk_itm {
-        display:block;
+  display:block;
 }
 
 .abstract > .blk_itm {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
+
 
 .refs > .blk_itm {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
+
 .ch_main > .blk_itm {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .sec_main > .blk_itm {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .par_main > .blk_itm {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .blk_itm_lbl {
-        display:block;
-        float:left;
-        margin-right:1ch;
+  display:block;
+  float:left;
+  margin-right:1ch;
 }
 
 
 .blk_itm_main {
-        display:block;
-        margin-left:var(--tab_length);
+  display:block;
+  margin-left:var(--tab_length);
 }
 
 
 .blk_dsp {
-        display:block;
-        white-space:nowrap;
+  display:block;
+  white-space:nowrap;
 }
+
 
 .abstract > .blk_dsp {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
+
 .refs > .blk_dsp {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .ch_main > .blk_dsp {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .sec_main > .blk_dsp {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
 .par_main > .blk_dsp {
-        margin-left:var(--left_margin);
+  margin-left:var(--left_margin);
 }
 
 
-
 .dsp_line {
-        display:block;
+  display:block;
 }
 
 
 .dsp_line_lbl {
-        display:block;
-        float:left;
-        margin-right:1ch;
+  display:block;
+  float:left;
+  margin-right:1ch;
 }
 
 
 .dsp_line_main {
-        display:block;
-        white-space:pre;
-        margin-left:var(--tab_length);
+  display:block;
+  white-space:pre;
+  margin-left:var(--tab_length);
 }
 
 
 a {
-        text-decoration:none;
+  text-decoration:none;
 }
 
 
 @media print {
-        .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
-                page-break-after:avoid;
-        }
 
-/* For one-sided printing:*/
-        @page {
-                size:a4;
-                margin-top:20mm;
-                margin-left:20mm;
-                margin-right:20mm;
-                margin-bottom:30mm;
+  html {
+    font-size:12px;
+  }
 
-                @top-center {
-                        content:" ";
-                }
 
-                @bottom-center {
-                        padding:10mm;
-                        content: counter(page) " of " counter(pages);
-                }
-        }
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+    page-break-after:avoid;
+  }
+
+  /* For one-sided printing:*/
+  @page {
+    size:a4;
+    margin-top:20mm;
+    margin-left:20mm;
+    margin-right:20mm;
+    margin-bottom:30mm;
+
+    @top-center {
+       content:" ";
+    }
+
+    @bottom-center {
+      padding:10mm;
+      content: counter(page) " of " counter(pages);
+    }
+  }
 }
 </style>
 </head>
