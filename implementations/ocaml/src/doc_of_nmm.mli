@@ -1,3 +1,5 @@
+(** An LR(1) parser of nmm source-code (generated with {{:https://github.com/ocaml-community/sedlex}Sedlex} and {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}) that returns an abstract syntax tree in the format specified by {!module:Doc_types}. *)
+
 exception Error of string
 
 val doc_of_nmm_file : bool -> string -> Doc_types.tr_doc

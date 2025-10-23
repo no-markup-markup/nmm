@@ -1,3 +1,5 @@
+(** For assembling the pieces provided by the other modules and for providing a command-line interface *)
+
 exception Error of string
 
 

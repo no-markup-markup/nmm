@@ -1,3 +1,5 @@
+(** For translating a compiled nmm-document with resolved cross-references and labels (in the the XML-format specified by {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd}exml.dtd}) to HTML *)
+
 val html_of_exml : Xml.xml -> Xml.xml
 (**
 {[html_of_exml element]}

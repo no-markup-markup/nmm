@@ -1,4 +1,11 @@
+(** 
+A toolkit used by {!module:Compiler_of_doc} for handling default and custom document settings (margins, document width, etc.), cross-references, and labels.
+*)
+
 exception Error of string
+
+
+(** <h2>Document settings</h2> *)
 
 type t_doc_settings = {
   mutable doc_width : int;
@@ -34,6 +41,8 @@ match doc.fld_doc_main with
 |Cu_doc_main_blks _ -> BLKS
 ]}
 *)
+
+(** <h3>Default settings</h3> *)
 
 
 val expand_tag_singular_default : Doc_types.ts_tag -> string option
@@ -94,6 +103,8 @@ val doc_settings : t_doc_settings
 These are the default settings.
 *)
 
+(** <h3>User-defined settings</h3> *)
+
 
 val doc_settings_of_tr_doc : Doc_types.tr_doc -> unit
 (**
@@ -137,6 +148,9 @@ v}
 *)
 
 
+(** <h2>Cross-references and labels</h2> *)
+
+
 type t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
 
 type t_itm_node = 
@@ -163,6 +177,7 @@ type t_node =
 	|REFS_NODE
 
 type t_path = t_node list 
+
 
 type t_cref_table = (Doc_types.tr_id * t_path) list 
 

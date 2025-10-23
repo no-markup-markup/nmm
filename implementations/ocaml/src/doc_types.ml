@@ -1,3 +1,5 @@
+(** An abstract syntax tree for parsed nmm source-code *)
+
 type tr_doc = {
   fld_doc_preamble : ts_preamble option;
   fld_doc_title	: ts_title option;

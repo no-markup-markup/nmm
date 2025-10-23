@@ -20,7 +20,11 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Common_utils</title>
+<link title="Main" rel="Chapter" href="Main.html"><link title="Document settings" rel="Section" href="#2_Documentsettings">
+<link title="Cross-references and labels" rel="Section" href="#2_Crossreferencesandlabels">
+<link title="Default settings" rel="Subsection" href="#3_Defaultsettings">
+<link title="User-defined settings" rel="Subsection" href="#3_Userdefinedsettings">
+<title>Common_utils</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Doc_of_nmm.html" title="Doc_of_nmm">Previous</a>
@@ -29,10 +33,15 @@
 </div>
 <h1>Module <a href="type_Common_utils.html">Common_utils</a></h1>
 
-<pre><span id="MODULECommon_utils"><span class="keyword">module</span> Common_utils</span>: <code class="code">sig</code> <a href="Common_utils.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span id="MODULECommon_utils"><span class="keyword">module</span> Common_utils</span>: <code class="code">sig</code> <a href="Common_utils.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>A toolkit used by <a href="Compiler_of_doc.html"><code class="code">Compiler_of_doc</code></a> for handling default and custom document settings (margins, document width, etc.), cross-references, and labels.</p>
+</div>
+</div>
+<hr width="100%">
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
-
+<h3 id="2_Documentsettings">Document settings</h3>
 <pre><code><span id="TYPEt_doc_settings"><span class="keyword">type</span> <code class="type"></code>t_doc_settings</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -180,7 +189,7 @@
 |Cu_doc_main_blks _ -&gt; BLKS
 </code></pre></div>
 </div>
-
+<h4 id="3_Defaultsettings">Default settings</h4>
 <pre><span id="VALexpand_tag_singular_default"><span class="keyword">val</span> expand_tag_singular_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">expand_tag_singular_default tag</code></pre>
@@ -233,7 +242,7 @@
 <p>These are the default settings.</p>
 </div>
 </div>
-
+<h4 id="3_Userdefinedsettings">User-defined settings</h4>
 <pre><span id="VALdoc_settings_of_tr_doc"><span class="keyword">val</span> doc_settings_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; unit</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">doc_settings_of_tr_doc doc</code></pre>
@@ -271,7 +280,7 @@ INT := ['0'-'9']+
 
 STRING := [! ';']*</pre></div>
 </div>
-
+<h3 id="2_Crossreferencesandlabels">Cross-references and labels</h3>
 <pre><code><span id="TYPEt_par_node"><span class="keyword">type</span> <code class="type"></code>t_par_node</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >

@@ -1,3 +1,5 @@
+(** For parsing XML-files containing parsed nmm source-code (abstract syntax trees in the format specified by {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/axml.dtd}axml.dtd}), and for printing compiled nmm-documents in XML- or HTML-format to file. *)
+
 exception Error of string
 
 val parse_file : bool -> string -> Xml.xml
