@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <cr_doc>
 <cs_title>Some chapters</cs_title>
-<cs_author>Donald Duck and Mickey Mouse</cs_author>
+<cs_authors>
+<cs_author>Donald Duck</cs_author>
+<cs_author>Mickey Mouse</cs_author>
+</cs_authors>
 <cs_abstract>
 <cs_blks>
 <cu_blk_txt>

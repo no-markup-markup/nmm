@@ -33,7 +33,7 @@
 :- type tr_doc ---> cr_doc(
   fld_doc_preamble :: maybe(ts_preamble),
   fld_doc_title    :: maybe(ts_title),
-  fld_doc_author   :: maybe(ts_author),
+  fld_doc_authors  :: maybe(ts_authors),
   fld_doc_abstract :: maybe(ts_abstract),
   fld_doc_main     :: tu_doc_main,
   fld_doc_refs     :: maybe(ts_refs)
@@ -61,6 +61,15 @@
 :- instance term_to_xml.xmlable(ts_title).
 
 :- pred r_title(ts_title::out, ts_tkns::in, ts_tkns::out) is semidet.
+
+
+%% RULE R_AUTHORS, SIMPLE TYPE TS_AUTHORS, INSTANCE TS_AUTHORS XMLABLE
+
+:- type ts_authors ---> cs_authors(list(ts_author)).
+
+:- instance term_to_xml.xmlable(ts_authors).
+
+:- pred r_authors(ts_authors::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_AUTHOR, SIMPLE TYPE TS_AUTHOR, INSTANCE TS_AUTHOR XMLABLE
@@ -497,14 +506,14 @@ k_forbidden_strs_in_tags_names = ["\\", "[", "]", "(", ")", ":", ",", ";", "*"].
 r_doc(cr_doc(
   MAYBE_PREAMBLE,
   MAYBE_TITLE,
-  MAYBE_AUTHOR,
+  MAYBE_AUTHORS,
   MAYBE_ABSTRACT,
   MAIN,
   MAYBE_REFS
 )) --> (
   ?([],         r_preamble,MAYBE_PREAMBLE,[*([r_lb])]),
   ?([],         r_title,   MAYBE_TITLE,   [*([r_lb])]),
-  ?([],         r_author,  MAYBE_AUTHOR,  [*([r_lb])]),
+  ?([],         r_authors, MAYBE_AUTHORS, [*([r_lb])]),
   ?([],         r_abstract,MAYBE_ABSTRACT,[*([r_lb])]),
   r_doc_main(MAIN),
   ?([+([r_lb])],r_refs,    MAYBE_REFS,    []),
@@ -543,12 +552,12 @@ f_doc_to_xml(DOC) = XML :- (
   ),
   (
     (
-      fld_doc_author(DOC) = maybe.no,
-      AUTHOR_XML_LIST      = []
+      fld_doc_authors(DOC) = maybe.no,
+      AUTHORS_XML_LIST      = []
     );
     (
-      fld_doc_author(DOC) = maybe.yes(AUTHOR),
-      AUTHOR_XML_LIST     = [f_author_to_xml(AUTHOR)]
+      fld_doc_authors(DOC) = maybe.yes(AUTHOR),
+      AUTHORS_XML_LIST     = [f_authors_to_xml(AUTHOR)]
     )
   ),
   (
@@ -579,7 +588,7 @@ f_doc_to_xml(DOC) = XML :- (
       ++
       TITLE_XML_LIST
       ++
-      AUTHOR_XML_LIST
+      AUTHORS_XML_LIST
       ++
       ABSTRACT_XML_LIST
       ++
@@ -641,6 +650,26 @@ r_title_line_chr(        C) --> r_c(C).
 ) is det.
 f_title_to_xml(cs_title(STR)) =
   term_to_xml.elem("cs_title",[],[term_to_xml.data(STR)]).
+
+
+%% R_AUTHORS, TS_AUTHORS XMLABLE
+
+%%% R_AUTHOR
+
+r_authors(cs_authors(AUTHORS)) --> (
+  +([],r_author,AUTHORS,[?([r_lb])])
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_authors) where [
+  func(to_xml/1) is f_authors_to_xml
+].
+:- func (
+  f_authors_to_xml(ts_authors::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_authors_to_xml(cs_authors(AUTHORS)) =
+  term_to_xml.elem("cs_authors",[],list.map(f_author_to_xml,AUTHORS)).
 
 
 %% R_AUTHOR, TS_AUTHOR XMLABLE
