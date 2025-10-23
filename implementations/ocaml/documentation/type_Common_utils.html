@@ -36,8 +36,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;expand_tag_singular&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;expand_tag_plural&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_doc_type&nbsp;=&nbsp;<span class="constructor">CHS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SECS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PARS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BLKS</span><br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_type_of_tr_doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_type<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;class_of_tr_doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;expand_tag_singular_default&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;expand_tag_plural_default&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option<br>

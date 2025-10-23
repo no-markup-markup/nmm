@@ -145,48 +145,16 @@
 
 
 
-<pre><code><span id="TYPEt_doc_type"><span class="keyword">type</span> <code class="type"></code>t_doc_type</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_type.CHS"><span class="constructor">CHS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_type.SECS"><span class="constructor">SECS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_type.PARS"><span class="constructor">PARS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_type.BLKS"><span class="constructor">BLKS</span></span></code></td>
-
-</tr></table>
-
-
-
-<pre><span id="VALdoc_type_of_tr_doc"><span class="keyword">val</span> doc_type_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_type">t_doc_type</a></code></pre><div class="info ">
+<pre><span id="VALclass_of_tr_doc"><span class="keyword">val</span> class_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">doc_type_of_tr_doc doc</code></pre>
+<pre class="codepre"><code class="code">class_of_tr_doc doc</code></pre>
 <p>evaluates to</p>
 
 <pre class="codepre"><code class="code">match doc.fld_doc_main with
-|Cu_doc_main_chs _ -&gt; CHS
-|Cu_doc_main_secs _ -&gt; SECS
-|Cu_doc_main_pars _ -&gt; PARS
-|Cu_doc_main_blks _ -&gt; BLKS
+|Cu_doc_main_chs _ -&gt; "doc chs"
+|Cu_doc_main_secs _ -&gt; "doc secs"
+|Cu_doc_main_pars _ -&gt; "doc pars"
+|Cu_doc_main_blks _ -&gt; "doc blks"
 </code></pre></div>
 </div>
 <h4 id="3_Defaultsettings">Default settings</h4>
