@@ -39,7 +39,7 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 	let title:string = 
 		match doc.fld_doc_title with
 		|None -> ""
-		|Some (Cs_title s) -> String.concat "" ["<title>";s;"</title>\n"]
+		|Some (Cs_title s) -> String.concat "" ["<title>";s;"</title>"]
 	in
 	let authors:string = 
 		match doc.fld_doc_authors with
@@ -55,7 +55,7 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 		| None -> "" 
 		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css Common_utils.doc_settings) ^ "\n</style>\n")
+	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css Common_utils.doc_settings) ^ "\n</style>")
 	in
 	let external_css: string = 
 		match uri_opt with
@@ -68,7 +68,10 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 		"<head>\n" ^
 		"<meta charset=\"UTF-8\">\n" ^
 		"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ^
-		title ^ authors ^ internal_css ^ external_css ^
+		title ^ "\n" ^
+		authors ^ "\n" ^
+		internal_css ^ "\n" ^
+		external_css ^
 		"</head>\n" ^
 		"<body>\n"
 	) 

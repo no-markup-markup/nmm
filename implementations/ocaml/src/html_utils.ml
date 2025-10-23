@@ -51,7 +51,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.author {
+.authors {
   display:block;
   margin-left:var(--left_margin);
   margin-bottom:3em;

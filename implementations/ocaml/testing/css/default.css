@@ -29,7 +29,7 @@ html {
 }
 
 
-.author {
+.authors {
   display:block;
   margin-left:var(--left_margin);
   margin-bottom:3em;
