@@ -14,7 +14,7 @@ nmm-ocaml [
  | html-of-nmm { <URI-of-css-file> | none } { <language-code> | none } <path-to-nmm-file>
 
  | check-xml-schema <path-to-dtd-file>
- | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
+ | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
 
  | show-default-css
 
@@ -127,7 +127,7 @@ let check_xml_schema (path:string):string =
 	with 
 	Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
 
-let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):string =
+let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
 	let print_tokens = false in 
 	try 
 		let dtd:Dtd.dtd=Dtd.parse_file path_to_dtd in
@@ -137,12 +137,15 @@ let validate_xml (path_to_dtd:string) (entry_point:string) (path_to_xml:string):
 			|"-" -> Xml_right.parse_stdin print_tokens 
 			|path -> Xml_right.parse_file print_tokens path
 		in
-		let _=Dtd.prove checked_dtd entry_point xml in 
-		String.concat " " [path_to_xml;"is an instance of";path_to_dtd;"with entry-point";entry_point]
+		match xml with
+		|Xml.Element (entry_point, _, _) ->
+			let _=Dtd.prove checked_dtd entry_point xml in 
+			String.concat " " [path_to_xml;"is an instance of";path_to_dtd;"with entry-point";entry_point]
+		| _  -> raise (Error (path_to_xml ^ " has no entry_point"))
 	with 
 	|Xml_light_errors.Dtd_parse_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_parse_error:";Dtd.parse_error e]))
 	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
-	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;entry_point;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
+	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
 	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
 
 
@@ -174,6 +177,11 @@ let _ : unit =
 		|"test-with-xml", path -> test_w_xml path
 		|_-> print_endline usage
 	)
+	|4 -> (
+		match argv.(1),argv.(2),argv.(3) with
+		|"validate-xml", path_to_dtd, path_to_xml -> print_endline (validate_xml path_to_dtd path_to_xml)
+		|_-> print_endline usage
+	)
 	|5 -> (
 		match argv.(1),argv.(2),argv.(3),argv.(4) with
 		|"html-of-nmm", "none", "none", path -> print_endline (html_of_nmm None None path)
@@ -184,7 +192,6 @@ let _ : unit =
 		|"html-of-xml", "none", lang, path -> print_endline (html_of_axml None (Some lang) path)
 		|"html-of-xml", uri, "none", path -> print_endline (html_of_axml (Some uri) None path)
 		|"html-of-xml", uri, lang, path -> print_endline (html_of_axml (Some uri) (Some lang) path)
-		|"validate-xml", path_to_dtd, entry_point, path_to_xml -> print_endline (validate_xml path_to_dtd entry_point path_to_xml)
 		|_-> print_endline usage
 	)
 	|_ -> print_endline usage
