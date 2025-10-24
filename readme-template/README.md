@@ -92,7 +92,7 @@ Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or
 </details>
 
 <details>
-  <summary><b>raw text semantics:</b></summary>
+  <summary><b>default raw text semantics:</b></summary>
 
 ```
 This is a no-markup-markup document, sporting the following
@@ -182,7 +182,7 @@ eu fugiat nulla pariatur.
 </details>
 
 <details>
-  <summary><b>raw text semantics:</b></summary>
+  <summary><b>default raw text semantics:</b></summary>
 
 ```
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -205,7 +205,7 @@ pariatur.
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.̲
@@ -227,7 +227,7 @@ L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.�
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 ─     bullet block 1
@@ -251,7 +251,7 @@ L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.�
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 (1)   item block 1
@@ -273,7 +273,7 @@ L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.�
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 (!)   item block 1
@@ -295,7 +295,7 @@ By Pythagoras we have:
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 By Pythagoras we have:
@@ -317,7 +317,7 @@ By Pythagoras we have:
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 By Pythagoras we have:
@@ -339,7 +339,7 @@ By Pythagoras we have:
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 By Pythagoras we have:
@@ -361,7 +361,7 @@ By Pythagoras we have:
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 (1)   1+(1+1)
@@ -392,7 +392,7 @@ By Pythagoras we have:
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 (1)   Pythagoras:
@@ -441,7 +441,7 @@ The following displayed block has the ID ‘DSP:Q5’.
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 (1)   This item block has the tag ‘ITM’ and the name ‘name’ and the
@@ -552,7 +552,7 @@ This chapter's header is omitted.
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
             CHAPTER 1
@@ -648,7 +648,10 @@ TITLE:
 	Some chapters
 
 AUTHOR:
-	Donald Duck and Mickey Mouse
+	Donald Duck
+
+AUTHOR:
+	Mickey Mouse
 
 ABSTRACT:
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -700,14 +703,16 @@ laborum.
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 ════════════════════════════════════════════════════════════════════
 Some chapters
 ════════════════════════════════════════════════════════════════════
 
-Donald Duck and Mickey Mouse
+Donald Duck
+
+Mickey Mouse
 
 
 ABSTRACT
@@ -825,7 +830,7 @@ than ‘\*’ is needed.
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 ¶ 1         ¶ ← this is the paragraph symbol.

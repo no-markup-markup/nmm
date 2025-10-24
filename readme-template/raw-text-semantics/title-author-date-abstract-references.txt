@@ -2,7 +2,9 @@
 Some chapters
 ════════════════════════════════════════════════════════════════════
 
-Donald Duck and Mickey Mouse
+Donald Duck
+
+Mickey Mouse
 
 
 ABSTRACT

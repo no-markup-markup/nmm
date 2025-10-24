@@ -55,7 +55,7 @@ INCLUDE-FILE ./nmm-sources/example.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics:</b></summary>
+  <summary><b>default raw text semantics:</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/example.txt
@@ -106,7 +106,7 @@ INCLUDE-FILE ./nmm-sources/text-blocks.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics:</b></summary>
+  <summary><b>default raw text semantics:</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/text-blocks.txt
@@ -124,7 +124,7 @@ INCLUDE-FILE ./nmm-sources/emphasized-text.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/emphasized-text.txt
@@ -142,7 +142,7 @@ INCLUDE-FILE ./nmm-sources/bullet-blocks.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/bullet-blocks.txt
@@ -160,7 +160,7 @@ INCLUDE-FILE ./nmm-sources/item-blocks-auto.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/item-blocks-auto.txt
@@ -178,7 +178,7 @@ INCLUDE-FILE ./nmm-sources/item-blocks-manual.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/item-blocks-manual.txt
@@ -196,7 +196,7 @@ INCLUDE-FILE ./nmm-sources/displayed-blocks-unlabeled.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/displayed-blocks-unlabeled.txt
@@ -214,7 +214,7 @@ INCLUDE-FILE ./nmm-sources/displayed-blocks-auto.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/displayed-blocks-auto.txt
@@ -232,7 +232,7 @@ INCLUDE-FILE ./nmm-sources/displayed-blocks-manual.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/displayed-blocks-manual.txt
@@ -250,7 +250,7 @@ INCLUDE-FILE ./nmm-sources/displayed-blocks-multple-lines.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/displayed-blocks-multple-lines.txt
@@ -268,7 +268,7 @@ INCLUDE-FILE ./nmm-sources/nested-blocks.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/nested-blocks.txt
@@ -286,7 +286,7 @@ INCLUDE-FILE ./nmm-sources/tags-names-c-refs.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/tags-names-c-refs.txt
@@ -304,7 +304,7 @@ INCLUDE-FILE ./nmm-sources/chapters-sections-appendices-paragraphs.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/chapters-sections-appendices-paragraphs.txt
@@ -322,7 +322,7 @@ INCLUDE-FILE ./nmm-sources/title-author-date-abstract-references.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/title-author-date-abstract-references.txt
@@ -342,7 +342,7 @@ INCLUDE-FILE ./nmm-sources/escaping.nmm
 </details>
 
 <details>
-  <summary><b>raw text semantics</b></summary>
+  <summary><b>default raw text semantics</b></summary>
 
 ```
 INCLUDE-FILE ./raw-text-semantics/escaping.txt
