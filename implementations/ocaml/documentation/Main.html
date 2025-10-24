@@ -134,9 +134,9 @@
 </div>
 </div>
 
-<pre><span id="VALvalidate_xml"><span class="keyword">val</span> validate_xml</span> : <code class="type">string -&gt; string -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALvalidate_xml"><span class="keyword">val</span> validate_xml</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">validate_xml "path/to/xml-schema.dtd" main_tag "path/to/xml-file.xml"</code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is well-defined. It then calls the function <a href="Xml_right.html#VALparse_file"><code class="code">Xml_right.parse_file</code></a> for parsing xml-file.xml into an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>. Lastly, it calls <code class="code">Dtd.prove</code> for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd with entry point <code class="code">main_tag</code>.</p>
+<pre class="codepre"><code class="code">validate_xml "path/to/xml-schema.dtd" "path/to/xml-file.xml"</code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is well-defined. It then calls the function <a href="Xml_right.html#VALparse_file"><code class="code">Xml_right.parse_file</code></a> for parsing xml-file.xml into an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>. Lastly, it calls <code class="code">Dtd.prove</code> for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd.</p>
 </div>
 </div>
 </body></html>
