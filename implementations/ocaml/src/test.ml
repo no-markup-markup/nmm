@@ -6,11 +6,19 @@ let rec test_w_nmm (path_to_nmm_file : string) : unit =
 	let _ = xml_right_test path_to_nmm_file "exml" in
 	let _ = xml_right_test_fmt path_to_nmm_file "axml" in
 	let _ = xml_right_test_fmt path_to_nmm_file "exml" in
+	let _ = validate_exml path_to_nmm_file in
 	()
 
 and test_w_xml (path_to_xml_file : string) : unit =
 	let _ = bijectivity_test_w_xml path_to_xml_file in ()
 
+and validate_exml (path_to_nmm_file : string) : unit =
+try	let doc = Doc_of_nmm.doc_of_nmm_file false path_to_nmm_file in
+	let exml = Compiler_of_doc.exml_of_tr_doc doc in
+	let dtd = Dtd.parse_file "dtd/exml.dtd" in
+	let c = Dtd.check dtd in
+	let _ = Dtd.prove c "doc" exml in ()
+with Dtd.Prove_error e -> raise (Error (Dtd.prove_error e))
 
 and bijectivity_test_w_nmm (path_to_nmm_file:string):unit =
 	let doc:Doc_types.tr_doc = Doc_of_nmm.doc_of_nmm_file false path_to_nmm_file in
@@ -94,7 +102,6 @@ and xml_light_test_fmt (path_to_nmm_file:string) (format:string):unit=
 		|false -> Debug_utils.print_to_stderr ("FAIL: " ^ path_to_nmm_file ^ " -> " ^ format ^ "_of_doc (doc) NOT EQUAL TO Xml.parse_string (Xml.to_string_fmt (" ^ format ^ "_of_doc (doc))")
 	with
 	|Error s -> raise (Error s)
-
 
 
 

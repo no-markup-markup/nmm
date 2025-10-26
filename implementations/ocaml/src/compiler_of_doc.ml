@@ -134,7 +134,7 @@ and acc_of_ts_abstract (doc_class : string) (path : Common_utils.t_path) (acc : 
 		|EXML _ -> (
 			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("abstract",[("style","display:block")],hdr::xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("abstract",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks path acc b
@@ -158,7 +158,7 @@ and acc_of_ts_refs (doc_class : string)  (path : Common_utils.t_path) (acc : t_a
 		|EXML _ -> (
 			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("refs",[("style","display:block")],hdr::xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks path acc b
@@ -363,12 +363,9 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 			match new_par.fld_par_hdr with
 			|None -> raise (Error "new par expected to have hdr")
 			|Some (hdr : ts_hdr) -> 
-				let attr_list : (string * string) list =
-					[("style","visibility:hidden;height:0;width:0;float:left")]
-				in
 				match hdr with
 				|Cs_hdr (t:ts_txt_units) ->
-					Xml.Element ("par_hdr",attr_list,Exml_utils.xml_list_of_ts_txt_units path t)
+					Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t)
 		)
 		in 
 		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in
@@ -444,9 +441,9 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		in 
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
-		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[("style","display:block")],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[("style","display:block;float:left")],xml_list_lbl) in
-		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[("style","display:block")],[xml_lbl;xml_main])]])
+		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[],xml_list_main) in
+		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[],xml_list_lbl) in
+		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[],[xml_lbl;xml_main])]])
 
 
 and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_blk_itm) : t_acc =
@@ -512,7 +509,7 @@ and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc)
 	| EXML acc_list -> (
 		match aux auto_nr (EXML []) c with 
 		|(EXML xml_list,nr) -> 
-			(EXML (List.concat [acc_list;[Xml.Element ("blk_dsp",[("style","display:block;white-space:nowrap")],xml_list)]]),nr)
+			(EXML (List.concat [acc_list;[Xml.Element ("blk_dsp",[],xml_list)]]),nr)
 		| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 	)

@@ -1,11 +1,12 @@
-<!ELEMENT doc (title?, author?, abstract?, doc_main, refs?)>
+<!ELEMENT doc (title?, authors?, abstract?, doc_main, refs?)>
 <!ATTLIST doc
 	class CDATA #REQUIRED
 >
 
 <!ELEMENT title (#PCDATA)>
+<!ELEMENT authors (author+)>
 <!ELEMENT author (#PCDATA)>
-<!ELEMENT abstract (abstract_hdr , blk_txt+)>
+<!ELEMENT abstract (abstract_hdr , (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
 <!ELEMENT refs (refs_hdr, (blk_txt | blk_blt | blk_itm | blk_dsp)+)>
 
@@ -14,6 +15,7 @@
 
 <!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main)>
 <!ATTLIST ch 
+	class CDATA #REQUIRED
 	id CDATA #IMPLIED
 >
 
@@ -46,9 +48,7 @@
 <!ELEMENT ch_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
 <!ELEMENT sec_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
 <!ELEMENT par_hdr ((txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref)+)>
-<!ATTLIST par_hdr
-	style CDATA #REQUIRED
->
+
 
 <!ELEMENT ch_lbl (#PCDATA)>
 <!ELEMENT ch_lbl_hdr (#PCDATA)>
