@@ -1,6 +1,7 @@
 let rec html_of_exml (element:Xml.xml):Xml.xml=
 	match element with
 	|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map html_of_exml xml_list)
+	|Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("title", _, xml_list) -> Xml.Element ("h1", [("class", "title")], List.map html_of_exml xml_list)
 	|Xml.Element ("author", _, xml_list) -> Xml.Element ("p", [("class", "author")], List.map html_of_exml xml_list)
 	|Xml.Element ("abstract_hdr", _,xml_list) -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map html_of_exml xml_list)
@@ -31,6 +32,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .doc {
   display:block;
+  padding-top:3rem;
 }
 
 
@@ -42,7 +44,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.chs .title {
+.doc.chs .title {
   font-size:xx-large;
 }
 
@@ -109,6 +111,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .doc_main {
   display:block;
+  margin-top:5rem;
 }
 
 
@@ -117,8 +120,8 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.ch + .ch {
-  margin-top:3em;
+.ch {
+  padding-bottom:5rem;
 }
 
 
@@ -136,6 +139,9 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   font-size:x-large;
 }
 
+.ch_hdr, .ch_lbl_hdr {
+  margin-bottom:3rem;
+}
 
 .sec {
   display:block;
@@ -214,6 +220,10 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
   margin-left:var(--left_margin);
 }
 
+
+.ch_main > .blk_txt {
+  margin-left:var(--left_margin);
+}
 
 .ch_main > .blk_txt {
   margin-left:var(--left_margin);
@@ -381,10 +391,41 @@ p {
     font-size:12px;
   }
 
+  .doc.chs .title {
+    margin-left:0;
+  }
+
+  .doc.chs .authors {
+    margin-left:0;
+  }
+
+  .doc.chs .abstract {
+    margin-left:0;
+  }
+
+  .ch.blks {
+    --left_margin:0;
+  }
+
+  .ch_hdr, .ch_lbl, .ch_lbl_hdr {
+    margin-left:0;
+  }
 
   .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
     break-after:avoid;
   }
+
+  .ch_main, .sec_main, .par_main {
+    break-before:avoid;
+  }
+
+  .blk_dsp {
+    break-inside:avoid;
+  }
+
+  .ch {
+    break-before:page;
+}
 
   /* For one-sided printing:*/
   @page {

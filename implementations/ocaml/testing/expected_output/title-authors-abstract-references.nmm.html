@@ -18,6 +18,7 @@ html {
 
 .doc {
   display:block;
+  padding-top:3rem;
 }
 
 
@@ -29,7 +30,7 @@ html {
 }
 
 
-.chs .title {
+.doc.chs .title {
   font-size:xx-large;
 }
 
@@ -96,6 +97,7 @@ html {
 
 .doc_main {
   display:block;
+  margin-top:5rem;
 }
 
 
@@ -104,8 +106,8 @@ html {
 }
 
 
-.ch + .ch {
-  margin-top:3em;
+.ch {
+  padding-bottom:5rem;
 }
 
 
@@ -123,6 +125,9 @@ html {
   font-size:x-large;
 }
 
+.ch_hdr, .ch_lbl_hdr {
+  margin-bottom:3rem;
+}
 
 .sec {
   display:block;
@@ -201,6 +206,10 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
   margin-left:var(--left_margin);
 }
 
+
+.ch_main > .blk_txt {
+  margin-left:var(--left_margin);
+}
 
 .ch_main > .blk_txt {
   margin-left:var(--left_margin);
@@ -368,10 +377,41 @@ p {
     font-size:12px;
   }
 
+  .doc.chs .title {
+    margin-left:0;
+  }
+
+  .doc.chs .authors {
+    margin-left:0;
+  }
+
+  .doc.chs .abstract {
+    margin-left:0;
+  }
+
+  .ch.blks {
+    --left_margin:0;
+  }
+
+  .ch_hdr, .ch_lbl, .ch_lbl_hdr {
+    margin-left:0;
+  }
 
   .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
     break-after:avoid;
   }
+
+  .ch_main, .sec_main, .par_main {
+    break-before:avoid;
+  }
+
+  .blk_dsp {
+    break-inside:avoid;
+  }
+
+  .ch {
+    break-before:page;
+}
 
   /* For one-sided printing:*/
   @page {
@@ -426,7 +466,7 @@ p {
 <p class="blk_txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1)</a></p>
 </div>
 <div class="doc_main">
-<div class="ch">
+<div class="ch blks">
 <div class="ch_lbl">CHAPTER 1</div>
 <h2 class="ch_hdr">First chapter</h2>
 <div class="ch_main">
@@ -444,7 +484,7 @@ p {
 <p class="blk_txt">Reference to <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of REFERENCES</a>.</p>
 </div>
 </div>
-<div class="ch" id="CH:2">
+<div class="ch pars" id="CH:2">
 <div class="ch_lbl">CHAPTER 2</div>
 <h2 class="ch_hdr">Second chapter</h2>
 <div class="ch_main">

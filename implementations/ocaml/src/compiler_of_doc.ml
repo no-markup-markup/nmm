@@ -255,6 +255,7 @@ and acc_of_ts_blks (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 
 
 and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) : t_acc =
+	let ch_class : string = Common_utils.class_of_tr_ch a in
 	match acc with
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
@@ -288,7 +289,7 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 		in
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
-		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id a.fld_ch_tag_or_id in
+		let attr_list : (string*string) list = ("class",ch_class)::(Exml_utils.attr_list_of_tu_tag_or_id a.fld_ch_tag_or_id) in
 		match a.fld_ch_hdr with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_hdr;xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])

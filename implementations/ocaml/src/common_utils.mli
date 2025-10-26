@@ -19,6 +19,7 @@ match doc.fld_doc_main with
 ]}
 *)
 
+val class_of_tr_ch: Doc_types.tr_ch -> string
 
 (** <h2>Document settings</h2> *)
 

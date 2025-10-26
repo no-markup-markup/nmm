@@ -60,7 +60,7 @@ let doc_settings : t_doc_settings = {
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 	let _ : unit = (
-		match contains_sec_or_par doc with
+		match doc_contains_sec_or_par doc with
 			|false -> 
 				let _ : unit = doc_settings.title_indent <- 0 in 
 				let _ : unit = doc_settings.author_indent <- 0 in
@@ -82,7 +82,13 @@ and class_of_tr_doc (doc : Doc_types.tr_doc) : string =
 	|Cu_doc_main_pars _ -> "doc pars"
 	|Cu_doc_main_blks _ -> "doc blks"
 
-and contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
+and class_of_tr_ch (ch : Doc_types.tr_ch) : string =
+	match ch.fld_ch_main with
+	| Cu_secs_pars_or_blks_blks _ -> "ch blks"
+	| Cu_secs_pars_or_blks_secs _ -> "ch secs"
+	| Cu_secs_pars_or_blks_pars _ -> "ch pars"
+
+and doc_contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
 	match doc.fld_doc_main with
 	| Cu_doc_main_blks _ -> false
 	| Cu_doc_main_chs (chs : Doc_types.ts_chs) -> (
@@ -90,16 +96,22 @@ and contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
 			match ch_list with
 			|[] -> false
 			|hd::tl -> 
-				match hd.fld_ch_main with
-				| Cu_secs_pars_or_blks_secs _ -> true
-				| Cu_secs_pars_or_blks_pars _ -> true
-				| Cu_secs_pars_or_blks_blks _ -> aux tl
+				match ch_contains_sec_or_par hd with
+				| true -> true
+				| false -> aux tl
 		in
 		match chs with
 		|Cs_chs ch_list -> aux ch_list
 	)
 	| Cu_doc_main_secs _ -> true
 	| Cu_doc_main_pars _ -> true
+
+and ch_contains_sec_or_par (ch : Doc_types.tr_ch) : bool =
+	match ch.fld_ch_main with
+	| Cu_secs_pars_or_blks_blks _ -> false
+	| Cu_secs_pars_or_blks_secs _ -> true
+	| Cu_secs_pars_or_blks_pars _ -> true
+
 
 and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 	let rec aux (str_list : string list) : unit =
