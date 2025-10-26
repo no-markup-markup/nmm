@@ -27,7 +27,7 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 		let print_tokens = false in
 		Doc_of_nmm.doc_of_nmm_file print_tokens path
 	with 
-	Doc_of_nmm.Error e -> raise (Error (String.concat "" [path;"->";"Doc_of_nmm.Error:";e]))
+	Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
 let txt_of_doc (doc : Doc_types.tr_doc) : string =
 	Compiler_of_doc.txt_of_tr_doc doc
@@ -161,11 +161,11 @@ let default_css : string =
 let argv=Sys.argv
 
 let _ : unit =
-	match Array.length argv with
+try	match Array.length argv with
 	|2 -> (
 		match argv.(1) with
 		|"show-default-css" -> print_endline default_css
-		|_-> print_endline usage
+		|_ -> raise (Error "invalid argument(s)")
 	)
 	|3 -> (
 		match argv.(1),argv.(2) with
@@ -175,12 +175,12 @@ let _ : unit =
 		|"check-xml-schema", path -> print_endline (check_xml_schema path)
 		|"test-with-nmm", path -> test_w_nmm path
 		|"test-with-xml", path -> test_w_xml path
-		|_-> print_endline usage
+		|_ -> raise (Error "invalid argument(s)")
 	)
 	|4 -> (
 		match argv.(1),argv.(2),argv.(3) with
 		|"validate-xml", path_to_dtd, path_to_xml -> print_endline (validate_xml path_to_dtd path_to_xml)
-		|_-> print_endline usage
+		|_ -> raise (Error "invalid argument(s)")
 	)
 	|5 -> (
 		match argv.(1),argv.(2),argv.(3),argv.(4) with
@@ -192,8 +192,7 @@ let _ : unit =
 		|"html-of-xml", "none", lang, path -> print_endline (html_of_axml None (Some lang) path)
 		|"html-of-xml", uri, "none", path -> print_endline (html_of_axml (Some uri) None path)
 		|"html-of-xml", uri, lang, path -> print_endline (html_of_axml (Some uri) (Some lang) path)
-		|_-> print_endline usage
+		|_ -> raise (Error "invalid argument(s)")
 	)
-	|_ -> print_endline usage
-
-
+	|_ -> raise (Error "invalid argument(s)")
+with Error e -> Debug_utils.print_to_stderr (e ^ "\n" ^ usage)
