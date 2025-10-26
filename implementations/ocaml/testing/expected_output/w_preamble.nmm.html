@@ -264,33 +264,33 @@ p {
 </style>
 </head>
 <body>
-<div class="doc secs" style="display:block">
+<div style="display:block" class="doc secs">
 <h1 class="title">OPTIMAL PARTITIONING</h1>
 <div class="authors" style="display:block">
 <p class="author">Eric Johannesson</p>
 </div>
-<div class="doc_main">
+<div class="doc_main" style="display:block">
 <div class="sec" style="display:block">
 <div class="sec_lbl" style="display:block;float:left">1</div>
 <h3 class="sec_hdr">Introduction</h3>
 <div class="sec_main" style="display:block">
 <div class="par" style="display:block">
-<div class="par_lbl" style="display:block;float:left">1.1</div>
-<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">1.1 Parapgraph header</h4>
+<div style="display:block;float:left">1.1</div>
+<h4 style="visibility:hidden;height:0;width:0;float:left">1.1 Parapgraph header</h4>
 <div class="par_main" style="display:block">
 <p class="blk_txt">Parapgraph header  Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated. Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system. </p>
 </div>
 </div>
 <div class="par" style="display:block">
-<div class="par_lbl" style="display:block;float:left">1.2</div>
-<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">1.2</h4>
+<div style="display:block;float:left">1.2</div>
+<h4 style="visibility:hidden;height:0;width:0;float:left">1.2</h4>
 <div class="par_main" style="display:block">
 <p class="blk_txt">Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ. </p>
 </div>
 </div>
 <div class="par" style="display:block">
-<div class="par_lbl" style="display:block;float:left">1.3</div>
-<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">1.3</h4>
+<div style="display:block;float:left">1.3</div>
+<h4 style="visibility:hidden;height:0;width:0;float:left">1.3</h4>
 <div class="par_main" style="display:block">
 <p class="blk_txt">Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between. </p>
 </div>
