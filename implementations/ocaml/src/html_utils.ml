@@ -32,13 +32,11 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .doc {
   display:block;
-  padding-top:3rem;
 }
 
 
 .title {
   display:block;
-  margin-left:var(--left_margin);
   font-weight:normal;
   font-size:large;
 }
@@ -56,7 +54,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .authors {
   display:block;
-  margin-left:var(--left_margin);
   margin-bottom:3em;
 }
 
@@ -79,7 +76,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .abstract_hdr {
   display:block;
-  margin-left:var(--left_margin);
   font-weight:normal;
   font-size:large;
 }
@@ -87,15 +83,18 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .refs {
   display:block;
-  margin-top:3em;
+  padding-top:2rem;
 }
 
+.doc.chs .refs {
+  border-top:thin solid gray;
+}
 
 .refs_hdr {
   display:block;
-  margin-left:var(--left_margin);
   font-weight:normal;
   font-size:large;
+  margin-bottom:3rem;
 }
 
 
@@ -111,23 +110,20 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .doc_main {
   display:block;
-  margin-top:5rem;
 }
+
 
 
 .ch {
   display:block;
-}
-
-
-.ch {
-  padding-bottom:5rem;
+  padding-top:3rem;
+  padding-bottom:3rem;
+  border-top:thin solid gray;
 }
 
 
 .ch_lbl, .ch_lbl_hdr {
   display:block;
-  margin-left:var(--left_margin);
   font-weight:normal;
   font-size:x-large;
 }
@@ -135,7 +131,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .ch_hdr {
   display:block;
-  margin-left:var(--left_margin);
   font-size:x-large;
 }
 
@@ -212,24 +207,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.abstract > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-.refs > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-
-.ch_main > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-.ch_main > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-
 .sec_main > .blk_txt {
   margin-left:var(--left_margin);
 }
@@ -242,21 +219,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 
 .blk_blt {
   display:block;
-}
-
-
-.abstract > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
-
-.ch_main > .blk_blt {
-  margin-left:var(--left_margin);
 }
 
 
@@ -287,20 +249,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
   display:block;
 }
 
-.abstract > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
-
-.ch_main > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
 
 .sec_main > .blk_itm {
   margin-left:var(--left_margin);
@@ -328,21 +276,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 .blk_dsp {
   display:block;
   white-space:nowrap;
-}
-
-
-.abstract > .blk_dsp {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_dsp {
-  margin-left:var(--left_margin);
-}
-
-
-.ch_main > .blk_dsp {
-  margin-left:var(--left_margin);
 }
 
 
@@ -411,7 +344,7 @@ p {
     margin-left:0;
   }
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl {
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .itm_lbl, .dsp_lbl, .blt_lbl {
     break-after:avoid;
   }
 
@@ -425,7 +358,14 @@ p {
 
   .ch {
     break-before:page;
+    border:none;
 }
+
+  .doc.chs .refs {
+    break-before:page;
+    border:none;
+}
+
 
   /* For one-sided printing:*/
   @page {

@@ -21,6 +21,14 @@ and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	match author with
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
 
+and xml_of_abstract_hdr (hdr : string) : Xml.xml =
+	let content : Xml.xml list = [PCData (pcdata_of_string hdr)] in
+	Xml.Element ("abstract_hdr",[],content)
+
+and xml_of_refs_hdr (hdr : string): Xml.xml =
+	let content : Xml.xml list = [PCData (pcdata_of_string hdr)] in
+	Xml.Element ("refs_hdr",[],content)
+
 and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
 	match blk_txt with
 	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units path txt_units)
@@ -104,11 +112,4 @@ and predefined_entity_of_string (s : string) : string =
 	| "\"" -> "&quot;"
 	| _ -> s
 
-let xml_of_abstract_hdr : Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [ABSTRACT_NODE]))] in
-	Xml.Element ("abstract_hdr",[],content)
-
-let xml_of_refs_hdr : Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string (Common_utils.label_of_path [REFS_NODE]))] in
-	Xml.Element ("refs_hdr",[],content)
 

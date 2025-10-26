@@ -20,6 +20,18 @@ match doc.fld_doc_main with
 *)
 
 val class_of_tr_ch: Doc_types.tr_ch -> string
+(**
+{[class_of_tr_ch ch]}
+
+evaluates to
+{[
+match ch.fld_ch_main with
+| Cu_secs_pars_or_blks_blks _ -> "ch blks"
+| Cu_secs_pars_or_blks_secs _ -> "ch secs"
+| Cu_secs_pars_or_blks_pars _ -> "ch pars"
+]}
+*)
+
 
 (** <h2>Document settings</h2> *)
 
@@ -31,8 +43,8 @@ type t_doc_settings = {
   mutable abstract_indent : int;
   mutable refs_indent : int;
   mutable tab_length : int;
-  mutable abstract_prefix : string option;
-  mutable refs_prefix : string option;
+  mutable abstract_hdr : string;
+  mutable refs_hdr : string;
   mutable ch_prefix : string option;
   mutable sec_prefix : string option;
   mutable par_prefix : string option;
@@ -89,8 +101,8 @@ val doc_settings : t_doc_settings
     abstract_indent     = 12;
     refs_indent         = 12;
     tab_length          = 6;
-    abstract_prefix     = Some "ABSTRACT";
-    refs_prefix         = Some "REFERENCES";
+    abstract_hdr        = "ABSTRACT";
+    refs_hdr            = "REFERENCES";
     ch_prefix           = Some "CHAPTER";
     sec_prefix          = Some "§";
     par_prefix          = Some "¶";

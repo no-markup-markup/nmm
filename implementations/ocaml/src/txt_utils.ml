@@ -21,25 +21,19 @@ and lines_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : string
 	|Some authors -> lines_of_ts_authors authors
 
 
-and lines_of_abstract_hdr (doc_class : string) : string list =
-	match Common_utils.doc_settings.abstract_prefix with
-	| None -> []
-	| Some (prefix : string) -> lines_of_string (Common_utils.doc_settings.abstract_indent) prefix
+and lines_of_abstract_hdr (doc_class : string) (indent : int) (hdr : string) : string list =
+	lines_of_string indent hdr
 
-and lines_of_refs_hdr (doc_class : string) : string list =
+and lines_of_refs_hdr (doc_class : string) (indent : int) (hdr : string) : string list =
 	let underline_symbol : string =
 		match doc_class with
 		|"doc chs" -> "═"
 		| _ -> "─"
 	in
-	match Common_utils.doc_settings.refs_prefix with
-	|None -> []
-	|Some (prefix : string) -> 
-		let indent : string = String.make (Common_utils.doc_settings.refs_indent) ' ' in
-		let hdr_string : string = prefix in
-		let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
-		let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr_string in
-		List.concat [hdr_lines;[indent ^ underline;""]]
+	let indent : string = String.make indent ' ' in
+	let underline = make_string (Int.min (utf_8_length hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
+	let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr in
+	List.concat [hdr_lines;[indent ^ underline;""]]
 
 
 and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =

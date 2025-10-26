@@ -12,8 +12,8 @@ type t_doc_settings = {
 	mutable abstract_indent: int;
 	mutable refs_indent: int;
 	mutable tab_length : int;
-	mutable abstract_prefix: string option;
-	mutable refs_prefix: string option;
+	mutable abstract_hdr: string;
+	mutable refs_hdr: string;
 	mutable ch_prefix: string option;
 	mutable sec_prefix: string option;
 	mutable par_prefix : string option;
@@ -49,8 +49,8 @@ let doc_settings : t_doc_settings = {
 	abstract_indent = 12;
 	refs_indent = 12;
 	tab_length = 6;
-	abstract_prefix = Some "ABSTRACT";
-	refs_prefix = Some "REFERENCES";
+	abstract_hdr = "ABSTRACT";
+	refs_hdr = "REFERENCES";
 	ch_prefix = Some "CHAPTER";
 	sec_prefix = Some "§";
 	par_prefix = Some "¶";
@@ -127,8 +127,8 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("ch_prefix", v) -> set_ch_prefix v
 				|Some ("sec_prefix", v) -> set_sec_prefix v
 				|Some ("par_prefix", v) -> set_par_prefix v
-				|Some ("abstract_prefix", v) -> set_abstract_prefix v
-				|Some ("refs_prefix", v) -> set_refs_prefix v
+				|Some ("abstract_hdr", v) -> set_abstract_hdr v
+				|Some ("refs_hdr", v) -> set_refs_hdr v
 				|Some ("singular_tag", v) -> set_expand_tag_singular doc_settings.expand_tag_singular v
 				|Some ("plural_tag", v) -> set_expand_tag_plural doc_settings.expand_tag_plural v
 				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"])
@@ -177,13 +177,11 @@ and set_par_prefix (v : string) : unit =
 	try doc_settings.par_prefix <- (prefix_value_of_string v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_prefix value: ";v;"; ";"using default value"])
 
-and set_abstract_prefix (v : string) : unit =
-	try doc_settings.abstract_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_prefix value: ";v;"; ";"using default value"])
+and set_abstract_hdr (v : string) : unit =
+	doc_settings.abstract_hdr <- v 
 
-and set_refs_prefix (v : string) : unit =
-	try doc_settings.refs_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_prefix value: ";v;"; ";"using default value"])
+and set_refs_hdr (v : string) : unit =
+	doc_settings.refs_hdr <- v 
 
 and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
 	try doc_settings.expand_tag_singular <- (singular_tag_value_of_string expand_tag_old v) with _ ->
@@ -552,8 +550,8 @@ and label_of_path_opt (path : t_path) : string option =
 		| ITM_NODE _ -> s_opt
 		| BLT_NODE -> s_opt
 		| DSP_LINE_NODE _ -> s_opt
-		| ABSTRACT_NODE -> doc_settings.abstract_prefix
-		| REFS_NODE -> doc_settings.refs_prefix
+		| ABSTRACT_NODE -> Some doc_settings.abstract_hdr
+		| REFS_NODE -> Some doc_settings.refs_hdr
 		| _ -> s_opt
 
 and label_of_path (path : t_path) : string=

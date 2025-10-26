@@ -56,6 +56,17 @@
 |Cu_doc_main_blks _ -&gt; "doc blks"
 </code></pre></div>
 </div>
+
+<pre><span id="VALclass_of_tr_ch"><span class="keyword">val</span> class_of_tr_ch</span> : <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a> -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">class_of_tr_ch ch</code></pre>
+<p>evaluates to</p>
+<pre class="codepre"><code class="code">match ch.fld_ch_main with
+| Cu_secs_pars_or_blks_blks _ -&gt; "ch blks"
+| Cu_secs_pars_or_blks_secs _ -&gt; "ch secs"
+| Cu_secs_pars_or_blks_pars _ -&gt; "ch pars"
+</code></pre></div>
+</div>
 <h3 id="2_Documentsettings">Document settings</h3>
 <pre><code><span id="TYPEt_doc_settings"><span class="keyword">type</span> <code class="type"></code>t_doc_settings</span> = {</code></pre><table class="typetable">
 <tr>
@@ -111,14 +122,14 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.abstract_prefix">abstract_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.abstract_hdr">abstract_hdr</span>&nbsp;: <code class="type">string</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.refs_prefix">refs_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.refs_hdr">refs_hdr</span>&nbsp;: <code class="type">string</code>;</code></td>
 
 </tr>
 <tr>
@@ -200,8 +211,8 @@
     abstract_indent     = 12;
     refs_indent         = 12;
     tab_length          = 6;
-    abstract_prefix     = Some "ABSTRACT";
-    refs_prefix         = Some "REFERENCES";
+    abstract_hdr        = "ABSTRACT";
+    refs_hdr            = "REFERENCES";
     ch_prefix           = Some "CHAPTER";
     sec_prefix          = Some "§";
     par_prefix          = Some "¶";
