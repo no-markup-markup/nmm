@@ -195,4 +195,4 @@ try	match Array.length argv with
 		|_ -> raise (Error "invalid argument(s)")
 	)
 	|_ -> raise (Error "invalid argument(s)")
-with Error e -> Debug_utils.print_to_stderr (e ^ "\n" ^ usage)
+with Error "invalid argument(s)" -> Debug_utils.print_to_stderr ("invalid arguments(s)" ^ "\n" ^ usage)

@@ -369,6 +369,11 @@ a {
   text-decoration:none;
 }
 
+p {
+  margin-top:0;
+  margin-bottom:1rem;
+}
+
 
 @media print {
 
