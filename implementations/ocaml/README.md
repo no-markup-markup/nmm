@@ -20,7 +20,7 @@ nmm-ocaml [
  | html-of-nmm { <URI-of-css-file> | none } { <language-code> | none } <path-to-nmm-file>
 
  | check-xml-schema <path-to-dtd-file>
- | validate-xml <path-to-dtd-file> <entry-point> { <path-to-xml-file> | - }
+ | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
 
 ]
 
