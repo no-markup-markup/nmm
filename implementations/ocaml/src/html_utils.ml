@@ -8,7 +8,7 @@ let rec html_of_exml (element:Xml.xml):Xml.xml=
 	|Xml.Element ("ch_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_hdr")], List.map html_of_exml xml_list)
 	|Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl_hdr")], List.map html_of_exml xml_list)
 	|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr")], List.map html_of_exml xml_list)
-	|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl_hdr")], List.map html_of_exml xml_list)
+	|Xml.Element ("sec_lbl_hdr", attr_list, xml_list) -> Xml.Element ("h3", ("class", "sec_lbl_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", ("class", "par_hdr")::attr_list, List.map html_of_exml xml_list)
 	|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk_txt")], List.map html_of_exml xml_list)
 	|Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
@@ -25,6 +25,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   --tab_length:" ^ tab_length ^ ";
   font-family:monospace;
   font-size:medium;
+  line-height:165%;
 }
 
 
@@ -161,23 +162,11 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-/* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
-.sec_lbl_hdr {
-  visibility:hidden;
-  font-size:16px;
-}
-
 
 .sec_main {
   display:block;
 }
 
-
-/* prevents par from jumping up when left_margin is 0 */
-.sec_lbl + .sec_main::before {
-  content:\" \";
-  white-space:pre;
-}
 
 
 .par {

@@ -11,6 +11,7 @@ html {
   --tab_length:6ch;
   font-family:monospace;
   font-size:medium;
+  line-height:165%;
 }
 
 
@@ -147,23 +148,11 @@ html {
 }
 
 
-/* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
-.sec_lbl_hdr {
-  visibility:hidden;
-  font-size:16px;
-}
-
 
 .sec_main {
   display:block;
 }
 
-
-/* prevents par from jumping up when left_margin is 0 */
-.sec_lbl + .sec_main::before {
-  content:" ";
-  white-space:pre;
-}
 
 
 .par {
@@ -439,7 +428,7 @@ a {
 <div class="ch_main">
 <div class="sec">
 <div class="sec_lbl">§ 3.1</div>
-<h3 class="sec_lbl_hdr">§ 3.1</h3>
+<h3 class="sec_lbl_hdr" style="visibility:hidden">§ 3.1</h3>
 <div class="sec_main">
 <p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>

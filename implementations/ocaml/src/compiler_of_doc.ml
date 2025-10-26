@@ -321,7 +321,8 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
 		let xml_hdr:Xml.xml = (
 			match a.fld_sec_hdr with
-			|None -> Xml.Element ("sec_lbl_hdr",[],xml_list_lbl)
+			|None -> 
+				Xml.Element ("sec_lbl_hdr",[("style","visibility:hidden")],xml_list_lbl)
 			|Some (hdr : ts_hdr) -> 
 				match hdr with
 				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units path t)
@@ -359,11 +360,10 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
 		let xml_hdr:Xml.xml = (
 			match new_par.fld_par_hdr with
-			|None -> raise (Error "new par expected to have a hdr")
+			|None -> raise (Error "new par expected to have hdr")
 			|Some (hdr : ts_hdr) -> 
-				let par_hdr_style : (string*string) list = [("style","visibility:hidden")] in
 				match hdr with
-				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",par_hdr_style,Exml_utils.xml_list_of_ts_txt_units path t)
+				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",[("style","visibility:hidden")],Exml_utils.xml_list_of_ts_txt_units path t)
 		)
 		in 
 		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in

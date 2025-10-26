@@ -12,6 +12,7 @@ html {
   --tab_length:6ch;
   font-family:monospace;
   font-size:medium;
+  line-height:165%;
 }
 
 
@@ -148,23 +149,11 @@ html {
 }
 
 
-/* ensures that sec_lbl_hdr shows up in disposition when printing to pdf with weasyprint */
-.sec_lbl_hdr {
-  visibility:hidden;
-  font-size:16px;
-}
-
 
 .sec_main {
   display:block;
 }
 
-
-/* prevents par from jumping up when left_margin is 0 */
-.sec_lbl + .sec_main::before {
-  content:" ";
-  white-space:pre;
-}
 
 
 .par {
