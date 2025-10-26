@@ -15,13 +15,7 @@ html {
 }
 
 
-.doc {
-  display:block;
-}
-
-
 .title {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
@@ -38,36 +32,32 @@ html {
 
 
 .authors {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .doc.chs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .doc.secs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .abstract {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .abstract_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
 
 
 .refs {
-  display:block;
   padding-top:2rem;
 }
 
@@ -75,8 +65,8 @@ html {
   border-top:thin solid gray;
 }
 
+
 .refs_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
   margin-bottom:3rem;
@@ -84,23 +74,11 @@ html {
 
 
 .doc.chs .refs_hdr {
- font-size:x-large;
+  font-size:x-large;
 }
-
-
-.doc.secs .refs_hdr {
- font-size:large;
-}
-
-
-.doc_main {
-  display:block;
-}
-
 
 
 .ch {
-  display:block;
   padding-top:3rem;
   padding-bottom:3rem;
   border-top:thin solid gray;
@@ -108,23 +86,18 @@ html {
 
 
 .ch_lbl, .ch_lbl_hdr {
-  display:block;
   font-weight:normal;
   font-size:x-large;
 }
 
 
 .ch_hdr {
-  display:block;
   font-size:x-large;
 }
 
+
 .ch_hdr, .ch_lbl_hdr {
   margin-bottom:3rem;
-}
-
-.sec {
-  display:block;
 }
 
 
@@ -134,59 +107,22 @@ html {
 
 
 .sec_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
   font-size:large;
 }
 
 
 .sec_hdr {
-  display:block;
   margin-left:var(--left_margin);
   font-size:large;
 }
 
-
-
-.sec_main {
-  display:block;
-}
-
-
-
-.par {
-  display:block;
-}
 
 .par + .par {
   margin-top:2em;
 }
 
 
-.par_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
-/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
-by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
-.par_hdr {
-  height:0;
-  width:0;
-  float:left;
-}
-
-
-.par_main {
-  display:block;
-}
-
-
 .blk_txt {
-  display:block;
   hyphens:auto;
   white-space:pre-wrap;
 }
@@ -202,11 +138,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt {
-  display:block;
-}
-
-
 .sec_main > .blk_blt {
   margin-left:var(--left_margin);
 }
@@ -217,21 +148,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_blt_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_itm {
-  display:block;
 }
 
 
@@ -245,22 +163,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_itm_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_itm_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_dsp {
-  display:block;
-  white-space:nowrap;
 }
 
 
@@ -274,21 +178,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.dsp_line {
-  display:block;
-}
-
-
-.dsp_line_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .dsp_line_main {
-  display:block;
-  white-space:pre;
   margin-left:var(--tab_length);
 }
 
@@ -296,6 +186,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 a {
   text-decoration:none;
 }
+
 
 p {
   margin-top:0;
@@ -373,157 +264,157 @@ p {
 </style>
 </head>
 <body>
-<div class="doc secs">
+<div class="doc secs" style="display:block">
 <h1 class="title">OPTIMAL PARTITIONING</h1>
-<div class="authors">
+<div class="authors" style="display:block">
 <p class="author">Eric Johannesson</p>
 </div>
 <div class="doc_main">
-<div class="sec">
-<div class="sec_lbl">§ 1</div>
+<div class="sec" style="display:block">
+<div class="sec_lbl" style="display:block;float:left">§ 1</div>
 <h3 class="sec_hdr">Introduction</h3>
-<div class="sec_main">
+<div class="sec_main" style="display:block">
 <p class="blk_txt">Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated. Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system. </p>
 <p class="blk_txt">Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ. </p>
 <p class="blk_txt">Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between. </p>
 </div>
 </div>
-<div class="sec">
-<div class="sec_lbl">§ 2</div>
+<div class="sec" style="display:block">
+<div class="sec_lbl" style="display:block;float:left">§ 2</div>
 <h3 class="sec_hdr">A probabilistic approach</h3>
-<div class="sec_main">
+<div class="sec_main" style="display:block">
 <p class="blk_txt">Assume, for the sake of simplicity, that </p>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">you have n files partitioned equally over k subdirectories (with n/k files in each), </p>
 </div>
 </div>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">each file is just as likely to have been modified as any other (with probability p),</p>
 </div>
 </div>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">modifications are probabilistically independent of each other,</p>
 </div>
 </div>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">the number of files are fixed, and the modification time of a directory only gets updated when its files are modified. </p>
 </div>
 </div>
 <p class="blk_txt">For each subdirectory, the probability of its modification time not having been updated is thus given by </p>
-<div class="blk_dsp">
-<div class="dsp_line">
-<div class="dsp_line_lbl">(1)</div>
-<div class="dsp_line_main">q = (1 - p)^(n/k)</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">q = (1 - p)^(n/k)</div>
 </div>
 </div>
 <p class="blk_txt">The expected number of comparisons that need to be performed is then given by the following sum:</p>
-<div class="blk_dsp">
-<div class="dsp_line" id="DSP:exp_sum">
-<div class="dsp_line_lbl">(2)</div>
-<div class="dsp_line_main">k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP:exp_sum">
+<div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          + </div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          + </div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">    q^(k - 1) × (1 - q)^1 × k!/1!/(k - 1)! × 1 × n/k</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    q^(k - 1) × (1 - q)^1 × k!/1!/(k - 1)! × 1 × n/k</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          +</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          +</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          +</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          +</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">    q^(k - i) × (1 - q)^i × k!/i!/(k - i)! × i × n/k</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    q^(k - i) × (1 - q)^i × k!/i!/(k - i)! × i × n/k</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          +</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          +</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">                          +</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">                          +</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">    q^(k - k) × (1 - q)^k × k!/k!/(k - k)! × n × n/k</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    q^(k - k) × (1 - q)^k × k!/k!/(k - k)! × n × n/k</div>
 </div>
 </div>
 <p class="blk_txt">For a given p and n, we want to find a k that minimizes <a class="txt_unit_c_ref" href="#DSP:exp_sum">(2)</a>. Provided that n is sufficiently small, we can always do so using numerical brute force methods. There may also be a way of approximating <a class="txt_unit_c_ref" href="#DSP:exp_sum">(2)</a> that makes it amenable to analytical methods, but let us consider an alternative approach instead.</p>
 </div>
 </div>
-<div class="sec">
-<div class="sec_lbl">§ 3</div>
+<div class="sec" style="display:block">
+<div class="sec_lbl" style="display:block;float:left">§ 3</div>
 <h3 class="sec_hdr">A non-probabilistic approach</h3>
-<div class="sec_main">
+<div class="sec_main" style="display:block">
 <p class="blk_txt">Assume, as before, that </p>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">you have n files partitioned equally over k subdirectories (with n/k files in each), and that</p>
 </div>
 </div>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">the number of files are fixed, and the modification time of a directory only gets updated when its files are modified. </p>
 </div>
 </div>
 <p class="blk_txt">Assume, moreover, that</p>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">exactly one file has been modified.</p>
 </div>
 </div>
 <p class="blk_txt">In the worst case scenario, the number of comparisons that need to be performed is then given by</p>
-<div class="blk_dsp">
-<div class="dsp_line" id="DSP:simple_sum">
-<div class="dsp_line_lbl">(1)</div>
-<div class="dsp_line_main">k + n/k</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP:simple_sum">
+<div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">k + n/k</div>
 </div>
 </div>
 <p class="blk_txt">The derivative of <a class="txt_unit_c_ref" href="#DSP:simple_sum">(1)</a> with respect to k is given by</p>
-<div class="blk_dsp">
-<div class="dsp_line" id="DSP:derivative">
-<div class="dsp_line_lbl">(2)</div>
-<div class="dsp_line_main">1 - n/k²</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP:derivative">
+<div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">1 - n/k²</div>
 </div>
 </div>
 <p class="blk_txt">For a given n, to minimize <a class="txt_unit_c_ref" href="#DSP:simple_sum">(1)</a> with respect to k is simply a matter of finding the root of <a class="txt_unit_c_ref" href="#DSP:derivative">(2)</a> with respect to k, i.e. to solve the following equation for k:</p>
-<div class="blk_dsp">
-<div class="dsp_line">
-<div class="dsp_line_main">1 - n/k² = 0</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">1 - n/k² = 0</div>
 </div>
 </div>
 <p class="blk_txt">The solution is given by</p>
-<div class="blk_dsp">
-<div class="dsp_line">
-<div class="dsp_line_main">k = √n</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">k = √n</div>
 </div>
 </div>
 </div>

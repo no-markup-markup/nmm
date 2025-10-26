@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>untitled</title>
 
 <style>
 html {
@@ -15,13 +15,7 @@ html {
 }
 
 
-.doc {
-  display:block;
-}
-
-
 .title {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
@@ -38,36 +32,32 @@ html {
 
 
 .authors {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .doc.chs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .doc.secs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .abstract {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .abstract_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
 
 
 .refs {
-  display:block;
   padding-top:2rem;
 }
 
@@ -75,8 +65,8 @@ html {
   border-top:thin solid gray;
 }
 
+
 .refs_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
   margin-bottom:3rem;
@@ -84,23 +74,11 @@ html {
 
 
 .doc.chs .refs_hdr {
- font-size:x-large;
+  font-size:x-large;
 }
-
-
-.doc.secs .refs_hdr {
- font-size:large;
-}
-
-
-.doc_main {
-  display:block;
-}
-
 
 
 .ch {
-  display:block;
   padding-top:3rem;
   padding-bottom:3rem;
   border-top:thin solid gray;
@@ -108,23 +86,18 @@ html {
 
 
 .ch_lbl, .ch_lbl_hdr {
-  display:block;
   font-weight:normal;
   font-size:x-large;
 }
 
 
 .ch_hdr {
-  display:block;
   font-size:x-large;
 }
 
+
 .ch_hdr, .ch_lbl_hdr {
   margin-bottom:3rem;
-}
-
-.sec {
-  display:block;
 }
 
 
@@ -134,59 +107,22 @@ html {
 
 
 .sec_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
   font-size:large;
 }
 
 
 .sec_hdr {
-  display:block;
   margin-left:var(--left_margin);
   font-size:large;
 }
 
-
-
-.sec_main {
-  display:block;
-}
-
-
-
-.par {
-  display:block;
-}
 
 .par + .par {
   margin-top:2em;
 }
 
 
-.par_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
-/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
-by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
-.par_hdr {
-  height:0;
-  width:0;
-  float:left;
-}
-
-
-.par_main {
-  display:block;
-}
-
-
 .blk_txt {
-  display:block;
   hyphens:auto;
   white-space:pre-wrap;
 }
@@ -202,11 +138,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt {
-  display:block;
-}
-
-
 .sec_main > .blk_blt {
   margin-left:var(--left_margin);
 }
@@ -217,21 +148,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_blt_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_itm {
-  display:block;
 }
 
 
@@ -245,22 +163,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_itm_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_itm_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_dsp {
-  display:block;
-  white-space:nowrap;
 }
 
 
@@ -274,21 +178,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.dsp_line {
-  display:block;
-}
-
-
-.dsp_line_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .dsp_line_main {
-  display:block;
-  white-space:pre;
   margin-left:var(--tab_length);
 }
 
@@ -296,6 +186,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 a {
   text-decoration:none;
 }
+
 
 p {
   margin-top:0;
@@ -373,55 +264,55 @@ p {
 </style>
 </head>
 <body>
-<div class="doc pars">
+<div class="doc pars" style="display:block">
 <div class="doc_main">
-<div class="par" id="THM:main">
-<div class="par_lbl">¶ 1</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 1 Theorem (Main)</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="THM:main">
+<div class="par_lbl" style="display:block;float:left">¶ 1</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 1 Theorem (Main)</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">Theorem (Main)  Nothing lasts forever.</p>
 </div>
 </div>
-<div class="par" id="PRF:proof">
-<div class="par_lbl">¶ 2</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 2 Proof (of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a>)</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="PRF:proof">
+<div class="par_lbl" style="display:block;float:left">¶ 2</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2 Proof (of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a>)</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">Proof (of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a>)  By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>
-<div class="par" id="THMS:aux">
-<div class="par_lbl">¶ 3</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 3 Theorems</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="THMS:aux">
+<div class="par_lbl" style="display:block;float:left">¶ 3</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 3 Theorems</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">Theorems</p>
-<div class="blk_itm" id="ITM:aux1">
-<div class="blk_itm_lbl">(1)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:aux1">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">This theorem states that ...</p>
 </div>
 </div>
-<div class="blk_itm" id="ITM:aux2">
-<div class="blk_itm_lbl">(2)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:aux2">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">This theoren states that ...</p>
 </div>
 </div>
 </div>
 </div>
-<div class="par" id="PRFS:aux">
-<div class="par_lbl">¶ 4</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 4 Proofs (of <a class="txt_unit_c_ref" href="#THMS:aux">Theorems 3</a>)</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="PRFS:aux">
+<div class="par_lbl" style="display:block;float:left">¶ 4</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 4 Proofs (of <a class="txt_unit_c_ref" href="#THMS:aux">Theorems 3</a>)</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">Proofs (of <a class="txt_unit_c_ref" href="#THMS:aux">Theorems 3</a>)</p>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(1)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">To prove <a class="txt_unit_c_ref" href="#ITM:aux1">Theorem (1) of ¶ 3</a>, ...</p>
 </div>
 </div>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(2)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">To prove <a class="txt_unit_c_ref" href="#ITM:aux2">Theorem (2) of ¶ 3</a>, ...</p>
 </div>
 </div>

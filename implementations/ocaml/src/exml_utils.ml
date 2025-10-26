@@ -10,7 +10,7 @@ and xml_list_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : Xml
 	match authors_opt with
 	|None -> []
 	|Some (Cs_authors (author_list : ts_author list)) -> 
-		[Xml.Element ("authors",[],List.map xml_of_ts_author author_list)]
+		[Xml.Element ("authors",[("style","display:block")],List.map xml_of_ts_author author_list)]
 
 and xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
 	match title with Cs_title (s : string) -> 

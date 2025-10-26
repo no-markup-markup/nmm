@@ -113,7 +113,7 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 		)
 		in
 		let xml_list_doc = List.concat [xml_list_title;xml_list_authors;xml_list_abstract;[xml_main];xml_list_refs] in
-		EXML [Xml.Element ("doc",[("class",doc_class)],xml_list_doc)]
+		EXML [Xml.Element ("doc",[("class",doc_class);("style","display:block")],xml_list_doc)]
 	
 and acc_of_ts_abstract (doc_class : string) (path : Common_utils.t_path) (acc : t_acc) (a : ts_abstract) : t_acc =
 	match a with
@@ -134,7 +134,7 @@ and acc_of_ts_abstract (doc_class : string) (path : Common_utils.t_path) (acc : 
 		|EXML _ -> (
 			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("abstract",[],hdr::xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("abstract",[("style","display:block")],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks path acc b
@@ -158,7 +158,7 @@ and acc_of_ts_refs (doc_class : string)  (path : Common_utils.t_path) (acc : t_a
 		|EXML _ -> (
 			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("refs",[("style","display:block")],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks path acc b
@@ -281,18 +281,18 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
 		let xml_hdr : Xml.xml = (
 			match a.fld_ch_hdr with
-			|None -> Xml.Element ("ch_lbl_hdr", [], xml_list_lbl)
+			|None -> Xml.Element ("ch_lbl_hdr", [("style","display:block")], xml_list_lbl)
 			|Some (hdr : Doc_types.ts_hdr) ->
 				match hdr with
-				|Cs_hdr (t : Doc_types.ts_txt_units) -> Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units path t)
+				|Cs_hdr (t : Doc_types.ts_txt_units) -> Xml.Element ("ch_hdr", [("style","display:block")], Exml_utils.xml_list_of_ts_txt_units path t)
 		)
 		in
-		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
+		let xml_main:Xml.xml = Xml.Element ("ch_main",[("style","display:block")],xml_list_main) in
+		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[("style","display:block")],xml_list_lbl) in
 		let attr_list : (string*string) list = ("class",ch_class)::(Exml_utils.attr_list_of_tu_tag_or_id a.fld_ch_tag_or_id) in
 		match a.fld_ch_hdr with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_hdr;xml_main])]])
-		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])
+		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", ("style","display:block")::attr_list, [xml_hdr;xml_main])]])
+		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", ("style","display:block")::attr_list, [xml_lbl;xml_hdr;xml_main])]])
 
 
 and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec) : t_acc =
@@ -323,16 +323,19 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 		let xml_hdr:Xml.xml = (
 			match a.fld_sec_hdr with
 			|None -> 
-				Xml.Element ("sec_lbl_hdr",[("style","visibility:hidden")],xml_list_lbl)
+				let attr_list : (string * string) list =
+					[("style","display:block;visibility:hidden")]
+				in
+				Xml.Element ("sec_lbl_hdr",attr_list,xml_list_lbl)
 			|Some (hdr : ts_hdr) -> 
 				match hdr with
-				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units path t)
+				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("sec_hdr",[("style","display:block")],xml_list_of_ts_txt_units path t)
 		)
 		in
-		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
+		let xml_main:Xml.xml = Xml.Element ("sec_main",[("style","display:block")],xml_list_main) in
+		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[("style","display:block;float:left")],xml_list_lbl) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id a.fld_sec_tag_or_id in
-		EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("sec", ("style","display:block")::attr_list, [xml_lbl;xml_hdr; xml_main])]])
 
 and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_par) : t_acc =
 	match acc with
@@ -363,14 +366,18 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_p
 			match new_par.fld_par_hdr with
 			|None -> raise (Error "new par expected to have hdr")
 			|Some (hdr : ts_hdr) -> 
+				let attr_list : (string * string) list =
+					[("style","visibility:hidden;height:0;width:0;float:left")]
+				in
 				match hdr with
-				|Cs_hdr (t:ts_txt_units) -> Xml.Element ("par_hdr",[("style","visibility:hidden")],Exml_utils.xml_list_of_ts_txt_units path t)
+				|Cs_hdr (t:ts_txt_units) ->
+					Xml.Element ("par_hdr",attr_list,Exml_utils.xml_list_of_ts_txt_units path t)
 		)
 		in 
-		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("par_lbl",[],xml_list_lbl) in
+		let xml_main:Xml.xml = Xml.Element ("par_main",[("style","display:block")],xml_list_main) in
+		let xml_lbl:Xml.xml = Xml.Element ("par_lbl",[("style","display:block;float:left")],xml_list_lbl) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id a.fld_par_tag_or_id in
-		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list, [xml_lbl; xml_hdr; xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("par", ("style","display:block")::attr_list, [xml_lbl; xml_hdr; xml_main])]])
 	)
 
 and acc_of_ch_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_secs_pars_or_blks) : t_acc =
@@ -440,9 +447,9 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		in 
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
-		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[],xml_list_lbl) in
-		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[],[xml_lbl;xml_main])]])
+		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[("style","display:block")],xml_list_main) in
+		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[("style","display:block;float:left")],xml_list_lbl) in
+		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[("style","display:block")],[xml_lbl;xml_main])]])
 
 
 and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_blk_itm) : t_acc =
@@ -474,10 +481,10 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		in 
 		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))]
 		in
-		let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
-		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
+		let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[("style","display:block")],xml_list_main) in
+		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[("style","display:block;float:left")],xml_list_lbl) in
 		let attr_list = Exml_utils.attr_list_of_tr_id a.fld_blk_itm_id in
-		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", ("style","display:block")::attr_list, [xml_lbl;xml_main])]])
 
 
 and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_dsp) : t_acc * int =
@@ -508,7 +515,7 @@ and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc)
 	| EXML acc_list -> (
 		match aux auto_nr (EXML []) c with 
 		|(EXML xml_list,nr) -> 
-			(EXML (List.concat [acc_list;[Xml.Element ("blk_dsp",[],xml_list)]]),nr)
+			(EXML (List.concat [acc_list;[Xml.Element ("blk_dsp",[("style","display:block;white-space:nowrap")],xml_list)]]),nr)
 		| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 	)
@@ -533,11 +540,11 @@ and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc
 			|None -> []
 			|Some (s:string) -> [Xml.PCData (Exml_utils.pcdata_of_string s)]
 		in
-		let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
+		let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[("style","display:block;white-space:pre")],xml_list_main) in
+		let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[("style","display:block;float:left")],xml_list_lbl) in
 		let attr_list: (string*string) list = attr_list_of_tr_id a.fld_dsp_line_id in
 		match a.fld_dsp_line_lbl with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_main])]])
-		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line",attr_list, [xml_lbl; xml_main])]])
+		|None -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", ("style","display:block")::attr_list, [xml_main])]])
+		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", ("style","display:block")::attr_list, [xml_lbl; xml_main])]])
 	)
 

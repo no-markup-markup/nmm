@@ -7,13 +7,7 @@ html {
 }
 
 
-.doc {
-  display:block;
-}
-
-
 .title {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
@@ -30,36 +24,32 @@ html {
 
 
 .authors {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .doc.chs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .doc.secs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .abstract {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .abstract_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
 
 
 .refs {
-  display:block;
   padding-top:2rem;
 }
 
@@ -67,8 +57,8 @@ html {
   border-top:thin solid gray;
 }
 
+
 .refs_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
   margin-bottom:3rem;
@@ -76,23 +66,11 @@ html {
 
 
 .doc.chs .refs_hdr {
- font-size:x-large;
+  font-size:x-large;
 }
-
-
-.doc.secs .refs_hdr {
- font-size:large;
-}
-
-
-.doc_main {
-  display:block;
-}
-
 
 
 .ch {
-  display:block;
   padding-top:3rem;
   padding-bottom:3rem;
   border-top:thin solid gray;
@@ -100,23 +78,18 @@ html {
 
 
 .ch_lbl, .ch_lbl_hdr {
-  display:block;
   font-weight:normal;
   font-size:x-large;
 }
 
 
 .ch_hdr {
-  display:block;
   font-size:x-large;
 }
 
+
 .ch_hdr, .ch_lbl_hdr {
   margin-bottom:3rem;
-}
-
-.sec {
-  display:block;
 }
 
 
@@ -126,59 +99,22 @@ html {
 
 
 .sec_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
   font-size:large;
 }
 
 
 .sec_hdr {
-  display:block;
   margin-left:var(--left_margin);
   font-size:large;
 }
 
-
-
-.sec_main {
-  display:block;
-}
-
-
-
-.par {
-  display:block;
-}
 
 .par + .par {
   margin-top:2em;
 }
 
 
-.par_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
-/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
-by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
-.par_hdr {
-  height:0;
-  width:0;
-  float:left;
-}
-
-
-.par_main {
-  display:block;
-}
-
-
 .blk_txt {
-  display:block;
   hyphens:auto;
   white-space:pre-wrap;
 }
@@ -194,11 +130,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt {
-  display:block;
-}
-
-
 .sec_main > .blk_blt {
   margin-left:var(--left_margin);
 }
@@ -209,21 +140,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_blt_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_itm {
-  display:block;
 }
 
 
@@ -237,22 +155,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_itm_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_itm_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_dsp {
-  display:block;
-  white-space:nowrap;
 }
 
 
@@ -266,21 +170,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.dsp_line {
-  display:block;
-}
-
-
-.dsp_line_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .dsp_line_main {
-  display:block;
-  white-space:pre;
   margin-left:var(--tab_length);
 }
 
@@ -288,6 +178,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 a {
   text-decoration:none;
 }
+
 
 p {
   margin-top:0;

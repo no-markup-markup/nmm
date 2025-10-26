@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>untitled</title>
 
 <style>
 html {
@@ -15,13 +15,7 @@ html {
 }
 
 
-.doc {
-  display:block;
-}
-
-
 .title {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
@@ -38,36 +32,32 @@ html {
 
 
 .authors {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .doc.chs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .doc.secs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .abstract {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .abstract_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
 
 
 .refs {
-  display:block;
   padding-top:2rem;
 }
 
@@ -75,8 +65,8 @@ html {
   border-top:thin solid gray;
 }
 
+
 .refs_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
   margin-bottom:3rem;
@@ -84,23 +74,11 @@ html {
 
 
 .doc.chs .refs_hdr {
- font-size:x-large;
+  font-size:x-large;
 }
-
-
-.doc.secs .refs_hdr {
- font-size:large;
-}
-
-
-.doc_main {
-  display:block;
-}
-
 
 
 .ch {
-  display:block;
   padding-top:3rem;
   padding-bottom:3rem;
   border-top:thin solid gray;
@@ -108,23 +86,18 @@ html {
 
 
 .ch_lbl, .ch_lbl_hdr {
-  display:block;
   font-weight:normal;
   font-size:x-large;
 }
 
 
 .ch_hdr {
-  display:block;
   font-size:x-large;
 }
 
+
 .ch_hdr, .ch_lbl_hdr {
   margin-bottom:3rem;
-}
-
-.sec {
-  display:block;
 }
 
 
@@ -134,59 +107,22 @@ html {
 
 
 .sec_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
   font-size:large;
 }
 
 
 .sec_hdr {
-  display:block;
   margin-left:var(--left_margin);
   font-size:large;
 }
 
-
-
-.sec_main {
-  display:block;
-}
-
-
-
-.par {
-  display:block;
-}
 
 .par + .par {
   margin-top:2em;
 }
 
 
-.par_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
-/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
-by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
-.par_hdr {
-  height:0;
-  width:0;
-  float:left;
-}
-
-
-.par_main {
-  display:block;
-}
-
-
 .blk_txt {
-  display:block;
   hyphens:auto;
   white-space:pre-wrap;
 }
@@ -202,11 +138,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt {
-  display:block;
-}
-
-
 .sec_main > .blk_blt {
   margin-left:var(--left_margin);
 }
@@ -217,21 +148,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_blt_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_itm {
-  display:block;
 }
 
 
@@ -245,22 +163,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_itm_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_itm_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_dsp {
-  display:block;
-  white-space:nowrap;
 }
 
 
@@ -274,21 +178,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.dsp_line {
-  display:block;
-}
-
-
-.dsp_line_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .dsp_line_main {
-  display:block;
-  white-space:pre;
   margin-left:var(--tab_length);
 }
 
@@ -296,6 +186,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 a {
   text-decoration:none;
 }
+
 
 p {
   margin-top:0;
@@ -373,187 +264,187 @@ p {
 </style>
 </head>
 <body>
-<div class="doc secs">
+<div class="doc secs" style="display:block">
 <div class="doc_main">
-<div class="sec" id="SEC:named_section">
-<div class="sec_lbl">§ 1</div>
+<div class="sec" style="display:block" id="SEC:named_section">
+<div class="sec_lbl" style="display:block;float:left">§ 1</div>
 <h3 class="sec_hdr">Introduction</h3>
-<div class="sec_main">
-<div class="par" id="PAR:named_paragraph">
-<div class="par_lbl">¶ 1.1</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 1.1</h4>
-<div class="par_main">
+<div class="sec_main" style="display:block">
+<div class="par" style="display:block" id="PAR:named_paragraph">
+<div class="par_lbl" style="display:block;float:left">¶ 1.1</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 1.1</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">This is a no-markup-markup document, sporting the following cool features:</p>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(1)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt"><em class="txt_unit_emph">Emphasized text spanning multiple lines in the source code without breaking a sweat</em>.</p>
 </div>
 </div>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(2)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">Bullet lists:</p>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">Here is one bullet item.</p>
 </div>
 </div>
-<div class="blk_blt">
-<div class="blk_blt_lbl">─</div>
-<div class="blk_blt_main">
+<div class="blk_blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
 <p class="blk_txt">Here is another one.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(3)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">Numbered lists with labels that are either</p>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(a)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">automatic, or</p>
 </div>
 </div>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(*)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(*)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">custom.</p>
 </div>
 </div>
 <p class="blk_txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
-<div class="blk_itm" id="ITM:x">
-<div class="blk_itm_lbl">(b)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:x">
+<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">The named item can be referred to anywhere in the document.</p>
 </div>
 </div>
-<div class="blk_itm" id="ITM:y">
-<div class="blk_itm_lbl">(c)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:y">
+<div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above in a local manner (which is default), any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(†)</a> below.</p>
 </div>
 </div>
-<div class="blk_itm" id="ITM:z">
-<div class="blk_itm_lbl">(†)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:z">
+<div class="blk_itm_lbl" style="display:block;float:left">(†)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">Of course, items with custom labels can also be named!</p>
 </div>
 </div>
 </div>
 </div>
 <p class="blk_txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(3)(c)</a>, a local reference to <a class="txt_unit_c_ref" href="#ITM:x">(3)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(3)(†)</a> occurring elsewhere may appear differently.</p>
-<div class="blk_itm">
-<div class="blk_itm_lbl">(4)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(4)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">Displayed lines of text suitable for mathematical equations, which are either</p>
-<div class="blk_dsp">
-<div class="dsp_line" id="DSP:one">
-<div class="dsp_line_lbl">(a)</div>
-<div class="dsp_line_main">automatically labeled (and named),</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP:one">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled (and named),</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_lbl">(+)</div>
-<div class="dsp_line_main">custom labeled (and named), or,</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(+)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">custom labeled (and named), or,</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">unlike <a class="txt_unit_c_ref" href="#DSP:one">(a)</a> above, unlabeled.</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">unlike <a class="txt_unit_c_ref" href="#DSP:one">(a)</a> above, unlabeled.</div>
 </div>
 </div>
 </div>
 </div>
 <p class="blk_txt">Displayed lines can also be used for drawing tables and such:</p>
-<div class="blk_dsp">
-<div class="dsp_line">
-<div class="dsp_line_main">    |    0    |      1      |    2      | . . .</div>
+<div class="blk_dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    |    0    |      1      |    2      | . . .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">───────────────────────────────────────────────</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">───────────────────────────────────────────────</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">f₀  | f₀(0) + 1 | f₀(1)     | f₀(2)     |</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">f₀  | f₀(0) + 1 | f₀(1)     | f₀(2)     |</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">f₁  | f₁(0)     | f₁(1) + 1 | f₁(2)     |</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">f₁  | f₁(0)     | f₁(1) + 1 | f₁(2)     |</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">f₂  | f₂(0)     | f₂(1)     | f₂(2) + 1 |</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">f₂  | f₂(0)     | f₂(1)     | f₂(2) + 1 |</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">.                                         .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">.                                         .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">.                                           .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">.                                           .</div>
 </div>
-<div class="dsp_line">
-<div class="dsp_line_main">.                                             .</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">.                                             .</div>
 </div>
 </div>
 <p class="blk_txt">This is what a reference to <a class="txt_unit_c_ref" href="#DSP:one">(4)(a)</a> looks like.</p>
 </div>
 </div>
-<div class="par">
-<div class="par_lbl">¶ 1.2</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 1.2</h4>
-<div class="par_main">
+<div class="par" style="display:block">
+<div class="par_lbl" style="display:block;float:left">¶ 1.2</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 1.2</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">We may also refer to <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> from another paragraph. These references will appear differently than when occurring in paragraph <a class="txt_unit_c_ref" href="#PAR:named_paragraph">¶ 1.1</a> above.</p>
 <p class="blk_txt">This is what a reference to <a class="txt_unit_c_ref" href="#DSP:one">1.1(4)(a)</a> looks like.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="sec">
-<div class="sec_lbl">§ 2</div>
+<div class="sec" style="display:block">
+<div class="sec_lbl" style="display:block;float:left">§ 2</div>
 <h3 class="sec_hdr">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h3>
-<div class="sec_main">
-<div class="par">
-<div class="par_lbl">¶ 2.1</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 2.1</h4>
-<div class="par_main">
+<div class="sec_main" style="display:block">
+<div class="par" style="display:block">
+<div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.1</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">The same goes for paragraph headers. As we shall see in <a class="txt_unit_c_ref" href="#PAR:named_paragraph_with_header">¶ 2.2</a> below, paragraphs with headers can also be named.</p>
 </div>
 </div>
-<div class="par" id="PAR:named_paragraph_with_header">
-<div class="par_lbl">¶ 2.2</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 2.2 This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> and <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR:named_paragraph">¶ 1.1</a>.</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="PAR:named_paragraph_with_header">
+<div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.2 This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> and <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR:named_paragraph">¶ 1.1</a>.</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM:x">1.1(3)(b)</a> and <a class="txt_unit_c_ref" href="#ITM:y">1.1(3)(c)</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR:named_paragraph">¶ 1.1</a>.  Putting references in a header does not look very nice.</p>
 </div>
 </div>
-<div class="par" id="DEF:semcons">
-<div class="par_lbl">¶ 2.3</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 2.3 DEFINITION</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="DEF:semcons">
+<div class="par_lbl" style="display:block;float:left">¶ 2.3</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.3 DEFINITION</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">DEFINITION  We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</p>
 </div>
 </div>
-<div class="par" id="DEF:provability">
-<div class="par_lbl">¶ 2.4</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 2.4 DEFINITION (Provability)</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="DEF:provability">
+<div class="par_lbl" style="display:block;float:left">¶ 2.4</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.4 DEFINITION (Provability)</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">DEFINITION (Provability)  We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</p>
 </div>
 </div>
-<div class="par" id="FCT:compl">
-<div class="par_lbl">¶ 2.5</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 2.5 FACT</h4>
-<div class="par_main">
+<div class="par" style="display:block" id="FCT:compl">
+<div class="par_lbl" style="display:block;float:left">¶ 2.5</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.5 FACT</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">FACT  For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="sec">
-<div class="sec_lbl">§ 3</div>
+<div class="sec" style="display:block">
+<div class="sec_lbl" style="display:block;float:left">§ 3</div>
 <h3 class="sec_hdr">Section header with a reference to <a class="txt_unit_c_ref" href="#SEC:named_section">§ 1</a>.</h3>
-<div class="sec_main">
-<div class="par">
-<div class="par_lbl">¶ 3.1</div>
-<h4 class="par_hdr" style="visibility:hidden">¶ 3.1</h4>
-<div class="par_main">
+<div class="sec_main" style="display:block">
+<div class="par" style="display:block">
+<div class="par_lbl" style="display:block;float:left">¶ 3.1</div>
+<h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 3.1</h4>
+<div class="par_main" style="display:block">
 <p class="blk_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus massa, eleifend id libero eu, luctus pulvinar lectus. Quisque ac lobortis elit, vitae feugiat est. Pellentesque vitae pharetra turpis. In felis massa, interdum eu leo ut, auctor maximus urna. Phasellus ligula felis, pulvinar quis eros ut, pulvinar rutrum lacus. Vivamus non urna fringilla, auctor neque vitae, mattis massa. Curabitur mi velit, rutrum et aliquet at, scelerisque sed mi. Praesent feugiat, sapien eu vulputate dictum, mauris turpis tincidunt turpis, ut blandit metus diam quis erat. Cras cursus dolor elit. Ut laoreet aliquet magna, eu dapibus nibh efficitur quis. Duis est mi, ornare sit amet ligula id, condimentum scelerisque nulla. Nulla sed mauris id nisi eleifend sollicitudin quis et augue.</p>
 <p class="blk_txt">Aenean volutpat elit id augue consequat accumsan. Phasellus placerat mi sed ex faucibus maximus. Vivamus ac consequat arcu. Suspendisse eu commodo nibh. Vivamus est tellus, consectetur quis cursus id, accumsan eu urna. Quisque ornare dictum lacus, et ultricies augue efficitur eu. Morbi varius metus non vulputate vulputate. Ut ac lorem lacinia, aliquam ante in, sagittis sapien. Curabitur cursus ante id dui commodo, quis facilisis est pretium. Curabitur condimentum, massa vel varius egestas, eros dolor auctor elit, eu volutpat tellus mauris eu mauris. Quisque facilisis tellus eget aliquam imperdiet. Cras pretium odio ut nisi consectetur, eget elementum tellus consectetur. Donec non ullamcorper justo, ac mollis dolor. Ut auctor odio elit, vel gravida enim lacinia sit amet.</p>
 <p class="blk_txt">Cras hendrerit purus dolor, ut rutrum sapien aliquet ac. Curabitur dui magna, fermentum id libero eget, luctus facilisis tellus. Mauris ullamcorper tellus eu molestie consectetur. Praesent viverra magna vel nibh auctor rhoncus. Sed enim libero, cursus vel metus in, pretium gravida justo. Suspendisse pellentesque, lectus id auctor eleifend, diam ex posuere neque, a facilisis tellus libero in orci. Morbi in fermentum ex. Cras eu felis accumsan velit finibus pretium sed ut sem.</p>

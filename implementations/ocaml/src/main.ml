@@ -38,7 +38,7 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 	let html_string:string = Xml_right.to_string_fmt html in
 	let title:string = 
 		match doc.fld_doc_title with
-		|None -> ""
+		|None -> String.concat "" ["<title>";"untitled";"</title>"]
 		|Some (Cs_title s) -> String.concat "" ["<title>";s;"</title>"]
 	in
 	let authors:string = 

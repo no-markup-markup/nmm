@@ -15,13 +15,7 @@ html {
 }
 
 
-.doc {
-  display:block;
-}
-
-
 .title {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
@@ -38,36 +32,32 @@ html {
 
 
 .authors {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .doc.chs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .doc.secs .author {
- font-size:large;
+  font-size:large;
 }
 
 
 .abstract {
-  display:block;
   margin-bottom:3em;
 }
 
 
 .abstract_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
 }
 
 
 .refs {
-  display:block;
   padding-top:2rem;
 }
 
@@ -75,8 +65,8 @@ html {
   border-top:thin solid gray;
 }
 
+
 .refs_hdr {
-  display:block;
   font-weight:normal;
   font-size:large;
   margin-bottom:3rem;
@@ -84,23 +74,11 @@ html {
 
 
 .doc.chs .refs_hdr {
- font-size:x-large;
+  font-size:x-large;
 }
-
-
-.doc.secs .refs_hdr {
- font-size:large;
-}
-
-
-.doc_main {
-  display:block;
-}
-
 
 
 .ch {
-  display:block;
   padding-top:3rem;
   padding-bottom:3rem;
   border-top:thin solid gray;
@@ -108,23 +86,18 @@ html {
 
 
 .ch_lbl, .ch_lbl_hdr {
-  display:block;
   font-weight:normal;
   font-size:x-large;
 }
 
 
 .ch_hdr {
-  display:block;
   font-size:x-large;
 }
 
+
 .ch_hdr, .ch_lbl_hdr {
   margin-bottom:3rem;
-}
-
-.sec {
-  display:block;
 }
 
 
@@ -134,59 +107,22 @@ html {
 
 
 .sec_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
   font-size:large;
 }
 
 
 .sec_hdr {
-  display:block;
   margin-left:var(--left_margin);
   font-size:large;
 }
 
-
-
-.sec_main {
-  display:block;
-}
-
-
-
-.par {
-  display:block;
-}
 
 .par + .par {
   margin-top:2em;
 }
 
 
-.par_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
-/* Content of par_hdr has been copied to par_main for inline display, and visibility is set to hidden
-by inline styling. It is there to ensure that it shows up in disposition when printing to pdf with weasyprint. */
-.par_hdr {
-  height:0;
-  width:0;
-  float:left;
-}
-
-
-.par_main {
-  display:block;
-}
-
-
 .blk_txt {
-  display:block;
   hyphens:auto;
   white-space:pre-wrap;
 }
@@ -202,11 +138,6 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt {
-  display:block;
-}
-
-
 .sec_main > .blk_blt {
   margin-left:var(--left_margin);
 }
@@ -217,21 +148,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_blt_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_blt_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_itm {
-  display:block;
 }
 
 
@@ -245,22 +163,8 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.blk_itm_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .blk_itm_main {
-  display:block;
   margin-left:var(--tab_length);
-}
-
-
-.blk_dsp {
-  display:block;
-  white-space:nowrap;
 }
 
 
@@ -274,21 +178,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 }
 
 
-.dsp_line {
-  display:block;
-}
-
-
-.dsp_line_lbl {
-  display:block;
-  float:left;
-  margin-right:1ch;
-}
-
-
 .dsp_line_main {
-  display:block;
-  white-space:pre;
   margin-left:var(--tab_length);
 }
 
@@ -296,6 +186,7 @@ by inline styling. It is there to ensure that it shows up in disposition when pr
 a {
   text-decoration:none;
 }
+
 
 p {
   margin-top:0;
@@ -373,43 +264,43 @@ p {
 </style>
 </head>
 <body>
-<div class="doc blks">
+<div class="doc blks" style="display:block">
 <h1 class="title">Referring to named items under REFERENCES</h1>
-<div class="authors">
+<div class="authors" style="display:block">
 <p class="author">Eric Johannesson</p>
 </div>
-<div class="abstract">
+<div class="abstract" style="display:block">
 <h2 class="abstract_hdr">SUMMARY</h2>
 <p class="blk_txt">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
 </div>
 <div class="doc_main">
 <p class="blk_txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
-<div class="blk_itm" id="ITM:alt1">
-<div class="blk_itm_lbl">(1)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:alt1">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">‘REFERENCES(1)’ (or something similar), or</p>
 </div>
 </div>
-<div class="blk_itm" id="ITM:alt2">
-<div class="blk_itm_lbl">(2)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:alt2">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
 </div>
 </div>
 <p class="blk_txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of CITED WORKS</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of CITED WORKS</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
 <p class="blk_txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
 </div>
-<div class="refs">
+<div class="refs" style="display:block">
 <h2 class="refs_hdr">CITED WORKS</h2>
-<div class="blk_itm" id="ITM:Euler">
-<div class="blk_itm_lbl">(1)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:Euler">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
-<div class="blk_itm" id="ITM:Tarski">
-<div class="blk_itm_lbl">(2)</div>
-<div class="blk_itm_main">
+<div class="blk_itm" style="display:block" id="ITM:Tarski">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk_itm_main" style="display:block">
 <p class="blk_txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
