@@ -21,12 +21,12 @@ and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	match author with
 	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
 
-and xml_of_abstract_hdr (hdr : string) : Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string hdr)] in
+and xml_of_abstract_hdr (doc_settings : Common_utils.t_doc_settings) : Xml.xml =
+	let content : Xml.xml list = [PCData (pcdata_of_string doc_settings.abstract_hdr)] in
 	Xml.Element ("abstract_hdr",[],content)
 
-and xml_of_refs_hdr (hdr : string): Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string hdr)] in
+and xml_of_refs_hdr (doc_settings : Common_utils.t_doc_settings): Xml.xml =
+	let content : Xml.xml list = [PCData (pcdata_of_string doc_settings.refs_hdr)] in
 	Xml.Element ("refs_hdr",[],content)
 
 and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =

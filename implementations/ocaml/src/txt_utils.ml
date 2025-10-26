@@ -21,18 +21,18 @@ and lines_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : string
 	|Some authors -> lines_of_ts_authors authors
 
 
-and lines_of_abstract_hdr (doc_class : string) (indent : int) (hdr : string) : string list =
-	lines_of_string indent hdr
+and lines_of_abstract_hdr (doc_class : string) (doc_settings : Common_utils.t_doc_settings) : string list =
+	lines_of_string doc_settings.abstract_indent doc_settings.abstract_hdr
 
-and lines_of_refs_hdr (doc_class : string) (indent : int) (hdr : string) : string list =
+and lines_of_refs_hdr (doc_class : string) (doc_settings : Common_utils.t_doc_settings) : string list =
 	let underline_symbol : string =
 		match doc_class with
 		|"doc chs" -> "═"
 		| _ -> "─"
 	in
-	let indent : string = String.make indent ' ' in
-	let underline = make_string (Int.min (utf_8_length hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
-	let hdr_lines : string list = lines_of_string doc_settings.refs_indent hdr in
+	let indent : string = String.make doc_settings.refs_indent ' ' in
+	let underline = make_string (Int.min (utf_8_length doc_settings.refs_hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
+	let hdr_lines : string list = lines_of_string doc_settings.refs_indent doc_settings.refs_hdr in
 	List.concat [hdr_lines;[indent ^ underline;""]]
 
 

@@ -126,13 +126,13 @@ and acc_of_ts_abstract (doc_class : string) (path : Common_utils.t_path) (acc : 
 			|"doc secs" -> ["";""]
 			| _ -> [""]
 			in
-			let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_class Common_utils.doc_settings.abstract_indent Common_utils.doc_settings.abstract_hdr in
+			let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_class Common_utils.doc_settings in
 			match acc_of_ts_blks path (LINES []) b with
 			|LINES lines -> LINES (List.concat [hdr; lines; padding])
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr Common_utils.doc_settings.abstract_hdr in
+			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
 			|EXML xml_list -> EXML [Xml.Element ("abstract",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -150,13 +150,13 @@ and acc_of_ts_refs (doc_class : string)  (path : Common_utils.t_path) (acc : t_a
 			|"doc secs" -> ["";""]
 			| _ -> [""]
 			in
-			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_class Common_utils.doc_settings.refs_indent Common_utils.doc_settings.refs_hdr in
+			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_class Common_utils.doc_settings in
 			match acc_of_ts_blks path (LINES []) b with
 			|LINES lines -> LINES (List.concat [padding; hdr; lines])
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr Common_utils.doc_settings.refs_hdr in
+			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
 			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
