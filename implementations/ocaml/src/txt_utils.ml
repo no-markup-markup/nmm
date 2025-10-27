@@ -21,10 +21,10 @@ and lines_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : string
 	|Some authors -> lines_of_ts_authors authors
 
 
-and lines_of_abstract_hdr (doc_class : Common_utils.t_doc_class) (doc_settings : Common_utils.t_doc_settings) : string list =
+and lines_of_abstract_hdr (doc_class : Common_utils.t_doc_class) : string list =
 	lines_of_string doc_settings.abstract_indent doc_settings.abstract_hdr
 
-and lines_of_refs_hdr (doc_class : Common_utils.t_doc_class) (doc_settings : Common_utils.t_doc_settings) : string list =
+and lines_of_refs_hdr (doc_class : Common_utils.t_doc_class) : string list =
 	let underline_symbol : string =
 		match doc_class with
 		|DOC_CHS -> "═"

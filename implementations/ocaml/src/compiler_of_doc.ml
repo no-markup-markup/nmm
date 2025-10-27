@@ -127,7 +127,7 @@ and acc_of_ts_abstract (doc_class : Common_utils.t_doc_class) (path : Common_uti
 			|DOC_SECS -> ["";""]
 			| _ -> [""]
 			in
-			let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_class Common_utils.doc_settings in
+			let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_class in
 			match acc_of_ts_blks path (LINES []) b with
 			|LINES lines -> LINES (List.concat [hdr; lines; padding])
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -151,7 +151,7 @@ and acc_of_ts_refs (doc_class : Common_utils.t_doc_class)  (path : Common_utils.
 			|DOC_SECS -> ["";""]
 			| _ -> [""]
 			in
-			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_class Common_utils.doc_settings in
+			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_class in
 			match acc_of_ts_blks path (LINES []) b with
 			|LINES lines -> LINES (List.concat [padding; hdr; lines])
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
