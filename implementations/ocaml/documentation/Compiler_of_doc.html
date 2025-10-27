@@ -31,9 +31,9 @@
 </div>
 <h1>Module <a href="type_Compiler_of_doc.html">Compiler_of_doc</a></h1>
 
-<pre><span id="MODULECompiler_of_doc"><span class="keyword">module</span> Compiler_of_doc</span>: <code class="code">sig</code> <a href="Compiler_of_doc.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULECompiler_of_doc"><span class="keyword">module</span> Compiler_of_doc</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Compiler_of_doc.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For compiling parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code">Doc_types</code></a>) into raw text and XML (in the format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>) with resolved cross-references and labels.</p>
+<p>For compiling parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) into raw text and XML (in the format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>) with resolved cross-references and labels.</p>
 </div>
 </div>
 <hr width="100%">
@@ -42,7 +42,7 @@
 
 <pre><span id="VALcref_table_of_tr_doc"><span class="keyword">val</span> cref_table_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_cref_table">Common_utils.t_cref_table</a></code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre><p>searches <code class="code">doc</code> for id:s, and adds them and their path to <a href="Common_utils.html#VALdoc_cref_table"><code class="code">Common_utils.doc_cref_table</code></a>.</p>
+<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre><p>searches <code class="code">doc</code> for id:s, and adds them and their path to <a href="Common_utils.html#VALdoc_cref_table"><code class="code"><span class="constructor">Common_utils</span>.doc_cref_table</code></a>.</p>
 </div>
 </div>
 
@@ -54,10 +54,10 @@
 
 <pre><span id="VALexml_of_tr_doc"><span class="keyword">val</span> exml_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">exml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.</p>
+<pre class="codepre"><code class="code">exml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.</p>
 
-<p><a href="Html_utils.html#VALhtml_of_exml"><code class="code">Html_utils.html_of_exml</code></a> can translate that object into the body of an html-document.</p>
+<p><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> can translate that object into the body of an html-document.</p>
 </div>
 </div>
-<p>Both <code class="code">txt_of_tr_doc doc</code> and <code class="code">exml_of_tr_doc doc</code> first evaluates <code class="code">cref_table_of_tr_doc doc</code> and <a href="Common_utils.html#VALdoc_settings_of_tr_doc"><code class="code">Common_utils.doc_settings_of_tr_doc</code></a> <code class="code"> doc</code>.</p>
+<p>Both <code class="code">txt_of_tr_doc&nbsp;doc</code> and <code class="code">exml_of_tr_doc&nbsp;doc</code> first evaluates <code class="code">cref_table_of_tr_doc&nbsp;doc</code> and <a href="Common_utils.html#VALdoc_settings_of_tr_doc"><code class="code"><span class="constructor">Common_utils</span>.doc_settings_of_tr_doc</code></a> <code class="code">&nbsp;doc</code>.</p>
 </body></html>

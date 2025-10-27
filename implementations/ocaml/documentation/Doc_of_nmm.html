@@ -31,9 +31,9 @@
 </div>
 <h1>Module <a href="type_Doc_of_nmm.html">Doc_of_nmm</a></h1>
 
-<pre><span id="MODULEDoc_of_nmm"><span class="keyword">module</span> Doc_of_nmm</span>: <code class="code">sig</code> <a href="Doc_of_nmm.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULEDoc_of_nmm"><span class="keyword">module</span> Doc_of_nmm</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Doc_of_nmm.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>An LR(1) parser of nmm source-code (generated with <a href="https://github.com/ocaml-community/sedlex">Sedlex</a> and <a href="https://gallium.inria.fr/~fpottier/menhir/">Menhir</a>) that returns an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code">Doc_types</code></a>.</p>
+<p>An LR(1) parser of nmm source-code (generated with <a href="https://github.com/ocaml-community/sedlex">Sedlex</a> and <a href="https://gallium.inria.fr/~fpottier/menhir/">Menhir</a>) that returns an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>.</p>
 </div>
 </div>
 <hr width="100%">
@@ -42,15 +42,15 @@
 
 <pre><span id="VALdoc_of_nmm_file"><span class="keyword">val</span> doc_of_nmm_file</span> : <code class="type">bool -&gt; string -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">doc_of_nmm_file true "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code">Doc_types.tr_doc</code>.</p>
+<pre class="codepre"><code class="code">doc_of_nmm_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code"><span class="constructor">Doc_types</span>.tr_doc</code>.</p>
 
-<p>Raises <code class="code">"cannot read from path/to/file: No such file"</code> if no file exists, and <code class="code">"parsing failed"</code> on parsing failure.</p>
+<p>Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and <code class="code"><span class="string">"parsing&nbsp;failed"</span></code> on parsing failure.</p>
 
 <p>---</p>
 
-<pre class="codepre"><code class="code">doc_of_nmm_file false "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), and returns (if succesful) an object of type <code class="code">Doc_types.tr_doc</code>.</p>
+<pre class="codepre"><code class="code">doc_of_nmm_file <span class="keyword">false</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), and returns (if succesful) an object of type <code class="code"><span class="constructor">Doc_types</span>.tr_doc</code>.</p>
 
-<p>Raises <code class="code">"cannot read from path/to/file: No such file"</code> if no file exists, and evaluates to <code class="code">doc_of_nmm_file true "path/to/file"</code> on parsing failure.</p>
+<p>Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and evaluates to <code class="code">doc_of_nmm_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> on parsing failure.</p>
 </div>
 </div>
 

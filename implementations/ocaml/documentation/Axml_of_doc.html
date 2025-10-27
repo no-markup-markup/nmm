@@ -31,22 +31,22 @@
 </div>
 <h1>Module <a href="type_Axml_of_doc.html">Axml_of_doc</a></h1>
 
-<pre><span id="MODULEAxml_of_doc"><span class="keyword">module</span> Axml_of_doc</span>: <code class="code">sig</code> <a href="Axml_of_doc.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULEAxml_of_doc"><span class="keyword">module</span> Axml_of_doc</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Axml_of_doc.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For translating parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code">Doc_types</code></a>) to an abstract syntax tree in the XML-format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/axml.dtd">axml.dtd</a>.</p>
+<p>For translating parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) to an abstract syntax tree in the XML-format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/axml.dtd">axml.dtd</a>.</p>
 </div>
 </div>
 <hr width="100%">
 
 <pre><span id="VALaxml_of_tr_doc"><span class="keyword">val</span> axml_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">axml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>.</p>
+<pre class="codepre"><code class="code">axml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>.</p>
 
 <p>---</p>
 
-<p>Ideally, if <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then</p>
+<p>Ideally, if <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then</p>
 
-<p><code class="code">axml_of_tr_doc (</code> <a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code">Doc_of_axml.f_tr_doc_of_axml</code></a> <code class="code"> axml)</code></p>
+<p><code class="code">axml_of_tr_doc&nbsp;(</code> <a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a> <code class="code">&nbsp;axml)</code></p>
 
 <p>should evaluate to <code class="code">axml</code>.</p>
 </div>

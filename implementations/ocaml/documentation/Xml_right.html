@@ -31,7 +31,7 @@
 </div>
 <h1>Module <a href="type_Xml_right.html">Xml_right</a></h1>
 
-<pre><span id="MODULEXml_right"><span class="keyword">module</span> Xml_right</span>: <code class="code">sig</code> <a href="Xml_right.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULEXml_right"><span class="keyword">module</span> Xml_right</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Xml_right.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
 <p>For parsing XML-files containing parsed nmm source-code (abstract syntax trees in the format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/axml.dtd">axml.dtd</a>), and for printing compiled nmm-documents in XML- or HTML-format to file.</p>
 </div>
@@ -42,15 +42,15 @@
 
 <pre><span id="VALparse_file"><span class="keyword">val</span> parse_file</span> : <code class="type">bool -&gt; string -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">parse_file true "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>.</p>
+<pre class="codepre"><code class="code">parse_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>.</p>
 
-<p>Raises <code class="code">"cannot read from path/to/file: No such file"</code> if no file exists, and <code class="code">"parsing failed"</code> on parsing failure.</p>
+<p>Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and <code class="code"><span class="string">"parsing&nbsp;failed"</span></code> on parsing failure.</p>
 
 <p>---</p>
 
-<pre class="codepre"><code class="code">parse_file false "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>.</p>
+<pre class="codepre"><code class="code">parse_file <span class="keyword">false</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>.</p>
 
-<p>Raises <code class="code">"cannot read from path/to/file: No such file"</code> if no file exists, and evaluates to <code class="code">parse_file true "path/to/file"</code> on parsing failure.</p>
+<p>Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and evaluates to <code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> on parsing failure.</p>
 </div>
 </div>
 
@@ -77,7 +77,7 @@
 <pre class="codepre"><code class="code">to_string_fmt xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by newlines.</p>
 </div>
 </div>
-<p>Ideally, if <code class="code">xml</code> is an object of type <code class="code">Xml.xml</code>, both</p>
+<p>Ideally, if <code class="code">xml</code> is an object of type <code class="code"><span class="constructor">Xml</span>.xml</code>, both</p>
 <pre class="codepre"><code class="code">parse_string (to_string xml)</code></pre><p>and</p>
 <pre class="codepre"><code class="code">parse_string (to_string_fmt xml)</code></pre><p>should evaluate to <code class="code">xml</code>.</p>
 </body></html>

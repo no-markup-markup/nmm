@@ -159,11 +159,12 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .title {
   font-weight:normal;
   font-size:large;
+  margin-left:var(--left_margin);
 }
-
 
 .doc.chs .title {
   font-size:xx-large;
+  margin-left:0;
 }
 
 
@@ -174,11 +175,13 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .authors {
   margin-bottom:3em;
+  margin-left:var(--left_margin);
 }
 
 
-.doc.chs .author {
+.doc.chs .authors {
   font-size:large;
+  margin-left:0;
 }
 
 
@@ -188,13 +191,23 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .abstract {
+  margin-bottom:2em;
+}
+
+.doc.chs .abstract {
   margin-bottom:3em;
+  margin-left:0;
 }
 
 
 .abstract_hdr {
   font-weight:normal;
   font-size:large;
+  margin-left:var(--left_margin);
+}
+
+.doc.chs .abstract_hdr {
+  margin-left:0;
 }
 
 
@@ -211,11 +224,13 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   font-weight:normal;
   font-size:large;
   margin-bottom:3rem;
+  margin-left:var(--left_margin);
 }
 
 
 .doc.chs .refs_hdr {
   font-size:x-large;
+  margin-left:0;
 }
 
 
@@ -356,7 +371,7 @@ a {
     margin-left:0;
   }
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .itm_lbl, .dsp_lbl, .blt_lbl {
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .itm_lbl, .dsp_lbl, .blt_lbl, .abstract_hdr, .refs_hdr {
     break-after:avoid;
   }
 

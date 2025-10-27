@@ -35,36 +35,120 @@
 </div>
 <h1>Module <a href="type_Common_utils.html">Common_utils</a></h1>
 
-<pre><span id="MODULECommon_utils"><span class="keyword">module</span> Common_utils</span>: <code class="code">sig</code> <a href="Common_utils.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULECommon_utils"><span class="keyword">module</span> Common_utils</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Common_utils.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>A toolkit used by <a href="Compiler_of_doc.html"><code class="code">Compiler_of_doc</code></a> for handling default and custom document settings (margins, document width, etc.), cross-references, and labels.</p>
+<p>A toolkit used by <a href="Compiler_of_doc.html"><code class="code"><span class="constructor">Compiler_of_doc</span></code></a> for handling default and custom document settings (margins, document width, etc.), cross-references, and labels.</p>
 </div>
 </div>
 <hr width="100%">
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALclass_of_tr_doc"><span class="keyword">val</span> class_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
+<pre><code><span id="TYPEt_doc_class"><span class="keyword">type</span> <code class="type"></code>t_doc_class</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_class.DOC_CHS"><span class="constructor">DOC_CHS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_class.DOC_SECS"><span class="constructor">DOC_SECS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_class.DOC_PARS"><span class="constructor">DOC_PARS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_class.DOC_BLKS"><span class="constructor">DOC_BLKS</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALclass_of_tr_doc"><span class="keyword">val</span> class_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_class">t_doc_class</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">class_of_tr_doc doc</code></pre>
 <p>evaluates to</p>
 
-<pre class="codepre"><code class="code">match doc.fld_doc_main with
-|Cu_doc_main_chs _ -&gt; "doc chs"
-|Cu_doc_main_secs _ -&gt; "doc secs"
-|Cu_doc_main_pars _ -&gt; "doc pars"
-|Cu_doc_main_blks _ -&gt; "doc blks"
+<pre class="codepre"><code class="code"><span class="keyword">match</span> doc.fld_doc_main <span class="keyword">with</span>
+<span class="keywordsign">|</span><span class="constructor">Cu_doc_main_chs</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">DOC_CHS</span>
+<span class="keywordsign">|</span><span class="constructor">Cu_doc_main_secs</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">DOC_SECS</span>
+<span class="keywordsign">|</span><span class="constructor">Cu_doc_main_pars</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">DOC_PARS</span>
+<span class="keywordsign">|</span><span class="constructor">Cu_doc_main_blks</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">DOC_BLKS</span>
 </code></pre></div>
 </div>
 
-<pre><span id="VALclass_of_tr_ch"><span class="keyword">val</span> class_of_tr_ch</span> : <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALstring_of_t_doc_class"><span class="keyword">val</span> string_of_t_doc_class</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_class">t_doc_class</a> -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">string_of_t_doc_class doc_class
+</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code"><span class="keyword">match</span> doc_class <span class="keyword">with</span>
+<span class="keywordsign">|</span><span class="constructor">DOC_CHS</span> <span class="keywordsign">-&gt;</span> <span class="string">"doc chs"</span>
+<span class="keywordsign">|</span><span class="constructor">DOC_SECS</span> <span class="keywordsign">-&gt;</span> <span class="string">"doc secs"</span>
+<span class="keywordsign">|</span><span class="constructor">DOC_PARS</span> <span class="keywordsign">-&gt;</span> <span class="string">"doc pars"</span>
+<span class="keywordsign">|</span><span class="constructor">DOC_BLKS</span> <span class="keywordsign">-&gt;</span> <span class="string">"doc blks"</span>
+</code></pre></div>
+</div>
+
+<pre><code><span id="TYPEt_ch_class"><span class="keyword">type</span> <code class="type"></code>t_ch_class</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_ch_class.CH_SECS"><span class="constructor">CH_SECS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_ch_class.CH_PARS"><span class="constructor">CH_PARS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_ch_class.CH_BLKS"><span class="constructor">CH_BLKS</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALclass_of_tr_ch"><span class="keyword">val</span> class_of_tr_ch</span> : <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a> -&gt; <a href="Common_utils.html#TYPEt_ch_class">t_ch_class</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">class_of_tr_ch ch</code></pre>
 <p>evaluates to</p>
-<pre class="codepre"><code class="code">match ch.fld_ch_main with
-| Cu_secs_pars_or_blks_blks _ -&gt; "ch blks"
-| Cu_secs_pars_or_blks_secs _ -&gt; "ch secs"
-| Cu_secs_pars_or_blks_pars _ -&gt; "ch pars"
+<pre class="codepre"><code class="code"><span class="keyword">match</span> ch.fld_ch_main <span class="keyword">with</span>
+<span class="keywordsign">|</span> <span class="constructor">Cu_secs_pars_or_blks_secs</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">CH_SECS</span>
+<span class="keywordsign">|</span> <span class="constructor">Cu_secs_pars_or_blks_pars</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">CH_PARS</span>
+<span class="keywordsign">|</span> <span class="constructor">Cu_secs_pars_or_blks_blks</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">CH_BLKS</span>
+</code></pre></div>
+</div>
+
+<pre><span id="VALstring_of_t_ch_class"><span class="keyword">val</span> string_of_t_ch_class</span> : <code class="type"><a href="Common_utils.html#TYPEt_ch_class">t_ch_class</a> -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">string_of_t_ch_class ch_class
+</code></pre>
+<p>evaluates to</p>
+
+<pre class="codepre"><code class="code"><span class="keyword">match</span> ch_class <span class="keyword">with</span>
+<span class="keywordsign">|</span><span class="constructor">CH_SECS</span> <span class="keywordsign">-&gt;</span> <span class="string">"ch secs"</span>
+<span class="keywordsign">|</span><span class="constructor">CH_PARS</span> <span class="keywordsign">-&gt;</span> <span class="string">"ch pars"</span>
+<span class="keywordsign">|</span><span class="constructor">CH_BLKS</span> <span class="keywordsign">-&gt;</span> <span class="string">"ch blks"</span>
 </code></pre></div>
 </div>
 <h3 id="2_Documentsettings">Document settings</h3>
@@ -176,13 +260,13 @@
 <pre class="codepre"><code class="code">expand_tag_singular_default tag</code></pre>
 <p>evaluates to</p>
 
-<pre class="codepre"><code class="code">match tag with
-|Cs_tag "DEF" -&gt; Some "DEFINITION"
-|Cs_tag "PRF" -&gt; Some "PROOF"
-|Cs_tag "FCT" -&gt; Some "FACT"
-|Cs_tag "LMA" -&gt; Some "LEMMA"
-|Cs_tag "THM" -&gt; Some "THEOREM"
-| _  -&gt; None
+<pre class="codepre"><code class="code"><span class="keyword">match</span> tag <span class="keyword">with</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"DEF"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"DEFINITION"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"PRF"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"PROOF"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"FCT"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"FACT"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"LMA"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"LEMMA"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"THM"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"THEOREM"</span>
+<span class="keywordsign">|</span> _  <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
 </code></pre></div>
 </div>
 
@@ -191,13 +275,13 @@
 <pre class="codepre"><code class="code">expand_tag_plural_default tag</code></pre>
 <p>evaluates to</p>
 
-<pre class="codepre"><code class="code">match tag with
-|Cs_tag "DEFS" -&gt; Some ("DEFINITION", "DEFINITIONS")
-|Cs_tag "PRFS" -&gt; Some ("PROOF", "PROOFS")
-|Cs_tag "FCTS" -&gt; Some ("FACT", "FACTS")
-|Cs_tag "LMAS" -&gt; Some ("LEMMA", "LEMMAS")
-|Cs_tag "THMS" -&gt; Some ("THEOREM", "THEOREMS")
-| _  -&gt; None
+<pre class="codepre"><code class="code"><span class="keyword">match</span> tag <span class="keyword">with</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"DEFS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"DEFINITION"</span>, <span class="string">"DEFINITIONS"</span>)
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"PRFS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"PROOF"</span>, <span class="string">"PROOFS"</span>)
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"FCTS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"FACT"</span>, <span class="string">"FACTS"</span>)
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"LMAS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"LEMMA"</span>, <span class="string">"LEMMAS"</span>)
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"THMS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"THEOREM"</span>, <span class="string">"THEOREMS"</span>)
+<span class="keywordsign">|</span> _  <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
 </code></pre></div>
 </div>
 
@@ -211,11 +295,11 @@
     abstract_indent     = 12;
     refs_indent         = 12;
     tab_length          = 6;
-    abstract_hdr        = "ABSTRACT";
-    refs_hdr            = "REFERENCES";
-    ch_prefix           = Some "CHAPTER";
-    sec_prefix          = Some "§";
-    par_prefix          = Some "¶";
+    abstract_hdr        = <span class="string">"ABSTRACT"</span>;
+    refs_hdr            = <span class="string">"REFERENCES"</span>;
+    ch_prefix           = <span class="constructor">Some</span> <span class="string">"CHAPTER"</span>;
+    sec_prefix          = <span class="constructor">Some</span> <span class="string">"§"</span>;
+    par_prefix          = <span class="constructor">Some</span> <span class="string">"¶"</span>;
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
 }
@@ -233,7 +317,7 @@
 
 <p>Prints a warning to <code class="code">stderr</code> if parsing fails, and keeps the default value.</p>
 
-<p><code class="code">Cs_preamble (preamble : string)</code> is valid for parsing just in case <code class="code">preamble</code> has the following format:</p>
+<p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case <code class="code">preamble</code> has the following format:</p>
 <pre class="verbatim">PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
 
 KEY_VALUE := | 'doc_width=' INT
@@ -450,38 +534,38 @@ STRING := [! ';']*</pre></div>
 <pre class="codepre"><code class="code">string_of_ts_c_ref path c_ref</code></pre>
 <p>attempts to match <code class="code">c_ref</code> ocurring at <code class="code">path</code> with an <code class="code">id</code> in <code class="code">doc_cref_table</code>, and return a string representation of the path to <code class="code">id</code> relative to the closest common ancestor of <code class="code">c_ref</code> and <code class="code">id</code>.</p>
 
-<p>For instance, if <code class="code">c_ref</code> is located at path <code class="code">[ITM_NODE (ITM_INT 1); PAR_NODE 1; SEC_NODE 1]</code>, and <code class="code">id</code> is located at path <code class="code">[ITM_NODE (ITM_INT 3); PAR_NODE 2; SEC_NODE 1]</code>, the function will return <code class="code">"2(3)"</code> rather than <code class="code">"1.2(3)"</code>.</p>
+<p>For instance, if <code class="code">c_ref</code> is located at path <code class="code">[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1);&nbsp;<span class="constructor">PAR_NODE</span>&nbsp;1;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;1]</code>, and <code class="code">id</code> is located at path <code class="code">[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;3);&nbsp;<span class="constructor">PAR_NODE</span>&nbsp;2;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;1]</code>, the function will return <code class="code"><span class="string">"2(3)"</span></code> rather than <code class="code"><span class="string">"1.2(3)"</span></code>.</p>
 
-<p>If <code class="code">c_ref</code> evaluates to <code class="code">Cs_c_ref id</code>, and <code class="code">id</code> is located at <code class="code">[PAR_NODE "1"]</code>, and if <code class="code">doc_settings.expand_tag id.fld_id_tag</code> evaluates to <code class="code">Some "DEFINITION"</code>, then <code class="code">string_of_ts_c_ref [] c_ref</code> evaluates to <code class="code">"DEFINITION 1"</code> rather than <code class="code">"¶ 1"</code>.</p>
+<p>If <code class="code">c_ref</code> evaluates to <code class="code"><span class="constructor">Cs_c_ref</span>&nbsp;id</code>, and <code class="code">id</code> is located at <code class="code">[<span class="constructor">PAR_NODE</span>&nbsp;<span class="string">"1"</span>]</code>, and if <code class="code">doc_settings.expand_tag&nbsp;id.fld_id_tag</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"DEFINITION"</span></code>, then <code class="code">string_of_ts_c_ref&nbsp;[]&nbsp;c_ref</code> evaluates to <code class="code"><span class="string">"DEFINITION&nbsp;1"</span></code> rather than <code class="code"><span class="string">"¶&nbsp;1"</span></code>.</p>
 
-<p>Prints a warning to <code class="code">stderr</code> if no match is found, and returns <code class="code">"??"</code>.</p>
+<p>Prints a warning to <code class="code">stderr</code> if no match is found, and returns <code class="code"><span class="string">"??"</span></code>.</p>
 </div>
 </div>
 
 <pre><span id="VALnode_of_tr_par"><span class="keyword">val</span> node_of_tr_par</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_par">Doc_types.tr_par</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre>
 <pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> option -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)</code></pre>
+<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_blk_itm)</code></pre>
 <p>evaluates to</p>
 
-<pre class="codepre"><code class="code">let itm_node : t_itm_node =
-  match a.fld_blk_itm_lbl with
-  | Cu_lbl_auto Cs_lbl_auto -&gt; ITM_INT auto_nr
-  | Cu_lbl_custom (Cs_lbl_custom (s : string)) -&gt; ITM_STRING s
-in ITM_NODE itm_node
+<pre class="codepre"><code class="code"><span class="keyword">let</span> itm_node : t_itm_node =
+  <span class="keyword">match</span> a.fld_blk_itm_lbl <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_INT</span> auto_nr
+  <span class="keywordsign">|</span> <span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string)) <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_STRING</span> s
+<span class="keyword">in</span> <span class="constructor">ITM_NODE</span> itm_node
 </code></pre></div>
 </div>
 
 <pre><span id="VALnode_of_dsp_line"><span class="keyword">val</span> node_of_dsp_line</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line)</code></pre>
+<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_dsp_line)</code></pre>
 <p>evaluates to</p>
 
-<pre class="codepre"><code class="code">match a.fld_dsp_line_lbl with
-  | Some (Cu_lbl_auto Cs_lbl_auto)-&gt; DSP_INT auto_nr
-  | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -&gt; DSP_STRING s
-  | None -&gt; NONE
-in DSP_LINE_NODE dsp_line_node
+<pre class="codepre"><code class="code"><span class="keyword">match</span> a.fld_dsp_line_lbl <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span>)<span class="keywordsign">-&gt;</span> <span class="constructor">DSP_INT</span> auto_nr
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string))) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_STRING</span> s
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">NONE</span>
+<span class="keyword">in</span> <span class="constructor">DSP_LINE_NODE</span> dsp_line_node
 </code></pre></div>
 </div>
 
@@ -489,31 +573,31 @@ in DSP_LINE_NODE dsp_line_node
 <div class="info-desc">
 <p>With default <code class="code">doc_settings</code>,</p>
 
-<p><code class="code">label_of_path_opt [CH_NODE 1]</code> evaluates to <code class="code">Some "CHAPTER 1"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">CH_NODE</span>&nbsp;1]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"CHAPTER 1"</span></code></p>
 
-<p><code class="code">label_of_path_opt [SEC_NODE 1]</code> evaluates to <code class="code">Some "§ 2"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">SEC_NODE</span>&nbsp;1]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"§ 2"</span></code></p>
 
-<p><code class="code">label_of_path_opt [SEC_NODE 1; CH_NODE 2]</code> evaluates to <code class="code">Some "§ 2.1"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">SEC_NODE</span>&nbsp;1;&nbsp;<span class="constructor">CH_NODE</span>&nbsp;2]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"§ 2.1"</span></code></p>
 
-<p><code class="code">label_of_path_opt [PAR_NODE 1]</code> evaluates to <code class="code">Some "¶ 1"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">PAR_NODE</span>&nbsp;1]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"¶ 1"</span></code></p>
 
-<p><code class="code">label_of_path_opt [PAR_NODE 1; SEC_NODE 2]</code> evaluates to <code class="code">Some "¶ 2.1"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">PAR_NODE</span>&nbsp;1;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;2]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"¶ 2.1"</span></code></p>
 
-<p><code class="code">label_of_path_opt [PAR_NODE 1; SEC_NODE 2; CH_NODE 3]</code> evaluates to <code class="code">Some "¶ 3.2.1"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">PAR_NODE</span>&nbsp;1;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;2;&nbsp;<span class="constructor">CH_NODE</span>&nbsp;3]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"¶ 3.2.1"</span></code></p>
 
-<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1)]::tail</code> evaluates to <code class="code">Some "(1)"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 
-<p><code class="code">label_of_path_opt [ITM_NODE (ITM_STRING "a")]::tail</code> evaluates to <code class="code">Some "(a)"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_STRING</span>&nbsp;<span class="string">"a"</span>)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(a)"</span></code></p>
 
-<p><code class="code">label_of_path_opt [DSP_LINE_NODE (DSP_INT 1)]::tail</code> evaluates to <code class="code">Some "(1)"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;(<span class="constructor">DSP_INT</span>&nbsp;1)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 
-<p><code class="code">label_of_path_opt [DSP_LINE_NODE (DSP_STRING "a")]::tail</code> evaluates to <code class="code">Some "(a)"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;(<span class="constructor">DSP_STRING</span>&nbsp;<span class="string">"a"</span>)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(a)"</span></code></p>
 
-<p><code class="code">label_of_path_opt [DSP_LINE_NODE NONE]::tail</code> evaluates to <code class="code">None</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;<span class="constructor">NONE</span>]::tail</code> evaluates to <code class="code"><span class="constructor">None</span></code></p>
 
-<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]</code> evaluates to <code class="code">Some "[1]"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1);&nbsp;<span class="constructor">REFS_NODE</span>]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 
-<p><code class="code">label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]</code> evaluates to <code class="code">Some "(1)"</code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1);&nbsp;<span class="constructor">ABSTRACT_NODE</span>]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 </div>
 </div>
 
@@ -522,9 +606,9 @@ in DSP_LINE_NODE dsp_line_node
 <pre class="codepre"><code class="code">label_of_path path</code></pre>
 <p>evaluates to</p>
 
-<pre class="codepre"><code class="code">match label_of_path_opt path with
-| None -&gt; ""
-| Some (s : string) -&gt; s
+<pre class="codepre"><code class="code"><span class="keyword">match</span> label_of_path_opt path <span class="keyword">with</span>
+<span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
+<span class="keywordsign">|</span> <span class="constructor">Some</span> (s : string) <span class="keywordsign">-&gt;</span> s
 </code></pre></div>
 </div>
 </body></html>

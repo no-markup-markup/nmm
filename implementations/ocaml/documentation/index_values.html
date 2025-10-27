@@ -44,14 +44,14 @@
 </td></tr>
 <tr><td><a href="Axml_of_doc.html#VALaxml_of_tr_doc">axml_of_tr_doc</a> [<a href="Axml_of_doc.html">Axml_of_doc</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">axml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>.</p>
+<pre class="codepre"><code class="code">axml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>.</p>
 
 </div>
 </td></tr>
 <tr><td align="left"><div>C</div></td></tr>
 <tr><td><a href="Main.html#VALcheck_xml_schema">check_xml_schema</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">check_xml_schema "path/to/xml-schema.dtd"</code></pre><p>calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is a well-defined xml-schema in the format dtd.</p>
+<pre class="codepre"><code class="code">check_xml_schema <span class="string">"path/to/xml-schema.dtd"</span></code></pre><p>calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is a well-defined xml-schema in the format dtd.</p>
 
 </div>
 </td></tr>
@@ -67,7 +67,7 @@
 </td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALcref_table_of_tr_doc">cref_table_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre><p>searches <code class="code">doc</code> for id:s, and adds them and their path to <a href="Common_utils.html#VALdoc_cref_table"><code class="code">Common_utils.doc_cref_table</code></a>.</p>
+<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre><p>searches <code class="code">doc</code> for id:s, and adds them and their path to <a href="Common_utils.html#VALdoc_cref_table"><code class="code"><span class="constructor">Common_utils</span>.doc_cref_table</code></a>.</p>
 
 </div>
 </td></tr>
@@ -81,19 +81,19 @@
 </td></tr>
 <tr><td><a href="Main.html#VALdoc_of_axml">doc_of_axml</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">doc_of_axml "path/to/file"</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">doc_of_axml <span class="string">"path/to/file"</span></code></pre><p>evaluates to</p>
 
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALdoc_of_nmm">doc_of_nmm</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">doc_of_nmm "path/to/file"</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">doc_of_nmm <span class="string">"path/to/file"</span></code></pre><p>evaluates to</p>
 
 </div>
 </td></tr>
 <tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_file">doc_of_nmm_file</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">doc_of_nmm_file true "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code">Doc_types.tr_doc</code>.</p>
+<pre class="codepre"><code class="code">doc_of_nmm_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code"><span class="constructor">Doc_types</span>.tr_doc</code>.</p>
 
 </div>
 </td></tr>
@@ -113,11 +113,11 @@
     abstract_indent     = 12;
     refs_indent         = 12;
     tab_length          = 6;
-    abstract_hdr        = "ABSTRACT";
-    refs_hdr            = "REFERENCES";
-    ch_prefix           = Some "CHAPTER";
-    sec_prefix          = Some "§";
-    par_prefix          = Some "¶";
+    abstract_hdr        = <span class="string">"ABSTRACT"</span>;
+    refs_hdr            = <span class="string">"REFERENCES"</span>;
+    ch_prefix           = <span class="constructor">Some</span> <span class="string">"CHAPTER"</span>;
+    sec_prefix          = <span class="constructor">Some</span> <span class="string">"§"</span>;
+    par_prefix          = <span class="constructor">Some</span> <span class="string">"¶"</span>;
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
 }
@@ -132,7 +132,7 @@
 <tr><td align="left"><div>E</div></td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALexml_of_tr_doc">exml_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">exml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.</p>
+<pre class="codepre"><code class="code">exml_of_tr_doc doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.</p>
 
 </div>
 </td></tr>
@@ -149,7 +149,7 @@
 <tr><td align="left"><div>F</div></td></tr>
 <tr><td><a href="Doc_of_axml.html#VALf_tr_doc_of_axml">f_tr_doc_of_axml</a> [<a href="Doc_of_axml.html">Doc_of_axml</a>]</td>
 <td><div class="info">
-<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then</p>
+<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then</p>
 
 </div>
 </td></tr>
@@ -162,13 +162,13 @@
 </td></tr>
 <tr><td><a href="Main.html#VALhtml_of_doc">html_of_doc</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">html_of_doc None None doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
+<pre class="codepre"><code class="code">html_of_doc <span class="constructor">None</span> <span class="constructor">None</span> doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
 </div>
 </td></tr>
 <tr><td><a href="Html_utils.html#VALhtml_of_exml">html_of_exml</a> [<a href="Html_utils.html">Html_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">html_of_exml element</code></pre>
+<pre class="codepre"><code class="code">html_of_exml doc_class element</code></pre>
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALhtml_of_nmm">html_of_nmm</a> [<a href="Main.html">Main</a>]</td>
@@ -182,7 +182,7 @@
 <td></td></tr>
 <tr><td><a href="Html_utils.html#VALinternal_css">internal_css</a> [<a href="Html_utils.html">Html_utils</a>]</td>
 <td><div class="info">
-<p>With the default <code class="code">doc_settings</code>, <code class="code">internal_css doc_settings</code> evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
+<p>With the default <code class="code">doc_settings</code>, <code class="code">internal_css&nbsp;doc_settings</code> evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
 
 </div>
 </td></tr>
@@ -215,12 +215,12 @@
 <tr><td align="left"><div>N</div></td></tr>
 <tr><td><a href="Common_utils.html#VALnode_of_blk_itm">node_of_blk_itm</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)</code></pre>
+<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_blk_itm)</code></pre>
 </div>
 </td></tr>
 <tr><td><a href="Common_utils.html#VALnode_of_dsp_line">node_of_dsp_line</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line)</code></pre>
+<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_dsp_line)</code></pre>
 </div>
 </td></tr>
 <tr><td><a href="Common_utils.html#VALnode_of_tr_par">node_of_tr_par</a> [<a href="Common_utils.html">Common_utils</a>]</td>
@@ -228,7 +228,7 @@
 <tr><td align="left"><div>P</div></td></tr>
 <tr><td><a href="Xml_right.html#VALparse_file">parse_file</a> [<a href="Xml_right.html">Xml_right</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">parse_file true "path/to/file"</code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>.</p>
+<pre class="codepre"><code class="code">parse_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>.</p>
 
 </div>
 </td></tr>
@@ -252,6 +252,18 @@
 <tr><td align="left"><div>S</div></td></tr>
 <tr><td><a href="Exml_utils.html#VALstring_of_pcdata">string_of_pcdata</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
+<tr><td><a href="Common_utils.html#VALstring_of_t_ch_class">string_of_t_ch_class</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">string_of_t_ch_class ch_class
+</code></pre>
+</div>
+</td></tr>
+<tr><td><a href="Common_utils.html#VALstring_of_t_doc_class">string_of_t_doc_class</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">string_of_t_doc_class doc_class
+</code></pre>
+</div>
+</td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_ts_c_ref">string_of_ts_c_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">string_of_ts_c_ref path c_ref</code></pre>
@@ -297,7 +309,7 @@
 <tr><td align="left"><div>V</div></td></tr>
 <tr><td><a href="Main.html#VALvalidate_xml">validate_xml</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">validate_xml "path/to/xml-schema.dtd" "path/to/xml-file.xml"</code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is well-defined.</p>
+<pre class="codepre"><code class="code">validate_xml <span class="string">"path/to/xml-schema.dtd"</span> <span class="string">"path/to/xml-file.xml"</span></code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is well-defined.</p>
 
 </div>
 </td></tr>

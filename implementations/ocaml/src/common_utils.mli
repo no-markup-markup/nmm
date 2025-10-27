@@ -320,7 +320,7 @@ With default [doc_settings],
 
 [label_of_path_opt [DSP_LINE_NODE NONE]::tail] evaluates to [None]
 
-[label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]] evaluates to [Some "[1]"]
+[label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]] evaluates to [Some "(1)"]
 
 [label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]] evaluates to [Some "(1)"]
 

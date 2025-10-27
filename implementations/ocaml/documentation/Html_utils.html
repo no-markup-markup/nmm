@@ -31,7 +31,7 @@
 </div>
 <h1>Module <a href="type_Html_utils.html">Html_utils</a></h1>
 
-<pre><span id="MODULEHtml_utils"><span class="keyword">module</span> Html_utils</span>: <code class="code">sig</code> <a href="Html_utils.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULEHtml_utils"><span class="keyword">module</span> Html_utils</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Html_utils.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
 <p>For translating a compiled nmm-document with resolved cross-references and labels (in the the XML-format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>) to HTML</p>
 </div>
@@ -40,143 +40,115 @@
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALhtml_of_exml"><span class="keyword">val</span> html_of_exml</span> : <code class="type">Xml.xml -&gt; Xml.xml</code></pre><div class="info ">
+<pre><span id="VALhtml_of_exml"><span class="keyword">val</span> html_of_exml</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_class">Common_utils.t_doc_class</a> -&gt; Xml.xml -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">html_of_exml element</code></pre>
+<pre class="codepre"><code class="code">html_of_exml doc_class element</code></pre>
 <p>evaluates recursively to</p>
 
-<pre class="codepre"><code class="code">match element with
-|Xml.Element ("doc", attr_list, xml_list) -&gt; 
-	Xml.Element ("div", ("style","display:block")::attr_list, List.map html_of_exml xml_list)
+<pre class="codepre"><code class="code"><span class="keyword">match</span> element <span class="keyword">with</span>
 
-|Xml.Element ("title", _, xml_list) -&gt;
-	Xml.Element ("h1", [("class", "title")], List.map html_of_exml xml_list)
-
-|Xml.Element ("authors", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "authors");("style","display:block")], List.map html_of_exml xml_list)
-
-|Xml.Element ("author", _, xml_list) -&gt;
-	Xml.Element ("p", [("class", "author")], List.map html_of_exml xml_list)
-
-|Xml.Element ("abstract_hdr", _,xml_list) -&gt;
-	Xml.Element ("h2", [("class", "abstract_hdr")], List.map html_of_exml xml_list)
-
-|Xml.Element ("abstract", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "abstract");("style","display:block")], List.map html_of_exml xml_list)
-
-|Xml.Element ("refs_hdr", attr_list,xml_list) -&gt;
-	Xml.Element ("h2", [("class", "refs_hdr")],List.map html_of_exml xml_list)
-
-|Xml.Element ("refs", _ , xml_list) -&gt; 
-	Xml.Element ("div", [("class","refs");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("doc_main", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "doc_main");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("ch", attr_list, xml_list) -&gt; 
-	Xml.Element ("div", ("style","display:block")::attr_list, List.map html_of_exml xml_list)
-
-|Xml.Element ("ch_lbl", _ , xml_list) -&gt; 
-	Xml.Element ("div", [("class","ch_lbl");("style","display:block")], List.map html_of_exml xml_list)
-
-|Xml.Element ("ch_hdr", _, xml_list) -&gt;
-	Xml.Element ("h2", [("class", "ch_hdr")], List.map html_of_exml xml_list)
-
-|Xml.Element ("ch_lbl_hdr", _, xml_list) -&gt;
-	Xml.Element ("h2", [("class", "ch_lbl_hdr")], List.map html_of_exml xml_list)
-
-|Xml.Element ("ch_main", _ , xml_list) -&gt; 
-	Xml.Element ("div", [("class","ch_main");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("sec", attr_list, xml_list) -&gt;
-	Xml.Element ("div", ("class", "sec")::(("style","display:block")::attr_list), List.map html_of_exml xml_list)
-
-|Xml.Element ("sec_lbl", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "sec_lbl");("style","display:block;float:left")], List.map html_of_exml xml_list)
-
-|Xml.Element ("sec_hdr", _, xml_list) -&gt;
-	Xml.Element ("h3", [("class", "sec_hdr")], List.map html_of_exml xml_list)
-
-|Xml.Element ("sec_lbl_hdr", _, xml_list) -&gt;
-	Xml.Element ("h3", [("class", "sec_lbl_hdr");("style","display:block;visibility:hidden")], List.map html_of_exml xml_list)
-
-|Xml.Element ("sec_main", _ , xml_list) -&gt; 
-	Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("par", attr_list, xml_list) -&gt;
-	Xml.Element ("div", ("class", "par")::(("style","display:block")::attr_list), List.map html_of_exml xml_list)
-
-|Xml.Element ("par_hdr", attr_list, xml_list) -&gt;
-	Xml.Element ("h4", [("style","visibility:hidden;height:0;width:0;float:left")], List.map html_of_exml xml_list)
-
-|Xml.Element ("par_lbl", _, xml_list) -&gt;
-	Xml.Element ("div",[("style","display:block;float:left")],List.map html_of_exml xml_list)
-
-|Xml.Element ("par_main", _ , xml_list) -&gt; 
-	Xml.Element ("div", [("class","par_main");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("blk_txt", _, xml_list) -&gt;
-	Xml.Element ("p", [("class", "blk_txt")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("blk_itm", attr_list, xml_list) -&gt;
-	Xml.Element ("div", ("class", "blk_itm")::(("style","display:block")::attr_list), List.map html_of_exml xml_list)
-
-|Xml.Element ("blk_itm_lbl", _, xml_list) -&gt;
-	Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map html_of_exml xml_list)
-
-|Xml.Element ("blk_itm_main", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "blk_itm_main");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("blk_blt", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "blk_blt");("style","display:block")], List.map html_of_exml xml_list)
-
-|Xml.Element ("blk_blt_lbl", _, xml_list) -&gt;
-	Xml.Element ("div",[("class","blk_blt_lbl");("style","display:block;float:left")],List.map html_of_exml xml_list)
-
-|Xml.Element ("blk_blt_main", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "blk_blt_main");("style","display:block")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("blk_dsp", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "blk_dsp");("style","display:block;white-space:nowrap")], List.map html_of_exml xml_list)
-
-|Xml.Element ("dsp_line", attr_list, xml_list) -&gt;
-	Xml.Element ("div", ("class", "dsp_line")::(("style","display:block")::attr_list), List.map html_of_exml xml_list)
-
-|Xml.Element ("dsp_line_lbl", _, xml_list) -&gt;
-	Xml.Element ("div",[("class","dsp_line_lbl");("style","display:block;float:left")],List.map html_of_exml xml_list)
-
-|Xml.Element ("dsp_line_main", _, xml_list) -&gt;
-	Xml.Element ("div", [("class", "dsp_line_main");("style","display:block;white-space:pre")], List.map html_of_exml xml_list)
-
-
-|Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -&gt;
-	Xml.PCData s
-
-|Xml.Element ("txt_unit_emph", _, xml_list) -&gt;
-	Xml.Element ("em", [("class", "txt_unit_emph")], List.map html_of_exml xml_list)
-
-|Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -&gt;
-	Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map html_of_exml xml_list)
-
-|Xml.PCData s -&gt;
-	Xml.PCData s
-
-|Xml.Element (tag, _, _) -&gt;
-	raise (Error ("unexpected element: " ^ tag))
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"doc"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, (<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list, <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"title"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h1"</span>, [(<span class="string">"class"</span>, <span class="string">"title"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"authors"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"authors"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"author"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"p"</span>, [(<span class="string">"class"</span>, <span class="string">"author"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"abstract_hdr"</span>, _,xml_list) <span class="keywordsign">-&gt;</span> (
+	<span class="keyword">match</span> doc_class <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">DOC_CHS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h2"</span>, [(<span class="string">"class"</span>, <span class="string">"abstract_hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+	<span class="keywordsign">|</span><span class="constructor">DOC_SECS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h3"</span>, [(<span class="string">"class"</span>, <span class="string">"abstract_hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+	<span class="keywordsign">|</span><span class="constructor">DOC_PARS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h4"</span>, [(<span class="string">"class"</span>, <span class="string">"abstract_hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+	<span class="keywordsign">|</span><span class="constructor">DOC_BLKS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h5"</span>, [(<span class="string">"class"</span>, <span class="string">"abstract_hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"abstract"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"abstract"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"refs_hdr"</span>, attr_list,xml_list) <span class="keywordsign">-&gt;</span> (
+	<span class="keyword">match</span> doc_class <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">DOC_CHS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h2"</span>, [(<span class="string">"class"</span>, <span class="string">"refs_hdr"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+	<span class="keywordsign">|</span><span class="constructor">DOC_SECS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h3"</span>, [(<span class="string">"class"</span>, <span class="string">"refs_hdr"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+	<span class="keywordsign">|</span><span class="constructor">DOC_PARS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h4"</span>, [(<span class="string">"class"</span>, <span class="string">"refs_hdr"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+	<span class="keywordsign">|</span><span class="constructor">DOC_BLKS</span> <span class="keywordsign">-&gt;</span>
+		<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h5"</span>, [(<span class="string">"class"</span>, <span class="string">"refs_hdr"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"refs"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"refs"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"doc_main"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"doc_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"ch"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, (<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list, <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"ch_lbl"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"ch_lbl"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"ch_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h2"</span>, [(<span class="string">"class"</span>, <span class="string">"ch_hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"ch_lbl_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h2"</span>, [(<span class="string">"class"</span>, <span class="string">"ch_lbl_hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"ch_main"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"ch_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, (<span class="string">"class"</span>, <span class="string">"sec"</span>)::((<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list), <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_lbl"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"sec_lbl"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h3"</span>, [(<span class="string">"class"</span>, <span class="string">"sec_hdr"</span>);(<span class="string">"style"</span>,<span class="string">"margin-top:0"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_lbl_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h3"</span>, [(<span class="string">"class"</span>, <span class="string">"sec_lbl_hdr"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;visibility:hidden"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_main"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"sec_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, (<span class="string">"class"</span>, <span class="string">"par"</span>)::((<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list), <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h4"</span>, [(<span class="string">"style"</span>,<span class="string">"visibility:hidden;height:0;width:0;float:left"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_lbl"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>,[(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> 
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_txt"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"p"</span>, [(<span class="string">"class"</span>, <span class="string">"blk_txt"</span>);(<span class="string">"style"</span>,<span class="string">"margin-top:0"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_itm"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, (<span class="string">"class"</span>, <span class="string">"blk_itm"</span>)::((<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list), <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_itm_lbl"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"blk_itm_lbl"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_itm_main"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"blk_itm_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_blt"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"blk_blt"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_blt_lbl"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"blk_blt_lbl"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_blt_main"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"blk_blt_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_dsp"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"blk_dsp"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;white-space:nowrap"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"dsp_line"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, (<span class="string">"class"</span>, <span class="string">"dsp_line"</span>)::((<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list), <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"dsp_line_lbl"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"dsp_line_lbl"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"dsp_line_main"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>, <span class="string">"dsp_line_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;white-space:pre"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"txt_unit_wysiwyg"</span>, _, [<span class="constructor">Xml</span>.<span class="constructor">PCData</span> s]) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">PCData</span> s
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"txt_unit_emph"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"em"</span>, [(<span class="string">"class"</span>, <span class="string">"txt_unit_emph"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"txt_unit_c_ref"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"a"</span>, (<span class="string">"class"</span>, <span class="string">"txt_unit_c_ref"</span>)::attr_list, <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> s <span class="keywordsign">-&gt;</span>
+	<span class="constructor">Xml</span>.<span class="constructor">PCData</span> s
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, _, _) <span class="keywordsign">-&gt;</span>
+	raise (<span class="constructor">Error</span> (<span class="string">"unexpected element: "</span> ^ tag))
 </code></pre></div>
 </div>
 
 <pre><span id="VALinternal_css"><span class="keyword">val</span> internal_css</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p>With the default <code class="code">doc_settings</code>, <code class="code">internal_css doc_settings</code> evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
+<p>With the default <code class="code">doc_settings</code>, <code class="code">internal_css&nbsp;doc_settings</code> evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
 </div>
 </div>
 </body></html>

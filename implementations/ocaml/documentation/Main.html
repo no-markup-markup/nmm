@@ -29,7 +29,7 @@
 &nbsp;</div>
 <h1>Module <a href="type_Main.html">Main</a></h1>
 
-<pre><span id="MODULEMain"><span class="keyword">module</span> Main</span>: <code class="code">sig</code> <a href="Main.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre><span id="MODULEMain"><span class="keyword">module</span> Main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
 <p>For assembling the pieces provided by the other modules and for providing a command-line interface</p>
 </div>
@@ -40,9 +40,9 @@
 
 <pre><span id="VALdoc_of_nmm"><span class="keyword">val</span> doc_of_nmm</span> : <code class="type">string -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">doc_of_nmm "path/to/file"</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">doc_of_nmm <span class="string">"path/to/file"</span></code></pre><p>evaluates to</p>
 
-<p><a href="Doc_of_nmm.html#VALdoc_of_nmm_file"><code class="code">Doc_of_nmm.doc_of_nmm_file</code></a><code class="code"> false "path/to/file"</code></p>
+<p><a href="Doc_of_nmm.html#VALdoc_of_nmm_file"><code class="code"><span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file</code></a><code class="code">&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span></code></p>
 </div>
 </div>
 
@@ -50,23 +50,23 @@
 <div class="info-desc">
 <pre class="codepre"><code class="code">txt_of_doc doc</code></pre><p>evaluates to</p>
 
-<p><a href="Compiler_of_doc.html#VALtxt_of_tr_doc"><code class="code">Compiler_of_doc.txt_of_tr_doc</code></a><code class="code"> doc</code></p>
+<p><a href="Compiler_of_doc.html#VALtxt_of_tr_doc"><code class="code"><span class="constructor">Compiler_of_doc</span>.txt_of_tr_doc</code></a><code class="code">&nbsp;doc</code></p>
 </div>
 </div>
 
 <pre><span id="VALhtml_of_doc"><span class="keyword">val</span> html_of_doc</span> : <code class="type">string option -&gt; string option -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">html_of_doc None None doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
+<pre class="codepre"><code class="code">html_of_doc <span class="constructor">None</span> <span class="constructor">None</span> doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
-<p><code class="code">"&lt;style&gt;" ^ (</code><a href="Html_utils.html#VALinternal_css"><code class="code">Html_utils.internal_css</code></a> <code class="code"> </code> <a href="Common_utils.html#VALdoc_settings"><code class="code">Common_utils.doc_settings</code></a><code class="code">) ^ "&lt;/style&gt;"</code></p>
+<p><code class="code"><span class="string">"&lt;style&gt;"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code">&nbsp;</code> <a href="Common_utils.html#VALdoc_settings"><code class="code"><span class="constructor">Common_utils</span>.doc_settings</code></a><code class="code">)&nbsp;^&nbsp;<span class="string">"&lt;/style&gt;"</span></code></p>
 
 <p>The body of the html-document is specified by the value of</p>
 
-<p><code class="code">"&lt;body&gt;" ^ (</code><a href="Html_utils.html#VALhtml_of_exml"><code class="code">Html_utils.html_of_exml</code></a> <code class="code"> (</code> <a href="Compiler_of_doc.html#VALexml_of_tr_doc"><code class="code">Compiler_of_doc.exml_of_tr_doc</code></a> <code class="code"> doc)) ^ "&lt;/body&gt;"</code></p>
+<p><code class="code"><span class="string">"&lt;body&gt;"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> <code class="code">&nbsp;(</code> <a href="Compiler_of_doc.html#VALexml_of_tr_doc"><code class="code"><span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc</code></a> <code class="code">&nbsp;doc))&nbsp;^&nbsp;<span class="string">"&lt;/body&gt;"</span></code></p>
 
 <p>---</p>
 
-<pre class="codepre"><code class="code">html_of_doc (Some "uri/of/syle.css") (Some "en") doc</code></pre><p>does the same, except that the html-document also contains</p>
+<pre class="codepre"><code class="code">html_of_doc (<span class="constructor">Some</span> <span class="string">"uri/of/syle.css"</span>) (<span class="constructor">Some</span> <span class="string">"en"</span>) doc</code></pre><p>does the same, except that the html-document also contains</p>
 
 <pre class="verbatim">&lt;html lang="en"&gt;</pre>
 <p>and</p>
@@ -78,15 +78,15 @@
 
 <pre><span id="VALdoc_of_axml"><span class="keyword">val</span> doc_of_axml</span> : <code class="type">string -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">doc_of_axml "path/to/file"</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">doc_of_axml <span class="string">"path/to/file"</span></code></pre><p>evaluates to</p>
 
-<p><a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code">Doc_of_axml.f_tr_doc_of_axml</code></a> <code class="code"> (</code> <a href="Xml_right.html#VALparse_file"><code class="code">Xml_right.parse_file</code></a>  <code class="code">false "path/to/file")</code></p>
+<p><a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a> <code class="code">&nbsp;(</code> <a href="Xml_right.html#VALparse_file"><code class="code"><span class="constructor">Xml_right</span>.parse_file</code></a>  <code class="code"><span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span>)</code></p>
 
 <p>---</p>
 
-<pre class="codepre"><code class="code">doc_of_axml "-"</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">doc_of_axml <span class="string">"-"</span></code></pre><p>evaluates to</p>
 
-<p><a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code">Doc_of_axml.f_tr_doc_of_axml</code></a> <code class="code"> (</code> <a href="Xml_right.html#VALparse_stdin"><code class="code">Xml_right.parse_stdin</code></a> <code class="code"> false)</code></p>
+<p><a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a> <code class="code">&nbsp;(</code> <a href="Xml_right.html#VALparse_stdin"><code class="code"><span class="constructor">Xml_right</span>.parse_stdin</code></a> <code class="code">&nbsp;<span class="keyword">false</span>)</code></p>
 </div>
 </div>
 
@@ -94,7 +94,7 @@
 <div class="info-desc">
 <pre class="codepre"><code class="code">axml_of_doc doc</code></pre><p>evaluates to</p>
 
-<p><code class="code">"&lt;?xml version=\"1.0\"?&gt;\n" ^ (</code> <a href="Xml_right.html#VALto_string_fmt"><code class="code">Xml_right.to_string_fmt</code></a> <code class="code"> (</code> <a href="Axml_of_doc.html#VALaxml_of_tr_doc"><code class="code">Axml_of_doc.axml_of_tr_doc</code></a> <code class="code"> doc))</code></p>
+<p><code class="code"><span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span>&nbsp;^&nbsp;(</code> <a href="Xml_right.html#VALto_string_fmt"><code class="code"><span class="constructor">Xml_right</span>.to_string_fmt</code></a> <code class="code">&nbsp;(</code> <a href="Axml_of_doc.html#VALaxml_of_tr_doc"><code class="code"><span class="constructor">Axml_of_doc</span>.axml_of_tr_doc</code></a> <code class="code">&nbsp;doc))</code></p>
 </div>
 </div>
 
@@ -130,13 +130,13 @@
 
 <pre><span id="VALcheck_xml_schema"><span class="keyword">val</span> check_xml_schema</span> : <code class="type">string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">check_xml_schema "path/to/xml-schema.dtd"</code></pre><p>calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is a well-defined xml-schema in the format dtd.</p>
+<pre class="codepre"><code class="code">check_xml_schema <span class="string">"path/to/xml-schema.dtd"</span></code></pre><p>calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is a well-defined xml-schema in the format dtd.</p>
 </div>
 </div>
 
 <pre><span id="VALvalidate_xml"><span class="keyword">val</span> validate_xml</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">validate_xml "path/to/xml-schema.dtd" "path/to/xml-file.xml"</code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code">Dtd.parse_file</code> for parsing xml-schema.dtd, and <code class="code">Dtd.check</code> for checking that it is well-defined. It then calls the function <a href="Xml_right.html#VALparse_file"><code class="code">Xml_right.parse_file</code></a> for parsing xml-file.xml into an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code">Xml.xml</code>. Lastly, it calls <code class="code">Dtd.prove</code> for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd.</p>
+<pre class="codepre"><code class="code">validate_xml <span class="string">"path/to/xml-schema.dtd"</span> <span class="string">"path/to/xml-file.xml"</span></code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is well-defined. It then calls the function <a href="Xml_right.html#VALparse_file"><code class="code"><span class="constructor">Xml_right</span>.parse_file</code></a> for parsing xml-file.xml into an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Lastly, it calls <code class="code"><span class="constructor">Dtd</span>.prove</code> for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd.</p>
 </div>
 </div>
 </body></html>

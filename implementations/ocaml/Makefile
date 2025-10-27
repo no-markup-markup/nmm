@@ -44,7 +44,7 @@ documentation: src/*
 	make bin/nmm-ocaml
 	cd compilation-artifacts
 	mkdir -p documentation
-	ocamlfind ocamldoc -d documentation -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str -html doc_types.ml xml_right.mli xml_right.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml
+	ocamlfind ocamldoc -colorize-code -d documentation -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str -html doc_types.ml xml_right.mli xml_right.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml
 	cd -
 	if [ -d documentation ]
 	then
