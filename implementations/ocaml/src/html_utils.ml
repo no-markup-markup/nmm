@@ -145,7 +145,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 		raise (Error ("unexpected element: " ^ tag))
 
 let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
-	let left_margin : string = (Int.to_string (Int.max 0 (doc_settings.left_margin - 4))) ^ "rem" in
+	let left_margin : string = (Float.to_string ((Float.of_int doc_settings.left_margin) /. 1.5)) ^ "0" ^ "rem" in
 	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
 "html {
   --left_margin:" ^ left_margin ^ ";

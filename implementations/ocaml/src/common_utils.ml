@@ -141,6 +141,8 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("left_margin", v) -> set_left_margin v
 				|Some ("title_indent", v) -> set_title_indent v
 				|Some ("author_indent", v) -> set_author_indent v
+				|Some ("abstract_indent", v) -> set_abstract_indent v
+				|Some ("refs_indent", v) -> set_refs_indent v
 				|Some ("tab_length", v) -> set_tab_length v
 				|Some ("ch_prefix", v) -> set_ch_prefix v
 				|Some ("sec_prefix", v) -> set_sec_prefix v
@@ -178,6 +180,15 @@ and set_title_indent (v : string) : unit =
 and set_author_indent (v : string) : unit =
 	try doc_settings.author_indent <- (int_of_string v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+
+and set_abstract_indent (v : string) : unit =
+	try doc_settings.abstract_indent <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
+
+and set_refs_indent (v : string) : unit =
+	try doc_settings.refs_indent <- (int_of_string v) with _ ->
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
+
 
 and set_tab_length (v : string) : unit =
 	try doc_settings.tab_length <- (int_of_string v) with _ ->
