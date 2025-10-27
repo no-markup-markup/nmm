@@ -283,6 +283,13 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   white-space:pre-wrap;
 }
 
+.abstract > .blk_txt {
+  margin-left:var(--left_margin);
+}
+
+.refs > .blk_txt {
+  margin-left:var(--left_margin);
+}
 
 .sec_main > .blk_txt {
   margin-left:var(--left_margin);
@@ -299,6 +306,16 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
+.abstract > .blk_blt {
+  margin-left:var(--left_margin);
+}
+
+
+.refs > .blk_blt {
+  margin-left:var(--left_margin);
+}
+
+
 .par_main > .blk_blt {
   margin-left:var(--left_margin);
 }
@@ -306,6 +323,15 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .blk_blt_main {
   margin-left:var(--tab_length);
+}
+
+
+.abstract > .blk_itm {
+  margin-left:var(--left_margin);
+}
+
+.refs > .blk_itm {
+  margin-left:var(--left_margin);
 }
 
 
@@ -321,6 +347,16 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .blk_itm_main {
   margin-left:var(--tab_length);
+}
+
+
+.abstract > .blk_dsp {
+  margin-left:var(--left_margin);
+}
+
+
+.refs > .blk_dsp {
+  margin-left:var(--left_margin);
 }
 
 
