@@ -211,12 +211,8 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .abstract_hdr {
   font-weight:normal;
   font-size:large;
-  margin-left:var(--abstract_indent);
 }
 
-.doc.chs .abstract_hdr {
-  margin-left:0;
-}
 
 .doc.blks .abstract_hdr {
   margin-bottom:0.5rem;
@@ -231,7 +227,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   border-top:thin solid gray;
   margin-left:0;
 }
-
+	
 .doc.blks .refs_hdr {
   margin-bottom:1rem;
 }
@@ -240,13 +236,11 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .refs_hdr {
   font-weight:normal;
   font-size:large;
-  margin-left:var(--refs_indent);
 }
 
 
 .doc.chs .refs_hdr {
   font-size:x-large;
-  margin-left:0;
 }
 
 
@@ -379,11 +373,11 @@ a {
     font-size:12px;
   }
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .itm_lbl, .dsp_lbl, .blt_lbl, .abstract_hdr, .refs_hdr {
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .blk_itm_lbl, .blk_blt_lbl, .abstract_hdr, .refs_hdr {
     break-after:avoid;
   }
 
-  .ch_main, .sec_main, .par_main {
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
     break-before:avoid;
   }
 
