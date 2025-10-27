@@ -82,7 +82,7 @@ type t_doc_settings = {
   mutable abstract_indent : int;
   mutable refs_indent : int;
   mutable tab_length : int;
-  mutable abstract_hdr : string;
+  mutable abstract_hdr : string option;
   mutable refs_hdr : string;
   mutable ch_prefix : string option;
   mutable sec_prefix : string option;
@@ -140,7 +140,7 @@ val doc_settings : t_doc_settings
     abstract_indent     = 12;
     refs_indent         = 12;
     tab_length          = 6;
-    abstract_hdr        = "ABSTRACT";
+    abstract_hdr        = Some "ABSTRACT";
     refs_hdr            = "REFERENCES";
     ch_prefix           = Some "CHAPTER";
     sec_prefix          = Some "§";

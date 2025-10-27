@@ -12,7 +12,7 @@ type t_doc_settings = {
 	mutable abstract_indent: int;
 	mutable refs_indent: int;
 	mutable tab_length : int;
-	mutable abstract_hdr: string;
+	mutable abstract_hdr: string option;
 	mutable refs_hdr: string;
 	mutable ch_prefix: string option;
 	mutable sec_prefix: string option;
@@ -53,7 +53,7 @@ let doc_settings : t_doc_settings = {
 	abstract_indent = 12;
 	refs_indent = 12;
 	tab_length = 6;
-	abstract_hdr = "ABSTRACT";
+	abstract_hdr = Some "ABSTRACT";
 	refs_hdr = "REFERENCES";
 	ch_prefix = Some "CHAPTER";
 	sec_prefix = Some "§";
@@ -184,19 +184,16 @@ and set_tab_length (v : string) : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
 
 and set_ch_prefix (v : string) : unit =
-	try doc_settings.ch_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid ch_prefix value: ";v;"; ";"using default value"])
+	doc_settings.ch_prefix <- (prefix_value_of_string v)
 
 and set_sec_prefix (v : string) : unit =
-	try doc_settings.sec_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid sec_prefix value: ";v;"; ";"using default value"])
+	doc_settings.sec_prefix <- (prefix_value_of_string v)
 
 and set_par_prefix (v : string) : unit =
-	try doc_settings.par_prefix <- (prefix_value_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid par_prefix value: ";v;"; ";"using default value"])
+	doc_settings.par_prefix <- (prefix_value_of_string v)
 
 and set_abstract_hdr (v : string) : unit =
-	doc_settings.abstract_hdr <- v 
+	doc_settings.abstract_hdr <- (prefix_value_of_string v)
 
 and set_refs_hdr (v : string) : unit =
 	doc_settings.refs_hdr <- v 
@@ -568,7 +565,7 @@ and label_of_path_opt (path : t_path) : string option =
 		| ITM_NODE _ -> s_opt
 		| BLT_NODE -> s_opt
 		| DSP_LINE_NODE _ -> s_opt
-		| ABSTRACT_NODE -> Some doc_settings.abstract_hdr
+		| ABSTRACT_NODE -> doc_settings.abstract_hdr
 		| REFS_NODE -> Some doc_settings.refs_hdr
 		| _ -> s_opt
 

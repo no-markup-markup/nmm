@@ -6,7 +6,7 @@ val xml_list_of_ts_title_opt : Doc_types.ts_title option -> Xml.xml list
 
 val xml_list_of_ts_authors_opt : Doc_types.ts_authors option -> Xml.xml list
 
-val xml_of_abstract_hdr : Common_utils.t_doc_settings -> Xml.xml
+val xml_list_of_abstract_hdr : Common_utils.t_doc_settings -> Xml.xml list
 
 val xml_of_refs_hdr : Common_utils.t_doc_settings -> Xml.xml
 

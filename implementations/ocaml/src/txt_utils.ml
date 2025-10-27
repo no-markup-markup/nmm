@@ -22,7 +22,10 @@ and lines_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : string
 
 
 and lines_of_abstract_hdr (doc_class : Common_utils.t_doc_class) : string list =
-	lines_of_string doc_settings.abstract_indent doc_settings.abstract_hdr
+	match doc_settings.abstract_hdr with
+	|None -> []
+	|Some abstract_hdr ->
+		lines_of_string doc_settings.abstract_indent abstract_hdr
 
 and lines_of_refs_hdr (doc_class : Common_utils.t_doc_class) : string list =
 	let underline_symbol : string =

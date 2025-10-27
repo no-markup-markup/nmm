@@ -133,9 +133,9 @@ and acc_of_ts_abstract (doc_class : Common_utils.t_doc_class) (path : Common_uti
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Exml_utils.xml_of_abstract_hdr Common_utils.doc_settings in
+			let hdr : Xml.xml list = Exml_utils.xml_list_of_abstract_hdr Common_utils.doc_settings in
 			match acc_of_ts_blks path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("abstract",[],hdr::xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("abstract",[],List.concat [hdr;xml_list])]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks path acc b
