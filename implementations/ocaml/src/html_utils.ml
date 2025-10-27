@@ -368,22 +368,6 @@ a {
     font-size:12px;
   }
 
-  .doc.chs .title {
-    margin-left:0;
-  }
-
-  .doc.chs .authors {
-    margin-left:0;
-  }
-
-  .doc.chs .abstract {
-    margin-left:0;
-  }
-
-  .ch_hdr, .ch_lbl, .ch_lbl_hdr {
-    margin-left:0;
-  }
-
   .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .itm_lbl, .dsp_lbl, .blt_lbl, .abstract_hdr, .refs_hdr {
     break-after:avoid;
   }
@@ -399,12 +383,12 @@ a {
   .ch {
     break-before:page;
     border:none;
-}
+  }
 
   .doc.chs .refs {
     break-before:page;
     border:none;
-}
+  }
 
 
   /* For one-sided printing:*/
