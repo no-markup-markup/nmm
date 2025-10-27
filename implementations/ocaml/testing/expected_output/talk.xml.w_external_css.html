@@ -188,11 +188,6 @@ a {
 }
 
 
-p {
-  margin-top:0;
-  margin-bottom:1rem;
-}
-
 
 @media print {
 
@@ -275,14 +270,14 @@ p {
 <div style="display:block;float:left">¶ 1.1</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.1</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">To get everybody on the same page, let us look at two examples demonstrating the seeming need for what I have chosen to call ‘non-straightforward induction proofs’.</p>
+<p class="blk_txt" style="margin-top:0">To get everybody on the same page, let us look at two examples demonstrating the seeming need for what I have chosen to call ‘non-straightforward induction proofs’.</p>
 </div>
 </div>
 <div class="par" style="display:block">
 <div style="display:block;float:left">¶ 1.2</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.2</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">For each natural number 𝘯:</p>
+<p class="blk_txt" style="margin-top:0">For each natural number 𝘯:</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre"> 1     1     1     1           1</div>
@@ -300,14 +295,14 @@ p {
 <div style="display:block;float:left">¶ 1.3</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.3</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">With recursion instead of ellipsis, we have the following.</p>
+<p class="blk_txt" style="margin-top:0">With recursion instead of ellipsis, we have the following.</p>
 </div>
 </div>
 <div class="par" style="display:block" id="DEF:Σ₁">
 <div style="display:block;float:left">¶ 1.4</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.4 DEFINITION</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">DEFINITION</p>
+<p class="blk_txt" style="margin-top:0">DEFINITION</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">Σ₁      :  ℕ ─→ ℚ</div>
@@ -325,7 +320,7 @@ p {
 <div style="display:block;float:left">¶ 1.5</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.5 FACT</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">FACT  For each natural number 𝘯:</p>
+<p class="blk_txt" style="margin-top:0">FACT  For each natural number 𝘯:</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯) &lt; 2.</div>
@@ -337,11 +332,11 @@ p {
 <div style="display:block;float:left">¶ 1.6</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.6 PROOF ATTEMPT</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">PROOF ATTEMPT  Straightforward induction:</p>
+<p class="blk_txt" style="margin-top:0">PROOF ATTEMPT  Straightforward induction:</p>
 <div class="blk_blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk_txt">Base case:</p>
+<p class="blk_txt" style="margin-top:0">Base case:</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(0) = 1  (by definition)</div>
@@ -355,7 +350,7 @@ p {
 <div class="blk_blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk_txt">Induction step:</p>
+<p class="blk_txt" style="margin-top:0">Induction step:</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯+1) = Σ₁(𝘯)+(𝘯+2)⁻²  (by definition)</div>
@@ -364,7 +359,7 @@ p {
 <div class="dsp_line_main" style="display:block;white-space:pre">        &lt; 2+(𝘯+2)⁻²      (by induction hypothesis).</div>
 </div>
 </div>
-<p class="blk_txt">We have 2+(𝘯+2)⁻² ≮ 2 for all 𝘯──so how do we proceed from here? It seems like this proof attempt is “stuck”.</p>
+<p class="blk_txt" style="margin-top:0">We have 2+(𝘯+2)⁻² ≮ 2 for all 𝘯──so how do we proceed from here? It seems like this proof attempt is “stuck”.</p>
 </div>
 </div>
 </div>
@@ -373,25 +368,25 @@ p {
 <div style="display:block;float:left">¶ 1.7</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.7</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">We abort the proof attempt. Instead we prove the following stronger fact. (In what sense is it stronger?)</p>
+<p class="blk_txt" style="margin-top:0">We abort the proof attempt. Instead we prove the following stronger fact. (In what sense is it stronger?)</p>
 </div>
 </div>
 <div class="par" style="display:block" id="FCT:basel-stronger">
 <div style="display:block;float:left">¶ 1.8</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.8 FACT</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">FACT  For all natural numbers 𝘯: Σ₁(𝘯) ≤ 2-(𝘯+1)⁻¹.</p>
+<p class="blk_txt" style="margin-top:0">FACT  For all natural numbers 𝘯: Σ₁(𝘯) ≤ 2-(𝘯+1)⁻¹.</p>
 </div>
 </div>
 <div class="par" style="display:block" id="PRF:basel-stronger">
 <div style="display:block;float:left">¶ 1.9</div>
 <h4 style="visibility:hidden;height:0;width:0;float:left">¶ 1.9 PROOF</h4>
 <div class="par_main" style="display:block">
-<p class="blk_txt">PROOF  Straightforward induction:</p>
+<p class="blk_txt" style="margin-top:0">PROOF  Straightforward induction:</p>
 <div class="blk_blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk_txt">Base case:</p>
+<p class="blk_txt" style="margin-top:0">Base case:</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(0) = 1          (by definition)</div>
@@ -408,7 +403,7 @@ p {
 <div class="blk_blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk_txt">Induction step:</p>
+<p class="blk_txt" style="margin-top:0">Induction step:</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯+1)</div>

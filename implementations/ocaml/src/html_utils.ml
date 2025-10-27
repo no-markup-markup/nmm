@@ -95,7 +95,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 
 
 	|Xml.Element ("blk_txt", _, xml_list) ->
-		Xml.Element ("p", [("class", "blk_txt")], List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("p", [("class", "blk_txt");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
 	
 
 	|Xml.Element ("blk_itm", attr_list, xml_list) ->
@@ -328,11 +328,6 @@ a {
   text-decoration:none;
 }
 
-
-p {
-  margin-top:0;
-  margin-bottom:1rem;
-}
 
 
 @media print {

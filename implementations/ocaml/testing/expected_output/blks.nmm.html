@@ -188,11 +188,6 @@ a {
 }
 
 
-p {
-  margin-top:0;
-  margin-bottom:1rem;
-}
-
 
 @media print {
 
@@ -266,21 +261,21 @@ p {
 <body>
 <div style="display:block" class="doc blks">
 <div class="doc_main" style="display:block">
-<p class="blk_txt">This is a no-markup-markup document, sporting the following cool features:</p>
+<p class="blk_txt" style="margin-top:0">This is a no-markup-markup document, sporting the following cool features:</p>
 <div class="blk_itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">Bullet lists:</p>
+<p class="blk_txt" style="margin-top:0">Bullet lists:</p>
 <div class="blk_blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk_txt">Here is one bullet item.</p>
+<p class="blk_txt" style="margin-top:0">Here is one bullet item.</p>
 </div>
 </div>
 <div class="blk_blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk_txt">Here is another one.</p>
+<p class="blk_txt" style="margin-top:0">Here is another one.</p>
 </div>
 </div>
 </div>
@@ -288,45 +283,45 @@ p {
 <div class="blk_itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">Numbered lists with labels that are either</p>
+<p class="blk_txt" style="margin-top:0">Numbered lists with labels that are either</p>
 <div class="blk_itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">automatic, or</p>
+<p class="blk_txt" style="margin-top:0">automatic, or</p>
 </div>
 </div>
 <div class="blk_itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(ö)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">custom.</p>
+<p class="blk_txt" style="margin-top:0">custom.</p>
 </div>
 </div>
-<p class="blk_txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
+<p class="blk_txt" style="margin-top:0">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
 <div class="blk_itm" style="display:block" id="ITM:x">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">The named item can be referred to anywhere in the document.</p>
+<p class="blk_txt" style="margin-top:0">The named item can be referred to anywhere in the document.</p>
 </div>
 </div>
 <div class="blk_itm" style="display:block" id="ITM:y">
 <div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(ä)</a> below.</p>
+<p class="blk_txt" style="margin-top:0">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(ä)</a> below.</p>
 </div>
 </div>
 <div class="blk_itm" style="display:block" id="ITM:z">
 <div class="blk_itm_lbl" style="display:block;float:left">(ä)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">Of course, items with custom labels can also be named!</p>
+<p class="blk_txt" style="margin-top:0">Of course, items with custom labels can also be named!</p>
 </div>
 </div>
 </div>
 </div>
-<p class="blk_txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(2)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(2)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(2)(ä)</a> occurring elsewhere may appear differently.</p>
+<p class="blk_txt" style="margin-top:0">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(2)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(2)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(2)(ä)</a> occurring elsewhere may appear differently.</p>
 <div class="blk_itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk_txt">Displayed lines of text suitable for mathematical equations, which are either</p>
+<p class="blk_txt" style="margin-top:0">Displayed lines of text suitable for mathematical equations, which are either</p>
 <div class="blk_dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block" id="DSP:one">
 <div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
@@ -342,7 +337,7 @@ p {
 </div>
 </div>
 </div>
-<p class="blk_txt">Testing the forbidden characters: &lt; &gt; &amp; &apos; &quot;</p>
+<p class="blk_txt" style="margin-top:0">Testing the forbidden characters: &lt; &gt; &amp; &apos; &quot;</p>
 </div>
 </div>
 </body>
