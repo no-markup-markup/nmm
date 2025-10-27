@@ -21,6 +21,10 @@ type t_doc_settings = {
 	mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
 }
 
+type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
+
+type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
+
 
 let expand_tag_singular_default (tag : Doc_types.ts_tag) : string option =
 	match tag with
@@ -75,18 +79,32 @@ let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
 	|None -> ()
 	|Some preamble -> doc_settings_of_ts_preamble preamble 
 
-and class_of_tr_doc (doc : Doc_types.tr_doc) : string =
+and class_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_class =
 	match doc.fld_doc_main with
-	|Cu_doc_main_chs _ -> "doc chs"
-	|Cu_doc_main_secs _ -> "doc secs"
-	|Cu_doc_main_pars _ -> "doc pars"
-	|Cu_doc_main_blks _ -> "doc blks"
+	|Cu_doc_main_chs _ -> DOC_CHS
+	|Cu_doc_main_secs _ -> DOC_SECS
+	|Cu_doc_main_pars _ -> DOC_PARS
+	|Cu_doc_main_blks _ -> DOC_BLKS
 
-and class_of_tr_ch (ch : Doc_types.tr_ch) : string =
+and string_of_t_doc_class (doc_class : t_doc_class) : string =
+	match doc_class with
+	|DOC_CHS -> "doc chs"
+	|DOC_SECS -> "doc secs"
+	|DOC_PARS -> "doc pars"
+	|DOC_BLKS -> "doc blks"
+
+and class_of_tr_ch (ch : Doc_types.tr_ch) : t_ch_class =
 	match ch.fld_ch_main with
-	| Cu_secs_pars_or_blks_blks _ -> "ch blks"
-	| Cu_secs_pars_or_blks_secs _ -> "ch secs"
-	| Cu_secs_pars_or_blks_pars _ -> "ch pars"
+	| Cu_secs_pars_or_blks_secs _ -> CH_SECS
+	| Cu_secs_pars_or_blks_pars _ -> CH_PARS
+	| Cu_secs_pars_or_blks_blks _ -> CH_BLKS
+
+and string_of_t_ch_class (ch_class : t_ch_class) : string =
+	match ch_class with
+	|CH_SECS -> "ch secs"
+	|CH_PARS -> "ch pars"
+	|CH_BLKS -> "ch blks"
+
 
 and doc_contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
 	match doc.fld_doc_main with

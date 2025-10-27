@@ -3,7 +3,7 @@
 exception Error of string
 
 
-val html_of_exml : Xml.xml -> Xml.xml
+val html_of_exml : Common_utils.t_doc_class -> Xml.xml -> Xml.xml
 (**
 {[html_of_exml element]}
 

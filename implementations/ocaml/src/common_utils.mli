@@ -4,7 +4,10 @@ A toolkit used by {!module:Compiler_of_doc} for handling default and custom docu
 
 exception Error of string
 
-val class_of_tr_doc: Doc_types.tr_doc -> string
+type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
+
+
+val class_of_tr_doc: Doc_types.tr_doc -> t_doc_class
 (**
 {[class_of_tr_doc doc]}
 
@@ -12,26 +15,62 @@ evaluates to
 
 {[
 match doc.fld_doc_main with
-|Cu_doc_main_chs _ -> "doc chs"
-|Cu_doc_main_secs _ -> "doc secs"
-|Cu_doc_main_pars _ -> "doc pars"
-|Cu_doc_main_blks _ -> "doc blks"
+|Cu_doc_main_chs _ -> DOC_CHS
+|Cu_doc_main_secs _ -> DOC_SECS
+|Cu_doc_main_pars _ -> DOC_PARS
+|Cu_doc_main_blks _ -> DOC_BLKS
 ]}
 *)
 
-val class_of_tr_ch: Doc_types.tr_ch -> string
+val string_of_t_doc_class: t_doc_class -> string
+(**
+{[
+string_of_t_doc_class doc_class
+]}
+
+evaluates to
+
+{[
+match doc_class with
+|DOC_CHS -> "doc chs"
+|DOC_SECS -> "doc secs"
+|DOC_PARS -> "doc pars"
+|DOC_BLKS -> "doc blks"
+]}
+*)
+
+
+type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
+
+val class_of_tr_ch: Doc_types.tr_ch -> t_ch_class
 (**
 {[class_of_tr_ch ch]}
 
 evaluates to
 {[
 match ch.fld_ch_main with
-| Cu_secs_pars_or_blks_blks _ -> "ch blks"
-| Cu_secs_pars_or_blks_secs _ -> "ch secs"
-| Cu_secs_pars_or_blks_pars _ -> "ch pars"
+| Cu_secs_pars_or_blks_secs _ -> CH_SECS
+| Cu_secs_pars_or_blks_pars _ -> CH_PARS
+| Cu_secs_pars_or_blks_blks _ -> CH_BLKS
 ]}
 *)
 
+val string_of_t_ch_class: t_ch_class -> string
+(**
+{[
+string_of_t_ch_class ch_class
+]}
+
+evaluates to
+
+{[
+match ch_class with
+|CH_SECS -> "ch secs"
+|CH_PARS -> "ch pars"
+|CH_BLKS -> "ch blks"
+]}
+
+*)
 
 (** <h2>Document settings</h2> *)
 

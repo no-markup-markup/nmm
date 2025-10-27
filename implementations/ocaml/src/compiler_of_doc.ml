@@ -35,7 +35,7 @@ and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
-	let doc_class : string = Common_utils.class_of_tr_doc doc in
+	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
 	match acc with
 	| CREF_TABLE _ -> (
 		let table_abstract : Common_utils.t_cref_table = 
@@ -113,17 +113,18 @@ and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 		)
 		in
 		let xml_list_doc = List.concat [xml_list_title;xml_list_authors;xml_list_abstract;[xml_main];xml_list_refs] in
-		EXML [Xml.Element ("doc",[("class",doc_class)],xml_list_doc)]
+		let doc_class_string = Common_utils.string_of_t_doc_class doc_class in
+		EXML [Xml.Element ("doc",[("class",doc_class_string)],xml_list_doc)]
 
-and acc_of_ts_abstract (doc_class : string) (path : Common_utils.t_path) (acc : t_acc) (a : ts_abstract) : t_acc =
+and acc_of_ts_abstract (doc_class : Common_utils.t_doc_class) (path : Common_utils.t_path) (acc : t_acc) (a : ts_abstract) : t_acc =
 	match a with
 	|Cs_abstract (b : ts_blks) -> 
 		match acc with
 		|LINES _ -> (
 			let padding : string list =
 			match doc_class with
-			|"doc chs" -> ["";"";""]
-			|"doc secs" -> ["";""]
+			|DOC_CHS -> ["";"";""]
+			|DOC_SECS -> ["";""]
 			| _ -> [""]
 			in
 			let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_class Common_utils.doc_settings in
@@ -139,15 +140,15 @@ and acc_of_ts_abstract (doc_class : string) (path : Common_utils.t_path) (acc : 
 		)
 		| _ -> acc_of_ts_blks path acc b
 
-and acc_of_ts_refs (doc_class : string)  (path : Common_utils.t_path) (acc : t_acc) (a : ts_refs) : t_acc =
+and acc_of_ts_refs (doc_class : Common_utils.t_doc_class)  (path : Common_utils.t_path) (acc : t_acc) (a : ts_refs) : t_acc =
 	match a with
 	|Cs_refs (b : ts_blks) -> 
 		match acc with
 		|LINES _ -> (
 			let padding : string list =
 			match doc_class with
-			|"doc chs" -> ["";"";""]
-			|"doc secs" -> ["";""]
+			|DOC_CHS -> ["";"";""]
+			|DOC_SECS -> ["";""]
 			| _ -> [""]
 			in
 			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_class Common_utils.doc_settings in
@@ -255,7 +256,7 @@ and acc_of_ts_blks (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 
 
 and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) : t_acc =
-	let ch_class : string = Common_utils.class_of_tr_ch a in
+	let ch_class : Common_utils.t_ch_class = Common_utils.class_of_tr_ch a in
 	match acc with
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
@@ -289,7 +290,8 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 		in
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
-		let attr_list : (string*string) list = ("class",ch_class)::(Exml_utils.attr_list_of_tu_tag_or_id a.fld_ch_tag_or_id) in
+		let ch_class_string = Common_utils.string_of_t_ch_class ch_class in
+		let attr_list : (string*string) list = ("class",ch_class_string)::(Exml_utils.attr_list_of_tu_tag_or_id a.fld_ch_tag_or_id) in
 		match a.fld_ch_hdr with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_hdr;xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])

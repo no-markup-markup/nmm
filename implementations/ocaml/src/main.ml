@@ -34,7 +34,8 @@ let txt_of_doc (doc : Doc_types.tr_doc) : string =
 
 let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc_types.tr_doc) : string =
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
-	let html:Xml.xml = Html_utils.html_of_exml exml in
+	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
+	let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
 	let html_string:string = Xml_right.to_string_fmt html in
 	let title:string = 
 		match doc.fld_doc_title with
