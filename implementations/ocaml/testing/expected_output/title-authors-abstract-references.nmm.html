@@ -8,6 +8,10 @@
 <meta name="author" content="Donald Duck">
 <style>
 html {
+  --title_indent:8.0rem;
+  --author_indent:8.0rem;
+  --abstract_indent:8.0rem;
+  --refs_indent:8.0rem;
   --left_margin:8.0rem;
   --tab_length:6ch;
   font-family:monospace;
@@ -19,7 +23,7 @@ html {
 .title {
   font-weight:normal;
   font-size:large;
-  margin-left:var(--left_margin);
+  margin-left:var(--title_indent);
 }
 
 .doc.chs .title {
@@ -35,7 +39,7 @@ html {
 
 .authors {
   margin-bottom:3em;
-  margin-left:var(--left_margin);
+  margin-left:var(--author_indent);
 }
 
 
@@ -51,11 +55,11 @@ html {
 
 
 .abstract {
-  margin-bottom:2em;
+  margin-bottom:3em;
+  margin-left:var(--abstract_indent);
 }
 
 .doc.chs .abstract {
-  margin-bottom:3em;
   margin-left:0;
 }
 
@@ -63,28 +67,36 @@ html {
 .abstract_hdr {
   font-weight:normal;
   font-size:large;
-  margin-left:var(--left_margin);
+  margin-left:var(--abstract_indent);
 }
 
 .doc.chs .abstract_hdr {
   margin-left:0;
 }
 
+.doc.blks .abstract_hdr {
+  margin-bottom:0.5rem;
+}
 
 .refs {
   padding-top:2rem;
+  margin-left:var(--refs_indent);
 }
 
 .doc.chs .refs {
   border-top:thin solid gray;
+  margin-left:0;
+}
+
+.doc.blks .refs_hdr {
+  margin-bottom:1rem;
 }
 
 
 .refs_hdr {
   font-weight:normal;
   font-size:large;
-  margin-bottom:3rem;
-  margin-left:var(--left_margin);
+  margin-left:var(--refs_indent);
 }
 
 
@@ -143,13 +155,6 @@ html {
   white-space:pre-wrap;
 }
 
-.abstract > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-.refs > .blk_txt {
-  margin-left:var(--left_margin);
-}
 
 .sec_main > .blk_txt {
   margin-left:var(--left_margin);
@@ -166,15 +171,6 @@ html {
 }
 
 
-.abstract > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
 
 .par_main > .blk_blt {
   margin-left:var(--left_margin);
@@ -183,15 +179,6 @@ html {
 
 .blk_blt_main {
   margin-left:var(--tab_length);
-}
-
-
-.abstract > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
-.refs > .blk_itm {
-  margin-left:var(--left_margin);
 }
 
 
@@ -207,16 +194,6 @@ html {
 
 .blk_itm_main {
   margin-left:var(--tab_length);
-}
-
-
-.abstract > .blk_dsp {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_dsp {
-  margin-left:var(--left_margin);
 }
 
 

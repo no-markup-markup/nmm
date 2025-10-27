@@ -145,9 +145,17 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 		raise (Error ("unexpected element: " ^ tag))
 
 let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
+	let title_indent : string = (Float.to_string ((Float.of_int doc_settings.title_indent) /. 1.5)) ^ "0" ^ "rem" in
+	let author_indent : string = (Float.to_string ((Float.of_int doc_settings.author_indent) /. 1.5)) ^ "0" ^ "rem" in
+	let abstract_indent : string = (Float.to_string ((Float.of_int doc_settings.abstract_indent) /. 1.5)) ^ "0" ^ "rem" in
+	let refs_indent : string = (Float.to_string ((Float.of_int doc_settings.refs_indent) /. 1.5)) ^ "0" ^ "rem" in
 	let left_margin : string = (Float.to_string ((Float.of_int doc_settings.left_margin) /. 1.5)) ^ "0" ^ "rem" in
 	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
 "html {
+  --title_indent:" ^ title_indent ^ ";
+  --author_indent:" ^ author_indent ^ ";
+  --abstract_indent:" ^ abstract_indent ^ ";
+  --refs_indent:" ^ refs_indent ^ ";
   --left_margin:" ^ left_margin ^ ";
   --tab_length:" ^ tab_length ^ ";
   font-family:monospace;
@@ -159,7 +167,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .title {
   font-weight:normal;
   font-size:large;
-  margin-left:var(--left_margin);
+  margin-left:var(--title_indent);
 }
 
 .doc.chs .title {
@@ -175,7 +183,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .authors {
   margin-bottom:3em;
-  margin-left:var(--left_margin);
+  margin-left:var(--author_indent);
 }
 
 
@@ -191,11 +199,11 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .abstract {
-  margin-bottom:2em;
+  margin-bottom:3em;
+  margin-left:var(--abstract_indent);
 }
 
 .doc.chs .abstract {
-  margin-bottom:3em;
   margin-left:0;
 }
 
@@ -203,28 +211,36 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 .abstract_hdr {
   font-weight:normal;
   font-size:large;
-  margin-left:var(--left_margin);
+  margin-left:var(--abstract_indent);
 }
 
 .doc.chs .abstract_hdr {
   margin-left:0;
 }
 
+.doc.blks .abstract_hdr {
+  margin-bottom:0.5rem;
+}
 
 .refs {
   padding-top:2rem;
+  margin-left:var(--refs_indent);
 }
 
 .doc.chs .refs {
   border-top:thin solid gray;
+  margin-left:0;
+}
+
+.doc.blks .refs_hdr {
+  margin-bottom:1rem;
 }
 
 
 .refs_hdr {
   font-weight:normal;
   font-size:large;
-  margin-bottom:3rem;
-  margin-left:var(--left_margin);
+  margin-left:var(--refs_indent);
 }
 
 
@@ -283,13 +299,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   white-space:pre-wrap;
 }
 
-.abstract > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-.refs > .blk_txt {
-  margin-left:var(--left_margin);
-}
 
 .sec_main > .blk_txt {
   margin-left:var(--left_margin);
@@ -306,15 +315,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.abstract > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
 
 .par_main > .blk_blt {
   margin-left:var(--left_margin);
@@ -323,15 +323,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .blk_blt_main {
   margin-left:var(--tab_length);
-}
-
-
-.abstract > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
-.refs > .blk_itm {
-  margin-left:var(--left_margin);
 }
 
 
@@ -347,16 +338,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .blk_itm_main {
   margin-left:var(--tab_length);
-}
-
-
-.abstract > .blk_dsp {
-  margin-left:var(--left_margin);
-}
-
-
-.refs > .blk_dsp {
-  margin-left:var(--left_margin);
 }
 
 
