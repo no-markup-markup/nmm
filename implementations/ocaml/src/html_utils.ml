@@ -160,7 +160,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   --tab_length:" ^ tab_length ^ ";
   font-family:monospace;
   font-size:medium;
-  line-height:165%;
+  line-height:150%;
 }
 
 
@@ -274,7 +274,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .sec + .sec {
-  margin-top:2em;
+  margin-top:3rem;
 }
 
 
@@ -290,7 +290,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .par + .par {
-  margin-top:2em;
+  margin-top:2rem;
 }
 
 
@@ -299,6 +299,17 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   white-space:pre-wrap;
 }
 
+.blk_blt {
+  margin-bottom:1rem;
+}
+
+.blk_itm {
+  margin-bottom:1rem;
+}
+
+.blk_dsp {
+  margin-bottom:1rem;
+}
 
 .sec_main > .blk_txt {
   margin-left:var(--left_margin);
