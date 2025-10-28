@@ -82,24 +82,24 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 
 
 	|Xml.Element ("par", attr_list, xml_list) ->
-		Xml.Element ("div", ("class", "par")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div", ("class", "par")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("par_hdr", attr_list, xml_list) ->
-		Xml.Element ("h4", [("style","visibility:hidden;height:0;width:0;float:left")], List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("h4", [("class","par_hdr");("style","visibility:hidden;height:0;width:0;float:left")], List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("par_lbl", _, xml_list) ->
-		Xml.Element ("div",[("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div",[("class","par_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("par_main", _ , xml_list) -> 
 		Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 
 	|Xml.Element ("blk_txt", _, xml_list) ->
-		Xml.Element ("p", [("class", "blk_txt");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("p", [("class", "blk txt");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
 	
 
 	|Xml.Element ("blk_itm", attr_list, xml_list) ->
-		Xml.Element ("div", ("class", "blk_itm")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div", ("class", "blk itm")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("blk_itm_lbl", _, xml_list) ->
 		Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
@@ -109,7 +109,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 
 
 	|Xml.Element ("blk_blt", _, xml_list) ->
-		Xml.Element ("div", [("class", "blk_blt");("style","display:block;overflow:hidden")], List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div", [("class", "blk blt");("style","display:block;overflow:hidden")], List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("blk_blt_lbl", _, xml_list) ->
 		Xml.Element ("div",[("class","blk_blt_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
@@ -119,7 +119,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 
 
 	|Xml.Element ("blk_dsp", _, xml_list) ->
-		Xml.Element ("div", [("class", "blk_dsp");("style","display:block;white-space:nowrap")], List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div", [("class", "blk dsp");("style","display:block;white-space:nowrap")], List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("dsp_line", attr_list, xml_list) ->
 		Xml.Element ("div", ("class", "dsp_line")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
@@ -144,12 +144,13 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 	|Xml.Element (tag, _, _) ->
 		raise (Error ("unexpected element: " ^ tag))
 
-let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
-	let title_indent : string = (Float.to_string ((Float.of_int doc_settings.title_indent) /. 1.5)) ^ "0" ^ "rem" in
-	let author_indent : string = (Float.to_string ((Float.of_int doc_settings.author_indent) /. 1.5)) ^ "0" ^ "rem" in
-	let abstract_indent : string = (Float.to_string ((Float.of_int doc_settings.abstract_indent) /. 1.5)) ^ "0" ^ "rem" in
-	let refs_indent : string = (Float.to_string ((Float.of_int doc_settings.refs_indent) /. 1.5)) ^ "0" ^ "rem" in
-	let left_margin : string = (Float.to_string ((Float.of_int doc_settings.left_margin) /. 1.5)) ^ "0" ^ "rem" in
+let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
+	let factor : float = 0.6 in
+	let title_indent : string = (Float.to_string ((Float.of_int doc_settings.title_indent) *. factor)) ^ "0" ^ "rem" in
+	let author_indent : string = (Float.to_string ((Float.of_int doc_settings.author_indent) *. factor)) ^ "0" ^ "rem" in
+	let abstract_indent : string = (Float.to_string ((Float.of_int doc_settings.abstract_indent) *. factor)) ^ "0" ^ "rem" in
+	let refs_indent : string = (Float.to_string ((Float.of_int doc_settings.refs_indent) *. factor)) ^ "0" ^ "rem" in
+	let left_margin : string = (Float.to_string ((Float.of_int doc_settings.left_margin) *. factor)) ^ "0" ^ "rem" in
 	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
 "html {
   --title_indent:" ^ title_indent ^ ";
@@ -182,7 +183,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .authors {
-  margin-bottom:3em;
+  margin-bottom:3rem;
   margin-left:var(--author_indent);
 }
 
@@ -199,7 +200,7 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .abstract {
-  margin-bottom:3em;
+  margin-bottom:3rem;
   margin-left:var(--abstract_indent);
 }
 
@@ -218,16 +219,19 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   margin-bottom:0.5rem;
 }
 
+
 .refs {
   padding-top:2rem;
   margin-left:var(--refs_indent);
 }
 
+
 .doc.chs .refs {
   border-top:thin solid gray;
   margin-left:0;
 }
-	
+
+
 .doc.blks .refs_hdr {
   margin-bottom:1rem;
 }
@@ -282,39 +286,42 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   font-size:large;
 }
 
+/* css hack to prevent page breaks after headers */
+.sec_hdr::after {
+    content:\"\";
+    display:block;
+    height:100px;
+    margin-bottom:-100px;
+}
+
+.par_lbl::after {
+  content: \"\";
+  display:block;
+  height:200px;
+  margin-bottom:-200px;
+}
+
 
 .par + .par {
   margin-top:2rem;
 }
 
+.blk.dsp {
+  margin-bottom:1rem;
+}
 
-.blk_txt {
+.blk.txt {
   hyphens:auto;
   white-space:pre-wrap;
 }
 
 
-.blk_dsp {
-  margin-bottom:1rem;
-}
-
-.sec_main > .blk_txt {
+.sec_main > .blk {
   margin-left:var(--left_margin);
 }
 
 
-.par_main > .blk_txt {
-  margin-left:var(--left_margin);
-}
-
-
-.sec_main > .blk_blt {
-  margin-left:var(--left_margin);
-}
-
-
-
-.par_main > .blk_blt {
+.par_main > .blk {
   margin-left:var(--left_margin);
 }
 
@@ -324,29 +331,10 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.sec_main > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_itm {
-  margin-left:var(--left_margin);
-}
-
-
 .blk_itm_main {
   margin-left:var(--tab_length);
 }
 
-
-.sec_main > .blk_dsp {
-  margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk_dsp {
-  margin-left:var(--left_margin);
-}
 
 
 .dsp_line_main {
@@ -359,19 +347,23 @@ a {
 }
 
 
-
 @media print {
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .blk_itm_lbl, .blk_blt_lbl, .abstract_hdr, .refs_hdr {
-    break-after:avoid;
+  html {
+    font-size:13px;
+  }
+
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
+    break-after:avoid-page;
+    break-inside:avoid-page;
   }
 
   .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
-    break-before:avoid;
+    break-before:avoid-page;
   }
 
-  .blk_dsp {
-    break-inside:avoid;
+  .blk.dsp {
+    break-inside:avoid-page;
   }
 
   .ch {

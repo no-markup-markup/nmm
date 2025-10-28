@@ -2,7 +2,7 @@ html {
 	font-family: monospace;
 }
 
-.blk_dsp {
+.blk.dsp {
 	background-color:lightgrey;
 	margin-right:6ch;
 	padding:1ch;
@@ -25,6 +25,6 @@ html {
 	font-size:16px;
 }
 
-.blk_blt, .blk_itm {
+.blk.blt, .blk.itm {
 	margin:1em;
 }
