@@ -140,21 +140,6 @@ html {
   font-size:large;
 }
 
-/* css hack to prevent page breaks after headers */
-.sec_hdr::after {
-    content:"";
-    display:block;
-    height:100px;
-    margin-bottom:-100px;
-}
-
-.par_lbl::after {
-  content: "";
-  display:block;
-  height:200px;
-  margin-bottom:-200px;
-}
-
 
 .par + .par {
   margin-top:2rem;
@@ -254,21 +239,21 @@ a {
 <body>
 <div style="display:block" class="doc pars">
 <div class="doc_main" style="display:block">
-<div class="par" style="display:block;overflow:hidden" id="THM:main">
+<div class="par" style="display:block" id="THM:main">
 <div class="par_lbl" style="display:block;float:left">¶ 1</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 1 Theorem (Main)</h4>
 <div class="par_main" style="display:block">
 <p class="blk txt" style="margin-top:0">Theorem (Main)  Nothing lasts forever.</p>
 </div>
 </div>
-<div class="par" style="display:block;overflow:hidden" id="PRF:proof">
+<div class="par" style="display:block" id="PRF:proof">
 <div class="par_lbl" style="display:block;float:left">¶ 2</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2 Proof (of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a>)</h4>
 <div class="par_main" style="display:block">
 <p class="blk txt" style="margin-top:0">Proof (of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a>)  By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>
-<div class="par" style="display:block;overflow:hidden" id="THMS:aux">
+<div class="par" style="display:block" id="THMS:aux">
 <div class="par_lbl" style="display:block;float:left">¶ 3</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 3 Theorems</h4>
 <div class="par_main" style="display:block">
@@ -287,7 +272,7 @@ a {
 </div>
 </div>
 </div>
-<div class="par" style="display:block;overflow:hidden" id="PRFS:aux">
+<div class="par" style="display:block" id="PRFS:aux">
 <div class="par_lbl" style="display:block;float:left">¶ 4</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 4 Proofs (of <a class="txt_unit_c_ref" href="#THMS:aux">Theorems 3</a>)</h4>
 <div class="par_main" style="display:block">

@@ -140,21 +140,6 @@ html {
   font-size:large;
 }
 
-/* css hack to prevent page breaks after headers */
-.sec_hdr::after {
-    content:"";
-    display:block;
-    height:100px;
-    margin-bottom:-100px;
-}
-
-.par_lbl::after {
-  content: "";
-  display:block;
-  height:200px;
-  margin-bottom:-200px;
-}
-
 
 .par + .par {
   margin-top:2rem;
@@ -258,7 +243,7 @@ a {
 <div class="sec_lbl" style="display:block;float:left">§ 1</div>
 <h3 class="sec_lbl_hdr" style="display:block;visibility:hidden">§ 1</h3>
 <div class="sec_main" style="display:block">
-<div class="par" style="display:block;overflow:hidden" id="THM:main">
+<div class="par" style="display:block" id="THM:main">
 <div class="par_lbl" style="display:block;float:left">¶ 1.1</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 1.1 THEOREM (Main)</h4>
 <div class="par_main" style="display:block">
@@ -293,7 +278,7 @@ a {
 <p class="blk txt" style="margin-top:0">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">(2)(b)</a></p>
 </div>
 </div>
-<div class="par" style="display:block;overflow:hidden" id="PRF:proof">
+<div class="par" style="display:block" id="PRF:proof">
 <div class="par_lbl" style="display:block;float:left">¶ 1.2</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 1.2 PROOF (of <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a>)</h4>
 <div class="par_main" style="display:block">
@@ -311,7 +296,7 @@ a {
 <div class="sec_lbl" style="display:block;float:left">§ 2</div>
 <h3 class="sec_lbl_hdr" style="display:block;visibility:hidden">§ 2</h3>
 <div class="sec_main" style="display:block">
-<div class="par" style="display:block;overflow:hidden">
+<div class="par" style="display:block">
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.1 PROOF (of <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a>)</h4>
 <div class="par_main" style="display:block">

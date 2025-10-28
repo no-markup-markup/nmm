@@ -141,21 +141,6 @@ html {
   font-size:large;
 }
 
-/* css hack to prevent page breaks after headers */
-.sec_hdr::after {
-    content:"";
-    display:block;
-    height:100px;
-    margin-bottom:-100px;
-}
-
-.par_lbl::after {
-  content: "";
-  display:block;
-  height:200px;
-  margin-bottom:-200px;
-}
-
 
 .par + .par {
   margin-top:2rem;
@@ -307,14 +292,14 @@ a {
 <div class="ch_lbl" style="display:block">CHAPTER 2</div>
 <h2 class="ch_hdr">Second chapter</h2>
 <div class="ch_main" style="display:block">
-<div class="par" style="display:block;overflow:hidden">
+<div class="par" style="display:block">
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.1</h4>
 <div class="par_main" style="display:block">
 <p class="blk txt" style="margin-top:0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </div>
-<div class="par" style="display:block;overflow:hidden">
+<div class="par" style="display:block">
 <div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
 <h4 class="par_hdr" style="visibility:hidden;height:0;width:0;float:left">¶ 2.2</h4>
 <div class="par_main" style="display:block">

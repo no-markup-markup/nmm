@@ -51,7 +51,7 @@ match element with
 |Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl_hdr");("style","display:block;visibility:hidden")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("class", "par")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("class", "par")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", [("class","par_hdr");("style","visibility:hidden;height:0;width:0;float:left")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
@@ -78,6 +78,7 @@ match element with
 |Xml.PCData s -> Xml.PCData s
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
+
 ]}
 *)
 
