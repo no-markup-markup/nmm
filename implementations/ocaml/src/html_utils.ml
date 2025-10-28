@@ -294,12 +294,10 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 .blk_blt {
-  margin-bottom:1rem;
   overflow:hidden;
 }
 
 .blk_itm {
-  margin-bottom:1rem;
   overflow:hidden;
 }
 
