@@ -295,10 +295,12 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
 
 .blk_blt {
   margin-bottom:1rem;
+  overflow:hidden;
 }
 
 .blk_itm {
   margin-bottom:1rem;
+  overflow:hidden;
 }
 
 .blk_dsp {
@@ -368,10 +370,6 @@ a {
 
 
 @media print {
-
-  html {
-    font-size:12px;
-  }
 
   .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .blk_itm_lbl, .blk_blt_lbl, .abstract_hdr, .refs_hdr {
     break-after:avoid;
