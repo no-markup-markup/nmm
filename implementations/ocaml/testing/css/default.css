@@ -132,21 +132,6 @@ html {
   font-size:large;
 }
 
-/* css hack to prevent page breaks after headers */
-.sec_hdr::after {
-    content:"";
-    display:block;
-    height:100px;
-    margin-bottom:-100px;
-}
-
-.par_lbl::after {
-  content: "";
-  display:block;
-  height:200px;
-  margin-bottom:-200px;
-}
-
 
 .par + .par {
   margin-top:2rem;

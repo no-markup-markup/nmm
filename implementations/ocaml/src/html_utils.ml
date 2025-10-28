@@ -44,7 +44,7 @@ match element with
 |Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl_hdr");("style","display:block;visibility:hidden")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("class", "par")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("class", "par")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", [("class","par_hdr");("style","visibility:hidden;height:0;width:0;float:left")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
@@ -212,21 +212,6 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 .sec_hdr {
   margin-left:var(--left_margin);
   font-size:large;
-}
-
-/* css hack to prevent page breaks after headers */
-.sec_hdr::after {
-    content:\"\";
-    display:block;
-    height:100px;
-    margin-bottom:-100px;
-}
-
-.par_lbl::after {
-  content: \"\";
-  display:block;
-  height:200px;
-  margin-bottom:-200px;
 }
 
 
