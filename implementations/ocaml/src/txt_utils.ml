@@ -169,11 +169,14 @@ and line_break (line_width : int) (s : string) : string * string =
 		match String.index_from_opt s 0 ' ' with
 		| None -> (s, "")
 		| Some (i : int) ->
-			match utf_8_length (String.sub s 0 i) <= line_width with
+			let sub = String.sub s 0 i in
+			match utf_8_length sub <= line_width with
 			| true ->
 				let j = aux line_width s i in
 				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
-			| false -> (s, "")
+			| false -> 
+				(sub, String.sub s (i + 1) (String.length s - i - 1))
+
 
 and insert_label (path : Common_utils.t_path) (s : string) : string =
 	match label_of_path_opt path with
