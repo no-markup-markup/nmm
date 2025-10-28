@@ -148,13 +148,6 @@ html {
   white-space:pre-wrap;
 }
 
-.blk_blt {
-  overflow:hidden;
-}
-
-.blk_itm {
-  overflow:hidden;
-}
 
 .blk_dsp {
   margin-bottom:1rem;
@@ -288,25 +281,25 @@ a {
 <h3 class="sec_hdr" style="margin-top:0">A probabilistic approach</h3>
 <div class="sec_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Assume, for the sake of simplicity, that </p>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">you have n files partitioned equally over k subdirectories (with n/k files in each), </p>
 </div>
 </div>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">each file is just as likely to have been modified as any other (with probability p),</p>
 </div>
 </div>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">modifications are probabilistically independent of each other,</p>
 </div>
 </div>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">the number of files are fixed, and the modification time of a directory only gets updated when its files are modified. </p>
@@ -376,20 +369,20 @@ a {
 <h3 class="sec_hdr" style="margin-top:0">A non-probabilistic approach</h3>
 <div class="sec_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Assume, as before, that </p>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">you have n files partitioned equally over k subdirectories (with n/k files in each), and that</p>
 </div>
 </div>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">the number of files are fixed, and the modification time of a directory only gets updated when its files are modified. </p>
 </div>
 </div>
 <p class="blk_txt" style="margin-top:0">Assume, moreover, that</p>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">exactly one file has been modified.</p>

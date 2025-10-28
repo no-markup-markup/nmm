@@ -148,13 +148,6 @@ html {
   white-space:pre-wrap;
 }
 
-.blk_blt {
-  overflow:hidden;
-}
-
-.blk_itm {
-  overflow:hidden;
-}
 
 .blk_dsp {
   margin-bottom:1rem;
@@ -287,7 +280,7 @@ a {
 <div class="dsp_line_main" style="display:block;white-space:pre">labeled display lines at level 0</div>
 </div>
 </div>
-<div class="blk_itm" style="display:block">
+<div class="blk_itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Bullet lists:</p>
@@ -301,7 +294,7 @@ a {
 <div class="dsp_line_main" style="display:block;white-space:pre">preceded by unlabeled display line at level 1, whose (lack of) linebreaks are respected.</div>
 </div>
 </div>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Here is one bullet item.</p>
@@ -312,7 +305,7 @@ a {
 </div>
 </div>
 </div>
-<div class="blk_blt" style="display:block">
+<div class="blk_blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Here is another one.</p>
@@ -342,36 +335,36 @@ a {
 <div class="dsp_line_main" style="display:block;white-space:pre">labeled with name</div>
 </div>
 </div>
-<div class="blk_itm" style="display:block">
+<div class="blk_itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(6)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Numbered lists with labels that are either</p>
-<div class="blk_itm" style="display:block">
+<div class="blk_itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">automatic, or</p>
 </div>
 </div>
-<div class="blk_itm" style="display:block">
+<div class="blk_itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(*)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">custom.</p>
 </div>
 </div>
 <p class="blk_txt" style="margin-top:0">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
-<div class="blk_itm" style="display:block" id="ITM:x">
+<div class="blk_itm" style="display:block;overflow:hidden" id="ITM:x">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">The named item can be referred to anywhere in the document.</p>
 </div>
 </div>
-<div class="blk_itm" style="display:block" id="ITM:y">
+<div class="blk_itm" style="display:block;overflow:hidden" id="ITM:y">
 <div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(**)</a> below.</p>
 </div>
 </div>
-<div class="blk_itm" style="display:block" id="ITM:z">
+<div class="blk_itm" style="display:block;overflow:hidden" id="ITM:z">
 <div class="blk_itm_lbl" style="display:block;float:left">(**)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Of course, items with custom labels can also be named!</p>
@@ -380,7 +373,7 @@ a {
 </div>
 </div>
 <p class="blk_txt" style="margin-top:0">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(6)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(6)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(6)(**)</a> occurring elsewhere may appear differently.</p>
-<div class="blk_itm" style="display:block" id="ITM:one">
+<div class="blk_itm" style="display:block;overflow:hidden" id="ITM:one">
 <div class="blk_itm_lbl" style="display:block;float:left">(7)</div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk_txt" style="margin-top:0">Displayed lines of text suitable for mathematical equations, which are either</p>

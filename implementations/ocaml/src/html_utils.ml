@@ -99,7 +99,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 	
 
 	|Xml.Element ("blk_itm", attr_list, xml_list) ->
-		Xml.Element ("div", ("class", "blk_itm")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div", ("class", "blk_itm")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("blk_itm_lbl", _, xml_list) ->
 		Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
@@ -109,7 +109,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xm
 
 
 	|Xml.Element ("blk_blt", _, xml_list) ->
-		Xml.Element ("div", [("class", "blk_blt");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+		Xml.Element ("div", [("class", "blk_blt");("style","display:block;overflow:hidden")], List.map (html_of_exml doc_class) xml_list)
 
 	|Xml.Element ("blk_blt_lbl", _, xml_list) ->
 		Xml.Element ("div",[("class","blk_blt_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
@@ -293,13 +293,6 @@ let internal_css ( doc_settings : Common_utils.t_doc_settings) : string =
   white-space:pre-wrap;
 }
 
-.blk_blt {
-  overflow:hidden;
-}
-
-.blk_itm {
-  overflow:hidden;
-}
 
 .blk_dsp {
   margin-bottom:1rem;
