@@ -63,3 +63,13 @@ do
 	color "# diff expected_output/$file output/$file:"
 	diff --color expected_output/$file output/$file 
 done
+
+if [ -d weasyprint_output ]
+then
+	rm -r weasyprint_output
+fi
+
+mkdir weasyprint_output
+
+weasyprint output/cv_eric_johannesson.nmm.html weasyprint_output/cv_eric_johannesson.nmm.html.pdf
+weasyprint output/talk.xml.html weasyprint_output/talk.xml.html.pdf
