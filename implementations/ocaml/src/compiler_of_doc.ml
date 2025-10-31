@@ -334,7 +334,9 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id a.fld_sec_tag_or_id in
-		EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
+		match a.fld_sec_hdr with
+		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr; xml_main])]])
+		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
 
 and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par) : t_acc =
 	match acc with

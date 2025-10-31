@@ -41,7 +41,7 @@ match element with
 |Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", ("class", "sec")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl");("style","display:block;float:left")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl_hdr");("style","display:block;visibility:hidden")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("class", "par")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
@@ -215,6 +215,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 .sec_lbl {
     font-size : large;
+    font-weight : normal;
 }
 
 
