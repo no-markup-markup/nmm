@@ -1,10 +1,10 @@
 PREAMBLE:
-	doc_width=75
-	title_indent=0
-	author_indent=0
-	left_margin=7
-	sec_prefix=
-	par_prefix=
+	doc-width=75
+	title-indent=0
+	author-indent=0
+	left-margin=7
+	sec-prefix=
+	par-prefix=
 
 TITLE:	OPTIMAL PARTITIONING
 AUTHOR:	Eric Johannesson

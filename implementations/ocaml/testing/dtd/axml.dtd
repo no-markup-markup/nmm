@@ -15,7 +15,7 @@
 <!ELEMENT cs_chs (cr_ch+)>
 <!ELEMENT cs_secs (cr_sec+)>
 <!ELEMENT cs_pars (cr_par+)>
-<!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp)+>
+<!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp | cu_empty_line)+>
 
 <!ELEMENT cr_ch ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_secs_pars_or_blks_secs | cu_secs_pars_or_blks_pars | cu_secs_pars_or_blks_blks))>
 <!ELEMENT cr_sec ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_pars_or_blks_pars | cu_pars_or_blks_blks))>
@@ -32,6 +32,7 @@
 <!ELEMENT cu_blk_blt (cs_blk_blt)>
 <!ELEMENT cu_blk_itm (cr_blk_itm)>
 <!ELEMENT cu_blk_dsp (cs_blk_dsp)>
+<!ELEMENT cu_empty_line EMPTY>
 
 <!ELEMENT cs_blk_txt (cs_txt_units)>
 <!ELEMENT cs_blk_blt (cs_blks)>

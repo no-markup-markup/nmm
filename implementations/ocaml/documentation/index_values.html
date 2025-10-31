@@ -120,6 +120,7 @@
     par_prefix          = <span class="constructor">Some</span> <span class="string">"¶"</span>;
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
+    preserve_vertical_white_space = <span class="keyword">true</span>;
 }
 </code></pre>
 </div>
@@ -226,6 +227,8 @@
 <tr><td><a href="Common_utils.html#VALnode_of_tr_par">node_of_tr_par</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>P</div></td></tr>
+<tr><td><a href="Exml_utils.html#VALpar_hdr_opt">par_hdr_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Xml_right.html#VALparse_file">parse_file</a> [<a href="Xml_right.html">Xml_right</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">parse_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>.</p>

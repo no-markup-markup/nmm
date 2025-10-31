@@ -162,7 +162,8 @@ let default_css : string =
 let argv=Sys.argv
 
 let _ : unit =
-try	match Array.length argv with
+try 
+	match Array.length argv with
 	|2 -> (
 		match argv.(1) with
 		|"show-default-css" -> print_endline default_css
@@ -196,4 +197,4 @@ try	match Array.length argv with
 		|_ -> raise (Error "invalid argument(s)")
 	)
 	|_ -> raise (Error "invalid argument(s)")
-with Error "invalid argument(s)" -> Debug_utils.print_to_stderr ("invalid arguments(s)" ^ "\n" ^ usage)
+with Error "invalid argument(s)" -> Debug_utils.print_to_stderr ("invalid argument(s)" ^ "\n" ^ usage)

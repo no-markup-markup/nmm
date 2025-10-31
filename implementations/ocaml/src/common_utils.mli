@@ -89,6 +89,7 @@ type t_doc_settings = {
   mutable par_prefix : string option;
   mutable expand_tag_singular: Doc_types.ts_tag -> string option;
   mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
+  mutable preserve_vertical_white_space : bool;
 }
 
 
@@ -147,6 +148,7 @@ val doc_settings : t_doc_settings
     par_prefix          = Some "¶";
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
+    preserve_vertical_white_space = true;
 }
 ]}
 
@@ -170,20 +172,23 @@ Prints a warning to [stderr] if parsing fails, and keeps the default value.
 {v
 PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
 
-KEY_VALUE := | 'doc_width=' INT
-             | 'left_margin=' INT
-             | 'title_indent=' INT
-             | 'author_indent=' INT
-             | 'abstract_indent=' INT
-             | 'refs_indent=' INT
-             | 'tab_length=' INT
-             | 'abstract_hdr=' STRING
-             | 'refs_hdr=' STRING
-             | 'ch_prefix=' STRING
-             | 'sec_prefix=' STRING
-             | 'par_prefix=' STRING
-             | 'singular_tag=' TAG '>' SINGULAR_FORM
-             | 'plural_tag=' TAG '>' SINGULAR_FORM '>' PLURAL_FORM
+KEY_VALUE := | 'doc-width=' INT
+             | 'left-margin=' INT
+             | 'title-indent=' INT
+             | 'author-indent=' INT
+             | 'abstract-indent=' INT
+             | 'refs-indent=' INT
+             | 'tab-length=' INT
+             | 'abstract-hdr=' STRING_OPTION
+             | 'refs-hdr=' STRING
+             | 'ch-prefix=' STRING_OPTION
+             | 'sec-prefix=' STRING_OPTION
+             | 'par-prefix=' STRING_OPTION
+             | 'singular-tag=' TAG '>' SINGULAR_FORM
+             | 'plural-tag=' TAG '>' SINGULAR_FORM '>' PLURAL_FORM
+             | 'preserve-vertical-white-space=' BOOL
+
+BOOL := 'true' | 'false'
 
 SINGULAR_FORM := TAG
 
@@ -193,7 +198,9 @@ TAG := [! ';' '>']*
 
 INT := ['0'-'9']+
 
-STRING := [! ';']*
+STRING_OPTION := 'None' | 'none' | '' | '""' | STRING
+
+STRING := [! ';']+
 v}
 *)
 

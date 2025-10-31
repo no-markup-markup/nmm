@@ -250,6 +250,13 @@
 <td align="left" valign="top" >
 <code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.expand_tag_plural">expand_tag_plural</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code>;</code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.preserve_vertical_white_space">preserve_vertical_white_space</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
 </tr></table>
 <code>}</code>
 
@@ -302,6 +309,7 @@
     par_prefix          = <span class="constructor">Some</span> <span class="string">"¶"</span>;
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
+    preserve_vertical_white_space = <span class="keyword">true</span>;
 }
 </code></pre>
 <p>These are the default settings.</p>
@@ -320,20 +328,23 @@
 <p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case <code class="code">preamble</code> has the following format:</p>
 <pre class="verbatim">PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
 
-KEY_VALUE := | 'doc_width=' INT
-             | 'left_margin=' INT
-             | 'title_indent=' INT
-             | 'author_indent=' INT
-             | 'abstract_indent=' INT
-             | 'refs_indent=' INT
-             | 'tab_length=' INT
-             | 'abstract_hdr=' STRING
-             | 'refs_hdr=' STRING
-             | 'ch_prefix=' STRING
-             | 'sec_prefix=' STRING
-             | 'par_prefix=' STRING
-             | 'singular_tag=' TAG '&gt;' SINGULAR_FORM
-             | 'plural_tag=' TAG '&gt;' SINGULAR_FORM '&gt;' PLURAL_FORM
+KEY_VALUE := | 'doc-width=' INT
+             | 'left-margin=' INT
+             | 'title-indent=' INT
+             | 'author-indent=' INT
+             | 'abstract-indent=' INT
+             | 'refs-indent=' INT
+             | 'tab-length=' INT
+             | 'abstract-hdr=' STRING_OPTION
+             | 'refs-hdr=' STRING
+             | 'ch-prefix=' STRING_OPTION
+             | 'sec-prefix=' STRING_OPTION
+             | 'par-prefix=' STRING_OPTION
+             | 'singular-tag=' TAG '&gt;' SINGULAR_FORM
+             | 'plural-tag=' TAG '&gt;' SINGULAR_FORM '&gt;' PLURAL_FORM
+             | 'preserve-vertical-white-space=' BOOL
+
+BOOL := 'true' | 'false'
 
 SINGULAR_FORM := TAG
 
@@ -343,7 +354,9 @@ TAG := [! ';' '&gt;']*
 
 INT := ['0'-'9']+
 
-STRING := [! ';']*</pre></div>
+STRING_OPTION := 'None' | 'none' | '' | '""' | STRING
+
+STRING := [! ';']+</pre></div>
 </div>
 <h3 id="2_Crossreferencesandlabels">Cross-references and labels</h3>
 <pre><code><span id="TYPEt_par_node"><span class="keyword">type</span> <code class="type"></code>t_par_node</span> = </code></pre><table class="typetable">

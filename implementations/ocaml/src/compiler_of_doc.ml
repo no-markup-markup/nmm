@@ -336,44 +336,51 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id a.fld_sec_tag_or_id in
 		EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
 
-and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_par) : t_acc =
+and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par) : t_acc =
 	match acc with
 	|CREF_TABLE table -> (
 		let newacc : t_acc = CREF_TABLE (
-			match a.fld_par_tag_or_id with
+			match par.fld_par_tag_or_id with
 			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path) :: table
 			|_ -> table
 		)
-		in acc_of_ts_blks path newacc a.fld_par_main
+		in acc_of_ts_blks path newacc par.fld_par_main
 	)
 	|LINES acc_lines -> (
-		let new_par = Par_hdr_mod.copy_hdr_to_main_and_lbl_to_hdr path a in
+		let new_par = Par_hdr_mod.copy_hdr_to_main_and_lbl_to_hdr path par in
 		match acc_of_ts_blks path (LINES []) new_par.fld_par_main with
 		|LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label path hd];tl])
 		|_ -> raise (Error "par_main cannot be empty")
 	)
 	|EXML acc_list -> (
-		let new_par = Par_hdr_mod.copy_hdr_to_main_and_lbl_to_hdr path a in
-		let xml_list_main:Xml.xml list= (
-			match acc_of_par_main path (EXML []) new_par.fld_par_main with
-			|EXML xml_list -> xml_list
+		let inline_hdr : bool =
+			match par.fld_par_main with
+			|Cs_blks ((Cu_blk_txt _) :: _) -> true
+			|_ -> false
+		in
+		let xml_list_hdr_opt : (Xml.xml list) option =
+			Exml_utils.par_hdr_opt path par.fld_par_tag_or_id par.fld_par_hdr inline_hdr
+		in
+		let xml_list_lbl : Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
+		let xml_lbl : Xml.xml = 
+			match xml_list_hdr_opt with
+			|None -> Xml.Element ("par_lbl_hdr",[],xml_list_lbl)
+			|Some _ -> Xml.Element ("par_lbl",[],xml_list_lbl)
+		in
+		let xml_list_main : Xml.xml list= (
+			match acc_of_par_main path (EXML []) par.fld_par_main with
+			|EXML xml_list -> (
+				match xml_list_hdr_opt with
+				|None -> xml_list
+				|Some xml_list_hdr -> List.concat [xml_list_hdr;xml_list]
+				
+			)
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let xml_list_lbl:Xml.xml list = [Xml.PCData (Exml_utils.pcdata_of_string (Common_utils.label_of_path path))] in
-		let xml_hdr:Xml.xml = (
-			match new_par.fld_par_hdr with
-			|None -> raise (Error "new par expected to have hdr")
-			|Some (hdr : ts_hdr) -> 
-				match hdr with
-				|Cs_hdr (t:ts_txt_units) ->
-					Xml.Element ("par_hdr",[],Exml_utils.xml_list_of_ts_txt_units path t)
-		)
-		in 
-		let xml_main:Xml.xml = Xml.Element ("par_main",[],xml_list_main) in
-		let xml_lbl:Xml.xml = Xml.Element ("par_lbl",[],xml_list_lbl) in
-		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id a.fld_par_tag_or_id in
-		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list, [xml_lbl; xml_hdr; xml_main])]])
+		let xml_main = Xml.Element ("par_main",[],xml_list_main) in
+		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id par.fld_par_tag_or_id in
+		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_main])]])
 	)
 
 and acc_of_ch_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_secs_pars_or_blks) : t_acc =

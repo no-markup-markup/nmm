@@ -1,6 +1,6 @@
 PREAMBLE:
-	abstract_hdr=SUMMARY
-	refs_hdr=CITED WORKS
+	abstract-hdr=SUMMARY
+	refs-hdr=CITED WORKS
 
 TITLE:
 	Referring to named items under REFERENCES

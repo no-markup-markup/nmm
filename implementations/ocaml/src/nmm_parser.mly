@@ -52,10 +52,11 @@ let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_au
 %type <Doc_types.tr_par>                  par
 %type <Doc_types.ts_blks>                 par_main
 %type <Doc_types.tr_par list>             pars
-%type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
+%type <Doc_types.tu_blk>                  blk1 blk2 blk3
 %type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
 %type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
 %type <Doc_types.tr_blk_itm>              blk_itm0 blk_itm1 blk_itm2
+%type <Doc_types.tu_blk>                  blk0 
 %type <Doc_types.ts_blk_txt>              blk_txt0 blk_txt1 blk_txt2 blk_txt3
 %type <Doc_types.tu_blk list>             blks0 blks1 blks2 blks3 special_blks0 special_blks1 special_blks2
 %type <Doc_types.ts_c_ref>                c_ref
@@ -249,11 +250,11 @@ special_blks0:
 ;
 
 blk0:
-  |blk_txt0                                       { (Cu_blk_txt $1):tu_blk }
-  |blk_blt0                                       { (Cu_blk_blt $1):tu_blk }
-  |blk_itm0                                       { (Cu_blk_itm $1):tu_blk }
-  |blk_dsp0                                       { (Cu_blk_dsp $1):tu_blk }
-  |blk0 NL                                        { $1:tu_blk }
+  |blk_txt0                                       { Cu_blk_txt $1:tu_blk }
+  |blk_blt0                                       { Cu_blk_blt $1:tu_blk }
+  |blk_itm0                                       { Cu_blk_itm $1:tu_blk }
+  |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
+  |blk0 NL                                        { $1:tu_blk}
 ;
 
 blk_txt0:

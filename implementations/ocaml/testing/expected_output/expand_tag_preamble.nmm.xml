@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>singular_tag=PRF&gt;Proof;singular_tag=THM&gt;Theorem;plural_tag=THMS&gt;Theorem&gt;Theorems;plural_tag=PRFS&gt;Proof&gt;Proofs</cs_preamble>
+<cs_preamble>singular-tag=PRF&gt;Proof;singular-tag=THM&gt;Theorem;plural-tag=THMS&gt;Theorem&gt;Theorems;plural-tag=PRFS&gt;Proof&gt;Proofs</cs_preamble>
 <cu_doc_main_pars>
 <cs_pars>
 <cr_par>

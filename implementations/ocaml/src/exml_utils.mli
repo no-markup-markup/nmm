@@ -2,6 +2,8 @@
 A toolkit used by {!module:Compiler_of_doc} when compiling to XML, mostly for handling attributes and pcdata.
 *)
 
+exception Error of string
+
 val xml_list_of_ts_title_opt : Doc_types.ts_title option -> Xml.xml list
 
 val xml_list_of_ts_authors_opt : Doc_types.ts_authors option -> Xml.xml list
@@ -21,6 +23,8 @@ val attr_list_of_tr_id : Doc_types.tr_id option -> (string * string) list
 val pcdata_of_string : string -> string
 
 val string_of_pcdata : string -> string
+
+val par_hdr_opt: Common_utils.t_path -> Doc_types.tu_tag_or_id option -> Doc_types.ts_hdr option -> bool -> (Xml.xml list) option
 
 (*
 

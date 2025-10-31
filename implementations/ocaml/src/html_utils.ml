@@ -45,11 +45,17 @@ match element with
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("class", "par")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_hdr", attr_list, xml_list) -> Xml.Element ("h4", [("class","par_hdr");("style","visibility:hidden;height:0;width:0;float:left")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr");("style","display:block;float:left;margin-top:0;margin-bottom:0;")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag",[],xml_list) -> Xml.Element ("div", [("class", "par_tag");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr inline");("style","margin-top:0;margin-bottom:0;float:left")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","margin-top:0;margin-bottom:0;float:left")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt");("style","margin-top:0;margin-bottom:0;")], List.map (html_of_exml doc_class) xml_list)
+
 |Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_itm_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
@@ -70,6 +76,8 @@ match element with
 
 |Xml.PCData s -> Xml.PCData s
 
+|Xml.Element ("empty_line",[],[]) -> Xml.Element ("br",[],[])
+
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
 let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
@@ -81,230 +89,260 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 	let left_margin : string = (Float.to_string ((Float.of_int doc_settings.left_margin) *. factor)) ^ "0" ^ "rem" in
 	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
 "html {
-  --title_indent:" ^ title_indent ^ ";
-  --author_indent:" ^ author_indent ^ ";
-  --abstract_indent:" ^ abstract_indent ^ ";
-  --refs_indent:" ^ refs_indent ^ ";
-  --left_margin:" ^ left_margin ^ ";
-  --tab_length:" ^ tab_length ^ ";
-  font-family:monospace;
-  font-size:medium;
-  line-height:150%;
+    --title_indent    : " ^ title_indent ^ ";
+    --author_indent   : " ^ author_indent ^ ";
+    --abstract_indent : " ^ abstract_indent ^ ";
+    --refs_indent     : " ^ refs_indent ^ ";
+    --left_margin     : " ^ left_margin ^ ";
+    --tab_length      : " ^ tab_length ^ ";
+    font-family       : monospace;
+    font-size         : medium;
+    line-height       : 150%;
+
 }
 
 
 .title {
-  font-weight:normal;
-  font-size:large;
-  margin-left:var(--title_indent);
+    font-weight : normal;
+    font-size   : large;
+    margin-left : var(--title_indent);
 }
 
 .doc.chs .title {
-  font-size:xx-large;
-  margin-left:0;
+    font-size   : xx-large;
+    margin-left : 0;
 }
 
 
 .doc.secs .title {
-  font-size:x-large;
+    font-size : x-large;
 }
 
 
 .authors {
-  margin-bottom:3rem;
-  margin-left:var(--author_indent);
+    margin-bottom : 3rem;
+    margin-left   : var(--author_indent);
 }
 
 
 .doc.chs .authors {
-  font-size:large;
-  margin-left:0;
+    font-size   : large;
+    margin-left : 0;
 }
 
 
 .doc.secs .author {
-  font-size:large;
+    font-size : large;
 }
 
 
 .abstract {
-  margin-bottom:3rem;
-  margin-left:var(--abstract_indent);
+    margin-bottom : 3rem;
+    margin-left   : var(--abstract_indent);
 }
 
 .doc.chs .abstract {
-  margin-left:0;
+    margin-left : 0;
 }
 
 
 .abstract_hdr {
-  font-weight:normal;
-  font-size:large;
+    font-weight : normal;
+    font-size   : large;
 }
 
 
 .doc.blks .abstract_hdr {
-  margin-bottom:0.5rem;
+    margin-bottom : 0.5rem;
 }
 
 
 .refs {
-  padding-top:2rem;
-  margin-left:var(--refs_indent);
+    padding-top : 2rem;
+    margin-left : var(--refs_indent);
 }
 
 
 .doc.chs .refs {
-  border-top:thin solid gray;
-  margin-left:0;
+    border-top  : thin solid gray;
+    margin-left : 0;
 }
 
 
 .doc.blks .refs_hdr {
-  margin-bottom:1rem;
+    margin-bottom : 1rem;
 }
 
 
 .refs_hdr {
-  font-weight:normal;
-  font-size:large;
+    font-weight : normal;
+    font-size   : large;
 }
 
 
 .doc.chs .refs_hdr {
-  font-size:x-large;
+    font-size : x-large;
 }
 
 
 .ch {
-  padding-top:3rem;
-  padding-bottom:3rem;
-  border-top:thin solid gray;
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
 }
 
 
 .ch_lbl, .ch_lbl_hdr {
-  font-weight:normal;
-  font-size:x-large;
+    font-weight : normal;
+    font-size   : x-large;
 }
 
 
 .ch_hdr {
-  font-size:x-large;
+    font-size : x-large;
 }
 
 
 .ch_hdr, .ch_lbl_hdr {
-  margin-bottom:3rem;
+    margin-bottom : 3rem;
 }
 
 
 .sec + .sec {
-  margin-top:3rem;
+    padding-top : 3rem;
 }
 
 
 .sec_lbl {
-  font-size:large;
+    font-size : large;
 }
 
 
 .sec_hdr {
-  margin-left:var(--left_margin);
-  font-size:large;
+    margin-left : var(--left_margin);
+    font-size   : large;
 }
 
 
 .par + .par {
-  margin-top:2rem;
+    padding-top : 2rem;
 }
 
-.blk.dsp {
-  margin-bottom:1rem;
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
 }
+
+.par_hdr {
+    margin-right : 2ch;
+}
+
+.par_tag .par_hdr {
+    margin-right : 0;
+}
+
+.par_tag + .par_hdr::before {
+    content : \" (\";
+}
+
+.par_tag + .par_hdr::after {
+    content      : \")\";
+    margin-right : 2ch;
+}
+
+.par_main {
+    margin-left : var(--left_margin);
+}
+
+
+.blk + .blk {
+    padding-top : 1rem;
+}
+
 
 .blk.txt {
-  hyphens:auto;
-  white-space:pre-wrap;
+    hyphens     : auto;
+    white-space : pre-wrap;
 }
 
+.dsp_line {
+    margin-bottom : 0.5rem;
+}
 
 .sec_main > .blk {
-  margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk {
-  margin-left:var(--left_margin);
+    margin-left : var(--left_margin);
 }
 
 
 .blk_blt_main {
-  margin-left:var(--tab_length);
+    margin-left : var(--tab_length);
 }
 
 
 .blk_itm_main {
-  margin-left:var(--tab_length);
+    margin-left : var(--tab_length);
 }
 
 
-
 .dsp_line_main {
-  margin-left:var(--tab_length);
+    margin-left : var(--tab_length);
 }
 
 
 a {
-  text-decoration:none;
+    text-decoration : none;
 }
 
 
 @media print {
 
   html {
-    font-size:13px;
+    font-size : 13px;
   }
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
-    break-after:avoid-page;
-    break-inside:avoid-page;
+
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_lbl, .par_hdr, .par_tag, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
   }
+
 
   .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
-    break-before:avoid-page;
+    break-before : avoid-page;
   }
+
 
   .blk.dsp {
-    break-inside:avoid-page;
+    break-inside : avoid-page;
   }
+
 
   .ch {
-    break-before:page;
-    border:none;
+    break-before : page;
+    border       : none;
   }
+
 
   .doc.chs .refs {
-    break-before:page;
-    border:none;
+    break-before : page;
+    border       : none;
   }
 
 
-  /* For one-sided printing:*/
   @page {
-    size:a4;
-    margin-top:20mm;
-    margin-left:20mm;
-    margin-right:20mm;
-    margin-bottom:30mm;
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
 
     @top-center {
-       content:\" \";
+       content : \" \";
     }
 
     @bottom-center {
-      padding:10mm;
-      content: counter(page) \" of \" counter(pages);
+      padding : 10mm;
+      content : counter(page) \" of \" counter(pages);
     }
   }
 }"

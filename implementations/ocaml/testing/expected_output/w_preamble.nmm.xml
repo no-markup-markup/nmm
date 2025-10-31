@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>doc_width=75;title_indent=0;author_indent=0;left_margin=7;sec_prefix=;par_prefix=</cs_preamble>
+<cs_preamble>doc-width=75;title-indent=0;author-indent=0;left-margin=7;sec-prefix=;par-prefix=</cs_preamble>
 <cs_title>OPTIMAL PARTITIONING</cs_title>
 <cs_authors>
 <cs_author>Eric Johannesson</cs_author>

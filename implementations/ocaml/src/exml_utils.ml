@@ -1,6 +1,8 @@
 open Doc_types
 open Common_utils
 
+exception Error of string
+
 let rec xml_list_of_ts_title_opt (title_opt : Doc_types.ts_title option) : Xml.xml list =
 	match title_opt with
 	|None -> []
@@ -114,5 +116,43 @@ and predefined_entity_of_string (s : string) : string =
 	| "\'" -> "&apos;"
 	| "\"" -> "&quot;"
 	| _ -> s
+
+
+and par_hdr_opt (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (Xml.xml list) option=
+	let tag_content_opt : (Xml.xml list) option = 
+		match tag_or_id_opt with
+		|Some (tag_or_id : tu_tag_or_id) -> (
+			match tag_or_id with
+			|Cu_tag_or_id_tag (tag : ts_tag) 
+			|Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
+				match doc_settings.expand_tag_singular tag with
+				| Some (singular: string) -> Some [Xml.PCData (pcdata_of_string singular)]
+				| None ->
+					match doc_settings.expand_tag_plural tag with
+					|Some (_,plural) -> Some [Xml.PCData (pcdata_of_string plural)]
+					|None -> None
+		)
+		| None -> None
+	in
+	let hdr_content_opt : (Xml.xml list) option = 
+		match hdr_opt with
+		|None -> None
+		|Some (Cs_hdr (txt_units : ts_txt_units)) ->
+			Some (xml_list_of_ts_txt_units path txt_units)
+	in
+	match tag_content_opt, hdr_content_opt, inline with
+		|Some tag_content, Some hdr_content, true ->
+			Some [Xml.Element ("par_tag",[],tag_content);Xml.Element ("par_hdr_inline",[],hdr_content)]
+		|Some tag_content, Some hdr_content, false ->
+			Some [Xml.Element ("par_tag",[],tag_content);Xml.Element ("par_hdr",[],hdr_content)]
+		|None, Some hdr_content, true ->
+			Some [Xml.Element ("par_hdr_inline",[],hdr_content)]
+		|None, Some hdr_content, false ->
+			Some [Xml.Element ("par_hdr",[],hdr_content)]
+		|Some tag_content, None, true ->
+			Some [Xml.Element ("par_tag_hdr_inline",[],tag_content)]
+		|Some tag_content, None, false ->
+			Some [Xml.Element ("par_tag_hdr",[],tag_content)]
+		|None, None, _ -> None
 
 

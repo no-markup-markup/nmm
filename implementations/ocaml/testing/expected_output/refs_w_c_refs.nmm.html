@@ -7,230 +7,260 @@
 <meta name="author" content="Eric Johannesson">
 <style>
 html {
-  --title_indent:0.0rem;
-  --author_indent:0.0rem;
-  --abstract_indent:0.0rem;
-  --refs_indent:0.0rem;
-  --left_margin:0.0rem;
-  --tab_length:6ch;
-  font-family:monospace;
-  font-size:medium;
-  line-height:150%;
+    --title_indent    : 0.0rem;
+    --author_indent   : 0.0rem;
+    --abstract_indent : 0.0rem;
+    --refs_indent     : 0.0rem;
+    --left_margin     : 0.0rem;
+    --tab_length      : 6ch;
+    font-family       : monospace;
+    font-size         : medium;
+    line-height       : 150%;
+
 }
 
 
 .title {
-  font-weight:normal;
-  font-size:large;
-  margin-left:var(--title_indent);
+    font-weight : normal;
+    font-size   : large;
+    margin-left : var(--title_indent);
 }
 
 .doc.chs .title {
-  font-size:xx-large;
-  margin-left:0;
+    font-size   : xx-large;
+    margin-left : 0;
 }
 
 
 .doc.secs .title {
-  font-size:x-large;
+    font-size : x-large;
 }
 
 
 .authors {
-  margin-bottom:3rem;
-  margin-left:var(--author_indent);
+    margin-bottom : 3rem;
+    margin-left   : var(--author_indent);
 }
 
 
 .doc.chs .authors {
-  font-size:large;
-  margin-left:0;
+    font-size   : large;
+    margin-left : 0;
 }
 
 
 .doc.secs .author {
-  font-size:large;
+    font-size : large;
 }
 
 
 .abstract {
-  margin-bottom:3rem;
-  margin-left:var(--abstract_indent);
+    margin-bottom : 3rem;
+    margin-left   : var(--abstract_indent);
 }
 
 .doc.chs .abstract {
-  margin-left:0;
+    margin-left : 0;
 }
 
 
 .abstract_hdr {
-  font-weight:normal;
-  font-size:large;
+    font-weight : normal;
+    font-size   : large;
 }
 
 
 .doc.blks .abstract_hdr {
-  margin-bottom:0.5rem;
+    margin-bottom : 0.5rem;
 }
 
 
 .refs {
-  padding-top:2rem;
-  margin-left:var(--refs_indent);
+    padding-top : 2rem;
+    margin-left : var(--refs_indent);
 }
 
 
 .doc.chs .refs {
-  border-top:thin solid gray;
-  margin-left:0;
+    border-top  : thin solid gray;
+    margin-left : 0;
 }
 
 
 .doc.blks .refs_hdr {
-  margin-bottom:1rem;
+    margin-bottom : 1rem;
 }
 
 
 .refs_hdr {
-  font-weight:normal;
-  font-size:large;
+    font-weight : normal;
+    font-size   : large;
 }
 
 
 .doc.chs .refs_hdr {
-  font-size:x-large;
+    font-size : x-large;
 }
 
 
 .ch {
-  padding-top:3rem;
-  padding-bottom:3rem;
-  border-top:thin solid gray;
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
 }
 
 
 .ch_lbl, .ch_lbl_hdr {
-  font-weight:normal;
-  font-size:x-large;
+    font-weight : normal;
+    font-size   : x-large;
 }
 
 
 .ch_hdr {
-  font-size:x-large;
+    font-size : x-large;
 }
 
 
 .ch_hdr, .ch_lbl_hdr {
-  margin-bottom:3rem;
+    margin-bottom : 3rem;
 }
 
 
 .sec + .sec {
-  margin-top:3rem;
+    padding-top : 3rem;
 }
 
 
 .sec_lbl {
-  font-size:large;
+    font-size : large;
 }
 
 
 .sec_hdr {
-  margin-left:var(--left_margin);
-  font-size:large;
+    margin-left : var(--left_margin);
+    font-size   : large;
 }
 
 
 .par + .par {
-  margin-top:2rem;
+    padding-top : 2rem;
 }
 
-.blk.dsp {
-  margin-bottom:1rem;
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
 }
+
+.par_hdr {
+    margin-right : 2ch;
+}
+
+.par_tag .par_hdr {
+    margin-right : 0;
+}
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content      : ")";
+    margin-right : 2ch;
+}
+
+.par_main {
+    margin-left : var(--left_margin);
+}
+
+
+.blk + .blk {
+    padding-top : 1rem;
+}
+
 
 .blk.txt {
-  hyphens:auto;
-  white-space:pre-wrap;
+    hyphens     : auto;
+    white-space : pre-wrap;
 }
 
+.dsp_line {
+    margin-bottom : 0.5rem;
+}
 
 .sec_main > .blk {
-  margin-left:var(--left_margin);
-}
-
-
-.par_main > .blk {
-  margin-left:var(--left_margin);
+    margin-left : var(--left_margin);
 }
 
 
 .blk_blt_main {
-  margin-left:var(--tab_length);
+    margin-left : var(--tab_length);
 }
 
 
 .blk_itm_main {
-  margin-left:var(--tab_length);
+    margin-left : var(--tab_length);
 }
 
 
-
 .dsp_line_main {
-  margin-left:var(--tab_length);
+    margin-left : var(--tab_length);
 }
 
 
 a {
-  text-decoration:none;
+    text-decoration : none;
 }
 
 
 @media print {
 
   html {
-    font-size:13px;
+    font-size : 13px;
   }
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
-    break-after:avoid-page;
-    break-inside:avoid-page;
+
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_lbl, .par_hdr, .par_tag, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
   }
+
 
   .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
-    break-before:avoid-page;
+    break-before : avoid-page;
   }
+
 
   .blk.dsp {
-    break-inside:avoid-page;
+    break-inside : avoid-page;
   }
+
 
   .ch {
-    break-before:page;
-    border:none;
+    break-before : page;
+    border       : none;
   }
+
 
   .doc.chs .refs {
-    break-before:page;
-    border:none;
+    break-before : page;
+    border       : none;
   }
 
 
-  /* For one-sided printing:*/
   @page {
-    size:a4;
-    margin-top:20mm;
-    margin-left:20mm;
-    margin-right:20mm;
-    margin-bottom:30mm;
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
 
     @top-center {
-       content:" ";
+       content : " ";
     }
 
     @bottom-center {
-      padding:10mm;
-      content: counter(page) " of " counter(pages);
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
     }
   }
 }
@@ -243,34 +273,34 @@ a {
 <p class="author">Eric Johannesson</p>
 </div>
 <div class="doc_main" style="display:block">
-<p class="blk txt" style="margin-top:0">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:alt1">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0">‘REFERENCES(1)’ (or something similar), or</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">‘REFERENCES(1)’ (or something similar), or</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:alt2">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of REFERENCES</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of REFERENCES</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
-<p class="blk txt" style="margin-top:0">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of REFERENCES</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of REFERENCES</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
 </div>
 <div class="refs" style="display:block">
 <h5 class="refs_hdr">REFERENCES</h5>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:Euler">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:Tarski">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
 </div>
