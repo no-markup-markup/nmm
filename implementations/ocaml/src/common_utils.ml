@@ -19,7 +19,6 @@ type t_doc_settings = {
 	mutable par_prefix : string option;
 	mutable expand_tag_singular: Doc_types.ts_tag -> string option;
 	mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
-	mutable preserve_vertical_white_space : bool;
 }
 
 type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
@@ -61,7 +60,6 @@ let doc_settings : t_doc_settings = {
 	par_prefix = Some "¶";
 	expand_tag_singular = expand_tag_singular_default;
 	expand_tag_plural = expand_tag_plural_default;
-	preserve_vertical_white_space = true;
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
@@ -153,7 +151,6 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("refs-hdr", v) -> set_refs_hdr v
 				|Some ("singular-tag", v) -> set_expand_tag_singular doc_settings.expand_tag_singular v
 				|Some ("plural-tag", v) -> set_expand_tag_plural doc_settings.expand_tag_plural v
-				|Some ("preserve-vertical-white-space", v) -> set_preserve_vertical_white_space v
 				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"])
 			in aux tl
 		| [] -> ()
@@ -219,10 +216,6 @@ and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option)
 and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : unit =
 	try doc_settings.expand_tag_plural <- (plural_tag_value_of_string expand_tag_old v) with _ ->
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
-
-and set_preserve_vertical_white_space (v : string) : unit =
-	try doc_settings.preserve_vertical_white_space <- (bool_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid preserve_vertical_white_space value: ";v;"; ";"using default value"])
 
 and prefix_value_of_string (v : string) : string option =
 	match v with

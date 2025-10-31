@@ -89,7 +89,6 @@ type t_doc_settings = {
   mutable par_prefix : string option;
   mutable expand_tag_singular: Doc_types.ts_tag -> string option;
   mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
-  mutable preserve_vertical_white_space : bool;
 }
 
 
@@ -148,7 +147,6 @@ val doc_settings : t_doc_settings
     par_prefix          = Some "¶";
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
-    preserve_vertical_white_space = true;
 }
 ]}
 
@@ -186,7 +184,6 @@ KEY_VALUE := | 'doc-width=' INT
              | 'par-prefix=' STRING_OPTION
              | 'singular-tag=' TAG '>' SINGULAR_FORM
              | 'plural-tag=' TAG '>' SINGULAR_FORM '>' PLURAL_FORM
-             | 'preserve-vertical-white-space=' BOOL
 
 BOOL := 'true' | 'false'
 
@@ -259,7 +256,7 @@ val string_of_ts_c_ref : t_path -> Doc_types.ts_c_ref -> string
 
 attempts to match [c_ref] ocurring at [path] with an [id] in [doc_cref_table], and return a string representation of the path to [id] relative to the closest common ancestor of [c_ref] and [id]. 
 
-For instance, if [c_ref] is located at path [[ITM_NODE (ITM_INT 1); PAR_NODE 1; SEC_NODE 1]], and [id] is located at path [[ITM_NODE (ITM_INT 3); PAR_NODE 2; SEC_NODE 1]], the function will return ["2(3)"] rather than ["1.2(3)"].
+For instance, if [c_ref] is located at path [[ITM_NODE (ITM_INT 1); ITM_NODE (ITM_INT 1); ITM_NODE (ITM_INT 1)]], and [id] is located at path [[ITM_NODE (ITM_INT 3); ITM_NODE (ITM_INT 2); ITM_NODE (ITM_INT 1)]], the function will return ["(b)(iii)"] rather than ["(1)(b)(iii)"], since their closes common ancestor is the node with label ["(1)"].
 
 If [c_ref] evaluates to [Cs_c_ref id], and [id] is located at [[PAR_NODE "1"]], and if [doc_settings.expand_tag id.fld_id_tag] evaluates to [Some "DEFINITION"], then [string_of_ts_c_ref [] c_ref] evaluates to ["DEFINITION 1"] rather than ["¶ 1"]. 
 
