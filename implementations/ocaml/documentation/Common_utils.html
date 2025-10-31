@@ -250,13 +250,6 @@
 <td align="left" valign="top" >
 <code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.expand_tag_plural">expand_tag_plural</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code>;</code></td>
 
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_doc_settings.preserve_vertical_white_space">preserve_vertical_white_space</span>&nbsp;: <code class="type">bool</code>;</code></td>
-
 </tr></table>
 <code>}</code>
 
@@ -309,7 +302,6 @@
     par_prefix          = <span class="constructor">Some</span> <span class="string">"¶"</span>;
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
-    preserve_vertical_white_space = <span class="keyword">true</span>;
 }
 </code></pre>
 <p>These are the default settings.</p>
@@ -342,7 +334,6 @@ KEY_VALUE := | 'doc-width=' INT
              | 'par-prefix=' STRING_OPTION
              | 'singular-tag=' TAG '&gt;' SINGULAR_FORM
              | 'plural-tag=' TAG '&gt;' SINGULAR_FORM '&gt;' PLURAL_FORM
-             | 'preserve-vertical-white-space=' BOOL
 
 BOOL := 'true' | 'false'
 
@@ -389,28 +380,28 @@ STRING := [! ';']+</pre></div>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_itm_node.ITM_INT"><span class="constructor">ITM_INT</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+<code><span id="TYPEELTt_itm_node.ITM_AUTO"><span class="constructor">ITM_AUTO</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_itm_node.ITM_STRING"><span class="constructor">ITM_STRING</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<code><span id="TYPEELTt_itm_node.ITM_CUSTOM"><span class="constructor">ITM_CUSTOM</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_itm_node.ITM_TAG_INT"><span class="constructor">ITM_TAG_INT</span></span> <span class="keyword">of</span> <code class="type">(string * int)</code></code></td>
+<code><span id="TYPEELTt_itm_node.ITM_TAG_AUTO"><span class="constructor">ITM_TAG_AUTO</span></span> <span class="keyword">of</span> <code class="type">(string * int)</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_itm_node.ITM_TAG_STRING"><span class="constructor">ITM_TAG_STRING</span></span> <span class="keyword">of</span> <code class="type">(string * string)</code></code></td>
+<code><span id="TYPEELTt_itm_node.ITM_TAG_CUSTOM"><span class="constructor">ITM_TAG_CUSTOM</span></span> <span class="keyword">of</span> <code class="type">(string * string)</code></code></td>
 
 </tr></table>
 
@@ -421,21 +412,21 @@ STRING := [! ';']+</pre></div>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_dsp_line_node.DSP_INT"><span class="constructor">DSP_INT</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+<code><span id="TYPEELTt_dsp_line_node.DSP_AUTO"><span class="constructor">DSP_AUTO</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_dsp_line_node.DSP_STRING"><span class="constructor">DSP_STRING</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<code><span id="TYPEELTt_dsp_line_node.DSP_CUSTOM"><span class="constructor">DSP_CUSTOM</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_dsp_line_node.NONE"><span class="constructor">NONE</span></span></code></td>
+<code><span id="TYPEELTt_dsp_line_node.DSP_NONE"><span class="constructor">DSP_NONE</span></span></code></td>
 
 </tr></table>
 
@@ -547,7 +538,7 @@ STRING := [! ';']+</pre></div>
 <pre class="codepre"><code class="code">string_of_ts_c_ref path c_ref</code></pre>
 <p>attempts to match <code class="code">c_ref</code> ocurring at <code class="code">path</code> with an <code class="code">id</code> in <code class="code">doc_cref_table</code>, and return a string representation of the path to <code class="code">id</code> relative to the closest common ancestor of <code class="code">c_ref</code> and <code class="code">id</code>.</p>
 
-<p>For instance, if <code class="code">c_ref</code> is located at path <code class="code">[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1);&nbsp;<span class="constructor">PAR_NODE</span>&nbsp;1;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;1]</code>, and <code class="code">id</code> is located at path <code class="code">[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;3);&nbsp;<span class="constructor">PAR_NODE</span>&nbsp;2;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;1]</code>, the function will return <code class="code"><span class="string">"2(3)"</span></code> rather than <code class="code"><span class="string">"1.2(3)"</span></code>.</p>
+<p>For instance, if <code class="code">c_ref</code> is located at path <code class="code">[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1);&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1);&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1)]</code>, and <code class="code">id</code> is located at path <code class="code">[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;3);&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;2);&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1)]</code>, the function will return <code class="code"><span class="string">"(b)(iii)"</span></code> rather than <code class="code"><span class="string">"(1)(b)(iii)"</span></code>, since their closes common ancestor is the node with label <code class="code"><span class="string">"(1)"</span></code>.</p>
 
 <p>If <code class="code">c_ref</code> evaluates to <code class="code"><span class="constructor">Cs_c_ref</span>&nbsp;id</code>, and <code class="code">id</code> is located at <code class="code">[<span class="constructor">PAR_NODE</span>&nbsp;<span class="string">"1"</span>]</code>, and if <code class="code">doc_settings.expand_tag&nbsp;id.fld_id_tag</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"DEFINITION"</span></code>, then <code class="code">string_of_ts_c_ref&nbsp;[]&nbsp;c_ref</code> evaluates to <code class="code"><span class="string">"DEFINITION&nbsp;1"</span></code> rather than <code class="code"><span class="string">"¶&nbsp;1"</span></code>.</p>
 
@@ -563,8 +554,8 @@ STRING := [! ';']+</pre></div>
 
 <pre class="codepre"><code class="code"><span class="keyword">let</span> itm_node : t_itm_node =
   <span class="keyword">match</span> a.fld_blk_itm_lbl <span class="keyword">with</span>
-  <span class="keywordsign">|</span> <span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_INT</span> auto_nr
-  <span class="keywordsign">|</span> <span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string)) <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_STRING</span> s
+  <span class="keywordsign">|</span> <span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_AUTO</span> auto_nr
+  <span class="keywordsign">|</span> <span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string)) <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_CUSTOM</span> s
 <span class="keyword">in</span> <span class="constructor">ITM_NODE</span> itm_node
 </code></pre></div>
 </div>
@@ -575,9 +566,9 @@ STRING := [! ';']+</pre></div>
 <p>evaluates to</p>
 
 <pre class="codepre"><code class="code"><span class="keyword">match</span> a.fld_dsp_line_lbl <span class="keyword">with</span>
-  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span>)<span class="keywordsign">-&gt;</span> <span class="constructor">DSP_INT</span> auto_nr
-  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string))) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_STRING</span> s
-  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">NONE</span>
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span>)<span class="keywordsign">-&gt;</span> <span class="constructor">DSP_AUTO</span> auto_nr
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string))) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_CUSTOM</span> s
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_NONE</span>
 <span class="keyword">in</span> <span class="constructor">DSP_LINE_NODE</span> dsp_line_node
 </code></pre></div>
 </div>
@@ -598,19 +589,19 @@ STRING := [! ';']+</pre></div>
 
 <p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">PAR_NODE</span>&nbsp;1;&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;2;&nbsp;<span class="constructor">CH_NODE</span>&nbsp;3]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"¶ 3.2.1"</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_STRING</span>&nbsp;<span class="string">"a"</span>)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(a)"</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_CUSTOM</span>&nbsp;<span class="string">"a"</span>)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(a)"</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;(<span class="constructor">DSP_INT</span>&nbsp;1)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;(<span class="constructor">DSP_AUTO</span>&nbsp;1)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;(<span class="constructor">DSP_STRING</span>&nbsp;<span class="string">"a"</span>)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(a)"</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;(<span class="constructor">DSP_CUSTOM</span>&nbsp;<span class="string">"a"</span>)]::tail</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(a)"</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;<span class="constructor">NONE</span>]::tail</code> evaluates to <code class="code"><span class="constructor">None</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">DSP_LINE_NODE</span>&nbsp;<span class="constructor">DSP_NONE</span>]::tail</code> evaluates to <code class="code"><span class="constructor">None</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1);&nbsp;<span class="constructor">REFS_NODE</span>]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1);&nbsp;<span class="constructor">REFS_NODE</span>]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 
-<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_INT</span>&nbsp;1);&nbsp;<span class="constructor">ABSTRACT_NODE</span>]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
+<p><code class="code">label_of_path_opt&nbsp;[<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_AUTO</span>&nbsp;1);&nbsp;<span class="constructor">ABSTRACT_NODE</span>]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"(1)"</span></code></p>
 </div>
 </div>
 

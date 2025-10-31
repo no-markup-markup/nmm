@@ -266,12 +266,12 @@ and t_node =
 
 and t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
 
-and t_itm_node = ITM_INT of int | ITM_STRING of string | ITM_TAG_INT of (string * int) | ITM_TAG_STRING of (string * string)
+and t_itm_node = ITM_AUTO of int | ITM_CUSTOM of string | ITM_TAG_AUTO of (string * int) | ITM_TAG_CUSTOM of (string * string)
 
 and t_dsp_line_node =
-	| DSP_INT of int
-	| DSP_STRING of string
-	| NONE
+	| DSP_AUTO of int
+	| DSP_CUSTOM of string
+	| DSP_NONE
 
 type t_cref_table = (Doc_types.tr_id * t_path) list
 
@@ -322,13 +322,13 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 						|SINGULAR_TAG (singular, _) -> Some (String.concat "\u{00A0}" [singular; sub])
 						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; sub])
 					)
-					|ITM_NODE (ITM_TAG_INT (singular,_)) -> (
+					|ITM_NODE (ITM_TAG_AUTO (singular,_)) -> (
 						let label = label_of_path id_loc in
 						match label = sub with
 						|true -> Some (String.concat "\u{00A0}" [singular;label])
 						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path id_loc_tl])
 					)
-					|ITM_NODE (ITM_TAG_STRING (singular,_)) -> (
+					|ITM_NODE (ITM_TAG_CUSTOM (singular,_)) -> (
 						let label = label_of_path id_loc in
 						match label = sub with
 						|true -> Some (String.concat "\u{00A0}" [singular;label])
@@ -434,19 +434,19 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 	| DSP_NODE -> None
 	| DSP_LINE_NODE (a : t_dsp_line_node) -> (
 		match a with
-		| NONE -> None
-		| DSP_INT (n : int) ->
+		| DSP_NONE -> None
+		| DSP_AUTO (n : int) ->
 			let s : string =
 				match lvl_of_path tail mod 3 with
 				| 0 -> string_of_int (n + 1)
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
 			in Some (String.concat s ["(";")"])
-		| DSP_STRING (s : string) -> Some (String.concat s ["(";")"])
+		| DSP_CUSTOM (s : string) -> Some (String.concat s ["(";")"])
 	)
 	| ITM_NODE (a : t_itm_node) -> (
 		match a with
-		|ITM_INT n -> (
+		|ITM_AUTO n -> (
 			let s : string =
 				match lvl_of_path tail mod 3 with
 				| 0 -> string_of_int (n + 1)
@@ -454,8 +454,8 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 				| _ -> lower_case_roman_numerals.(n)
 			in Some (String.concat s ["(";")"])
 		)
-		|ITM_STRING s -> Some (String.concat s ["(";")"])
-		|ITM_TAG_INT (_,n) -> (
+		|ITM_CUSTOM s -> Some (String.concat s ["(";")"])
+		|ITM_TAG_AUTO (_,n) -> (
 			let s : string =
 				match lvl_of_path tail mod 3 with
 				| 0 -> string_of_int (n + 1)
@@ -466,7 +466,7 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 			|None -> Some (String.concat "" ["("; s;")"])
 			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
 		)
-		|ITM_TAG_STRING (_,s) -> (
+		|ITM_TAG_CUSTOM (_,s) -> (
 			match string_of_path_opt tail with
 			|None -> Some (String.concat "" ["("; s;")"])
 			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
@@ -514,22 +514,22 @@ and node_of_blk_itm (path_hd_opt : t_node option) (auto_nr : int) (a : Doc_types
 		match path_hd_opt with
 		| Some (PAR_NODE (PLURAL_TAG (singular, _, _))) -> (
 			match a.fld_blk_itm_lbl with
-			| Cu_lbl_auto Cs_lbl_auto -> ITM_TAG_INT (singular,auto_nr)
-			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_TAG_STRING (singular,s)
+			| Cu_lbl_auto Cs_lbl_auto -> ITM_TAG_AUTO (singular,auto_nr)
+			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_TAG_CUSTOM (singular,s)
 		)
 		|_ -> (
 			match a.fld_blk_itm_lbl with
-			| Cu_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
-			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
+			| Cu_lbl_auto Cs_lbl_auto -> ITM_AUTO auto_nr
+			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_CUSTOM s
 		)
 	in ITM_NODE itm_node
 
 and node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
 	let dsp_line_node : t_dsp_line_node =
 		match a.fld_dsp_line_lbl with
-		| Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
-		| Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_STRING s
-		| None -> NONE
+		| Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_AUTO auto_nr
+		| Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_CUSTOM s
+		| None -> DSP_NONE
 	in 
 	DSP_LINE_NODE dsp_line_node
 

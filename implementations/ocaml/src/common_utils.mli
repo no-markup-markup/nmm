@@ -208,15 +208,15 @@ v}
 type t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
 
 type t_itm_node = 
-	|ITM_INT of int
-	|ITM_STRING of string
-	|ITM_TAG_INT of (string * int)
-	|ITM_TAG_STRING of (string * string)
+	|ITM_AUTO of int
+	|ITM_CUSTOM of string
+	|ITM_TAG_AUTO of (string * int)
+	|ITM_TAG_CUSTOM of (string * string)
 
 type t_dsp_line_node = 
-	|DSP_INT of int
-	|DSP_STRING of string
-	|NONE
+	|DSP_AUTO of int
+	|DSP_CUSTOM of string
+	|DSP_NONE
 
 type t_node = 
 	|ABSTRACT_NODE
@@ -256,7 +256,7 @@ val string_of_ts_c_ref : t_path -> Doc_types.ts_c_ref -> string
 
 attempts to match [c_ref] ocurring at [path] with an [id] in [doc_cref_table], and return a string representation of the path to [id] relative to the closest common ancestor of [c_ref] and [id]. 
 
-For instance, if [c_ref] is located at path [[ITM_NODE (ITM_INT 1); ITM_NODE (ITM_INT 1); ITM_NODE (ITM_INT 1)]], and [id] is located at path [[ITM_NODE (ITM_INT 3); ITM_NODE (ITM_INT 2); ITM_NODE (ITM_INT 1)]], the function will return ["(b)(iii)"] rather than ["(1)(b)(iii)"], since their closes common ancestor is the node with label ["(1)"].
+For instance, if [c_ref] is located at path [[ITM_NODE (ITM_AUTO 1); ITM_NODE (ITM_AUTO 1); ITM_NODE (ITM_AUTO 1)]], and [id] is located at path [[ITM_NODE (ITM_AUTO 3); ITM_NODE (ITM_AUTO 2); ITM_NODE (ITM_AUTO 1)]], the function will return ["(b)(iii)"] rather than ["(1)(b)(iii)"], since their closes common ancestor is the node with label ["(1)"].
 
 If [c_ref] evaluates to [Cs_c_ref id], and [id] is located at [[PAR_NODE "1"]], and if [doc_settings.expand_tag id.fld_id_tag] evaluates to [Some "DEFINITION"], then [string_of_ts_c_ref [] c_ref] evaluates to ["DEFINITION 1"] rather than ["¶ 1"]. 
 
@@ -275,8 +275,8 @@ evaluates to
 {[
 let itm_node : t_itm_node =
   match a.fld_blk_itm_lbl with
-  | Cu_lbl_auto Cs_lbl_auto -> ITM_INT auto_nr
-  | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_STRING s
+  | Cu_lbl_auto Cs_lbl_auto -> ITM_AUTO auto_nr
+  | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_CUSTOM s
 in ITM_NODE itm_node
 ]}
 *)
@@ -290,9 +290,9 @@ evaluates to
 
 {[
 match a.fld_dsp_line_lbl with
-  | Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_INT auto_nr
-  | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_STRING s
-  | None -> NONE
+  | Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_AUTO auto_nr
+  | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_CUSTOM s
+  | None -> DSP_NONE
 in DSP_LINE_NODE dsp_line_node
 ]}
 *)
@@ -314,19 +314,19 @@ With default [doc_settings],
 
 [label_of_path_opt [PAR_NODE 1; SEC_NODE 2; CH_NODE 3]] evaluates to [Some "¶ 3.2.1"]
 
-[label_of_path_opt [ITM_NODE (ITM_INT 1)]::tail] evaluates to [Some "(1)"]
+[label_of_path_opt [ITM_NODE (ITM_AUTO 1)]::tail] evaluates to [Some "(1)"]
 
-[label_of_path_opt [ITM_NODE (ITM_STRING "a")]::tail] evaluates to [Some "(a)"]
+[label_of_path_opt [ITM_NODE (ITM_CUSTOM "a")]::tail] evaluates to [Some "(a)"]
 
-[label_of_path_opt [DSP_LINE_NODE (DSP_INT 1)]::tail] evaluates to [Some "(1)"]
+[label_of_path_opt [DSP_LINE_NODE (DSP_AUTO 1)]::tail] evaluates to [Some "(1)"]
 
-[label_of_path_opt [DSP_LINE_NODE (DSP_STRING "a")]::tail] evaluates to [Some "(a)"]
+[label_of_path_opt [DSP_LINE_NODE (DSP_CUSTOM "a")]::tail] evaluates to [Some "(a)"]
 
-[label_of_path_opt [DSP_LINE_NODE NONE]::tail] evaluates to [None]
+[label_of_path_opt [DSP_LINE_NODE DSP_NONE]::tail] evaluates to [None]
 
-[label_of_path_opt [ITM_NODE (ITM_INT 1); REFS_NODE]] evaluates to [Some "(1)"]
+[label_of_path_opt [ITM_NODE (ITM_AUTO 1); REFS_NODE]] evaluates to [Some "(1)"]
 
-[label_of_path_opt [ITM_NODE (ITM_INT 1); ABSTRACT_NODE]] evaluates to [Some "(1)"]
+[label_of_path_opt [ITM_NODE (ITM_AUTO 1); ABSTRACT_NODE]] evaluates to [Some "(1)"]
 
 *)
 
