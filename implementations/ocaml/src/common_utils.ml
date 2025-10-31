@@ -151,7 +151,7 @@ and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
 				|Some ("refs-hdr", v) -> set_refs_hdr v
 				|Some ("singular-tag", v) -> set_expand_tag_singular doc_settings.expand_tag_singular v
 				|Some ("plural-tag", v) -> set_expand_tag_plural doc_settings.expand_tag_plural v
-				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"])
+				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: \'";hd;"\'; ";"ignoring it"])
 			in aux tl
 		| [] -> ()
 	in
@@ -167,32 +167,32 @@ and key_value_pair_of_string_opt (s : string): (string*string) option=
 
 and set_doc_width (v : string) : unit =
 	try doc_settings.doc_width <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid doc_width value: \'";v;"\'; ";"using default value"])
 
 and set_left_margin (v : string) : unit =
 	try doc_settings.left_margin <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid left_margin value: \'";v;"\'; ";"using default value"])
 
 and set_title_indent (v : string) : unit =
 	try doc_settings.title_indent <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid title_indent value: \'";v;"\'; ";"using default value"])
 
 and set_author_indent (v : string) : unit =
 	try doc_settings.author_indent <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: \'";v;"\'; ";"using default value"])
 
 and set_abstract_indent (v : string) : unit =
 	try doc_settings.abstract_indent <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_indent value: \'";v;"\'; ";"using default value"])
 
 and set_refs_indent (v : string) : unit =
 	try doc_settings.refs_indent <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_indent value: \'";v;"\'; ";"using default value"])
 
 
 and set_tab_length (v : string) : unit =
 	try doc_settings.tab_length <- (int_of_string v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: \'";v;"\'; ";"using default value"])
 
 and set_ch_prefix (v : string) : unit =
 	doc_settings.ch_prefix <- (prefix_value_of_string v)
@@ -211,11 +211,11 @@ and set_refs_hdr (v : string) : unit =
 
 and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
 	try doc_settings.expand_tag_singular <- (singular_tag_value_of_string expand_tag_old v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid singular_tag value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid singular_tag value: \'";v;"\'; ";"using default value"])
 
 and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : unit =
 	try doc_settings.expand_tag_plural <- (plural_tag_value_of_string expand_tag_old v) with _ ->
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
+	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid plural_tag value: \'";v;"\'; ";"using default value"])
 
 and prefix_value_of_string (v : string) : string option =
 	match v with
