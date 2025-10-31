@@ -185,8 +185,6 @@ KEY_VALUE := | 'doc-width=' INT
              | 'singular-tag=' TAG '>' SINGULAR_FORM
              | 'plural-tag=' TAG '>' SINGULAR_FORM '>' PLURAL_FORM
 
-BOOL := 'true' | 'false'
-
 SINGULAR_FORM := TAG
 
 PLURAL_FORM := TAG
