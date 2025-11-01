@@ -12,6 +12,7 @@ val lines_of_ts_blk_txt : Common_utils.t_path -> Doc_types.ts_blk_txt -> string 
 val lines_of_ts_hdr_opt : Common_utils.t_path -> Doc_types.ts_hdr option -> string list
 val lines_of_ts_txt_units : Common_utils.t_path -> Doc_types.ts_txt_units -> string list
 val insert_label : Common_utils.t_path -> string -> string
+val lines_of_ts_blk_vrb : Common_utils.t_path -> Doc_types.ts_blk_vrb -> string list
 
 (*
 

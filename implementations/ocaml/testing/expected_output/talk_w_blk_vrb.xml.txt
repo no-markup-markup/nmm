@@ -1,0 +1,81 @@
+§ 1         Non-straightforward induction proofs
+            ────────────────────────────────────
+
+¶ 1.1
+
+            This is a verbatim block. Here is some code containing tabs and line feeds:
+
+            	main:
+            		|TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
+            		|TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+            		|TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+            		;
+
+
+
+            To get everybody on the same page, let us look at two examples
+            demonstrating the seeming need for what I have chosen to call
+            ‘non-straightforward induction proofs’.
+
+
+¶ 1.2       For each natural number 𝘯:
+
+                   1     1     1     1           1
+                  ─── + ─── + ─── + ─── + ⋯ + ──────── < 2.
+                   1²    2²    3²    4²        (𝘯+1)²
+
+
+¶ 1.3       With recursion instead of ellipsis, we have the following.
+
+
+¶ 1.4       DEFINITION
+
+                  Σ₁      :  ℕ ─→ ℚ
+                  Σ₁(0)   := 1
+                  Σ₁(𝘯+1) := Σ₁(𝘯)+(𝘯+2)⁻²
+
+
+¶ 1.5       FACT  For each natural number 𝘯:
+
+                  Σ₁(𝘯) < 2.
+
+
+¶ 1.6       PROOF ATTEMPT  Straightforward induction:
+
+            ─     Base case:
+
+                        Σ₁(0) = 1  (by definition)
+                              < 2.
+
+            ─     Induction step:
+
+                        Σ₁(𝘯+1) = Σ₁(𝘯)+(𝘯+2)⁻²  (by definition)
+                                < 2+(𝘯+2)⁻²      (by induction hypothesis).
+
+                  We have 2+(𝘯+2)⁻² ≮ 2 for all 𝘯──so how do we proceed from
+                  here? It seems like this proof attempt is “stuck”.
+
+
+¶ 1.7       We abort the proof attempt. Instead we prove the following stronger
+            fact. (In what sense is it stronger?)
+
+
+¶ 1.8       FACT  For all natural numbers 𝘯: Σ₁(𝘯) ≤ 2-(𝘯+1)⁻¹.
+
+
+¶ 1.9       PROOF  Straightforward induction:
+
+            ─     Base case:
+
+                        Σ₁(0) = 1          (by definition)
+                              ≤ 1
+                              = 2-(0+1)⁻¹.
+
+            ─     Induction step:
+
+                        Σ₁(𝘯+1)
+                          = Σ₁(𝘯)+(𝘯+2)⁻²             (by definition)
+                          ≤ 2-(𝘯+1)⁻¹+(𝘯+2)⁻²         (by induction hypothesis)
+                          = 2-(𝘯+2)⁻¹-(𝘯+1)⁻¹(𝘯+2)⁻²  (by some arithmetic)
+                          ≤ 2-(𝘯+2)⁻¹
+                          = 2-((n+1)+1)⁻¹.

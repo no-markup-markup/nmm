@@ -44,6 +44,18 @@ and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk
 	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> List.concat [lines_of_ts_txt_units path txt_units;[""]]
 
 
+and lines_of_ts_blk_vrb (path : Common_utils.t_path) (blk_vrb : Doc_types.ts_blk_vrb) : string list =
+	match blk_vrb with
+	|Cs_blk_vrb (s:string) -> 
+		let lines : string list = String.split_on_char '\n' s in
+		let indent : string = String.make (indent_of_path path) ' ' in
+		let map (line : string) : string = 
+			match line with
+			|"" -> ""
+			|_ -> String.concat "" [indent;line] 
+		in
+		List.map map lines
+
 and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
 	match hdr_opt with
 	| Some (hdr : Doc_types.ts_hdr) -> lines_of_ts_hdr path hdr
@@ -196,6 +208,9 @@ and pos_of_label (path : Common_utils.t_path) : int =
 and insert_string (label : string) (pos : int) (s : string) : string =
 	let string_len : int = String.length s in
 	let label_len : int = utf_8_length label in
+	match string_len < pos + label_len with
+	|true -> String.concat "\n" [label;s]
+	|false ->
 	let target : string = String.sub s pos label_len in
 	let ideal_target : string = String.make label_len ' ' in
 	let s1 : string = String.sub s 0 pos in

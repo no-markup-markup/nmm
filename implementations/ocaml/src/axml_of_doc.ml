@@ -136,6 +136,7 @@ and xml_of_tu_blk (blk:tu_blk):Xml.xml=
 	|Cu_blk_blt (blk_blt:ts_blk_blt) -> Xml.Element ("cu_blk_blt",[],[xml_of_ts_blk_blt blk_blt])
 	|Cu_blk_itm (blk_itm:tr_blk_itm) -> Xml.Element ("cu_blk_itm",[],[xml_of_tr_blk_itm blk_itm])
 	|Cu_blk_dsp (blk_dsp:ts_blk_dsp) -> Xml.Element ("cu_blk_dsp",[],[xml_of_ts_blk_dsp blk_dsp])
+	|Cu_blk_vrb (blk_vrb:ts_blk_vrb) -> Xml.Element ("cu_blk_vrb",[],[xml_of_ts_blk_vrb blk_vrb])
 
 and xml_of_tu_secs_pars_or_blks (secs_pars_or_blks:tu_secs_pars_or_blks):Xml.xml=
 	match secs_pars_or_blks with
@@ -170,6 +171,10 @@ and xml_of_tr_blk_itm (blk_itm:tr_blk_itm):Xml.xml=
 and xml_of_ts_blk_dsp (blk_dsp:ts_blk_dsp):Xml.xml=
 	match blk_dsp with
 	|Cs_blk_dsp (dsp_lines:ts_dsp_lines) -> Xml.Element ("cs_blk_dsp",[],[xml_of_ts_dsp_lines dsp_lines])
+
+and xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : Xml.xml =
+	match blk_vrb with
+	|Cs_blk_vrb (s : string) -> Xml.Element ("cs_blk_vrb",[],[xml_of_string s])
 
 and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
 	match txt_units with

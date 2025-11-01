@@ -7,6 +7,8 @@ let string_of_token (t:Xml_right_parser.token):string =
 	|Xml_right_parser.TAG_OPEN (x,y) -> String.concat "" ["TAG_OPEN";" ";"\'";x;"'";" ";"\'";y;"\'"]
 	|Xml_right_parser.TAG_OPEN_CLOSE (x,y) -> String.concat "" ["TAG_OPEN_CLOSE";" ";"\'";x;"\'";" ";"\'";y;"\'"]
 	|Xml_right_parser.TAG_CLOSE s -> String.concat "" ["TAG_CLOSE";" ";"\'";s;"\'"]
+	|Xml_right_parser.CS_BLK_VRB s -> String.concat "" ["CS_BLK_VRB";" ";"\'";s;"\'"]
+	|Xml_right_parser.BLK_VRB s -> String.concat "" ["BLK_VRB";" ";"\'";s;"\'"]
 
 let lexer (print_tokens:bool) (b:Lexing.lexbuf):Xml_right_parser.token=
 	let t:Xml_right_parser.token=Xml_right_lexer.token b in

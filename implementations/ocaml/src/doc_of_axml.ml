@@ -255,6 +255,7 @@ and f_tu_blk_of_xml (xml:Xml.xml):tu_blk =
     |Xml.Element ("cu_blk_blt",[],[x]) -> Cu_blk_blt (f_ts_blk_blt_of_xml x)
     |Xml.Element ("cu_blk_itm",[],[x]) -> Cu_blk_itm (f_tr_blk_itm_of_xml x)
     |Xml.Element ("cu_blk_dsp",[],[x]) -> Cu_blk_dsp (f_ts_blk_dsp_of_xml x)
+    |Xml.Element ("cu_blk_vrb",[],[x]) -> Cu_blk_vrb (f_ts_blk_vrb_of_xml x)
     |_ -> raise (Error (String.concat "" ["expected cu_blk_txt, cu_blk_blt, cu_blk_itm, or cu_blk_dsp, got: ";string_of_xml_list [xml]]))
 
 and f_ts_blk_txt_of_xml (xml:Xml.xml):ts_blk_txt =
@@ -284,6 +285,11 @@ and f_ts_blk_dsp_of_xml (xml:Xml.xml):ts_blk_dsp =
     match xml with
     |Xml.Element ("cs_blk_dsp",[],[x]) -> Cs_blk_dsp (f_ts_dsp_lines_of_xml x)
     |_ -> raise (Error (String.concat "" ["expected cs_blk_dsp, got: ";string_of_xml_list [xml]]))
+
+and f_ts_blk_vrb_of_xml (xml:Xml.xml):ts_blk_vrb =
+    match xml with
+    |Xml.Element ("cs_blk_vrb",[],[x]) -> Cs_blk_vrb (f_string_of_pcdata x)
+    |_ -> raise (Error (String.concat "" ["expected cs_blk_vrb, got: ";string_of_xml_list [xml]]))
 
 and f_itm_lbl_of_xml_list (xml_list:Xml.xml list) : tu_lbl * (Xml.xml list) =
     match xml_list with

@@ -37,6 +37,8 @@ let attrs = attr (st+ attr)*
 
 let comment = "<!--" [^ '!']* "-->"
 
+let vrb_data = [^ '<' '>']*
+
 rule token = parse
 	|'<' st* (tag as s) st* (attrs* as t) st* '>'		{ TAG_OPEN (s,t) }
 	|'<' st* (tag as s) st* (attrs* as t) st* '/' st* '>'	{ TAG_OPEN_CLOSE (s,t) }
@@ -45,6 +47,8 @@ rule token = parse
 	|xml_declaration					{ token lexbuf }
 	|nrst+ as s						{ let _=newlines s lexbuf in token lexbuf }
 	|comment as s						{ let _=newlines s lexbuf in token lexbuf }
+	|"<cs_blk_vrb>" (vrb_data as s) "</cs_blk_vrb>"	{ CS_BLK_VRB s }
+	|"<blk_vrb>" (vrb_data as s) "</blk_vrb>"	{ BLK_VRB s }
 	|eof							{ EOF }
 	|_							{ raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (Lexing.lexeme lexbuf) ^ "\"")) }
 

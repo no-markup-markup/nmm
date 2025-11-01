@@ -421,6 +421,7 @@ and acc_of_tu_blk (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a 
 	| Cu_blk_blt (b : Doc_types.ts_blk_blt) ->
 		let node : Common_utils.t_node = BLT_NODE in
 		(acc_of_ts_blk_blt (node :: path) acc b, auto_nr)
+	| Cu_blk_vrb (b: Doc_types.ts_blk_vrb) -> (acc_of_ts_blk_vrb path acc b, auto_nr) 
 
 and acc_of_ts_blk_txt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_txt) : t_acc =
 	match acc with
@@ -490,6 +491,12 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
 		let attr_list = Exml_utils.attr_list_of_tr_id a.fld_blk_itm_id in
 		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_main])]])
+
+and acc_of_ts_blk_vrb (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_vrb): t_acc =
+	match acc with
+	|CREF_TABLE _ -> acc
+	|LINES acc_lines -> LINES (List.concat [acc_lines;Txt_utils.lines_of_ts_blk_vrb path a])
+	|EXML acc_list -> EXML (List.concat [acc_list;[Exml_utils.xml_of_ts_blk_vrb a]])
 
 
 and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_dsp) : t_acc * int =

@@ -58,6 +58,7 @@ and tu_blk =
   | Cu_blk_blt of ts_blk_blt
   | Cu_blk_itm of tr_blk_itm
   | Cu_blk_dsp of ts_blk_dsp
+  | Cu_blk_vrb of ts_blk_vrb
 
 and tu_secs_pars_or_blks =
   | Cu_secs_pars_or_blks_secs of ts_secs
@@ -115,6 +116,8 @@ and tr_blk_itm = {
 }
 
 and ts_blk_blt = Cs_blk_blt of ts_blks
+
+and ts_blk_vrb = Cs_blk_vrb of string
 
 and tu_lbl = Cu_lbl_auto of ts_lbl_auto | Cu_lbl_custom of ts_lbl_custom
 

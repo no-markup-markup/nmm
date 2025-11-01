@@ -16,27 +16,29 @@ and xml_list_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : Xml
 
 and xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
 	match title with Cs_title (s : string) -> 
-	let content : Xml.xml list = [Xml.PCData (pcdata_of_string s)] in 
+	let content : Xml.xml list = [xml_of_string s] in 
 	Xml.Element ("title",[],content)
 	
 and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
 	match author with
-	| Cs_author (s : string) -> Xml.Element ("author", [], [Xml.PCData (pcdata_of_string s)])
+	| Cs_author (s : string) -> Xml.Element ("author", [], [xml_of_string s])
 
 and xml_list_of_abstract_hdr (doc_settings : Common_utils.t_doc_settings) : Xml.xml list =
 	match doc_settings.abstract_hdr with
 	|None -> []
-	|Some abstract_hdr ->
-		let content : Xml.xml list = [PCData (pcdata_of_string abstract_hdr)] in
-		[Xml.Element ("abstract_hdr",[],content)]
+	|Some abstract_hdr -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
 
 and xml_of_refs_hdr (doc_settings : Common_utils.t_doc_settings): Xml.xml =
-	let content : Xml.xml list = [PCData (pcdata_of_string doc_settings.refs_hdr)] in
+	let content : Xml.xml list = [xml_of_string doc_settings.refs_hdr] in
 	Xml.Element ("refs_hdr",[],content)
 
 and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
 	match blk_txt with
 	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units path txt_units)
+
+and xml_of_ts_blk_vrb (blk_vrb : Doc_types.ts_blk_vrb) : Xml.xml =
+	match blk_vrb with
+	|Cs_blk_vrb (s:string) -> Xml.Element ("blk_vrb",[],[xml_of_string s])
 
 and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with
@@ -49,10 +51,10 @@ and xml_of_tu_txt_unit (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) 
 	| Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref path b 
 
 and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
-	match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [Xml.PCData (pcdata_of_string b)])
+	match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [xml_of_string b])
 
 and xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : Xml.xml =
-	match a with Cs_txt_unit_emph (b : string) -> Xml.Element ("txt_unit_emph", [], [Xml.PCData (pcdata_of_string b)])
+	match a with Cs_txt_unit_emph (b : string) -> Xml.Element ("txt_unit_emph", [], [xml_of_string b])
 
 and xml_of_ts_txt_unit_c_ref (path : Common_utils.t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
 	match a with Cs_txt_unit_c_ref (b : ts_c_ref) -> Xml.Element ("txt_unit_c_ref", attr_list_of_ts_c_ref b, [xml_of_ts_c_ref path b])
@@ -82,6 +84,9 @@ and string_of_tr_id (id : Doc_types.tr_id) : string =
 	|Cs_tag (tag_string : string) ->
 		match id.fld_id_name with
 		|Cs_name (name_string : string) -> (tag_string ^ ":" ^ name_string)
+
+and xml_of_string (s : string) : Xml.xml =
+	Xml.PCData (pcdata_of_string s)
 
 and pcdata_of_string (s: string): string = 
 	let s_amp = Str.global_replace (Str.regexp "&") "&amp;" s in
@@ -126,10 +131,10 @@ and par_hdr_opt (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt :
 			|Cu_tag_or_id_tag (tag : ts_tag) 
 			|Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
 				match doc_settings.expand_tag_singular tag with
-				| Some (singular: string) -> Some [Xml.PCData (pcdata_of_string singular)]
+				| Some (singular: string) -> Some [xml_of_string singular]
 				| None ->
 					match doc_settings.expand_tag_plural tag with
-					|Some (_,plural) -> Some [Xml.PCData (pcdata_of_string plural)]
+					|Some (_,plural) -> Some [xml_of_string plural]
 					|None -> None
 		)
 		| None -> None

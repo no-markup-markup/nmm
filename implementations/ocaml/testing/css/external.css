@@ -9,22 +9,6 @@ html {
 	border-radius:1ch;
 }
 
-.title {
-	font-size:30px;
-}
-
-.author {
-	font-size:16px;
-}
-
-.ch_hdr, .ch_lbl, .ch_lbl_hdr {
-	font-size:20px;
-}
-
-.sec_hdr, .sec_lbl {
-	font-size:16px;
-}
-
-.blk.blt, .blk.itm {
-	margin:1em;
+.blk.vrb {
+	background-color:pink;
 }

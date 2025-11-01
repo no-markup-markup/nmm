@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>untitled</title>
+
+<style>
+html {
+    --title_indent    : 7.20rem;
+    --author_indent   : 7.20rem;
+    --abstract_indent : 7.20rem;
+    --refs_indent     : 7.20rem;
+    --left_margin     : 7.20rem;
+    --tab_length      : 6ch;
+    font-family       : monospace;
+    font-size         : medium;
+    line-height       : 150%;
+
+}
+
+
+.title {
+    font-weight : normal;
+    font-size   : large;
+    margin-left : var(--title_indent);
+}
+
+.doc.chs .title {
+    font-size   : xx-large;
+    margin-left : 0;
+}
+
+
+.doc.secs .title {
+    font-size : x-large;
+}
+
+
+.authors {
+    margin-bottom : 3rem;
+    margin-left   : var(--author_indent);
+}
+
+
+.doc.chs .authors {
+    font-size   : large;
+    margin-left : 0;
+}
+
+
+.doc.secs .author {
+    font-size : large;
+}
+
+
+.abstract {
+    margin-bottom : 3rem;
+    margin-left   : var(--abstract_indent);
+}
+
+.doc.chs .abstract {
+    margin-left : 0;
+}
+
+
+.abstract_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+
+.doc.blks .abstract_hdr {
+    margin-bottom : 0.5rem;
+}
+
+
+.refs {
+    padding-top : 2rem;
+    margin-left : var(--refs_indent);
+}
+
+
+.doc.chs .refs {
+    border-top  : thin solid gray;
+    margin-left : 0;
+}
+
+
+.doc.blks .refs_hdr {
+    margin-bottom : 1rem;
+}
+
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+}
+
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+
+.ch_lbl, .ch_lbl_hdr {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+
+.ch_hdr {
+    font-size : x-large;
+}
+
+
+.ch_hdr, .ch_lbl_hdr {
+    margin-bottom : 3rem;
+}
+
+
+.sec + .sec {
+    padding-top : 3rem;
+}
+
+
+.sec_lbl {
+    font-size : large;
+    font-weight : normal;
+}
+
+
+.sec_hdr {
+    margin-left : var(--left_margin);
+    font-size   : large;
+}
+
+
+.par + .par {
+    padding-top : 2rem;
+}
+
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
+}
+
+.par_hdr {
+    margin-right : 2ch;
+}
+
+.par_tag .par_hdr {
+    margin-right : 0;
+}
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content      : ")";
+    margin-right : 2ch;
+}
+
+.par_main {
+    margin-left : var(--left_margin);
+}
+
+
+.blk + .blk {
+    padding-top : 1rem;
+}
+
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+.dsp_line {
+    margin-bottom : 0.5rem;
+}
+
+.sec_main > .blk {
+    margin-left : var(--left_margin);
+}
+
+
+.blk_blt_main {
+    margin-left : var(--tab_length);
+}
+
+
+.blk_itm_main {
+    margin-left : var(--tab_length);
+}
+
+
+.dsp_line_main {
+    margin-left : var(--tab_length);
+}
+
+
+a {
+    text-decoration : none;
+}
+
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+
+  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_lbl, .par_hdr, .par_tag, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div style="display:block" class="doc secs">
+<div class="doc_main" style="display:block">
+<div class="sec" style="display:block" id="SEC:nsf-induction-proofs">
+<div class="sec_lbl" style="display:block;float:left">§ 1</div>
+<h3 class="sec_hdr" style="margin-top:0">Non-straightforward induction proofs</h3>
+<div class="sec_main" style="display:block">
+<div class="par" style="display:block">
+<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 1.1</h4>
+<div class="par_main" style="display:block">
+<pre class="blk vrb">
+This is a verbatim block. Here is some code containing tabs and line feeds:
+
+	main:
+		|TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
+		|TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+		|TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+		;
+
+
+</pre>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">To get everybody on the same page, let us look at two examples demonstrating the seeming need for what I have chosen to call ‘non-straightforward induction proofs’.</p>
+</div>
+</div>
+<div class="par" style="display:block">
+<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 1.2</h4>
+<div class="par_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">For each natural number 𝘯:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre"> 1     1     1     1           1</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">─── + ─── + ─── + ─── + ⋯ + ──────── &lt; 2.</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre"> 1²    2²    3²    4²        (𝘯+1)²</div>
+</div>
+</div>
+</div>
+</div>
+<div class="par" style="display:block">
+<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 1.3</h4>
+<div class="par_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">With recursion instead of ellipsis, we have the following.</p>
+</div>
+</div>
+<div class="par" style="display:block" id="DEF:Σ₁">
+<div class="par_lbl" style="display:block;float:left">¶ 1.4</div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr" style="margin-top:0">DEFINITION</h4>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁      :  ℕ ─→ ℚ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(0)   := 1</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯+1) := Σ₁(𝘯)+(𝘯+2)⁻²</div>
+</div>
+</div>
+</div>
+</div>
+<div class="par" style="display:block" id="FCT:basel">
+<div class="par_lbl" style="display:block;float:left">¶ 1.5</div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="margin-top:0;margin-bottom:0;float:left">FACT</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">For each natural number 𝘯:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯) &lt; 2.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="par" style="display:block">
+<div class="par_lbl" style="display:block;float:left">¶ 1.6</div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">PROOF ATTEMPT</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Straightforward induction:</p>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Base case:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(0) = 1  (by definition)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">      &lt; 2.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Induction step:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯+1) = Σ₁(𝘯)+(𝘯+2)⁻²  (by definition)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">        &lt; 2+(𝘯+2)⁻²      (by induction hypothesis).</div>
+</div>
+</div>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">We have 2+(𝘯+2)⁻² ≮ 2 for all 𝘯──so how do we proceed from here? It seems like this proof attempt is “stuck”.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="par" style="display:block">
+<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 1.7</h4>
+<div class="par_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">We abort the proof attempt. Instead we prove the following stronger fact. (In what sense is it stronger?)</p>
+</div>
+</div>
+<div class="par" style="display:block" id="FCT:basel-stronger">
+<div class="par_lbl" style="display:block;float:left">¶ 1.8</div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="margin-top:0;margin-bottom:0;float:left">FACT</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">For all natural numbers 𝘯: Σ₁(𝘯) ≤ 2-(𝘯+1)⁻¹.</p>
+</div>
+</div>
+<div class="par" style="display:block" id="PRF:basel-stronger">
+<div class="par_lbl" style="display:block;float:left">¶ 1.9</div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="margin-top:0;margin-bottom:0;float:left">PROOF</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Straightforward induction:</p>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Base case:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(0) = 1          (by definition)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">      ≤ 1</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">      = 2-(0+1)⁻¹.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Induction step:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">Σ₁(𝘯+1)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  = Σ₁(𝘯)+(𝘯+2)⁻²             (by definition)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ≤ 2-(𝘯+1)⁻¹+(𝘯+2)⁻²         (by induction hypothesis)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  = 2-(𝘯+2)⁻¹-(𝘯+1)⁻¹(𝘯+2)⁻²  (by some arithmetic)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ≤ 2-(𝘯+2)⁻¹</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  = 2-((n+1)+1)⁻¹.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

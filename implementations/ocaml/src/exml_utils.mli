@@ -14,6 +14,8 @@ val xml_of_refs_hdr : Common_utils.t_doc_settings -> Xml.xml
 
 val xml_of_ts_blk_txt : Common_utils.t_path -> Doc_types.ts_blk_txt -> Xml.xml
 
+val xml_of_ts_blk_vrb : Doc_types.ts_blk_vrb -> Xml.xml
+
 val xml_list_of_ts_txt_units : Common_utils.t_path -> Doc_types.ts_txt_units -> Xml.xml list
 
 val attr_list_of_tu_tag_or_id : Doc_types.tu_tag_or_id option -> (string * string) list

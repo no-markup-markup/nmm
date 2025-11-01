@@ -88,4 +88,4 @@ validate_xml
 
 show_diff
 
-make_pdf
+#make_pdf
