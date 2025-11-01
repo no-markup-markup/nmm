@@ -37,7 +37,13 @@
           );
           pkgs          = nixpkgs.legacyPackages.${system};
           pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-          pkgs_common  = [pkgs.bash pkgs.gnumake pkgs.python313 pkgs.xmldiff pkgs.python313Packages.weasyprint];
+          pkgs_common   = [
+            pkgs.bash
+            pkgs.gnumake
+            pkgs.python313
+            pkgs-unstable.python313Packages.weasyprint
+            pkgs.xmldiff
+          ];
           pkgs_mercury  = [pkgs.mercury];
           pkgs_rocq     = [pkgs.coq];
           pkgs_ocaml    = [
