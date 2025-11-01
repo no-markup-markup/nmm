@@ -101,6 +101,7 @@ Inductive
   | cu_blk_blt : ts_blk_blt -> tu_blk
   | cu_blk_itm : tr_blk_itm -> tu_blk
   | cu_blk_dsp : ts_blk_dsp -> tu_blk
+  | cu_blk_vrb : ts_blk_vrb -> tu_blk
 with
   ts_blk_txt : Type :=
   | cs_blk_txt : ts_txt_units ->                      ts_blk_txt
@@ -113,6 +114,9 @@ with
 with
   ts_blk_dsp : Type :=
   | cs_blk_dsp : ts_dsp_lines ->                      ts_blk_dsp
+with
+  ts_blk_vrb : Type :=
+  | cs_blk_vrb : t_str ->                             ts_blk_vrb
 with
   ts_blks    : Type :=
   | cs_blks    : list tu_blk  ->                      ts_blks
