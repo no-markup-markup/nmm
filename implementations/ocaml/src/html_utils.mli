@@ -86,8 +86,6 @@ match element with
 
 |Xml.PCData s -> Xml.PCData s
 
-|Xml.Element ("empty_line",[],[]) -> Xml.Element ("br",[],[])
-
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 ]}
 *)

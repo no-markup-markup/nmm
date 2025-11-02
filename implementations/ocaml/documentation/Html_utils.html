@@ -121,8 +121,6 @@
 
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">PCData</span> s
 
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"empty_line"</span>,[],[]) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"br"</span>,[],[])
-
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, _, _) <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"unexpected element: "</span> ^ tag))
 </code></pre></div>
 </div>
