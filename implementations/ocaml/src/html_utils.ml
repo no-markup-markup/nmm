@@ -79,8 +79,6 @@ match element with
 
 |Xml.PCData s -> Xml.PCData s
 
-|Xml.Element ("empty_line",[],[]) -> Xml.Element ("br",[],[])
-
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
 let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
