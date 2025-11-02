@@ -95,6 +95,11 @@ Inductive tu_dsp_line : Type :=
 Inductive ts_dsp_lines : Type :=
   cs_dsp_lines : list tu_dsp_line -> ts_dsp_lines.
 
+Inductive ts_vrb_line  : Type :=
+  cs_vrb_line :  t_str            -> ts_vrb_line.
+Inductive ts_vrb_lines : Type :=
+  cs_vrb_lines : list ts_vrb_line -> ts_vrb_lines.
+
 Inductive
   tu_blk : Type :=
   | cu_blk_txt : ts_blk_txt -> tu_blk
@@ -116,7 +121,7 @@ with
   | cs_blk_dsp : ts_dsp_lines ->                      ts_blk_dsp
 with
   ts_blk_vrb : Type :=
-  | cs_blk_vrb : t_str ->                             ts_blk_vrb
+  | cs_blk_vrb : ts_vrb_Lines ->                      ts_blk_vrb
 with
   ts_blks    : Type :=
   | cs_blks    : list tu_blk  ->                      ts_blks
