@@ -35,7 +35,7 @@ match element with
 |Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_lbl", _ , xml_list) -> Xml.Element ("div", [("class","ch_lbl");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl_hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_main", _ , xml_list) -> Xml.Element ("div", [("class","ch_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", ("class", "sec")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
@@ -70,7 +70,8 @@ match element with
 |Xml.Element ("dsp_line_lbl", _, xml_list) -> Xml.Element ("div",[("class","dsp_line_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("dsp_line_main", _, xml_list) -> Xml.Element ("div", [("class", "dsp_line_main");("style","display:block;white-space:pre")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_vrb",_,xml_list) -> Xml.Element ("pre",[("class","blk vrb")],List.map (html_of_exml doc_class) xml_list) 
+|Xml.Element ("blk_vrb",_,xml_list) -> Xml.Element ("div",[("class","blk vrb");("style","display:block")],List.map (html_of_exml doc_class) xml_list) 
+|Xml.Element ("vrb_line",_,xml_list) -> Xml.Element ("pre",[("class","vrb_line")],List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
 |Xml.Element ("txt_unit_emph", _, xml_list) -> Xml.Element ("em", [("class", "txt_unit_emph")], List.map (html_of_exml doc_class) xml_list)
@@ -194,7 +195,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.ch_lbl, .ch_lbl_hdr {
+.ch_lbl {
     font-weight : normal;
     font-size   : x-large;
 }
@@ -205,7 +206,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 }
 
 
-.ch_hdr, .ch_lbl_hdr {
+.ch_hdr, .ch_lbl.hdr {
     margin-bottom : 3rem;
 }
 
@@ -229,6 +230,10 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 .par + .par {
     padding-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
 }
 
 .par_tag {
@@ -268,9 +273,13 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
     white-space : pre-wrap;
 }
 
-.dsp_line {
-    margin-bottom : 0.5rem;
+
+.vrb_line {
+    min-height : 1rem;
+    margin-top : 0;
+    margin-bottom : 0;
 }
+
 
 .sec_main > .blk {
     margin-left : var(--left_margin);

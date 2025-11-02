@@ -110,7 +110,7 @@ html {
 }
 
 
-.ch_lbl, .ch_lbl_hdr {
+.ch_lbl {
     font-weight : normal;
     font-size   : x-large;
 }
@@ -121,7 +121,7 @@ html {
 }
 
 
-.ch_hdr, .ch_lbl_hdr {
+.ch_hdr, .ch_lbl.hdr {
     margin-bottom : 3rem;
 }
 
@@ -145,6 +145,10 @@ html {
 
 .par + .par {
     padding-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
 }
 
 .par_tag {
@@ -184,9 +188,13 @@ html {
     white-space : pre-wrap;
 }
 
-.dsp_line {
-    margin-bottom : 0.5rem;
+
+.vrb_line {
+    min-height : 1rem;
+    margin-top : 0;
+    margin-bottom : 0;
 }
+
 
 .sec_main > .blk {
     margin-left : var(--left_margin);
@@ -277,17 +285,17 @@ a {
 <div class="par" style="display:block">
 <h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 1.1</h4>
 <div class="par_main" style="display:block">
-<pre class="blk vrb">
-This is a verbatim block. Here is some code containing tabs and line feeds:
-
-	main:
-		|TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
-		|TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-		|TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-		;
-
-
-</pre>
+<div class="blk vrb" style="display:block">
+<pre class="vrb_line">This is a verbatim block. Here is some code containing tabs and line feeds:</pre>
+<pre class="vrb_line"></pre>
+<pre class="vrb_line">main:</pre>
+<pre class="vrb_line">|TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }</pre>
+<pre class="vrb_line">|TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }</pre>
+<pre class="vrb_line">|TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }</pre>
+<pre class="vrb_line">;</pre>
+<pre class="vrb_line"></pre>
+<pre class="vrb_line"></pre>
+</div>
 <p class="blk txt" style="margin-top:0;margin-bottom:0;">To get everybody on the same page, let us look at two examples demonstrating the seeming need for what I have chosen to call ‘non-straightforward induction proofs’.</p>
 </div>
 </div>

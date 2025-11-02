@@ -74,7 +74,7 @@ make_pdf(){
 	mkdir -p weasyprint_output
 
 	weasyprint output/cv_eric_johannesson.nmm.html weasyprint_output/cv_eric_johannesson.nmm.html.pdf
-	weasyprint output/talk.xml.html weasyprint_output/talk.xml.html.pdf
+	weasyprint output/talk_w_blk_vrb.xml.html weasyprint_output/talk_w_blk_vrb.xml.html.pdf
 }
 
 
@@ -88,4 +88,4 @@ validate_xml
 
 show_diff
 
-#make_pdf
+make_pdf

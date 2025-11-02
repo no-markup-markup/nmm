@@ -1,16 +1,13 @@
 § 1         Non-straightforward induction proofs
             ────────────────────────────────────
 
-¶ 1.1
+¶ 1.1       This is a verbatim block. Here is some code containing tabs and line feeds:
 
-            This is a verbatim block. Here is some code containing tabs and line feeds:
-
-            	main:
-            		|TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
-            		|TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-            		|TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-            		;
-
+            main:
+            |TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
+            |TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+            |TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+            ;
 
 
             To get everybody on the same page, let us look at two examples

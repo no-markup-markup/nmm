@@ -174,7 +174,18 @@ and xml_of_ts_blk_dsp (blk_dsp:ts_blk_dsp):Xml.xml=
 
 and xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : Xml.xml =
 	match blk_vrb with
-	|Cs_blk_vrb (s : string) -> Xml.Element ("cs_blk_vrb",[],[xml_of_string s])
+	|Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> Xml.Element ("cs_blk_vrb",[],[xml_of_ts_vrb_lines vrb_lines])
+
+and xml_of_ts_vrb_lines (vrb_lines : ts_vrb_lines) : Xml.xml =
+	match vrb_lines with
+	|Cs_vrb_lines (vrb_line_list : ts_vrb_line list) -> Xml.Element ("cs_vrb_lines",[],List.map xml_of_ts_vrb_line vrb_line_list)
+
+and xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
+	match vrb_line with
+	|Cs_vrb_line (s : string) -> 
+		match s with
+		|"" -> Xml.Element ("cs_vrb_line",[],[]) 
+		|_ -> Xml.Element ("cs_vrb_line",[],[xml_of_string s])
 
 and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
 	match txt_units with

@@ -38,7 +38,15 @@ and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_t
 
 and xml_of_ts_blk_vrb (blk_vrb : Doc_types.ts_blk_vrb) : Xml.xml =
 	match blk_vrb with
-	|Cs_blk_vrb (s:string) -> Xml.Element ("blk_vrb",[],[xml_of_string s])
+	|Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> Xml.Element ("blk_vrb",[],xml_list_of_ts_vrb_lines vrb_lines)
+
+and xml_list_of_ts_vrb_lines (vrb_lines : Doc_types.ts_vrb_lines) : Xml.xml list =
+	match vrb_lines with
+	|Cs_vrb_lines (vrb_line_list : ts_vrb_line list) -> List.map xml_of_ts_vrb_line vrb_line_list
+
+and xml_of_ts_vrb_line (vrb_line : Doc_types.ts_vrb_line) : Xml.xml =
+	match vrb_line with
+	|Cs_vrb_line (line : string) -> Xml.Element ("vrb_line",[],[xml_of_string line])
 
 and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with

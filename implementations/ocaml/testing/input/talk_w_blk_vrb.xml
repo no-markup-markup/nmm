@@ -22,14 +22,32 @@
 							<cs_blks>
 <cu_blk_vrb>
 <cs_blk_vrb>
+<cs_vrb_lines>
+<cs_vrb_line>
 This is a verbatim block. Here is some code containing tabs and line feeds:
-
+</cs_vrb_line>
+<cs_vrb_line>
+</cs_vrb_line>
+<cs_vrb_line>
 	main:
+</cs_vrb_line>
+<cs_vrb_line>
 		|TAG_OPEN xml_list TAG_CLOSE EOF	{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
+</cs_vrb_line>
+<cs_vrb_line>
 		|TAG_OPEN_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+</cs_vrb_line>
+<cs_vrb_line>
 		|TAG_OPEN TAG_CLOSE EOF			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+</cs_vrb_line>
+<cs_vrb_line>
 		;
+</cs_vrb_line>
+<cs_vrb_line/>
 
+<cs_vrb_line/>
+
+</cs_vrb_lines>
 
 </cs_blk_vrb>
 </cu_blk_vrb>

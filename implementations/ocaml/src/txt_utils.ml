@@ -46,15 +46,20 @@ and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk
 
 and lines_of_ts_blk_vrb (path : Common_utils.t_path) (blk_vrb : Doc_types.ts_blk_vrb) : string list =
 	match blk_vrb with
-	|Cs_blk_vrb (s:string) -> 
-		let lines : string list = String.split_on_char '\n' s in
+	|Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> lines_of_ts_vrb_lines path vrb_lines
+
+and lines_of_ts_vrb_lines (path : Common_utils.t_path) (vrb_lines : Doc_types.ts_vrb_lines) : string list =
+	match vrb_lines with
+	|Cs_vrb_lines (vrb_line_list : ts_vrb_line list) ->
+		List.map (line_of_vrb_line path) vrb_line_list
+
+and line_of_vrb_line (path : Common_utils.t_path) (vrb_line : Doc_types.ts_vrb_line) : string =
+	match vrb_line with
+	|Cs_vrb_line (line:string) -> 
 		let indent : string = String.make (indent_of_path path) ' ' in
-		let map (line : string) : string = 
-			match line with
-			|"" -> ""
-			|_ -> String.concat "" [indent;line] 
-		in
-		List.map map lines
+		match line with
+		|"" -> ""
+		|_ -> String.concat "" [indent;line]
 
 and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
 	match hdr_opt with

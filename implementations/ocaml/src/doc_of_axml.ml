@@ -288,8 +288,18 @@ and f_ts_blk_dsp_of_xml (xml:Xml.xml):ts_blk_dsp =
 
 and f_ts_blk_vrb_of_xml (xml:Xml.xml):ts_blk_vrb =
     match xml with
-    |Xml.Element ("cs_blk_vrb",[],[x]) -> Cs_blk_vrb (f_string_of_pcdata x)
+    |Xml.Element ("cs_blk_vrb",[],[x]) -> Cs_blk_vrb (f_ts_vrb_lines_of_xml x)
     |_ -> raise (Error (String.concat "" ["expected cs_blk_vrb, got: ";string_of_xml_list [xml]]))
+
+and f_ts_vrb_lines_of_xml (xml:Xml.xml):ts_vrb_lines =
+    match xml with
+    |Xml.Element ("cs_vrb_lines",[],xml_list) -> Cs_vrb_lines (List.map f_ts_vrb_line_of_xml xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_vrb_lines, got: ";string_of_xml_list [xml]]))
+
+and f_ts_vrb_line_of_xml (xml:Xml.xml):ts_vrb_line =
+    match xml with
+    |Xml.Element ("cs_vrb_line",[],xml_list) -> Cs_vrb_line (f_string_of_pcdata_list xml_list)
+    |_ -> raise (Error (String.concat "" ["expected cs_vrb_line, got: ";string_of_xml_list [xml]]))
 
 and f_itm_lbl_of_xml_list (xml_list:Xml.xml list) : tu_lbl * (Xml.xml list) =
     match xml_list with

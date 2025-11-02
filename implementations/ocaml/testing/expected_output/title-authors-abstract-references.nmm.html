@@ -111,7 +111,7 @@ html {
 }
 
 
-.ch_lbl, .ch_lbl_hdr {
+.ch_lbl {
     font-weight : normal;
     font-size   : x-large;
 }
@@ -122,7 +122,7 @@ html {
 }
 
 
-.ch_hdr, .ch_lbl_hdr {
+.ch_hdr, .ch_lbl.hdr {
     margin-bottom : 3rem;
 }
 
@@ -146,6 +146,10 @@ html {
 
 .par + .par {
     padding-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
 }
 
 .par_tag {
@@ -185,9 +189,13 @@ html {
     white-space : pre-wrap;
 }
 
-.dsp_line {
-    margin-bottom : 0.5rem;
+
+.vrb_line {
+    min-height : 1rem;
+    margin-top : 0;
+    margin-bottom : 0;
 }
+
 
 .sec_main > .blk {
     margin-left : var(--left_margin);

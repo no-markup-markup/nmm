@@ -31,8 +31,6 @@ let attr_list_of_string (s:string):(string*string) list=
 %token <string*string>		TAG_OPEN
 %token <string*string>		TAG_OPEN_CLOSE
 %token <string>			TAG_CLOSE
-%token <string>			CS_BLK_VRB
-%token <string>			BLK_VRB
 
 %start main
 %type <Xml.xml> main
@@ -54,7 +52,5 @@ xml:
 	|TAG_OPEN xml_list TAG_CLOSE		{ Xml.Element (first $1, attr_list_of_string (second $1), $2) }
 	|TAG_OPEN_CLOSE				{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
 	|TAG_OPEN TAG_CLOSE			{ Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-	|CS_BLK_VRB					{ Xml.Element ("cs_blk_vrb",[],[Xml.PCData $1]) }
-	|BLK_VRB					{ Xml.Element ("blk_vrb",[],[Xml.PCData $1]) }
 ;
 

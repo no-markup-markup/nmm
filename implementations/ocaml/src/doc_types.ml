@@ -117,7 +117,11 @@ and tr_blk_itm = {
 
 and ts_blk_blt = Cs_blk_blt of ts_blks
 
-and ts_blk_vrb = Cs_blk_vrb of string
+and ts_blk_vrb = Cs_blk_vrb of ts_vrb_lines
+
+and ts_vrb_lines = Cs_vrb_lines of (ts_vrb_line list)
+
+and ts_vrb_line = Cs_vrb_line of string
 
 and tu_lbl = Cu_lbl_auto of ts_lbl_auto | Cu_lbl_custom of ts_lbl_custom
 

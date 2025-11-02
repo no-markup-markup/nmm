@@ -110,7 +110,7 @@ html {
 }
 
 
-.ch_lbl, .ch_lbl_hdr {
+.ch_lbl {
     font-weight : normal;
     font-size   : x-large;
 }
@@ -121,7 +121,7 @@ html {
 }
 
 
-.ch_hdr, .ch_lbl_hdr {
+.ch_hdr, .ch_lbl.hdr {
     margin-bottom : 3rem;
 }
 
@@ -145,6 +145,10 @@ html {
 
 .par + .par {
     padding-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
 }
 
 .par_tag {
@@ -184,9 +188,13 @@ html {
     white-space : pre-wrap;
 }
 
-.dsp_line {
-    margin-bottom : 0.5rem;
+
+.vrb_line {
+    min-height : 1rem;
+    margin-top : 0;
+    margin-bottom : 0;
 }
+
 
 .sec_main > .blk {
     margin-left : var(--left_margin);
@@ -332,7 +340,7 @@ a {
 </div>
 </div>
 <div style="display:block" class="ch blks">
-<h2 class="ch_lbl_hdr">CHAPTER 4</h2>
+<h2 class="ch_lbl hdr">CHAPTER 4</h2>
 <div class="ch_main" style="display:block">
 <p class="blk txt" style="margin-top:0;margin-bottom:0;">Chapter without header.</p>
 </div>
