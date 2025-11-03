@@ -370,6 +370,32 @@ By Pythagoras we have:
 ```
 </details>
 
+### Verbatim blocks
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+START	VERBATIM
+This text is inside a verbatim block.
+
+Here nothing needs escaping and nothing can be escaped. For each expression E:
+⌜\E⌝ renders as ⌜\E⌝.
+END	VERBATIM
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+This text is inside a verbatim block.
+
+Here nothing needs escaping and nothing can be escaped. For each expression E:
+⌜\E⌝ renders as ⌜\E⌝.
+```
+</details>
+
 ### Nested blocks
 
 <details>

@@ -257,6 +257,24 @@ INCLUDE-FILE ./raw-text-semantics/displayed-blocks-multple-lines.txt
 ```
 </details>
 
+### Verbatim blocks
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+INCLUDE-FILE ./nmm-sources/vrb-block.nmm
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+INCLUDE-FILE ./raw-text-semantics/vrb-block.txt
+```
+</details>
+
 ### Nested blocks
 
 <details>

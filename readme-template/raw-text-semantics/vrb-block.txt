@@ -1,0 +1,4 @@
+This text is inside a verbatim block.
+
+Here nothing needs escaping and nothing can be escaped. For each expression E:
+⌜\E⌝ renders as ⌜\E⌝.
