@@ -44,7 +44,11 @@
 
 %% FUNCTION F_TKNIZE
 
-:- func f_tknize(chrs) = tu_tknize_res is det.
+:- func f_tknize(chrs) = tu_tknize_res.
+
+%% FUNCTION F_DETKNIZE
+
+:- func f_detknize(ts_tkns) = str.
 
 
 %% FUNCTION F_TKNS2STR
@@ -64,7 +68,7 @@
 
 :- import_module uint.
 
-:- use_module string.
+:- use_module exception, string.
 
 
 %% P_TKN_LINE_NO
@@ -221,6 +225,22 @@ p_sp_but_not_tab(char.det_from_int(0x200A)). % hair space
 p_sp_but_not_tab(char.det_from_int(0x202F)). % narrow no break space
 p_sp_but_not_tab(char.det_from_int(0x205F)). % medium math space
 p_sp_but_not_tab(char.det_from_int(0x3000)). % ideographic space
+
+
+%% F_DETKNIZE
+
+f_detknize(TKNS) = string.join_list("",list.map(f_detknize_tkn,TKNS)).
+
+:- func f_detknize_tkn(tu_tkn) = str.
+f_detknize_tkn(cu_tkn_nws(_,C)) = chr2str(C).
+f_detknize_tkn(cu_tkn_sp( _,C)) = chr2str(C).
+f_detknize_tkn(cu_tkn_esc(_,C)) = "\\" ++ chr2str(C).
+f_detknize_tkn(cu_tkn_tab(_))   =
+  exception.throw("attempted detokenization of tab token").
+f_detknize_tkn(cu_tkn_lb( _))   =
+  exception.throw("attempted detokenization of line break token").
+f_detknize_tkn(cu_tkn_eof)      =
+  exception.throw("attempted detokenization of end-of-file token").
 
 
 %% F_TKNS2STR

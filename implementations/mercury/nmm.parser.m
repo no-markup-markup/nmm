@@ -200,10 +200,16 @@
 %% RULE R_BLK, UNION TYPE TU_BLK, INSTANCE TU_BLK XMLABLE
 
 :- type tu_blk --->
-  cu_blk_txt(ts_blk_txt);
-  cu_blk_blt(ts_blk_blt);
-  cu_blk_itm(tr_blk_itm);
-  cu_blk_dsp(ts_blk_dsp).
+  cu_blk_txt(ts_blk_txt)
+  ;
+  cu_blk_blt(ts_blk_blt)
+  ;
+  cu_blk_itm(tr_blk_itm)
+  ;
+  cu_blk_dsp(ts_blk_dsp)
+  ;
+  cu_blk_vrb(ts_blk_vrb)
+  .
 
 :- instance term_to_xml.xmlable(tu_blk).
 
@@ -418,6 +424,17 @@
 :- pred r_blk_dsp(ta_lvl, ts_blk_dsp, ts_tkns, ts_tkns).
 :- mode r_blk_dsp(in,     out,        in,      out) is semidet.
 
+
+%% RULE R_BLK_VRB, SIMPLE TYPE TS_BLK_VRB, INSTANCE TS_BLK_VRB XMLABLE
+
+:- type ts_blk_vrb ---> cs_blk_vrb(ts_vrb_lines).
+
+:- instance term_to_xml.xmlable(ts_blk_vrb).
+
+:- pred r_blk_vrb(ta_lvl, ts_blk_vrb, ts_tkns, ts_tkns).
+:- mode r_blk_vrb(in,     out,        in,      out) is semidet.
+
+
 %% RULE R_DSP_LINES, SIMPLE TYPE TS_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
 
 :- type ts_dsp_lines ---> cs_dsp_lines(list(tu_dsp_line)).
@@ -467,6 +484,23 @@
 
 :- pred r_dsp_unit(tu_txt_unit, ts_tkns, ts_tkns).
 :- mode r_dsp_unit(out,         in,      out) is semidet.
+
+
+%% SIMPLE TYPE TS_VRB_LINES, INSTANCE TS_VRB_LINES XMLABLE
+
+:- type ts_vrb_lines ---> cs_vrb_lines(list(ts_vrb_line)).
+
+:- instance term_to_xml.xmlable(ts_vrb_lines).
+
+
+%% RULE R_VRB_LINE, SIMPLE TYPE TS_VRB_LINE, INSTANCE TS_VRB_LINE XMLABLE
+
+:- type ts_vrb_line ---> cs_vrb_line(str).
+
+:- instance term_to_xml.xmlable(ts_vrb_line).
+
+:- pred r_vrb_line(ta_lvl, ts_vrb_line, ts_tkns, ts_tkns).
+:- mode r_vrb_line(in,     out,         in,      out) is semidet.
 
 
 
@@ -1060,6 +1094,7 @@ r_blk(LVL,BLK) -->
   r_blk_blt(LVL,BLK_BLT) -> {BLK = cu_blk_blt(BLK_BLT)};
   r_blk_itm(LVL,BLK_ITM) -> {BLK = cu_blk_itm(BLK_ITM)};
   r_blk_dsp(LVL,BLK_DSP) -> {BLK = cu_blk_dsp(BLK_DSP)};
+  r_blk_vrb(LVL,BLK_VRB) -> {BLK = cu_blk_vrb(BLK_VRB)};
                             {false}.
 
 %%% INSTANCE XMLABLE
@@ -1078,6 +1113,8 @@ f_blk_to_xml(cu_blk_itm(BLK)) =
   term_to_xml.elem("cu_blk_itm",[],[f_blk_itm_to_xml(BLK)]).
 f_blk_to_xml(cu_blk_dsp(BLK)) =
   term_to_xml.elem("cu_blk_dsp",[],[f_blk_dsp_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_vrb(BLK)) =
+  term_to_xml.elem("cu_blk_vrb",[],[f_blk_vrb_to_xml(BLK)]).
 
 
 %% R_HDR, INSTANCE TS_HDR XMLABLE
@@ -1240,6 +1277,8 @@ f_txt_unit_emph_to_xml(cs_txt_unit_emph(STR)) =
 
 %% R_TXT_UNIT_WYSIWYG, INSTANCE TS_TXT_UNIT_WYSIWYG XMLABLE
 
+%%% R_TXT_UNIT_WYSIWYG
+
 r_txt_unit_wysiwyg(LVL,cs_txt_unit_wysiwyg(STR)) -->
   +([],r_txt_unit_wysiwyg_chr,LVL,CHRS,[]), {STR = chrs2str(CHRS)}.
 
@@ -1252,7 +1291,6 @@ r_txt_unit_wysiwyg_chr(        LVL,    C) --> (
   not r_txt_unit_emph(LVL,_),
   r_c(cu_r_any,C)
 ).
-
 
 %%% XMLABLE
 
@@ -1574,6 +1612,29 @@ f_blk_dsp_to_xml(cs_blk_dsp(DSP_LINES)) =
   term_to_xml.elem("cs_blk_dsp",[],[f_dsp_lines_to_xml(DSP_LINES)]).
 
 
+%% R_BLK_VRB, INSTANCE TS_BLK_VRB XMLABLE
+
+%%% R_BLK_VRB
+
+r_blk_vrb(LVL,cs_blk_vrb(cs_vrb_lines(LINES))) --> (
+  r_str("START"), r_tab, r_str("VERBATIM"), r_lb,
+  +([],r_vrb_line,LVL,LINES,[]),
+  r_tabs(LVL),
+  r_str("END"),   r_tab, r_str("VERBATIM"), r_lb
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_blk_vrb) where [
+  func(to_xml/1) is f_blk_vrb_to_xml
+].
+:- func (
+  f_blk_vrb_to_xml(ts_blk_vrb::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_blk_vrb_to_xml(cs_blk_vrb(LINES)) =
+  term_to_xml.elem("cs_blk_vrb",[],[f_vrb_lines_to_xml(LINES)]).
+
+
 %% R_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
 
 %%% R_DSP_LINES
@@ -1697,7 +1758,7 @@ f_dsp_line_no_lbl_to_xml(cs_dsp_line_no_lbl(TXT_UNITS)) = term_to_xml.elem(
 ).
 
 
-%% R_DSP_UNIT, INSTANCE XMLABLE
+%% R_DSP_UNIT
 
 %%% R_DSP_UNIT
 
@@ -1719,3 +1780,58 @@ r_dsp_unit_emph(        cu_txt_unit_emph(U)) -->
 :- pred r_dsp_unit_wysiwyg(tu_txt_unit, ts_tkns, ts_tkns).
 :- mode r_dsp_unit_wysiwyg(out,         in,      out) is semidet.
 r_dsp_unit_wysiwyg(cu_txt_unit_wysiwyg(U)) --> r_txt_unit_wysiwyg(0u,U).
+
+
+%% TS_VRB_LINES XMLABLE
+
+:- instance term_to_xml.xmlable(ts_vrb_lines) where [
+  func(to_xml/1) is f_vrb_lines_to_xml
+].
+:- func (
+  f_vrb_lines_to_xml(ts_vrb_lines::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_vrb_lines_to_xml(cs_vrb_lines(LINES)) =
+  term_to_xml.elem("cs_vrb_lines",[],list.map(f_vrb_line_to_xml,LINES)).
+
+
+%% R_VRB_LINE, TS_VRB_LINE XMLABLE
+
+%%% R_VRB_LINE
+
+r_vrb_line(LVL,LINE) --> (
+  (
+    r_tabs(LVL), +([],r_vrb_line_tkn,TKNS,[]), r_lb -> (
+      {LINE = cs_vrb_line(nmm.lexer.f_detknize(TKNS))}
+    );
+    r_lb                                      -> (
+      {LINE = cs_vrb_line("")}
+    );
+    {false}
+  )
+).
+
+:- pred r_vrb_line_tkn(tu_tkn::out,ts_tkns::in,ts_tkns::out) is semidet.
+r_vrb_line_tkn(TKN) --> (
+  [TKN],
+  {
+    TKN \= nmm.lexer.cu_tkn_tab(_),
+    TKN \= nmm.lexer.cu_tkn_lb(_),
+    TKN \= nmm.lexer.cu_tkn_eof
+  }
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_vrb_line) where [
+  func(to_xml/1) is f_vrb_line_to_xml
+].
+:- func (
+  f_vrb_line_to_xml(ts_vrb_line::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_vrb_line_to_xml(cs_vrb_line(STR)) = term_to_xml.elem(
+  "cs_vrb_line",[],[term_to_xml.data(STR)]
+).
