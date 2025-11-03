@@ -16,7 +16,27 @@ html {
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -25,6 +45,7 @@ html {
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -58,6 +79,7 @@ html {
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -122,7 +144,6 @@ html {
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -132,7 +153,7 @@ html {
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -149,34 +170,36 @@ html {
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : " (";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : ")";
-    margin-right : 2ch;
+    content : ")";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -184,7 +207,7 @@ html {
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -195,9 +218,7 @@ html {
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -218,11 +239,6 @@ html {
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 
@@ -283,21 +299,21 @@ a {
 <body>
 <div style="display:block" class="doc blks">
 <div class="doc_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">This is a no-markup-markup document, sporting the following cool features:</p>
+<p class="blk txt">This is a no-markup-markup document, sporting the following cool features:</p>
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Bullet lists:</p>
+<p class="blk txt">Bullet lists:</p>
 <div class="blk blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Here is one bullet item.</p>
+<p class="blk txt">Here is one bullet item.</p>
 </div>
 </div>
 <div class="blk blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Here is another one.</p>
+<p class="blk txt">Here is another one.</p>
 </div>
 </div>
 </div>
@@ -305,45 +321,45 @@ a {
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Numbered lists with labels that are either</p>
+<p class="blk txt">Numbered lists with labels that are either</p>
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">automatic, or</p>
+<p class="blk txt">automatic, or</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(ö)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">custom.</p>
+<p class="blk txt">custom.</p>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
+<p class="blk txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:x">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">The named item can be referred to anywhere in the document.</p>
+<p class="blk txt">The named item can be referred to anywhere in the document.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:y">
 <div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(ä)</a> below.</p>
+<p class="blk txt">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(ä)</a> below.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:z">
 <div class="blk_itm_lbl" style="display:block;float:left">(ä)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Of course, items with custom labels can also be named!</p>
+<p class="blk txt">Of course, items with custom labels can also be named!</p>
 </div>
 </div>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(2)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(2)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(2)(ä)</a> occurring elsewhere may appear differently.</p>
+<p class="blk txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(2)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(2)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(2)(ä)</a> occurring elsewhere may appear differently.</p>
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Displayed lines of text suitable for mathematical equations, which are either</p>
+<p class="blk txt">Displayed lines of text suitable for mathematical equations, which are either</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block" id="DSP:one">
 <div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
@@ -359,7 +375,7 @@ a {
 </div>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Testing the forbidden characters: &lt; &gt; &amp; &apos; &quot;</p>
+<p class="blk txt">Testing the forbidden characters: &lt; &gt; &amp; &apos; &quot;</p>
 </div>
 </div>
 </body>

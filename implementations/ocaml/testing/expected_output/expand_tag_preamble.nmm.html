@@ -16,7 +16,27 @@ html {
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -25,6 +45,7 @@ html {
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -58,6 +79,7 @@ html {
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -122,7 +144,6 @@ html {
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -132,7 +153,7 @@ html {
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -149,34 +170,36 @@ html {
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : " (";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : ")";
-    margin-right : 2ch;
+    content : ")";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -184,7 +207,7 @@ html {
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -195,9 +218,7 @@ html {
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -218,11 +239,6 @@ html {
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 
@@ -287,32 +303,32 @@ a {
 <div class="par_lbl" style="display:block;float:left">¶ 1</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">Theorem</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">Main</h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Nothing lasts forever.</p>
+<h4 class="par_hdr inline" style="float:left">Main</h4>
+<p class="blk txt">Nothing lasts forever.</p>
 </div>
 </div>
 <div style="display:block" class="par" id="PRF:proof">
 <div class="par_lbl" style="display:block;float:left">¶ 2</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">Proof</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a></h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">By straightforward induction on the complexity of nothing.</p>
+<h4 class="par_hdr inline" style="float:left">of <a class="txt_unit_c_ref" href="#THM:main">Theorem 1</a></h4>
+<p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>
 <div style="display:block" class="par" id="THMS:aux">
 <div class="par_lbl" style="display:block;float:left">¶ 3</div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr" style="margin-top:0">Theorems</h4>
+<h4 class="par_tag hdr">Theorems</h4>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:aux1">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">This theorem states that ...</p>
+<p class="blk txt">This theorem states that ...</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:aux2">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">This theoren states that ...</p>
+<p class="blk txt">This theoren states that ...</p>
 </div>
 </div>
 </div>
@@ -321,17 +337,17 @@ a {
 <div class="par_lbl" style="display:block;float:left">¶ 4</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">Proofs</div>
-<h4 class="par_hdr" style="margin-top:0">of <a class="txt_unit_c_ref" href="#THMS:aux">Theorems 3</a></h4>
+<h4 class="par_hdr">of <a class="txt_unit_c_ref" href="#THMS:aux">Theorems 3</a></h4>
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">To prove <a class="txt_unit_c_ref" href="#ITM:aux1">Theorem (1) of ¶ 3</a>, ...</p>
+<p class="blk txt">To prove <a class="txt_unit_c_ref" href="#ITM:aux1">Theorem (1) of ¶ 3</a>, ...</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">To prove <a class="txt_unit_c_ref" href="#ITM:aux2">Theorem (2) of ¶ 3</a>, ...</p>
+<p class="blk txt">To prove <a class="txt_unit_c_ref" href="#ITM:aux2">Theorem (2) of ¶ 3</a>, ...</p>
 </div>
 </div>
 </div>

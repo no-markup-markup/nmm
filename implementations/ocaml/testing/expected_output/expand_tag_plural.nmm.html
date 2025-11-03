@@ -16,7 +16,27 @@ html {
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -25,6 +45,7 @@ html {
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -58,6 +79,7 @@ html {
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -122,7 +144,6 @@ html {
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -132,7 +153,7 @@ html {
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -149,34 +170,36 @@ html {
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : " (";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : ")";
-    margin-right : 2ch;
+    content : ")";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -184,7 +207,7 @@ html {
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -195,9 +218,7 @@ html {
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -218,11 +239,6 @@ html {
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 
@@ -285,61 +301,61 @@ a {
 <div class="doc_main" style="display:block">
 <div style="display:block" class="sec">
 <div class="sec_lbl" style="display:block;float:left">§ 1</div>
-<h3 class="sec_hdr" style="margin-top:0">Some definitions</h3>
+<h3 class="sec_hdr">Some definitions</h3>
 <div class="sec_main" style="display:block">
 <div style="display:block" class="par" id="DEF:goodness">
 <div class="par_lbl" style="display:block;float:left">¶ 1.1</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">DEFINITION</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">Goodness</h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">A thing is good iff it is desirable.</p>
+<h4 class="par_hdr inline" style="float:left">Goodness</h4>
+<p class="blk txt">A thing is good iff it is desirable.</p>
 </div>
 </div>
 <div style="display:block" class="DEF par">
 <div class="par_lbl" style="display:block;float:left">¶ 1.2</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">DEFINITION</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">Stupidity</h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">To think that <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a> is useful.</p>
+<h4 class="par_hdr inline" style="float:left">Stupidity</h4>
+<p class="blk txt">To think that <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a> is useful.</p>
 </div>
 </div>
 </div>
 </div>
 <div style="display:block" class="sec">
 <div class="sec_lbl" style="display:block;float:left">§ 2</div>
-<h3 class="sec_hdr" style="margin-top:0">Our main results</h3>
+<h3 class="sec_hdr">Our main results</h3>
 <div class="sec_main" style="display:block">
 <div style="display:block" class="par" id="THMS:main">
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">THEOREMS</div>
-<h4 class="par_hdr" style="margin-top:0">Main</h4>
+<h4 class="par_hdr">Main</h4>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:1">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Nothing lasts forever.</p>
+<p class="blk txt">Nothing lasts forever.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">All is well iff</p>
+<p class="blk txt">All is well iff</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2a">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">nothing is bad, and</p>
+<p class="blk txt">nothing is bad, and</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2b">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">I know that &apos;[ITM:2+]&apos; is rendered nicely, like this: <a class="txt_unit_c_ref" href="#ITM:2+">(+)</a>.</p>
+<p class="blk txt">I know that &apos;[ITM:2+]&apos; is rendered nicely, like this: <a class="txt_unit_c_ref" href="#ITM:2+">(+)</a>.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2+">
 <div class="blk_itm_lbl" style="display:block;float:left">(+)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">I know that &apos;[ITM:2a]&apos; is rendered nicely, like this: <a class="txt_unit_c_ref" href="#ITM:2a">(a)</a>.</p>
+<p class="blk txt">I know that &apos;[ITM:2a]&apos; is rendered nicely, like this: <a class="txt_unit_c_ref" href="#ITM:2a">(a)</a>.</p>
 </div>
 </div>
 </div>
@@ -347,62 +363,62 @@ a {
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:X">
 <div class="blk_itm_lbl" style="display:block;float:left">(X)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">(2)(a)</a></p>
 </div>
 </div>
 <div class="blk blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">(2)(+)</a></p>
+<p class="blk txt">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">(2)(+)</a></p>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">(2)(a)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">(2)(+)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:X]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:X">THEOREM (X)</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">(2)(+)</a></p>
+<p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1)</a></p>
+<p class="blk txt">&apos;[ITM:X]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:X">THEOREM (X)</a></p>
 </div>
 </div>
 <div style="display:block" class="par" id="PRF:main">
 <div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">PROOF</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">By straightforward induction on the complexity of nothing.</p>
+<h4 class="par_hdr inline" style="float:left">of <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></h4>
+<p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>
 <div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 2.3</h4>
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.3</h4>
 <div class="par_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">THEOREM (2) of ¶ 2.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">2.1(2)(a)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">2.1(2)(b)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">2.1(2)(+)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:X]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:X">THEOREM (X) of ¶ 2.1</a></p>
+<p class="blk txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
+<p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
+<p class="blk txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">THEOREM (2) of ¶ 2.1</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">2.1(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">2.1(2)(b)</a></p>
+<p class="blk txt">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">2.1(2)(+)</a></p>
+<p class="blk txt">&apos;[ITM:X]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:X">THEOREM (X) of ¶ 2.1</a></p>
 </div>
 </div>
 <div style="display:block" class="par" id="PRF:1">
 <div class="par_lbl" style="display:block;float:left">¶ 2.4</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">PROOF</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Obvious by <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a>.</p>
+<h4 class="par_hdr inline" style="float:left">of <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></h4>
+<p class="blk txt">Obvious by <a class="txt_unit_c_ref" href="#DEF:goodness">DEFINITION 1.1</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div style="display:block" class="sec">
 <div class="sec_lbl" style="display:block;float:left">§ 3</div>
-<h3 class="sec_hdr" style="margin-top:0">References to previous section</h3>
+<h3 class="sec_hdr">References to previous section</h3>
 <div class="sec_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">THEOREM (2) of ¶ 2.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">2.1(2)(a)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">2.1(2)(b)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">2.1(2)(+)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:X]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:X">THEOREM (X) of ¶ 2.1</a></p>
+<p class="blk txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS:main">THEOREMS 2.1</a></p>
+<p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">THEOREM (1) of ¶ 2.1</a></p>
+<p class="blk txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">THEOREM (2) of ¶ 2.1</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">2.1(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">2.1(2)(b)</a></p>
+<p class="blk txt">&apos;[ITM:2+]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2+">2.1(2)(+)</a></p>
+<p class="blk txt">&apos;[ITM:X]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:X">THEOREM (X) of ¶ 2.1</a></p>
 </div>
 </div>
 </div>

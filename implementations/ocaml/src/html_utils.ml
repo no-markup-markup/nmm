@@ -9,11 +9,10 @@ match element with
 |Xml.Element ("title", _, xml_list) -> Xml.Element ("h1", [("class", "title")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("authors", _, xml_list) -> Xml.Element ("div", [("class", "authors");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
-
 |Xml.Element ("author", _, xml_list) -> Xml.Element ("p", [("class", "author")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("abstract_hdr", _,xml_list) -> (
+|Xml.Element ("abstract_hdr", _, xml_list) -> (
 	match doc_class with
 	|DOC_CHS -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
 	|DOC_SECS -> Xml.Element ("h3", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
@@ -22,7 +21,7 @@ match element with
 )
 
 |Xml.Element ("refs", _ , xml_list) -> Xml.Element ("div", [("class","refs");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("refs_hdr", attr_list,xml_list) -> (
+|Xml.Element ("refs_hdr", _, xml_list) -> (
 	match doc_class with
 	|DOC_CHS -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
 	|DOC_SECS -> Xml.Element ("h3", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
@@ -40,21 +39,21 @@ match element with
 
 |Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl");("style","display:block;float:left")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr");("style","display:block;float:left;margin-top:0;margin-bottom:0;")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag",[],xml_list) -> Xml.Element ("div", [("class", "par_tag");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr inline");("style","margin-top:0;margin-bottom:0;float:left")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr");("style","margin-top:0")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","margin-top:0;margin-bottom:0;float:left")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr inline");("style","float:left")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","float:left")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt");("style","margin-top:0;margin-bottom:0;")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
@@ -65,7 +64,6 @@ match element with
 |Xml.Element ("blk_blt_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_blt_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_dsp", _, xml_list) -> Xml.Element ("div", [("class", "blk dsp");("style","display:block;white-space:nowrap")], List.map (html_of_exml doc_class) xml_list)
-
 |Xml.Element ("dsp_line", attr_list, xml_list) -> Xml.Element ("div", ("class", "dsp_line")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("dsp_line_lbl", _, xml_list) -> Xml.Element ("div",[("class","dsp_line_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("dsp_line_main", _, xml_list) -> Xml.Element ("div", [("class", "dsp_line_main");("style","display:block;white-space:pre")], List.map (html_of_exml doc_class) xml_list)
@@ -99,7 +97,27 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -108,6 +126,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -141,6 +160,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -205,7 +225,6 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -215,7 +234,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -232,34 +251,36 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : \" (\";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : \")\";
-    margin-right : 2ch;
+    content : \")\";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -267,7 +288,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -278,9 +299,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -301,11 +320,6 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 

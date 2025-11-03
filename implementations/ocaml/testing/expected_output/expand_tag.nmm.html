@@ -16,7 +16,27 @@ html {
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -25,6 +45,7 @@ html {
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -58,6 +79,7 @@ html {
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -122,7 +144,6 @@ html {
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -132,7 +153,7 @@ html {
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -149,34 +170,36 @@ html {
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : " (";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : ")";
-    margin-right : 2ch;
+    content : ")";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -184,7 +207,7 @@ html {
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -195,9 +218,7 @@ html {
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -218,11 +239,6 @@ html {
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 
@@ -284,72 +300,72 @@ a {
 <div style="display:block" class="doc secs">
 <div class="doc_main" style="display:block">
 <div style="display:block" class="sec">
-<h3 class="sec_lbl hdr" style="margin-top:0">§ 1</h3>
+<h3 class="sec_lbl hdr">§ 1</h3>
 <div class="sec_main" style="display:block">
 <div style="display:block" class="par" id="THM:main">
 <div class="par_lbl" style="display:block;float:left">¶ 1.1</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">THEOREM</div>
-<h4 class="par_hdr" style="margin-top:0">Main</h4>
+<h4 class="par_hdr">Main</h4>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:1">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Nothing lasts forever.</p>
+<p class="blk txt">Nothing lasts forever.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">All is well.</p>
+<p class="blk txt">All is well.</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2a">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">sometimes</p>
+<p class="blk txt">sometimes</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:2b">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">forever</p>
+<p class="blk txt">forever</p>
 </div>
 </div>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">(1)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">(2)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">(2)(a)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">(2)(b)</a></p>
+<p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">(1)</a></p>
+<p class="blk txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">(2)</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">(2)(b)</a></p>
 </div>
 </div>
 <div style="display:block" class="par" id="PRF:proof">
 <div class="par_lbl" style="display:block;float:left">¶ 1.2</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">PROOF</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">of <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">By straightforward induction on the complexity of nothing.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">1.1(1)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">1.1(2)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">1.1(2)(a)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">1.1(2)(b)</a></p>
+<h4 class="par_hdr inline" style="float:left">of <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></h4>
+<p class="blk txt">By straightforward induction on the complexity of nothing.</p>
+<p class="blk txt">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></p>
+<p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">1.1(1)</a></p>
+<p class="blk txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">1.1(2)</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">1.1(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">1.1(2)(b)</a></p>
 </div>
 </div>
 </div>
 </div>
 <div style="display:block" class="sec">
-<h3 class="sec_lbl hdr" style="margin-top:0">§ 2</h3>
+<h3 class="sec_lbl hdr">§ 2</h3>
 <div class="sec_main" style="display:block">
 <div style="display:block" class="PRF par">
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">PROOF</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">of <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">By straightforward induction on the complexity of nothing.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">1.1(1)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">1.1(2)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">1.1(2)(a)</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">1.1(2)(b)</a></p>
+<h4 class="par_hdr inline" style="float:left">of <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></h4>
+<p class="blk txt">By straightforward induction on the complexity of nothing.</p>
+<p class="blk txt">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM:main">THEOREM 1.1</a></p>
+<p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:1">1.1(1)</a></p>
+<p class="blk txt">&apos;[ITM:2]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2">1.1(2)</a></p>
+<p class="blk txt">&apos;[ITM:2a]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2a">1.1(2)(a)</a></p>
+<p class="blk txt">&apos;[ITM:2b]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:2b">1.1(2)(b)</a></p>
 </div>
 </div>
 </div>

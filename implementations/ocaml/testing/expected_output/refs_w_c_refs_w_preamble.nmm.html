@@ -16,7 +16,27 @@ html {
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -25,6 +45,7 @@ html {
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -58,6 +79,7 @@ html {
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -122,7 +144,6 @@ html {
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -132,7 +153,7 @@ html {
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -149,34 +170,36 @@ html {
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : " (";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : ")";
-    margin-right : 2ch;
+    content : ")";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -184,7 +207,7 @@ html {
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -195,9 +218,7 @@ html {
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -218,11 +239,6 @@ html {
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 
@@ -288,37 +304,37 @@ a {
 </div>
 <div class="abstract" style="display:block">
 <h5 class="abstract_hdr">SUMMARY</h5>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
+<p class="blk txt">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
 </div>
 <div class="doc_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
+<p class="blk txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:alt1">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">‘REFERENCES(1)’ (or something similar), or</p>
+<p class="blk txt">‘REFERENCES(1)’ (or something similar), or</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:alt2">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
+<p class="blk txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of CITED WORKS</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of CITED WORKS</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
+<p class="blk txt">Having implemented <a class="txt_unit_c_ref" href="#ITM:alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of CITED WORKS</a> and <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of CITED WORKS</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
+<p class="blk txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
 </div>
 <div class="refs" style="display:block">
 <h5 class="refs_hdr">CITED WORKS</h5>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:Euler">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
+<p class="blk txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:Tarski">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
+<p class="blk txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
 </div>

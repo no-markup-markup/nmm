@@ -1,12 +1,5 @@
-html {
-	font-family: monospace;
-}
-
-.blk.dsp {
-	background-color:lightgrey;
-	margin-right:6ch;
-	padding:1ch;
-	border-radius:1ch;
+.blk {
+	outline:thin solid grey;
 }
 
 .blk.vrb {

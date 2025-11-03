@@ -16,7 +16,27 @@ html {
     font-family       : monospace;
     font-size         : medium;
     line-height       : 150%;
+}
 
+
+a {
+    text-decoration : none;
+}
+
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h3, h4 {
+    margin-top : 0;
+}
+
+
+h4.inline {
+    margin-bottom : 0;
 }
 
 
@@ -25,6 +45,7 @@ html {
     font-size   : large;
     margin-left : var(--title_indent);
 }
+
 
 .doc.chs .title {
     font-size   : xx-large;
@@ -58,6 +79,7 @@ html {
     margin-bottom : 3rem;
     margin-left   : var(--abstract_indent);
 }
+
 
 .doc.chs .abstract {
     margin-left : 0;
@@ -122,7 +144,6 @@ html {
 
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -132,7 +153,7 @@ html {
 
 
 .sec + .sec {
-    padding-top : 3rem;
+    margin-top : 3rem;
 }
 
 
@@ -149,34 +170,36 @@ html {
 
 
 .par + .par {
-    padding-top : 2rem;
+    margin-top : 2rem;
 }
+
 
 .par_lbl {
     font-weight : normal;
 }
+
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-.par_hdr {
-    margin-right : 2ch;
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
 }
 
-.par_tag .par_hdr {
-    margin-right : 0;
-}
 
 .par_tag + .par_hdr::before {
     content : " (";
 }
 
+
 .par_tag + .par_hdr::after {
-    content      : ")";
-    margin-right : 2ch;
+    content : ")";
 }
+
 
 .par_main {
     margin-left : var(--left_margin);
@@ -184,7 +207,7 @@ html {
 
 
 .blk + .blk {
-    padding-top : 1rem;
+    margin-top : 1rem;
 }
 
 
@@ -195,9 +218,7 @@ html {
 
 
 .vrb_line {
-    min-height    : 1rem;
-    margin-top    : 0;
-    margin-bottom : 0;
+    min-height : 1rem;
 }
 
 
@@ -218,11 +239,6 @@ html {
 
 .dsp_line_main {
     margin-left : var(--tab_length);
-}
-
-
-a {
-    text-decoration : none;
 }
 
 
@@ -288,28 +304,28 @@ a {
 </div>
 <div class="abstract" style="display:block">
 <h2 class="abstract_hdr">ABSTRACT</h2>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:in_abstract">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">A named item in abstract.</p>
+<p class="blk txt">A named item in abstract.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:second">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Another one.</p>
+<p class="blk txt">Another one.</p>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:another">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Another one.</p>
+<p class="blk txt">Another one.</p>
 </div>
 </div>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Reference to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of REFERENCES</a>.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1)</a></p>
+<p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#ITM:Euler">(1) of REFERENCES</a>.</p>
+<p class="blk txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1)</a></p>
 </div>
 <div class="doc_main" style="display:block">
 <div style="display:block" class="CH ch blks">
@@ -319,15 +335,15 @@ a {
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:one">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">An item</p>
+<p class="blk txt">An item</p>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1) of ABSTRACT</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:second]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:second">(2) of ABSTRACT</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">&apos;[ITM:another]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:another">(2)(a) of ABSTRACT</a></p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Reference to <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of REFERENCES</a>.</p>
+<p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p class="blk txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:in_abstract">(1) of ABSTRACT</a></p>
+<p class="blk txt">&apos;[ITM:second]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:second">(2) of ABSTRACT</a></p>
+<p class="blk txt">&apos;[ITM:another]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM:another">(2)(a) of ABSTRACT</a></p>
+<p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#ITM:Tarski">(2) of REFERENCES</a>.</p>
 </div>
 </div>
 <div style="display:block" class="ch pars" id="CH:2">
@@ -335,16 +351,16 @@ a {
 <h2 class="ch_hdr">Second chapter</h2>
 <div class="ch_main" style="display:block">
 <div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 2.1</h4>
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.1</h4>
 <div class="par_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </div>
 <div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left;margin-top:0;margin-bottom:0;">¶ 2.2</h4>
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.2</h4>
 <div class="par_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Reference to <a class="txt_unit_c_ref" href="#ITM:one">1(1)</a>.</p>
+<p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#ITM:one">1(1)</a>.</p>
 </div>
 </div>
 </div>
@@ -355,22 +371,22 @@ a {
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:Euler">
 <div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
+<p class="blk txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
 <div class="blk itm" style="display:block;overflow:hidden" id="ITM:Tarski">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
+<p class="blk txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
 <div class="blk blt" style="display:block;overflow:hidden">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Reference to <a class="txt_unit_c_ref" href="#CH:2">CHAPTER 2</a>.</p>
+<p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#CH:2">CHAPTER 2</a>.</p>
 </div>
 </div>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">A reference to <a class="txt_unit_c_ref" href="#ITM:Euler">(1)</a>.</p>
+<p class="blk txt">A reference to <a class="txt_unit_c_ref" href="#ITM:Euler">(1)</a>.</p>
 </div>
 </div>
 </body>
