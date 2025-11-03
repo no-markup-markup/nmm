@@ -34,3 +34,14 @@ Due to the feature mentioned in (2)(c), a reference to (2)(b) or
       (a)   automatically labeled (and named),
       (+)   custom labeled (and named), or,
             unlike (a) above, unlabeled.
+
+(4)   Verbatim blocks are supported:
+
+      This sentence is inside a verbatim block. Here, no escaping is
+      necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is
+      not produced by ‘\\\\’).
+
+
+
+      Of course, in verbatim blocks consecutively empty lines are
+      preserved, not merged into a single empty line.

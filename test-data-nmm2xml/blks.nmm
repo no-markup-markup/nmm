@@ -31,3 +31,15 @@ Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or [ITM:z] occur
 	(+)	custom labeled (and named), or,		DSP:two
 		unlike [DSP:one] above, unlabeled.
 
+[]	Verbatim blocks are supported:
+
+	START	VERBATIM
+	This sentence is inside a verbatim block. Here, no escaping is
+	necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is
+	not produced by ‘\\\\’).
+
+
+
+	Of course, in verbatim blocks consecutively empty lines are
+	preserved, not merged into a single empty line.
+	END	VERBATIM

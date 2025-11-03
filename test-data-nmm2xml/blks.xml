@@ -352,6 +352,38 @@
 </cs_blks>
 </cr_blk_itm>
 </cu_blk_itm>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto />
+</cu_lbl_auto>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Verbatim blocks are supported:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_vrb>
+<cs_blk_vrb>
+<cs_vrb_lines>
+<cs_vrb_line>This sentence is inside a verbatim block. Here, no escaping is</cs_vrb_line>
+<cs_vrb_line>necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is</cs_vrb_line>
+<cs_vrb_line>not produced by ‘\\\\’).</cs_vrb_line>
+<cs_vrb_line></cs_vrb_line>
+<cs_vrb_line></cs_vrb_line>
+<cs_vrb_line></cs_vrb_line>
+<cs_vrb_line>Of course, in verbatim blocks consecutively empty lines are</cs_vrb_line>
+<cs_vrb_line>preserved, not merged into a single empty line.</cs_vrb_line>
+</cs_vrb_lines>
+</cs_blk_vrb>
+</cu_blk_vrb>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
 </cs_blks>
 </cu_doc_main_blks>
 </cr_doc>
