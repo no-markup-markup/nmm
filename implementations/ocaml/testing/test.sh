@@ -77,6 +77,7 @@ make_pdf(){
 	weasyprint output/talk_w_blk_vrb.xml.html weasyprint_output/talk_w_blk_vrb.xml.html.pdf
 }
 
+show_default_css
 
 test_w_nmm
 

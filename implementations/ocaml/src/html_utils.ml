@@ -205,7 +205,12 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .ch_hdr, .ch_lbl.hdr {
+    margin-top    : 0;
     margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
 }
 
 
@@ -215,7 +220,7 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .sec_lbl {
-    font-size : large;
+    font-size   : large;
     font-weight : normal;
 }
 
@@ -273,8 +278,8 @@ let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 
 
 .vrb_line {
-    min-height : 1rem;
-    margin-top : 0;
+    min-height    : 1rem;
+    margin-top    : 0;
     margin-bottom : 0;
 }
 
