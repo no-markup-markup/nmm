@@ -18,9 +18,11 @@ val xml_of_ts_blk_vrb : Doc_types.ts_blk_vrb -> Xml.xml
 
 val xml_list_of_ts_txt_units : Common_utils.t_path -> Doc_types.ts_txt_units -> Xml.xml list
 
-val attr_list_of_tu_tag_or_id : Doc_types.tu_tag_or_id option -> (string * string) list
+val attr_list_of_tu_tag_or_id : string list -> Doc_types.tu_tag_or_id option -> (string * string) list
 
 val attr_list_of_tr_id : Doc_types.tr_id option -> (string * string) list
+
+val xml_of_string : string -> Xml.xml
 
 val pcdata_of_string : string -> string
 

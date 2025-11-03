@@ -110,7 +110,7 @@ html {
 }
 
 
-.ch_lbl, .ch_lbl_hdr {
+.ch_lbl {
     font-weight : normal;
     font-size   : x-large;
 }
@@ -121,7 +121,7 @@ html {
 }
 
 
-.ch_hdr, .ch_lbl_hdr {
+.ch_hdr, .ch_lbl.hdr {
     margin-bottom : 3rem;
 }
 
@@ -133,6 +133,7 @@ html {
 
 .sec_lbl {
     font-size : large;
+    font-weight : normal;
 }
 
 
@@ -146,17 +147,21 @@ html {
     padding-top : 2rem;
 }
 
+.par_lbl {
+    font-weight : normal;
+}
+
 .par_tag {
-    font-weight:bold;
-    margin-right:1ch;
+    font-weight : bold;
+    margin-right : 1ch;
 }
 
 .par_hdr {
-    margin-right:2ch;
+    margin-right : 2ch;
 }
 
 .par_tag .par_hdr {
-    margin-right:0;
+    margin-right : 0;
 }
 
 .par_tag + .par_hdr::before {
@@ -164,8 +169,8 @@ html {
 }
 
 .par_tag + .par_hdr::after {
-    content : ")";
-    margin-right:2ch;
+    content      : ")";
+    margin-right : 2ch;
 }
 
 .par_main {
@@ -183,9 +188,13 @@ html {
     white-space : pre-wrap;
 }
 
-.dsp_line {
-    margin-bottom : 0.5rem;
+
+.vrb_line {
+    min-height : 1rem;
+    margin-top : 0;
+    margin-bottom : 0;
 }
+
 
 .sec_main > .blk {
     margin-left : var(--left_margin);
@@ -269,12 +278,63 @@ a {
 <body>
 <div style="display:block" class="doc pars">
 <div class="doc_main" style="display:block">
-<div class="par" style="display:block" id="THM:main">
+<div style="display:block" class="par">
 <div class="par_lbl" style="display:block;float:left">¶ 1</div>
 <div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">Header 1</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Some text.</p>
+</div>
+</div>
+<div style="display:block" class="DEF par">
+<div class="par_lbl" style="display:block;float:left">¶ 2</div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="margin-top:0;margin-bottom:0;float:left">DEFINITION</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Some text.</p>
+</div>
+</div>
+<div style="display:block" class="DEF par">
+<div class="par_lbl" style="display:block;float:left">¶ 3</div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr" style="margin-top:0">DEFINITION</h4>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">bullet</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par">
+<div class="par_lbl" style="display:block;float:left">¶ 4</div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr" style="margin-top:0">Header 2</h4>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">bullet</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="THM par">
+<div class="par_lbl" style="display:block;float:left">¶ 5</div>
+<div class="par_main" style="display:block">
 <div class="par_tag" style="display:block;float:left">THEOREM</div>
-<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">Main</h4>
-<p class="blk txt" style="margin-top:0;margin-bottom:0;">Hello</p>
+<h4 class="par_hdr" style="margin-top:0">Header 3</h4>
+<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">bullet</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="THM par">
+<div class="par_lbl" style="display:block;float:left">¶ 6</div>
+<div class="par_main" style="display:block">
+<div class="par_tag" style="display:block;float:left">THEOREM</div>
+<h4 class="par_hdr inline" style="margin-top:0;margin-bottom:0;float:left">Header 4</h4>
+<p class="blk txt" style="margin-top:0;margin-bottom:0;">Some theorem.</p>
 </div>
 </div>
 </div>

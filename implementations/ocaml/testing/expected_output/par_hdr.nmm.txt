@@ -1,1 +1,22 @@
-¶ 1         THEOREM (Main)  Hello
+¶ 1         Header 1  Some text.
+
+
+¶ 2         DEFINITION  Some text.
+
+
+¶ 3         DEFINITION
+
+            ─     bullet
+
+
+¶ 4         Header 2
+
+            ─     bullet
+
+
+¶ 5         THEOREM (Header 3)
+
+            ─     bullet
+
+
+¶ 6         THEOREM (Header 4)  Some theorem.

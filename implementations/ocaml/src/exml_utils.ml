@@ -73,14 +73,17 @@ and xml_of_ts_c_ref (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
 and attr_list_of_ts_c_ref (a : Doc_types.ts_c_ref) : (string*string) list =
 	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (string_of_tr_id id))]
 
-and attr_list_of_tu_tag_or_id (a : Doc_types.tu_tag_or_id option) : (string*string) list=
+and attr_list_of_tu_tag_or_id (classes : string list) (a : Doc_types.tu_tag_or_id option) : (string*string) list=
 	match a with
-	| None -> []
+	| None -> ["class", String.concat " " classes]
 	| Some (tag_or_id : Doc_types.tu_tag_or_id) -> 
 		match tag_or_id with
-		| Cu_tag_or_id_tag _ -> []
-		| Cu_tag_or_id_id (id : Doc_types.tr_id)-> attr_list_of_tr_id (Some id)
+		| Cu_tag_or_id_tag (tag : Doc_types.ts_tag) -> attr_list_of_ts_tag classes tag
+		| Cu_tag_or_id_id (id : Doc_types.tr_id) -> ("class", String.concat " " classes)::(attr_list_of_tr_id (Some id))
 
+and attr_list_of_ts_tag (classes : string list) (tag : Doc_types.ts_tag) : (string*string) list =
+	match tag with
+	|Cs_tag (s : string) -> [("class"), String.concat " " (s::classes)]
 
 and attr_list_of_tr_id (id_opt : Doc_types.tr_id option) : (string*string) list =
 	match id_opt with
