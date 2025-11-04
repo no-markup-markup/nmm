@@ -25,7 +25,7 @@ and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
 and lines_of_tr_doc (doc : Doc_types.tr_doc) : string list =
 	let _ : unit = Common_utils.doc_cref_table.content <- cref_table_of_tr_doc doc in
 	match acc_of_tr_doc (LINES []) doc with
-	| LINES lines -> Txt_utils.remove_empty_endlines lines
+	| LINES lines -> lines
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
@@ -123,9 +123,9 @@ and acc_of_ts_abstract (doc_class : Common_utils.t_doc_class) (path : Common_uti
 		|LINES _ -> (
 			let padding : string list =
 			match doc_class with
-			|DOC_CHS -> ["";"";""]
-			|DOC_SECS -> ["";""]
-			| _ -> [""]
+			|DOC_CHS -> ["";"";"";""]
+			|DOC_SECS -> ["";"";""]
+			| _ -> ["";""]
 			in
 			let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_class in
 			match acc_of_ts_blks path (LINES []) b with
@@ -147,9 +147,9 @@ and acc_of_ts_refs (doc_class : Common_utils.t_doc_class)  (path : Common_utils.
 		|LINES _ -> (
 			let padding : string list =
 			match doc_class with
-			|DOC_CHS -> ["";"";""]
-			|DOC_SECS -> ["";""]
-			| _ -> [""]
+			|DOC_CHS -> ["";"";"";""]
+			|DOC_SECS -> ["";"";""]
+			| _ -> ["";""]
 			in
 			let hdr : string list = Txt_utils.lines_of_refs_hdr doc_class in
 			match acc_of_ts_blks path (LINES []) b with
@@ -183,7 +183,7 @@ and acc_of_ts_chs (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_c
 
 and add_empty_lines_after_ch (tl:tr_ch list) (acc : t_acc) : t_acc =
 	match tl, acc with
-	|a::b, LINES lines -> LINES (List.concat [lines;["";"";""]])
+	|a::b, LINES lines -> LINES (List.concat [lines;["";"";"";""]])
 	|_, _ -> acc
 
 
@@ -221,7 +221,7 @@ and is_appendix (a : tr_sec) : bool =
 
 and add_empty_lines_after_sec (tl:tr_sec list) (acc : t_acc) : t_acc =
 	match tl, acc with
-	|a::b, LINES lines -> LINES (List.concat [lines;["";""]])
+	|a::b, LINES lines -> LINES (List.concat [lines;["";"";""]])
 	|_, _ -> acc
 
 
@@ -237,7 +237,7 @@ and acc_of_ts_pars (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 
 and add_empty_lines_after_par (tl:tr_par list) (acc : t_acc) : t_acc =
 	match tl, acc with
-	|a::b, LINES lines -> LINES (List.concat [lines;[""]])
+	|a::b, LINES lines -> LINES (List.concat [lines;["";""]])
 	|_, _ -> acc
 
 
@@ -248,11 +248,16 @@ and acc_of_ts_blks (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 		| [] -> acc
 		| hd :: tl -> (
 			match acc_of_tu_blk auto_nr path acc hd with
-			(acc : t_acc), (auto_nr : int) -> aux auto_nr acc tl
+			(acc : t_acc), (auto_nr : int) -> aux auto_nr (add_empty_lines_after_blk tl acc) tl
 		)
 	)	
 	in 
 	aux 0 acc b
+
+and add_empty_lines_after_blk (tl:tu_blk list) (acc : t_acc) : t_acc =
+	match tl, acc with
+	|a::b, LINES lines -> LINES (List.concat [lines;[""]])
+	|_, _ -> acc
 
 
 and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) : t_acc =
@@ -520,7 +525,7 @@ and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc)
 	| LINES acc_lines -> (
 		match aux auto_nr (LINES []) c with 
 		| (LINES lines,nr) -> 
-			(LINES (List.concat [acc_lines;lines;[""]]),nr)
+			(LINES (List.concat [acc_lines;lines]),nr)
 		| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 	)

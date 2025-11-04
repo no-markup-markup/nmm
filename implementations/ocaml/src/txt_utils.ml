@@ -2,14 +2,6 @@ open Doc_types
 open Common_utils
 
 
-let remove_empty_endlines (lines : string list) : string list =
-	let rec aux (lst : string list) : string list =
-		match lst with
-		|""::tl -> aux tl
-		|_ -> lst
-	in
-	List.rev (aux (List.rev lines))
-
 let rec lines_of_ts_title_opt (title_opt : Doc_types.ts_title option) : string list =
 	match title_opt with
 	|None -> []
@@ -41,7 +33,7 @@ and lines_of_refs_hdr (doc_class : Common_utils.t_doc_class) : string list =
 
 and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =
 	match blk_txt with
-	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> List.concat [lines_of_ts_txt_units path txt_units;[""]]
+	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> List.concat [lines_of_ts_txt_units path txt_units]
 
 
 and lines_of_ts_blk_vrb (path : Common_utils.t_path) (blk_vrb : Doc_types.ts_blk_vrb) : string list =
