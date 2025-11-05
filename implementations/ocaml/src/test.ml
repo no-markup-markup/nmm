@@ -6,8 +6,8 @@ let rec test_w_nmm (path_to_nmm_file : string) : unit =
 	let _ = xml_right_test_fmt path_to_nmm_file "axml" in
 	let _ = xml_right_test path_to_nmm_file "exml" in
 	let _ = xml_right_test_fmt path_to_nmm_file "exml" in
-(*	let _ = validate_exml path_to_nmm_file in *)
-	()
+(*	let _ = validate_exml path_to_nmm_file in
+*)	()
 
 and test_w_xml (path_to_xml_file : string) : unit =
 	let _ = bijectivity_test_w_xml path_to_xml_file in ()

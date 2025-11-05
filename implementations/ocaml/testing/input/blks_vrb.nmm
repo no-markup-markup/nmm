@@ -1,0 +1,87 @@
+This is a no-markup-markup document, sporting the following cool features:
+
+[]	Bullet lists:
+
+	-	Here is one bullet item.
+
+	-	Here is another one.
+
+[]	Numbered lists with labels that are either
+
+	[]	automatic, or
+
+	[ö]	custom.
+
+	Furthermore, each item can be *named* and *referred to*:
+
+	[]	ITM:x
+		The named item can be referred to anywhere in the document.
+
+	[]	ITM:y
+		When referring to [ITM:x] above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to [ITM:z] below.
+
+	[ä]	ITM:z
+		Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or [ITM:z] occurring elsewhere may appear differently.
+
+[]	Displayed lines of text suitable for mathematical equations, which are either
+
+	()	automatically labeled (and named),	DSP:one
+	(+)	custom labeled (and named), or,		DSP:two
+		unlike [DSP:one] above, unlabeled.
+
+Verbatim blocks on level 0 are supported:
+
+START	VERBATIM
+This sentence is inside a verbatim block. Here, no escaping is
+necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is
+not produced by ‘\\\\’).
+
+
+
+Of course, in verbatim blocks consecutively empty lines are
+preserved, not merged into a single empty line.
+END	VERBATIM
+
+Here is an ordinary text block.
+
+[]	Verbatim blocks on level 1 are supported:
+
+	START	VERBATIM
+	This sentence is inside a verbatim block. Here, no escaping is
+	necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is
+	not produced by ‘\\\\’).
+
+
+
+	Of course, in verbatim blocks consecutively empty lines are
+	preserved, not merged into a single empty line.
+	END	VERBATIM
+
+	[]	Verbatim blocks on level 2 are supported:
+
+		START	VERBATIM
+		This sentence is inside a verbatim block. Here, no escaping is
+		necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is
+		not produced by ‘\\\\’).
+
+
+
+		Of course, in verbatim blocks consecutively empty lines are
+		preserved, not merged into a single empty line.
+		END	VERBATIM
+
+		[]	Verbatim blocks on level 3 are supported:
+
+			START	VERBATIM
+			This sentence is inside a verbatim block. Here, no escaping is
+			necessary: ‘\’ is produced by ‘\’, not by ‘\\’ (which in turn is
+			not produced by ‘\\\\’).
+
+
+
+			Of course, in verbatim blocks consecutively empty lines are
+			preserved, not merged into a single empty line.
+			END	VERBATIM
+

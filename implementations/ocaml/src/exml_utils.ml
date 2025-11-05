@@ -46,7 +46,10 @@ and xml_list_of_ts_vrb_lines (vrb_lines : Doc_types.ts_vrb_lines) : Xml.xml list
 
 and xml_of_ts_vrb_line (vrb_line : Doc_types.ts_vrb_line) : Xml.xml =
 	match vrb_line with
-	|Cs_vrb_line (line : string) -> Xml.Element ("vrb_line",[],[xml_of_string line])
+	|Cs_vrb_line (line : string) -> 
+		match line with
+		|"" -> Xml.Element ("vrb_line_empty",[],[])
+		|_ -> Xml.Element ("vrb_line",[],[xml_of_string line])
 
 and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with

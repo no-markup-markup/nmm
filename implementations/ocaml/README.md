@@ -9,7 +9,7 @@ It also includes an experimental LR(1) parser of nmm source-code, generated with
 ```
 Usage:
 
-nmm-ocaml [
+nmm-ocaml {
 
  | txt-of-xml { <path-to-xml-file> | - }
  | html-of-xml { <URI-of-css-file> | none } { <language-code> | none } { <path-to-xml-file> | - }
@@ -22,7 +22,7 @@ nmm-ocaml [
  | check-xml-schema <path-to-dtd-file>
  | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
 
-]
+}
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin.
 ```

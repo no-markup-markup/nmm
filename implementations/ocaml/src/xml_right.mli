@@ -34,14 +34,26 @@ evaluates to a string containing an xml-document representing [xml], with no whi
 val to_string_fmt : Xml.xml -> string
 (**
 {[to_string_fmt xml]}
-evaluates to a string containing an xml-document representing [xml], with elements separated by newlines.
+evaluates to a string containing an xml-document representing [xml], with elements separated by line feeds.
 *)
 
 
 (**
-Ideally, if [xml] is an object of type [Xml.xml], both 
-{[parse_string (to_string xml)]}
-and
-{[parse_string (to_string_fmt xml)]}
+Ideally, if [xml] is an object of type [Xml.xml], all of 
+{[
+parse_string true (to_string xml)
+parse_string false (to_string xml)
+parse_string true (to_string_fmt xml)
+parse_string false (to_string_fmt xml)
+]}
 should evaluate to [xml].
 *)
+
+
+(** For debugging purposes: *)
+
+val diff_of_xmls : Xml.xml -> Xml.xml -> (Xml.xml option * Xml.xml option) list
+
+val xml_diff : Xml.xml -> Xml.xml -> string
+
+val xml_diff_of_files : string -> string -> string

@@ -77,6 +77,7 @@ match element with
 
 |Xml.Element ("blk_vrb",_,xml_list) -> Xml.Element ("div",[("class","blk vrb");("style","display:block")],List.map (html_of_exml doc_class) xml_list) 
 |Xml.Element ("vrb_line",_,xml_list) -> Xml.Element ("pre",[("class","vrb_line")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("vrb_line_empty",_,_) -> Xml.Element ("br",[("class","vrb_line_empty")],[])
 
 |Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
 |Xml.Element ("txt_unit_emph", _, xml_list) -> Xml.Element ("em", [("class", "txt_unit_emph")], List.map (html_of_exml doc_class) xml_list)
@@ -85,7 +86,6 @@ match element with
 |Xml.PCData s -> Xml.PCData s
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
-
 ]}
 *)
 

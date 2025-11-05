@@ -47,8 +47,9 @@
 >
 
 <!ELEMENT blk_dsp (dsp_line+)>
-<!ELEMENT blk_vrb (vrb_line+)>
+<!ELEMENT blk_vrb ((vrb_line | vrb_line_empty)+)>
 <!ELEMENT vrb_line (#PCDATA)>
+<!ELEMENT vrb_line_empty EMPTY>
 
 <!ELEMENT blk_blt_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb)+>
 <!ELEMENT blk_itm_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb)+>

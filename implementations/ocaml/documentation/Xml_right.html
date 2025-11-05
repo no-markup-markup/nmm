@@ -74,10 +74,17 @@
 
 <pre><span id="VALto_string_fmt"><span class="keyword">val</span> to_string_fmt</span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">to_string_fmt xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by newlines.</p>
+<pre class="codepre"><code class="code">to_string_fmt xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by line feeds.</p>
 </div>
 </div>
-<p>Ideally, if <code class="code">xml</code> is an object of type <code class="code"><span class="constructor">Xml</span>.xml</code>, both</p>
-<pre class="codepre"><code class="code">parse_string (to_string xml)</code></pre><p>and</p>
-<pre class="codepre"><code class="code">parse_string (to_string_fmt xml)</code></pre><p>should evaluate to <code class="code">xml</code>.</p>
-</body></html>
+<p>Ideally, if <code class="code">xml</code> is an object of type <code class="code"><span class="constructor">Xml</span>.xml</code>, all of</p>
+<pre class="codepre"><code class="code">parse_string <span class="keyword">true</span> (to_string xml)
+parse_string <span class="keyword">false</span> (to_string xml)
+parse_string <span class="keyword">true</span> (to_string_fmt xml)
+parse_string <span class="keyword">false</span> (to_string_fmt xml)
+</code></pre><p>should evaluate to <code class="code">xml</code>.</p>
+<p>For debugging purposes:</p>
+
+<pre><span id="VALdiff_of_xmls"><span class="keyword">val</span> diff_of_xmls</span> : <code class="type">Xml.xml -&gt; Xml.xml -&gt; (Xml.xml option * Xml.xml option) list</code></pre>
+<pre><span id="VALxml_diff"><span class="keyword">val</span> xml_diff</span> : <code class="type">Xml.xml -&gt; Xml.xml -&gt; string</code></pre>
+<pre><span id="VALxml_diff_of_files"><span class="keyword">val</span> xml_diff_of_files</span> : <code class="type">string -&gt; string -&gt; string</code></pre></body></html>

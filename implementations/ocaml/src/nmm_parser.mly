@@ -29,6 +29,8 @@ let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_au
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS
+%token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
+%token <string>                 VRB_LINE
 %token <string>                 ESC_CHAR
 %token <string>                 TITLE AUTHOR PREAMBLE ABSTRACT
 %token <string>                 TXT C_REF
@@ -145,37 +147,37 @@ doc:
 
 
 doc_preamble:
-  | PREAMBLE TAB preamble_lines                    { (Cs_preamble $3) : ts_preamble }
-  | PREAMBLE NL_TAB preamble_lines                 { (Cs_preamble $3) : ts_preamble }
+  | PREAMBLE TAB preamble_lines                   { (Cs_preamble $3) : ts_preamble }
+  | PREAMBLE NL_TAB preamble_lines                { (Cs_preamble $3) : ts_preamble }
 ;
 
 doc_title:
-  | TITLE TAB lines                                { (Cs_title $3) : ts_title }
-  | TITLE NL_TAB lines                             { (Cs_title $3) : ts_title }
+  | TITLE TAB lines                               { (Cs_title $3) : ts_title }
+  | TITLE NL_TAB lines                            { (Cs_title $3) : ts_title }
 ;
 
 doc_author:
-  | AUTHOR TAB lines                               { (Cs_author $3) : ts_author }
-  | AUTHOR NL_TAB lines                            { (Cs_author $3) : ts_author }
+  | AUTHOR TAB lines                              { (Cs_author $3) : ts_author }
+  | AUTHOR NL_TAB lines                           { (Cs_author $3) : ts_author }
 ;
 
 doc_abstract:
-  | ABSTRACT TAB blks1                             { (Cs_abstract (Cs_blks $3)) : ts_abstract }
-  | ABSTRACT lb1 blks1                             { (Cs_abstract (Cs_blks $3)) : ts_abstract }
+  | ABSTRACT TAB blks1                            { (Cs_abstract (Cs_blks $3)) : ts_abstract }
+  | ABSTRACT lb1 blks1                            { (Cs_abstract (Cs_blks $3)) : ts_abstract }
 ;
 
 doc_refs:
-  | SECTION_REFS_NLS blks0                         { (Cs_refs (Cs_blks $2)) : ts_refs }
+  | SECTION_REFS_NLS blks0                        { (Cs_refs (Cs_blks $2)) : ts_refs }
 ;
 
 lines:
-  | TXT                                            { $1 : string }
-  | TXT NL_TAB lines                               { ($1 ^ " " ^ $3) : string }
+  | TXT                                           { $1 : string }
+  | TXT NL_TAB lines                              { ($1 ^ " " ^ $3) : string }
 ;
 
 preamble_lines:
-  | TXT                                            { $1 : string }
-  | TXT NL_TAB preamble_lines                      { ($1 ^ ";" ^ $3) : string }
+  | TXT                                           { $1 : string }
+  | TXT NL_TAB preamble_lines                     { ($1 ^ ";" ^ $3) : string }
 ;
 
 doc_main:
@@ -196,26 +198,26 @@ secs:
 ;
 
 ch:
-  |ch_nl nls ch_main                              { {fld_ch_tag_or_id=Some $1;fld_ch_hdr=None;fld_ch_main=$3}:tr_ch }
-  |ch_nl hdr nls ch_main                          { {fld_ch_tag_or_id=Some $1;fld_ch_hdr=Some $2;fld_ch_main=$4}:tr_ch }
+  |ch_nl ch_main                                  { {fld_ch_tag_or_id=Some $1;fld_ch_hdr=None;fld_ch_main=$2}:tr_ch }
+  |ch_nl hdr ch_main                              { {fld_ch_tag_or_id=Some $1;fld_ch_hdr=Some $2;fld_ch_main=$3}:tr_ch }
 ;
 
 ch_main:
-  |secs                                           { (Cu_secs_pars_or_blks_secs (Cs_secs $1)):tu_secs_pars_or_blks }
-  |pars                                           { (Cu_secs_pars_or_blks_pars (Cs_pars $1)):tu_secs_pars_or_blks }
-  |blks0                                          { (Cu_secs_pars_or_blks_blks (Cs_blks $1)):tu_secs_pars_or_blks }
+  |nls secs                                       { (Cu_secs_pars_or_blks_secs (Cs_secs $2)):tu_secs_pars_or_blks }
+  |nls pars                                       { (Cu_secs_pars_or_blks_pars (Cs_pars $2)):tu_secs_pars_or_blks }
+  |par_main                                       { (Cu_secs_pars_or_blks_blks $1):tu_secs_pars_or_blks }
 ;
 
 sec:
-  |section_nl nls sec_main                        { {fld_sec_tag_or_id=None;fld_sec_hdr=None;fld_sec_main=$3}:tr_sec }
-  |section_spaces_tag_or_id_nl nls sec_main       { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$3}:tr_sec }
-  |section_nl hdr nls sec_main                    { {fld_sec_tag_or_id=None;fld_sec_hdr=Some $2;fld_sec_main=$4}:tr_sec }
-  |section_spaces_tag_or_id_nl hdr nls sec_main   { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$4}:tr_sec }
+  |section_nl sec_main                            { {fld_sec_tag_or_id=None;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
+  |section_spaces_tag_or_id_nl sec_main           { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
+  |section_nl hdr sec_main                        { {fld_sec_tag_or_id=None;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
+  |section_spaces_tag_or_id_nl hdr sec_main       { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
 ;
 
 sec_main:
-  |pars                                           { (Cu_pars_or_blks_pars (Cs_pars $1)):tu_pars_or_blks }
-  |blks0                                          { (Cu_pars_or_blks_blks (Cs_blks $1)):tu_pars_or_blks }
+  |nls pars                                       { (Cu_pars_or_blks_pars (Cs_pars $2)):tu_pars_or_blks }
+  |par_main                                       { (Cu_pars_or_blks_blks $1):tu_pars_or_blks }
 ;
 
 pars:
@@ -224,14 +226,20 @@ pars:
 ;
 
 par:
-  |pilcrow_nl nls par_main                        { {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$3}:tr_par }
-  |pilcrow_spaces_tag_or_id_nl nls par_main       { {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$3}:tr_par }
-  |pilcrow_nl hdr nls par_main                    { {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$4}:tr_par }
-  |pilcrow_spaces_tag_or_id_nl hdr nls par_main   { {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$4}:tr_par }
+  |pilcrow_nl par_main                            { {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$2}:tr_par }
+  |pilcrow_spaces_tag_or_id_nl par_main           { {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tr_par }
+  |pilcrow_nl hdr par_main                        { {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$3}:tr_par }
+  |pilcrow_spaces_tag_or_id_nl hdr par_main       { {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tr_par }
 ;
 
 par_main:
-  |blks0                                          { (Cs_blks $1):ts_blks }
+  |nls blks0                                      { (Cs_blks $2):ts_blks }
+  |lb1 special_blk_dsp0                           { (Cs_blks [Cu_blk_dsp $2]):ts_blks }
+  |nls lb1 special_blk_dsp0                       { (Cs_blks [Cu_blk_dsp $3]):ts_blks }
+(*
+  |lb1 special_blk_dsp0 blks0                     { (Cs_blks ((Cu_blk_dsp $2)::$3)):ts_blks }
+  |nls lb1 special_blk_dsp0 blks0                 { (Cs_blks ((Cu_blk_dsp $3)::$4)):ts_blks }
+*)
 ;
 
 
@@ -250,10 +258,11 @@ special_blks0:
 ;
 
 blk0:
-  |blk_txt0                                       { Cu_blk_txt $1:tu_blk }
-  |blk_blt0                                       { Cu_blk_blt $1:tu_blk }
-  |blk_itm0                                       { Cu_blk_itm $1:tu_blk }
-  |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
+  |blk_txt0                                       { (Cu_blk_txt $1):tu_blk }
+  |blk_blt0                                       { (Cu_blk_blt $1):tu_blk }
+  |blk_itm0                                       { (Cu_blk_itm $1):tu_blk }
+  |blk_dsp0                                       { (Cu_blk_dsp $1):tu_blk }
+  |blk_vrb0                                       { (Cu_blk_vrb $1):tu_blk }
   |blk0 NL                                        { $1:tu_blk}
 ;
 
@@ -310,6 +319,20 @@ special_dsp_lines0:
   |special_dsp_line lb0 dsp_lines0                { ($1::$3):tr_dsp_line list }
 ;
 
+blk_vrb0:
+  |START_VRB vrb_lines0 END_VRB                   { (Cs_blk_vrb (Cs_vrb_lines $2)):ts_blk_vrb }
+;
+
+vrb_lines0:
+  |vrb_line0                                      { ($1::[]) : ts_vrb_line list }
+  |vrb_line0 vrb_lines0                           { ($1::$2) : ts_vrb_line list }
+;
+
+vrb_line0:
+  |VRB_LINE NL                                    { Cs_vrb_line $1 : ts_vrb_line }
+  |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
+;
+
 lb0:
   |NL                                             { }
 ;
@@ -332,6 +355,7 @@ blk(n):
   |blk_blt(n)                                             { (Cu_blk_blt $1):tu_blk }
   |blk_itm(n)                                             { (Cu_blk_itm $1):tu_blk }
   |blk_dsp(n)                                             { (Cu_blk_dsp $1):tu_blk }
+  |blk_vrb(n)                                             { (Cu_blk_vrb $1):tu_blk }
   |NL blk(n)                                              { $2:tu_blk }
 ;
 
@@ -386,6 +410,28 @@ special_dsp_lines(n):
   |special_dsp_line lb(n) dsp_lines(n)                    { ($1::$3):tr_dsp_line list }
 ;
 
+blk_vrb(n):
+  |START_VRB vrb_lines(n) end_vrb(n)                      { (Cs_blk_vrb (Cs_vrb_lines $2)):ts_blk_vrb }
+;
+
+vrb_lines(n):
+  |vrb_line(n)                                            { ($1::[]) : ts_vrb_line list }
+  |vrb_line(n) vrb_lines(n)                               { ($1::$2) : ts_vrb_line list }
+;
+
+vrb_line(n):
+  |tab(n) VRB_LINE NL                                     { Cs_vrb_line $2 : ts_vrb_line }
+  |VRB_LINE_EMPTY                                         { Cs_vrb_line "" : ts_vrb_line }
+;
+
+end_vrb(n):
+  |TAB_end_vrb(n-1)                                       { }
+;
+
+tab(n):
+  |tab(n-1)_TAB                                           { }
+;
+
 lb(n):
   |lb(n-1)_TAB                                            { }
 ;
@@ -409,6 +455,7 @@ blk1:
   |blk_blt1                                       { (Cu_blk_blt $1):tu_blk }
   |blk_itm1                                       { (Cu_blk_itm $1):tu_blk }
   |blk_dsp1                                       { (Cu_blk_dsp $1):tu_blk }
+  |blk_vrb1                                       { (Cu_blk_vrb $1):tu_blk }
   |NL blk1                                        { $2:tu_blk }
 ;
 
@@ -463,6 +510,28 @@ special_dsp_lines1:
   |special_dsp_line lb1 dsp_lines1                { ($1::$3):tr_dsp_line list }
 ;
 
+blk_vrb1:
+  |START_VRB vrb_lines1 end_vrb1                  { (Cs_blk_vrb (Cs_vrb_lines $2)):ts_blk_vrb }
+;
+
+vrb_lines1:
+  |vrb_line1                                      { ($1::[]) : ts_vrb_line list }
+  |vrb_line1 vrb_lines1                           { ($1::$2) : ts_vrb_line list }
+;
+
+vrb_line1:
+  |tab1 VRB_LINE NL                               { Cs_vrb_line $2 : ts_vrb_line }
+  |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
+;
+
+end_vrb1:
+  |TAB_END_VRB                                    { }
+;
+
+tab1:
+  |TAB                                            { }
+;
+
 lb1:
   |NL_TAB                                         { }
 ;
@@ -485,6 +554,7 @@ blk2:
   |blk_blt2                                       { (Cu_blk_blt $1):tu_blk }
   |blk_itm2                                       { (Cu_blk_itm $1):tu_blk }
   |blk_dsp2                                       { (Cu_blk_dsp $1):tu_blk }
+  |blk_vrb2                                       { (Cu_blk_vrb $1):tu_blk }
   |NL blk2                                        { $2:tu_blk }
 ;
 
@@ -539,6 +609,28 @@ special_dsp_lines2:
   |special_dsp_line lb2 dsp_lines2                { ($1::$3):tr_dsp_line list }
 ;
 
+blk_vrb2:
+  |START_VRB vrb_lines2 end_vrb2                  { (Cs_blk_vrb (Cs_vrb_lines $2)):ts_blk_vrb }
+;
+
+vrb_lines2:
+  |vrb_line2                                      { ($1::[]) : ts_vrb_line list }
+  |vrb_line2 vrb_lines2                           { ($1::$2) : ts_vrb_line list }
+;
+
+vrb_line2:
+  |tab2 VRB_LINE NL                               { Cs_vrb_line $2 : ts_vrb_line }
+  |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
+;
+
+end_vrb2:
+  |TAB_TAB_END_VRB                                { }
+;
+
+tab2:
+  |TAB TAB                                        { }
+;
+
 lb2:
   |NL_TAB_TAB                                     { }
 ;
@@ -552,6 +644,7 @@ blks3:
 
 blk3:
   |blk_txt3                                       { (Cu_blk_txt $1):tu_blk }
+  |blk_vrb3                                       { (Cu_blk_vrb $1):tu_blk }
   (* et cetera *)
   |NL blk3                                        { $2:tu_blk }
 ;
@@ -575,6 +668,28 @@ txt_unit3:
 emph_txt3:
   |emph_txt                                       { $1:string }
   |emph_txt lb3 emph_txt3                         { ($1 ^ " " ^ $3):string }
+;
+
+blk_vrb3:
+  |START_VRB vrb_lines3 end_vrb3                  { (Cs_blk_vrb (Cs_vrb_lines $2)):ts_blk_vrb }
+;
+
+vrb_lines3:
+  |vrb_line3                                      { ($1::[]) : ts_vrb_line list }
+  |vrb_line3 vrb_lines3                           { ($1::$2) : ts_vrb_line list }
+;
+
+vrb_line3:
+  |tab3 VRB_LINE NL                               { Cs_vrb_line $2 : ts_vrb_line }
+  |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
+;
+
+end_vrb3:
+  |TAB_TAB_TAB_END_VRB                            { }
+;
+
+tab3:
+  |TAB TAB TAB                                    { }
 ;
 
 lb3:

@@ -3,7 +3,7 @@ exception Error of string
 let usage : string=
 "Usage:
 
-nmm-ocaml [
+nmm-ocaml {
 
  | txt-of-xml { <path-to-xml-file> | - }
  | html-of-xml { <URI-of-css-file> | none } { <language-code> | none } { <path-to-xml-file> | - }
@@ -18,7 +18,7 @@ nmm-ocaml [
 
  | show-default-css
 
-]
+}
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin."
 

@@ -38,6 +38,13 @@ let string_of_token (t:Nmm_parser.token):string=
 	|ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
 	|ABSTRACT s -> ("ABSTRACT " ^ "\"" ^ s ^ "\"")
 	|SECTION_REFS_NLS -> "SECTION_REFS_NLS"
+	|VRB_LINE s -> ("VRB_LINE " ^ "\"" ^ s ^ "\"")
+	|START_VRB -> "START_VRB"
+	|VRB_LINE_EMPTY -> "VRB_LINE_EMPTY"
+	|END_VRB -> "END_VRB"
+	|TAB_END_VRB -> "TAB_END_VRB"
+	|TAB_TAB_END_VRB -> "TAB_TAB_END_VRB"
+	|TAB_TAB_TAB_END_VRB -> "TAB_TAB_TAB_END_VRB"
 
 let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
 	let t:Nmm_parser.token=Nmm_lexer.lex b in
@@ -51,6 +58,8 @@ let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.posi
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
+	let _ : unit = Nmm_lexer.verbatim.(0) <- false in
+	let _ : unit = Nmm_lexer.first_nl.(0) <- true in
 	match Sys.file_exists filename with
 	|false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
 	|true -> 
@@ -71,6 +80,8 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
+	let _ : unit = Nmm_lexer.verbatim.(0) <- false in
+	let _ : unit = Nmm_lexer.first_nl.(0) <- true in
 	try
 		let lexbuf=Sedlexing.Utf8.from_string s in
 		let revised_lexer () = (lexer print_tokens) lexbuf in 

@@ -7,11 +7,11 @@
 
 <style>
 html {
-    --title_indent    : 0.0rem;
-    --author_indent   : 0.0rem;
-    --abstract_indent : 0.0rem;
-    --refs_indent     : 0.0rem;
-    --left_margin     : 0.0rem;
+    --title_indent    : 7.20rem;
+    --author_indent   : 7.20rem;
+    --abstract_indent : 7.20rem;
+    --refs_indent     : 7.20rem;
+    --left_margin     : 7.20rem;
     --tab_length      : 6ch;
     font-family       : monospace;
     font-size         : medium;
@@ -297,10 +297,26 @@ h4.inline {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc blks">
+<div style="display:block" class="doc pars">
 <div class="doc_main" style="display:block">
-<p class="blk txt">Hello</p>
-<p class="blk txt">World</p>
+<div style="display:block" class="par">
+<div class="par_lbl" style="display:block;float:left">¶ 1</div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr">Header</h4>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(h)</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">labeled display line</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </body>

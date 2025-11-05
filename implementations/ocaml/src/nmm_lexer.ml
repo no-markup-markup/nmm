@@ -2,13 +2,15 @@ open Nmm_parser
 
 exception ERROR of string
 
+(************ regular expressions ******************)
+
 let nl = [%sedlex.regexp? "\n" | "\r\n"]
 let nl_tab = [%sedlex.regexp? nl, "\t"]
 let nl_tab_tab = [%sedlex.regexp? nl_tab, "\t"]
 let nl_tab_tab_tab = [%sedlex.regexp? nl_tab_tab, "\t"]
 let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"|Utf8 "¶"|Utf8 "§"]
 let txt_chars = [%sedlex.regexp? Compl non_txt_chars]
-let txt	= [%sedlex.regexp? Plus txt_chars]
+let txt = [%sedlex.regexp? Plus txt_chars]
 
 let non_name_chars = [%sedlex.regexp? Chars "\r\n\t: \\"]
 let name = [%sedlex.regexp? Plus (Compl non_name_chars)]
@@ -44,6 +46,15 @@ let section_refs_nl = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
 
 let esc_char = [%sedlex.regexp? '\\', any]
 
+let start_vrb = [%sedlex.regexp? "START\tVERBATIM\n"]
+let vrb_line = [%sedlex.regexp? Plus (Compl (Chars "\r\n\t"))]
+let end_vrb = [%sedlex.regexp? "END\tVERBATIM\n"]
+let tab_end_vrb = [%sedlex.regexp? "\t", end_vrb]
+let tab_tab_end_vrb = [%sedlex.regexp? "\t", tab_end_vrb]
+let tab_tab_tab_end_vrb = [%sedlex.regexp? "\t", tab_tab_end_vrb]
+
+(************ helper functions *********************)
+
 let get_esc_char (s : string) : string = 
 	String.sub s 1 (String.length s - 1)
 
@@ -65,21 +76,33 @@ let line_of_lexbuf (lexbuf:Sedlexing.lexbuf):string=
 
 let return_nl: bool array = [|true|]
 
+let verbatim : bool array = [|false|]
 
-let rec lex (lexbuf:Sedlexing.lexbuf):Nmm_parser.token=
+let first_nl : bool array = [|true|]
+
+let nl_or_vrb_line_empty (first : bool ) : Nmm_parser.token =
+	match first with
+	|true -> let _ : unit = first_nl.(0) <- false in NL
+	|false -> VRB_LINE_EMPTY
+
+(************** the lexer ******************************)
+
+let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
+match verbatim.(0) with
+|false -> (
 	match%sedlex lexbuf with
 	|esc_char			->	ESC_CHAR (get_esc_char (lexeme lexbuf))
 	|preamble			->	PREAMBLE (lexeme lexbuf)
 	|title				->	TITLE (lexeme lexbuf)
 	|author				->	AUTHOR (lexeme lexbuf)
-	|abstract				->	ABSTRACT (lexeme lexbuf)
-	|ch_tag_or_id_nl			->	CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
+	|abstract			->	ABSTRACT (lexeme lexbuf)
+	|ch_tag_or_id_nl		->	CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
 	|c_ref				->	C_REF (lexeme lexbuf)
 	|section_nl			->	SECTION_NL
 	|section_spaces_tag_or_id_nl	->	SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
 	|pilcrow_nl			->	PILCROW_NL
 	|pilcrow_spaces_tag_or_id_nl	->	PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
-	|section_refs_nl			->	SECTION_REFS_NLS
+	|section_refs_nl		->	SECTION_REFS_NLS
 	|"\t"				->	TAB 
 	|"-\t"				->	DASH_TAB
 	|"()\t"				->	DSP_AUTO_TAB 
@@ -99,10 +122,25 @@ let rec lex (lexbuf:Sedlexing.lexbuf):Nmm_parser.token=
 	|itm_id				->	ITM_ID (lexeme lexbuf)
 	|dsp_id				->	DSP_ID (lexeme lexbuf)
 	|txt				->	TXT (lexeme lexbuf)
+	|start_vrb			->	let _ : unit = verbatim.(0) <- true in START_VRB
 	|eof				->	end_of_file lexbuf
 	|_				->	raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+)
+|true -> (
+	match%sedlex lexbuf with
+	|end_vrb			->	let _ : unit = verbatim.(0) <- false in END_VRB
+	|tab_end_vrb			->	let _ : unit = verbatim.(0) <- false in TAB_END_VRB
+	|tab_tab_end_vrb		->	let _ : unit = verbatim.(0) <- false in TAB_TAB_END_VRB
+	|tab_tab_tab_end_vrb		->	let _ : unit = verbatim.(0) <- false in TAB_TAB_TAB_END_VRB
+	|vrb_line			->	let _ : unit = first_nl.(0) <- true in VRB_LINE (lexeme lexbuf)
+	|nl				->	nl_or_vrb_line_empty first_nl.(0)
+	|"\t"				->	TAB
+	|_				->	raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+)
 
 and end_of_file (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
 	match return_nl.(0) with
 	|true -> let _ = return_nl.(0) <- false in let _ = lex lexbuf in NL
 	|false -> EOF
+
+
