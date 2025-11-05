@@ -303,11 +303,6 @@ h4.inline {
 }
 
 
-.vrb_line {
-    min-height : 1rem;
-}
-
-
 .sec_main > .blk {
     margin-left : var(--left_margin);
 }
