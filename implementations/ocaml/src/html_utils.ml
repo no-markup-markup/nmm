@@ -112,7 +112,7 @@ p, pre {
 }
 
 
-h3, h4 {
+h2, h3, h4 {
     margin-top : 0;
 }
 
