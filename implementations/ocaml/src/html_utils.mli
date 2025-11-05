@@ -62,11 +62,11 @@ match element with
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(("style","display:block;overflow:hidden")::attr_list), List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_itm_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_blt", _, xml_list) -> Xml.Element ("div", [("class", "blk blt");("style","display:block;overflow:hidden")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_blt", _, xml_list) -> Xml.Element ("div", [("class", "blk blt");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_blt_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_blt_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_blt_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_blt_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
@@ -85,7 +85,10 @@ match element with
 
 |Xml.PCData s -> Xml.PCData s
 
+|Xml.Element ("clear",[],[]) -> Xml.Element ("div",[("class","clear")],[Xml.PCData ""])
+
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
+
 ]}
 *)
 

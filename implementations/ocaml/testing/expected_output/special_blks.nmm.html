@@ -241,7 +241,6 @@ h4.inline {
     margin-left : var(--tab_length);
 }
 
-
 @media print {
 
   html {
@@ -303,6 +302,7 @@ h4.inline {
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">labled display line at level 0</div>
 </div>
 <div class="dsp_line" style="display:block">
@@ -313,25 +313,29 @@ h4.inline {
 </div>
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">labeled display lines at level 0</div>
 </div>
 </div>
-<div class="blk itm" style="display:block;overflow:hidden">
+<div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">Bullet lists:</p>
 <p class="blk txt">here preceded by a text block at level 1, whose (lack of) linebreaks are not respected.</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">preceded by labeled display lines at level 1</div>
 </div>
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">preceded by unlabeled display line at level 1, whose (lack of) linebreaks are respected.</div>
 </div>
 </div>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">Here is one bullet item.</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
@@ -341,8 +345,9 @@ h4.inline {
 </div>
 </div>
 </div>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">Here is another one.</p>
 <p class="blk txt">but this is interpreted as a text block at level 2, whose (lack of) linebreaks are not respected.</p>
@@ -361,6 +366,7 @@ h4.inline {
 </div>
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_lbl" style="display:block;float:left">(4)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">followed by a labeled one</div>
 </div>
 <div class="dsp_line" style="display:block">
@@ -368,40 +374,47 @@ h4.inline {
 </div>
 <div class="dsp_line" style="display:block" id="DSP:some_name">
 <div class="dsp_line_lbl" style="display:block;float:left">(5)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">labeled with name</div>
 </div>
 </div>
-<div class="blk itm" style="display:block;overflow:hidden">
+<div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(6)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">Numbered lists with labels that are either</p>
-<div class="blk itm" style="display:block;overflow:hidden">
+<div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">automatic, or</p>
 </div>
 </div>
-<div class="blk itm" style="display:block;overflow:hidden">
+<div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(*)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">custom.</p>
 </div>
 </div>
 <p class="blk txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
-<div class="blk itm" style="display:block;overflow:hidden" id="ITM:x">
+<div class="blk itm" style="display:block" id="ITM:x">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">The named item can be referred to anywhere in the document.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block;overflow:hidden" id="ITM:y">
+<div class="blk itm" style="display:block" id="ITM:y">
 <div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">When referring to <a class="txt_unit_c_ref" href="#ITM:x">(b)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM:z">(**)</a> below.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block;overflow:hidden" id="ITM:z">
+<div class="blk itm" style="display:block" id="ITM:z">
 <div class="blk_itm_lbl" style="display:block;float:left">(**)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">Of course, items with custom labels can also be named!</p>
 </div>
@@ -409,8 +422,9 @@ h4.inline {
 </div>
 </div>
 <p class="blk txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM:y">(6)(c)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM:x">(6)(b)</a> or <a class="txt_unit_c_ref" href="#ITM:z">(6)(**)</a> occurring elsewhere may appear differently.</p>
-<div class="blk itm" style="display:block;overflow:hidden" id="ITM:one">
+<div class="blk itm" style="display:block" id="ITM:one">
 <div class="blk_itm_lbl" style="display:block;float:left">(7)</div>
+<div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">Displayed lines of text suitable for mathematical equations, which are either</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
@@ -419,10 +433,12 @@ h4.inline {
 </div>
 <div class="dsp_line" style="display:block" id="DSP:one">
 <div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled (and named),</div>
 </div>
 <div class="dsp_line" style="display:block" id="DSP:two">
 <div class="dsp_line_lbl" style="display:block;float:left">(+)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">custom labeled (and named), or,</div>
 </div>
 <div class="dsp_line" style="display:block">

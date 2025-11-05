@@ -241,7 +241,6 @@ h4.inline {
     margin-left : var(--tab_length);
 }
 
-
 @media print {
 
   html {
@@ -305,6 +304,7 @@ h4.inline {
 <div class="doc_main" style="display:block">
 <div style="display:block" class="sec">
 <div class="sec_lbl" style="display:block;float:left">§ 1</div>
+<div class="clear"></div>
 <h3 class="sec_hdr">Introduction</h3>
 <div class="sec_main" style="display:block">
 <p class="blk txt">Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated. Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system. </p>
@@ -314,29 +314,34 @@ h4.inline {
 </div>
 <div style="display:block" class="sec">
 <div class="sec_lbl" style="display:block;float:left">§ 2</div>
+<div class="clear"></div>
 <h3 class="sec_hdr">A probabilistic approach</h3>
 <div class="sec_main" style="display:block">
 <p class="blk txt">Assume, for the sake of simplicity, that </p>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">you have n files partitioned equally over k subdirectories (with n/k files in each), </p>
 </div>
 </div>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">each file is just as likely to have been modified as any other (with probability p),</p>
 </div>
 </div>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">modifications are probabilistically independent of each other,</p>
 </div>
 </div>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">the number of files are fixed, and the modification time of a directory only gets updated when its files are modified. </p>
 </div>
@@ -345,6 +350,7 @@ h4.inline {
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">q = (1 - p)^(n/k)</div>
 </div>
 </div>
@@ -352,6 +358,7 @@ h4.inline {
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block" id="DSP:exp_sum">
 <div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k</div>
 </div>
 <div class="dsp_line" style="display:block">
@@ -402,24 +409,28 @@ h4.inline {
 </div>
 <div style="display:block" class="sec">
 <div class="sec_lbl" style="display:block;float:left">§ 3</div>
+<div class="clear"></div>
 <h3 class="sec_hdr">A non-probabilistic approach</h3>
 <div class="sec_main" style="display:block">
 <p class="blk txt">Assume, as before, that </p>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">you have n files partitioned equally over k subdirectories (with n/k files in each), and that</p>
 </div>
 </div>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">the number of files are fixed, and the modification time of a directory only gets updated when its files are modified. </p>
 </div>
 </div>
 <p class="blk txt">Assume, moreover, that</p>
-<div class="blk blt" style="display:block;overflow:hidden">
+<div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
 <p class="blk txt">exactly one file has been modified.</p>
 </div>
@@ -428,6 +439,7 @@ h4.inline {
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block" id="DSP:simple_sum">
 <div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">k + n/k</div>
 </div>
 </div>
@@ -435,6 +447,7 @@ h4.inline {
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block" id="DSP:derivative">
 <div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">1 - n/k²</div>
 </div>
 </div>

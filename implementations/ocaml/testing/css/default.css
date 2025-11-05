@@ -233,7 +233,6 @@ h4.inline {
     margin-left : var(--tab_length);
 }
 
-
 @media print {
 
   html {

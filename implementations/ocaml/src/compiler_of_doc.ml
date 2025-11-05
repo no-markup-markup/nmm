@@ -338,10 +338,11 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 		in
 		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
+		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id ["sec"] a.fld_sec_tag_or_id in
 		match a.fld_sec_hdr with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr; xml_main])]])
-		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr; xml_main])]])
+		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_clear; xml_main])]])
+		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_clear;xml_hdr; xml_main])]])
 
 and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par) : t_acc =
 	match acc with
@@ -386,8 +387,9 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr
 		)
 		in
 		let xml_main = Xml.Element ("par_main",[],xml_list_main) in
+		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id ["par"] par.fld_par_tag_or_id in
-		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
 	)
 
 and acc_of_ch_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_secs_pars_or_blks) : t_acc =
@@ -460,7 +462,8 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		in
 		let xml_main:Xml.xml = Xml.Element ("blk_blt_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("blk_blt_lbl",[],xml_list_lbl) in
-		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[],[xml_lbl;xml_main])]])
+		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
+		EXML (List.concat [acc_list;[Xml.Element ("blk_blt",[],[xml_lbl;xml_clear;xml_main])]])
 
 
 and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_blk_itm) : t_acc =
@@ -494,8 +497,9 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 		in
 		let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
 		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
+		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
 		let attr_list = Exml_utils.attr_list_of_tr_id a.fld_blk_itm_id in
-		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_main])]])
+		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_clear;xml_main])]])
 
 and acc_of_ts_blk_vrb (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_vrb): t_acc =
 	match acc with
@@ -559,9 +563,10 @@ and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc
 		in
 		let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
+		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
 		let attr_list: (string*string) list = attr_list_of_tr_id a.fld_dsp_line_id in
 		match a.fld_dsp_line_lbl with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_main])]])
-		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_lbl; xml_main])]])
+		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_lbl; xml_clear; xml_main])]])
 	)
 
