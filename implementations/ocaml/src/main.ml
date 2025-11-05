@@ -1,27 +1,5 @@
 exception Error of string
 
-let usage : string=
-"Usage:
-
-nmm-ocaml {
-
- | txt-of-xml { <path-to-xml-file> | - }
- | html-of-xml { <URI-of-css-file> | none } { <language-code> | none } { <path-to-xml-file> | - }
-
- | xml-of-nmm <path-to-nmm-file>
-
- | txt-of-nmm <path-to-nmm-file>
- | html-of-nmm { <URI-of-css-file> | none } { <language-code> | none } <path-to-nmm-file>
-
- | check-xml-schema <path-to-dtd-file>
- | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
-
- | show-default-css
-
-}
-
-In cases where '-' can be supplied instead of a path, the program reads from stdin."
-
 let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	try
 		let print_tokens = false in
@@ -150,51 +128,7 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
 	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
 
 
-let test_w_nmm (path_to_nmm_file : string) : unit =
-	Test.test_w_nmm path_to_nmm_file
-
-let test_w_xml (path_to_xml_file : string) : unit =
-	Test.test_w_xml path_to_xml_file
-
 let default_css : string =
 	Html_utils.internal_css Common_utils.doc_settings
 
-let argv=Sys.argv
 
-let _ : unit =
-try 
-	match Array.length argv with
-	|2 -> (
-		match argv.(1) with
-		|"show-default-css" -> print_endline default_css
-		|_ -> raise (Error "invalid argument(s)")
-	)
-	|3 -> (
-		match argv.(1),argv.(2) with
-		|"txt-of-nmm", path -> print_endline (txt_of_nmm path)
-		|"txt-of-xml", path -> print_endline (txt_of_axml path)
-		|"xml-of-nmm", path -> print_endline (axml_of_nmm path)
-		|"check-xml-schema", path -> print_endline (check_xml_schema path)
-		|"test-with-nmm", path -> test_w_nmm path
-		|"test-with-xml", path -> test_w_xml path
-		|_ -> raise (Error "invalid argument(s)")
-	)
-	|4 -> (
-		match argv.(1),argv.(2),argv.(3) with
-		|"validate-xml", path_to_dtd, path_to_xml -> print_endline (validate_xml path_to_dtd path_to_xml)
-		|_ -> raise (Error "invalid argument(s)")
-	)
-	|5 -> (
-		match argv.(1),argv.(2),argv.(3),argv.(4) with
-		|"html-of-nmm", "none", "none", path -> print_endline (html_of_nmm None None path)
-		|"html-of-nmm", "none", lang, path -> print_endline (html_of_nmm None (Some lang) path)
-		|"html-of-nmm", uri, "none", path -> print_endline (html_of_nmm (Some uri) None path)
-		|"html-of-nmm", uri, lang, path -> print_endline (html_of_nmm (Some uri) (Some lang) path)
-		|"html-of-xml", "none", "none", path -> print_endline (html_of_axml None None path)
-		|"html-of-xml", "none", lang, path -> print_endline (html_of_axml None (Some lang) path)
-		|"html-of-xml", uri, "none", path -> print_endline (html_of_axml (Some uri) None path)
-		|"html-of-xml", uri, lang, path -> print_endline (html_of_axml (Some uri) (Some lang) path)
-		|_ -> raise (Error "invalid argument(s)")
-	)
-	|_ -> raise (Error "invalid argument(s)")
-with Error "invalid argument(s)" -> Debug_utils.print_to_stderr ("invalid argument(s)" ^ "\n" ^ usage)

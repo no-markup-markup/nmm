@@ -31,7 +31,7 @@
 
 <pre><span id="MODULEMain"><span class="keyword">module</span> Main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For assembling the pieces provided by the other modules and for providing a command-line interface</p>
+<p>For assembling the pieces provided by the other modules</p>
 </div>
 </div>
 <hr width="100%">
@@ -139,4 +139,5 @@
 <pre class="codepre"><code class="code">validate_xml <span class="string">"path/to/xml-schema.dtd"</span> <span class="string">"path/to/xml-file.xml"</span></code></pre><p>first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is well-defined. It then calls the function <a href="Xml_right.html#VALparse_file"><code class="code"><span class="constructor">Xml_right</span>.parse_file</code></a> for parsing xml-file.xml into an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Lastly, it calls <code class="code"><span class="constructor">Dtd</span>.prove</code> for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd.</p>
 </div>
 </div>
-</body></html>
+
+<pre><span id="VALdefault_css"><span class="keyword">val</span> default_css</span> : <code class="type">string</code></pre></body></html>

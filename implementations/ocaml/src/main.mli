@@ -1,4 +1,4 @@
-(** For assembling the pieces provided by the other modules and for providing a command-line interface *)
+(** For assembling the pieces provided by the other modules *)
 
 exception Error of string
 
@@ -113,3 +113,4 @@ val validate_xml : string -> string -> string
 first calls the {{:https://github.com/ncannasse/xml-light}Xml-light} function [Dtd.parse_file] for parsing xml-schema.dtd, and [Dtd.check] for checking that it is well-defined. It then calls the function {!val:Xml_right.parse_file} for parsing xml-file.xml into an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Lastly, it calls [Dtd.prove] for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd.
 *)
 
+val default_css : string
