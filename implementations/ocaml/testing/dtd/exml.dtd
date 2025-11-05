@@ -19,7 +19,7 @@
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT sec ((sec_lbl | sec_lbl_hdr), clear, sec_hdr?, sec_main)>
+<!ELEMENT sec ((sec_lbl | sec_lbl_hdr), sec_hdr?, sec_main)>
 <!ATTLIST sec 
 	class CDATA #REQUIRED
 	id CDATA #IMPLIED

@@ -44,8 +44,10 @@ show_diff(){
 make_pdf(){
 	mkdir -p testing/weasyprint_output
 
-	weasyprint testing/output/cv_eric_johannesson.nmm.html testing/weasyprint_output/cv_eric_johannesson.nmm.html.pdf
-	weasyprint testing/output/talk_w_blk_vrb.xml.html testing/weasyprint_output/talk_w_blk_vrb.xml.html.pdf
+#	weasyprint testing/output/cv_eric_johannesson.nmm.html testing/weasyprint_output/cv_eric_johannesson.nmm.html.pdf
+#	weasyprint testing/output/talk.xml.html testing/weasyprint_output/talk.xml.html.pdf
+	weasyprint testing/output/cv_long.nmm.html testing/weasyprint_output/cv_long.nmm.html.pdf
+
 }
 
 show_default_css
@@ -58,4 +60,4 @@ add_newlines
 
 show_diff
 
-#make_pdf
+make_pdf

@@ -1,4 +1,4 @@
-(** For assembling the pieces provided by the other modules *)
+(** For assembling the pieces provided by the other modules. *)
 
 exception Error of string
 

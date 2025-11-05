@@ -84,11 +84,11 @@ match element with
 
 let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
 	let factor : float = 0.6 in
-	let title_indent : string = (Float.to_string ((Float.of_int doc_settings.title_indent) *. factor)) ^ "0" ^ "rem" in
-	let author_indent : string = (Float.to_string ((Float.of_int doc_settings.author_indent) *. factor)) ^ "0" ^ "rem" in
-	let abstract_indent : string = (Float.to_string ((Float.of_int doc_settings.abstract_indent) *. factor)) ^ "0" ^ "rem" in
-	let refs_indent : string = (Float.to_string ((Float.of_int doc_settings.refs_indent) *. factor)) ^ "0" ^ "rem" in
-	let left_margin : string = (Float.to_string ((Float.of_int doc_settings.left_margin) *. factor)) ^ "0" ^ "rem" in
+	let title_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.title_indent) *. factor)) ^ "rem" in
+	let author_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.author_indent) *. factor)) ^ "rem" in
+	let abstract_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.abstract_indent) *. factor)) ^ "rem" in
+	let refs_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.refs_indent) *. factor)) ^ "rem" in
+	let left_margin : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.left_margin) *. factor)) ^ "rem" in
 	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
 "html {
     --title_indent    : " ^ title_indent ^ ";
@@ -114,7 +114,7 @@ p, pre {
 }
 
 
-h2, h3, h4 {
+h2, h3, h4, h5 {
     margin-top : 0;
 }
 
@@ -188,6 +188,7 @@ h4.inline {
 
 
 .doc.chs .refs {
+    padding-top : 3rem;
     border-top  : thin solid gray;
     margin-left : 0;
 }
@@ -206,6 +207,7 @@ h4.inline {
 
 .doc.chs .refs_hdr {
     font-size : x-large;
+    margin-bottom : 3rem;
 }
 
 
@@ -332,7 +334,7 @@ h4.inline {
   }
 
 
-  .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_lbl, .par_hdr, .par_tag, .abstract_hdr, .refs_hdr, .blk_itm_lbl, .blk_blt_lbl {
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl {
     break-after  : avoid-page;
     break-inside : avoid-page;
   }
