@@ -42,7 +42,7 @@ rule token = parse
 	|'<' st* (tag as s) st* (attrs* as t) st* '>'		{ TAG_OPEN (s,t) }
 	|'<' st* (tag as s) st* (attrs* as t) st* '/' st* '>'	{ TAG_OPEN_CLOSE (s,t) }
 	|'<' st* '/' st* (tag as s) st* '>'			{ TAG_CLOSE s }
-	|pcdata as s					{ PCDATA s }
+	|pcdata as s						{ PCDATA s }
 	|xml_declaration					{ token lexbuf }
 	|nrst+ as s						{ let _=newlines s lexbuf in token lexbuf }
 	|comment as s						{ let _=newlines s lexbuf in token lexbuf }

@@ -354,7 +354,7 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr
 		in acc_of_ts_blks path newacc par.fld_par_main
 	)
 	|LINES acc_lines -> (
-		let new_par = Par_hdr_mod.copy_hdr_to_main_and_lbl_to_hdr path par in
+		let new_par = Par_hdr_mod.copy_hdr_to_main par in
 		match acc_of_ts_blks path (LINES []) new_par.fld_par_main with
 		|LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label path hd];tl])
 		|_ -> raise (Error "par_main cannot be empty")

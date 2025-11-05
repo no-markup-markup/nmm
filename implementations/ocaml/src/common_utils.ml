@@ -233,7 +233,7 @@ and singular_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> string op
 				|false -> expand_tag_old tag
 		in expand_tag_new
 	)
-	| _ -> raise (Error "invalid expand_tag value")
+	| _ -> raise (Error "invalid singular_tag value")
 
 and plural_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
 	match String.split_on_char '>' v with
