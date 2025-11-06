@@ -63,13 +63,13 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 	match Sys.file_exists filename with
 	|false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
 	|true -> 
+	let ic=open_in filename in
+	let lexbuf=Sedlexing.Utf8.from_channel ic in
+	let revised_lexer () = (lexer print_tokens) lexbuf in 
+	let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
 	try
-		let ic=open_in filename in
-		let lexbuf=Sedlexing.Utf8.from_channel ic in
-		let revised_lexer () = (lexer print_tokens) lexbuf in 
-		let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
-		let doc=revised_parser revised_lexer in
-		let _=close_in ic in doc
+		let doc = revised_parser revised_lexer in
+		let _ : unit = close_in ic in doc
 	with
 	| Nmm_parser.Error (n : int) ->
 		match print_tokens with
@@ -84,16 +84,16 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 				]
 			) 
 			in doc_of_nmm_file true filename
-		|true -> raise (Error "parsing failed")
+		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
 	let _ : unit = Nmm_lexer.verbatim.(0) <- false in
 	let _ : unit = Nmm_lexer.first_nl.(0) <- true in
+	let lexbuf = Sedlexing.Utf8.from_string s in
+	let revised_lexer () = (lexer print_tokens) lexbuf in 
+	let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
 	try
-		let lexbuf=Sedlexing.Utf8.from_string s in
-		let revised_lexer () = (lexer print_tokens) lexbuf in 
-		let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
 		revised_parser revised_lexer
 	with
 	| Nmm_parser.Error (n : int) ->
@@ -109,6 +109,5 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 				]
 			) 
 			in doc_of_nmm_string true s
-		|true -> raise (Error "parsing failed")
-	
+		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
 

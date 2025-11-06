@@ -82,24 +82,14 @@ match element with
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
-let internal_css (doc_settings : Common_utils.t_doc_settings) : string =
-	let factor : float = 0.6 in
-	let title_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.title_indent) *. factor)) ^ "rem" in
-	let author_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.author_indent) *. factor)) ^ "rem" in
-	let abstract_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.abstract_indent) *. factor)) ^ "rem" in
-	let refs_indent : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.refs_indent) *. factor)) ^ "rem" in
-	let left_margin : string = (Printf.sprintf "%.2f" ((Float.of_int doc_settings.left_margin) *. factor)) ^ "rem" in
-	let tab_length : string = (Int.to_string doc_settings.tab_length) ^ "ch" in
-"html {
-    --title_indent    : " ^ title_indent ^ ";
-    --author_indent   : " ^ author_indent ^ ";
-    --abstract_indent : " ^ abstract_indent ^ ";
-    --refs_indent     : " ^ refs_indent ^ ";
-    --left_margin     : " ^ left_margin ^ ";
-    --tab_length      : " ^ tab_length ^ ";
-    font-family       : monospace;
-    font-size         : medium;
-    line-height       : 150%;
+let internal_css : string =
+"
+html {
+    --tab_length  : 6ch;
+    --left_margin : 8rem;
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
 }
 
 
@@ -107,103 +97,113 @@ a {
     text-decoration : none;
 }
 
-
 p, pre {
     margin-top    : 0;
     margin-bottom : 0;
 }
 
-
 h2, h3, h4, h5 {
     margin-top : 0;
 }
-
 
 h4.inline {
     margin-bottom : 0;
 }
 
+/************* TITLE ********************/
 
 .title {
     font-weight : normal;
     font-size   : large;
-    margin-left : var(--title_indent);
 }
 
-
-.doc.chs .title {
-    font-size   : xx-large;
-    margin-left : 0;
+.doc.pars .title {
+    margin-left : var(--left_margin);
 }
-
 
 .doc.secs .title {
-    font-size : x-large;
+    font-size   : x-large;
+    margin-left : var(--left_margin);
 }
 
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+.title + .authors {
+    margin-top : 2rem;
+}
 
 .authors {
     margin-bottom : 3rem;
-    margin-left   : var(--author_indent);
 }
 
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : var(--left_margin);
+}
+
+.doc.secs .authors {
+    font-size : large;
+    margin-left : var(--left_margin);
+}
 
 .doc.chs .authors {
-    font-size   : large;
-    margin-left : 0;
-}
-
-
-.doc.secs .author {
     font-size : large;
 }
 
 
+/************ ABSTRACT ******************/
+
 .abstract {
     margin-bottom : 3rem;
-    margin-left   : var(--abstract_indent);
 }
 
-
-.doc.chs .abstract {
-    margin-left : 0;
+.doc.pars .abstract {
+    margin-left : var(--left_margin);
 }
 
+.doc.secs .abstract {
+    margin-left : var(--left_margin);
+}
 
 .abstract_hdr {
     font-weight : normal;
     font-size   : large;
-}
-
-
-.doc.blks .abstract_hdr {
     margin-bottom : 0.5rem;
 }
 
 
+/************* REFS *********************/
+
 .refs {
-    padding-top : 2rem;
-    margin-left : var(--refs_indent);
+    margin-top : 3rem;
 }
 
+.doc.pars .refs {
+    margin-left : var(--left_margin);
+}
+
+.doc.secs .refs {
+    margin-left : var(--left_margin);
+}
 
 .doc.chs .refs {
+    margin-top  : 0;
     padding-top : 3rem;
     border-top  : thin solid gray;
-    margin-left : 0;
 }
-
-
-.doc.blks .refs_hdr {
-    margin-bottom : 1rem;
-}
-
 
 .refs_hdr {
     font-weight : normal;
     font-size   : large;
 }
-
 
 .doc.chs .refs_hdr {
     font-size : x-large;
@@ -211,23 +211,22 @@ h4.inline {
 }
 
 
+/************** CH **********************/
+
 .ch {
     padding-top    : 3rem;
     padding-bottom : 3rem;
     border-top     : thin solid gray;
 }
 
-
 .ch_lbl {
     font-weight : normal;
     font-size   : x-large;
 }
 
-
 .ch_hdr {
     font-size : x-large;
 }
-
 
 .ch_hdr, .ch_lbl.hdr {
     margin-bottom : 3rem;
@@ -238,16 +237,16 @@ h4.inline {
 }
 
 
+/************** SEC *********************/
+
 .sec + .sec {
     margin-top : 3rem;
 }
-
 
 .sec_lbl {
     font-size   : large;
     font-weight : normal;
 }
-
 
 .sec_hdr {
     margin-left : var(--left_margin);
@@ -255,56 +254,53 @@ h4.inline {
 }
 
 
+/************** PAR *********************/
+
 .par + .par {
     margin-top : 2rem;
 }
 
-
 .par_lbl {
     font-weight : normal;
 }
-
 
 .par_tag {
     font-weight : bold;
     margin-right : 1ch;
 }
 
-
 .par_hdr, .par_tag.hdr {
     margin-right  : 2ch;
     margin-bottom : 1rem;
 }
 
-
 .par_tag + .par_hdr::before {
     content : \" (\";
 }
 
-
 .par_tag + .par_hdr::after {
     content : \")\";
 }
-
 
 .par_main {
     margin-left : var(--left_margin);
 }
 
 
+/************** BLK *********************/
+
 .blk + .blk {
     margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : var(--left_margin);
 }
 
 
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
-}
-
-
-.sec_main > .blk {
-    margin-left : var(--left_margin);
 }
 
 
@@ -321,6 +317,9 @@ h4.inline {
 .dsp_line_main {
     margin-left : var(--tab_length);
 }
+
+
+/*************** PRINTING ***************/
 
 @media print {
 
