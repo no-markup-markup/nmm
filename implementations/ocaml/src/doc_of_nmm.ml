@@ -71,11 +71,19 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 		let doc=revised_parser revised_lexer in
 		let _=close_in ic in doc
 	with
-	| _ ->
+	| Nmm_parser.Error (n : int) ->
 		match print_tokens with
 		|false -> 
-			let _ = Debug_utils.print_to_stderr ("Parsing failed, read the the following tokens from " ^ filename ^ ":") in 
-			doc_of_nmm_file true filename
+			let _ : unit = Debug_utils.print_to_stderr (
+				String.concat "\n" [
+					"Parsing failed in the following state of the automaton:";
+					"=======================================================";
+					Nmm_parser_automaton.state n;
+					"=======================================================";
+					"Read the the following tokens from " ^ filename ^ ":";
+				]
+			) 
+			in doc_of_nmm_file true filename
 		|true -> raise (Error "parsing failed")
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
@@ -88,11 +96,19 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 		let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
 		revised_parser revised_lexer
 	with
-	| _ ->
+	| Nmm_parser.Error (n : int) ->
 		match print_tokens with
 		|false -> 
-			let _ = Debug_utils.print_to_stderr ("Parsing failed, read the the following tokens from \"" ^ s ^ "\":") in 
-			doc_of_nmm_file true s
+			let _ : unit = Debug_utils.print_to_stderr (
+				String.concat "\n" [
+					"Parsing failed in the following state of the automaton:";
+					"=======================================================";
+					Nmm_parser_automaton.state n;
+					"=======================================================";
+					"Read the the following tokens from " ^ s ^ ":";
+				]
+			) 
+			in doc_of_nmm_string true s
 		|true -> raise (Error "parsing failed")
 	
 
