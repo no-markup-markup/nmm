@@ -54,16 +54,18 @@ let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_au
 %type <Doc_types.tr_par>                  par
 %type <Doc_types.ts_blks>                 par_main
 %type <Doc_types.tr_par list>             pars
-%type <Doc_types.tu_blk>                  blk1 blk2 blk3
+%type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
 %type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
 %type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
 %type <Doc_types.tr_blk_itm>              blk_itm0 blk_itm1 blk_itm2
-%type <Doc_types.tu_blk>                  blk0 
 %type <Doc_types.ts_blk_txt>              blk_txt0 blk_txt1 blk_txt2 blk_txt3
+%type <Doc_types.ts_blk_vrb>              blk_vrb0 blk_vrb1 blk_vrb2 blk_vrb3
 %type <Doc_types.tu_blk list>             blks0 blks1 blks2 blks3 special_blks0 special_blks1 special_blks2
 %type <Doc_types.ts_c_ref>                c_ref
 %type <Doc_types.tr_dsp_line>             dsp_line special_dsp_line
-%type <Doc_types.tr_dsp_line list>        dsp_lines0 dsp_lines1 dsp_lines2  special_dsp_lines0 special_dsp_lines1 special_dsp_lines2
+%type <Doc_types.tr_dsp_line list>        dsp_lines0 dsp_lines1 dsp_lines2 special_dsp_lines0 special_dsp_lines1 special_dsp_lines2
+%type <Doc_types.ts_vrb_line list>        vrb_lines0 vrb_lines1 vrb_lines2 vrb_lines3
+%type <Doc_types.ts_vrb_line>             vrb_line0 vrb_line1 vrb_line2 vrb_line3
 %type <Doc_types.tu_tag_or_id>            pilcrow_spaces_tag_or_id_nl section_spaces_tag_or_id_nl
 %type <Doc_types.tr_id>                   itm_id dsp_id
 %type <Doc_types.ts_hdr>                  hdr
