@@ -26,7 +26,7 @@ let dsp_id = [%sedlex.regexp? "DSP", ":", name]
 let shared_tag_or_id = [%sedlex.regexp? tag_shared, Opt (":", name)]
 let c_ref = [%sedlex.regexp? "[", tag, ":", name, "]"]
 
-let non_custom_chars = [%sedlex.regexp? Chars "\r\n\t"]
+let non_custom_chars = [%sedlex.regexp? Chars "\r\n\t "]
 let dsp_custom_tab = [%sedlex.regexp? '(', Plus (Compl non_custom_chars), ")\t"]
 let itm_custom_tab = [%sedlex.regexp? '[', Plus (Compl non_custom_chars), "]\t"]
 
