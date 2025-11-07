@@ -52,7 +52,7 @@ let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_au
 %type <Doc_types.tu_pars_or_blks>         sec_main
 %type <Doc_types.tr_sec list>             secs
 %type <Doc_types.tr_par>                  par
-%type <Doc_types.ts_blks>                 par_main
+%type <Doc_types.ts_blks>                 par_main blks special_blks
 %type <Doc_types.tr_par list>             pars
 %type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
 %type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
@@ -207,7 +207,9 @@ ch:
 ch_main:
   |nls secs                                       { (Cu_secs_pars_or_blks_secs (Cs_secs $2)):tu_secs_pars_or_blks }
   |nls pars                                       { (Cu_secs_pars_or_blks_pars (Cs_pars $2)):tu_secs_pars_or_blks }
-  |par_main                                       { (Cu_secs_pars_or_blks_blks $1):tu_secs_pars_or_blks }
+  |nls blks                                       { (Cu_secs_pars_or_blks_blks $2):tu_secs_pars_or_blks }
+  |special_blks                                   { (Cu_secs_pars_or_blks_blks $1):tu_secs_pars_or_blks }
+  |nls special_blks                               { (Cu_secs_pars_or_blks_blks $2):tu_secs_pars_or_blks }
 ;
 
 sec:
@@ -219,7 +221,9 @@ sec:
 
 sec_main:
   |nls pars                                       { (Cu_pars_or_blks_pars (Cs_pars $2)):tu_pars_or_blks }
-  |par_main                                       { (Cu_pars_or_blks_blks $1):tu_pars_or_blks }
+  |nls blks                                       { (Cu_pars_or_blks_blks $2):tu_pars_or_blks }
+  |special_blks                                   { (Cu_pars_or_blks_blks $1):tu_pars_or_blks }
+  |nls special_blks                               { (Cu_pars_or_blks_blks $2):tu_pars_or_blks }
 ;
 
 pars:
@@ -235,15 +239,19 @@ par:
 ;
 
 par_main:
-  |nls blks0                                      { (Cs_blks $2):ts_blks }
-  |lb1 special_blk_dsp0                           { (Cs_blks [Cu_blk_dsp $2]):ts_blks }
-  |nls lb1 special_blk_dsp0                       { (Cs_blks [Cu_blk_dsp $3]):ts_blks }
-(*
-  |lb1 special_blk_dsp0 blks0                     { (Cs_blks ((Cu_blk_dsp $2)::$3)):ts_blks }
-  |nls lb1 special_blk_dsp0 blks0                 { (Cs_blks ((Cu_blk_dsp $3)::$4)):ts_blks }
-*)
+  |nls blks                                       { $2:ts_blks }
+  |special_blks                                   { $1:ts_blks }
+  |nls special_blks                               { $2:ts_blks }
 ;
 
+blks:
+  |blks0                                         { Cs_blks $1 : ts_blks }
+;
+
+special_blks:
+  |lb1 special_blk_dsp0                          { (Cs_blks ((Cu_blk_dsp $2)::[])):ts_blks }
+  |lb1 special_blk_dsp0 NL blks0                 { (Cs_blks ((Cu_blk_dsp $2)::$4)):ts_blks }
+;
 
 
 (* Level 0: *)

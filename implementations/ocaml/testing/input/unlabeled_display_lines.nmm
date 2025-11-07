@@ -1,0 +1,108 @@
+TITLE:
+	Document with unlabeled display lines
+
+AUTHOR:
+	Eric Johannesson
+
+CH
+Chapter starting with unlabeled display lines
+
+	unlabeled display line
+(!)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+
+CH
+Paragraphs starting with unlabeled display lines
+
+¶
+Paragraph with a header
+
+	unlabeled display line
+(!)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+¶
+
+	unlabeled display line
+	unlabeled display line
+(@)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+
+CH
+Sections starting with unlabeled display lines
+
+§
+First section
+
+	unlabeled display line
+	unlabeled display line
+(S)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+
+§
+Second section
+
+	unlabeled display line
+	unlabeled display line
+(Q)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+
+CH
+Sections with paragraphs starting with unlabeled display lines
+
+§
+First section
+
+¶
+Paragraph with a header
+
+	unlabeled display line
+(+)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+¶
+
+	unlabeled display line
+	unlabeled display line
+(?)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+§
+Second section
+
+¶ DEF
+
+	unlabeled display line
+	unlabeled display line
+(~)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
+¶
+Paragraph with a header
+
+	unlabeled display line
+(£)	manually labeled display line
+()	automatically labeled display line
+
+Block of text.
+
