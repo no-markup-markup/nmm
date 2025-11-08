@@ -97,7 +97,7 @@ and string_of_tr_id (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag with
 	|Cs_tag (tag_string : string) ->
 		match id.fld_id_name with
-		|Cs_name (name_string : string) -> (tag_string ^ ":" ^ name_string)
+		|Cs_name (name_string : string) -> (tag_string ^ "_" ^ name_string)
 
 and xml_of_string (s : string) : Xml.xml =
 	Xml.PCData (pcdata_of_string s)

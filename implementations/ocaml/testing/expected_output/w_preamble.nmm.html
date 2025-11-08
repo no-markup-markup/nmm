@@ -376,7 +376,7 @@ h4.inline {
 </div>
 <p class="blk txt">The expected number of comparisons that need to be performed is then given by the following sum:</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block" id="DSP:exp_sum">
+<div class="dsp_line" style="display:block" id="DSP_exp_sum">
 <div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
 <div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k</div>
@@ -424,7 +424,7 @@ h4.inline {
 <div class="dsp_line_main" style="display:block;white-space:pre">    q^(k - k) × (1 - q)^k × k!/k!/(k - k)! × n × n/k</div>
 </div>
 </div>
-<p class="blk txt">For a given p and n, we want to find a k that minimizes <a class="txt_unit_c_ref" href="#DSP:exp_sum">(2)</a>. Provided that n is sufficiently small, we can always do so using numerical brute force methods. There may also be a way of approximating <a class="txt_unit_c_ref" href="#DSP:exp_sum">(2)</a> that makes it amenable to analytical methods, but let us consider an alternative approach instead.</p>
+<p class="blk txt">For a given p and n, we want to find a k that minimizes <a class="txt_unit_c_ref" href="#DSP_exp_sum">(2)</a>. Provided that n is sufficiently small, we can always do so using numerical brute force methods. There may also be a way of approximating <a class="txt_unit_c_ref" href="#DSP_exp_sum">(2)</a> that makes it amenable to analytical methods, but let us consider an alternative approach instead.</p>
 </div>
 </div>
 <div style="display:block" class="sec">
@@ -456,21 +456,21 @@ h4.inline {
 </div>
 <p class="blk txt">In the worst case scenario, the number of comparisons that need to be performed is then given by</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block" id="DSP:simple_sum">
+<div class="dsp_line" style="display:block" id="DSP_simple_sum">
 <div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
 <div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">k + n/k</div>
 </div>
 </div>
-<p class="blk txt">The derivative of <a class="txt_unit_c_ref" href="#DSP:simple_sum">(1)</a> with respect to k is given by</p>
+<p class="blk txt">The derivative of <a class="txt_unit_c_ref" href="#DSP_simple_sum">(1)</a> with respect to k is given by</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block" id="DSP:derivative">
+<div class="dsp_line" style="display:block" id="DSP_derivative">
 <div class="dsp_line_lbl" style="display:block;float:left">(2)</div>
 <div class="clear"></div>
 <div class="dsp_line_main" style="display:block;white-space:pre">1 - n/k²</div>
 </div>
 </div>
-<p class="blk txt">For a given n, to minimize <a class="txt_unit_c_ref" href="#DSP:simple_sum">(1)</a> with respect to k is simply a matter of finding the root of <a class="txt_unit_c_ref" href="#DSP:derivative">(2)</a> with respect to k, i.e. to solve the following equation for k:</p>
+<p class="blk txt">For a given n, to minimize <a class="txt_unit_c_ref" href="#DSP_simple_sum">(1)</a> with respect to k is simply a matter of finding the root of <a class="txt_unit_c_ref" href="#DSP_derivative">(2)</a> with respect to k, i.e. to solve the following equation for k:</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">
 <div class="dsp_line_main" style="display:block;white-space:pre">1 - n/k² = 0</div>
