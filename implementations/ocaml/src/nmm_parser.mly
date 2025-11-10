@@ -81,7 +81,8 @@ let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_au
 
 %%
 main:
-  | doc EOF                                       { $1 }
+  | doc EOF                                       { $1 : tr_doc }
+  | nls doc EOF                                   { $2 : tr_doc }
 ;
 
 doc:
