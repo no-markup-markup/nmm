@@ -114,7 +114,8 @@ h4.inline {
 
 .title {
     font-weight : normal;
-    font-size   : large;
+    font-size   : x-large;
+    margin-bottom : 1rem;
 }
 
 .doc.pars .title {
@@ -122,7 +123,6 @@ h4.inline {
 }
 
 .doc.secs .title {
-    font-size   : x-large;
     margin-left : var(--left_margin);
 }
 
@@ -133,12 +133,10 @@ h4.inline {
 
 /************ AUTHORS *******************/
 
-.title + .authors {
-    margin-top : 2rem;
-}
 
 .authors {
-    margin-bottom : 3rem;
+    font-size : large;
+    margin-bottom : 1rem;
 }
 
 .author + .author {
@@ -150,12 +148,7 @@ h4.inline {
 }
 
 .doc.secs .authors {
-    font-size : large;
     margin-left : var(--left_margin);
-}
-
-.doc.chs .authors {
-    font-size : large;
 }
 
 
@@ -210,6 +203,12 @@ h4.inline {
     margin-bottom : 3rem;
 }
 
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
 
 /************** CH **********************/
 
