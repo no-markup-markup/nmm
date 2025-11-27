@@ -507,7 +507,46 @@ STRING := [! ';']+</pre></div>
 <pre><span id="TYPEt_path"><span class="keyword">type</span> <code class="type"></code>t_path</span> = <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> list</code> </pre>
 
 
-<pre><span id="TYPEt_cref_table"><span class="keyword">type</span> <code class="type"></code>t_cref_table</span> = <code class="type">(<a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> * <a href="Common_utils.html#TYPEt_path">t_path</a>) list</code> </pre>
+<pre><code><span id="TYPEtu_cref_element"><span class="keyword">type</span> <code class="type"></code>tu_cref_element</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_cref_element.Cu_cref_element_ch"><span class="constructor">Cu_cref_element_ch</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_cref_element.Cu_cref_element_sec"><span class="constructor">Cu_cref_element_sec</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_sec">Doc_types.tr_sec</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_cref_element.Cu_cref_element_par"><span class="constructor">Cu_cref_element_par</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_par_std">Doc_types.tr_par_std</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_cref_element.Cu_cref_element_blk_itm"><span class="constructor">Cu_cref_element_blk_itm</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_cref_element.Cu_cref_element_dsp_line"><span class="constructor">Cu_cref_element_dsp_line</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="TYPEt_cref_table"><span class="keyword">type</span> <code class="type"></code>t_cref_table</span> = <code class="type">(<a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * <a href="Common_utils.html#TYPEtu_cref_element">tu_cref_element</a>) list</code> </pre>
 
 
 <pre><code><span id="TYPEt_doc_cref_table"><span class="keyword">type</span> <code class="type"></code>t_doc_cref_table</span> = {</code></pre><table class="typetable">
@@ -544,7 +583,7 @@ STRING := [! ';']+</pre></div>
 </div>
 </div>
 
-<pre><span id="VALnode_of_tr_par"><span class="keyword">val</span> node_of_tr_par</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_par">Doc_types.tr_par</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre>
+<pre><span id="VALnode_of_tu_par"><span class="keyword">val</span> node_of_tu_par</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtu_par">Doc_types.tu_par</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre>
 <pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> option -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_blk_itm)</code></pre>
@@ -613,4 +652,5 @@ STRING := [! ';']+</pre></div>
 <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : string) <span class="keywordsign">-&gt;</span> s
 </code></pre></div>
 </div>
-</body></html>
+
+<pre><span id="VALpar_restated_of_tr_id"><span class="keyword">val</span> par_restated_of_tr_id</span> : <code class="type"><a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> -&gt; <a href="Doc_types.html#TYPEtr_par_std">Doc_types.tr_par_std</a> option</code></pre></body></html>

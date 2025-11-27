@@ -208,7 +208,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTts_pars.Cs_pars"><span class="constructor">Cs_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_par">tr_par</a> list</code></code></td>
+<code><span id="TYPEELTts_pars.Cs_pars"><span class="constructor">Cs_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_par">tu_par</a> list</code></code></td>
 
 </tr></table>
 
@@ -277,26 +277,55 @@
 
 
 
-<pre><code><span id="TYPEtr_par"><span class="keyword">type</span> <code class="type"></code>tr_par</span> = {</code></pre><table class="typetable">
+<pre><code><span id="TYPEtu_par"><span class="keyword">type</span> <code class="type"></code>tu_par</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_par.Cu_par_std"><span class="constructor">Cu_par_std</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_par_std">tr_par_std</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_par.Cu_par_rpt"><span class="constructor">Cu_par_rpt</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_par_rpt">ts_par_rpt</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_par_rpt"><span class="keyword">type</span> <code class="type"></code>ts_par_rpt</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_par_rpt.Cs_par_rpt"><span class="constructor">Cs_par_rpt</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_id">tr_id</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEtr_par_std"><span class="keyword">type</span> <code class="type"></code>tr_par_std</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtr_par.fld_par_tag_or_id">fld_par_tag_or_id</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEtu_tag_or_id">tu_tag_or_id</a> option</code>;</code></td>
+<code><span id="TYPEELTtr_par_std.fld_par_tag_or_id">fld_par_tag_or_id</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEtu_tag_or_id">tu_tag_or_id</a> option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtr_par.fld_par_hdr">fld_par_hdr</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_hdr">ts_hdr</a> option</code>;</code></td>
+<code><span id="TYPEELTtr_par_std.fld_par_hdr">fld_par_hdr</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_hdr">ts_hdr</a> option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtr_par.fld_par_main">fld_par_main</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_blks">ts_blks</a></code>;</code></td>
+<code><span id="TYPEELTtr_par_std.fld_par_main">fld_par_main</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_blks">ts_blks</a></code>;</code></td>
 
 </tr></table>
 <code>}</code>
