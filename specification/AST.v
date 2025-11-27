@@ -137,12 +137,17 @@ Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
 
 Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
 
-Record tr_par : Type := cr_par {
+Record tr_par_std : Type := cr_par_std {
   fld_par_tag_or_id : option tu_tag_or_id;
   fld_par_hdr       : option ts_hdr;
   fld_par_main      : ts_blks;
 }.
-Inductive ts_pars : Type := cs_pars : list tr_par -> ts_pars.
+Inductive ts_par_rpt : Type := cs_par_rpt : tr_id -> ts_par_rpt.
+Inductive tu_par : Type :=
+| cu_par_std : tr_par_std -> tu_par
+| cu_par_rpt : ts_par_rpt -> tu_par
+.
+Inductive ts_pars : Type := cs_pars : list tu_par -> ts_pars.
 
 Inductive tu_pars_or_blks : Type :=
 | cu_pars_or_blks_pars : ts_pars -> tu_pars_or_blks
