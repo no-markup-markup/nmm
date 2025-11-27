@@ -121,7 +121,7 @@ with
   | cs_blk_dsp : ts_dsp_lines ->                      ts_blk_dsp
 with
   ts_blk_vrb : Type :=
-  | cs_blk_vrb : ts_vrb_Lines ->                      ts_blk_vrb
+  | cs_blk_vrb : ts_vrb_lines ->                      ts_blk_vrb
 with
   ts_blks    : Type :=
   | cs_blks    : list tu_blk  ->                      ts_blks
