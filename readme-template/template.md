@@ -38,7 +38,12 @@ Heavily work-in-progress:
   even more WYSIWYG—in particular, WYSIWYG with respect to the intended
   semantics.
 
-- It has so far been a fun project!
+- The designer of the language wanted a particular semantics—for example,
+  sections and paragraphs numbered using the section symbol (‘§’) respectively
+  the paragraph symbol (‘¶’). To the best of the language designer's knowledge,
+  no close-to-WYSIWYG language provided this semantics out of the box.
+
+- For the language creators, it has so far been a fun and educational project!
 
 ## Examples
 
