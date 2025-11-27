@@ -70,3 +70,5 @@ let copy_hdr_to_main (par : tr_par): tr_par =
 		fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_units [s])))::blks)
 	  }
 
+let put_c_ref_in_hdr_and_remove_id (par : Doc_types.tr_par) : Doc_types.tr_par =
+	par

@@ -1,0 +1,34 @@
+¶ PAR:one
+
+Block of text.
+
+Another block of text.
+
+¶ rpt PAR:one
+
+
+¶ PAR:two
+Header of paragraph
+
+Block of text.
+
+Another block of text.
+
+¶ rpt PAR:two
+
+¶ THM:one
+
+Block of text.
+
+Another block of text.
+
+¶ rpt THM:one
+
+¶ THM:two
+Header of paragraph
+
+Block of text.
+
+Another block of text.
+
+¶ rpt THM:two

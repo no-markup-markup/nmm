@@ -31,7 +31,7 @@ and ts_chs = Cs_chs of tr_ch list
 
 and ts_secs = Cs_secs of tr_sec list
 
-and ts_pars = Cs_pars of tr_par list
+and ts_pars = Cs_pars of tu_par list
 
 and ts_blks = Cs_blks of tu_blk list
 
@@ -46,6 +46,12 @@ and tr_sec = {
   fld_sec_hdr : ts_hdr option;
   fld_sec_main : tu_pars_or_blks;
 }
+
+and tu_par = Cu_par_std of ts_par_std | Cu_par_rpt of ts_par_rpt
+
+and ts_par_std = Cs_par_std of tr_par
+
+and ts_par_rpt = Cs_par_rpt of tr_id
 
 and tr_par = {
   fld_par_tag_or_id : tu_tag_or_id option;

@@ -82,7 +82,7 @@ and xml_of_ts_secs (secs:ts_secs):Xml.xml=
 
 and xml_of_ts_pars (pars:ts_pars):Xml.xml=
 	match pars with
-	|Cs_pars (par_list:tr_par list) -> Xml.Element ("cs_pars",[],List.map xml_of_tr_par par_list)
+	|Cs_pars (par_list:tu_par list) -> Xml.Element ("cs_pars",[],List.map xml_of_tu_par par_list)
 
 and xml_of_ts_blks (blks:ts_blks):Xml.xml=
 	match blks with
@@ -115,6 +115,11 @@ and xml_of_tr_sec (sec:tr_sec):Xml.xml=
 	in
 	let c:Xml.xml list=[xml_of_tu_pars_or_blks sec.fld_sec_main] in
 	Xml.Element ("cr_sec",[],List.concat [a;b;c])
+
+and xml_of_tu_par (p : tu_par) : Xml.xml =
+	match p with
+	|Cu_par_std (Cs_par_std (par : tr_par)) -> Xml.Element ("cu_par_std", [], [Xml.Element ("cs_par_std",[],[xml_of_tr_par par])])
+	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> Xml.Element ("cu_par_rpt",[],[Xml.Element ("cs_par_rpt",[],[xml_of_tr_id id])])
 
 and xml_of_tr_par (par:tr_par):Xml.xml=
 	let a:Xml.xml list=

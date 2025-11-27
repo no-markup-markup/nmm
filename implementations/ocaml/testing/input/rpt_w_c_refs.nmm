@@ -1,0 +1,40 @@
+¶ PAR:one
+
+Block of text.
+
+[]	ITM:one
+	An item
+
+[]	ITM:two
+	I like [ITM:one].
+
+I also like [ITM:two] and [THM:one].
+
+¶ rpt PAR:one
+
+
+¶ PAR:two
+Header of paragraph referencing [PAR:two], i.e itself.
+
+Block of text.
+
+I like [ITM:one] and [PAR:one]. I also like [THM:one].
+
+¶ rpt PAR:two
+
+¶ THM:one
+
+Block of text.
+
+Another block of text.
+
+¶ rpt THM:one
+
+¶ THM:two
+Header of paragraph
+
+Block of text.
+
+Another block of text.
+
+¶ rpt THM:two

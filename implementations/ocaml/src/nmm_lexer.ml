@@ -39,14 +39,16 @@ let itm_id = [%sedlex.regexp? "ITM", ":", name]
 let dsp_id = [%sedlex.regexp? "DSP", ":", name]
 let shared_tag_or_id = [%sedlex.regexp? tag_shared, Opt (":", name)]
 let c_ref = [%sedlex.regexp? "[", tag, ":", name, "]"]
+let par_id = [%sedlex.regexp? ("PAR" | tag_shared), ":", name]
 
 let ch_tag_or_id_nl = [%sedlex.regexp? ch_tag_or_id, nl]
 
 let section_nl = [%sedlex.regexp? section, nl]
-let section_spaces_tag_or_id_nl = [%sedlex.regexp? section, Star " ", sec_tag_or_id, nl]
+let section_spaces_tag_or_id_nl = [%sedlex.regexp? section, Plus " ", sec_tag_or_id, nl]
 
 let pilcrow_nl = [%sedlex.regexp? pilcrow, nl]
-let pilcrow_spaces_tag_or_id_nl = [%sedlex.regexp? pilcrow, Star " ", (par_tag_or_id | shared_tag_or_id), nl]
+let pilcrow_spaces_tag_or_id_nl = [%sedlex.regexp? pilcrow, Plus " ", (par_tag_or_id | shared_tag_or_id), nl]
+let pilcrow_spaces_rpt_spaces_id_nl = [%sedlex.regexp? pilcrow, Plus " ", "rpt", Plus " ", par_id, nl]
 
 let preamble = [%sedlex.regexp? "PREAMBLE:"]
 let title = [%sedlex.regexp? "TITLE:"]
@@ -75,6 +77,12 @@ let get_tag_or_id (s:string):string=
 	let x=String.trim s in
 	let y=String.split_on_char ' ' x in
 	let z=List.tl y in
+	String.concat "" z
+
+let get_id (s : string) : string =
+	let x=String.trim s in
+	let y=String.split_on_char ' ' x in
+	let z=List.tl (List.tl y) in
 	String.concat "" z
 
 let lexeme (lexbuf:Sedlexing.lexbuf):string=
@@ -114,6 +122,7 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|section_spaces_tag_or_id_nl	->	SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
 		|pilcrow_nl			->	PILCROW_NL
 		|pilcrow_spaces_tag_or_id_nl	->	PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+		|pilcrow_spaces_rpt_spaces_id_nl ->	PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
 		|section_refs_nl		->	SECTION_REFS_NLS
 		|tab				->	TAB 
 		|dash_tab			->	DASH_TAB

@@ -6,7 +6,7 @@ let string_of_file (path:string):string =
 
 let print_to_file (s : string) (path : string) : unit =
 	let oc = open_out path in
-	let _ = output_string oc s in
+	let _ = output_string oc (s ^ "\n") in
 	let _ = flush oc in
 	let _ = close_out oc in ()
 

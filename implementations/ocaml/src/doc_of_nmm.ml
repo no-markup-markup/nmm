@@ -26,6 +26,7 @@ let string_of_token (t:Nmm_parser.token):string=
 	|CH_TAG_OR_ID_NL s -> ("CH_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
 	|SECTION_SPACES_TAG_OR_ID_NL s -> ("SECTION_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
 	|PILCROW_SPACES_TAG_OR_ID_NL s -> ("PILCROW_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+	|PILCROW_SPACES_RPT_SPACES_ID_NL s -> ("PILCROW_SPACES_RPT_SPACES_ID_NL " ^ "\"" ^ s ^ "\"")
 	|TXT s -> ("TXT " ^ "\"" ^ s ^ "\"")
 	|DSP_CUSTOM_TAB s -> ("DSP_CUSTOM_TAB " ^ "\"" ^ s ^ "\"")
 	|ITM_CUSTOM_TAB s -> ("ITM_CUSTOM_TAB " ^ "\"" ^ s ^ "\"")
@@ -107,7 +108,7 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 					"=======================================================";
 					Nmm_parser_automaton.state n;
 					"=======================================================";
-					"Read the the following tokens from " ^ s ^ ":";
+					"Read the the following tokens from \"" ^ s ^ "\":";
 				]
 			) 
 			in doc_of_nmm_string true s

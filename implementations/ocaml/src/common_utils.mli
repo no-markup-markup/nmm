@@ -230,8 +230,15 @@ type t_node =
 
 type t_path = t_node list 
 
+type tu_cref_element = 
+	|Cu_cref_element_ch of Doc_types.tr_ch
+	|Cu_cref_element_sec of Doc_types.tr_sec
+	|Cu_cref_element_par of Doc_types.tr_par
+	|Cu_cref_element_blk_itm of Doc_types.tr_blk_itm
+	|Cu_cref_element_dsp_line of Doc_types.tr_dsp_line
 
-type t_cref_table = (Doc_types.tr_id * t_path) list 
+
+type t_cref_table = (Doc_types.tr_id * t_path * tu_cref_element) list 
 
 type t_doc_cref_table = {
   	mutable content : t_cref_table;
@@ -261,7 +268,7 @@ If [c_ref] evaluates to [Cs_c_ref id], and [id] is located at [[PAR_NODE "1"]], 
 Prints a warning to [stderr] if no match is found, and returns ["??"].
 *)
 
-val node_of_tr_par : int -> Doc_types.tr_par -> t_node
+val node_of_tu_par : int -> Doc_types.tu_par -> t_node
 
 
 val node_of_blk_itm : t_node option -> int -> Doc_types.tr_blk_itm -> t_node
@@ -341,3 +348,5 @@ evaluates to
 ]}
 *)
 
+
+val par_restated_of_tr_id : Doc_types.tr_id -> Doc_types.tr_par option

@@ -250,6 +250,7 @@ and plural_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * s
 
 (**************************** labels and cross-references *********************************)
 
+
 type t_path = t_node list
 
 and t_node =
@@ -273,7 +274,15 @@ and t_dsp_line_node =
 	| DSP_CUSTOM of string
 	| DSP_NONE
 
-type t_cref_table = (Doc_types.tr_id * t_path) list
+
+type tu_cref_element = 
+	|Cu_cref_element_ch of tr_ch
+	|Cu_cref_element_sec of tr_sec
+	|Cu_cref_element_par of tr_par
+	|Cu_cref_element_blk_itm of tr_blk_itm
+	|Cu_cref_element_dsp_line of tr_dsp_line
+
+type t_cref_table = (Doc_types.tr_id * t_path * tu_cref_element) list
 
 type t_doc_cref_table = { mutable content : t_cref_table }
 
@@ -284,7 +293,7 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 	let rec aux (cref_table : t_cref_table) : string option =
 		match cref_table with
 		| [] -> None
-		| ((id : Doc_types.tr_id), (id_loc : t_path)) :: c_ref_table_tl -> 
+		| ((id : Doc_types.tr_id), (id_loc : t_path), _) :: c_ref_table_tl -> 
 			match id_c_ref = id with
 			| true -> (
 				match id_loc, string_of_sub_path_opt id_loc (path_from_common_ancestor c_ref_loc id_loc) with
@@ -486,8 +495,7 @@ and lvl_of_path (path : t_path) : int =
 		| BLT_NODE -> lvl_of_path tl + 1
 		| _ -> lvl_of_path tl
 
-
-and node_of_tr_par (auto_nr) (par : Doc_types.tr_par) : t_node =
+and node_of_tr_par (auto_nr : int) (par : Doc_types.tr_par) : t_node =
 	match par.fld_par_tag_or_id with
 	|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
 	|Some (tag_or_id : tu_tag_or_id) ->
@@ -584,5 +592,54 @@ and label_of_path (path : t_path) : string=
 	match label_of_path_opt path with
 	| None -> ""
 	| Some (s : string) -> s
+
+
+(** Repeat *)
+
+let par_restated_of_tr_par (par : Doc_types.tr_par) : Doc_types.tr_par =
+	let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
+	let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
+	let rpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")") in
+	let restated : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "[restated]") in
+	let par_hdr_opt : Doc_types.ts_hdr option =
+		match par.fld_par_tag_or_id, par.fld_par_hdr with
+		|None, hdr_opt -> hdr_opt 
+		|Some tag_or_id, hdr_opt ->
+			match tag_or_id with
+			|Cu_tag_or_id_tag _ -> hdr_opt
+			|Cu_tag_or_id_id id ->
+				let c_ref : Doc_types.ts_c_ref = Cs_c_ref id in
+				let txt_unit_c_ref = Cs_txt_unit_c_ref c_ref in
+				let txt_unit = Cu_txt_unit_c_ref txt_unit_c_ref in
+				match hdr_opt with
+				|None -> Some (Cs_hdr (Cs_txt_units [txt_unit; space; restated]))
+				|Some (Cs_hdr (Cs_txt_units txt_unit_list)) -> 
+					Some (Cs_hdr (Cs_txt_units (List.concat [[txt_unit; space; lpar]; txt_unit_list; [rpar; space; restated]])))
+	in
+	{ 	
+		fld_par_hdr = par_hdr_opt;
+		fld_par_tag_or_id = None;
+		fld_par_main = par.fld_par_main;
+	}
+
+
+
+let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par option =
+	let rec aux (table : t_cref_table) : Doc_types.tr_par option =
+		match table with
+		|[] -> let _ : unit = Debug_utils.print_to_stderr "WARNING: non-existent id" in None
+		|(table_id, table_path, table_element) :: tl -> (
+			match table_id = id, table_element with
+			|true, Cu_cref_element_par par -> Some (par_restated_of_tr_par par)
+			|true, _ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: id does not belong to a paragraph" in None
+			|false, _ -> aux tl
+		)
+	in
+	aux doc_cref_table.content
+
+let node_of_tu_par (auto_nr : int) (p : tu_par) : t_node =
+	match p with
+	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
+	|Cu_par_std (Cs_par_std (par : tr_par)) -> node_of_tr_par auto_nr par
 
 

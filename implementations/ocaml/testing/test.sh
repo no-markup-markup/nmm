@@ -27,12 +27,6 @@ test_w_xml(){
 	done
 }
 
-add_newlines(){
-	for file in $(ls testing/output)
-	do 
-		echo "" >> testing/output/$file
-	done
-}
 
 show_diff(){
 	for file in $(ls testing/output)
@@ -54,10 +48,8 @@ show_default_css
 
 test_w_nmm
 
-test_w_xml
-
-add_newlines
+#test_w_xml
 
 show_diff
 
-make_pdf
+#make_pdf

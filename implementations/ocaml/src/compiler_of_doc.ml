@@ -226,16 +226,16 @@ and add_empty_lines_after_sec (tl:tr_sec list) (acc : t_acc) : t_acc =
 
 
 and acc_of_ts_pars (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_pars) : t_acc =
-	match a with Cs_pars (b : Doc_types.tr_par list) ->
-	let rec aux (par_nr : int) (acc : t_acc) (b : tr_par list) : t_acc = (
+	match a with Cs_pars (b : Doc_types.tu_par list) ->
+	let rec aux (par_nr : int) (acc : t_acc) (b : tu_par list) : t_acc =
 		match b with
 		| [] -> acc
-		| hd :: tl -> aux (par_nr + 1) (add_empty_lines_after_par tl (acc_of_tr_par ((Common_utils.node_of_tr_par par_nr hd):: path) acc hd)) tl
-	)
+		| hd :: tl -> 
+			aux (par_nr + 1) (add_empty_lines_after_par tl (acc_of_tu_par ((Common_utils.node_of_tu_par par_nr hd):: path) acc hd)) tl
 	in 
 	aux 0 acc b
 
-and add_empty_lines_after_par (tl:tr_par list) (acc : t_acc) : t_acc =
+and add_empty_lines_after_par (tl : tu_par list) (acc : t_acc) : t_acc =
 	match tl, acc with
 	|a::b, LINES lines -> LINES (List.concat [lines;["";""]])
 	|_, _ -> acc
@@ -250,7 +250,7 @@ and acc_of_ts_blks (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 			match acc_of_tu_blk auto_nr path acc hd with
 			(acc : t_acc), (auto_nr : int) -> aux auto_nr (add_empty_lines_after_blk tl acc) tl
 		)
-	)	
+	)
 	in 
 	aux 0 acc b
 
@@ -266,7 +266,7 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
 			match a.fld_ch_tag_or_id with
-			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path) :: table
+			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cu_cref_element_ch a) :: table
 			|_ -> table
 		)
 		in 
@@ -307,7 +307,7 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
 			match a.Doc_types.fld_sec_tag_or_id with
-			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path) :: table
+			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cu_cref_element_sec a) :: table
 			|_ -> table
 		)
 		in 
@@ -343,12 +343,24 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main])]])
 
+
+and acc_of_tu_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_par) : t_acc =
+	match a with
+	|Cu_par_std (Cs_par_std (par : tr_par)) -> acc_of_tr_par path acc par
+	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) ->
+		match acc with
+		|CREF_TABLE _ -> acc
+		|_ -> 
+			match Common_utils.par_restated_of_tr_id id with
+			|Some (par : tr_par) -> acc_of_tr_par path acc par
+			|None -> let _ : unit = Debug_utils.print_to_stderr "WARNING: failed to restate paragraph" in acc
+
 and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par) : t_acc =
 	match acc with
 	|CREF_TABLE table -> (
 		let newacc : t_acc = CREF_TABLE (
 			match par.fld_par_tag_or_id with
-			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path) :: table
+			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cu_cref_element_par par) :: table
 			|_ -> table
 		)
 		in acc_of_ts_blks path newacc par.fld_par_main
@@ -390,6 +402,8 @@ and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id ["par"] par.fld_par_tag_or_id in
 		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
 	)
+
+
 
 and acc_of_ch_main (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_secs_pars_or_blks) : t_acc =
 	match a with
@@ -470,7 +484,7 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 	| CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
 			match a.fld_blk_itm_id with
-			| Some (id : Doc_types.tr_id) -> (id, path) :: table
+			| Some (id : Doc_types.tr_id) -> (id, path, Cu_cref_element_blk_itm a) :: table
 			| _ -> table
 		)
 		in acc_of_ts_blks path newacc a.fld_blk_itm_main
@@ -544,7 +558,7 @@ and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc
 	match acc with
 	| CREF_TABLE table -> (
 		match a.fld_dsp_line_id with
-			| Some (id : Doc_types.tr_id) -> CREF_TABLE ((id, path) :: table)
+			| Some (id : Doc_types.tr_id) -> CREF_TABLE ((id, path, Cu_cref_element_dsp_line a) :: table)
 			| None -> CREF_TABLE table
 	)
 	| LINES acc_lines -> (
