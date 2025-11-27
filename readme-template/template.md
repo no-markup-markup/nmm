@@ -352,6 +352,25 @@ INCLUDE-FILE ./raw-text-semantics/title-author-date-abstract-references.txt
 ```
 </details>
 
+### Restating paragraphs
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+INCLUDE-FILE ./nmm-sources/restating_paragraphs.nmm
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+INCLUDE-FILE ./raw-text-semantics/restating_paragraphs.txt
+```
+</details>
+
+
 ### Under typical circumstances, no need for escape sequences
 
 Even under most atypical circumstances there is no need:

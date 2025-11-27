@@ -807,6 +807,47 @@ REFERENCES
 ```
 </details>
 
+### Restating paragraphs
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+¶ FCT:pythagoras
+
+	a²+b² = c²
+
+
+¶
+
+I think what Pythagoras discovered is such a remarkable fact that I
+want to state it again!
+
+
+¶ rpt FCT:pythagoras
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+¶ 1         FACT
+
+                  a²+b² = c²
+
+
+¶ 2         I think what Pythagoras discovered is such a remarkable fact that I
+            want to state it again!
+
+
+¶ 3         FACT 1 [restated]
+
+                  a²+b² = c²
+```
+</details>
+
+
 ### Under typical circumstances, no need for escape sequences
 
 Even under most atypical circumstances there is no need:
