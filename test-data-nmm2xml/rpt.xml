@@ -3,7 +3,7 @@
 	<cu_doc_main_pars>
 		<cs_pars>
 			<cu_par_std>
-				<cr_par>
+				<cr_par_std>
 					<cu_tag_or_id_id>
 						<cr_id>
 							<cs_tag>PAR</cs_tag>
@@ -30,7 +30,7 @@
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
-				</cr_par>
+				</cr_par_std>
 			</cu_par_std>
 			<cu_par_rpt>
 				<cs_par_rpt>
@@ -41,7 +41,7 @@
 				</cs_par_rpt>
 			</cu_par_rpt>
 			<cu_par_std>
-				<cr_par>
+				<cr_par_std>
 					<cu_tag_or_id_id>
 						<cr_id>
 							<cs_tag>PAR</cs_tag>
@@ -75,7 +75,7 @@
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
-				</cr_par>
+				</cr_par_std>
 			</cu_par_std>
 			<cu_par_rpt>
 				<cs_par_rpt>
@@ -86,7 +86,7 @@
 				</cs_par_rpt>
 			</cu_par_rpt>
 			<cu_par_std>
-				<cr_par>
+				<cr_par_std>
 					<cu_tag_or_id_id>
 						<cr_id>
 							<cs_tag>THM</cs_tag>
@@ -113,7 +113,7 @@
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
-				</cr_par>
+				</cr_par_std>
 			</cu_par_std>
 			<cu_par_rpt>
 				<cs_par_rpt>
@@ -124,7 +124,7 @@
 				</cs_par_rpt>
 			</cu_par_rpt>
 			<cu_par_std>
-				<cr_par>
+				<cr_par_std>
 					<cu_tag_or_id_id>
 						<cr_id>
 							<cs_tag>THM</cs_tag>
@@ -158,7 +158,7 @@
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
-				</cr_par>
+				</cr_par_std>
 			</cu_par_std>
 			<cu_par_rpt>
 				<cs_par_rpt>

@@ -7,7 +7,7 @@
 <cu_doc_main_pars>
 <cs_pars>
 <cu_par_std>
-<cr_par>
+<cr_par_std>
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -50,10 +50,10 @@
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
-</cr_par>
+</cr_par_std>
 </cu_par_std>
 <cu_par_std>
-<cr_par>
+<cr_par_std>
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -369,10 +369,10 @@
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
-</cr_par>
+</cr_par_std>
 </cu_par_std>
 <cu_par_std>
-<cr_par>
+<cr_par_std>
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
@@ -606,7 +606,7 @@
 </cs_blk_dsp>
 </cu_blk_dsp>
 </cs_blks>
-</cr_par>
+</cr_par_std>
 </cu_par_std>
 </cs_pars>
 </cu_doc_main_pars>

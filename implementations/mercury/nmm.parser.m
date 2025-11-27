@@ -1124,7 +1124,7 @@ f_par_std_to_xml(PAR) = XML :- (
   ),
   BLKS = fld_par_main(PAR),
   XML  = term_to_xml.elem(
-    "cr_par",
+    "cr_par_std",
     [],
     TAG_OR_ID_XML_LIST++HDR_XML_LIST++[f_blks_to_xml(BLKS)]
   )
