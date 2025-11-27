@@ -47,13 +47,11 @@ and tr_sec = {
   fld_sec_main : tu_pars_or_blks;
 }
 
-and tu_par = Cu_par_std of ts_par_std | Cu_par_rpt of ts_par_rpt
-
-and ts_par_std = Cs_par_std of tr_par
+and tu_par = Cu_par_std of tr_par_std | Cu_par_rpt of ts_par_rpt
 
 and ts_par_rpt = Cs_par_rpt of tr_id
 
-and tr_par = {
+and tr_par_std = {
   fld_par_tag_or_id : tu_tag_or_id option;
   fld_par_hdr : ts_hdr option;
   fld_par_main : ts_blks;

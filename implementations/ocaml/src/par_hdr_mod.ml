@@ -15,7 +15,7 @@ let special_tag (a : tu_tag_or_id option) : tu_txt_unit option =
 				|Some (_,plural) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg plural))
 				|None -> None
 
-let copy_hdr_to_main (par : tr_par): tr_par = 
+let copy_hdr_to_main (par : tr_par_std): tr_par_std = 
 	let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
 	let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
 	let rpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")") in
@@ -70,5 +70,5 @@ let copy_hdr_to_main (par : tr_par): tr_par =
 		fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_units [s])))::blks)
 	  }
 
-let put_c_ref_in_hdr_and_remove_id (par : Doc_types.tr_par) : Doc_types.tr_par =
+let put_c_ref_in_hdr_and_remove_id (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 	par

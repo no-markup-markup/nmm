@@ -118,10 +118,10 @@ and xml_of_tr_sec (sec:tr_sec):Xml.xml=
 
 and xml_of_tu_par (p : tu_par) : Xml.xml =
 	match p with
-	|Cu_par_std (Cs_par_std (par : tr_par)) -> Xml.Element ("cu_par_std", [], [Xml.Element ("cs_par_std",[],[xml_of_tr_par par])])
+	|Cu_par_std (par : tr_par_std) -> Xml.Element ("cu_par_std", [], [xml_of_tr_par_std par])
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> Xml.Element ("cu_par_rpt",[],[Xml.Element ("cs_par_rpt",[],[xml_of_tr_id id])])
 
-and xml_of_tr_par (par:tr_par):Xml.xml=
+and xml_of_tr_par_std (par:tr_par_std):Xml.xml=
 	let a:Xml.xml list=
 		match par.fld_par_tag_or_id with
 		|None -> []
@@ -133,7 +133,7 @@ and xml_of_tr_par (par:tr_par):Xml.xml=
 		|Some (hdr:ts_hdr)->[xml_of_ts_hdr hdr]
 	in
 	let c:Xml.xml list=[xml_of_ts_blks par.fld_par_main] in
-	Xml.Element ("cr_par",[],List.concat [a;b;c])
+	Xml.Element ("cr_par_std",[],List.concat [a;b;c])
 
 and xml_of_tu_blk (blk:tu_blk):Xml.xml=
 	match blk with

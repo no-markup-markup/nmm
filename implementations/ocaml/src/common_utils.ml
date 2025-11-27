@@ -278,7 +278,7 @@ and t_dsp_line_node =
 type tu_cref_element = 
 	|Cu_cref_element_ch of tr_ch
 	|Cu_cref_element_sec of tr_sec
-	|Cu_cref_element_par of tr_par
+	|Cu_cref_element_par of tr_par_std
 	|Cu_cref_element_blk_itm of tr_blk_itm
 	|Cu_cref_element_dsp_line of tr_dsp_line
 
@@ -495,7 +495,7 @@ and lvl_of_path (path : t_path) : int =
 		| BLT_NODE -> lvl_of_path tl + 1
 		| _ -> lvl_of_path tl
 
-and node_of_tr_par (auto_nr : int) (par : Doc_types.tr_par) : t_node =
+and node_of_tr_par_std (auto_nr : int) (par : Doc_types.tr_par_std) : t_node =
 	match par.fld_par_tag_or_id with
 	|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
 	|Some (tag_or_id : tu_tag_or_id) ->
@@ -596,7 +596,7 @@ and label_of_path (path : t_path) : string=
 
 (** Repeat *)
 
-let par_restated_of_tr_par (par : Doc_types.tr_par) : Doc_types.tr_par =
+let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 	let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
 	let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
 	let rpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")") in
@@ -624,8 +624,8 @@ let par_restated_of_tr_par (par : Doc_types.tr_par) : Doc_types.tr_par =
 
 
 
-let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par option =
-	let rec aux (table : t_cref_table) : Doc_types.tr_par option =
+let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par_std option =
+	let rec aux (table : t_cref_table) : Doc_types.tr_par_std option =
 		match table with
 		|[] -> let _ : unit = Debug_utils.print_to_stderr "WARNING: non-existent id" in None
 		|(table_id, table_path, table_element) :: tl -> (
@@ -640,6 +640,6 @@ let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par option =
 let node_of_tu_par (auto_nr : int) (p : tu_par) : t_node =
 	match p with
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
-	|Cu_par_std (Cs_par_std (par : tr_par)) -> node_of_tr_par auto_nr par
+	|Cu_par_std (par : tr_par_std) -> node_of_tr_par_std auto_nr par
 
 

@@ -19,11 +19,10 @@
 
 <!ELEMENT cr_ch ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_secs_pars_or_blks_secs | cu_secs_pars_or_blks_pars | cu_secs_pars_or_blks_blks))>
 <!ELEMENT cr_sec ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_pars_or_blks_pars | cu_pars_or_blks_blks))>
-<!ELEMENT cu_par_std (cs_par_std)>
+<!ELEMENT cu_par_std (cr_par_std)>
 <!ELEMENT cu_par_rpt (cs_par_rpt)>
-<!ELEMENT cs_par_std (cr_par)>
 <!ELEMENT cs_par_rpt (cr_id)>
-<!ELEMENT cr_par ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, cs_blks)>
+<!ELEMENT cr_par_std ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, cs_blks)>
 
 <!ELEMENT cu_secs_pars_or_blks_secs (cs_secs)>
 <!ELEMENT cu_secs_pars_or_blks_pars (cs_pars)>

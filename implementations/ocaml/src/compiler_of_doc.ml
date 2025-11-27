@@ -346,16 +346,16 @@ and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_s
 
 and acc_of_tu_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_par) : t_acc =
 	match a with
-	|Cu_par_std (Cs_par_std (par : tr_par)) -> acc_of_tr_par path acc par
+	|Cu_par_std (par : tr_par_std) -> acc_of_tr_par_std path acc par
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) ->
 		match acc with
 		|CREF_TABLE _ -> acc
 		|_ -> 
 			match Common_utils.par_restated_of_tr_id id with
-			|Some (par : tr_par) -> acc_of_tr_par path acc par
+			|Some (par : tr_par_std) -> acc_of_tr_par_std path acc par
 			|None -> let _ : unit = Debug_utils.print_to_stderr "WARNING: failed to restate paragraph" in acc
 
-and acc_of_tr_par (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par) : t_acc =
+and acc_of_tr_par_std (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par_std) : t_acc =
 	match acc with
 	|CREF_TABLE table -> (
 		let newacc : t_acc = CREF_TABLE (

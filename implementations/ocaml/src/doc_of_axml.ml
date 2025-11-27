@@ -163,14 +163,9 @@ and f_tr_sec_of_xml (xml:Xml.xml):tr_sec =
 
 and f_tu_par_of_xml (xml : Xml.xml) : tu_par =
 	match xml with
-	|Xml.Element ("cu_par_std", [], [x]) -> Cu_par_std (f_ts_par_std_of_xml x)
+	|Xml.Element ("cu_par_std", [], [x]) -> Cu_par_std (f_tr_par_std_of_xml x)
 	|Xml.Element ("cu_par_rpt", [], [x]) -> Cu_par_rpt (f_ts_par_rpt_of_xml x) 
 	|_ -> raise (Error (String.concat "" ["expected cu_par_std or cu_par_rpt, got: ";string_of_xml_list [xml]]))
-
-and f_ts_par_std_of_xml (xml : Xml.xml) : ts_par_std =
-	match xml with
-	|Xml.Element ("cs_par_std",[],[x]) -> Cs_par_std (f_tr_par_of_xml x)
-	|_ -> raise (Error (String.concat "" ["expected cs_par_std, got: ";string_of_xml_list [xml]]))
 
 
 and f_ts_par_rpt_of_xml (xml : Xml.xml) : ts_par_rpt =
@@ -178,9 +173,9 @@ and f_ts_par_rpt_of_xml (xml : Xml.xml) : ts_par_rpt =
 	|Xml.Element ("cs_par_rpt",[],[x]) -> Cs_par_rpt (f_tr_id_of_xml x)
 	|_ -> raise (Error (String.concat "" ["expected cs_par_rpt, got: ";string_of_xml_list [xml]]))
 
-and f_tr_par_of_xml (xml:Xml.xml):tr_par =
+and f_tr_par_std_of_xml (xml:Xml.xml):tr_par_std =
     match xml with
-    |Xml.Element ("cr_par",[],xml_list) ->
+    |Xml.Element ("cr_par_std",[],xml_list) ->
         let (tag_or_id_opt, tag_or_id_tl) = f_ch_sec_par_tag_or_id_opt_of_xml_list xml_list in
         let (hdr_opt, hdr_tl) = f_ch_sec_par_hdr_opt_of_xml_list tag_or_id_tl in
         let main = f_par_main_of_xml_list hdr_tl in
@@ -189,7 +184,7 @@ and f_tr_par_of_xml (xml:Xml.xml):tr_par =
             fld_par_hdr          =   hdr_opt;
             fld_par_main         =   main;
         }
-    |_ -> raise (Error (String.concat "" ["expected cr_par, got: ";string_of_xml_list [xml]]))
+    |_ -> raise (Error (String.concat "" ["expected cr_par_std, got: ";string_of_xml_list [xml]]))
 
 and f_ch_sec_par_tag_or_id_opt_of_xml_list (xml_list:Xml.xml list): (tu_tag_or_id option) * (Xml.xml list) =
     match xml_list with

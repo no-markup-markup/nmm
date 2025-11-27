@@ -233,10 +233,10 @@ pars:
 ;
 
 par:
-  |pilcrow_nl par_main                            { Cu_par_std (Cs_par_std {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$2}):tu_par }
-  |pilcrow_spaces_tag_or_id_nl par_main           { Cu_par_std (Cs_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}):tu_par }
-  |pilcrow_nl hdr par_main                        { Cu_par_std (Cs_par_std {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$3}):tu_par }
-  |pilcrow_spaces_tag_or_id_nl hdr par_main       { Cu_par_std (Cs_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}):tu_par }
+  |pilcrow_nl par_main                            { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$2}:tu_par }
+  |pilcrow_spaces_tag_or_id_nl par_main           { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tu_par }
+  |pilcrow_nl hdr par_main                        { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
+  |pilcrow_spaces_tag_or_id_nl hdr par_main       { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
   |pilcrow_spaces_rpt_spaces_id_nl nls            { Cu_par_rpt (Cs_par_rpt $1) : tu_par }
 ;
 

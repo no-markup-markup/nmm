@@ -233,7 +233,7 @@ type t_path = t_node list
 type tu_cref_element = 
 	|Cu_cref_element_ch of Doc_types.tr_ch
 	|Cu_cref_element_sec of Doc_types.tr_sec
-	|Cu_cref_element_par of Doc_types.tr_par
+	|Cu_cref_element_par of Doc_types.tr_par_std
 	|Cu_cref_element_blk_itm of Doc_types.tr_blk_itm
 	|Cu_cref_element_dsp_line of Doc_types.tr_dsp_line
 
@@ -349,4 +349,4 @@ evaluates to
 *)
 
 
-val par_restated_of_tr_id : Doc_types.tr_id -> Doc_types.tr_par option
+val par_restated_of_tr_id : Doc_types.tr_id -> Doc_types.tr_par_std option
