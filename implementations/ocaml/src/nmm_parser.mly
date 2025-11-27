@@ -52,6 +52,7 @@ let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_au
 %type <Doc_types.tu_pars_or_blks>         sec_main
 %type <Doc_types.tr_sec list>             secs
 %type <Doc_types.tu_par>                  par
+%type <Doc_types.ts_par_rpt>              pilcrow_spaces_rpt_spaces_id_nl
 %type <Doc_types.ts_blks>                 par_main blks special_blks
 %type <Doc_types.tu_par list>             pars
 %type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
@@ -237,7 +238,7 @@ par:
   |pilcrow_spaces_tag_or_id_nl par_main           { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tu_par }
   |pilcrow_nl hdr par_main                        { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
   |pilcrow_spaces_tag_or_id_nl hdr par_main       { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
-  |pilcrow_spaces_rpt_spaces_id_nl nls            { Cu_par_rpt (Cs_par_rpt $1) : tu_par }
+  |pilcrow_spaces_rpt_spaces_id_nl nls            { Cu_par_rpt $1 : tu_par }
 ;
 
 par_main:
@@ -782,7 +783,7 @@ pilcrow_spaces_tag_or_id_nl:
 ;
 
 pilcrow_spaces_rpt_spaces_id_nl:
-  |PILCROW_SPACES_RPT_SPACES_ID_NL                { (id_of_string $1):tr_id }
+  |PILCROW_SPACES_RPT_SPACES_ID_NL                { Cs_par_rpt (id_of_string $1):ts_par_rpt }
 ;
 
 hdr:
