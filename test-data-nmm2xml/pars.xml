@@ -2,6 +2,7 @@
 <cr_doc>
 <cu_doc_main_pars>
 <cs_pars>
+<cu_par_std>
 <cr_par>
 <cu_tag_or_id_id>
 <cr_id>
@@ -362,6 +363,8 @@
 </cu_blk_itm>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cs_blks>
 <cu_blk_txt>
@@ -414,6 +417,8 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cs_hdr>
 <cs_txt_units>
@@ -472,6 +477,8 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cu_tag_or_id_id>
 <cr_id>
@@ -498,6 +505,7 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
 </cs_pars>
 </cu_doc_main_pars>
 </cr_doc>

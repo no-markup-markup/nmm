@@ -6,6 +6,7 @@
 </cs_authors>
 <cu_doc_main_pars>
 <cs_pars>
+<cu_par_std>
 <cr_par>
 <cs_hdr>
 <cs_txt_units>
@@ -50,6 +51,8 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cs_hdr>
 <cs_txt_units>
@@ -367,6 +370,8 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cs_hdr>
 <cs_txt_units>
@@ -602,6 +607,7 @@
 </cu_blk_dsp>
 </cs_blks>
 </cr_par>
+</cu_par_std>
 </cs_pars>
 </cu_doc_main_pars>
 <cs_refs>

@@ -115,6 +115,7 @@
 </cs_hdr>
 <cu_secs_pars_or_blks_pars>
 <cs_pars>
+<cu_par_std>
 <cr_par>
 <cs_hdr>
 <cs_txt_units>
@@ -153,6 +154,8 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cs_blks>
 <cu_blk_txt>
@@ -184,6 +187,7 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
 </cs_pars>
 </cu_secs_pars_or_blks_pars>
 </cr_ch>
@@ -240,6 +244,7 @@
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
+<cu_par_std>
 <cr_par>
 <cs_blks>
 <cu_blk_txt>
@@ -259,6 +264,8 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
+<cu_par_std>
 <cr_par>
 <cs_blks>
 <cu_blk_txt>
@@ -284,6 +291,7 @@
 </cu_blk_txt>
 </cs_blks>
 </cr_par>
+</cu_par_std>
 </cs_pars>
 </cu_pars_or_blks_pars>
 </cr_sec>

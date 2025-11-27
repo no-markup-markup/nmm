@@ -137,7 +137,7 @@
 
 %% RULE R_PARS, SIMPLE TYPE TS_PARS, INSTANCE TS_PAR_XMLABLE
 
-:- type ts_pars ---> cs_pars(list(tr_par)).
+:- type ts_pars ---> cs_pars(list(tu_par)).
 
 :- instance term_to_xml.xmlable(ts_pars).
 
@@ -183,18 +183,40 @@
 :- mode r_sec(out,    in,      out) is semidet.
 
 
-%% RULE R_PAR, RECORD TYPE TR_PAR, INSTANCE TR_PAR XMLABLE
+%% RULE R_PAR, UNION TYPE TU_PAR, INSTANCE TU_PAR XMLABLE
 
-:- type tr_par ---> cr_par(
+:- type tu_par --->
+  cu_par_std(tr_par_std);
+  cu_par_rpt(ts_par_rpt).
+
+:- instance term_to_xml.xmlable(tu_par).
+
+:- pred r_par(tu_par, ts_tkns, ts_tkns).
+:- mode r_par(out,    in,      out) is semidet.
+
+
+%% RULE R_PAR_STD, RECORD TYPE TR_PAR_STD, INSTANCE TR_PAR_STD XMLABLE
+
+:- type tr_par_std ---> cr_par_std(
   fld_par_tag_or_id :: maybe(tu_tag_or_id),
   fld_par_hdr       :: maybe(ts_hdr),
   fld_par_main      :: ts_blks
 ).
 
-:- instance term_to_xml.xmlable(tr_par).
+:- instance term_to_xml.xmlable(tr_par_std).
 
-:- pred r_par(tr_par, ts_tkns, ts_tkns).
-:- mode r_par(out,    in,      out) is semidet.
+:- pred r_par_std(tr_par_std, ts_tkns, ts_tkns).
+:- mode r_par_std(out,        in,      out) is semidet.
+
+
+%% RULE R_PAR_RPT, SIMPLE TYPE TS_PAR_RPT, INSTANCE TS_PAR_RPT XMLABLE
+
+:- type ts_par_rpt ---> cs_par_rpt(tr_id).
+
+:- instance term_to_xml.xmlable(ts_par_rpt).
+
+:- pred r_par_rpt(ts_par_rpt, ts_tkns, ts_tkns).
+:- mode r_par_rpt(out,        in,      out) is semidet.
 
 
 %% RULE R_BLK, UNION TYPE TU_BLK, INSTANCE TU_BLK XMLABLE
@@ -1035,11 +1057,35 @@ f_sec_to_xml(SEC) = XML :- (
 ).
 
 
-%% R_PAR, INSTANCE TR_PAR XMLABLE
+%% R_PAR, TU_PAR XMLABLE
 
 %%% R_PAR
 
-r_par(cr_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS)) -->
+r_par(PAR) --> (
+  r_par_std(PAR_) -> {PAR = cu_par_std(PAR_)};
+  r_par_rpt(PAR_) -> {PAR = cu_par_rpt(PAR_)};
+                     {false}
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(tu_par) where [
+  func(to_xml/1) is f_par_to_xml
+].
+:- func (
+  f_par_to_xml(tu_par::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_par_to_xml(cu_par_std(PAR)) =
+  term_to_xml.elem("cu_par_std",[],[f_par_std_to_xml(PAR)]).
+f_par_to_xml(cu_par_rpt(PAR)) =
+  term_to_xml.elem("cu_par_rpt",[],[f_par_rpt_to_xml(PAR)]).
+
+
+%% R_PAR_STD, TR_PAR_STD XMLABLE
+
+%%% R_PAR_STD
+
+r_par_std(cr_par_std(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS)) -->
   r_str("¶"),
   ?([*([r_sp])],r_tag_or_id,MAYBE_TAG_OR_ID,[]),
   r_lb,
@@ -1049,13 +1095,13 @@ r_par(cr_par(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS)) -->
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(tr_par) where [
-  func(to_xml/1) is f_par_to_xml
+:- instance term_to_xml.xmlable(tr_par_std) where [
+  func(to_xml/1) is f_par_std_to_xml
 ].
 :- func (
-  f_par_to_xml(tr_par::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  f_par_std_to_xml(tr_par_std::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_par_to_xml(PAR) = XML :- (
+f_par_std_to_xml(PAR) = XML :- (
   (
     (
       fld_par_tag_or_id(PAR) = maybe.no,
@@ -1083,6 +1129,26 @@ f_par_to_xml(PAR) = XML :- (
     TAG_OR_ID_XML_LIST++HDR_XML_LIST++[f_blks_to_xml(BLKS)]
   )
 ).
+
+
+%% R_PAR_RPT, TS_PAR_RPT XMLABLE
+
+%%% R_PAR_RPT
+
+r_par_rpt(cs_par_rpt(ID)) --> (
+  r_str("¶"), *([r_sp]), r_str("rpt"), *([r_sp]), r_id(ID), r_lb
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_par_rpt) where [
+  func(to_xml/1) is f_par_rpt_to_xml
+].
+:- func (
+  f_par_rpt_to_xml(ts_par_rpt::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_par_rpt_to_xml(cs_par_rpt(ID)) =
+  term_to_xml.elem("cs_par_rpt",[],[f_id_to_xml(ID)]).
 
 
 %% R_BLK, INSTANCE TU_BLK XMLABLE

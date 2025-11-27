@@ -870,11 +870,11 @@ p_test_r_tag_or_id_2 :- r_tag_or_id(
   f_str2tkns(" :name")
 ).
 
-%%% P_TEST_R_PAR_1
+%%% P_TEST_R_PAR_STD_1
 
-:- pred p_test_r_par_1 is semidet.
-p_test_r_par_1 :- r_par(
-  cr_par(
+:- pred p_test_r_par_std_1 is semidet.
+p_test_r_par_std_1 :- r_par_std(
+  cr_par_std(
     maybe.no,
     maybe.no,
     cs_blks([
@@ -889,11 +889,11 @@ p_test_r_par_1 :- r_par(
   []
 ).
 
-%%% P_TEST_R_PAR_2
+%%% P_TEST_R_PAR_STD_2
 
-:- pred p_test_r_par_2 is semidet.
-p_test_r_par_2 :- r_par(
-  cr_par(
+:- pred p_test_r_par_std_2 is semidet.
+p_test_r_par_std_2 :- r_par_std(
+  cr_par_std(
     maybe.no,
     maybe.no,
     cs_blks([
@@ -913,11 +913,11 @@ p_test_r_par_2 :- r_par(
   []
 ).
 
-%%% P_TEST_R_PAR_3
+%%% P_TEST_R_PAR_STD_3
 
-:- pred p_test_r_par_3 is semidet.
-p_test_r_par_3 :- r_par(
-  cr_par(
+:- pred p_test_r_par_std_3 is semidet.
+p_test_r_par_std_3 :- r_par_std(
+  cr_par_std(
     maybe.yes(cu_tag_or_id_tag(cs_tag("PAR"))),
     maybe.no,
     cs_blks([
@@ -937,11 +937,11 @@ p_test_r_par_3 :- r_par(
   []
 ).
 
-%%% P_TEST_R_PAR_4
+%%% P_TEST_R_PAR_STD_4
 
-:- pred p_test_r_par_4 is semidet.
-p_test_r_par_4 :- r_par(
-  cr_par(
+:- pred p_test_r_par_std_4 is semidet.
+p_test_r_par_std_4 :- r_par_std(
+  cr_par_std(
     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name")))),
     maybe.no,
     cs_blks([
@@ -961,11 +961,11 @@ p_test_r_par_4 :- r_par(
   []
 ).
 
-%%% P_TEST_R_PAR_5
+%%% P_TEST_R_PAR_STD_5
 
-:- pred p_test_r_par_5 is semidet.
-p_test_r_par_5 :- r_par(
-  cr_par(
+:- pred p_test_r_par_std_5 is semidet.
+p_test_r_par_std_5 :- r_par_std(
+  cr_par_std(
     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name")))),
     maybe.yes(cs_hdr(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
@@ -1528,37 +1528,37 @@ p_test(!IO) :- (
       true
   ),
   (
-    if not p_test_r_par_1 then
+    if not p_test_r_par_std_1 then
       io.set_exit_status(1,!IO),
-      io.write_string("p_test_r_par_1 failed\n",!IO)
+      io.write_string("p_test_r_par_std_1 failed\n",!IO)
     else
       true
   ),
   (
-    if not p_test_r_par_2 then
+    if not p_test_r_par_std_2 then
       io.set_exit_status(1,!IO),
-      io.write_string("p_test_r_par_2 failed\n",!IO)
+      io.write_string("p_test_r_par_std_2 failed\n",!IO)
     else
       true
   ),
   (
-    if not p_test_r_par_3 then
+    if not p_test_r_par_std_3 then
       io.set_exit_status(1,!IO),
-      io.write_string("p_test_r_par_3 failed\n",!IO)
+      io.write_string("p_test_r_par_std_3 failed\n",!IO)
     else
       true
   ),
   (
-    if not p_test_r_par_4 then
+    if not p_test_r_par_std_4 then
       io.set_exit_status(1,!IO),
-      io.write_string("p_test_r_par_4 failed\n",!IO)
+      io.write_string("p_test_r_par_std_4 failed\n",!IO)
     else
       true
   ),
   (
-    if not p_test_r_par_5 then
+    if not p_test_r_par_std_5 then
       io.set_exit_status(1,!IO),
-      io.write_string("p_test_r_par_5 failed\n",!IO)
+      io.write_string("p_test_r_par_std_5 failed\n",!IO)
     else
       true
   ),
