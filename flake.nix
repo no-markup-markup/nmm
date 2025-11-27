@@ -99,9 +99,7 @@
             '';
             installPhase = ''
               mkdir -p $out/bin
-              cp bin/nmm         $out/bin/
-              cp bin/nmm-mercury $out/bin/
-              cp bin/nmm-ocaml   $out/bin/
+              cp bin/* $out/bin/
             '';
           };
           apps.default = {
