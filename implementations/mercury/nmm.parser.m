@@ -1572,6 +1572,9 @@ r_blk_txt(LVL,cs_blk_txt(UNITS)) --> (
         r_lb
       ),
       not (
+        r_str("¶"), *([r_sp]), r_str("rpt"), *([r_sp]), r_id(_), r_lb
+      ),
+      not (
         r_refs_start_marker
       )
     else
