@@ -52,4 +52,4 @@ test_w_nmm
 
 show_diff
 
-#make_pdf
+make_pdf
