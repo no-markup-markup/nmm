@@ -82,11 +82,9 @@ match element with
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
-let internal_css : string =
+let internal_css (tab_length : string) (left_margin : string) : string =
 "
 html {
-    --tab_length  : 6ch;
-    --left_margin : 8rem;
     font-family   : monospace;
     font-size     : medium;
     line-height   : 150%;
@@ -119,11 +117,11 @@ h4.inline {
 }
 
 .doc.pars .title {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .doc.secs .title {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .doc.chs .title {
@@ -144,11 +142,11 @@ h4.inline {
 }
 
 .doc.pars .authors {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .doc.secs .authors {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 
@@ -158,12 +156,16 @@ h4.inline {
     margin-bottom : 3rem;
 }
 
+* + .abstract {
+    margin-top : 2rem;
+}
+
 .doc.pars .abstract {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .doc.secs .abstract {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .abstract_hdr {
@@ -180,11 +182,11 @@ h4.inline {
 }
 
 .doc.pars .refs {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .doc.secs .refs {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 .doc.chs .refs {
@@ -248,7 +250,7 @@ h4.inline {
 }
 
 .sec_hdr {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
     font-size   : large;
 }
 
@@ -282,7 +284,7 @@ h4.inline {
 }
 
 .par_main {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 
@@ -293,7 +295,7 @@ h4.inline {
 }
 
 .sec_main > .blk {
-    margin-left : var(--left_margin);
+    margin-left : "^ left_margin ^";
 }
 
 
@@ -304,17 +306,17 @@ h4.inline {
 
 
 .blk_blt_main {
-    margin-left : var(--tab_length);
+    margin-left : "^ tab_length ^";
 }
 
 
 .blk_itm_main {
-    margin-left : var(--tab_length);
+    margin-left : "^ tab_length ^";
 }
 
 
 .dsp_line_main {
-    margin-left : var(--tab_length);
+    margin-left : "^ tab_length ^";
 }
 
 

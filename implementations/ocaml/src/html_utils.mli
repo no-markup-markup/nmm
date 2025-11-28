@@ -92,9 +92,11 @@ match element with
 ]}
 *)
 
-val internal_css : string
+val internal_css : string -> string -> string
 (**
-{[internal_css]}
+if [tab_length] evaluates to ["6ch"], and [left_margin] evaluates to ["8rem"], then
+{[internal_css tab_length left_margin]}
 
-evaluates to a string corresponding to {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css}default.css}. 
+evaluates to a string corresponding to {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css}default.css}
+
 *)

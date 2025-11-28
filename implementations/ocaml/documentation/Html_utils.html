@@ -127,10 +127,11 @@
 </code></pre></div>
 </div>
 
-<pre><span id="VALinternal_css"><span class="keyword">val</span> internal_css</span> : <code class="type">string</code></pre><div class="info ">
+<pre><span id="VALinternal_css"><span class="keyword">val</span> internal_css</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">internal_css</code></pre>
-<p>evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a>.</p>
+<p>if <code class="code">tab_length</code> evaluates to <code class="code"><span class="string">"6ch"</span></code>, and <code class="code">left_margin</code> evaluates to <code class="code"><span class="string">"8rem"</span></code>, then</p>
+<pre class="codepre"><code class="code">internal_css tab_length left_margin</code></pre>
+<p>evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a></p>
 </div>
 </div>
 </body></html>

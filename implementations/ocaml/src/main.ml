@@ -10,6 +10,9 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 let txt_of_doc (doc : Doc_types.tr_doc) : string =
 	Compiler_of_doc.txt_of_tr_doc doc
 
+let default_css : string = Html_utils.internal_css "6ch" "8rem"
+
+
 let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc_types.tr_doc) : string =
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
@@ -34,7 +37,7 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 		| None -> "" 
 		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ Html_utils.internal_css ^ "\n</style>")
+	let internal_css: string = ("<style>\n" ^ default_css ^ "\n</style>")
 	in
 	let external_css: string = 
 		match uri_opt with
@@ -126,8 +129,5 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
 	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
 	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
 	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
-
-
-let default_css : string = Html_utils.internal_css
 
 
