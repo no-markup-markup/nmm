@@ -3,10 +3,6 @@
 #set -e
 
 
-color(){
-	printf "\e[35m%s\e[0m\n" "$1"
-}
-
 show_default_css(){
 	./bin/nmm-ocaml show-default-css > testing/css/default.css
 }
@@ -29,10 +25,19 @@ test_w_xml(){
 
 
 show_diff(){
+	local exit_code=0
+	local current_exit_code=0
 	for file in $(ls testing/output)
 	do
-		diff --color testing/expected_output/$file testing/output/$file 
+		diff --color testing/expected_output/$file testing/output/$file
+		current_exit_code=$?
+		if [ $current_exit_code -gt 0 ]
+		then
+			exit_code=$current_exit_code
+			echo "testing/expected_output/$file differs from testing/output/$file"
+		fi
 	done
+	exit $exit_code
 }
 
 make_pdf(){
