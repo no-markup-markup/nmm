@@ -20,10 +20,10 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
         |[tag;name] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name }
         | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
-let append_author (authors_opt : ts_authors option) (author : ts_author) : ts_authors option =
+let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_authors option =
         match authors_opt with
         |None -> Some (Cs_authors [author])
-        |Some (Cs_authors (authors : ts_author list)) -> Some (Cs_authors (List.concat [authors;[author]]))
+        |Some (Cs_authors (authors : ts_author list)) -> Some (Cs_authors (author::authors))
 %}
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
@@ -121,7 +121,7 @@ doc:
                                                     {
                                                       fld_doc_preamble = $3.fld_doc_preamble;
                                                       fld_doc_title = $3.fld_doc_title;
-                                                      fld_doc_authors = append_author $3.fld_doc_authors $1;
+                                                      fld_doc_authors = add_author $3.fld_doc_authors $1;
                                                       fld_doc_abstract = $3.fld_doc_abstract;
                                                       fld_doc_main = $3.fld_doc_main;
                                                       fld_doc_refs = $3.fld_doc_refs;
