@@ -55,9 +55,9 @@ match element with
 |Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag",[],xml_list) -> Xml.Element ("div", [("class", "par_tag");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr inline");("style","float:left")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr inline");("style","float:left;margin-bottom:0")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","float:left")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","float:left;margin-bottom:0")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
