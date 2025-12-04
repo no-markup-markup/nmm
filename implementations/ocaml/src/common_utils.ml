@@ -351,7 +351,7 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 	in
 	match aux doc_cref_table.content with
 	| None ->
-		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference in " ^ (string_of_path c_ref_loc)) in 
+		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference \'" ^ (string_of_tr_id id_c_ref) ^ "\' in " ^ (string_of_path c_ref_loc)) in 
 		"??"
 	| Some (s : string) -> s
 
@@ -592,6 +592,10 @@ and label_of_path (path : t_path) : string=
 	match label_of_path_opt path with
 	| None -> ""
 	| Some (s : string) -> s
+
+and string_of_tr_id (id : Doc_types.tr_id) : string =
+	match id.fld_id_tag, id.fld_id_name with
+	|Cs_tag tag, Cs_name name -> String.concat ":" [tag;name]
 
 
 (** Repeat *)
