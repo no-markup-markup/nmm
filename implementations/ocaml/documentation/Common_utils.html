@@ -507,46 +507,46 @@ STRING := [! ';']+</pre></div>
 <pre><span id="TYPEt_path"><span class="keyword">type</span> <code class="type"></code>t_path</span> = <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> list</code> </pre>
 
 
-<pre><code><span id="TYPEtu_cref_element"><span class="keyword">type</span> <code class="type"></code>tu_cref_element</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEt_cref_element"><span class="keyword">type</span> <code class="type"></code>t_cref_element</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtu_cref_element.Cu_cref_element_ch"><span class="constructor">Cu_cref_element_ch</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a></code></code></td>
+<code><span id="TYPEELTt_cref_element.Cref_element_ch"><span class="constructor">Cref_element_ch</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtu_cref_element.Cu_cref_element_sec"><span class="constructor">Cu_cref_element_sec</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_sec">Doc_types.tr_sec</a></code></code></td>
+<code><span id="TYPEELTt_cref_element.Cref_element_sec"><span class="constructor">Cref_element_sec</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_sec">Doc_types.tr_sec</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtu_cref_element.Cu_cref_element_par"><span class="constructor">Cu_cref_element_par</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_par_std">Doc_types.tr_par_std</a></code></code></td>
+<code><span id="TYPEELTt_cref_element.Cref_element_par"><span class="constructor">Cref_element_par</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_par_std">Doc_types.tr_par_std</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtu_cref_element.Cu_cref_element_blk_itm"><span class="constructor">Cu_cref_element_blk_itm</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a></code></code></td>
+<code><span id="TYPEELTt_cref_element.Cref_element_blk_itm"><span class="constructor">Cref_element_blk_itm</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtu_cref_element.Cu_cref_element_dsp_line"><span class="constructor">Cu_cref_element_dsp_line</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a></code></code></td>
+<code><span id="TYPEELTt_cref_element.Cref_element_dsp_line"><span class="constructor">Cref_element_dsp_line</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a></code></code></td>
 
 </tr></table>
 
 
 
-<pre><span id="TYPEt_cref_table"><span class="keyword">type</span> <code class="type"></code>t_cref_table</span> = <code class="type">(<a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * <a href="Common_utils.html#TYPEtu_cref_element">tu_cref_element</a>) list</code> </pre>
+<pre><span id="TYPEt_cref_table"><span class="keyword">type</span> <code class="type"></code>t_cref_table</span> = <code class="type">(<a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * <a href="Common_utils.html#TYPEt_cref_element">t_cref_element</a>) list</code> </pre>
 
 
 <pre><code><span id="TYPEt_doc_cref_table"><span class="keyword">type</span> <code class="type"></code>t_doc_cref_table</span> = {</code></pre><table class="typetable">

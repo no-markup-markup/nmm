@@ -46,7 +46,7 @@
 </div>
 </div>
 
-<pre><span id="VALtxt_of_doc"><span class="keyword">val</span> txt_of_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_doc"><span class="keyword">val</span> txt_of_doc</span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">txt_of_doc doc</code></pre><p>evaluates to</p>
 
@@ -61,7 +61,7 @@
 </div>
 </div>
 
-<pre><span id="VALhtml_of_doc"><span class="keyword">val</span> html_of_doc</span> : <code class="type">string option -&gt; string option -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALhtml_of_doc"><span class="keyword">val</span> html_of_doc</span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">html_of_doc <span class="constructor">None</span> <span class="constructor">None</span> doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
@@ -105,25 +105,25 @@
 </div>
 </div>
 
-<pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> html_of_nmm</span> : <code class="type">string option -&gt; string option -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> html_of_nmm</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">html_of_nmm uri_opt lang_opt path</code></pre><p>evaluates to</p>
 <pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_nmm path)</code></pre></div>
 </div>
 
-<pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> txt_of_nmm</span> : <code class="type">string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> txt_of_nmm</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">txt_of_nmm path</code></pre><p>evaluate to</p>
-<pre class="codepre"><code class="code">txt_of_doc (doc_of_nmm path)</code></pre></div>
+<pre class="codepre"><code class="code">txt_of_nmm options path</code></pre><p>evaluate to</p>
+<pre class="codepre"><code class="code">txt_of_doc options (doc_of_nmm path)</code></pre></div>
 </div>
 
-<pre><span id="VALtxt_of_axml"><span class="keyword">val</span> txt_of_axml</span> : <code class="type">string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_axml"><span class="keyword">val</span> txt_of_axml</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">txt_of_axml path</code></pre><p>evaluates to</p>
-<pre class="codepre"><code class="code">txt_of_doc (doc_of_axml path)</code></pre></div>
+<pre class="codepre"><code class="code">txt_of_axml options path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">txt_of_doc options (doc_of_axml path)</code></pre></div>
 </div>
 
-<pre><span id="VALhtml_of_axml"><span class="keyword">val</span> html_of_axml</span> : <code class="type">string option -&gt; string option -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALhtml_of_axml"><span class="keyword">val</span> html_of_axml</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">html_of_axml uri_opt lang_opt path</code></pre><p>evaluates to</p>
 <pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_axml path)</code></pre></div>
