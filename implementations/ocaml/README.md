@@ -16,7 +16,7 @@ nmm-ocaml [
 
   | xml-of-nmm <path-to-nmm-file>
 
-  | txt-of-nmm <path-to-nmm-file>
+  | txt-of-nmm [ <txt-options> ] <path-to-nmm-file>
   | html-of-nmm [ <html-options> ] <path-to-nmm-file>
 
   | check-xml-schema <path-to-dtd-file>
