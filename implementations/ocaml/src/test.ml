@@ -18,8 +18,8 @@ let validate_axml (basename : string) (format : string) (path_to_dtd : string) (
 
 let rec test_w_nmm_file (basename : string) : unit =
 	let doc : Doc_types.tr_doc = Doc_of_nmm.doc_of_nmm_file false ("testing/input/" ^ basename) in
-	let txt : string = Main.txt_of_doc doc in
-	let html : string = Main.html_of_doc None (Some "en") doc in
+	let txt : string = Main.txt_of_doc [] doc in
+	let html : string = Main.html_of_doc ["--lang"; "en"] doc in
 	let _ : unit = Debug_utils.print_to_file txt ("testing/output/" ^ basename ^ ".txt") in
 	let _ : unit = Debug_utils.print_to_file html ("testing/output/" ^ basename ^ ".html") in
 	let axml : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
@@ -37,8 +37,8 @@ let rec test_w_nmm_file (basename : string) : unit =
 and test_w_axml_file (basename : string) : unit =
 	let axml : Xml.xml = Xml_right.parse_file false ("testing/input/" ^ basename) in
 	let doc : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
-	let txt : string = Main.txt_of_doc doc in
-	let html : string = Main.html_of_doc None (Some "en") doc in
+	let txt : string = Main.txt_of_doc [] doc in
+	let html : string = Main.html_of_doc ["--lang"; "en"] doc in
 	let _ : unit = Debug_utils.print_to_file txt ("testing/output/" ^ basename ^ ".txt") in
 	let _ : unit = Debug_utils.print_to_file html ("testing/output/" ^ basename ^ ".html") in
 	let axml_of_doc : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in

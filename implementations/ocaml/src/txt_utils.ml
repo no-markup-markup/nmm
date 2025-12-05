@@ -2,6 +2,7 @@ open Doc_types
 open Common_utils
 
 
+
 let rec lines_of_ts_title_opt (title_opt : Doc_types.ts_title option) : string list =
 	match title_opt with
 	|None -> []
@@ -266,3 +267,13 @@ and utf_8_length (s : string) : int =
   List.length (utf_8_segments `Grapheme_cluster s)
 
 
+let max_length_of_margin_labels (margin_labels : string list) : int =
+	let rec aux (i : int) (labels : string list) : int =
+		match  labels with
+		|[] -> i
+		|hd::tl -> aux (Int.max i (utf_8_length hd)) tl
+	in
+	aux 0 margin_labels
+
+let left_margin_of_margin_labels (margin_labels : string list) : int =
+	max_length_of_margin_labels margin_labels + 2

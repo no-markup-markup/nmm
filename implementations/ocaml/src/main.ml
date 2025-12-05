@@ -7,13 +7,49 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	with 
 	Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
-let txt_of_doc (doc : Doc_types.tr_doc) : string =
-	Compiler_of_doc.txt_of_tr_doc doc
+let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+	Compiler_of_doc.txt_of_tr_doc options doc
 
-let default_css : string = Html_utils.internal_css "6ch" "8rem"
+let default_tab_length : string = "6ch"
 
+let default_margin_left : string = "8rem"
 
-let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc_types.tr_doc) : string =
+let default_css : string = Html_utils.internal_css default_tab_length default_margin_left
+
+let lang_code_of_options (options : string list) : string option =
+	let rec aux (lst : string list) =
+		match lst with
+		|[] -> None
+		|hd::tl ->
+			match hd with
+			|"--lang" -> (
+				match tl with
+				|lang_code::_ -> Some lang_code
+				|_ -> None
+			)
+			|_ -> aux tl
+	in
+	aux options
+
+let external_css_of_options (options : string list) : string option =
+	let rec aux (lst : string list) =
+		match lst with
+		|[] -> None
+		|hd::tl ->
+			match hd with
+			|"--external-css" -> (
+				match tl with
+				|uri::_ -> Some uri
+				|_ -> None
+			)
+			|_ -> aux tl
+	in
+	aux options
+
+let auto_margin_of_options (options : string list) : bool =
+	List.mem "--auto-margin" options
+
+let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
 	let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
@@ -33,14 +69,19 @@ let html_of_doc (uri_opt : string option) (lang_opt : string option)  (doc : Doc
 			in String.concat "\n" (List.map map author_list)
 	in
 	let lang_attr=
-	match lang_opt with 
+	match lang_code_of_options options with 
 		| None -> "" 
-		| Some lang -> (" lang=\"" ^ lang ^ "\"") 
+		| Some lang_code -> (" lang=\"" ^ lang_code ^ "\"") 
 	in
-	let internal_css: string = ("<style>\n" ^ default_css ^ "\n</style>")
+	let margin_left : string = 
+		match auto_margin_of_options options with 
+		|true -> Html_utils.margin_left_of_tr_doc doc
+		|false -> default_margin_left
+	in
+	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css default_tab_length margin_left) ^ "\n</style>")
 	in
 	let external_css: string = 
-		match uri_opt with
+		match external_css_of_options options with
 		|None -> ""
 		|Some uri ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n")
 	in
@@ -83,18 +124,18 @@ let axml_of_doc (doc : Doc_types.tr_doc) : string =
 	"<?xml version=\"1.0\"?>\n" ^ 
 	(Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc))
 
-let html_of_nmm (uri_opt : string option) (lang_opt : string option) (path : string) : string =
-	html_of_doc uri_opt lang_opt (doc_of_nmm path)
+let html_of_nmm (options : string list) (path : string) : string =
+	html_of_doc options (doc_of_nmm path)
 
-let txt_of_nmm (path:string):string =
-	txt_of_doc (doc_of_nmm path)
+let txt_of_nmm (options : string list) (path:string):string =
+	txt_of_doc options (doc_of_nmm path)
 
-let txt_of_axml (path : string) : string =
-	txt_of_doc (doc_of_axml path) 
+let txt_of_axml (options : string list) (path : string) : string =
+	txt_of_doc options (doc_of_axml path) 
 
-let html_of_axml (uri_opt : string option) (lang_opt : string option) (path : string) : string =
+let html_of_axml (options : string list) (path : string) : string =
 	try 
-		html_of_doc uri_opt lang_opt (doc_of_axml path)
+		html_of_doc options (doc_of_axml path)
 	with
 	Compiler_of_doc.Error e -> raise (Error (String.concat " " [path;"->";"Compiler_of_doc.Error:";e]))
 

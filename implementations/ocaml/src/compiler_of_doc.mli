@@ -9,7 +9,7 @@ searches [doc] for id:s, and adds them and their path to {!val:Common_utils.doc_
 *)
 
 
-val txt_of_tr_doc : Doc_types.tr_doc -> string
+val txt_of_tr_doc : string list -> Doc_types.tr_doc -> string
 (**
 Implements the raw text semantics of no-markup-markup.
 *)
@@ -26,3 +26,5 @@ evaluates to an object of the {{:https://github.com/ncannasse/xml-light}Xml-ligh
 Both [txt_of_tr_doc doc] and [exml_of_tr_doc doc] first evaluates [cref_table_of_tr_doc doc] and {!val:Common_utils.doc_settings_of_tr_doc} [ doc].
 
 *)
+
+val margin_labels_of_tr_doc : Doc_types.tr_doc -> string list

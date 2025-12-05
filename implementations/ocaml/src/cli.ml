@@ -1,66 +1,65 @@
 exception Error of string
 
 let usage : string=
-"Usage:
+"USAGE:
 
-nmm-ocaml {
+nmm-ocaml [
 
- | txt-of-xml { <path-to-xml-file> | - }
- | html-of-xml { <URI-of-css-file> | none } { <language-code> | none } { <path-to-xml-file> | - }
+  | txt-of-xml [ <txt-options> ] { <path-to-xml-file> | - }
+  | html-of-xml [ <html-options> ] { <path-to-xml-file> | - }
 
- | xml-of-nmm <path-to-nmm-file>
+  | xml-of-nmm <path-to-nmm-file>
 
- | txt-of-nmm <path-to-nmm-file>
- | html-of-nmm { <URI-of-css-file> | none } { <language-code> | none } <path-to-nmm-file>
+  | txt-of-nmm <path-to-nmm-file>
+  | html-of-nmm [ <html-options> ] <path-to-nmm-file>
 
- | check-xml-schema <path-to-dtd-file>
- | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
+  | check-xml-schema <path-to-dtd-file>
+  | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
 
- | show-default-css
+  | show-default-css
 
-}
+]
 
-In cases where '-' can be supplied instead of a path, the program reads from stdin."
+In cases where '-' can be supplied instead of a path, the program reads from stdin.
 
+HTML-OPTIONS:
 
-let argv=Sys.argv
+  --lang <lang-code>
+
+  --external-css <uri>
+
+  --auto-margin
+
+TXT-OPTIONS:
+
+  --auto-margin
+"
+
 
 let _ : unit =
-try 
-	match Array.length argv with
-	|2 -> (
-		match argv.(1) with
+try
+	let argv_array : string array = Sys.argv in
+	let argv_list : string list = Array.to_list argv_array in
+	let arg_list : string list = List.tl argv_list in
+	let command : string = List.hd arg_list in
+	match List.rev (List.tl arg_list) with
+	|[] -> (
+		match command with
 		|"show-default-css" -> print_endline Main.default_css
 		|_ -> raise (Error "invalid argument(s)")
 	)
-	|3 -> (
-		match argv.(1),argv.(2) with
-		|"txt-of-nmm", path -> print_endline (Main.txt_of_nmm path)
-		|"txt-of-xml", path -> print_endline (Main.txt_of_axml path)
-		|"xml-of-nmm", path -> print_endline (Main.axml_of_nmm path)
-		|"check-xml-schema", path -> print_endline (Main.check_xml_schema path)
-		|"test-with-nmm", basename -> Test.test_w_nmm_file basename
-		|"test-with-xml", basename -> Test.test_w_axml_file basename
+	|path::options ->
+		match command with
+		|"txt-of-nmm" -> print_endline (Main.txt_of_nmm options path)
+		|"txt-of-xml" -> print_endline (Main.txt_of_axml options path)
+		|"xml-of-nmm" -> print_endline (Main.axml_of_nmm path)
+		|"check-xml-schema" -> print_endline (Main.check_xml_schema path)
+		|"validate-xml" -> print_endline (Main.validate_xml (List.hd options) path)
+		|"html-of-nmm" -> print_endline (Main.html_of_nmm (List.rev options) path)
+		|"html-of-xml" -> print_endline (Main.html_of_axml (List.rev options) path)
+		|"test-with-nmm" -> Test.test_w_nmm_file path
+		|"test-with-xml" -> Test.test_w_axml_file path
 		|_ -> raise (Error "invalid argument(s)")
-	)
-	|4 -> (
-		match argv.(1),argv.(2),argv.(3) with
-		|"validate-xml", path_to_dtd, path_to_xml -> print_endline (Main.validate_xml path_to_dtd path_to_xml)
-		|_ -> raise (Error "invalid argument(s)")
-	)
-	|5 -> (
-		match argv.(1),argv.(2),argv.(3),argv.(4) with
-		|"html-of-nmm", "none", "none", path -> print_endline (Main.html_of_nmm None None path)
-		|"html-of-nmm", "none", lang, path -> print_endline (Main.html_of_nmm None (Some lang) path)
-		|"html-of-nmm", uri, "none", path -> print_endline (Main.html_of_nmm (Some uri) None path)
-		|"html-of-nmm", uri, lang, path -> print_endline (Main.html_of_nmm (Some uri) (Some lang) path)
-		|"html-of-xml", "none", "none", path -> print_endline Main.(html_of_axml None None path)
-		|"html-of-xml", "none", lang, path -> print_endline (Main.html_of_axml None (Some lang) path)
-		|"html-of-xml", uri, "none", path -> print_endline (Main.html_of_axml (Some uri) None path)
-		|"html-of-xml", uri, lang, path -> print_endline (Main.html_of_axml (Some uri) (Some lang) path)
-		|_ -> raise (Error "invalid argument(s)")
-	)
-	|_ -> raise (Error "invalid argument(s)")
 with 
-|Error "invalid argument(s)" -> Debug_utils.print_to_stderr ("invalid argument(s)" ^ "\n" ^ usage)
 |Main.Error e -> Debug_utils.print_to_stderr e
+|_ -> Debug_utils.print_to_stderr ("invalid argument(s)" ^ "\n" ^ usage)

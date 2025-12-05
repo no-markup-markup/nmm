@@ -5,15 +5,27 @@ open Exml_utils
 
 exception Error of string
 
-type t_acc = CREF_TABLE of Common_utils.t_cref_table | LINES of (string list) | EXML of (Xml.xml list)
+type t_acc = CREF_TABLE of Common_utils.t_cref_table | LINES of (string list) | EXML of (Xml.xml list) | MARGIN_LABELS of (string list)
 
 let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Common_utils.t_cref_table =
 	match acc_of_tr_doc (CREF_TABLE []) doc with
 	| CREF_TABLE table -> List.rev table
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
-and txt_of_tr_doc (doc : Doc_types.tr_doc) : string =
-	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
+and txt_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+	let margin_labels : string list = margin_labels_of_tr_doc doc in
+	let _ : unit = 
+		match List.mem "--auto-margin" options with
+		|true ->
+			let left_margin : int = Txt_utils.left_margin_of_margin_labels margin_labels in
+			let _ : unit = Common_utils.doc_settings.left_margin <- left_margin in
+			let _ : unit = Common_utils.doc_settings.title_indent <- left_margin in
+			let _ : unit = Common_utils.doc_settings.author_indent <- left_margin in
+			let _ : unit = Common_utils.doc_settings.abstract_indent <- left_margin in
+			let _ : unit = Common_utils.doc_settings.refs_indent <- left_margin in
+			Common_utils.doc_settings_of_tr_doc doc
+		|false -> Common_utils.doc_settings_of_tr_doc doc
+	in
 	String.concat "\n" (lines_of_tr_doc doc)
 
 and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
@@ -34,9 +46,15 @@ and xml_list_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml list =
 	| EXML xml_list -> xml_list
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
+and margin_labels_of_tr_doc (doc : Doc_types.tr_doc) : string list=
+	match acc_of_tr_doc (MARGIN_LABELS []) doc with
+	| MARGIN_LABELS string_list -> string_list
+	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
+
 and acc_of_tr_doc (acc : t_acc) (doc : Doc_types.tr_doc) : t_acc =
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
 	match acc with
+	| MARGIN_LABELS _ -> acc_of_tu_doc_main acc doc.fld_doc_main
 	| CREF_TABLE _ -> (
 		let table_abstract : Common_utils.t_cref_table = 
 			match doc.fld_doc_abstract with
@@ -263,10 +281,11 @@ and add_empty_lines_after_blk (tl:tu_blk list) (acc : t_acc) : t_acc =
 and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch) : t_acc =
 	let ch_class : Common_utils.t_ch_class = Common_utils.class_of_tr_ch a in
 	match acc with
+	|MARGIN_LABELS _ -> acc_of_ch_main path acc a.fld_ch_main
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
 			match a.fld_ch_tag_or_id with
-			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cu_cref_element_ch a) :: table
+			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cref_element_ch a) :: table
 			|_ -> table
 		)
 		in 
@@ -304,10 +323,11 @@ and acc_of_tr_ch (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_ch
 
 and acc_of_tr_sec (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_sec) : t_acc =
 	match acc with
+	|MARGIN_LABELS string_list -> acc_of_sec_main path (MARGIN_LABELS ((Common_utils.label_of_path path)::string_list)) a.fld_sec_main
 	|CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
 			match a.Doc_types.fld_sec_tag_or_id with
-			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cu_cref_element_sec a) :: table
+			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cref_element_sec a) :: table
 			|_ -> table
 		)
 		in 
@@ -349,6 +369,7 @@ and acc_of_tu_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_p
 	|Cu_par_std (par : tr_par_std) -> acc_of_tr_par_std path acc par
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) ->
 		match acc with
+		|MARGIN_LABELS string_list -> MARGIN_LABELS ((Common_utils.label_of_path path)::string_list)
 		|CREF_TABLE _ -> acc
 		|_ -> 
 			match Common_utils.par_restated_of_tr_id id with
@@ -357,10 +378,11 @@ and acc_of_tu_par (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_p
 
 and acc_of_tr_par_std (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par_std) : t_acc =
 	match acc with
+	|MARGIN_LABELS string_list -> MARGIN_LABELS ((Common_utils.label_of_path path)::string_list)
 	|CREF_TABLE table -> (
 		let newacc : t_acc = CREF_TABLE (
 			match par.fld_par_tag_or_id with
-			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cu_cref_element_par par) :: table
+			|Some (Cu_tag_or_id_id (id : Doc_types.tr_id)) -> (id, path, Cref_element_par par) :: table
 			|_ -> table
 		)
 		in acc_of_ts_blks path newacc par.fld_par_main
@@ -445,6 +467,7 @@ and acc_of_tu_blk (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a 
 
 and acc_of_ts_blk_txt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_txt) : t_acc =
 	match acc with
+		| MARGIN_LABELS _
 		| CREF_TABLE _ -> acc
 		| LINES acc_lines -> LINES (List.concat [acc_lines; Txt_utils.lines_of_ts_blk_txt path a])
 		| EXML acc_list -> EXML (List.concat [acc_list; [Exml_utils.xml_of_ts_blk_txt path a]])
@@ -452,6 +475,7 @@ and acc_of_ts_blk_txt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_blt) : t_acc =
 	match a with Cs_blk_blt (b : Doc_types.ts_blks) ->
 	match acc with
+	| MARGIN_LABELS _ -> acc
 	| CREF_TABLE _ -> acc_of_ts_blks path acc b
 	| LINES acc_lines -> (
 		match acc_of_ts_blks path (LINES []) b with
@@ -481,10 +505,11 @@ and acc_of_ts_blk_blt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 
 and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tr_blk_itm) : t_acc =
 	match acc with
+	| MARGIN_LABELS _ -> acc
 	| CREF_TABLE table ->
 		let newacc : t_acc = CREF_TABLE (
 			match a.fld_blk_itm_id with
-			| Some (id : Doc_types.tr_id) -> (id, path, Cu_cref_element_blk_itm a) :: table
+			| Some (id : Doc_types.tr_id) -> (id, path, Cref_element_blk_itm a) :: table
 			| _ -> table
 		)
 		in acc_of_ts_blks path newacc a.fld_blk_itm_main
@@ -516,6 +541,7 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 
 and acc_of_ts_blk_vrb (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_vrb): t_acc =
 	match acc with
+	| MARGIN_LABELS _ -> acc
 	|CREF_TABLE _ -> acc
 	|LINES acc_lines -> LINES (List.concat [acc_lines;Txt_utils.lines_of_ts_blk_vrb path a])
 	|EXML acc_list -> EXML (List.concat [acc_list;[Exml_utils.xml_of_ts_blk_vrb a]])
@@ -538,6 +564,7 @@ and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc)
 	)
 	in
 	match acc with
+	| MARGIN_LABELS _ -> (acc, auto_nr)
 	| CREF_TABLE _ -> aux auto_nr acc c
 	| LINES acc_lines -> (
 		match aux auto_nr (LINES []) c with 
@@ -556,9 +583,10 @@ and acc_of_ts_blk_dsp (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc)
 
 and acc_of_tr_dsp_line (path : Common_utils.t_path) (auto_nr : int) (acc : t_acc) (a : Doc_types.tr_dsp_line) : t_acc =
 	match acc with
+	| MARGIN_LABELS _ -> acc
 	| CREF_TABLE table -> (
 		match a.fld_dsp_line_id with
-			| Some (id : Doc_types.tr_id) -> CREF_TABLE ((id, path, Cu_cref_element_dsp_line a) :: table)
+			| Some (id : Doc_types.tr_id) -> CREF_TABLE ((id, path, Cref_element_dsp_line a) :: table)
 			| None -> CREF_TABLE table
 	)
 	| LINES acc_lines -> (

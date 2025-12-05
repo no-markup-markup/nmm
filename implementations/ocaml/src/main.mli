@@ -12,7 +12,7 @@ evaluates to
 
 *)
 
-val txt_of_doc : Doc_types.tr_doc -> string
+val txt_of_doc : string list -> Doc_types.tr_doc -> string
 (**
 {[txt_of_doc doc]}
 evaluates to
@@ -27,7 +27,7 @@ evaluates to
 {!val:Html_utils.internal_css} ["6ch" "8rem"]
 *)
 
-val html_of_doc : string option -> string option -> Doc_types.tr_doc -> string
+val html_of_doc : string list -> Doc_types.tr_doc -> string
 (**
 {[html_of_doc None None doc]} evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of
 
@@ -73,28 +73,28 @@ evaluates to
 ["<?xml version=\"1.0\"?>\n" ^ (] {!val:Xml_right.to_string_fmt} [ (] {!val:Axml_of_doc.axml_of_tr_doc} [ doc))]
 *)
 
-val html_of_nmm : string option -> string option -> string -> string
+val html_of_nmm : string list -> string -> string
 (**
 {[html_of_nmm uri_opt lang_opt path]}
 evaluates to
 {[html_of_doc uri_opt lang_opt (doc_of_nmm path)]}
 *)
 
-val txt_of_nmm : string -> string
+val txt_of_nmm : string list -> string -> string
 (**
-{[txt_of_nmm path]}
+{[txt_of_nmm options path]}
 evaluate to
-{[txt_of_doc (doc_of_nmm path)]}
+{[txt_of_doc options (doc_of_nmm path)]}
 *)
 
-val txt_of_axml : string -> string
+val txt_of_axml : string list -> string -> string
 (**
-{[txt_of_axml path]}
+{[txt_of_axml options path]}
 evaluates to
-{[txt_of_doc (doc_of_axml path)]}
+{[txt_of_doc options (doc_of_axml path)]}
 *)
 
-val html_of_axml : string option -> string option -> string -> string
+val html_of_axml : string list -> string -> string
 (**
 {[html_of_axml uri_opt lang_opt path]}
 evaluates to

@@ -13,6 +13,9 @@ val lines_of_ts_txt_units : Common_utils.t_path -> Doc_types.ts_txt_units -> str
 val insert_label : Common_utils.t_path -> string -> string
 val lines_of_ts_blk_vrb : Common_utils.t_path -> Doc_types.ts_blk_vrb -> string list
 
+val max_length_of_margin_labels : string list -> int
+val left_margin_of_margin_labels : string list -> int
+
 (*
 
 val lines_of_ts_hdr : Common_utils.t_path -> Doc_types.ts_hdr -> string list

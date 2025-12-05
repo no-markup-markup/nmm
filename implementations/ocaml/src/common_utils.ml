@@ -275,14 +275,14 @@ and t_dsp_line_node =
 	| DSP_NONE
 
 
-type tu_cref_element = 
-	|Cu_cref_element_ch of tr_ch
-	|Cu_cref_element_sec of tr_sec
-	|Cu_cref_element_par of tr_par_std
-	|Cu_cref_element_blk_itm of tr_blk_itm
-	|Cu_cref_element_dsp_line of tr_dsp_line
+type t_cref_element = 
+	|Cref_element_ch of tr_ch
+	|Cref_element_sec of tr_sec
+	|Cref_element_par of tr_par_std
+	|Cref_element_blk_itm of tr_blk_itm
+	|Cref_element_dsp_line of tr_dsp_line
 
-type t_cref_table = (Doc_types.tr_id * t_path * tu_cref_element) list
+type t_cref_table = (Doc_types.tr_id * t_path * t_cref_element) list
 
 type t_doc_cref_table = { mutable content : t_cref_table }
 
@@ -634,7 +634,7 @@ let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par_std option =
 		|[] -> let _ : unit = Debug_utils.print_to_stderr "WARNING: non-existent id" in None
 		|(table_id, table_path, table_element) :: tl -> (
 			match table_id = id, table_element with
-			|true, Cu_cref_element_par par -> Some (par_restated_of_tr_par par)
+			|true, Cref_element_par par -> Some (par_restated_of_tr_par par)
 			|true, _ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: id does not belong to a paragraph" in None
 			|false, _ -> aux tl
 		)
@@ -645,5 +645,4 @@ let node_of_tu_par (auto_nr : int) (p : tu_par) : t_node =
 	match p with
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
 	|Cu_par_std (par : tr_par_std) -> node_of_tr_par_std auto_nr par
-
 

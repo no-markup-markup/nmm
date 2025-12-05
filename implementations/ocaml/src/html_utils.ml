@@ -82,7 +82,12 @@ match element with
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
-let internal_css (tab_length : string) (left_margin : string) : string =
+let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
+	let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc in
+	let left_margin : int = Txt_utils.max_length_of_margin_labels margin_labels in
+	String.concat "" [string_of_int left_margin; "rem"]
+
+let internal_css (tab_length : string) (margin_left : string) : string =
 "
 html {
     font-family   : monospace;
@@ -114,11 +119,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .doc.secs .title {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .doc.chs .title {
@@ -139,11 +144,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .doc.secs .authors {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 
@@ -158,11 +163,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .doc.secs .abstract {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .abstract_hdr {
@@ -179,11 +184,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .doc.secs .refs {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 .doc.chs .refs {
@@ -247,7 +252,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
     font-size   : large;
 }
 
@@ -281,7 +286,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 
@@ -292,7 +297,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : "^ left_margin ^";
+    margin-left : "^ margin_left ^";
 }
 
 

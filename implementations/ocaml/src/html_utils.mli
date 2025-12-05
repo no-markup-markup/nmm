@@ -92,6 +92,8 @@ match element with
 ]}
 *)
 
+val margin_left_of_tr_doc : Doc_types.tr_doc -> string
+
 val internal_css : string -> string -> string
 (**
 if [tab_length] evaluates to ["6ch"], and [left_margin] evaluates to ["8rem"], then
