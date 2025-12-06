@@ -1,0 +1,619 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cs_title>OPTIMAL PARTITIONING</cs_title>
+<cs_authors>
+<cs_author>Eric Johannesson</cs_author>
+</cs_authors>
+<cu_doc_main_secs>
+<cs_secs>
+<cr_sec>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Introduction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system. </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ. </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between. </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_pars_or_blks_blks>
+</cr_sec>
+<cr_sec>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>A probabilistic approach</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume, for the sake of simplicity, that </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>you have n files partitioned equally over k subdirectories</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>(with n/k files in each), </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>each file is just as likely to have been modified as any other</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>(with probability p),</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>modifications are probabilistically independent of each other,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the number of files are fixed, and the modification time of a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified. </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For each subdirectory, the probability of its modification time not having been updated is thus given by </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>q = (1 - p)^(n/k)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The expected number of comparisons that need to be performed is then given by the following sum</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>exp_sum</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          + </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>    q^(k - 1) × (1 - q)^1 × k!/1!/(k - 1)! × 1 × n/k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          +</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          .</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          .</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          .</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          +</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>    q^(k - i) × (1 - q)^i × k!/i!/(k - i)! × i × n/k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          +</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          .</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          .</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          .</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>                          +</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>    q^(k - k) × (1 - q)^k × k!/k!/(k - k)! × n × n/k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For a given p and n, we want to find a k that minimizes </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>exp_sum</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. Provided that n is sufficiently small, we can always do so using numerical brute force methods. There may also be a way of approximating </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>exp_sum</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> that makes it amenable to analytical methods, but let us consider an alternative approach instead.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_pars_or_blks_blks>
+</cr_sec>
+<cr_sec>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>A non-probabilistic approach</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume, as before, that </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>you have n files partitioned equally over k subdirectories</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>(with n/k files in each), and that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the number of files are fixed, and the modification time of a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified. </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume, moreover, that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>exactly one file has been modified.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>In the worst case scenario, the number of comparisons that need to be performed is then given by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>simple_sum</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>k + n/k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The derivative of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>simple_sum</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> with respect to k is given by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>derivative</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1 - n/k²</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For a given n, to minimize </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>simple_sum</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> with respect to k is simply a matter of finding the root of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>derivative</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> with respect to k, i.e. to solve the following equation for k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1 - n/k² = 0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The solution is given by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>k = √n</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cu_pars_or_blks_blks>
+</cr_sec>
+</cs_secs>
+</cu_doc_main_secs>
+</cr_doc>

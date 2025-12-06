@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>untitled</title>
+
+<style>
+
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight : normal;
+    font-size   : x-large;
+    margin-bottom : 1rem;
+}
+
+.doc.pars .title {
+    margin-left : 7.2rem;
+}
+
+.doc.secs .title {
+    margin-left : 7.2rem;
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size : large;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : 7.2rem;
+}
+
+.doc.secs .authors {
+    margin-left : 7.2rem;
+}
+
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : 7.2rem;
+}
+
+.doc.secs .abstract {
+    margin-left : 7.2rem;
+}
+
+.abstract_hdr {
+    font-weight : normal;
+    font-size   : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : 7.2rem;
+}
+
+.doc.secs .refs {
+    margin-left : 7.2rem;
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size : x-large;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    font-size   : large;
+    font-weight : normal;
+}
+
+.sec_hdr {
+    margin-left : 7.2rem;
+    font-size   : large;
+}
+
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
+}
+
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
+}
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
+}
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content : ")";
+}
+
+.par_main {
+    margin-left : 7.2rem;
+}
+
+
+/************** BLK *********************/
+
+.blk + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : 7.2rem;
+}
+
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_main {
+    margin-left : 6ch;
+}
+
+
+.blk_itm_main {
+    margin-left : 6ch;
+}
+
+
+.dsp_line_main {
+    margin-left : 6ch;
+}
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div style="display:block" class="doc secs">
+<div class="doc_main" style="display:block">
+<div style="display:block" class="sec" id="SEC_named_section">
+<div class="sec_lbl" style="display:block;float:left">§ 1</div>
+<h3 class="sec_hdr">Introduction</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par" id="PAR_named_paragraph">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">According to <a class="txt_unit_c_ref" href="#DEF_provability">DEFINITION 2.4</a> ...</p>
+<p class="blk txt">This is a no-markup-markup document, sporting the following cool features:</p>
+<div class="blk itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt"><em class="txt_unit_emph">Emphasized text spanning multiple lines in the source code without breaking a sweat</em>.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Bullet lists:</p>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Here is one bullet item.</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Here is another one.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="blk itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Numbered lists with labels that are either</p>
+<div class="blk itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">automatic, or</p>
+</div>
+</div>
+<div class="blk itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(*)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">custom.</p>
+</div>
+</div>
+<p class="blk txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
+<div class="blk itm" style="display:block" id="ITM_x">
+<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">The named item can be referred to anywhere in the document.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_y">
+<div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">When referring to <a class="txt_unit_c_ref" href="#ITM_x">(b)</a> above in a local manner (which is default), any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM_z">(†)</a> below.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_z">
+<div class="blk_itm_lbl" style="display:block;float:left">(†)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Of course, items with custom labels can also be named!</p>
+</div>
+</div>
+</div>
+</div>
+<p class="blk txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM_y">(3)(c)</a>, a local reference to <a class="txt_unit_c_ref" href="#ITM_x">(3)(b)</a> or <a class="txt_unit_c_ref" href="#ITM_z">(3)(†)</a> occurring elsewhere may appear differently.</p>
+<div class="blk itm" style="display:block">
+<div class="blk_itm_lbl" style="display:block;float:left">(4)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Displayed lines of text suitable for mathematical equations, which are either</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_one">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled (and named),</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(+)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">custom labeled (and named), or,</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">unlike <a class="txt_unit_c_ref" href="#DSP_one">(a)</a> above, unlabeled.</div>
+</div>
+</div>
+</div>
+</div>
+<p class="blk txt">Displayed lines can also be used for drawing tables and such:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    |    0    |      1      |    2      | . . .</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">───────────────────────────────────────────────</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">f₀  | f₀(0) + 1 | f₀(1)     | f₀(2)     |</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">f₁  | f₁(0)     | f₁(1) + 1 | f₁(2)     |</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">f₂  | f₂(0)     | f₂(1)     | f₂(2) + 1 |</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">.                                         .</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">.                                           .</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">.                                             .</div>
+</div>
+</div>
+<p class="blk txt">This is what a reference to <a class="txt_unit_c_ref" href="#DSP_one">(4)(a)</a> looks like.</p>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.2</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">We may also refer to <a class="txt_unit_c_ref" href="#ITM_x">1.1(3)(b)</a> or <a class="txt_unit_c_ref" href="#ITM_y">1.1(3)(c)</a> from another paragraph. These references will appear differently than when occurring in paragraph <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a> above.</p>
+<p class="blk txt">This is what a reference to <a class="txt_unit_c_ref" href="#DSP_one">1.1(4)(a)</a> looks like.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="sec">
+<div class="sec_lbl" style="display:block;float:left">§ 2</div>
+<h3 class="sec_hdr">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">The same goes for paragraph headers. As we shall see in <a class="txt_unit_c_ref" href="#PAR_named_paragraph_with_header">¶ 2.2</a> below, paragraphs with headers can also be named.</p>
+</div>
+</div>
+<div style="display:block" class="par" id="PAR_named_paragraph_with_header">
+<div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">1.1(3)(b)</a> and <a class="txt_unit_c_ref" href="#ITM_y">1.1(3)(c)</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h4>
+<p class="blk txt">Putting references in a header does not look very nice.</p>
+</div>
+</div>
+<div style="display:block" class="par" id="DEF_semcons">
+<div class="par_lbl" style="display:block;float:left">¶ 2.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">DEFINITION</h4>
+<p class="blk txt">We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</p>
+</div>
+</div>
+<div style="display:block" class="par" id="DEF_provability">
+<div class="par_lbl" style="display:block;float:left">¶ 2.4</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag" style="display:block;float:left">DEFINITION</div>
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Provability</h4>
+<p class="blk txt">We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</p>
+</div>
+</div>
+<div style="display:block" class="par" id="FCT_compl">
+<div class="par_lbl" style="display:block;float:left">¶ 2.5</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">FACT</h4>
+<p class="blk txt">For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

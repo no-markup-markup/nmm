@@ -1,60 +1,253 @@
 #! /usr/bin/env bash
 
-#set -e
-
-
 show_default_css(){
 	./bin/nmm-ocaml show-default-css > testing/css/default.css
 }
 
-test_w_nmm(){
-	mkdir -p testing/output
-	for file in $(ls testing/input/*.nmm)
-	do
-		./bin/nmm-ocaml test-with-nmm $(basename $file)
-	done
-}
-
-test_w_xml(){
-	mkdir -p testing/output
-	for file in $(ls testing/input/*.xml)
-	do
-		./bin/nmm-ocaml test-with-xml $(basename $file)
-	done
-}
-
-
-show_diff(){
+check_xml_schemas(){
 	local exit_code=0
-	local current_exit_code=0
-	for file in $(ls testing/output)
+	local curr_code=0
+	local input_dir="testing/dtd"
+	for file in $(ls $input_dir/*.dtd)
 	do
-		diff --color testing/expected_output/$file testing/output/$file
-		current_exit_code=$?
-		if [ $current_exit_code -gt 0 ]
+		./bin/nmm-ocaml check-xml-schema $file > /dev/null
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
 		then
-			exit_code=$current_exit_code
-			echo "testing/expected_output/$file differs from testing/output/$file"
+			exit_code=$curr_code
 		fi
 	done
-	exit $exit_code
+	return $exit_code
 }
 
-make_pdf(){
-	mkdir -p testing/weasyprint_output
-
-#	weasyprint testing/output/cv_eric_johannesson.nmm.html testing/weasyprint_output/cv_eric_johannesson.nmm.html.pdf
-#	weasyprint testing/output/talk.xml.html testing/weasyprint_output/talk.xml.html.pdf
-	weasyprint testing/output/cv_long.nmm.html testing/weasyprint_output/cv_long.nmm.html.pdf
-
+test_with_nmm(){
+	local exit_code=0
+	local curr_code=0
+	local input_dir="testing/nmm_input"
+	for file in $(ls $input_dir/*.nmm)
+	do
+		./bin/nmm-ocaml test-with-nmm $@ $file
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+		fi
+	done
+	return $exit_code
 }
 
-show_default_css
 
-test_w_nmm
+test_with_xml(){
+	local exit_code=0
+	local curr_code=0
+	local input_dir="testing/xml_input"
+	for file in $(ls $input_dir/*.xml)
+	do
+		./bin/nmm-ocaml test-with-xml $@ $file
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+		fi
+	done
+	return $exit_code
+}
 
-#test_w_xml
+make_txt_output(){
+	local exit_code=0
+	local curr_code=0
+	local input_dir="testing/nmm_input"
+	local output_dir="testing/txt_output"
+	mkdir -p $output_dir
+	for file in $(ls $input_dir/*.nmm)
+	do
+		./bin/nmm-ocaml txt-of-nmm $@ $file > $output_dir/$(basename $file).txt
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+		fi
+	done
+	return $exit_code
+}
 
-show_diff
+make_html_output(){
+	local exit_code=0
+	local curr_code=0
+	local input_dir="testing/nmm_input"
+	local output_dir="testing/html_output"
+	mkdir -p $output_dir
+	for file in $(ls $input_dir/*.nmm)
+	do
+		./bin/nmm-ocaml html-of-nmm $@ $file > $output_dir/$(basename $file).html
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+		fi
+	done
+	return $exit_code
+}
 
-make_pdf
+
+make_xml_output(){
+	local exit_code=0
+	local curr_code=0
+	local input_dir="testing/nmm_input"
+	local output_dir="testing/xml_output"
+	mkdir -p $output_dir
+	for file in $(ls $input_dir/*.nmm)
+	do
+		./bin/nmm-ocaml xml-of-nmm $@ $file > $output_dir/$(basename $file).xml
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+		fi
+	done
+	return $exit_code
+}
+
+show_txt_diff(){
+	local exit_code=0
+	local curr_code=0
+	local output_dir="testing/txt_output"
+	local expected_output_dir="testing/expected_txt_output"
+	for file in $(ls $output_dir/*.txt)
+	do
+	diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+			echo "output differs from expected output in $file"
+		fi
+	done
+	return $exit_code
+}
+
+
+show_html_diff(){
+	local exit_code=0
+	local curr_code=0
+	local output_dir="testing/html_output"
+	local expected_output_dir="testing/expected_html_output"
+	for file in $(ls $output_dir/*.html)
+	do
+	diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+			echo "output differs from expected output in $file"
+		fi
+	done
+	return $exit_code
+}
+
+show_xml_diff(){
+	local exit_code=0
+	local curr_code=0
+	local output_dir="testing/xml_output"
+	local expected_output_dir="testing/expected_xml_output"
+	for file in $(ls $output_dir/*.xml)
+	do
+	diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+			echo "output differs from expected output in $file"
+		fi
+	done
+	return $exit_code
+}
+
+
+make_test(){
+	local exit_code=0
+	local curr_code=0
+
+	check_xml_schemas
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	show_default_css
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	test_with_nmm
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	test_with_nmm --preserve-vertical-white-space
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+
+	test_with_xml
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	make_txt_output
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	make_html_output --lang en
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	make_xml_output
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	show_txt_diff
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	show_html_diff
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	show_xml_diff
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	return $exit_code
+}
+
+make_test
+
