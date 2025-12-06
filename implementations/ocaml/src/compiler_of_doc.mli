@@ -14,9 +14,9 @@ val txt_of_tr_doc : string list -> Doc_types.tr_doc -> string
 Implements the raw text semantics of no-markup-markup.
 *)
 
-val exml_of_tr_doc : Doc_types.tr_doc -> Xml.xml
+val exml_of_tr_doc : string list -> Doc_types.tr_doc -> Xml.xml
 (**
-{[exml_of_tr_doc doc]}
+{[exml_of_tr_doc options doc]}
 evaluates to an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml] that is also an instance of the xml-schema {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd}exml.dtd}.
 
 {!val:Html_utils.html_of_exml} can translate that object into the body of an html-document.

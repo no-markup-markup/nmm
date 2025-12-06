@@ -13,6 +13,8 @@ let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Common_utils.t_cref_tabl
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and txt_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
+	let _ : unit = Common_utils.doc_settings.preserve_vertical_white_space <- (List.mem "--preserve-vertical-white-space" options) in
 	let margin_labels : string list = margin_labels_of_tr_doc doc in
 	let _ : unit = 
 		match List.mem "--auto-margin" options with
@@ -23,13 +25,14 @@ and txt_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 			let _ : unit = Common_utils.doc_settings.author_indent <- left_margin in
 			let _ : unit = Common_utils.doc_settings.abstract_indent <- left_margin in
 			let _ : unit = Common_utils.doc_settings.refs_indent <- left_margin in
-			Common_utils.doc_settings_of_tr_doc doc
-		|false -> Common_utils.doc_settings_of_tr_doc doc
+			()
+		|false -> ()
 	in
 	String.concat "\n" (lines_of_tr_doc doc)
 
-and exml_of_tr_doc (doc : Doc_types.tr_doc) : Xml.xml =
+and exml_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : Xml.xml =
 	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
+	let _ : unit = Common_utils.doc_settings.preserve_vertical_white_space <- (List.mem "--preserve-vertical-white-space" options) in
 	match xml_list_of_tr_doc doc with
 	| hd::[] -> hd
 	| _ -> raise (Error "function expected to return an exml-list with exactly one element")
@@ -274,7 +277,8 @@ and acc_of_ts_blks (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_
 
 and add_empty_lines_after_blk (tl:tu_blk list) (acc : t_acc) : t_acc =
 	match tl, acc with
-	|a::b, LINES lines -> LINES (List.concat [lines;[""]])
+	|(Cu_blk_empty _ )::_, _ -> acc
+	|_::_, LINES lines -> LINES (List.concat [lines;[""]])
 	|_, _ -> acc
 
 
@@ -463,7 +467,24 @@ and acc_of_tu_blk (auto_nr : int) (path : Common_utils.t_path) (acc : t_acc) (a 
 	| Cu_blk_blt (b : Doc_types.ts_blk_blt) ->
 		let node : Common_utils.t_node = BLT_NODE in
 		(acc_of_ts_blk_blt (node :: path) acc b, auto_nr)
-	| Cu_blk_vrb (b: Doc_types.ts_blk_vrb) -> (acc_of_ts_blk_vrb path acc b, auto_nr) 
+	| Cu_blk_vrb (b: Doc_types.ts_blk_vrb) -> (acc_of_ts_blk_vrb path acc b, auto_nr)
+	| Cu_blk_empty (b : Doc_types.ts_blk_empty) -> (acc_of_ts_blk_empty acc b, auto_nr)
+
+and acc_of_ts_blk_empty (acc : t_acc) (blk_empty : Doc_types.ts_blk_empty) : t_acc =
+	match acc with
+	|MARGIN_LABELS _
+	|CREF_TABLE _ -> acc
+	|LINES acc_lines -> (
+		match Common_utils.doc_settings.preserve_vertical_white_space with
+		|false -> acc
+		|true -> LINES (List.concat [acc_lines;[""]])
+	)
+	|EXML acc_list -> (
+		match Common_utils.doc_settings.preserve_vertical_white_space with
+		|false -> acc
+		|true -> EXML (List.concat [acc_list; [Xml.Element ("blk_empty",[],[])]])
+	)
+
 
 and acc_of_ts_blk_txt (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_txt) : t_acc =
 	match acc with
@@ -541,7 +562,7 @@ and acc_of_tr_blk_itm (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.
 
 and acc_of_ts_blk_vrb (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_vrb): t_acc =
 	match acc with
-	| MARGIN_LABELS _ -> acc
+	|MARGIN_LABELS _ -> acc
 	|CREF_TABLE _ -> acc
 	|LINES acc_lines -> LINES (List.concat [acc_lines;Txt_utils.lines_of_ts_blk_vrb path a])
 	|EXML acc_list -> EXML (List.concat [acc_list;[Exml_utils.xml_of_ts_blk_vrb a]])

@@ -63,6 +63,7 @@ and tu_blk =
   | Cu_blk_itm of tr_blk_itm
   | Cu_blk_dsp of ts_blk_dsp
   | Cu_blk_vrb of ts_blk_vrb
+  | Cu_blk_empty of ts_blk_empty
 
 and tu_secs_pars_or_blks =
   | Cu_secs_pars_or_blks_secs of ts_secs
@@ -135,4 +136,4 @@ and ts_lbl_custom = Cs_lbl_custom of string
 
 and tu_c_ref_type = Cu_c_ref_type_lcl | Cu_c_ref_type_gbl
 
-
+and ts_blk_empty = Cs_blk_empty

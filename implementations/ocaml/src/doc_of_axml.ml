@@ -268,7 +268,11 @@ and f_tu_blk_of_xml (xml:Xml.xml):tu_blk =
     |Xml.Element ("cu_blk_itm",[],[x]) -> Cu_blk_itm (f_tr_blk_itm_of_xml x)
     |Xml.Element ("cu_blk_dsp",[],[x]) -> Cu_blk_dsp (f_ts_blk_dsp_of_xml x)
     |Xml.Element ("cu_blk_vrb",[],[x]) -> Cu_blk_vrb (f_ts_blk_vrb_of_xml x)
+    |Xml.Element ("cu_blk_empty",[],[x]) -> Cu_blk_empty (f_ts_blk_empty_of_xml x)
     |_ -> raise (Error (String.concat "" ["expected cu_blk_txt, cu_blk_blt, cu_blk_itm, or cu_blk_dsp, got: ";string_of_xml_list [xml]]))
+
+and f_ts_blk_empty_of_xml (xml : Xml.xml) : ts_blk_empty =
+    Cs_blk_empty
 
 and f_ts_blk_txt_of_xml (xml:Xml.xml):ts_blk_txt =
     match xml with

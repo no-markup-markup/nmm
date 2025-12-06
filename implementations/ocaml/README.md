@@ -11,16 +11,16 @@ USAGE:
 
 nmm-ocaml [
 
-  | txt-of-xml [ <txt-options> ] { <path-to-xml-file> | - }
-  | html-of-xml [ <html-options> ] { <path-to-xml-file> | - }
+  | txt-of-xml  [ <options> ] { <path-to-xml-file> | - }
+  | html-of-xml [ <options> ] { <path-to-xml-file> | - }
 
-  | xml-of-nmm <path-to-nmm-file>
+  | xml-of-nmm  <path-to-nmm-file>
 
-  | txt-of-nmm [ <txt-options> ] <path-to-nmm-file>
-  | html-of-nmm [ <html-options> ] <path-to-nmm-file>
+  | txt-of-nmm  [ <options> ] <path-to-nmm-file>
+  | html-of-nmm [ <options> ] <path-to-nmm-file>
 
   | check-xml-schema <path-to-dtd-file>
-  | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
+  | validate-xml     <path-to-dtd-file> { <path-to-xml-file> | - }
 
   | show-default-css
 
@@ -28,15 +28,15 @@ nmm-ocaml [
 
 In cases where '-' can be supplied instead of a path, the program reads from stdin.
 
-HTML-OPTIONS:
+OPTIONS:
 
-  --lang <lang-code>
+  --auto-margin
+
+  --preserve-vertical-white-space
+
+  The following options have no effect when combined with txt-of-xml or txt-of-nmm:
+
+  --lang <language-code>
 
   --external-css <uri>
-
-  --auto-margin
-
-TXT-OPTIONS:
-
-  --auto-margin
 ```

@@ -89,6 +89,7 @@ type t_doc_settings = {
   mutable par_prefix : string option;
   mutable expand_tag_singular: Doc_types.ts_tag -> string option;
   mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
+  mutable preserve_vertical_white_space : bool;
 }
 
 
@@ -147,6 +148,7 @@ val doc_settings : t_doc_settings
     par_prefix          = Some "¶";
     expand_tag_singular = expand_tag_singular_default;
     expand_tag_plural   = expand_tag_plural_default;
+    preserve_vertical_white_space = false;
 }
 ]}
 

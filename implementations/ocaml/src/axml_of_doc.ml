@@ -146,6 +146,10 @@ and xml_of_tu_blk (blk:tu_blk):Xml.xml=
 	|Cu_blk_itm (blk_itm:tr_blk_itm) -> Xml.Element ("cu_blk_itm",[],[xml_of_tr_blk_itm blk_itm])
 	|Cu_blk_dsp (blk_dsp:ts_blk_dsp) -> Xml.Element ("cu_blk_dsp",[],[xml_of_ts_blk_dsp blk_dsp])
 	|Cu_blk_vrb (blk_vrb:ts_blk_vrb) -> Xml.Element ("cu_blk_vrb",[],[xml_of_ts_blk_vrb blk_vrb])
+	|Cu_blk_empty (blk_empty:ts_blk_empty) -> Xml.Element ("cu_blk_empty",[],[xml_of_ts_blk_empty blk_empty])
+
+and xml_of_ts_blk_empty (blk_empty : ts_blk_empty) : Xml.xml =
+	Xml.Element ("cs_blk_empty",[],[])
 
 and xml_of_tu_secs_pars_or_blks (secs_pars_or_blks:tu_secs_pars_or_blks):Xml.xml=
 	match secs_pars_or_blks with

@@ -2,17 +2,21 @@ exception Error of string
 
 let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	try
-		let print_tokens = false in
-		Doc_of_nmm.doc_of_nmm_file print_tokens path
+	let print_tokens = false in
+	Doc_of_nmm.doc_of_nmm_file print_tokens path
 	with 
-	Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
+	|Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
 let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+	try
 	Compiler_of_doc.txt_of_tr_doc options doc
+	with
+	|Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:";e]))
+
 
 let default_tab_length : string = "6ch"
 
-let default_margin_left : string = "8rem"
+let default_margin_left : string = "7.2rem"
 
 let default_css : string = Html_utils.internal_css default_tab_length default_margin_left
 
@@ -50,7 +54,8 @@ let auto_margin_of_options (options : string list) : bool =
 	List.mem "--auto-margin" options
 
 let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
-	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc in
+	try
+	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
 	let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
 	let html_string:string = Xml_right.to_string_fmt html in
@@ -105,6 +110,11 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	)
 	in 
 	(intro ^ html_string ^ outro)
+	with
+	|Html_utils.Error e -> raise (Error (String.concat " " ["Html_utils.Error:"; e]))
+	|Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:"; e]))
+	|Xml_right.Error e -> raise (Error (String.concat " " ["Xml_right.Error:"; e]))
+
 
 let doc_of_axml (path : string) : Doc_types.tr_doc = 
 	try
@@ -135,7 +145,7 @@ let txt_of_axml (options : string list) (path : string) : string =
 
 let html_of_axml (options : string list) (path : string) : string =
 	try 
-		html_of_doc options (doc_of_axml path)
+	html_of_doc options (doc_of_axml path)
 	with
 	Compiler_of_doc.Error e -> raise (Error (String.concat " " [path;"->";"Compiler_of_doc.Error:";e]))
 
@@ -144,27 +154,27 @@ let axml_of_nmm (path : string) : string =
 
 let check_xml_schema (path:string):string =
 	try
-		let dtd:Dtd.dtd=Dtd.parse_file path in
-		let _:Dtd.checked=Dtd.check dtd in
-		String.concat " " [path;"is a well-defined xml-schema"]
+	let dtd:Dtd.dtd=Dtd.parse_file path in
+	let _:Dtd.checked=Dtd.check dtd in
+	String.concat " " [path;"is a well-defined xml-schema"]
 	with 
 	Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
 
 let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
 	let print_tokens = false in 
 	try 
-		let dtd:Dtd.dtd=Dtd.parse_file path_to_dtd in
-		let checked_dtd:Dtd.checked=Dtd.check dtd in
-		let xml:Xml.xml=
-			match path_to_xml with
-			|"-" -> Xml_right.parse_stdin print_tokens 
-			|path -> Xml_right.parse_file print_tokens path
-		in
-		match xml with
-		|Xml.Element (entry_point, _, _) ->
-			let _=Dtd.prove checked_dtd entry_point xml in 
-			String.concat " " [path_to_xml;"is an instance of";path_to_dtd;"with entry-point";entry_point]
-		| _  -> raise (Error (path_to_xml ^ " has no entry_point"))
+	let dtd:Dtd.dtd=Dtd.parse_file path_to_dtd in
+	let checked_dtd:Dtd.checked=Dtd.check dtd in
+	let xml:Xml.xml=
+		match path_to_xml with
+		|"-" -> Xml_right.parse_stdin print_tokens 
+		|path -> Xml_right.parse_file print_tokens path
+	in
+	match xml with
+	|Xml.Element (entry_point, _, _) ->
+		let _=Dtd.prove checked_dtd entry_point xml in 
+		String.concat " " [path_to_xml;"is an instance of";path_to_dtd;"with entry-point";entry_point]
+	| _  -> raise (Error (path_to_xml ^ " has no entry_point"))
 	with 
 	|Xml_light_errors.Dtd_parse_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_parse_error:";Dtd.parse_error e]))
 	|Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
