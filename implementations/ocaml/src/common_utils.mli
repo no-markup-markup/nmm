@@ -109,6 +109,7 @@ match tag with
 |Cs_tag "FCT" -> Some "FACT"
 |Cs_tag "LMA" -> Some "LEMMA"
 |Cs_tag "THM" -> Some "THEOREM"
+|Cs_tag "RMK" -> Some "REMARK"
 | _  -> None
 ]}
 *)
@@ -126,6 +127,7 @@ match tag with
 |Cs_tag "FCTS" -> Some ("FACT", "FACTS")
 |Cs_tag "LMAS" -> Some ("LEMMA", "LEMMAS")
 |Cs_tag "THMS" -> Some ("THEOREM", "THEOREMS")
+|Cs_tag "RMKS" -> Some ("REMARK", "REMARKS")
 | _  -> None
 ]}
 *)

@@ -34,6 +34,7 @@ let expand_tag_singular_default (tag : Doc_types.ts_tag) : string option =
 	|Cs_tag "FCT" -> Some "FACT"
 	|Cs_tag "LMA" -> Some "LEMMA"
 	|Cs_tag "THM" -> Some "THEOREM"
+	|Cs_tag "RMK" -> Some "REMARK"
 	| _  -> None
 
 let expand_tag_plural_default (tag : Doc_types.ts_tag) : (string * string) option =
@@ -43,6 +44,7 @@ let expand_tag_plural_default (tag : Doc_types.ts_tag) : (string * string) optio
 	|Cs_tag "FCTS" -> Some ("FACT", "FACTS")
 	|Cs_tag "LMAS" -> Some ("LEMMA", "LEMMAS")
 	|Cs_tag "THMS" -> Some ("THEOREM", "THEOREMS")
+	|Cs_tag "RMKS" -> Some ("REMARK", "REMARKS")
 	| _  -> None
 
 
