@@ -9,28 +9,28 @@ import subprocess
 import sys
 import tempfile
 
-from typing import Callable, Final as F
+from typing import Final as F
 
 
 
-# SUBCOMMANDS AND THEIR IMPLEMENTATIONS
+# CREATE PARSER
 
-## SUBCOMMANDS
-
-subcommands : F[tuple[str,...]] = (
-  'nmm2txt',
-  'nmm2xml',
-  'xml2txt',
-  'validate-xml',
-  'lex2txt',
+parser : F[ap.ArgumentParser] = ap.ArgumentParser(
+  description='no-markup-markup utilities',
+  formatter_class=ap.ArgumentDefaultsHelpFormatter,
 )
 
 
-## DESCRIPTION_BY_SUBCOMMAND
 
-description_by_subcommand : F[dict[str,str]] = {
+# DESCRIPTION_BY_COMMAND
+
+description_by_command : F[dict[str,str]] = {
   'nmm2txt'      :
     'turn a no-markup-markup source file into raw text',
+  'nmm2html'      :
+    'turn a no-markup-markup source file into HTML',
+  'nmm2pdf'      :
+    'turn a no-markup-markup source file into a PDF version of its HTML representation',
   'nmm2xml'      :
     'turn a no-markup-markup source file into an XML representation of its AST',
   'xml2txt'      :
@@ -41,27 +41,16 @@ description_by_subcommand : F[dict[str,str]] = {
     'check that an XML file represents a no-markup-markup AST',
 }
 
-assert set(description_by_subcommand.keys()) == set(subcommands)
 
 
-## ARGUMENT_W_HELP_BY_SUBCOMMAND
+# CREATE SUBPARSERS AND THEIR HANDLERS
 
-argument_w_help_by_subcommand : F[dict[str,tuple[str,str]]] = {
-  'nmm2txt'      : ('path', 'path to nmm source file'),
-  'nmm2xml'      : ('path', 'path to nmm source file'),
-  'xml2txt'      : ('path', 'path to xml file'),
-  'lex2txt'      : ('path', 'path to nmm source file'),
-  'validate-xml' : ('path', 'path to xml file'),
-}
-
-assert set(argument_w_help_by_subcommand.keys()) == set(subcommands)
+subparsers : F = parser.add_subparsers(title='commands')
 
 
-## IMPLEMENTATION OF SUBCOMMANDS
+## HELPER _GET_BIN_PATH
 
-### HELPER GET_BIN_PATH
-
-def get_bin_path(bin_name:str) -> str:
+def _get_bin_path(bin_name:str) -> str:
   return str(
     os.path.join(
       os.path.dirname(os.path.realpath(__file__)),
@@ -69,109 +58,228 @@ def get_bin_path(bin_name:str) -> str:
     )
   )
 
-### HELPER GET_REALPATH_AS_STR
 
-def get_realpath_as_str(file_path:str) -> str:
+## HELPER _GET_REALPATH_AS_STR
+
+def _get_realpath_as_str(file_path:str) -> str:
   return str(os.path.realpath(file_path))
 
-### LEX2TXT
 
-def lex2txt(file_path:str) -> None:
-  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [get_bin_path('nmm-mercury'),'lex2txt',get_realpath_as_str(file_path)],
-  )
-  sys.exit(completed_proc.returncode)
+## HELPER _GET_MARGIN_ARG_LIST
 
-### NMM2TXT
+def _get_margin_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
+  err_msg : F[str] = 'MARGIN must be a positive integer'
+  if args.margin is None:
+    return []
+  try:
+    margin : F[int] = int(args.margin)
+  except ValueError:
+    print(err_msg,file=sys.stderr)
+    sys.exit(1)
+  if str(margin) != str(args.margin) or margin <= 0:
+    print(err_msg,file=sys.stderr)
+    sys.exit(1)
+  return ['--margin',str(margin)]
 
-def nmm2txt(file_path:str) -> None:
+
+## HELPER _NMM2XML
+
+def _nmm2xml(path:str) -> str:
   xml_file_path : F[str] = tempfile.mkstemp()[1]
-  with open(xml_file_path,'w') as f:
-    completed_proc_1 : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-      [get_bin_path('nmm-mercury'),'nmm2xml',get_realpath_as_str(file_path)],
-      stdout=f,
+  with open(xml_file_path, 'w') as f:
+    completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+      [_get_bin_path('nmm-mercury'),'nmm2xml',_get_realpath_as_str(path)],
+      stdout=f
     )
-  if completed_proc_1.returncode != 0:
-    sys.exit(completed_proc_1.returncode)
-  completed_proc_2 : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [get_bin_path('nmm-ocaml'),'txt-of-xml',xml_file_path],
-  )
-  with open(xml_file_path,'w') as f:
+  if completed_proc.returncode != 0:
     os.remove(xml_file_path)
-  sys.exit(completed_proc_2.returncode)
+    sys.exit(completed_proc.returncode)
+  return xml_file_path
 
-### NMM2XML
+## NMM2XML
 
-def nmm2xml(file_path:str) -> None:
-  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [get_bin_path('nmm-mercury'),'nmm2xml',get_realpath_as_str(file_path)],
-  )
-  sys.exit(completed_proc.returncode)
+subparser_nmm2xml : F[ap.ArgumentParser] = subparsers.add_parser(
+  name            = 'nmm2xml',
+  description     = description_by_command['nmm2xml'],
+)
+subparser_nmm2xml.add_argument('path',help='path to nmm source file')
 
+def nmm2xml(args:ap.Namespace) -> None:
+  xml_path = _nmm2xml(args.path)
+  with open(_nmm2xml(args.path)) as f:
+    print(f.read())
+  os.remove(xml_path)
+  sys.exit(0)
 
-### XML2TXT
-
-def xml2txt(file_path:str) -> None:
-  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [get_bin_path('nmm-ocaml'),'txt-of-xml',get_realpath_as_str(file_path)],
-  )
-  sys.exit(completed_proc.returncode)
-
-### VALIDATE-XML
-
-def validate_xml(file_path:str) -> None:
-  print("TODO",file=sys.stderr)
-  sys.exit(1)
+subparser_nmm2xml.set_defaults(func=nmm2xml)
 
 
-## HANDLER_BY_SUBCOMMAND
+## NMM2TXT
 
-handler_by_subcommand : F[dict[str,Callable[[str],None]]] = {
-  'nmm2txt'      : nmm2txt,
-  'nmm2xml'      : nmm2xml,
-  'xml2txt'      : xml2txt,
-  'validate-xml' : validate_xml,
-  'lex2txt'      : lex2txt,
-}
-
-assert set(handler_by_subcommand.keys()) == set(subcommands)
-
-
-## CREATE PARSER
-
-parser : F[ap.ArgumentParser] = ap.ArgumentParser(
-  description='no-markup-markup utilities',
-  formatter_class=ap.ArgumentDefaultsHelpFormatter,
+subparser_nmm2txt : F[ap.ArgumentParser] = subparsers.add_parser(
+  name            = 'nmm2txt',
+  description     = description_by_command['nmm2txt'],
+)
+subparser_nmm2txt.add_argument('path',    help='path to nmm source file')
+subparser_nmm2txt.add_argument(
+  '--margin',help='manually set margin to MARGIN spaces'
 )
 
+def nmm2txt(args:ap.Namespace) -> None:
+  margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
+  xml_path        : F[str]       = _nmm2xml(args.path)
+  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_bin_path('nmm-ocaml'),'txt-of-xml']+margin_arg_list+[xml_path],
+  )
+  os.remove(xml_path)
+  if completed_proc.returncode != 0:
+    sys.exit(completed_proc.returncode)
+  sys.exit(0)
 
-## CREATE SUBCOMMAND PARSERS
-
-subparsers : F = parser.add_subparsers(title='commands')
-subparser_by_subcommand : F[dict[str,ap.ArgumentParser]] = {
-  sc: subparsers.add_parser(name=sc,description=description_by_subcommand[sc])
-  for sc in subcommands
-}
-
-for subcommand,subparser in subparser_by_subcommand.items():
-  argument : F[str] = argument_w_help_by_subcommand[subcommand][0]
-  help     : F[str] = argument_w_help_by_subcommand[subcommand][1]
-  subparser.add_argument(argument,help=help)
-  subparser.set_defaults(func=handler_by_subcommand[subcommand])
+subparser_nmm2txt.set_defaults(func=nmm2txt)
 
 
-## PARSE
+## NMM2HTML
+
+subparser_nmm2html : F[ap.ArgumentParser] = subparsers.add_parser(
+  name             = 'nmm2html',
+  description      = description_by_command['nmm2html'],
+)
+subparser_nmm2html.add_argument('path',help='path to nmm source file')
+subparser_nmm2html.add_argument(
+  '--margin',
+  help = 'manually set margin to MARGIN rem (default: automatically computed)'
+)
+subparser_nmm2html.add_argument(
+  '--css',help='URI of CSS file for overriding default CSS',default=None,
+)
+subparser_nmm2html.add_argument(
+  '--lang',
+  help    =
+    'the expression L in ⌜<html lang="L"⌝>---affects hyphenation (default: en)',
+  default = 'en',
+)
+
+def nmm2html(args:ap.Namespace) -> None:
+  margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
+  css_arg_list    : F[list[str]] = \
+    [] if args.css  is None else ['--css', 'args.css']
+  lang_arg_list   : F[list[str]] = \
+    [] if args.lang is None else ['--lang','args.lang']
+  xml_path        : F[str]       = _nmm2xml(args.path)
+  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_bin_path('nmm-ocaml'),'html-of-xml']
+    +
+    css_arg_list
+    +
+    lang_arg_list
+    +
+    margin_arg_list
+    +
+    [xml_path],
+  )
+  os.remove(xml_path)
+  if completed_proc.returncode != 0:
+    sys.exit(completed_proc.returncode)
+  sys.exit(0)
+
+subparser_nmm2html.set_defaults(func=nmm2html)
+
+
+## NMM2PDF
+
+subparser_nmm2pdf : F[ap.ArgumentParser] = subparsers.add_parser(
+  name             = 'nmm2pdf',
+  description      = description_by_command['nmm2pdf'],
+)
+subparser_nmm2pdf.add_argument('path',help='path to nmm source file')
+subparser_nmm2pdf.add_argument(
+  '--margin',
+  help = 'manually set margin to MARGIN rem (default: automatically computed)'
+)
+subparser_nmm2pdf.add_argument(
+  '--css',help='URI of CSS file for overriding default CSS',default=None,
+)
+subparser_nmm2pdf.add_argument(
+  '--lang',
+  help    =
+    'the expression L in ⌜<html lang="L"⌝>---affects hyphenation (default: en)',
+  default = 'en',
+)
+
+def nmm2pdf(args:ap.Namespace) -> None:
+  margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
+  css_arg_list    : F[list[str]] = \
+    [] if args.css  is None else ['--css', 'args.css']
+  lang_arg_list   : F[list[str]] = \
+    [] if args.lang is None else ['--lang','args.lang']
+  xml_path        : F[str]       = _nmm2xml(args.path)
+  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_bin_path('nmm-ocaml'),'pdf-of-xml']
+    +
+    css_arg_list
+    +
+    lang_arg_list
+    +
+    margin_arg_list
+    +
+    [xml_path],
+  )
+  os.remove(xml_path)
+  if completed_proc.returncode != 0:
+    sys.exit(completed_proc.returncode)
+  sys.exit(0)
+
+subparser_nmm2pdf.set_defaults(func=nmm2pdf)
+
+
+## VALIDATE_XML
+
+subparser_validate_xml : F[ap.ArgumentParser] = subparsers.add_parser(
+  name            = 'validate-xml',
+  description     = description_by_command['nmm2xml'],
+)
+subparser_validate_xml.add_argument('path',help='path to nmm source file')
+
+def validate_xml(args:ap.Namespace) -> None:
+  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_bin_path('nmm-ocaml'),'validate-xml',args.path]
+  )
+  sys.exit(completed_proc.returncode)
+
+subparser_validate_xml.set_defaults(func=validate_xml)
+
+
+## LEX2TXT
+
+subparser_lex2txt: F[ap.ArgumentParser] = subparsers.add_parser(
+  name            = 'lex2txt',
+  description     = description_by_command['lex2txt'],
+)
+subparser_lex2txt.add_argument('path',help='path to nmm source file')
+
+def lex2txt(args:ap.Namespace) -> None:
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_bin_path('nmm-mercury'),'lex2txt',_get_realpath_as_str(args.path)],
+  )
+  sys.exit(completed_proc.returncode)
+
+subparser_lex2txt.set_defaults(func=lex2txt)
+
+
+
+# PARSE
 
 args : F[ap.Namespace] = parser.parse_args()
 
 if args == ap.Namespace():
   print(
-    'subcommand (or ‘-h’ or ‘--help’) missing; available subcommands:',
+    'command (or ‘-h’ or ‘--help’) missing; available commands:',
     file=sys.stderr
   )
-  for sc in subcommands:
+  for sc in description_by_command.keys():
     print(f'  {sc}',file=sys.stderr)
-    print(f'    {description_by_subcommand[sc]}',file=sys.stderr)
+    print(f'    {description_by_command[sc]}',file=sys.stderr)
   sys.exit(1)
 
-args.func(args.path)
+args.func(args)
