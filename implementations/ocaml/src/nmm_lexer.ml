@@ -27,7 +27,7 @@ let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section]
 let txt_chars = [%sedlex.regexp? Compl non_txt_chars]
 let txt = [%sedlex.regexp? Plus txt_chars]
 
-let non_name_chars = [%sedlex.regexp? Chars "\r\n\t: \\"]
+let non_name_chars = [%sedlex.regexp? Chars "\r\n\t:[] \\"]
 let name = [%sedlex.regexp? Plus (Compl non_name_chars)]
 let tag_unique = [%sedlex.regexp? "CH" | "SEC" | "APP" | "PAR" | "ITM" | "DSP" ]
 let tag_shared = [%sedlex.regexp? name]
