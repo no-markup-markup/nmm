@@ -211,7 +211,7 @@ make_test(){
 	exit_code=$curr_code
 	fi
 
-	make_html_output --lang en
+	make_html_output
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then

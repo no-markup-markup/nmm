@@ -38,5 +38,5 @@ OPTIONS:
 
   --lang <language-code>
 
-  --external-css <uri>
+  --css <uri>
 ```
