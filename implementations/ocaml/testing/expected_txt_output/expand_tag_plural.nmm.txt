@@ -4,8 +4,7 @@
 ¶ 1.1  DEFINITION (Goodness)  A thing is good iff it is desirable.
 
 
-¶ 1.2  DEFINITION (Stupidity)  To think that DEFINITION 1.1 is
-       useful.
+¶ 1.2  DEFINITION (Stupidity)  To think that DEFINITION 1.1 is useful.
 
 
 
@@ -20,11 +19,11 @@
 
              (a)   nothing is bad, and
 
-             (b)   I know that '[ITM:2+]' is rendered nicely, like
-                   this: (+).
+             (b)   I know that '[ITM:2+]' is rendered nicely, like this:
+                   (+).
 
-             (+)   I know that '[ITM:2a]' is rendered nicely, like
-                   this: (a).
+             (+)   I know that '[ITM:2a]' is rendered nicely, like this:
+                   (a).
 
        (X)   '[ITM:2a]' -> (2)(a)
 

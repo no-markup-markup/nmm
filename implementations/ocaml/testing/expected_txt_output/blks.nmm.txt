@@ -20,8 +20,8 @@ features:
 
       (c)   When referring to (b) above, any common initial path
             shared between the location of the referring expression
-            and the location of its referent will be omitted. The
-            same applies with respect to (ä) below.
+            and the location of its referent will be omitted. The same
+            applies with respect to (ä) below.
 
       (ä)   Of course, items with custom labels can also be named!
 

@@ -16,14 +16,13 @@
      I also like 1(2) and THEOREM 5.
 
 
-¶ 3  Header of paragraph referencing ¶ 3, i.e itself.  Block of
-     text.
+¶ 3  Header of paragraph referencing ¶ 3, i.e itself.  Block of text.
 
      I like 1(1) and ¶ 1. I also like THEOREM 5.
 
 
-¶ 4  ¶ 3 (Header of paragraph referencing ¶ 3, i.e itself.)
-     [restated]  Block of text.
+¶ 4  ¶ 3 (Header of paragraph referencing ¶ 3, i.e itself.) [restated] 
+     Block of text.
 
      I like 1(1) and ¶ 1. I also like THEOREM 5.
 

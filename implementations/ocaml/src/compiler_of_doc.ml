@@ -22,7 +22,7 @@ and txt_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 			let margin_labels : string list = margin_labels_of_tr_doc doc in
 			Txt_utils.left_margin_of_margin_labels margin_labels
 	in
-	let doc_width : int = Int.min 68 (80 - left_margin) in
+	let doc_width : int = if 68 + left_margin > 80 then 80 else 68 + left_margin in
 	let _ : unit = Common_utils.doc_settings.doc_width <- doc_width in
 	let _ : unit = Common_utils.doc_settings.left_margin <- left_margin in
 	let _ : unit = Common_utils.doc_settings.title_indent <- left_margin in

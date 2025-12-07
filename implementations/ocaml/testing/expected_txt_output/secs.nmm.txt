@@ -3,11 +3,11 @@
 
 ¶ 1.1  According to DEFINITION 2.4 ...
 
-       This is a no-markup-markup document, sporting the following
-       cool features:
+       This is a no-markup-markup document, sporting the following cool
+       features:
 
-       (1)   E̲m̲p̲h̲a̲s̲i̲z̲e̲d̲ ̲t̲e̲x̲t̲ ̲s̲p̲a̲n̲n̲i̲n̲g̲ ̲m̲u̲l̲t̲i̲p̲l̲e̲ ̲l̲i̲n̲e̲s̲ ̲i̲n̲ ̲t̲h̲e̲ ̲s̲o̲u̲r̲c̲e̲
-             ̲c̲o̲d̲e̲ ̲w̲i̲t̲h̲o̲u̲t̲ ̲b̲r̲e̲a̲k̲i̲n̲g̲ ̲a̲ ̲s̲w̲e̲a̲t̲.
+       (1)   E̲m̲p̲h̲a̲s̲i̲z̲e̲d̲ ̲t̲e̲x̲t̲ ̲s̲p̲a̲n̲n̲i̲n̲g̲ ̲m̲u̲l̲t̲i̲p̲l̲e̲ ̲l̲i̲n̲e̲s̲ ̲i̲n̲ ̲t̲h̲e̲ ̲s̲o̲u̲r̲c̲e̲ ̲c̲o̲d̲e̲
+             ̲w̲i̲t̲h̲o̲u̲t̲ ̲b̲r̲e̲a̲k̲i̲n̲g̲ ̲a̲ ̲s̲w̲e̲a̲t̲.
 
        (2)   Bullet lists:
 
@@ -26,21 +26,19 @@
              (b)   The named item can be referred to anywhere in the
                    document.
 
-             (c)   When referring to (b) above in a local manner
-                   (which is default), any common initial path
-                   shared between the location of the referring
-                   expression and the location of its referent will
-                   be omitted. The same applies with respect to (†)
-                   below.
+             (c)   When referring to (b) above in a local manner (which is
+                   default), any common initial path shared between the
+                   location of the referring expression and the location of
+                   its referent will be omitted. The same applies with
+                   respect to (†) below.
 
-             (†)   Of course, items with custom labels can also be
-                   named!
+             (†)   Of course, items with custom labels can also be named!
 
-       Due to the feature mentioned in (3)(c), a local reference to
-       (3)(b) or (3)(†) occurring elsewhere may appear differently.
+       Due to the feature mentioned in (3)(c), a local reference to (3)(b)
+       or (3)(†) occurring elsewhere may appear differently.
 
-       (4)   Displayed lines of text suitable for mathematical
-             equations, which are either
+       (4)   Displayed lines of text suitable for mathematical equations,
+             which are either
 
              (a)   automatically labeled (and named),
              (+)   custom labeled (and named), or,
@@ -60,36 +58,35 @@
        This is what a reference to (4)(a) looks like.
 
 
-¶ 1.2  We may also refer to 1.1(3)(b) or 1.1(3)(c) from another
-       paragraph. These references will appear differently than when
-       occurring in paragraph ¶ 1.1 above.
+¶ 1.2  We may also refer to 1.1(3)(b) or 1.1(3)(c) from another paragraph.
+       These references will appear differently than when occurring in
+       paragraph ¶ 1.1 above.
 
        This is what a reference to 1.1(4)(a) looks like.
 
 
 
-§ 2    Section headers are optional, but recommended. They may
-       contain both e̲m̲p̲h̲a̲s̲i̲z̲e̲d̲ ̲t̲e̲x̲t̲ and references, neither of which
-       are recommended.
-       ─────────────────────────────────────────────────────────────
+§ 2    Section headers are optional, but recommended. They may contain both
+       e̲m̲p̲h̲a̲s̲i̲z̲e̲d̲ ̲t̲e̲x̲t̲ and references, neither of which are recommended.
+       ────────────────────────────────────────────────────────────────────
 
-¶ 2.1  The same goes for paragraph headers. As we shall see in ¶ 2.2
-       below, paragraphs with headers can also be named.
-
-
-¶ 2.2  This is a p̲a̲r̲a̲g̲r̲a̲p̲h̲ ̲h̲e̲a̲d̲e̲r̲, referencing 1.1(3)(b) and
-       1.1(3)(c) above. Again, these references will appear
-       differently than when occurring in ¶ 1.1.  Putting references
-       in a header does not look very nice.
+¶ 2.1  The same goes for paragraph headers. As we shall see in ¶ 2.2 below,
+       paragraphs with headers can also be named.
 
 
-¶ 2.3  DEFINITION  We say that Γ ⊨ φ just in case every model of Γ
-       is a model of φ.
+¶ 2.2  This is a p̲a̲r̲a̲g̲r̲a̲p̲h̲ ̲h̲e̲a̲d̲e̲r̲, referencing 1.1(3)(b) and 1.1(3)(c)
+       above. Again, these references will appear differently than when
+       occurring in ¶ 1.1.  Putting references in a header does not look
+       very nice.
 
 
-¶ 2.4  DEFINITION (Provability)  We say that Γ ⊢ φ just in case
-       there is a proof from Γ to φ.
+¶ 2.3  DEFINITION  We say that Γ ⊨ φ just in case every model of Γ is a
+       model of φ.
 
 
-¶ 2.5  FACT  For every sentence φ and set of sentences Γ, if Γ ⊨ φ
-       then Γ ⊢ φ.
+¶ 2.4  DEFINITION (Provability)  We say that Γ ⊢ φ just in case there is a
+       proof from Γ to φ.
+
+
+¶ 2.5  FACT  For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢
+       φ.

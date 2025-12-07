@@ -1,8 +1,8 @@
 ¶ 1  Theorem (Main)  Nothing lasts forever.
 
 
-¶ 2  Proof (of Theorem 1)  By straightforward induction on the
-     complexity of nothing.
+¶ 2  Proof (of Theorem 1)  By straightforward induction on the complexity
+     of nothing.
 
 
 ¶ 3  Theorems
