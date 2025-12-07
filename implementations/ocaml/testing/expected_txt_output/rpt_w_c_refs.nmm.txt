@@ -1,47 +1,48 @@
-¶ 1         Block of text.
+¶ 1  Block of text.
 
-            (1)   An item
+     (1)   An item
 
-            (2)   I like (1).
+     (2)   I like (1).
 
-            I also like (2) and THEOREM 5.
-
-
-¶ 2         ¶ 1 [restated]  Block of text.
-
-            (1)   An item
-
-            (2)   I like 1(1).
-
-            I also like 1(2) and THEOREM 5.
+     I also like (2) and THEOREM 5.
 
 
-¶ 3         Header of paragraph referencing ¶ 3, i.e itself.  Block of text.
+¶ 2  ¶ 1 [restated]  Block of text.
 
-            I like 1(1) and ¶ 1. I also like THEOREM 5.
+     (1)   An item
 
+     (2)   I like 1(1).
 
-¶ 4         ¶ 3 (Header of paragraph referencing ¶ 3, i.e itself.) [restated] 
-            Block of text.
-
-            I like 1(1) and ¶ 1. I also like THEOREM 5.
+     I also like 1(2) and THEOREM 5.
 
 
-¶ 5         THEOREM  Block of text.
+¶ 3  Header of paragraph referencing ¶ 3, i.e itself.  Block of
+     text.
 
-            Another block of text.
-
-
-¶ 6         THEOREM 5 [restated]  Block of text.
-
-            Another block of text.
+     I like 1(1) and ¶ 1. I also like THEOREM 5.
 
 
-¶ 7         THEOREM (Header of paragraph)  Block of text.
+¶ 4  ¶ 3 (Header of paragraph referencing ¶ 3, i.e itself.)
+     [restated]  Block of text.
 
-            Another block of text.
+     I like 1(1) and ¶ 1. I also like THEOREM 5.
 
 
-¶ 8         THEOREM 7 (Header of paragraph) [restated]  Block of text.
+¶ 5  THEOREM  Block of text.
 
-            Another block of text.
+     Another block of text.
+
+
+¶ 6  THEOREM 5 [restated]  Block of text.
+
+     Another block of text.
+
+
+¶ 7  THEOREM (Header of paragraph)  Block of text.
+
+     Another block of text.
+
+
+¶ 8  THEOREM 7 (Header of paragraph) [restated]  Block of text.
+
+     Another block of text.

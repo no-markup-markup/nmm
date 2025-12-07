@@ -3,6 +3,7 @@ A toolkit used by {!module:Compiler_of_doc} when compiling raw text, for handlin
 {{:https://ocaml.org/p/uuseg/15.0.0/doc/uuseg/Uuseg/index.html}Uuseg} for utf8-segmentation.
 *)
 
+
 val lines_of_ts_title_opt : Doc_types.ts_title option -> string list
 val lines_of_ts_authors_opt : Doc_types.ts_authors option -> string list
 val lines_of_abstract_hdr : Common_utils.t_doc_class -> string list
@@ -15,7 +16,7 @@ val lines_of_ts_blk_vrb : Common_utils.t_path -> Doc_types.ts_blk_vrb -> string 
 
 val max_length_of_margin_labels : string list -> int
 val left_margin_of_margin_labels : string list -> int
-
+val left_margin_of_options : string list -> int option
 (*
 
 val lines_of_ts_hdr : Common_utils.t_path -> Doc_types.ts_hdr -> string list

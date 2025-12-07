@@ -1,117 +1,118 @@
-            ════════════════════════════════════════════════════════════════════
-            Document with unlabeled display lines
-            ════════════════════════════════════════════════════════════════════
+         ═══════════════════════════════════════════════════════════
+         Document with unlabeled display lines
+         ═══════════════════════════════════════════════════════════
 
-            Eric Johannesson
-
-
-            CHAPTER 1
-            Chapter starting with unlabeled display lines
-            ═════════════════════════════════════════════
-
-                  unlabeled display line
-            (!)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
+         Eric Johannesson
 
 
+         CHAPTER 1
+         Chapter starting with unlabeled display lines
+         ═════════════════════════════════════════════
 
+               unlabeled display line
+         (!)   manually labeled display line
+         (1)   automatically labeled display line
 
-            CHAPTER 2
-            Paragraphs starting with unlabeled display lines
-            ════════════════════════════════════════════════
-
-¶ 2.1       Paragraph with a header
-
-                  unlabeled display line
-            (!)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
-
-
-¶ 2.2             unlabeled display line
-                  unlabeled display line
-            (@)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
+         Block of text.
 
 
 
 
-            CHAPTER 3
-            Sections starting with unlabeled display lines
-            ══════════════════════════════════════════════
+         CHAPTER 2
+         Paragraphs starting with unlabeled display lines
+         ════════════════════════════════════════════════
 
-§ 3.1       First section
-            ─────────────
+¶ 2.1    Paragraph with a header
 
-                  unlabeled display line
-                  unlabeled display line
-            (S)   manually labeled display line
-            (1)   automatically labeled display line
+               unlabeled display line
+         (!)   manually labeled display line
+         (1)   automatically labeled display line
 
-            Block of text.
+         Block of text.
 
 
+¶ 2.2          unlabeled display line
+               unlabeled display line
+         (@)   manually labeled display line
+         (1)   automatically labeled display line
 
-§ 3.2       Second section
-            ──────────────
-
-                  unlabeled display line
-                  unlabeled display line
-            (Q)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
+         Block of text.
 
 
 
 
-            CHAPTER 4
-            Sections with paragraphs starting with unlabeled display lines
-            ══════════════════════════════════════════════════════════════
+         CHAPTER 3
+         Sections starting with unlabeled display lines
+         ══════════════════════════════════════════════
 
-§ 4.1       First section
-            ─────────────
+§ 3.1    First section
+         ─────────────
 
-¶ 4.1.1     Paragraph with a header
+               unlabeled display line
+               unlabeled display line
+         (S)   manually labeled display line
+         (1)   automatically labeled display line
 
-                  unlabeled display line
-            (+)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
-
-
-¶ 4.1.2           unlabeled display line
-                  unlabeled display line
-            (?)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
+         Block of text.
 
 
 
-§ 4.2       Second section
-            ──────────────
+§ 3.2    Second section
+         ──────────────
 
-¶ 4.2.1     DEFINITION
+               unlabeled display line
+               unlabeled display line
+         (Q)   manually labeled display line
+         (1)   automatically labeled display line
 
-                  unlabeled display line
-                  unlabeled display line
-            (~)   manually labeled display line
-            (1)   automatically labeled display line
-
-            Block of text.
+         Block of text.
 
 
-¶ 4.2.2     Paragraph with a header
 
-                  unlabeled display line
-            (£)   manually labeled display line
-            (1)   automatically labeled display line
 
-            Block of text.
+         CHAPTER 4
+         Sections with paragraphs starting with unlabeled display
+         lines
+         ═══════════════════════════════════════════════════════════
+
+§ 4.1    First section
+         ─────────────
+
+¶ 4.1.1  Paragraph with a header
+
+               unlabeled display line
+         (+)   manually labeled display line
+         (1)   automatically labeled display line
+
+         Block of text.
+
+
+¶ 4.1.2        unlabeled display line
+               unlabeled display line
+         (?)   manually labeled display line
+         (1)   automatically labeled display line
+
+         Block of text.
+
+
+
+§ 4.2    Second section
+         ──────────────
+
+¶ 4.2.1  DEFINITION
+
+               unlabeled display line
+               unlabeled display line
+         (~)   manually labeled display line
+         (1)   automatically labeled display line
+
+         Block of text.
+
+
+¶ 4.2.2  Paragraph with a header
+
+               unlabeled display line
+         (£)   manually labeled display line
+         (1)   automatically labeled display line
+
+         Block of text.

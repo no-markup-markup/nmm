@@ -49,12 +49,12 @@ let expand_tag_plural_default (tag : Doc_types.ts_tag) : (string * string) optio
 
 
 let doc_settings : t_doc_settings = {
-	doc_width = 80;
-	left_margin = 12;
-	title_indent = 12;
-	author_indent = 12;
-	abstract_indent = 12;
-	refs_indent = 12;
+	doc_width = 68;
+	left_margin = 0;
+	title_indent = 0;
+	author_indent = 0;
+	abstract_indent = 0;
+	refs_indent = 0;
 	tab_length = 6;
 	abstract_hdr = Some "ABSTRACT";
 	refs_hdr = "REFERENCES";
@@ -67,18 +67,6 @@ let doc_settings : t_doc_settings = {
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
-	let _ : unit = (
-		match doc_contains_sec_or_par doc with
-			|false -> 
-				let _ : unit = doc_settings.title_indent <- 0 in 
-				let _ : unit = doc_settings.author_indent <- 0 in
-				let _ : unit = doc_settings.abstract_indent <- 0 in
-				let _ : unit = doc_settings.refs_indent <- 0 in
-				let _ : unit = doc_settings.left_margin <- 0 in
-				doc_settings.doc_width <- 68
-			|true -> ()
-	)
-	in
 	match doc.fld_doc_preamble with
 	|None -> ()
 	|Some preamble -> doc_settings_of_ts_preamble preamble 

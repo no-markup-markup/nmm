@@ -29,11 +29,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .doc.secs .title {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .doc.chs .title {
@@ -54,11 +54,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .doc.secs .authors {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 
@@ -73,11 +73,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .doc.secs .abstract {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .abstract_hdr {
@@ -94,11 +94,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .doc.secs .refs {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 .doc.chs .refs {
@@ -162,7 +162,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 7.2rem;
+    margin-left : 0;
     font-size   : large;
 }
 
@@ -196,7 +196,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 
@@ -207,7 +207,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 7.2rem;
+    margin-left : 0;
 }
 
 

@@ -13,12 +13,14 @@ let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	with
 	|Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:";e]))
 
-
 let default_tab_length : string = "6ch"
 
-let default_margin_left : string = "7.2rem"
+let margin_left_of_options (options : string list) : string option =
+	match Txt_utils.left_margin_of_options options with
+	|Some (margin : int) -> Some (String.concat "" [string_of_int margin;"rem"])
+	|None -> None
 
-let default_css : string = Html_utils.internal_css default_tab_length default_margin_left
+let default_css : string = Html_utils.internal_css default_tab_length "0"
 
 let lang_code_of_options (options : string list) : string option =
 	let rec aux (lst : string list) =
@@ -50,8 +52,6 @@ let external_css_of_options (options : string list) : string option =
 	in
 	aux options
 
-let auto_margin_of_options (options : string list) : bool =
-	List.mem "--auto-margin" options
 
 let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	try
@@ -79,12 +79,11 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 		| Some lang_code -> (" lang=\"" ^ lang_code ^ "\"") 
 	in
 	let margin_left : string = 
-		match auto_margin_of_options options with 
-		|true -> Html_utils.margin_left_of_tr_doc doc
-		|false -> default_margin_left
+		match margin_left_of_options options with
+		|Some margin -> margin
+		|None -> Html_utils.margin_left_of_tr_doc doc
 	in
-	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css default_tab_length margin_left) ^ "\n</style>")
-	in
+	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css default_tab_length margin_left) ^ "\n</style>") in
 	let external_css: string = 
 		match external_css_of_options options with
 		|None -> ""

@@ -24,7 +24,7 @@ In cases where '-' can be supplied instead of a path, the program reads from std
 
 OPTIONS:
 
-  --auto-margin
+  --margin <non-negative-integer>
 
   --preserve-vertical-white-space
 

@@ -15,19 +15,20 @@ let rec cref_table_of_tr_doc (doc : Doc_types.tr_doc) : Common_utils.t_cref_tabl
 and txt_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	let _ : unit = Common_utils.doc_settings_of_tr_doc doc in
 	let _ : unit = Common_utils.doc_settings.preserve_vertical_white_space <- (List.mem "--preserve-vertical-white-space" options) in
-	let margin_labels : string list = margin_labels_of_tr_doc doc in
-	let _ : unit = 
-		match List.mem "--auto-margin" options with
-		|true ->
-			let left_margin : int = Txt_utils.left_margin_of_margin_labels margin_labels in
-			let _ : unit = Common_utils.doc_settings.left_margin <- left_margin in
-			let _ : unit = Common_utils.doc_settings.title_indent <- left_margin in
-			let _ : unit = Common_utils.doc_settings.author_indent <- left_margin in
-			let _ : unit = Common_utils.doc_settings.abstract_indent <- left_margin in
-			let _ : unit = Common_utils.doc_settings.refs_indent <- left_margin in
-			()
-		|false -> ()
+	let left_margin : int = 
+		match Txt_utils.left_margin_of_options options with
+		|Some (margin : int) -> margin
+		|None -> 
+			let margin_labels : string list = margin_labels_of_tr_doc doc in
+			Txt_utils.left_margin_of_margin_labels margin_labels
 	in
+	let doc_width : int = Int.min 68 (80 - left_margin) in
+	let _ : unit = Common_utils.doc_settings.doc_width <- doc_width in
+	let _ : unit = Common_utils.doc_settings.left_margin <- left_margin in
+	let _ : unit = Common_utils.doc_settings.title_indent <- left_margin in
+	let _ : unit = Common_utils.doc_settings.author_indent <- left_margin in
+	let _ : unit = Common_utils.doc_settings.abstract_indent <- left_margin in
+	let _ : unit = Common_utils.doc_settings.refs_indent <- left_margin in
 	String.concat "\n" (lines_of_tr_doc doc)
 
 and exml_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : Xml.xml =

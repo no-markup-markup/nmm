@@ -1,50 +1,53 @@
-¶ 1         This is a no-markup-markup document, sporting the following cool
-            features:
+¶ 1  This is a no-markup-markup document, sporting the following
+     cool features:
 
-            (1)   Bullet lists:
+     (1)   Bullet lists:
 
-                  ─     Here is one bullet item.
+           ─     Here is one bullet item.
 
-                  ─     Here is another one.
+           ─     Here is another one.
 
-            (2)   Numbered lists with labels that are either
+     (2)   Numbered lists with labels that are either
 
-                  (a)   automatic, or
+           (a)   automatic, or
 
-                  (*)   custom.
+           (*)   custom.
 
-                  Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
+           Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
 
-                  (b)   The named item can be referred to anywhere in the
-                        document.
+           (b)   The named item can be referred to anywhere in the
+                 document.
 
-                  (c)   When referring to (b) above, any common initial path
-                        shared between the location of the referring expression
-                        and the location of its referent will be omitted. The
-                        same applies with respect to (æ) below.
+           (c)   When referring to (b) above, any common initial
+                 path shared between the location of the referring
+                 expression and the location of its referent will be
+                 omitted. The same applies with respect to (æ)
+                 below.
 
-                  (æ)   Of course, items with custom labels can also be named!
+           (æ)   Of course, items with custom labels can also be
+                 named!
 
-            Due to the feature mentioned in (2)(c), a reference to (2)(b) or
-            (2)(æ) occurring elsewhere may appear differently.
+     Due to the feature mentioned in (2)(c), a reference to (2)(b)
+     or (2)(æ) occurring elsewhere may appear differently.
 
-            (3)   Displayed lines of text suitable for mathematical equations,
-                  which are either
+     (3)   Displayed lines of text suitable for mathematical
+           equations, which are either
 
-                  (a)   automatically labeled (and named),
-                  (+)   custom labeled (and named), or,
-                        unlike (a) above, unlabeled.
-
-
-¶ 2         We may also refer to 1(2)(b) or 1(2)(c) from another paragraph.
-            These references will appear differently than when occurring in ¶
-            ¶ 1.
+           (a)   automatically labeled (and named),
+           (+)   custom labeled (and named), or,
+                 unlike (a) above, unlabeled.
 
 
-¶ 3         Paragraph header, which is a text block that may contain e̲m̲p̲h̲ ̲t̲e̲x̲t̲
-            and a reference to 1(3)(a).  This is a paragraph with a header. As
-            we shall se in ¶ ¶ 4 below, paragraphs with headers can also be
-            named.
+¶ 2  We may also refer to 1(2)(b) or 1(2)(c) from another paragraph.
+     These references will appear differently than when occurring in
+     ¶ 1.
 
 
-¶ 4         Header of the named paragraph  Believe it or not, it actually works!
+¶ 3  Paragraph header, which is a text block that may contain e̲m̲p̲h̲
+     ̲t̲e̲x̲t̲ and a reference to 1(3)(a).  This is a paragraph with a
+     header. As we shall se in ¶ 4 below, paragraphs with headers
+     can also be named.
+
+
+¶ 4  Header of the named paragraph  Believe it or not, it actually
+     works!

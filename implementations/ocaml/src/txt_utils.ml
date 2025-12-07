@@ -2,7 +2,6 @@ open Doc_types
 open Common_utils
 
 
-
 let rec lines_of_ts_title_opt (title_opt : Doc_types.ts_title option) : string list =
 	match title_opt with
 	|None -> []
@@ -277,3 +276,26 @@ let max_length_of_margin_labels (margin_labels : string list) : int =
 
 let left_margin_of_margin_labels (margin_labels : string list) : int =
 	max_length_of_margin_labels margin_labels + 2
+
+let left_margin_of_options (options : string list) : int option =
+	let rec aux (lst : string list) =
+		match lst with
+		|[] -> None
+		|hd::tl ->
+			match hd with
+			|"--margin" -> (
+				match tl with
+				|margin::_ -> (
+					try 
+						let i = int_of_string margin in
+						if i<0 then raise (Error "negative margin") else Some i
+					with
+					| _ ->
+						let _ : unit = Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid --margin argument: ";margin;"; using default"]) in None
+				)
+				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --margin argument; using default" in None
+
+			)
+			|_ -> aux tl
+	in
+	aux options
