@@ -76,7 +76,6 @@ let rec anon_arg_fun arg : unit =
 		|"html-of-nmm"
 		|"check-xml-schema" -> raise (Error (String.concat " " ["one too many arguments:";arg]))
 		|"validate-xml" -> path_to_xml_file.contents <- arg
-		|"" -> raise (Error "missing sub-command")
 		|_ -> raise (Error (String.concat " " ["unknown command:";cmd_name.contents]))
 		in anon_arg_count.contents <- (anon_arg_count.contents + 1)
 	|_ -> raise (Error (String.concat " " ["one too many arguments:";arg]))
