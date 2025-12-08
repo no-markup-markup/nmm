@@ -29,27 +29,28 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;class_of_tr_ch&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_ch&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_ch_class<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_t_ch_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_ch_class&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_doc_settings&nbsp;=&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;doc_width&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;left_margin&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;title_indent&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;author_indent&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;abstract_indent&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;refs_indent&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;tab_length&nbsp;:&nbsp;int;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;abstract_hdr&nbsp;:&nbsp;string&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;refs_hdr&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;ch_prefix&nbsp;:&nbsp;string&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;sec_prefix&nbsp;:&nbsp;string&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;par_prefix&nbsp;:&nbsp;string&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;expand_tag_singular&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;expand_tag_plural&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;preserve_vertical_white_space&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expand_tag_singular&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expand_tag_plural&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;preserve_vertical_white_space&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;expand_tag_singular_default&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;expand_tag_plural_default&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_tr_doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_tr_doc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_par_node&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">NO_TAG</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;option&nbsp;*&nbsp;int)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SINGULAR_TAG</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;int)<br>
@@ -84,13 +85,18 @@
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_doc_cref_table&nbsp;=&nbsp;{&nbsp;<span class="keyword">mutable</span>&nbsp;content&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_cref_table;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_cref_table&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_cref_table<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_ts_c_ref&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.ts_c_ref&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;node_of_tu_par&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_par&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_node<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;node_of_tu_par&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_par&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_node<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;node_of_blk_itm&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_node&nbsp;option&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_node<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;node_of_dsp_line&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_dsp_line&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_node<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path_opt&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path_opt&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;par_restated_of_tr_id&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_par_std&nbsp;option<br>
 <span class="keyword">end</span></code></body></html>

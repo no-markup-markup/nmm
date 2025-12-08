@@ -112,15 +112,19 @@
 
 </div>
 </td></tr>
-<tr><td><a href="Common_utils.html#VALdoc_settings">doc_settings</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<tr><td><a href="Common_utils.html#VALdoc_settings_default">doc_settings_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code"> = {
-    doc_width           = 80;
-    left_margin         = 12;
-    title_indent        = 12;
-    author_indent       = 12;
-    abstract_indent     = 12;
-    refs_indent         = 12;
+<pre class="codepre"><code class="code">doc_settings_default ()]
+
+evaluates <span class="keyword">to</span>
+
+{
+    doc_width           = 68;
+    left_margin         = 0;
+    title_indent        = 0;
+    author_indent       = 0;
+    abstract_indent     = 0;
+    refs_indent         = 0;
     tab_length          = 6;
     abstract_hdr        = <span class="constructor">Some</span> <span class="string">"ABSTRACT"</span>;
     refs_hdr            = <span class="string">"REFERENCES"</span>;
@@ -199,12 +203,12 @@
 <tr><td align="left"><div>L</div></td></tr>
 <tr><td><a href="Common_utils.html#VALlabel_of_path">label_of_path</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">label_of_path path</code></pre>
+<pre class="codepre"><code class="code">label_of_path doc_settings path</code></pre>
 </div>
 </td></tr>
 <tr><td><a href="Common_utils.html#VALlabel_of_path_opt">label_of_path_opt</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<p>With default <code class="code">doc_settings</code>,</p>
+<p><code class="code">label_of_path_opt&nbsp;doc_settings_default&nbsp;[<span class="constructor">CH_NODE</span>&nbsp;1]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"CHAPTER 1"</span></code></p>
 
 </div>
 </td></tr>
@@ -290,7 +294,7 @@
 </td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_ts_c_ref">string_of_ts_c_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">string_of_ts_c_ref path c_ref</code></pre>
+<pre class="codepre"><code class="code">string_of_ts_c_ref doc_settings path c_ref</code></pre>
 </div>
 </td></tr>
 <tr><td align="left"><div>T</div></td></tr>
