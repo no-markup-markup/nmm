@@ -60,7 +60,7 @@ let rec anon_arg_fun arg : unit =
 		|"test-with-nmm"
 		|"html-of-nmm" -> path_to_nmm_file.contents <- arg
 		|"check-xml-schema" -> path_to_dtd_file.contents <- arg
-		|"validate-xml" -> path_to_dtd_file.contents <- arg
+		|"validate-xml" -> let _ : unit = path_to_dtd_file.contents <- arg in keyspecdoc_list.contents <- (keyspecdoc_stdin::keyspecdoc_list.contents)
 		|"show-default-css" -> raise (Error (String.concat " " ["one too many arguments:";arg]))
 		|_ -> raise (Error (String.concat " " ["unknown command:";cmd_name.contents]))
 		in anon_arg_count.contents <- (anon_arg_count.contents + 1)
@@ -184,7 +184,11 @@ let _ : unit =
 	|"txt-of-nmm" -> print_endline (Main.txt_of_nmm options path_to_nmm_file.contents)
 	|"html-of-nmm" -> print_endline (Main.html_of_nmm options path_to_nmm_file.contents)
 	|"check-xml-schema" -> print_endline (Main.check_xml_schema path_to_dtd_file.contents)
-	|"validate-xml" -> print_endline (Main.validate_xml path_to_dtd_file.contents path_to_xml_file.contents)
+	|"validate-xml" -> (
+		match read_from_stdin.contents with
+		|true -> print_endline (Main.validate_xml path_to_dtd_file.contents "-")
+		|false -> print_endline (Main.validate_xml path_to_dtd_file.contents path_to_xml_file.contents)
+	)
 	|"show-default-css" -> print_endline Main.default_css
 	|"test-with-xml" -> Test.test_with_axml_file options path_to_xml_file.contents
 	|"test-with-nmm" -> Test.test_with_nmm_file options path_to_nmm_file.contents
