@@ -1,5 +1,7 @@
 exception Error of string
 
+
+
 let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	try
 	let print_tokens = false in
@@ -7,11 +9,13 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	with 
 	|Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
+
 let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	try
 	Compiler_of_doc.txt_of_tr_doc options doc
 	with
 	|Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:";e]))
+
 
 let default_tab_length : string = "6ch"
 
@@ -61,7 +65,8 @@ let external_css_of_options (options : string list) : string option =
 
 let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	try
-	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
+	let doc_settings : Common_utils.t_doc_settings = Common_utils.doc_settings_of_tr_doc doc in
+	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc_settings options doc in
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
 	let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
 	let html_string:string = Xml_right.to_string_fmt html in
@@ -87,7 +92,7 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	let margin_left : string = 
 		match margin_left_of_options options with
 		|Some margin -> margin
-		|None -> Html_utils.margin_left_of_tr_doc doc
+		|None -> Html_utils.margin_left_of_tr_doc doc_settings doc
 	in
 	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css default_tab_length margin_left) ^ "\n</style>") in
 	let external_css: string = 

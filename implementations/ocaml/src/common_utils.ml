@@ -5,21 +5,21 @@ exception Error of string
 (**************************** document settings ************************)
 
 type t_doc_settings = {
-	mutable doc_width : int;
-	mutable left_margin: int;
-	mutable title_indent: int;
-	mutable author_indent: int;
-	mutable abstract_indent: int;
-	mutable refs_indent: int;
-	mutable tab_length : int;
-	mutable abstract_hdr: string option;
-	mutable refs_hdr: string;
-	mutable ch_prefix: string option;
-	mutable sec_prefix: string option;
-	mutable par_prefix : string option;
-	mutable expand_tag_singular: Doc_types.ts_tag -> string option;
-	mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
-	mutable preserve_vertical_white_space : bool;
+	doc_width : int;
+	left_margin: int;
+	title_indent: int;
+	author_indent: int;
+	abstract_indent: int;
+	refs_indent: int;
+	tab_length : int;
+	abstract_hdr: string option;
+	refs_hdr: string;
+	ch_prefix: string option;
+	sec_prefix: string option;
+	par_prefix : string option;
+	expand_tag_singular: Doc_types.ts_tag -> string option;
+	expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
+	preserve_vertical_white_space : bool;
 }
 
 type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
@@ -48,7 +48,7 @@ let expand_tag_plural_default (tag : Doc_types.ts_tag) : (string * string) optio
 	| _  -> None
 
 
-let doc_settings : t_doc_settings = {
+let doc_settings_default () : t_doc_settings = {
 	doc_width = 68;
 	left_margin = 0;
 	title_indent = 0;
@@ -66,10 +66,10 @@ let doc_settings : t_doc_settings = {
 	preserve_vertical_white_space = false;
 }
 
-let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : unit =
+let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
 	match doc.fld_doc_preamble with
-	|None -> ()
-	|Some preamble -> doc_settings_of_ts_preamble preamble 
+	|None -> doc_settings_default ()
+	|Some preamble -> doc_settings_of_ts_preamble (doc_settings_default ()) preamble 
 
 and class_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_class =
 	match doc.fld_doc_main with
@@ -123,91 +123,354 @@ and ch_contains_sec_or_par (ch : Doc_types.tr_ch) : bool =
 	| Cu_secs_pars_or_blks_pars _ -> true
 
 
-and doc_settings_of_ts_preamble (preamble : Doc_types.ts_preamble) : unit =
-	let rec aux (str_list : string list) : unit =
+and doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
+	let rec aux (str_list : string list) (settings : t_doc_settings) : t_doc_settings =
 		match str_list with
-		| hd :: tl -> 
-			let _ : unit =
+		| hd :: tl -> (
+			let new_doc_settings : t_doc_settings =
 				match key_value_pair_of_string_opt hd with
-				|Some ("doc-width", v) -> set_doc_width v
-				|Some ("left-margin", v) -> set_left_margin v
-				|Some ("title-indent", v) -> set_title_indent v
-				|Some ("author-indent", v) -> set_author_indent v
-				|Some ("abstract-indent", v) -> set_abstract_indent v
-				|Some ("refs-indent", v) -> set_refs_indent v
-				|Some ("tab-length", v) -> set_tab_length v
-				|Some ("ch-prefix", v) -> set_ch_prefix v
-				|Some ("sec-prefix", v) -> set_sec_prefix v
-				|Some ("par-prefix", v) -> set_par_prefix v
-				|Some ("abstract-hdr", v) -> set_abstract_hdr v
-				|Some ("refs-hdr", v) -> set_refs_hdr v
-				|Some ("singular-tag", v) -> set_expand_tag_singular doc_settings.expand_tag_singular v
-				|Some ("plural-tag", v) -> set_expand_tag_plural doc_settings.expand_tag_plural v
-				|_ -> Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"])
-			in aux tl
-		| [] -> ()
+				|Some ("doc-width", v) -> set_doc_width v settings
+				|Some ("left-margin", v) -> set_left_margin v settings
+				|Some ("title-indent", v) -> set_title_indent v settings
+				|Some ("author-indent", v) -> set_author_indent v settings
+				|Some ("abstract-indent", v) -> set_abstract_indent v settings
+				|Some ("refs-indent", v) -> set_refs_indent v settings
+				|Some ("tab-length", v) -> set_tab_length v settings
+				|Some ("ch-prefix", v) -> set_ch_prefix v settings
+				|Some ("sec-prefix", v) -> set_sec_prefix v settings
+				|Some ("par-prefix", v) -> set_par_prefix v settings
+				|Some ("abstract-hdr", v) -> set_abstract_hdr v settings
+				|Some ("refs-hdr", v) -> set_refs_hdr v settings
+				|Some ("singular-tag", v) -> set_expand_tag_singular settings.expand_tag_singular v settings
+				|Some ("plural-tag", v) -> set_expand_tag_plural settings.expand_tag_plural v settings
+				|_ -> let _ : unit = Debug_utils.print_to_stderr 
+					(String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings
+			in aux tl new_doc_settings
+		)
+		| [] -> settings
 	in
 	match preamble with 
 	(Cs_preamble (s : string)) -> 
 		let str_list : string list = String.split_on_char ';' s in
-		aux str_list
+		aux str_list doc_settings
 
 and key_value_pair_of_string_opt (s : string): (string*string) option=
 	match String.split_on_char '=' s with
 	|[key;value] -> Some (key, value)
 	| _ -> None
 
-and set_doc_width (v : string) : unit =
-	try doc_settings.doc_width <- (int_of_string v) with _ ->
+and set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try 
+	{
+	doc_width = int_of_string v;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+	in doc_settings
 
-and set_left_margin (v : string) : unit =
-	try doc_settings.left_margin <- (int_of_string v) with _ ->
+and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = int_of_string v;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+	in doc_settings
 
-and set_title_indent (v : string) : unit =
-	try doc_settings.title_indent <- (int_of_string v) with _ ->
+and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = int_of_string v;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+	in doc_settings
 
-and set_author_indent (v : string) : unit =
-	try doc_settings.author_indent <- (int_of_string v) with _ ->
+and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = int_of_string v;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+	in doc_settings
 
-and set_abstract_indent (v : string) : unit =
-	try doc_settings.abstract_indent <- (int_of_string v) with _ ->
+and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = int_of_string v;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
+	in doc_settings
 
-and set_refs_indent (v : string) : unit =
-	try doc_settings.refs_indent <- (int_of_string v) with _ ->
+and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = int_of_string v;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
+	in doc_settings
 
 
-and set_tab_length (v : string) : unit =
-	try doc_settings.tab_length <- (int_of_string v) with _ ->
+and set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = int_of_string v;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
+	in doc_settings
 
-and set_ch_prefix (v : string) : unit =
-	doc_settings.ch_prefix <- (prefix_value_of_string v)
+and set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = prefix_value_of_string v;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
 
-and set_sec_prefix (v : string) : unit =
-	doc_settings.sec_prefix <- (prefix_value_of_string v)
+and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = v;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
 
-and set_par_prefix (v : string) : unit =
-	doc_settings.par_prefix <- (prefix_value_of_string v)
+and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = prefix_value_of_string v;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
 
-and set_abstract_hdr (v : string) : unit =
-	doc_settings.abstract_hdr <- (prefix_value_of_string v)
+and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = prefix_value_of_string v;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
 
-and set_refs_hdr (v : string) : unit =
-	doc_settings.refs_hdr <- v 
+and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = prefix_value_of_string v;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
 
-and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : unit =
-	try doc_settings.expand_tag_singular <- (singular_tag_value_of_string expand_tag_old v) with _ ->
+
+and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = singular_tag_value_of_string expand_tag_old v;
+	expand_tag_plural = doc_settings.expand_tag_plural;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid singular_tag value: ";v;"; ";"using default value"])
+	in doc_settings
 
-and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : unit =
-	try doc_settings.expand_tag_plural <- (plural_tag_value_of_string expand_tag_old v) with _ ->
+and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+	try
+	{
+	doc_width = doc_settings.doc_width;
+	left_margin = doc_settings.left_margin;
+	title_indent = doc_settings.title_indent;
+	author_indent = doc_settings.author_indent;
+	abstract_indent = doc_settings.abstract_indent;
+	refs_indent = doc_settings.refs_indent;
+	tab_length = doc_settings.tab_length;
+	abstract_hdr = doc_settings.abstract_hdr;
+	refs_hdr = doc_settings.refs_hdr;
+	ch_prefix = doc_settings.ch_prefix;
+	sec_prefix = doc_settings.sec_prefix;
+	par_prefix = doc_settings.par_prefix;
+	expand_tag_singular = doc_settings.expand_tag_singular;
+	expand_tag_plural = plural_tag_value_of_string expand_tag_old v;
+	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
+	}
+	with _ ->
+	let _ : unit =
 	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
+	in doc_settings
 
 and prefix_value_of_string (v : string) : string option =
 	match v with
@@ -239,6 +502,8 @@ and plural_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * s
 		in expand_tag_new
 	)
 	| _ -> raise (Error "invalid plural_tag value")
+
+
 
 (**************************** labels and cross-references *********************************)
 
@@ -280,7 +545,7 @@ type t_doc_cref_table = { mutable content : t_cref_table }
 
 let doc_cref_table : t_doc_cref_table = { content = [] }
 
-let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
+let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
 	match c_ref with Cs_c_ref (id_c_ref : Doc_types.tr_id) ->
 	let rec aux (cref_table : t_cref_table) : string option =
 		match cref_table with
@@ -288,18 +553,18 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 		| ((id : Doc_types.tr_id), (id_loc : t_path), _) :: c_ref_table_tl -> 
 			match id_c_ref = id with
 			| true -> (
-				match id_loc, string_of_sub_path_opt id_loc (path_from_common_ancestor c_ref_loc id_loc) with
+				match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
 				|id_loc_hd::id_loc_tl, Some (sub : string) -> (
 					match List.rev id_loc_tl with 
 					|ABSTRACT_NODE::_ -> (
 						match List.rev c_ref_loc with
 						|ABSTRACT_NODE::_ -> Some sub
-						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path [ABSTRACT_NODE]])
+						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [ABSTRACT_NODE]])
 					)
 					|REFS_NODE::_ -> (
 						match List.rev c_ref_loc with
 						|REFS_NODE::_ -> Some sub
-						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path [REFS_NODE]])
+						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [REFS_NODE]])
 					)
 					|_ ->
 					match id_loc_hd with
@@ -324,16 +589,16 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; sub])
 					)
 					|ITM_NODE (ITM_TAG_AUTO (singular,_)) -> (
-						let label = label_of_path id_loc in
+						let label = label_of_path doc_settings id_loc in
 						match label = sub with
 						|true -> Some (String.concat "\u{00A0}" [singular;label])
-						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path id_loc_tl])
+						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl])
 					)
 					|ITM_NODE (ITM_TAG_CUSTOM (singular,_)) -> (
-						let label = label_of_path id_loc in
+						let label = label_of_path doc_settings id_loc in
 						match label = sub with
 						|true -> Some (String.concat "\u{00A0}" [singular;label])
-						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path id_loc_tl])
+						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl])
 					)
 					| _ -> Some sub
 				)
@@ -343,7 +608,7 @@ let rec string_of_ts_c_ref (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : s
 	in
 	match aux doc_cref_table.content with
 	| None ->
-		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference \'" ^ (string_of_tr_id id_c_ref) ^ "\' in " ^ (string_of_path c_ref_loc)) in 
+		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference \'" ^ (string_of_tr_id id_c_ref) ^ "\' in " ^ (string_of_path doc_settings c_ref_loc)) in 
 		"??"
 	| Some (s : string) -> s
 
@@ -373,15 +638,15 @@ and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
 	in 
 	aux rev_c_ref_loc rev_id_loc
 
-and string_of_path (path : t_path) : string =
-	match string_of_path_opt path with
+and string_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
+	match string_of_path_opt doc_settings path with
 	|None -> "document"
 	|Some s -> s
 
-and string_of_path_opt (path : t_path) : string option =
-	string_of_sub_path_opt path path
+and string_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
+	string_of_sub_path_opt doc_settings path path
 
-and string_of_sub_path_opt (full_path:t_path) (sub_path : t_path) : string option =
+and string_of_sub_path_opt (doc_settings : t_doc_settings) (full_path:t_path) (sub_path : t_path) : string option =
 	match full_path, sub_path with
 	| _, [] -> None
 	| full_path_hd::full_path_tl,sub_path_hd :: sub_path_tl -> (
@@ -390,9 +655,10 @@ and string_of_sub_path_opt (full_path:t_path) (sub_path : t_path) : string optio
 		| SEC_NODE _
 		| APP_NODE _
 		| PAR_NODE _ -> 
-			string_of_node_opt full_path_tl sub_path_hd
+			string_of_node_opt doc_settings full_path_tl sub_path_hd
 		| _ -> (
-			match (string_of_sub_path_opt full_path_tl sub_path_tl, string_of_node_opt full_path_tl sub_path_hd) with
+			match (string_of_sub_path_opt doc_settings full_path_tl sub_path_tl, string_of_node_opt doc_settings full_path_tl sub_path_hd)
+			with
 			| Some s, Some t -> Some (s ^ t)
 			| None, Some t -> Some t
 			| Some s, None -> Some s
@@ -401,34 +667,34 @@ and string_of_sub_path_opt (full_path:t_path) (sub_path : t_path) : string optio
 	)
 	| [], _ -> raise (Error "full_path shorter than sub_path")
 
-and string_of_node_opt (tail : t_path) (head : t_node) : string option =
+and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t_node) : string option =
 	match head with
 	| CH_NODE (n : int)
 	| SEC_NODE (n : int) -> (
-		match string_of_path_opt tail with
+		match string_of_path_opt doc_settings tail with
 		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 		|None -> Some (string_of_int (n + 1))
 	)
 	| PAR_NODE (par_node : t_par_node) -> (
 		match par_node with
 		|NO_TAG (_,n) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt doc_settings tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 		|SINGULAR_TAG (_, n) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt doc_settings tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 		|PLURAL_TAG (_, _, n) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt doc_settings tail with
 			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
 			|None -> Some (string_of_int (n + 1))
 		)
 	)
 	| APP_NODE (n : int) -> (
-		match string_of_path_opt tail with
+		match string_of_path_opt doc_settings tail with
 		|Some s -> (try Some (s ^ "." ^ upper_case_latin_letters.(n)) with _ -> raise (Error "You have too many appendices!"))
 		|None -> Some upper_case_latin_letters.(n)
 	)
@@ -463,12 +729,12 @@ and string_of_node_opt (tail : t_path) (head : t_node) : string option =
 				| 1 -> lower_case_latin_letters.(n)
 				| _ -> lower_case_roman_numerals.(n)
 			in
-			match string_of_path_opt tail with
+			match string_of_path_opt doc_settings tail with
 			|None -> Some (String.concat "" ["("; s;")"])
 			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
 		)
 		|ITM_TAG_CUSTOM (_,s) -> (
-			match string_of_path_opt tail with
+			match string_of_path_opt doc_settings tail with
 			|None -> Some (String.concat "" ["("; s;")"])
 			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
 		)
@@ -487,7 +753,7 @@ and lvl_of_path (path : t_path) : int =
 		| BLT_NODE -> lvl_of_path tl + 1
 		| _ -> lvl_of_path tl
 
-and node_of_tr_par_std (auto_nr : int) (par : Doc_types.tr_par_std) : t_node =
+and node_of_tr_par_std (doc_settings : t_doc_settings) (auto_nr : int) (par : Doc_types.tr_par_std) : t_node =
 	match par.fld_par_tag_or_id with
 	|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
 	|Some (tag_or_id : tu_tag_or_id) ->
@@ -548,11 +814,11 @@ and upper_case_roman_numerals : string array =
 and bullets : string array = [| "─" |]
 
 
-and label_of_path_opt (path : t_path) : string option =
+and label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
-		let s_opt : string option = string_of_node_opt tl hd in
+		let s_opt : string option = string_of_node_opt doc_settings tl hd in
 		match hd with
 		| CH_NODE _ -> (
 			match (doc_settings.ch_prefix, s_opt) with
@@ -580,8 +846,8 @@ and label_of_path_opt (path : t_path) : string option =
 		| REFS_NODE -> Some doc_settings.refs_hdr
 		| _ -> s_opt
 
-and label_of_path (path : t_path) : string=
-	match label_of_path_opt path with
+and label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
+	match label_of_path_opt doc_settings path with
 	| None -> ""
 	| Some (s : string) -> s
 
@@ -633,8 +899,8 @@ let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par_std option =
 	in
 	aux doc_cref_table.content
 
-let node_of_tu_par (auto_nr : int) (p : tu_par) : t_node =
+let node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par) : t_node =
 	match p with
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
-	|Cu_par_std (par : tr_par_std) -> node_of_tr_par_std auto_nr par
+	|Cu_par_std (par : tr_par_std) -> node_of_tr_par_std doc_settings auto_nr par
 

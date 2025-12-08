@@ -2,24 +2,24 @@ open Doc_types
 open Common_utils
 
 
-let rec lines_of_ts_title_opt (title_opt : Doc_types.ts_title option) : string list =
+let rec lines_of_ts_title_opt (doc_settings : t_doc_settings) (title_opt : Doc_types.ts_title option) : string list =
 	match title_opt with
 	|None -> []
-	|Some title -> lines_of_ts_title title
+	|Some title -> lines_of_ts_title doc_settings title
 
-and lines_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : string list =
+and lines_of_ts_authors_opt (doc_settings : t_doc_settings) (authors_opt : Doc_types.ts_authors option) : string list =
 	match authors_opt with
 	|None -> []
-	|Some authors -> lines_of_ts_authors authors
+	|Some authors -> lines_of_ts_authors doc_settings authors
 
 
-and lines_of_abstract_hdr (doc_class : Common_utils.t_doc_class) : string list =
+and lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : Common_utils.t_doc_class) : string list =
 	match doc_settings.abstract_hdr with
 	|None -> []
 	|Some abstract_hdr ->
-		lines_of_string doc_settings.abstract_indent abstract_hdr
+		lines_of_string doc_settings doc_settings.abstract_indent abstract_hdr
 
-and lines_of_refs_hdr (doc_class : Common_utils.t_doc_class) : string list =
+and lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : Common_utils.t_doc_class) : string list =
 	let underline_symbol : string =
 		match doc_class with
 		|DOC_CHS -> "═"
@@ -27,66 +27,66 @@ and lines_of_refs_hdr (doc_class : Common_utils.t_doc_class) : string list =
 	in
 	let indent : string = String.make doc_settings.refs_indent ' ' in
 	let underline = make_string (Int.min (utf_8_length doc_settings.refs_hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
-	let hdr_lines : string list = lines_of_string doc_settings.refs_indent doc_settings.refs_hdr in
+	let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent doc_settings.refs_hdr in
 	List.concat [hdr_lines;[indent ^ underline;""]]
 
 
-and lines_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =
+and lines_of_ts_blk_txt (doc_settings : t_doc_settings) (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : string list =
 	match blk_txt with
-	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> List.concat [lines_of_ts_txt_units path txt_units]
+	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> List.concat [lines_of_ts_txt_units doc_settings path txt_units]
 
 
-and lines_of_ts_blk_vrb (path : Common_utils.t_path) (blk_vrb : Doc_types.ts_blk_vrb) : string list =
+and lines_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : Common_utils.t_path) (blk_vrb : Doc_types.ts_blk_vrb) : string list =
 	match blk_vrb with
-	|Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> lines_of_ts_vrb_lines path vrb_lines
+	|Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> lines_of_ts_vrb_lines doc_settings path vrb_lines
 
-and lines_of_ts_vrb_lines (path : Common_utils.t_path) (vrb_lines : Doc_types.ts_vrb_lines) : string list =
+and lines_of_ts_vrb_lines (doc_settings : t_doc_settings) (path : Common_utils.t_path) (vrb_lines : Doc_types.ts_vrb_lines) : string list =
 	match vrb_lines with
 	|Cs_vrb_lines (vrb_line_list : ts_vrb_line list) ->
-		List.map (line_of_vrb_line path) vrb_line_list
+		List.map (line_of_vrb_line doc_settings path) vrb_line_list
 
-and line_of_vrb_line (path : Common_utils.t_path) (vrb_line : Doc_types.ts_vrb_line) : string =
+and line_of_vrb_line (doc_settings : t_doc_settings) (path : Common_utils.t_path) (vrb_line : Doc_types.ts_vrb_line) : string =
 	match vrb_line with
 	|Cs_vrb_line (line:string) -> 
-		let indent : string = String.make (indent_of_path path) ' ' in
+		let indent : string = String.make (indent_of_path doc_settings path) ' ' in
 		match line with
 		|"" -> ""
 		|_ -> String.concat "" [indent;line]
 
-and lines_of_ts_hdr_opt (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
+and lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (path : Common_utils.t_path) (hdr_opt : Doc_types.ts_hdr option) : string list =
 	match hdr_opt with
-	| Some (hdr : Doc_types.ts_hdr) -> lines_of_ts_hdr path hdr
+	| Some (hdr : Doc_types.ts_hdr) -> lines_of_ts_hdr doc_settings path hdr
 	| None ->
 		match path with
 		| hd::tl -> (
 			match hd with
-			|SEC_NODE _ | APP_NODE _ -> [label_of_path path;""]
+			|SEC_NODE _ | APP_NODE _ -> [label_of_path doc_settings path;""]
 			|CH_NODE _ ->
 				let indent : string = String.make (doc_settings.left_margin) ' ' in
-				let label : string = label_of_path path in
+				let label : string = label_of_path doc_settings path in
 				let underline :string = make_string (utf_8_length label) "═" in
 				[indent ^ label; indent ^ underline; ""]
 			| _ -> []
 		)
 		| [] -> []
 
-and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : string list =
+and lines_of_ts_hdr (doc_settings : t_doc_settings) (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : string list =
 	match hdr with 
 	Cs_hdr (txt_units : ts_txt_units) ->
 		match path with
 		|path_hd::path_tl -> (
 			let indent : string = String.make (doc_settings.left_margin) ' ' in
-			let hdr_string : string = string_of_ts_txt_units path txt_units in
-			let hdr_lines : string list = lines_of_string doc_settings.left_margin hdr_string in
+			let hdr_string : string = string_of_ts_txt_units doc_settings path txt_units in
+			let hdr_lines : string list = lines_of_string doc_settings doc_settings.left_margin hdr_string in
 			match path_hd with
 			|SEC_NODE _ | APP_NODE _ -> (
 				let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
 				match hdr_lines with
-				| hd::tl -> List.concat [[insert_label path hd];tl;[indent ^ underline;""]]
+				| hd::tl -> List.concat [[insert_label doc_settings path hd];tl;[indent ^ underline;""]]
 				| [] -> raise (Error "section header cannot be empty")
 			)
 			|CH_NODE _ ->
-				let label : string = label_of_path path in
+				let label : string = label_of_path doc_settings path in
 				let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "═" in
 				List.concat [[indent ^ label]; hdr_lines; [indent ^ underline; ""]]
 			| _ -> []
@@ -94,49 +94,49 @@ and lines_of_ts_hdr (path : Common_utils.t_path) (hdr : Doc_types.ts_hdr) : stri
 		|[] -> raise (Error "path to chapter or section cannot be empty")
 
 
-and lines_of_ts_title (title : Doc_types.ts_title) : string list =
+and lines_of_ts_title (doc_settings : t_doc_settings) (title : Doc_types.ts_title) : string list =
 	match title with
 	|Cs_title (s : string) -> 
 		let indent : string = String.make doc_settings.title_indent ' ' in
 		let overline : string = make_string (doc_settings.doc_width - doc_settings.title_indent) "═" in
 		let underline : string = overline in
-		List.concat [[indent ^ overline]; lines_of_string doc_settings.title_indent s;[indent ^ underline;""]]
+		List.concat [[indent ^ overline]; lines_of_string doc_settings doc_settings.title_indent s;[indent ^ underline;""]]
 
-and lines_of_ts_authors (authors : Doc_types.ts_authors) : string list =
+and lines_of_ts_authors (doc_settings : t_doc_settings) (authors : Doc_types.ts_authors) : string list =
 	match authors with
-	|Cs_authors (author_list : ts_author list) -> List.concat [List.concat (List.map lines_of_ts_author author_list);[""]]
+	|Cs_authors (author_list : ts_author list) -> List.concat [List.concat (List.map (lines_of_ts_author doc_settings) author_list);[""]]
 
 
-and lines_of_ts_author (author : Doc_types.ts_author) : string list =
+and lines_of_ts_author (doc_settings : t_doc_settings) (author : Doc_types.ts_author) : string list =
 	match author with
-	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings.author_indent s; [""]]
+	|Cs_author (s : string) -> List.concat [lines_of_string doc_settings doc_settings.author_indent s; [""]]
 
 and make_string (n:int) (s:string) : string=
 	let rec aux (i:int) (acc:string) = 
 		if i > n - 1 then acc else aux (i+1) (acc ^ s) 
 	in aux 0 ""
 
-and lines_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string list =
+and lines_of_ts_txt_units (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string list =
 	let lines_of_string_function : int -> string -> string list = (
 		match path with
-		| [] -> lines_of_string
+		| [] -> lines_of_string doc_settings
 		| hd :: tl -> 
 			match hd with
 			| DSP_LINE_NODE _ -> lines_of_string_dsp
-			| _ -> lines_of_string
+			| _ -> lines_of_string doc_settings
 	)
 	in 
-	lines_of_string_function (indent_of_path path) (string_of_ts_txt_units path a)
+	lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings path a)
 
-and string_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string =
+and string_of_ts_txt_units (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : string =
 	match a with Cs_txt_units (b: Doc_types.tu_txt_unit list) ->
-	String.concat "" (List.map (string_of_ts_txt_unit path) b)
+	String.concat "" (List.map (string_of_ts_txt_unit doc_settings path) b)
 
-and string_of_ts_txt_unit (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : string =
+and string_of_ts_txt_unit (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : string =
 	match a with
 	| Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
 	| Cu_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
-	| Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref path b
+	| Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref doc_settings path b
 
 and emph (a : string) : string = underline a
 
@@ -145,7 +145,7 @@ and underline (s : string) : string =
 	let map (el : string) : string = el ^ "\u{0332}" in
 	String.concat "" (List.map map lst)
 
-and lines_of_string (indent : int) (s : string) : string list =
+and lines_of_string (doc_settings : t_doc_settings) (indent : int) (s : string) : string list =
 	let line_width : int = doc_settings.doc_width - indent in
 	let ind : string = String.make indent ' ' in
 	let rec aux (ind : string) (line_width : int) (s : string) (acc : string list) : string list = (
@@ -187,19 +187,19 @@ and line_break (line_width : int) (s : string) : string * string =
 				(sub, String.sub s (i + 1) (String.length s - i - 1))
 
 
-and insert_label (path : Common_utils.t_path) (s : string) : string =
-	match label_of_path_opt path with
+and insert_label (doc_settings : t_doc_settings) (path : Common_utils.t_path) (s : string) : string =
+	match label_of_path_opt doc_settings path with
 	| None -> s
-	| Some (t : string) -> insert_string t (pos_of_label path) s
+	| Some (t : string) -> insert_string t (pos_of_label doc_settings path) s
 
-and pos_of_label (path : Common_utils.t_path) : int =
+and pos_of_label (doc_settings : t_doc_settings) (path : Common_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl ->
 		match hd with
-		| ITM_NODE _ -> indent_of_path path - doc_settings.tab_length
-		| BLT_NODE -> indent_of_path path - doc_settings.tab_length
-		| DSP_LINE_NODE _ -> indent_of_path path - doc_settings.tab_length
+		| ITM_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
+		| BLT_NODE -> indent_of_path doc_settings path - doc_settings.tab_length
+		| DSP_LINE_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
 		| _ -> 0
 
 and insert_string (label : string) (pos : int) (s : string) : string =
@@ -219,7 +219,7 @@ and insert_string (label : string) (pos : int) (s : string) : string =
 	String.concat label [ s1; s2 ]
 
 
-and indent_of_path (path : Common_utils.t_path) : int =
+and indent_of_path (doc_settings : t_doc_settings) (path : Common_utils.t_path) : int =
 	match path with
 	| [] -> 0
 	| hd :: tl -> 
@@ -229,10 +229,10 @@ and indent_of_path (path : Common_utils.t_path) : int =
 		| CH_NODE _ -> doc_settings.left_margin
 		| SEC_NODE _ -> doc_settings.left_margin
 		| PAR_NODE _ -> doc_settings.left_margin
-		| ITM_NODE _ -> indent_of_path tl + doc_settings.tab_length
-		| BLT_NODE -> indent_of_path tl + doc_settings.tab_length
-		| DSP_NODE -> indent_of_path tl + doc_settings.tab_length
-		| _ -> indent_of_path tl
+		| ITM_NODE _ -> indent_of_path doc_settings tl + doc_settings.tab_length
+		| BLT_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
+		| DSP_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
+		| _ -> indent_of_path doc_settings tl
 
 and utf_8_segments seg s =
   let flush_segment buf acc =
@@ -300,3 +300,4 @@ let left_margin_of_options (options : string list) : int option =
 			|_ -> aux tl
 	in
 	aux options
+

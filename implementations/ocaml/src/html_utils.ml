@@ -84,8 +84,8 @@ match element with
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
-let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
-	let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc in
+let margin_left_of_tr_doc (doc_settings : Common_utils.t_doc_settings) (doc : Doc_types.tr_doc) : string =
+	let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc in
 	let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
 	let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in
 	String.concat "" [Printf.sprintf "%.2f" margin; "rem"]

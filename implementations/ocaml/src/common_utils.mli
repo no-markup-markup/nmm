@@ -75,21 +75,21 @@ match ch_class with
 (** <h2>Document settings</h2> *)
 
 type t_doc_settings = {
-  mutable doc_width : int;
-  mutable left_margin : int;
-  mutable title_indent : int;
-  mutable author_indent : int;
-  mutable abstract_indent : int;
-  mutable refs_indent : int;
-  mutable tab_length : int;
-  mutable abstract_hdr : string option;
-  mutable refs_hdr : string;
-  mutable ch_prefix : string option;
-  mutable sec_prefix : string option;
-  mutable par_prefix : string option;
-  mutable expand_tag_singular: Doc_types.ts_tag -> string option;
-  mutable expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
-  mutable preserve_vertical_white_space : bool;
+  doc_width : int;
+  left_margin : int;
+  title_indent : int;
+  author_indent : int;
+  abstract_indent : int;
+  refs_indent : int;
+  tab_length : int;
+  abstract_hdr : string option;
+  refs_hdr : string;
+  ch_prefix : string option;
+  sec_prefix : string option;
+  par_prefix : string option;
+  expand_tag_singular: Doc_types.ts_tag -> string option;
+  expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
+  preserve_vertical_white_space : bool;
 }
 
 
@@ -133,15 +133,19 @@ match tag with
 *)
 
 
-val doc_settings : t_doc_settings
+val doc_settings_default : unit -> t_doc_settings
 (**
-{[ = {
-    doc_width           = 80;
-    left_margin         = 12;
-    title_indent        = 12;
-    author_indent       = 12;
-    abstract_indent     = 12;
-    refs_indent         = 12;
+{[doc_settings_default ()]
+
+evaluates to
+
+{
+    doc_width           = 68;
+    left_margin         = 0;
+    title_indent        = 0;
+    author_indent       = 0;
+    abstract_indent     = 0;
+    refs_indent         = 0;
     tab_length          = 6;
     abstract_hdr        = Some "ABSTRACT";
     refs_hdr            = "REFERENCES";
@@ -160,13 +164,11 @@ These are the default settings.
 (** <h3>User-defined settings</h3> *)
 
 
-val doc_settings_of_tr_doc : Doc_types.tr_doc -> unit
+val doc_settings_of_tr_doc : Doc_types.tr_doc -> t_doc_settings
 (**
 {[doc_settings_of_tr_doc doc]} 
 
-first checks if [doc] contains any sections or paragraphs. If not, it sets [doc_settings.left_margin] to [0], and [doc_settings.doc_width] to [68].
-
-Secondly, it checks if [doc] has a preamble. If so, it attempts to parse that preamble and adjusts [doc_settings] accordingly (possibly overriding the default settings). 
+Checks if [doc] has a preamble. If so, it attempts to parse that preamble and adjusts [doc_settings_default] accordingly (possibly overriding the default settings). 
 
 Prints a warning to [stderr] if parsing fails, and keeps the default value.
 
@@ -259,9 +261,9 @@ Starts as an empty table.
 *)
 
 
-val string_of_ts_c_ref : t_path -> Doc_types.ts_c_ref -> string
+val string_of_ts_c_ref : t_doc_settings -> t_path -> Doc_types.ts_c_ref -> string
 (**
-{[string_of_ts_c_ref path c_ref]}
+{[string_of_ts_c_ref doc_settings path c_ref]}
 
 attempts to match [c_ref] ocurring at [path] with an [id] in [doc_cref_table], and return a string representation of the path to [id] relative to the closest common ancestor of [c_ref] and [id]. 
 
@@ -273,7 +275,7 @@ Prints a warning to [stderr] if no match is found, and returns ["??"].
 *)
 
 
-val node_of_tu_par : int -> Doc_types.tu_par -> t_node
+val node_of_tu_par : t_doc_settings -> int -> Doc_types.tu_par -> t_node
 
 
 val node_of_blk_itm : t_node option -> int -> Doc_types.tr_blk_itm -> t_node
@@ -308,46 +310,44 @@ in DSP_LINE_NODE dsp_line_node
 *)
 
 
-val label_of_path_opt : t_path -> string option
-(**
-With default [doc_settings], 
+val label_of_path_opt : t_doc_settings -> t_path -> string option
+(** 
+[label_of_path_opt doc_settings_default [CH_NODE 1]] evaluates to [Some "CHAPTER 1"]
 
-[label_of_path_opt [CH_NODE 1]] evaluates to [Some "CHAPTER 1"]
+[label_of_path_opt doc_settings_default [SEC_NODE 1]] evaluates to [Some "§ 2"]
 
-[label_of_path_opt [SEC_NODE 1]] evaluates to [Some "§ 2"]
+[label_of_path_opt doc_settings_default [SEC_NODE 1; CH_NODE 2]] evaluates to [Some "§ 2.1"]
 
-[label_of_path_opt [SEC_NODE 1; CH_NODE 2]] evaluates to [Some "§ 2.1"]
+[label_of_path_opt doc_settings_default [PAR_NODE 1]] evaluates to [Some "¶ 1"]
 
-[label_of_path_opt [PAR_NODE 1]] evaluates to [Some "¶ 1"]
+[label_of_path_opt doc_settings_default [PAR_NODE 1; SEC_NODE 2]] evaluates to [Some "¶ 2.1"]
 
-[label_of_path_opt [PAR_NODE 1; SEC_NODE 2]] evaluates to [Some "¶ 2.1"]
+[label_of_path_opt doc_settings_default [PAR_NODE 1; SEC_NODE 2; CH_NODE 3]] evaluates to [Some "¶ 3.2.1"]
 
-[label_of_path_opt [PAR_NODE 1; SEC_NODE 2; CH_NODE 3]] evaluates to [Some "¶ 3.2.1"]
+[label_of_path_opt doc_settings_default [ITM_NODE (ITM_AUTO 1)]::tail] evaluates to [Some "(1)"]
 
-[label_of_path_opt [ITM_NODE (ITM_AUTO 1)]::tail] evaluates to [Some "(1)"]
+[label_of_path_opt doc_settings_default [ITM_NODE (ITM_CUSTOM "a")]::tail] evaluates to [Some "(a)"]
 
-[label_of_path_opt [ITM_NODE (ITM_CUSTOM "a")]::tail] evaluates to [Some "(a)"]
+[label_of_path_opt doc_settings_default [DSP_LINE_NODE (DSP_AUTO 1)]::tail] evaluates to [Some "(1)"]
 
-[label_of_path_opt [DSP_LINE_NODE (DSP_AUTO 1)]::tail] evaluates to [Some "(1)"]
+[label_of_path_opt doc_settings_default [DSP_LINE_NODE (DSP_CUSTOM "a")]::tail] evaluates to [Some "(a)"]
 
-[label_of_path_opt [DSP_LINE_NODE (DSP_CUSTOM "a")]::tail] evaluates to [Some "(a)"]
+[label_of_path_opt doc_settings_default [DSP_LINE_NODE DSP_NONE]::tail] evaluates to [None]
 
-[label_of_path_opt [DSP_LINE_NODE DSP_NONE]::tail] evaluates to [None]
+[label_of_path_opt doc_settings_default [ITM_NODE (ITM_AUTO 1); REFS_NODE]] evaluates to [Some "(1)"]
 
-[label_of_path_opt [ITM_NODE (ITM_AUTO 1); REFS_NODE]] evaluates to [Some "(1)"]
-
-[label_of_path_opt [ITM_NODE (ITM_AUTO 1); ABSTRACT_NODE]] evaluates to [Some "(1)"]
+[label_of_path_opt doc_settings_default [ITM_NODE (ITM_AUTO 1); ABSTRACT_NODE]] evaluates to [Some "(1)"]
 
 *)
 
 
-val label_of_path : t_path -> string
+val label_of_path : t_doc_settings -> t_path -> string
 (**
-{[label_of_path path]}
+{[label_of_path doc_settings path]}
 
 evaluates to
 
-{[match label_of_path_opt path with
+{[match label_of_path_opt doc_settings path with
 | None -> ""
 | Some (s : string) -> s
 ]}

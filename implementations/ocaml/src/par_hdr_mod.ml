@@ -1,7 +1,7 @@
 open Doc_types
 open Common_utils
 
-let special_tag (a : tu_tag_or_id option) : tu_txt_unit option =
+let special_tag (doc_settings : t_doc_settings) (a : tu_tag_or_id option) : tu_txt_unit option =
 	match a with
 	|None -> None
 	|Some (b : tu_tag_or_id) ->
@@ -15,11 +15,11 @@ let special_tag (a : tu_tag_or_id option) : tu_txt_unit option =
 				|Some (_,plural) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg plural))
 				|None -> None
 
-let copy_hdr_to_main (par : tr_par_std): tr_par_std = 
+let copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_std = 
 	let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
 	let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
 	let rpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")") in
-	match special_tag par.fld_par_tag_or_id, par.fld_par_hdr, par.fld_par_main with
+	match special_tag doc_settings par.fld_par_tag_or_id, par.fld_par_hdr, par.fld_par_main with
 	| Some (s : tu_txt_unit),
 	  Some (Cs_hdr (Cs_txt_units (h : tu_txt_unit list))), 
 	  Cs_blks (Cu_blk_txt (Cs_blk_txt (Cs_txt_units (t : tu_txt_unit list)))::tl) -> {

@@ -92,7 +92,7 @@ match element with
 ]}
 *)
 
-val margin_left_of_tr_doc : Doc_types.tr_doc -> string
+val margin_left_of_tr_doc : Common_utils.t_doc_settings -> Doc_types.tr_doc -> string
 
 val internal_css : string -> string -> string
 (**

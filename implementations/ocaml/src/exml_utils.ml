@@ -32,9 +32,9 @@ and xml_of_refs_hdr (doc_settings : Common_utils.t_doc_settings): Xml.xml =
 	let content : Xml.xml list = [xml_of_string doc_settings.refs_hdr] in
 	Xml.Element ("refs_hdr",[],content)
 
-and xml_of_ts_blk_txt (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
+and xml_of_ts_blk_txt (doc_settings : t_doc_settings) (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
 	match blk_txt with
-	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units path txt_units)
+	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings path txt_units)
 
 and xml_of_ts_blk_vrb (blk_vrb : Doc_types.ts_blk_vrb) : Xml.xml =
 	match blk_vrb with
@@ -51,15 +51,15 @@ and xml_of_ts_vrb_line (vrb_line : Doc_types.ts_vrb_line) : Xml.xml =
 		|"" -> Xml.Element ("vrb_line_empty",[],[])
 		|_ -> Xml.Element ("vrb_line",[],[xml_of_string line])
 
-and xml_list_of_ts_txt_units (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
+and xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
 	match a with
-	| Cs_txt_units (b : Doc_types.tu_txt_unit list) -> List.map (xml_of_tu_txt_unit path) b
+	| Cs_txt_units (b : Doc_types.tu_txt_unit list) -> List.map (xml_of_tu_txt_unit doc_settings path) b
 
-and xml_of_tu_txt_unit (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : Xml.xml =
+and xml_of_tu_txt_unit (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : Xml.xml =
 	match a with
 	| Cu_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwyg b
 	| Cu_txt_unit_emph (b : ts_txt_unit_emph) -> xml_of_ts_txt_unit_emph b
-	| Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref path b 
+	| Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref doc_settings path b 
 
 and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 	match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [xml_of_string b])
@@ -67,11 +67,11 @@ and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 and xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : Xml.xml =
 	match a with Cs_txt_unit_emph (b : string) -> Xml.Element ("txt_unit_emph", [], [xml_of_string b])
 
-and xml_of_ts_txt_unit_c_ref (path : Common_utils.t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
-	match a with Cs_txt_unit_c_ref (b : ts_c_ref) -> Xml.Element ("txt_unit_c_ref", attr_list_of_ts_c_ref b, [xml_of_ts_c_ref path b])
+and xml_of_ts_txt_unit_c_ref (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
+	match a with Cs_txt_unit_c_ref (b : ts_c_ref) -> Xml.Element ("txt_unit_c_ref", attr_list_of_ts_c_ref b, [xml_of_ts_c_ref doc_settings path b])
 
-and xml_of_ts_c_ref (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
-	Xml.PCData (pcdata_of_string (Common_utils.string_of_ts_c_ref path a))
+and xml_of_ts_c_ref (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
+	Xml.PCData (pcdata_of_string (Common_utils.string_of_ts_c_ref doc_settings path a))
 
 and attr_list_of_ts_c_ref (a : Doc_types.ts_c_ref) : (string*string) list =
 	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (string_of_tr_id id))]
@@ -137,7 +137,7 @@ and predefined_entity_of_string (s : string) : string =
 	| _ -> s
 
 
-and par_hdr_opt (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (Xml.xml list) option=
+and par_hdr_opt (doc_settings : t_doc_settings) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (Xml.xml list) option=
 	let tag_content_opt : (Xml.xml list) option = 
 		match tag_or_id_opt with
 		|Some (tag_or_id : tu_tag_or_id) -> (
@@ -157,7 +157,7 @@ and par_hdr_opt (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt :
 		match hdr_opt with
 		|None -> None
 		|Some (Cs_hdr (txt_units : ts_txt_units)) ->
-			Some (xml_list_of_ts_txt_units path txt_units)
+			Some (xml_list_of_ts_txt_units doc_settings path txt_units)
 	in
 	match tag_content_opt, hdr_content_opt, inline with
 		|Some tag_content, Some hdr_content, true ->
