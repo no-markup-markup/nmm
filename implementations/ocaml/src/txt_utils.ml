@@ -275,7 +275,8 @@ let max_length_of_margin_labels (margin_labels : string list) : int =
 	aux 0 margin_labels
 
 let left_margin_of_margin_labels (margin_labels : string list) : int =
-	max_length_of_margin_labels margin_labels + 2
+	let max_length : int = max_length_of_margin_labels margin_labels in
+	if max_length = 0 then 0 else max_length + 2
 
 let left_margin_of_options (options : string list) : int option =
 	let rec aux (lst : string list) =

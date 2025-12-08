@@ -20,11 +20,11 @@ features:
 
       ─     Here is another one.
 
-            but this is interpreted as a text block at level 2, whose
-            (lack of) linebreaks are not respected.
+            but this is interpreted as a text block at level 2,
+            whose (lack of) linebreaks are not respected.
 
-      this is interpreted as a text block at level 1, whose (lack of)
-      linebreaks are not respected.
+      this is interpreted as a text block at level 1, whose (lack
+      of) linebreaks are not respected.
 
 In fact, here are some more unlabled display lines:
 
@@ -47,8 +47,8 @@ In fact, here are some more unlabled display lines:
 
       (c)   When referring to (b) above, any common initial path
             shared between the location of the referring expression
-            and the location of its referent will be omitted. The same
-            applies with respect to (**) below.
+            and the location of its referent will be omitted. The
+            same applies with respect to (**) below.
 
       (**)  Of course, items with custom labels can also be named!
 
