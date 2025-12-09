@@ -1,0 +1,12 @@
+¶ 1  FACT
+
+           a²+b² = c²
+
+
+¶ 2  I think what Pythagoras discovered is such a remarkable fact that I
+     want to state it again!
+
+
+¶ 3  FACT 1 [restated]
+
+           a²+b² = c²
