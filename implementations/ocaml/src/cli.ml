@@ -24,8 +24,7 @@ HTML-OPTIONS:
   --margin <numeral>
   --preserve-vertical-white-space
   --lang <language-code>
-  --css <uri>
-"
+  --css <uri>"
 
 type t_keyspecdoc = (Arg.key *  Arg.spec * Arg.doc)
 
@@ -191,6 +190,6 @@ let _ : unit =
 	|"show-default-css" -> print_endline Main.default_css
 	|"test-with-xml" -> Test.test_with_axml_file options path_to_xml_file.contents
 	|"test-with-nmm" -> Test.test_with_nmm_file options path_to_nmm_file.contents
-	|_ -> raise (Error "missing sub-command")
+	|_ -> Debug_utils.print_to_stderr usage
 
 
