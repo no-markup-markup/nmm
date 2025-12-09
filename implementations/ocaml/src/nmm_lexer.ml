@@ -54,7 +54,8 @@ let preamble = [%sedlex.regexp? "PREAMBLE:"]
 let title = [%sedlex.regexp? "TITLE:"]
 let author = [%sedlex.regexp? "AUTHOR:"]
 let abstract = [%sedlex.regexp? "ABSTRACT:"]
-let section_refs_nl = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
+let section_refs_nls = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
+let pilcrow_refs_nls = [%sedlex.regexp? Utf8 "¶", Plus " ", "REFS", Plus nl]
 
 let esc_char = [%sedlex.regexp? '\\', any]
 
@@ -123,7 +124,8 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|pilcrow_nl			->	PILCROW_NL
 		|pilcrow_spaces_tag_or_id_nl	->	PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
 		|pilcrow_spaces_rpt_spaces_id_nl ->	PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
-		|section_refs_nl		->	SECTION_REFS_NLS
+		|section_refs_nls		->	SECTION_REFS_NLS
+		|pilcrow_refs_nls		->	PILCROW_REFS_NLS
 		|tab				->	TAB 
 		|dash_tab			->	DASH_TAB
 		|dsp_auto_tab			->	let _ : unit = display.(0) <- true in DSP_AUTO_TAB 

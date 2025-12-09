@@ -39,6 +39,7 @@ let string_of_token (t:Nmm_parser.token):string=
 	|ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
 	|ABSTRACT s -> ("ABSTRACT " ^ "\"" ^ s ^ "\"")
 	|SECTION_REFS_NLS -> "SECTION_REFS_NLS"
+	|PILCROW_REFS_NLS -> "PICLROW_REFS_NLS"
 	|VRB_LINE s -> ("VRB_LINE " ^ "\"" ^ s ^ "\"")
 	|START_VRB -> "START_VRB"
 	|VRB_LINE_EMPTY -> "VRB_LINE_EMPTY"

@@ -28,7 +28,7 @@ let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_autho
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
-%token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS
+%token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
 %token <string>                 VRB_LINE
 %token <string>                 ESC_CHAR
@@ -173,6 +173,7 @@ doc_abstract:
 
 doc_refs:
   | SECTION_REFS_NLS blks0                        { (Cs_refs (Cs_blks $2)) : ts_refs }
+  | PILCROW_REFS_NLS blks0                        { (Cs_refs (Cs_blks $2)) : ts_refs }
 ;
 
 lines:
