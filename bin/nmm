@@ -9,7 +9,58 @@ import subprocess
 import sys
 import tempfile
 
-from typing import Final as F
+from dataclasses import dataclass
+from typing import Any, Final as F, Literal, Optional as O
+
+
+
+# DATA CLASS C_SHARED_FLAG
+
+@dataclass(frozen=True,kw_only=True)
+class c_shared_flag:
+  flag_incl_dashes : F[str]
+  help             : F[str]
+  choices          : O[tuple[Any,...]]
+  default          : F[Any]
+
+
+
+# FUNCTION F_ADD_SHARED_FLAG
+
+def f_add_shared_flag(p: ap.ArgumentParser, f: c_shared_flag) -> None:
+  p.add_argument(
+    f.flag_incl_dashes,
+    help    = f.help,
+    choices = f.choices,
+    default = f.default
+)
+
+
+
+# LITERAL TYPE T_BACKEND_CHOICES
+
+
+t_backend_choices = Literal['Mercury','OCaml']
+
+
+
+# SHARED FLAG ‘--BACKEND’
+
+flag_parser_backend = c_shared_flag(
+  flag_incl_dashes = '--parser-backend',
+  help             =
+    'Default: ‘Mercury’.'
+    +
+    '\n'
+    +
+    'The OCaml backend is faster but experimental'
+    +
+    '---'
+    +
+    'recommended only to deal with performance issues.',
+  choices          = ('Mercury','OCaml'),
+  default          = 'Mercury',
+)
 
 
 
@@ -84,17 +135,25 @@ def _get_margin_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
 
 ## HELPER _NMM2XML
 
-def _nmm2xml(path:str) -> str:
+def _nmm2xml(path:str, backend:t_backend_choices) -> str:
   xml_file_path : F[str] = tempfile.mkstemp()[1]
   with open(xml_file_path, 'w') as f:
+    match backend:
+      case 'Mercury' :
+        bin_name : F[str] = 'nmm-mercury' # pyright: ignore reportGeneralTypeIssues
+        cmd_name : F[str] = 'nmm2xml'     # pyright: ignore reportGeneralTypeIssues
+      case 'OCaml'   :
+        bin_name : F[str] = 'nmm-ocaml'   # pyright: ignore reportGeneralTypeIssues
+        cmd_name : F[str] = 'xml-of-nmm'  # pyright: ignore reportGeneralTypeIssues
     completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-      [_get_bin_path('nmm-mercury'),'nmm2xml',_get_realpath_as_str(path)],
+      [_get_bin_path(bin_name),cmd_name,_get_realpath_as_str(path)],
       stdout=f
     )
   if completed_proc.returncode != 0:
     os.remove(xml_file_path)
     sys.exit(completed_proc.returncode)
   return xml_file_path
+
 
 ## NMM2XML
 
@@ -103,10 +162,11 @@ subparser_nmm2xml : F[ap.ArgumentParser] = subparsers.add_parser(
   description     = description_by_command['nmm2xml'],
 )
 subparser_nmm2xml.add_argument('path',help='path to nmm source file')
+f_add_shared_flag(subparser_nmm2xml,flag_parser_backend)
 
 def nmm2xml(args:ap.Namespace) -> None:
-  xml_path = _nmm2xml(args.path)
-  with open(_nmm2xml(args.path)) as f:
+  xml_path = _nmm2xml(args.path,args.parser_backend)
+  with open(xml_path) as f:
     print(f.read())
   os.remove(xml_path)
   sys.exit(0)
@@ -124,10 +184,11 @@ subparser_nmm2txt.add_argument('path',    help='path to nmm source file')
 subparser_nmm2txt.add_argument(
   '--margin',help='manually set margin to MARGIN spaces'
 )
+f_add_shared_flag(subparser_nmm2txt,flag_parser_backend)
 
 def nmm2txt(args:ap.Namespace) -> None:
   margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
-  xml_path        : F[str]       = _nmm2xml(args.path)
+  xml_path        : F[str]       = _nmm2xml(args.path,args.parser_backend)
   completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_bin_path('nmm-ocaml'),'txt-of-xml']+margin_arg_list+[xml_path],
   )
@@ -159,6 +220,7 @@ subparser_nmm2html.add_argument(
     'the expression L in ⌜<html lang="L"⌝>---affects hyphenation (default: en)',
   default = 'en',
 )
+f_add_shared_flag(subparser_nmm2html,flag_parser_backend)
 
 def nmm2html(args:ap.Namespace) -> None:
   margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
@@ -166,7 +228,7 @@ def nmm2html(args:ap.Namespace) -> None:
     [] if args.css  is None else ['--css', 'args.css']
   lang_arg_list   : F[list[str]] = \
     [] if args.lang is None else ['--lang','args.lang']
-  xml_path        : F[str]       = _nmm2xml(args.path)
+  xml_path        : F[str]       = _nmm2xml(args.path,args.parser_backend)
   completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_bin_path('nmm-ocaml'),'html-of-xml']
     +
@@ -206,6 +268,7 @@ subparser_nmm2pdf.add_argument(
     'the expression L in ⌜<html lang="L"⌝>---affects hyphenation (default: en)',
   default = 'en',
 )
+f_add_shared_flag(subparser_nmm2pdf,flag_parser_backend)
 
 def nmm2pdf(args:ap.Namespace) -> None:
   margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
@@ -213,7 +276,7 @@ def nmm2pdf(args:ap.Namespace) -> None:
     [] if args.css  is None else ['--css', 'args.css']
   lang_arg_list   : F[list[str]] = \
     [] if args.lang is None else ['--lang','args.lang']
-  xml_path        : F[str]       = _nmm2xml(args.path)
+  xml_path        : F[str]       = _nmm2xml(args.path,args.parser_backend)
   completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_bin_path('nmm-ocaml'),'pdf-of-xml']
     +

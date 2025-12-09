@@ -14,5 +14,16 @@ for nmm_file in ./test-data-nmm2txt/*.nmm; do
         echo "  $expected_output_file"
         exit_code=1
     fi
+    nmm_output_file="$(mktemp)"
+    expected_output_file="${nmm_file%.nmm}.txt"
+    ./bin/nmm nmm2txt --parser-backend 'OCaml' "$nmm_file" > "$nmm_output_file"
+    diff --brief "$nmm_output_file" "$expected_output_file" > /dev/null
+    if [[ "$?" -ne 0 ]]; then
+        echo "output from"
+        echo "  nmm nmm2txt --parser-backend 'OCaml' $nmm_file"
+        echo "differs from expected output in"
+        echo "  $expected_output_file"
+        exit_code=1
+    fi
 done
 exit $exit_code
