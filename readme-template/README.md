@@ -586,90 +586,90 @@ This chapter's header is omitted.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-            CHAPTER 1
-            This is this chapter's (optional) header
-            ════════════════════════════════════════
+         CHAPTER 1
+         This is this chapter's (optional) header
+         ════════════════════════════════════════
 
-§ 1.1       This is this section's (optional) header
-            ────────────────────────────────────────
+§ 1.1    This is this section's (optional) header
+         ────────────────────────────────────────
 
-¶ 1.1.1     This is this paragraph's (optional) header  Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua:
+¶ 1.1.1  This is this paragraph's (optional) header  Lorem ipsum dolor sit
+         amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+         ut labore et dolore magna aliqua:
 
-                  a²+b² = c²
+               a²+b² = c²
 
 
-¶ 1.1.2     This is another paragraph. It has no header. As mentioned above,
-            section headers may also be omitted. This results in poor layout
-            however, as the following section demonstrates.
+¶ 1.1.2  This is another paragraph. It has no header. As mentioned above,
+         section headers may also be omitted. This results in poor layout
+         however, as the following section demonstrates.
 
 
 
 § 1.2
 
-            This is a section without a header.
+         This is a section without a header.
 
 
 
-§ 1.A       An appendix
-            ───────────
+§ 1.A    An appendix
+         ───────────
 
-            This is an appendix. Neither a section nor an appendix must consist
-            of paragraphs, as this text block demonstrates.
+         This is an appendix. Neither a section nor an appendix must consist
+         of paragraphs, as this text block demonstrates.
 
-            An nmm source is made up of the following, in that order:
+         An nmm source is made up of the following, in that order:
 
-            ─     an optional p̲r̲e̲a̲m̲b̲l̲e̲ ̲p̲a̲r̲t̲,
+         ─     an optional p̲r̲e̲a̲m̲b̲l̲e̲ ̲p̲a̲r̲t̲,
 
-            ─     an optional t̲i̲t̲l̲e̲ ̲p̲a̲r̲t̲,
+         ─     an optional t̲i̲t̲l̲e̲ ̲p̲a̲r̲t̲,
 
-            ─     an optional a̲u̲t̲h̲o̲r̲ ̲p̲a̲r̲t̲,
+         ─     an optional a̲u̲t̲h̲o̲r̲ ̲p̲a̲r̲t̲,
 
-            ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲p̲a̲r̲t̲,
+         ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲p̲a̲r̲t̲,
 
-            ─     a non-optional m̲a̲i̲n̲ ̲p̲a̲r̲t̲, and
+         ─     a non-optional m̲a̲i̲n̲ ̲p̲a̲r̲t̲, and
 
-            ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲p̲a̲r̲t̲.
+         ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲p̲a̲r̲t̲.
 
-            ─     The main part must consist of either of:
+         ─     The main part must consist of either of:
 
-                  ─     chapters;
+               ─     chapters;
 
-                  ─     sections (appendices count as sections);
+               ─     sections (appendices count as sections);
 
-                  ─     paragraphs;
+               ─     paragraphs;
 
-                  ─     blocks.
+               ─     blocks.
 
-            ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲p̲t̲e̲r̲ must consist of either of:
+         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲p̲t̲e̲r̲ must consist of either of:
 
-                  ─     sections (appendices count as sections);
+               ─     sections (appendices count as sections);
 
-                  ─     paragraphs;
+               ─     paragraphs;
 
-                  ─     blocks.
+               ─     blocks.
 
-            ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲p̲p̲e̲n̲d̲i̲x̲, must consist of
-                  either of:
+         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲p̲p̲e̲n̲d̲i̲x̲, must consist of
+               either of:
 
-                  ─     paragraphs;
+               ─     paragraphs;
 
-                  ─     blocks.
+               ─     blocks.
 
-            ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲p̲a̲r̲a̲g̲r̲a̲p̲h̲ must consist of blocks.
-
-
+         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲p̲a̲r̲a̲g̲r̲a̲p̲h̲ must consist of blocks.
 
 
-            CHAPTER 2
-            ═════════
 
-¶ 2.1       This chapter's header is omitted.
+
+         CHAPTER 2
+         ═════════
+
+¶ 2.1    This chapter's header is omitted.
 ```
 </details>
 
-### Title, author, abstract, references
+### Title, authors, abstract, references
 
 <details>
   <summary><b>nmm source:</b></summary>
@@ -832,18 +832,18 @@ want to state it again!
   <summary><b>default raw text semantics</b></summary>
 
 ```
-¶ 1         FACT
+¶ 1  FACT
 
-                  a²+b² = c²
-
-
-¶ 2         I think what Pythagoras discovered is such a remarkable fact that I
-            want to state it again!
+           a²+b² = c²
 
 
-¶ 3         FACT 1 [restated]
+¶ 2  I think what Pythagoras discovered is such a remarkable fact that I
+     want to state it again!
 
-                  a²+b² = c²
+
+¶ 3  FACT 1 [restated]
+
+           a²+b² = c²
 ```
 </details>
 
@@ -905,46 +905,46 @@ than ‘\*’ is needed.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-¶ 1         ¶ ← this is the paragraph symbol.
+¶ 1  ¶ ← this is the paragraph symbol.
 
-            While a line ‘¶’ (optional followed by tag or id, then optionally
-            followed by a header and one or more empty lines) always marks the
-            start of a paragraph, ‘¶ ← this’ does not. Thus no need for escaping
-            in the preceeding text block.
+     While a line ‘¶’ (optional followed by tag or id, then optionally
+     followed by a header and one or more empty lines) always marks the
+     start of a paragraph, ‘¶ ← this’ does not. Thus no need for escaping
+     in the preceeding text block.
 
-            ¶ If one wants to, one may still escape any magic---as in used for
-            markup---character.
-
-
-¶ 2         One possible exception to the intended no need for escaping is the
-            need for sometimes escaping the symbol ‘*’ (by writing ‘\*’). The
-            creators of No-Markup-Markup acknowledges that this is unfortunate.
-            However, they think that in most scientific writing ‘*’ should be
-            reserved for footnotes*.
-
-            ─     Instead of using ‘*’ for multiplication one should use ‘×’.
-                  (One should not use the abonimation ‘⋅’!)
-
-            ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲p̲e̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
-                  resort to escaping. As the No-Markup-Markup grammar uses ‘*’
-                  as the notation for this operator, this is somewhat ironic.
-
-            ─     For including code snippets, which of course may unavoidably
-                  include ‘*’, support for verbatim input of files is planned.
-
-            * No-Markup-Markup support for footnotes is planned.
+     ¶ If one wants to, one may still escape any magic---as in used for
+     markup---character.
 
 
-¶ 3         At least theoretically there are situations where escaping of
-            something other than ‘*’ is needed.
+¶ 2  One possible exception to the intended no need for escaping is the
+     need for sometimes escaping the symbol ‘*’ (by writing ‘\*’). The
+     creators of No-Markup-Markup acknowledges that this is unfortunate.
+     However, they think that in most scientific writing ‘*’ should be
+     reserved for footnotes*.
 
-            ─     This is a reference to the first paragraph: ¶ 1. This is the
-                  markup that was used to produce that reference:
-                  ‘[EX:no_escape]’. (This is the markup that was used to produce
-                  ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
+     ─     Instead of using ‘*’ for multiplication one should use ‘×’.
+           (One should not use the abonimation ‘⋅’!)
 
-            ─     But, for example, ‘[x,y,z]’ is not valid syntax for a
-                  cross-reference, and thus needs no escaping.
+     ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲p̲e̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
+           resort to escaping. As the No-Markup-Markup grammar uses ‘*’
+           as the notation for this operator, this is somewhat ironic.
+
+     ─     For including code snippets, which of course may unavoidably
+           include ‘*’, support for verbatim input of files is planned.
+
+     * No-Markup-Markup support for footnotes is planned.
+
+
+¶ 3  At least theoretically there are situations where escaping of
+     something other than ‘*’ is needed.
+
+     ─     This is a reference to the first paragraph: ¶ 1. This is the
+           markup that was used to produce that reference:
+           ‘[EX:no_escape]’. (This is the markup that was used to produce
+           ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
+
+     ─     But, for example, ‘[x,y,z]’ is not valid syntax for a
+           cross-reference, and thus needs no escaping.
 ```
 </details>
 

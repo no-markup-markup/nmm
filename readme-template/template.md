@@ -334,7 +334,7 @@ INCLUDE-FILE ./raw-text-semantics/chapters-sections-appendices-paragraphs.txt
 ```
 </details>
 
-### Title, author, abstract, references
+### Title, authors, abstract, references
 
 <details>
   <summary><b>nmm source:</b></summary>
