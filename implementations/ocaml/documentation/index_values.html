@@ -75,7 +75,7 @@
 <tr><td><a href="Main.html#VALdefault_css">default_css</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
 <p>evaluates to 
-<a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code"><span class="string">"6ch"</span>&nbsp;<span class="string">"8rem"</span></code></p>
+<a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code"><span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code></p>
 
 </div>
 </td></tr>
@@ -103,6 +103,12 @@
 <tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_file">doc_of_nmm_file</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">doc_of_nmm_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code"><span class="constructor">Doc_types</span>.tr_doc</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_stdin">doc_of_nmm_stdin</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
+<td><div class="info">
+<p>Same as <code class="code">doc_of_nmm_file</code>, except that it reads from standard input.</p>
 
 </div>
 </td></tr>
@@ -170,13 +176,13 @@ evaluates <span class="keyword">to</span>
 <tr><td align="left"><div>H</div></td></tr>
 <tr><td><a href="Main.html#VALhtml_of_axml">html_of_axml</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">html_of_axml uri_opt lang_opt path</code></pre><p>evaluates to</p>
-<pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_axml path)</code></pre>
+<pre class="codepre"><code class="code">html_of_axml options path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">html_of_doc options (doc_of_axml path)</code></pre>
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALhtml_of_doc">html_of_doc</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">html_of_doc <span class="constructor">None</span> <span class="constructor">None</span> doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
+<pre class="codepre"><code class="code">html_of_doc options doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
 </div>
 </td></tr>
@@ -187,8 +193,8 @@ evaluates <span class="keyword">to</span>
 </td></tr>
 <tr><td><a href="Main.html#VALhtml_of_nmm">html_of_nmm</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">html_of_nmm uri_opt lang_opt path</code></pre><p>evaluates to</p>
-<pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_nmm path)</code></pre>
+<pre class="codepre"><code class="code">html_of_nmm options path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">html_of_doc options (doc_of_nmm path)</code></pre>
 </div>
 </td></tr>
 <tr><td align="left"><div>I</div></td></tr>

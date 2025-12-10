@@ -20,3 +20,8 @@ val doc_of_nmm_string : bool -> string -> Doc_types.tr_doc
 (**
 Same as [doc_of_nmm_file], except that it reads from the provided string.
 *)
+
+val doc_of_nmm_stdin : bool -> Doc_types.tr_doc
+(**
+Same as [doc_of_nmm_file], except that it reads from standard input.
+*)

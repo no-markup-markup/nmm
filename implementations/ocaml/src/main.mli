@@ -10,6 +10,13 @@ evaluates to
 
 {!val:Doc_of_nmm.doc_of_nmm_file}[ false "path/to/file"]
 
+---
+
+{[doc_of_nmm "-"]}
+evaluates to
+
+{!val:Doc_of_nmm.doc_of_nmm_stdin}[ false]
+
 *)
 
 val txt_of_doc : string list -> Doc_types.tr_doc -> string
@@ -24,31 +31,20 @@ evaluates to
 val default_css : string
 (**
 evaluates to 
-{!val:Html_utils.internal_css} ["6ch" "8rem"]
+{!val:Html_utils.internal_css} ["6ch" "0"]
 *)
 
 val html_of_doc : string list -> Doc_types.tr_doc -> string
 (**
-{[html_of_doc None None doc]} evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of
+{[html_of_doc options doc]} evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of
 
-["<style>" ^ default_css ^ "</style>"]
+["<style>\n" ^ (]{!val:Html_utils.internal_css} [default_tab_length margin_left) ^ "\n</style>"]
+
+where [default_tab_length] is ["6ch"] and [margin_left] is a string determined by [options] and [doc].
 
 The body of the html-document is specified by the value of
 
-["<body>" ^ (]{!val:Html_utils.html_of_exml} [ (] {!val:Compiler_of_doc.exml_of_tr_doc} [ doc)) ^ "</body>"]
-
----
-
-{[html_of_doc (Some "uri/of/syle.css") (Some "en") doc]}
-does the same, except that the html-document also contains
-
-{v <html lang="en"> v}
-
-and 
-
-{v <link rel="stylesheet" href="uri/of/style.css"> v}
-
-Since the latter is placed after the internal stylesheet, it will override it.
+["<body>\n" ^ (]{!val:Html_utils.html_of_exml} [ (] {!val:Compiler_of_doc.exml_of_tr_doc} [options doc)) ^ "\n</body>"]
 *)
 
 val doc_of_axml : string -> Doc_types.tr_doc
@@ -75,9 +71,9 @@ evaluates to
 
 val html_of_nmm : string list -> string -> string
 (**
-{[html_of_nmm uri_opt lang_opt path]}
+{[html_of_nmm options path]}
 evaluates to
-{[html_of_doc uri_opt lang_opt (doc_of_nmm path)]}
+{[html_of_doc options (doc_of_nmm path)]}
 *)
 
 val txt_of_nmm : string list -> string -> string
@@ -96,9 +92,9 @@ evaluates to
 
 val html_of_axml : string list -> string -> string
 (**
-{[html_of_axml uri_opt lang_opt path]}
+{[html_of_axml options path]}
 evaluates to
-{[html_of_doc uri_opt lang_opt (doc_of_axml path)]}
+{[html_of_doc options (doc_of_axml path)]}
 *)
 
 val axml_of_nmm : string -> string

@@ -43,6 +43,12 @@
 <pre class="codepre"><code class="code">doc_of_nmm <span class="string">"path/to/file"</span></code></pre><p>evaluates to</p>
 
 <p><a href="Doc_of_nmm.html#VALdoc_of_nmm_file"><code class="code"><span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file</code></a><code class="code">&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span></code></p>
+
+<p>---</p>
+
+<pre class="codepre"><code class="code">doc_of_nmm <span class="string">"-"</span></code></pre><p>evaluates to</p>
+
+<p><a href="Doc_of_nmm.html#VALdoc_of_nmm_stdin"><code class="code"><span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin</code></a><code class="code">&nbsp;<span class="keyword">false</span></code></p>
 </div>
 </div>
 
@@ -57,29 +63,21 @@
 <pre><span id="VALdefault_css"><span class="keyword">val</span> default_css</span> : <code class="type">string</code></pre><div class="info ">
 <div class="info-desc">
 <p>evaluates to 
-<a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code"><span class="string">"6ch"</span>&nbsp;<span class="string">"8rem"</span></code></p>
+<a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code"><span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code></p>
 </div>
 </div>
 
 <pre><span id="VALhtml_of_doc"><span class="keyword">val</span> html_of_doc</span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">html_of_doc <span class="constructor">None</span> <span class="constructor">None</span> doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
+<pre class="codepre"><code class="code">html_of_doc options doc</code></pre><p>evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
-<p><code class="code"><span class="string">"&lt;style&gt;"</span>&nbsp;^&nbsp;default_css&nbsp;^&nbsp;<span class="string">"&lt;/style&gt;"</span></code></p>
+<p><code class="code"><span class="string">"&lt;style&gt;\n"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code">default_tab_length&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n&lt;/style&gt;"</span></code></p>
+
+<p>where <code class="code">default_tab_length</code> is <code class="code"><span class="string">"6ch"</span></code> and <code class="code">margin_left</code> is a string determined by <code class="code">options</code> and <code class="code">doc</code>.</p>
 
 <p>The body of the html-document is specified by the value of</p>
 
-<p><code class="code"><span class="string">"&lt;body&gt;"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> <code class="code">&nbsp;(</code> <a href="Compiler_of_doc.html#VALexml_of_tr_doc"><code class="code"><span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc</code></a> <code class="code">&nbsp;doc))&nbsp;^&nbsp;<span class="string">"&lt;/body&gt;"</span></code></p>
-
-<p>---</p>
-
-<pre class="codepre"><code class="code">html_of_doc (<span class="constructor">Some</span> <span class="string">"uri/of/syle.css"</span>) (<span class="constructor">Some</span> <span class="string">"en"</span>) doc</code></pre><p>does the same, except that the html-document also contains</p>
-
-<pre class="verbatim">&lt;html lang="en"&gt;</pre>
-<p>and</p>
-
-<pre class="verbatim">&lt;link rel="stylesheet" href="uri/of/style.css"&gt;</pre>
-<p>Since the latter is placed after the internal stylesheet, it will override it.</p>
+<p><code class="code"><span class="string">"&lt;body&gt;\n"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> <code class="code">&nbsp;(</code> <a href="Compiler_of_doc.html#VALexml_of_tr_doc"><code class="code"><span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc</code></a> <code class="code">options&nbsp;doc))&nbsp;^&nbsp;<span class="string">"\n&lt;/body&gt;"</span></code></p>
 </div>
 </div>
 
@@ -107,8 +105,8 @@
 
 <pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> html_of_nmm</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">html_of_nmm uri_opt lang_opt path</code></pre><p>evaluates to</p>
-<pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_nmm path)</code></pre></div>
+<pre class="codepre"><code class="code">html_of_nmm options path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">html_of_doc options (doc_of_nmm path)</code></pre></div>
 </div>
 
 <pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> txt_of_nmm</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
@@ -125,8 +123,8 @@
 
 <pre><span id="VALhtml_of_axml"><span class="keyword">val</span> html_of_axml</span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">html_of_axml uri_opt lang_opt path</code></pre><p>evaluates to</p>
-<pre class="codepre"><code class="code">html_of_doc uri_opt lang_opt (doc_of_axml path)</code></pre></div>
+<pre class="codepre"><code class="code">html_of_axml options path</code></pre><p>evaluates to</p>
+<pre class="codepre"><code class="code">html_of_doc options (doc_of_axml path)</code></pre></div>
 </div>
 
 <pre><span id="VALaxml_of_nmm"><span class="keyword">val</span> axml_of_nmm</span> : <code class="type">string -&gt; string</code></pre><div class="info ">
