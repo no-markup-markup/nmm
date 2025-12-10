@@ -5,7 +5,9 @@ exception Error of string
 let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	try
 	let print_tokens = false in
-	Doc_of_nmm.doc_of_nmm_file print_tokens path
+	match path with
+	|"-" -> Doc_of_nmm.doc_of_nmm_stdin print_tokens 
+	|_ -> Doc_of_nmm.doc_of_nmm_file print_tokens path
 	with 
 	|Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 

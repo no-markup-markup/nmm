@@ -5,16 +5,16 @@ let usage : string=
 nmm-ocaml [
   | txt-of-xml [ <txt-options> ] { <path-to-xml-file> | - }
   | html-of-xml [ <html-options> ] { <path-to-xml-file> | - }
-  | xml-of-nmm <path-to-nmm-file>
-  | txt-of-nmm [ <txt-options> ] <path-to-nmm-file>
-  | html-of-nmm [ <html-options> ] <path-to-nmm-file>
+  | xml-of-nmm { <path-to-nmm-file> | - }
+  | txt-of-nmm [ <txt-options> ] { <path-to-nmm-file> | - }
+  | html-of-nmm [ <html-options> ] { <path-to-nmm-file> | - }
   | check-xml-schema <path-to-dtd-file>
   | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
   | show-default-css
 ]
 
-In cases where '-' can be supplied instead of a path,
-the program reads from standard input.
+In cases where '-' can be given instead of a path, the program
+reads from standard input.
 
 TXT-OPTIONS:
   --margin <numeral>
@@ -36,7 +36,7 @@ let rec anon_arg_fun arg : unit =
 		|"txt-of-xml" -> keyspecdoc_list.contents <- keyspecdoc_list_txt_of_xml
 		|"test-with-xml"
 		|"html-of-xml" -> keyspecdoc_list.contents <- keyspecdoc_list_html_of_xml
-		|"xml-of-nmm" -> ()
+		|"xml-of-nmm" -> keyspecdoc_list.contents <- keyspecdoc_list_xml_of_nmm
 		|"txt-of-nmm" -> keyspecdoc_list.contents <- keyspecdoc_list_txt_of_nmm
 		|"test-with-nmm"
 		|"html-of-nmm" -> keyspecdoc_list.contents <- keyspecdoc_list_html_of_nmm
@@ -99,7 +99,7 @@ and css : string ref = ref ""
 
 and read_from_stdin : bool ref = ref false
 
-and keyspecdoc_list : t_keyspecdoc list ref =ref []
+and keyspecdoc_list : t_keyspecdoc list ref = ref []
 
 and keyspecdoc_margin : t_keyspecdoc =
 	("--margin", Arg.Set_string margin, "Set left margin")
@@ -120,6 +120,7 @@ and keyspecdoc_stdin : t_keyspecdoc =
 and keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_preserve;
+	keyspecdoc_stdin;
 ]
 
 and keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
@@ -128,9 +129,15 @@ and keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
 	keyspecdoc_stdin;
 ]
 
+
+and keyspecdoc_list_xml_of_nmm : t_keyspecdoc list = [
+	keyspecdoc_stdin;
+]
+
 and keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_preserve;
+	keyspecdoc_stdin;
 	keyspecdoc_lang;
 	keyspecdoc_css;
 ]
@@ -178,9 +185,21 @@ let _ : unit =
 		|true -> print_endline (Main.html_of_axml options "-")
 		|false -> print_endline (Main.html_of_axml options path_to_xml_file.contents)
 	)
-	|"xml-of-nmm" -> print_endline (Main.axml_of_nmm path_to_nmm_file.contents)
-	|"txt-of-nmm" -> print_endline (Main.txt_of_nmm options path_to_nmm_file.contents)
-	|"html-of-nmm" -> print_endline (Main.html_of_nmm options path_to_nmm_file.contents)
+	|"xml-of-nmm" -> (
+		match read_from_stdin.contents with
+		|true -> print_endline (Main.axml_of_nmm "-")
+		|false -> print_endline (Main.axml_of_nmm path_to_nmm_file.contents)
+	)
+	|"txt-of-nmm" -> (
+		match read_from_stdin.contents with
+		|true -> print_endline (Main.txt_of_nmm options "-")
+		|false -> print_endline (Main.txt_of_nmm options path_to_nmm_file.contents)
+	)
+	|"html-of-nmm" -> (
+		match read_from_stdin.contents with
+		|true -> print_endline (Main.html_of_nmm options "-")
+		|false -> print_endline (Main.html_of_nmm options path_to_nmm_file.contents)
+	)
 	|"check-xml-schema" -> print_endline (Main.check_xml_schema path_to_dtd_file.contents)
 	|"validate-xml" -> (
 		match read_from_stdin.contents with
