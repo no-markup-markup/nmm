@@ -42,7 +42,7 @@ let rec parse_string (print_tokens:bool) (s:string):Xml.xml =
 	|_ ->
 		match print_tokens with
 		|false -> 
-			let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from \"" ^ s ^ "\":") in
+			let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from string:") in
 			parse_string true s
 		|true -> raise (Error "parsing failed")
 
@@ -55,7 +55,7 @@ let parse_stdin (print_tokens:bool):Xml.xml =
 		parse lexbuf
 	with
 	|_ ->
-		let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from stdin:") in
+		let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from standard input:") in
 		let print_tokens =  true in
 		let lexbuf = Lexing.from_string input in
 		let parse = Xml_right_parser.main (lexer print_tokens) in
