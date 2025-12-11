@@ -318,15 +318,22 @@ h2, h3, h4, h5 {
 <p class="blk txt">This item is called ‘ITM:one’</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_one_1.1.1">
+<div class="blk itm" style="display:block" id="ITM_one_PAR_1.1.1">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">This item is called ‘ITM:one:PAR’</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_one_1.1">
+<div class="blk itm" style="display:block" id="ITM_one_PAR_1.1.1">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">This item is also called ‘ITM:one:PAR’</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_one_SEC_1.1">
+<div class="blk_itm_lbl" style="display:block;float:left">(4)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">This item is called ‘ITM:one:SEC’</p>
@@ -343,30 +350,31 @@ h2, h3, h4, h5 {
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt">‘[ITM:one:PAR]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_1.1.1">(2)</a>’</p>
+<p class="blk txt">‘[ITM:one:PAR]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_PAR_1.1.1">(2)</a>’</p>
 </div>
 </div>
 <div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt">‘[ITM:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_1.1">(3)</a>’</p>
+<p class="blk txt">‘[ITM:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_SEC_1.1">(4)</a>’</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="par" id="PAR_one_1.1">
+<div style="display:block" class="par" id="PAR_one_SEC_1.1">
 <h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.1.2</h4>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
 <p class="blk txt">This paragraph is called ‘PAR:one:SEC’</p>
 </div>
 </div>
-<div style="display:block" class="par" id="PAR_two_1.1">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.1.3</h4>
+<div style="display:block" class="par" id="DEF_one_SEC_1.1">
+<div class="par_lbl" style="display:block;float:left">¶ 1.1.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<p class="blk txt">This paragraph is called ‘PAR:two:SEC’</p>
+<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">DEFINITION</h4>
+<p class="blk txt">This paragraph is called ‘DEF:one:SEC’</p>
 </div>
 </div>
 <div style="display:block" class="par">
@@ -385,14 +393,14 @@ h2, h3, h4, h5 {
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[ITM:one:PAR]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_1.1.4">??</a></p>
+<p class="blk txt">‘[ITM:one:PAR]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_PAR_1.1.4">??</a></p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[ITM:one:SEC]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_1.1">1.1.1(3)</a></p>
+<p class="blk txt">‘[ITM:one:SEC]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_SEC_1.1">1.1.1(4)</a></p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
@@ -406,14 +414,14 @@ h2, h3, h4, h5 {
 <div class="blk_itm_lbl" style="display:block;float:left">(5)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[PAR:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#PAR_one_1.1">¶ 1.1.2</a>’</p>
+<p class="blk txt">‘[PAR:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#PAR_one_SEC_1.1">¶ 1.1.2</a>’</p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(6)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[PAR:two:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#PAR_two_1.1">¶ 1.1.3</a>’</p>
+<p class="blk txt">‘[DEF:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#DEF_one_SEC_1.1">DEFINITION 1.1.3</a>’</p>
 </div>
 </div>
 </div>
@@ -436,14 +444,14 @@ h2, h3, h4, h5 {
 <p class="blk txt">This item is called ‘ITM:one’</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_one_1.2.1">
+<div class="blk itm" style="display:block" id="ITM_one_PAR_1.2.1">
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
 <p class="blk txt">This item is called ‘ITM:one:PAR’</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_one_1.2">
+<div class="blk itm" style="display:block" id="ITM_one_SEC_1.2">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
@@ -461,30 +469,31 @@ h2, h3, h4, h5 {
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt">‘[ITM:one:PAR]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_1.2.1">(2)</a>’</p>
+<p class="blk txt">‘[ITM:one:PAR]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_PAR_1.2.1">(2)</a>’</p>
 </div>
 </div>
 <div class="blk blt" style="display:block">
 <div class="blk_blt_lbl" style="display:block;float:left">─</div>
 <div class="clear"></div>
 <div class="blk_blt_main" style="display:block">
-<p class="blk txt">‘[ITM:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_1.2">(3)</a>’</p>
+<p class="blk txt">‘[ITM:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_SEC_1.2">(3)</a>’</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="par" id="PAR_one_1.2">
+<div style="display:block" class="par" id="PAR_one_SEC_1.2">
 <h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.2.2</h4>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
 <p class="blk txt">This paragraph is called ‘PAR:one:SEC’</p>
 </div>
 </div>
-<div style="display:block" class="par" id="PAR_two_1.2">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.2.3</h4>
+<div style="display:block" class="par" id="DEF_one_SEC_1.2">
+<div class="par_lbl" style="display:block;float:left">¶ 1.2.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<p class="blk txt">This paragraph is called ‘PAR:two:SEC’</p>
+<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">DEFINITION</h4>
+<p class="blk txt">This paragraph is called ‘DEF:one:SEC’</p>
 </div>
 </div>
 <div style="display:block" class="par">
@@ -503,14 +512,14 @@ h2, h3, h4, h5 {
 <div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[ITM:one:PAR]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_1.2.4">??</a></p>
+<p class="blk txt">‘[ITM:one:PAR]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_PAR_1.2.4">??</a></p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[ITM:one:SEC]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_1.2">1.2.1(3)</a></p>
+<p class="blk txt">‘[ITM:one:SEC]’ ↦ <a class="txt_unit_c_ref" href="#ITM_one_SEC_1.2">1.2.1(3)</a></p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
@@ -524,16 +533,86 @@ h2, h3, h4, h5 {
 <div class="blk_itm_lbl" style="display:block;float:left">(5)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[PAR:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#PAR_one_1.2">¶ 1.2.2</a>’</p>
+<p class="blk txt">‘[PAR:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#PAR_one_SEC_1.2">¶ 1.2.2</a>’</p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(6)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">‘[PAR:two:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#PAR_two_1.2">¶ 1.2.3</a>’</p>
+<p class="blk txt">‘[DEF:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#DEF_one_SEC_1.2">DEFINITION 1.2.3</a>’</p>
 </div>
 </div>
+</div>
+</div>
+<div style="display:block" class="par">
+<div class="par_lbl" style="display:block;float:left">¶ 1.2.5</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0"><a class="txt_unit_c_ref" href="#DEF_one_SEC_1.2">DEFINITION 1.2.3</a> [restated]</h4>
+<p class="blk txt">This paragraph is called ‘DEF:one:SEC’</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="CH ch pars">
+<h2 class="ch_lbl hdr">CHAPTER 2</h2>
+<div class="ch_main" style="display:block">
+<div style="display:block" class="par">
+<div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1.1.1</a> [restated]</h4>
+<p class="blk txt">This paragraph is called ‘PAR:one’</p>
+<div class="blk itm" style="display:block" id="ITM_one">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">This item is called ‘ITM:one’</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_one_PAR_1.1.1">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">This item is called ‘ITM:one:PAR’</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_one_PAR_1.1.1">
+<div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">This item is also called ‘ITM:one:PAR’</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_one_SEC_1.1">
+<div class="blk_itm_lbl" style="display:block;float:left">(4)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">This item is called ‘ITM:one:SEC’</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">‘[ITM:one]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one">(1)</a>’</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">‘[ITM:one:PAR]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_PAR_1.1.1">(2)</a>’</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">‘[ITM:one:SEC]’ ↦ ‘<a class="txt_unit_c_ref" href="#ITM_one_SEC_1.1">(4)</a>’</p>
 </div>
 </div>
 </div>

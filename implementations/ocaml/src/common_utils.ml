@@ -583,7 +583,7 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) 
 		match cref_table with
 		| [] -> None
 		| ((id : Doc_types.tr_id), (id_loc : t_path), _) :: c_ref_table_tl -> 
-			match c_ref_and_id_match id_c_ref c_ref_loc id id_loc with
+			match ids_match id_c_ref c_ref_loc id id_loc with
 			| true -> (
 				match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
 				|id_loc_hd::id_loc_tl, Some (sub : string) -> (
@@ -640,12 +640,17 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) 
 	in
 	match aux doc_cref_table.content with
 	| None ->
-		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference \'" ^ (string_of_tr_id id_c_ref) ^ "\' in " ^ (string_of_path doc_settings c_ref_loc)) in 
-		"??"
+		let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+			"WARNING: id \'";
+			string_of_tr_id id_c_ref;
+			"\' referenced in ";
+			string_of_path doc_settings c_ref_loc;
+			" is undefined or out of scope";
+		]) in "??"
 	| Some (s : string) -> s
 
 
-and c_ref_and_id_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
+and ids_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
 	if id_c_ref = id
 	then
 		c_ref_loc_is_within_scope_of_id c_ref_loc id.fld_id_scope id_loc
@@ -938,10 +943,10 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
 			match List.mem (id,path) tl with
 			|true ->
 				let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
-					"WARNING: id '";
-					string_of_tr_id id;"' in ";
+					"WARNING: id \'";
+					string_of_tr_id id;"\'";
+					" is defined more than once in ";
 					string_of_path doc_settings path;
-					" has been used before with the same scope."
 					])
 				in aux2 tl
 			|false -> aux2 tl
@@ -980,14 +985,23 @@ let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 
 
 
-let par_restated_of_tr_id (id : tr_id) : Doc_types.tr_par_std option =
-	let rec aux (table : t_cref_table) : Doc_types.tr_par_std option =
+let par_restated_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (Doc_types.tr_par_std * t_path) option =
+	let rec aux (table : t_cref_table) : (Doc_types.tr_par_std * t_path) option =
 		match table with
-		|[] -> let _ : unit = Debug_utils.print_to_stderr "WARNING: non-existent id" in None
+		|[] -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+				"WARNING: id \'";string_of_tr_id id;
+				"\' referenced in ";
+				string_of_path doc_settings path;
+				" is undefined or out of scope";
+			]) in None
 		|(table_id, table_path, table_element) :: tl -> (
-			match table_id = id, table_element with
-			|true, Cref_element_par par -> Some (par_restated_of_tr_par par)
-			|true, _ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: id does not belong to a paragraph" in None
+			match ids_match id path table_id table_path, table_element with
+			|true, Cref_element_par par -> Some (par_restated_of_tr_par par, table_path)
+			|true, _ -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+					"WARNING: id \'";
+					string_of_tr_id id;
+					"\' does not belong to a paragraph";
+				]) in None
 			|false, _ -> aux tl
 		)
 	in

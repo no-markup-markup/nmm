@@ -75,7 +75,7 @@ and xml_of_ts_c_ref (doc_settings : Common_utils.t_doc_settings) (path : Common_
 	Xml.PCData (pcdata_of_string (Common_utils.string_of_ts_c_ref doc_settings path a))
 
 and attr_list_of_ts_c_ref (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.ts_c_ref) : (string*string) list =
-	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (string_of_tr_id doc_settings path id))]
+	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (cdata_of_tr_id doc_settings path id))]
 
 and attr_list_of_tu_tag_or_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (classes : string list) (a : Doc_types.tu_tag_or_id option) : (string*string) list=
 	match a with
@@ -92,18 +92,18 @@ and attr_list_of_ts_tag (classes : string list) (tag : Doc_types.ts_tag) : (stri
 and attr_list_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id_opt : Doc_types.tr_id option) : (string*string) list =
 	match id_opt with
 	| None -> []
-	| Some id -> [("id", string_of_tr_id doc_settings path id)]
+	| Some id -> [("id", cdata_of_tr_id doc_settings path id)]
 
-and string_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id : Doc_types.tr_id) : string =
+and cdata_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), Cu_lcl lcl -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path lcl))
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), _ -> (tag_string ^ "_" ^ name_string)
 
 and string_of_scope (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (lcl : Doc_types.tu_lcl) : string =
 	match lcl with
-	|Cu_lcl_ch -> Common_utils.string_of_path doc_settings (path_to_ch_node path)
-	|Cu_lcl_sec -> Common_utils.string_of_path doc_settings (path_to_sec_node path)
-	|Cu_lcl_par -> Common_utils.string_of_path doc_settings (path_to_par_node path)
+	|Cu_lcl_ch -> "CH_" ^ (Common_utils.string_of_path doc_settings (path_to_ch_node path))
+	|Cu_lcl_sec -> "SEC_" ^ (Common_utils.string_of_path doc_settings (path_to_sec_node path))
+	|Cu_lcl_par -> "PAR_" ^ (Common_utils.string_of_path doc_settings (path_to_par_node path))
 
 
 and xml_of_string (s : string) : Xml.xml =

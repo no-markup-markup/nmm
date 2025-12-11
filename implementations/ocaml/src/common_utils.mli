@@ -355,7 +355,7 @@ evaluates to
 *)
 
 
-val par_restated_of_tr_id : Doc_types.tr_id -> Doc_types.tr_par_std option
+val par_restated_of_tr_id : t_doc_settings -> t_path -> Doc_types.tr_id -> (Doc_types.tr_par_std * t_path) option
 
 val string_of_tu_scope : Doc_types.tu_scope -> string
 
@@ -366,3 +366,4 @@ val path_to_sec_node : t_path -> t_path
 val path_to_par_node : t_path -> t_path
 
 val check_cref_table : t_doc_settings -> t_cref_table -> t_cref_table
+val string_of_tr_id : Doc_types.tr_id -> string

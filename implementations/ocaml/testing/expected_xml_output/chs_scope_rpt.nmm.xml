@@ -124,6 +124,40 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
+<cr_id scope="PAR">
+<cs_tag>ITM</cs_tag>
+<cs_name>one</cs_name>
+</cr_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This item is also called ‘ITM</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>PAR’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
 <cr_id scope="SEC">
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
@@ -343,8 +377,8 @@
 <cr_par_std>
 <cu_tag_or_id_id>
 <cr_id scope="SEC">
-<cs_tag>PAR</cs_tag>
-<cs_name>two</cs_name>
+<cs_tag>DEF</cs_tag>
+<cs_name>one</cs_name>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -352,13 +386,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>This paragraph is called ‘PAR</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This paragraph is called ‘DEF</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -655,13 +689,13 @@
 <cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>DEF</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -679,8 +713,8 @@
 <cs_txt_unit_c_ref>
 <cs_c_ref>
 <cr_id scope="SEC">
-<cs_tag>PAR</cs_tag>
-<cs_name>two</cs_name>
+<cs_tag>DEF</cs_tag>
+<cs_name>one</cs_name>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1038,8 +1072,8 @@
 <cr_par_std>
 <cu_tag_or_id_id>
 <cr_id scope="SEC">
-<cs_tag>PAR</cs_tag>
-<cs_name>two</cs_name>
+<cs_tag>DEF</cs_tag>
+<cs_name>one</cs_name>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1047,13 +1081,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>This paragraph is called ‘PAR</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This paragraph is called ‘DEF</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -1350,13 +1384,13 @@
 <cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>DEF</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -1374,8 +1408,8 @@
 <cs_txt_unit_c_ref>
 <cs_c_ref>
 <cr_id scope="SEC">
-<cs_tag>PAR</cs_tag>
-<cs_name>two</cs_name>
+<cs_tag>DEF</cs_tag>
+<cs_name>one</cs_name>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1392,20 +1426,47 @@
 <cu_blk_empty>
 <cs_blk_empty/>
 </cu_blk_empty>
-<cu_blk_empty>
-<cs_blk_empty/>
-</cu_blk_empty>
-<cu_blk_empty>
-<cs_blk_empty/>
-</cu_blk_empty>
 </cs_blks>
 </cr_par_std>
 </cu_par_std>
+<cu_par_rpt>
+<cs_par_rpt>
+<cr_id scope="SEC">
+<cs_tag>DEF</cs_tag>
+<cs_name>one</cs_name>
+</cr_id>
+</cs_par_rpt>
+</cu_par_rpt>
 </cs_pars>
 </cu_pars_or_blks_pars>
 </cr_sec>
 </cs_secs>
 </cu_secs_pars_or_blks_secs>
+</cr_ch>
+<cr_ch>
+<cu_tag_or_id_tag>
+<cs_tag>CH</cs_tag>
+</cu_tag_or_id_tag>
+<cu_secs_pars_or_blks_pars>
+<cs_pars>
+<cu_par_rpt>
+<cs_par_rpt>
+<cr_id scope="SEC">
+<cs_tag>DEF</cs_tag>
+<cs_name>one</cs_name>
+</cr_id>
+</cs_par_rpt>
+</cu_par_rpt>
+<cu_par_rpt>
+<cs_par_rpt>
+<cr_id scope="GBL">
+<cs_tag>PAR</cs_tag>
+<cs_name>one</cs_name>
+</cr_id>
+</cs_par_rpt>
+</cu_par_rpt>
+</cs_pars>
+</cu_secs_pars_or_blks_pars>
 </cr_ch>
 </cs_chs>
 </cu_doc_main_chs>

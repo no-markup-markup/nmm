@@ -11,9 +11,9 @@
 
      (1)   An item
 
-     (2)   I like 1(1).
+     (2)   I like (1).
 
-     I also like 1(2) and THEOREM 5.
+     I also like (2) and THEOREM 5.
 
 
 ¶ 3  Header of paragraph referencing ¶ 3, i.e itself.  Block of text.

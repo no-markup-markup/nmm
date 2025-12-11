@@ -13,6 +13,9 @@ This paragraph is called ‘PAR\:one’
 []	ITM:one:PAR
 	This item is called ‘ITM\:one:PAR’
 
+[]	ITM:one:PAR
+	This item is also called ‘ITM\:one:PAR’
+
 []	ITM:one:SEC
 	This item is called ‘ITM\:one:SEC’
 
@@ -26,9 +29,9 @@ This paragraph is called ‘PAR\:one’
 
 This paragraph is called ‘PAR\:one:SEC’
 
-¶ PAR:two:SEC
+¶ DEF:one:SEC
 
-This paragraph is called ‘PAR\:two:SEC’
+This paragraph is called ‘DEF\:one:SEC’
 
 ¶
 Some cross-references
@@ -43,7 +46,7 @@ Some cross-references
 
 []	‘[PAR\:one:SEC]’ ↦ ‘[PAR:one:SEC]’
 
-[]	‘[PAR\:two:SEC]’ ↦ ‘[PAR:two:SEC]’
+[]	‘[DEF\:one:SEC]’ ↦ ‘[DEF:one:SEC]’
 
 
 
@@ -73,9 +76,9 @@ This paragraph is called ‘PAR\:one’
 
 This paragraph is called ‘PAR\:one:SEC’
 
-¶ PAR:two:SEC
+¶ DEF:one:SEC
 
-This paragraph is called ‘PAR\:two:SEC’
+This paragraph is called ‘DEF\:one:SEC’
 
 ¶
 Some cross-references
@@ -90,7 +93,14 @@ Some cross-references
 
 []	‘[PAR\:one:SEC]’ ↦ ‘[PAR:one:SEC]’
 
-[]	‘[PAR\:two:SEC]’ ↦ ‘[PAR:two:SEC]’
+[]	‘[DEF\:one:SEC]’ ↦ ‘[DEF:one:SEC]’
 
 
+¶ rpt DEF:one:SEC
+
+CH
+
+¶ rpt DEF:one:SEC
+
+¶ rpt PAR:one
 

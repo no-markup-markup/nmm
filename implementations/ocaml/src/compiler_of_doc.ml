@@ -381,17 +381,21 @@ and acc_of_tr_sec (doc_settings : Common_utils.t_doc_settings) (path : Common_ut
 
 and acc_of_tu_par (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.tu_par) : t_acc =
 	match a with
-	|Cu_par_std (par : tr_par_std) -> acc_of_tr_par_std doc_settings path acc par
+	|Cu_par_std (par : tr_par_std) -> acc_of_tr_par_std doc_settings path path acc par
 	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) ->
 		match acc with
 		|MARGIN_LABELS string_list -> MARGIN_LABELS ((Common_utils.label_of_path doc_settings path)::string_list)
 		|CREF_TABLE _ -> acc
 		|_ -> 
-			match Common_utils.par_restated_of_tr_id id with
-			|Some (par : tr_par_std) -> acc_of_tr_par_std doc_settings path acc par
-			|None -> let _ : unit = Debug_utils.print_to_stderr "WARNING: failed to restate paragraph" in acc
+			match Common_utils.par_restated_of_tr_id doc_settings path id with
+			|Some ((par : tr_par_std), (path_origin : t_path)) -> acc_of_tr_par_std doc_settings path path_origin acc par
+			|None -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+					"WARNING: failed to restate paragraph with id \'";
+					Common_utils.string_of_tr_id id;"\' in ";
+					Common_utils.string_of_path doc_settings path;
+				]) in acc
 
-and acc_of_tr_par_std (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par_std) : t_acc =
+and acc_of_tr_par_std (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (path_origin : Common_utils.t_path) (acc : t_acc) (par : Doc_types.tr_par_std) : t_acc =
 	match acc with
 	|MARGIN_LABELS string_list -> MARGIN_LABELS ((Common_utils.label_of_path doc_settings path)::string_list)
 	|CREF_TABLE table -> (
@@ -404,7 +408,7 @@ and acc_of_tr_par_std (doc_settings : Common_utils.t_doc_settings) (path : Commo
 	)
 	|LINES acc_lines -> (
 		let new_par = Par_hdr_mod.copy_hdr_to_main doc_settings par in
-		match acc_of_ts_blks doc_settings path (LINES []) new_par.fld_par_main with
+		match acc_of_ts_blks doc_settings path_origin (LINES []) new_par.fld_par_main with
 		|LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label doc_settings path hd];tl])
 		|_ -> raise (Error "par_main cannot be empty")
 	)
@@ -415,7 +419,7 @@ and acc_of_tr_par_std (doc_settings : Common_utils.t_doc_settings) (path : Commo
 			|_ -> false
 		in
 		let xml_list_hdr_opt : (Xml.xml list) option =
-			Exml_utils.par_hdr_opt doc_settings path par.fld_par_tag_or_id par.fld_par_hdr inline_hdr
+			Exml_utils.par_hdr_opt doc_settings path_origin par.fld_par_tag_or_id par.fld_par_hdr inline_hdr
 		in
 		let xml_list_lbl : Xml.xml list = [Exml_utils.xml_of_string (Common_utils.label_of_path doc_settings path)] in
 		let xml_lbl : Xml.xml = 
@@ -424,7 +428,7 @@ and acc_of_tr_par_std (doc_settings : Common_utils.t_doc_settings) (path : Commo
 			|Some _ -> Xml.Element ("par_lbl",[],xml_list_lbl)
 		in
 		let xml_list_main : Xml.xml list= (
-			match acc_of_par_main doc_settings path (EXML []) par.fld_par_main with
+			match acc_of_par_main doc_settings path_origin (EXML []) par.fld_par_main with
 			|EXML xml_list -> (
 				match xml_list_hdr_opt with
 				|None -> xml_list
