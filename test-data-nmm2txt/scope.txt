@@ -41,8 +41,8 @@
 
 
 
-§ 1.2    This section is called ‘SEC:two’
-         ────────────────────────────────
+§ 1.2    This section is called ‘SEC:two:CH’
+         ───────────────────────────────────
 
 ¶ 1.2.1  This paragraph is called ‘PAR:one’
 
@@ -78,3 +78,17 @@
          (5)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.2.2’
 
          (6)   ‘[PAR:two:SEC]’ ↦ ‘¶ 1.2.3’
+
+         ─     `[SEC:one]` ↦ `§ 1.1`
+
+         ─     `[SEC:two:CH]` ↦ `§ 1.2`
+
+
+
+
+         CHAPTER 2
+         ═════════
+
+         ─     `[SEC:one]` ↦ `§ 1.1`
+
+         ─     `[SEC:two:CH]` ↦ `??`

@@ -47,8 +47,8 @@ Some cross-references
 
 
 
-§ SEC:two
-This section is called ‘SEC\:two’
+§ SEC:two:CH
+This section is called ‘SEC\:two:CH’
 
 ¶ PAR:one
 
@@ -92,5 +92,12 @@ Some cross-references
 
 []	‘[PAR\:two:SEC]’ ↦ ‘[PAR:two:SEC]’
 
+-	`[SEC\:one]` ↦ `[SEC:one]`
 
+-	`[SEC\:two:CH]` ↦ `[SEC:two:CH]`
 
+CH
+
+-	`[SEC\:one]` ↦ `[SEC:one]`
+
+-	`[SEC\:two:CH]` ↦ `[SEC:two:CH]`
