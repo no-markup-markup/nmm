@@ -14,8 +14,7 @@ clean:
 	# remove anything in .gitignore, including directories
 	git clean -fdX
 
-test:
-	make bin/nmm-ocaml
+test: bin/nmm-ocaml
 	bash testing/test.sh
 
 bin/nmm-ocaml: src/*
