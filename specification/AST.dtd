@@ -66,6 +66,7 @@
 <!ELEMENT cs_c_ref (cr_id)>
 
 <!ELEMENT cr_id (cs_tag, cs_name)>
+<!ATTLIST cr_id scope CDATA #REQUIRED>
 <!ELEMENT cu_tag_or_id_tag (cs_tag)>
 <!ELEMENT cu_tag_or_id_id (cr_id)>
 <!ELEMENT cs_hdr (cs_txt_units)>

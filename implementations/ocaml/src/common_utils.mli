@@ -340,6 +340,7 @@ val label_of_path_opt : t_doc_settings -> t_path -> string option
 
 *)
 
+val string_of_path : t_doc_settings -> t_path -> string
 
 val label_of_path : t_doc_settings -> t_path -> string
 (**
@@ -353,4 +354,15 @@ evaluates to
 ]}
 *)
 
+
 val par_restated_of_tr_id : Doc_types.tr_id -> Doc_types.tr_par_std option
+
+val string_of_tu_scope : Doc_types.tu_scope -> string
+
+val string_of_tu_lcl : Doc_types.tu_lcl -> string
+
+val path_to_ch_node : t_path -> t_path
+val path_to_sec_node : t_path -> t_path
+val path_to_par_node : t_path -> t_path
+
+val check_cref_table : t_doc_settings -> t_cref_table -> t_cref_table

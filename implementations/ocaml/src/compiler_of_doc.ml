@@ -9,7 +9,7 @@ type t_acc = CREF_TABLE of Common_utils.t_cref_table | LINES of (string list) | 
 
 let rec cref_table_of_tr_doc (doc_settings : Common_utils.t_doc_settings) (doc : Doc_types.tr_doc) : Common_utils.t_cref_table =
 	match acc_of_tr_doc doc_settings (CREF_TABLE []) doc with
-	| CREF_TABLE table -> List.rev table
+	| CREF_TABLE table -> Common_utils.check_cref_table doc_settings (List.rev table)
 	| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 and txt_of_tr_doc (options : string list) (doc : Doc_types.tr_doc) : string =
@@ -330,7 +330,7 @@ and acc_of_tr_ch (doc_settings : Common_utils.t_doc_settings) (path : Common_uti
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
 		let ch_class_string = Common_utils.string_of_t_ch_class ch_class in
-		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id [ch_class_string] a.fld_ch_tag_or_id in
+		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path [ch_class_string] a.fld_ch_tag_or_id in
 		match a.fld_ch_hdr with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_hdr;xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])
@@ -373,7 +373,7 @@ and acc_of_tr_sec (doc_settings : Common_utils.t_doc_settings) (path : Common_ut
 		in
 		let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
-		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id ["sec"] a.fld_sec_tag_or_id in
+		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["sec"] a.fld_sec_tag_or_id in
 		match a.fld_sec_hdr with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main])]])
@@ -436,7 +436,7 @@ and acc_of_tr_par_std (doc_settings : Common_utils.t_doc_settings) (path : Commo
 		in
 		let xml_main = Xml.Element ("par_main",[],xml_list_main) in
 		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
-		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id ["par"] par.fld_par_tag_or_id in
+		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["par"] par.fld_par_tag_or_id in
 		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
 	)
 
@@ -568,7 +568,7 @@ and acc_of_tr_blk_itm (doc_settings : Common_utils.t_doc_settings) (path : Commo
 		let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
 		let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
 		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
-		let attr_list = Exml_utils.attr_list_of_tr_id a.fld_blk_itm_id in
+		let attr_list = Exml_utils.attr_list_of_tr_id doc_settings path a.fld_blk_itm_id in
 		EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_clear;xml_main])]])
 
 and acc_of_ts_blk_vrb (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (acc : t_acc) (a : Doc_types.ts_blk_vrb): t_acc =
@@ -637,7 +637,7 @@ and acc_of_tr_dsp_line (doc_settings : Common_utils.t_doc_settings) (path : Comm
 		let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
 		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
-		let attr_list: (string*string) list = attr_list_of_tr_id a.fld_dsp_line_id in
+		let attr_list: (string*string) list = attr_list_of_tr_id doc_settings path a.fld_dsp_line_id in
 		match a.fld_dsp_line_lbl with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_lbl; xml_clear; xml_main])]])

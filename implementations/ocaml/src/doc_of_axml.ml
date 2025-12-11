@@ -433,10 +433,11 @@ and f_ts_txt_units_of_xml_list (xml_list:Xml.xml list):ts_txt_units =
 
 and f_tr_id_of_xml (xml:Xml.xml):tr_id =
     match xml with
-    |Xml.Element ("cr_id",[],[x;y]) -> 
+    |Xml.Element ("cr_id",[("scope",value)],[x;y]) -> 
         {
             fld_id_tag      =   f_ts_tag_of_xml x;
             fld_id_name     =   f_ts_name_of_xml y;
+            fld_id_scope    =   f_tu_scope_of_string value;
         }
     |_ -> raise (Error (String.concat "" ["expected cr_id, got: ";string_of_xml_list [xml]]))
 
@@ -444,6 +445,14 @@ and f_ts_name_of_xml (xml:Xml.xml):ts_name =
     match xml with
     |Xml.Element ("cs_name",[],pcdata_list) -> Cs_name (f_string_of_pcdata_list pcdata_list)
     |_ -> raise (Error (String.concat "" ["expected cs_name, got: ";string_of_xml_list [xml]]))
+
+and f_tu_scope_of_string (value : string) : tu_scope =
+	match value with
+	|"GBL" -> Cu_gbl
+	|"CH" -> Cu_lcl Cu_lcl_ch
+	|"SEC" -> Cu_lcl Cu_lcl_sec
+	|"PAR" -> Cu_lcl Cu_lcl_par
+	|_ -> raise (Error (String.concat "" ["expected GBL, CH, SEC, or PAR, got: ";value]))
 
 and f_ts_c_ref_of_xml (xml:Xml.xml):ts_c_ref=
 	match xml with 

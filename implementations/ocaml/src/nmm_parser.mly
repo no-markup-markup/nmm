@@ -3,21 +3,32 @@ open Doc_types
 
 exception ERROR of string
 
+let scope_of_string (s : string) : tu_scope =
+	match s with
+	|"CH" -> Cu_lcl Cu_lcl_ch
+	|"SEC" -> Cu_lcl Cu_lcl_sec
+	|"PAR" -> Cu_lcl Cu_lcl_par
+	|_ -> raise (ERROR (String.concat "" ["expected CH, SEC, or PAR, got: ";s]))
+
+
 let tag_or_id_of_string (s:string):Doc_types.tu_tag_or_id=
         match String.split_on_char ':' s with
-        |[tag;name]-> Cu_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name }
+        |[tag;name]-> Cu_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = Cu_gbl }
+        |[tag;name;scope]-> Cu_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = scope_of_string scope }
         |[tag]-> Cu_tag_or_id_tag (Cs_tag tag)
         |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let id_of_string (s:string):Doc_types.tr_id =
        match String.split_on_char ':' s with
-       | [tag;name] -> { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name }
+       | [tag;name] -> { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = Cu_gbl }
+       | [tag;name;scope]-> { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = scope_of_string scope }
        | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let c_ref_of_string (s:string):Doc_types.ts_c_ref=
         let t:string=String.sub s 1 ((String.length s)-2) in
         match String.split_on_char ':' t with
-        |[tag;name] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name }
+        |[tag;name] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Cu_gbl }
+        |[tag;name;scope] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = scope_of_string scope }
         | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_authors option =

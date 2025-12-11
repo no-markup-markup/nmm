@@ -545,13 +545,45 @@ type t_doc_cref_table = { mutable content : t_cref_table }
 
 let doc_cref_table : t_doc_cref_table = { content = [] }
 
+let path_to_ch_node (path : t_path) : t_path =
+	let rec aux (rev_path : t_path) (acc : t_path) : t_path =
+		match rev_path with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|CH_NODE _ -> hd::acc
+			|_ -> aux tl (hd::acc)
+	in aux (List.rev path) []
+
+let path_to_sec_node (path : t_path) : t_path =
+	let rec aux (rev_path : t_path) (acc : t_path) : t_path =
+		match rev_path with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|SEC_NODE _ -> hd::acc
+			|_ -> aux tl (hd::acc)
+	in aux (List.rev path) []
+
+
+let path_to_par_node (path : t_path) : t_path =
+	let rec aux (rev_path : t_path) (acc : t_path) : t_path =
+		match rev_path with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|PAR_NODE _ -> hd::acc
+			|_ -> aux tl (hd::acc)
+	in aux (List.rev path) []
+
+
 let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
 	match c_ref with Cs_c_ref (id_c_ref : Doc_types.tr_id) ->
 	let rec aux (cref_table : t_cref_table) : string option =
 		match cref_table with
 		| [] -> None
 		| ((id : Doc_types.tr_id), (id_loc : t_path), _) :: c_ref_table_tl -> 
-			match id_c_ref = id with
+			match c_ref_and_id_match id_c_ref c_ref_loc id id_loc with
 			| true -> (
 				match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
 				|id_loc_hd::id_loc_tl, Some (sub : string) -> (
@@ -611,6 +643,23 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) 
 		let _ : unit = Debug_utils.print_to_stderr ("WARNING: undefined reference \'" ^ (string_of_tr_id id_c_ref) ^ "\' in " ^ (string_of_path doc_settings c_ref_loc)) in 
 		"??"
 	| Some (s : string) -> s
+
+
+and c_ref_and_id_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
+	if id_c_ref = id
+	then
+		c_ref_loc_is_within_scope_of_id c_ref_loc id.fld_id_scope id_loc
+	else
+	false
+
+and c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope : tu_scope) (id_loc : t_path) : bool =
+	match scope with
+	|Cu_gbl -> true
+	|Cu_lcl lcl ->
+		match lcl with
+		|Cu_lcl_ch -> path_to_ch_node c_ref_loc = path_to_ch_node id_loc
+		|Cu_lcl_sec -> path_to_sec_node c_ref_loc = path_to_sec_node id_loc
+		|Cu_lcl_par -> path_to_par_node c_ref_loc = path_to_par_node id_loc
 
 
 and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
@@ -852,9 +901,54 @@ and label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
 	| Some (s : string) -> s
 
 and string_of_tr_id (id : Doc_types.tr_id) : string =
-	match id.fld_id_tag, id.fld_id_name with
-	|Cs_tag tag, Cs_name name -> String.concat ":" [tag;name]
+	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
+	|Cs_tag tag, Cs_name name, (Cu_lcl lcl) -> String.concat ":" [tag;name;string_of_tu_lcl lcl]
+	|Cs_tag tag, Cs_name name, _ -> String.concat ":" [tag;name]
 
+and string_of_tu_scope (scope : tu_scope) : string =
+	match scope with
+	|Cu_gbl -> "GBL"
+	|Cu_lcl (lcl : tu_lcl) -> string_of_tu_lcl lcl
+
+and string_of_tu_lcl (lcl : tu_lcl) : string =
+	match lcl with
+	|Cu_lcl_ch -> "CH"
+	|Cu_lcl_sec -> "SEC"
+	|Cu_lcl_par -> "PAR"
+
+let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_cref_table =
+	let rec aux1 (lst : t_cref_table) (acc : (Doc_types.tr_id * t_path) list): (Doc_types.tr_id * t_path) list =
+		match lst with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|(id, path, _) ->
+				match id.fld_id_scope with
+				|Cu_gbl -> aux1 tl ((id,[])::acc)
+				|Cu_lcl lcl ->
+					match lcl with
+					|Cu_lcl_ch -> aux1 tl ((id, path_to_ch_node path)::acc)
+					|Cu_lcl_sec -> aux1 tl ((id, path_to_sec_node path)::acc)
+					|Cu_lcl_par -> aux1 tl ((id, path_to_par_node path)::acc)
+	in
+	let rec aux2 (lst : (Doc_types.tr_id * t_path) list) : unit =
+		match lst with
+		|[] -> ()
+		|(id,path)::tl ->
+			match List.mem (id,path) tl with
+			|true ->
+				let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+					"WARNING: id '";
+					string_of_tr_id id;"' in ";
+					string_of_path doc_settings path;
+					" has been used before with the same scope."
+					])
+				in aux2 tl
+			|false -> aux2 tl
+	in
+	let lst : (Doc_types.tr_id * t_path) list = aux1 table [] in
+	let _ : unit = aux2 lst in
+	table
 
 (** Repeat *)
 

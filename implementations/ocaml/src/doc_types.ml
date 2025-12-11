@@ -79,11 +79,17 @@ and tu_tag_or_id = Cu_tag_or_id_tag of ts_tag | Cu_tag_or_id_id of tr_id
 and tr_id = {
   fld_id_tag : ts_tag;
   fld_id_name: ts_name;
+  fld_id_scope : tu_scope;
 }
 
 and ts_tag = Cs_tag of string
 
 and ts_name = Cs_name of string
+
+
+and tu_scope = Cu_lcl of tu_lcl | Cu_gbl
+
+and tu_lcl = Cu_lcl_ch | Cu_lcl_sec | Cu_lcl_par
 
 and ts_hdr = Cs_hdr of ts_txt_units
 
@@ -133,7 +139,5 @@ and tu_lbl = Cu_lbl_auto of ts_lbl_auto | Cu_lbl_custom of ts_lbl_custom
 and ts_lbl_auto = Cs_lbl_auto
 
 and ts_lbl_custom = Cs_lbl_custom of string
-
-and tu_c_ref_type = Cu_c_ref_type_lcl | Cu_c_ref_type_gbl
 
 and ts_blk_empty = Cs_blk_empty

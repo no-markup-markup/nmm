@@ -56,7 +56,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>alt1</cs_name>
 </cr_id>
@@ -78,7 +78,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>alt2</cs_name>
 </cr_id>
@@ -152,7 +152,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>alt2</cs_name>
 </cr_id>
@@ -165,7 +165,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>Euler</cs_name>
 </cr_id>
@@ -178,7 +178,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>Tarski</cs_name>
 </cr_id>
@@ -221,7 +221,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>Euler</cs_name>
 </cr_id>
@@ -264,7 +264,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id>
+<cr_id scope="GBL">
 <cs_tag>ITM</cs_tag>
 <cs_name>Tarski</cs_name>
 </cr_id>
