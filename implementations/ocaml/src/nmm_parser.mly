@@ -5,11 +5,15 @@ exception ERROR of string
 
 let scope_of_string (s : string) : tu_id_scope =
 	match s with
-	|"CH" -> Cu_id_scope_ch
-	|"SEC" -> Cu_id_scope_sec
-	|"PAR" -> Cu_id_scope_par
+        |"GBL" -> Cu_id_scope_gbl
+        |"CH" -> Cu_id_scope_ch
+        |"SEC" -> Cu_id_scope_sec
+        |"PAR" -> Cu_id_scope_par
 	|_ -> raise (ERROR (String.concat "" ["expected CH, SEC, or PAR, got: ";s]))
 
+let first ((a,b):('a * 'b)):'a = a
+
+let second ((a,b):('a * 'b)):'b = b
 
 let tag_or_id_of_string (s:string):Doc_types.tu_tag_or_id=
         match String.split_on_char ':' s with
@@ -35,6 +39,30 @@ let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_autho
         match authors_opt with
         |None -> Some (Cs_authors [author])
         |Some (Cs_authors (authors : ts_author list)) -> Some (Cs_authors (author::authors))
+
+let get_custom_string (s : string) : string =
+	try
+	match String.split_on_char '\t' s with
+	|[a;_] -> (
+		match String.split_on_char '[' a with
+		|[_;b] -> (
+			match String.split_on_char ']' b with
+			|lst2 -> String.concat "" lst2
+		)
+		|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+	)
+	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+	with
+	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+
+let get_id_string (s : string) : string =
+	try
+	match String.split_on_char '\t' s with
+	|[a;b] -> b
+	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+	with
+	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+
 %}
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
@@ -45,9 +73,9 @@ let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_autho
 %token <string>                 ESC_CHAR
 %token <string>                 TITLE AUTHOR PREAMBLE ABSTRACT
 %token <string>                 TXT C_REF
-%token <string>                 ITM_ID DSP_ID
+%token <string>                 DSP_ID
 %token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
-%token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB  
+%token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID
 
 %type <Doc_types.tr_doc>                  main doc
 %type <Doc_types.ts_preamble>             doc_preamble
@@ -80,7 +108,7 @@ let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_autho
 %type <Doc_types.ts_vrb_line list>        vrb_lines0 vrb_lines1 vrb_lines2 vrb_lines3
 %type <Doc_types.ts_vrb_line>             vrb_line0 vrb_line1 vrb_line2 vrb_line3
 %type <Doc_types.tu_tag_or_id>            pilcrow_spaces_tag_or_id_nl section_spaces_tag_or_id_nl
-%type <Doc_types.tr_id>                   itm_id dsp_id
+%type <Doc_types.tr_id>                   dsp_id
 %type <Doc_types.ts_hdr>                  hdr
 %type <Doc_types.tu_lbl>                  itm_lbl_tab dsp_lbl_tab
 %type <Doc_types.tu_txt_unit>             txt_unit0 txt_unit1 txt_unit2 txt_unit3 dsp_unit
@@ -325,7 +353,7 @@ blk_blt0:
 blk_itm0:
   |itm_lbl_tab blks1                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
   |itm_lbl_tab lb1 blks1                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab itm_id lb1 blks1                   { {fld_blk_itm_lbl=$1;fld_blk_itm_id=Some $2;fld_blk_itm_main=Cs_blks $4}:tr_blk_itm }
+  |itm_lbl_tab_id lb1 blks1                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
 ;
 
 blk_dsp0:
@@ -517,7 +545,7 @@ blk_blt1:
 blk_itm1:
   |itm_lbl_tab blks2                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
   |itm_lbl_tab lb2 blks2                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab itm_id lb2 blks2                   { {fld_blk_itm_lbl=$1;fld_blk_itm_id=Some $2;fld_blk_itm_main=Cs_blks $4}:tr_blk_itm }
+  |itm_lbl_tab_id lb2 blks2                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
 ;
 
 blk_dsp1:
@@ -616,7 +644,7 @@ blk_blt2:
 blk_itm2:
   |itm_lbl_tab blks3                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
   |itm_lbl_tab lb3 blks3                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab itm_id lb3 blks3                   { {fld_blk_itm_lbl=$1;fld_blk_itm_id=Some $2;fld_blk_itm_main=Cs_blks $4}:tr_blk_itm }
+  |itm_lbl_tab_id lb3 blks3                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
 ;
 
 blk_dsp2:
@@ -771,9 +799,6 @@ c_ref:
   |C_REF                                          { (c_ref_of_string $1):ts_c_ref }
 ;
 
-itm_id:
-  |ITM_ID                                         { (id_of_string $1):tr_id }
-;
 
 dsp_id:
   |DSP_ID                                         { (id_of_string $1):tr_id }
@@ -825,12 +850,25 @@ itm_lbl_tab:
   |itm_custom_tab                                 { (Cu_lbl_custom $1):tu_lbl }
 ;
 
+itm_lbl_tab_id:
+  |itm_auto_tab_id                                { (Cu_lbl_auto (first $1), second $1): tu_lbl * tr_id }
+  |itm_custom_tab_id                              { (Cu_lbl_custom (first $1), second $1): tu_lbl * tr_id }
+;
+
 itm_auto_tab:
   |ITM_AUTO_TAB                                   { Cs_lbl_auto:ts_lbl_auto }
 ;
 
 itm_custom_tab:
   |ITM_CUSTOM_TAB                                 { (Cs_lbl_custom $1):ts_lbl_custom }
+;
+
+itm_auto_tab_id:
+  |ITM_AUTO_TAB_ID                                { (Cs_lbl_auto, id_of_string (get_id_string $1)): ts_lbl_auto * tr_id }
+;
+
+itm_custom_tab_id:
+  |ITM_CUSTOM_TAB_ID                                { (Cs_lbl_custom (get_custom_string $1), id_of_string (get_id_string $1)): ts_lbl_custom * tr_id }
 ;
 
 dash_tab:

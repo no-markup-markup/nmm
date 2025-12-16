@@ -96,8 +96,9 @@ and attr_list_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Comm
 
 and cdata_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
+	|Cs_tag (tag_string : string), Cs_name (name_string : string), None
+	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some Cu_id_scope_gbl -> (tag_string ^ "_" ^ name_string)
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
-	|Cs_tag (tag_string : string), Cs_name (name_string : string), None -> (tag_string ^ "_" ^ name_string)
 
 and string_of_scope (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (scope : Doc_types.tu_id_scope) : string =
 	match scope with

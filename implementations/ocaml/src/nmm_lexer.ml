@@ -13,8 +13,8 @@ let dash_tab = [%sedlex.regexp? "-", tab]
 let dsp_auto_tab = [%sedlex.regexp? "()", tab]
 let itm_auto_tab = [%sedlex.regexp? "[]", tab]
 let non_custom_chars = [%sedlex.regexp? Chars "\r\n\t"]
-let dsp_custom_tab = [%sedlex.regexp? '(', Plus (Compl non_custom_chars), ")", tab]
-let itm_custom_tab = [%sedlex.regexp? '[', Plus (Compl non_custom_chars), "]", tab]
+let dsp_custom_tab = [%sedlex.regexp? "(", Plus (Compl non_custom_chars), ")", tab]
+let itm_custom_tab = [%sedlex.regexp? "[", Plus (Compl non_custom_chars), "]", tab]
 
 let star = [%sedlex.regexp? "*"]
 let lbr = [%sedlex.regexp? "["]
@@ -41,6 +41,8 @@ let dsp_id = [%sedlex.regexp? "DSP", ":", name, Opt (":CH" | ":SEC" | ":PAR")]
 let shared_tag_or_id = [%sedlex.regexp? tag_shared, Opt (":", name, Opt (":", scope))]
 let c_ref = [%sedlex.regexp? "[", tag, ":", name, Opt (":", scope), "]"]
 let par_id = [%sedlex.regexp? ("PAR" | tag_shared), ":", name, Opt (":CH" | ":SEC")]
+let itm_auto_tab_id = [%sedlex.regexp? itm_auto_tab, itm_id]
+let itm_custom_tab_id = [%sedlex.regexp? itm_custom_tab, itm_id]
 
 let ch_tag_or_id_nl = [%sedlex.regexp? ch_tag_or_id, nl]
 
@@ -133,6 +135,8 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|dsp_custom_tab			->	let _ : unit = display.contents <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))
 		|itm_auto_tab			->	ITM_AUTO_TAB
 		|itm_custom_tab			->	ITM_CUSTOM_TAB (get_label (lexeme lexbuf))
+		|itm_auto_tab_id		->	ITM_AUTO_TAB_ID (lexeme lexbuf)
+		|itm_custom_tab_id		->	ITM_CUSTOM_TAB_ID (lexeme lexbuf)
 		|nl				->	NL
 		|nl_tab				->	NL_TAB
 		|nl_tab_tab			->	NL_TAB_TAB
@@ -143,7 +147,6 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|colon				->	COLON
 		|section			->	SECTION
 		|pilcrow			->	PILCROW
-		|itm_id				->	ITM_ID (lexeme lexbuf)
 		|txt				->	TXT (lexeme lexbuf)
 		|start_vrb			->	let _ : unit = verbatim.contents <- true in START_VRB
 		|eof				->	end_of_file lexbuf
