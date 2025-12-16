@@ -41,12 +41,12 @@
 (* we assume a string type *)
 Parameter t_str : Type.
 
-Inductive tu_id_scope : Type :=
-| cu_id_scope_GBL : tu_id_scope
-| cu_id_scope_CH  : tu_id_scope
-| cu_id_scope_SEC : tu_id_scope
-| ch_id_scope_APP : tu_id_scope
-| cu_id_scope_PAR : tu_id_scope
+Inductive tu_scope : Type :=
+| cu_scope_GBL : tu_scope
+| cu_scope_CH  : tu_scope
+| cu_scope_SEC : tu_scope
+| ch_scope_APP : tu_scope
+| cu_scope_PAR : tu_scope
 .
 
 Inductive ts_tag  : Type := cs_tag  : t_str -> ts_tag.
@@ -54,7 +54,7 @@ Inductive ts_name : Type := cs_name : t_str -> ts_name.
 Record    tr_id   : Type := cr_id {
   fld_id_tag   : ts_tag;
   fld_id_name  : ts_name;
-  fld_id_scope : tu_id_scope;
+  fld_id_scope : tu_scope;
 }.
 
 Inductive tu_tag_or_id : Type :=
