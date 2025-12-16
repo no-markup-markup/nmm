@@ -19,10 +19,12 @@ reads from standard input.
 TXT-OPTIONS:
   --margin <numeral>
   --preserve-vertical-white-space
+  --quiet
 
 HTML-OPTIONS:
   --margin <numeral>
   --preserve-vertical-white-space
+  --quiet
   --lang <language-code>
   --css <uri>"
 
@@ -99,6 +101,8 @@ and css : string ref = ref ""
 
 and read_from_stdin : bool ref = ref false
 
+and quiet : bool ref = ref false
+
 and keyspecdoc_list : t_keyspecdoc list ref = ref []
 
 and keyspecdoc_margin : t_keyspecdoc =
@@ -116,17 +120,22 @@ and keyspecdoc_css : t_keyspecdoc =
 and keyspecdoc_stdin : t_keyspecdoc =
 	("-", Arg.Set read_from_stdin, "Read from standard input")
 
+and keyspecdoc_quiet : t_keyspecdoc =
+	("--quiet", Arg.Set quiet, "Supress warnings")
+
 
 and keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_preserve;
 	keyspecdoc_stdin;
+	keyspecdoc_quiet;
 ]
 
 and keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_preserve;
 	keyspecdoc_stdin;
+	keyspecdoc_quiet;
 ]
 
 
@@ -138,6 +147,7 @@ and keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_preserve;
 	keyspecdoc_stdin;
+	keyspecdoc_quiet;
 	keyspecdoc_lang;
 	keyspecdoc_css;
 ]
@@ -146,6 +156,7 @@ and keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_preserve;
 	keyspecdoc_stdin;
+	keyspecdoc_quiet;
 	keyspecdoc_lang;
 	keyspecdoc_css;
 ]
@@ -163,6 +174,11 @@ let _ : unit =
 		|false -> []
 		|true -> ["--preserve-vertical-white-space"]
 	in
+	let quiet_options : string list =
+	match quiet.contents with
+		|false -> []
+		|true -> ["--quiet"]
+	in
 	let lang_options : string list =
 		match lang.contents with
 		|"" -> []
@@ -173,7 +189,7 @@ let _ : unit =
 		|"" -> []
 		|uri -> ["--css";uri]
 	in
-	let options = List.concat [margin_options;preserve_options;lang_options;css_options] in
+	let options = List.concat [margin_options; preserve_options; quiet_options; lang_options; css_options] in
 	match cmd_name.contents with
 	|"txt-of-xml" -> (
 		match read_from_stdin.contents with

@@ -143,7 +143,7 @@ and doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
 				|Some ("refs-hdr", v) -> set_refs_hdr v settings
 				|Some ("singular-tag", v) -> set_expand_tag_singular settings.expand_tag_singular v settings
 				|Some ("plural-tag", v) -> set_expand_tag_plural settings.expand_tag_plural v settings
-				|_ -> let _ : unit = Debug_utils.print_to_stderr 
+				|_ -> let _ : unit = Debug_utils.print_warning 
 					(String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings
 			in aux tl new_doc_settings
 		)
@@ -180,7 +180,7 @@ and set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
 	in doc_settings
 
 and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -204,7 +204,7 @@ and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
 	in doc_settings
 
 and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -228,7 +228,7 @@ and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
 	in doc_settings
 
 and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -252,7 +252,7 @@ and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
 	in doc_settings
 
 and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -276,7 +276,7 @@ and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
 	in doc_settings
 
 and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -300,7 +300,7 @@ and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
 	in doc_settings
 
 
@@ -325,7 +325,7 @@ and set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
 	in doc_settings
 
 and set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -445,7 +445,7 @@ and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option)
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid singular_tag value: ";v;"; ";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid singular_tag value: ";v;"; ";"using default value"])
 	in doc_settings
 
 and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -469,7 +469,7 @@ and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
 	in doc_settings
 
 and prefix_value_of_string (v : string) : string option =
@@ -633,7 +633,7 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) 
 	)
 	|None ->
 		match c_ref with Cs_c_ref id_c_ref ->
-		let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+		let _ : unit = Debug_utils.print_warning (String.concat "" [
 			"WARNING: id \'";
 			string_of_tr_id id_c_ref;
 			"\' referenced in ";
@@ -682,15 +682,15 @@ and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
 			| false -> List.rev rev_id_loc
 		)
 		| [], [] -> (
-(*			let _ : unit = Debug_utils.print_to_stderr ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
+(*			let _ : unit = Debug_utils.print_warning ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
 			try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
 		)
 		| _ :: _, [] -> (
-(*			let _ : unit = Debug_utils.print_to_stderr ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
+(*			let _ : unit = Debug_utils.print_warning ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
 			try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
 		)
 		| [], _ :: _ ->
-(*			let _:unit=Debug_utils.print_to_stderr ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
+(*			let _:unit=Debug_utils.print_warning ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
 			List.rev rev_id_loc
 	)
 	in 
@@ -940,7 +940,7 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
 		|(id,path)::tl ->
 			match List.mem (id,path) tl with
 			|true ->
-				let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+				let _ : unit = Debug_utils.print_warning (String.concat "" [
 					"WARNING: id \'";
 					string_of_tr_id id;"\'";
 					" is defined more than once in ";
@@ -985,7 +985,7 @@ let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 
 let par_restated_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (Doc_types.tr_par_std * t_path) option =
 	match reference_of_ts_c_ref path (Cs_c_ref id) with
-	|None -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+	|None -> let _ : unit = Debug_utils.print_warning (String.concat "" [
 			"WARNING: id \'";string_of_tr_id id;
 			"\' referenced in ";
 			string_of_path doc_settings path;
@@ -993,7 +993,7 @@ let par_restated_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : 
 		]) in None
 	|Some (table_id, table_path, Cref_element_par par) ->
 		Some (par_restated_of_tr_par par, table_path)
-	|_ -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+	|_ -> let _ : unit = Debug_utils.print_warning (String.concat "" [
 				"WARNING: id \'";
 				string_of_tr_id id;
 				"\' does not belong to a paragraph";

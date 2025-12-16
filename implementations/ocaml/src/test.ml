@@ -18,6 +18,7 @@ let validate_axml (path : string) (format : string) (path_to_dtd : string) (axml
 
 let rec test_with_nmm_file (options : string list) (path : string) : unit =
 try
+	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
 	let doc : Doc_types.tr_doc = Main.doc_of_nmm path in
 	let axml : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
 	let doc_of_axml : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
@@ -39,6 +40,7 @@ with
 
 and test_with_axml_file (options : string list) (path : string) : unit =
 try
+	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
 	let axml : Xml.xml = Xml_right.parse_file false path in
 	let doc : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
 	let axml_of_doc : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in

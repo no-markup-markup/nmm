@@ -182,14 +182,14 @@ make_test(){
 	exit_code=$curr_code
 	fi
 
-	test_with_nmm
+	test_with_nmm --quiet
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then
 	exit_code=$curr_code
 	fi
 
-	test_with_nmm --preserve-vertical-white-space
+	test_with_nmm --quiet --preserve-vertical-white-space
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then
@@ -197,21 +197,21 @@ make_test(){
 	fi
 
 
-	test_with_xml
+	test_with_xml --quiet
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then
 	exit_code=$curr_code
 	fi
 
-	make_txt_output
+	make_txt_output --quiet
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then
 	exit_code=$curr_code
 	fi
 
-	make_html_output
+	make_html_output --quiet
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then

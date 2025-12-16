@@ -389,7 +389,7 @@ and acc_of_tu_par (doc_settings : Common_utils.t_doc_settings) (path : Common_ut
 		|_ -> 
 			match Common_utils.par_restated_of_tr_id doc_settings path id with
 			|Some ((par : tr_par_std), (path_origin : t_path)) -> acc_of_tr_par_std doc_settings path path_origin acc par
-			|None -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+			|None -> let _ : unit = Debug_utils.print_warning (String.concat "" [
 					"WARNING: failed to restate paragraph with id \'";
 					Common_utils.string_of_tr_id id;"\' in ";
 					Common_utils.string_of_path doc_settings path;

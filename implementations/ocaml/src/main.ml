@@ -1,7 +1,5 @@
 exception Error of string
 
-
-
 let doc_of_nmm (path : string) : Doc_types.tr_doc =
 	try
 	let print_tokens = false in
@@ -13,6 +11,7 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 
 
 let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
 	try
 	Compiler_of_doc.txt_of_tr_doc options doc
 	with
@@ -67,6 +66,7 @@ let external_css_of_options (options : string list) : string option =
 
 let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	try
+	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
 	let doc_settings : Common_utils.t_doc_settings = Common_utils.doc_settings_of_tr_doc doc in
 	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc_settings options doc in
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
