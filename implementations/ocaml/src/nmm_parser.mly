@@ -3,11 +3,11 @@ open Doc_types
 
 exception ERROR of string
 
-let scope_of_string (s : string) : tu_scope =
+let scope_of_string (s : string) : tu_id_scope =
 	match s with
-	|"CH" -> Cu_lcl Cu_lcl_ch
-	|"SEC" -> Cu_lcl Cu_lcl_sec
-	|"PAR" -> Cu_lcl Cu_lcl_par
+	|"CH" -> Cu_id_scope_ch
+	|"SEC" -> Cu_id_scope_sec
+	|"PAR" -> Cu_id_scope_par
 	|_ -> raise (ERROR (String.concat "" ["expected CH, SEC, or PAR, got: ";s]))
 
 

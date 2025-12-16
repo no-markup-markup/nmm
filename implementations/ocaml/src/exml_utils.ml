@@ -96,14 +96,15 @@ and attr_list_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Comm
 
 and cdata_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
-	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some (Cu_lcl lcl) -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path lcl))
-	|Cs_tag (tag_string : string), Cs_name (name_string : string), _ -> (tag_string ^ "_" ^ name_string)
+	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
+	|Cs_tag (tag_string : string), Cs_name (name_string : string), None -> (tag_string ^ "_" ^ name_string)
 
-and string_of_scope (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (lcl : Doc_types.tu_lcl) : string =
-	match lcl with
-	|Cu_lcl_ch -> "CH_" ^ (Common_utils.string_of_path doc_settings (path_to_ch_node path))
-	|Cu_lcl_sec -> "SEC_" ^ (Common_utils.string_of_path doc_settings (path_to_sec_node path))
-	|Cu_lcl_par -> "PAR_" ^ (Common_utils.string_of_path doc_settings (path_to_par_node path))
+and string_of_scope (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (scope : Doc_types.tu_id_scope) : string =
+	match scope with
+	|Cu_id_scope_gbl -> raise (Error "global scope not expected")
+	|Cu_id_scope_ch -> "CH_" ^ (Common_utils.string_of_path doc_settings (path_to_ch_node path))
+	|Cu_id_scope_sec -> "SEC_" ^ (Common_utils.string_of_path doc_settings (path_to_sec_node path))
+	|Cu_id_scope_par -> "PAR_" ^ (Common_utils.string_of_path doc_settings (path_to_par_node path))
 
 
 and xml_of_string (s : string) : Xml.xml =

@@ -267,7 +267,7 @@ and xml_of_tr_id (id:tr_id):Xml.xml=
 	let b:Xml.xml=xml_of_ts_name id.fld_id_name in
 	match id.fld_id_scope with
 	|Some scope ->
-		let c:string=Common_utils.string_of_tu_scope id.fld_id_scope in
+		let c:string=Common_utils.string_of_tu_id_scope scope in
 		Xml.Element ("cr_id",[("scope",c)],[a;b])
 	|None -> 
 		Xml.Element ("cr_id",[],[a;b])
