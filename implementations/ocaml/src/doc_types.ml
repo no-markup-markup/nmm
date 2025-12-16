@@ -79,7 +79,7 @@ and tu_tag_or_id = Cu_tag_or_id_tag of ts_tag | Cu_tag_or_id_id of tr_id
 and tr_id = {
   fld_id_tag : ts_tag;
   fld_id_name: ts_name;
-  fld_id_scope : tu_scope;
+  fld_id_scope : tu_scope option;
 }
 
 and ts_tag = Cs_tag of string

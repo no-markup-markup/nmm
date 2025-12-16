@@ -59,10 +59,10 @@ let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.posi
 (******************************************************************)
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
-	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
-	let _ : unit = Nmm_lexer.verbatim.(0) <- false in
-	let _ : unit = Nmm_lexer.first_nl.(0) <- true in
-	let _ : unit = Nmm_lexer.display.(0) <- false in
+	let _ : unit = Nmm_lexer.return_nl.contents <- true in
+	let _ : unit = Nmm_lexer.verbatim.contents <- false in
+	let _ : unit = Nmm_lexer.first_nl.contents <- true in
+	let _ : unit = Nmm_lexer.display.contents <- false in
 	match Sys.file_exists filename with
 	|false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
 	|true -> 
@@ -90,10 +90,10 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
-	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
-	let _ : unit = Nmm_lexer.verbatim.(0) <- false in
-	let _ : unit = Nmm_lexer.first_nl.(0) <- true in
-	let _ : unit = Nmm_lexer.display.(0) <- false in
+	let _ : unit = Nmm_lexer.return_nl.contents <- true in
+	let _ : unit = Nmm_lexer.verbatim.contents <- false in
+	let _ : unit = Nmm_lexer.first_nl.contents <- true in
+	let _ : unit = Nmm_lexer.display.contents <- false in
 	let lexbuf = Sedlexing.Utf8.from_string s in
 	let revised_lexer () = (lexer print_tokens) lexbuf in 
 	let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
@@ -116,10 +116,10 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
 
 let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
-	let _ : unit = Nmm_lexer.return_nl.(0) <- true in
-	let _ : unit = Nmm_lexer.verbatim.(0) <- false in
-	let _ : unit = Nmm_lexer.first_nl.(0) <- true in
-	let _ : unit = Nmm_lexer.display.(0) <- false in
+	let _ : unit = Nmm_lexer.return_nl.contents <- true in
+	let _ : unit = Nmm_lexer.verbatim.contents <- false in
+	let _ : unit = Nmm_lexer.first_nl.contents <- true in
+	let _ : unit = Nmm_lexer.display.contents <- false in
 	let input : string = In_channel.input_all stdin in
 	let lexbuf = Sedlexing.Utf8.from_string input in
 	let revised_lexer () = (lexer print_tokens) lexbuf in 

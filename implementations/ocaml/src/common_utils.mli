@@ -357,7 +357,7 @@ evaluates to
 
 val par_restated_of_tr_id : t_doc_settings -> t_path -> Doc_types.tr_id -> (Doc_types.tr_par_std * t_path) option
 
-val string_of_tu_scope : Doc_types.tu_scope -> string
+val string_of_tu_scope : Doc_types.tu_scope option -> string
 
 val string_of_tu_lcl : Doc_types.tu_lcl -> string
 

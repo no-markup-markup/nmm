@@ -433,11 +433,17 @@ and f_ts_txt_units_of_xml_list (xml_list:Xml.xml list):ts_txt_units =
 
 and f_tr_id_of_xml (xml:Xml.xml):tr_id =
     match xml with
+    |Xml.Element ("cr_id",[],[x;y]) -> 
+        {
+            fld_id_tag      =   f_ts_tag_of_xml x;
+            fld_id_name     =   f_ts_name_of_xml y;
+            fld_id_scope    =   None;
+        }
     |Xml.Element ("cr_id",[("scope",value)],[x;y]) -> 
         {
             fld_id_tag      =   f_ts_tag_of_xml x;
             fld_id_name     =   f_ts_name_of_xml y;
-            fld_id_scope    =   f_tu_scope_of_string value;
+            fld_id_scope    =   Some (f_tu_scope_of_string value);
         }
     |_ -> raise (Error (String.concat "" ["expected cr_id, got: ";string_of_xml_list [xml]]))
 

@@ -578,68 +578,61 @@ let path_to_par_node (path : t_path) : t_path =
 
 
 let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
-	match c_ref with Cs_c_ref (id_c_ref : Doc_types.tr_id) ->
-	let rec aux (cref_table : t_cref_table) : string option =
-		match cref_table with
-		| [] -> None
-		| ((id : Doc_types.tr_id), (id_loc : t_path), _) :: c_ref_table_tl -> 
-			match ids_match id_c_ref c_ref_loc id id_loc with
-			| true -> (
-				match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
-				|id_loc_hd::id_loc_tl, Some (sub : string) -> (
-					match List.rev id_loc_tl with 
-					|ABSTRACT_NODE::_ -> (
-						match List.rev c_ref_loc with
-						|ABSTRACT_NODE::_ -> Some sub
-						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [ABSTRACT_NODE]])
-					)
-					|REFS_NODE::_ -> (
-						match List.rev c_ref_loc with
-						|REFS_NODE::_ -> Some sub
-						|_ -> Some (String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [REFS_NODE]])
-					)
-					|_ ->
-					match id_loc_hd with
-					|CH_NODE _ -> (
-						match doc_settings.ch_prefix with
-						|None -> Some sub
-						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;sub])
-					)
-					|SEC_NODE _ -> (
-						match doc_settings.sec_prefix with
-						|None -> Some sub
-						|Some prefix -> Some (String.concat "\u{00A0}" [prefix;sub])
-					)
-					|PAR_NODE (par_node : t_par_node) -> (
-						match par_node with
-						|NO_TAG (prefix_opt,_) -> (
-							match prefix_opt with
-							|None -> Some sub
-							|Some prefix -> Some (String.concat "\u{00A0}" [prefix; sub])
-						)
-						|SINGULAR_TAG (singular, _) -> Some (String.concat "\u{00A0}" [singular; sub])
-						|PLURAL_TAG (_, plural, _) -> Some (String.concat "\u{00A0}" [plural; sub])
-					)
-					|ITM_NODE (ITM_TAG_AUTO (singular,_)) -> (
-						let label = label_of_path doc_settings id_loc in
-						match label = sub with
-						|true -> Some (String.concat "\u{00A0}" [singular;label])
-						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl])
-					)
-					|ITM_NODE (ITM_TAG_CUSTOM (singular,_)) -> (
-						let label = label_of_path doc_settings id_loc in
-						match label = sub with
-						|true -> Some (String.concat "\u{00A0}" [singular;label])
-						|false -> Some (String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl])
-					)
-					| _ -> Some sub
-				)
-				| _ , _ -> raise (Error "id_loc in cref_table not expected to be an empty path")
+	match reference_of_ts_c_ref c_ref_loc c_ref with
+	|Some (_, id_loc, _) -> (
+		match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
+		|id_loc_hd::id_loc_tl, Some (sub : string) -> (
+			match List.rev id_loc_tl with 
+			|ABSTRACT_NODE::_ -> (
+				match List.rev c_ref_loc with
+				|ABSTRACT_NODE::_ -> sub
+				|_ -> String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [ABSTRACT_NODE]]
 			)
-			| false -> aux c_ref_table_tl
-	in
-	match aux doc_cref_table.content with
-	| None ->
+			|REFS_NODE::_ -> (
+				match List.rev c_ref_loc with
+				|REFS_NODE::_ -> sub
+				|_ -> String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [REFS_NODE]]
+			)
+			|_ ->
+			match id_loc_hd with
+			|CH_NODE _ -> (
+				match doc_settings.ch_prefix with
+				|None -> sub
+				|Some prefix -> String.concat "\u{00A0}" [prefix;sub]
+			)
+			|SEC_NODE _ -> (
+				match doc_settings.sec_prefix with
+				|None -> sub
+				|Some prefix -> String.concat "\u{00A0}" [prefix;sub]
+			)
+			|PAR_NODE (par_node : t_par_node) -> (
+				match par_node with
+				|NO_TAG (prefix_opt,_) -> (
+					match prefix_opt with
+					|None -> sub
+					|Some prefix -> String.concat "\u{00A0}" [prefix; sub]
+				)
+				|SINGULAR_TAG (singular, _) -> String.concat "\u{00A0}" [singular; sub]
+				|PLURAL_TAG (_, plural, _) -> String.concat "\u{00A0}" [plural; sub]
+			)
+			|ITM_NODE (ITM_TAG_AUTO (singular,_)) -> (
+				let label = label_of_path doc_settings id_loc in
+				match label = sub with
+				|true -> String.concat "\u{00A0}" [singular;label]
+				|false -> String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl]
+			)
+			|ITM_NODE (ITM_TAG_CUSTOM (singular,_)) -> (
+				let label = label_of_path doc_settings id_loc in
+				match label = sub with
+				|true -> String.concat "\u{00A0}" [singular;label]
+				|false -> String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl]
+			)
+			|_ -> sub
+		)
+		|_ , _ -> raise (Error "id_loc in cref_table not expected to be an empty path")
+	)
+	|None ->
+		match c_ref with Cs_c_ref id_c_ref ->
 		let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
 			"WARNING: id \'";
 			string_of_tr_id id_c_ref;
@@ -647,7 +640,20 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) 
 			string_of_path doc_settings c_ref_loc;
 			" is undefined or out of scope";
 		]) in "??"
-	| Some (s : string) -> s
+
+
+and reference_of_ts_c_ref (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (Doc_types.tr_id * t_path * t_cref_element) option =
+	match c_ref with
+	|Cs_c_ref (c_ref_id) ->
+	let rec aux (cref_table : t_cref_table) : (Doc_types.tr_id * t_path * t_cref_element) option =
+		match cref_table with
+		|[] -> None
+		|(table_id, table_path, table_element) :: tl ->
+			match ids_match c_ref_id c_ref_path table_id table_path with
+			|true -> Some (table_id, table_path, table_element)
+			|false -> aux tl
+	in
+	aux doc_cref_table.content
 
 
 and ids_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
@@ -657,10 +663,10 @@ and ids_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.
 	else
 	false
 
-and c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope : tu_scope) (id_loc : t_path) : bool =
+and c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope : tu_scope option) (id_loc : t_path) : bool =
 	match scope with
-	|Cu_gbl -> true
-	|Cu_lcl lcl ->
+	|Some Cu_gbl | None -> true
+	|Some (Cu_lcl lcl) ->
 		match lcl with
 		|Cu_lcl_ch -> path_to_ch_node c_ref_loc = path_to_ch_node id_loc
 		|Cu_lcl_sec -> path_to_sec_node c_ref_loc = path_to_sec_node id_loc
@@ -907,13 +913,13 @@ and label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
 
 and string_of_tr_id (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
-	|Cs_tag tag, Cs_name name, (Cu_lcl lcl) -> String.concat ":" [tag;name;string_of_tu_lcl lcl]
+	|Cs_tag tag, Cs_name name, Some (Cu_lcl lcl) -> String.concat ":" [tag;name;string_of_tu_lcl lcl]
 	|Cs_tag tag, Cs_name name, _ -> String.concat ":" [tag;name]
 
-and string_of_tu_scope (scope : tu_scope) : string =
+and string_of_tu_scope (scope : tu_scope option) : string =
 	match scope with
-	|Cu_gbl -> "GBL"
-	|Cu_lcl (lcl : tu_lcl) -> string_of_tu_lcl lcl
+	|None | Some Cu_gbl -> "GBL"
+	|Some (Cu_lcl (lcl : tu_lcl)) -> string_of_tu_lcl lcl
 
 and string_of_tu_lcl (lcl : tu_lcl) : string =
 	match lcl with
@@ -929,8 +935,8 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
 			match hd with
 			|(id, path, _) ->
 				match id.fld_id_scope with
-				|Cu_gbl -> aux1 tl ((id,[])::acc)
-				|Cu_lcl lcl ->
+				|None | Some Cu_gbl -> aux1 tl ((id,[])::acc)
+				|Some (Cu_lcl lcl) ->
 					match lcl with
 					|Cu_lcl_ch -> aux1 tl ((id, path_to_ch_node path)::acc)
 					|Cu_lcl_sec -> aux1 tl ((id, path_to_sec_node path)::acc)
@@ -986,26 +992,20 @@ let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 
 
 let par_restated_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (Doc_types.tr_par_std * t_path) option =
-	let rec aux (table : t_cref_table) : (Doc_types.tr_par_std * t_path) option =
-		match table with
-		|[] -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
-				"WARNING: id \'";string_of_tr_id id;
-				"\' referenced in ";
-				string_of_path doc_settings path;
-				" is undefined or out of scope";
-			]) in None
-		|(table_id, table_path, table_element) :: tl -> (
-			match ids_match id path table_id table_path, table_element with
-			|true, Cref_element_par par -> Some (par_restated_of_tr_par par, table_path)
-			|true, _ -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
-					"WARNING: id \'";
-					string_of_tr_id id;
-					"\' does not belong to a paragraph";
-				]) in None
-			|false, _ -> aux tl
-		)
-	in
-	aux doc_cref_table.content
+	match reference_of_ts_c_ref path (Cs_c_ref id) with
+	|None -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+			"WARNING: id \'";string_of_tr_id id;
+			"\' referenced in ";
+			string_of_path doc_settings path;
+			" is undefined or out of scope";
+		]) in None
+	|Some (table_id, table_path, Cref_element_par par) ->
+		Some (par_restated_of_tr_par par, table_path)
+	|_ -> let _ : unit = Debug_utils.print_to_stderr (String.concat "" [
+				"WARNING: id \'";
+				string_of_tr_id id;
+				"\' does not belong to a paragraph";
+		]) in None
 
 let node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par) : t_node =
 	match p with

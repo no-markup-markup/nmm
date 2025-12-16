@@ -4,7 +4,7 @@
 <cs_chs>
 <cr_ch>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>CH</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -13,7 +13,7 @@
 <cs_secs>
 <cr_sec>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -36,7 +36,7 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -62,7 +62,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -217,7 +217,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -449,7 +449,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -602,7 +602,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -742,7 +742,7 @@
 </cr_sec>
 <cr_sec>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>two</cs_name>
 </cr_id>
@@ -765,7 +765,7 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -791,7 +791,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -912,7 +912,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -1144,7 +1144,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -1297,7 +1297,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -1459,7 +1459,7 @@
 </cu_par_rpt>
 <cu_par_rpt>
 <cs_par_rpt>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>

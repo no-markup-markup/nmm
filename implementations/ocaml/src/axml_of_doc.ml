@@ -265,9 +265,12 @@ and xml_of_ts_lbl_custom (a:ts_lbl_custom):Xml.xml=
 and xml_of_tr_id (id:tr_id):Xml.xml=
 	let a:Xml.xml=xml_of_ts_tag id.fld_id_tag in
 	let b:Xml.xml=xml_of_ts_name id.fld_id_name in
-	let c:string=Common_utils.string_of_tu_scope id.fld_id_scope in
-	Xml.Element ("cr_id",[("scope",c)],[a;b])
-
+	match id.fld_id_scope with
+	|Some scope ->
+		let c:string=Common_utils.string_of_tu_scope id.fld_id_scope in
+		Xml.Element ("cr_id",[("scope",c)],[a;b])
+	|None -> 
+		Xml.Element ("cr_id",[],[a;b])
 
 and xml_of_ts_tag (tag:ts_tag):Xml.xml=
 	match tag with

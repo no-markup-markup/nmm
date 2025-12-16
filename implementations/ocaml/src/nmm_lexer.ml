@@ -94,23 +94,23 @@ let line_of_lexbuf (lexbuf:Sedlexing.lexbuf):string=
 	match Sedlexing.lexing_positions lexbuf with
 	(start_pos,end_pos) -> string_of_int (start_pos.pos_lnum)
 
-let return_nl: bool array = [|true|]
+let return_nl: bool ref = ref true
 
-let verbatim : bool array = [|false|]
+let verbatim : bool ref = ref false
 
-let first_nl : bool array = [|true|]
+let first_nl : bool ref = ref true
 
 let nl_or_vrb_line_empty (first : bool ) : Nmm_parser.token =
 	match first with
-	|true -> let _ : unit = first_nl.(0) <- false in NL
+	|true -> let _ : unit = first_nl.contents <- false in NL
 	|false -> VRB_LINE_EMPTY
 
-let display : bool array = [|false|]
+let display : bool ref = ref false
 
 (************** the lexer ******************************)
 
 let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
-	match verbatim.(0), display.(0) with
+	match verbatim.contents, display.contents with
 	|false, false -> (
 		match%sedlex lexbuf with
 		|esc_char			->	ESC_CHAR (get_esc_char (lexeme lexbuf))
@@ -129,8 +129,8 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|pilcrow_refs_nls		->	PILCROW_REFS_NLS
 		|tab				->	TAB 
 		|dash_tab			->	DASH_TAB
-		|dsp_auto_tab			->	let _ : unit = display.(0) <- true in DSP_AUTO_TAB 
-		|dsp_custom_tab			->	let _ : unit = display.(0) <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))
+		|dsp_auto_tab			->	let _ : unit = display.contents <- true in DSP_AUTO_TAB 
+		|dsp_custom_tab			->	let _ : unit = display.contents <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))
 		|itm_auto_tab			->	ITM_AUTO_TAB
 		|itm_custom_tab			->	ITM_CUSTOM_TAB (get_label (lexeme lexbuf))
 		|nl				->	NL
@@ -145,19 +145,19 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|pilcrow			->	PILCROW
 		|itm_id				->	ITM_ID (lexeme lexbuf)
 		|txt				->	TXT (lexeme lexbuf)
-		|start_vrb			->	let _ : unit = verbatim.(0) <- true in START_VRB
+		|start_vrb			->	let _ : unit = verbatim.contents <- true in START_VRB
 		|eof				->	end_of_file lexbuf
 		|_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
 	)
 
 	|true, _ -> (
 		match%sedlex lexbuf with
-		|end_vrb			->	let _ : unit = verbatim.(0) <- false in END_VRB
-		|tab_end_vrb			->	let _ : unit = verbatim.(0) <- false in TAB_END_VRB
-		|tab_tab_end_vrb		->	let _ : unit = verbatim.(0) <- false in TAB_TAB_END_VRB
-		|tab_tab_tab_end_vrb		->	let _ : unit = verbatim.(0) <- false in TAB_TAB_TAB_END_VRB
-		|vrb_line			->	let _ : unit = first_nl.(0) <- true in VRB_LINE (lexeme lexbuf)
-		|nl				->	nl_or_vrb_line_empty first_nl.(0)
+		|end_vrb			->	let _ : unit = verbatim.contents <- false in END_VRB
+		|tab_end_vrb			->	let _ : unit = verbatim.contents <- false in TAB_END_VRB
+		|tab_tab_end_vrb		->	let _ : unit = verbatim.contents <- false in TAB_TAB_END_VRB
+		|tab_tab_tab_end_vrb		->	let _ : unit = verbatim.contents <- false in TAB_TAB_TAB_END_VRB
+		|vrb_line			->	let _ : unit = first_nl.contents <- true in VRB_LINE (lexeme lexbuf)
+		|nl				->	nl_or_vrb_line_empty first_nl.contents
 		|tab				->	TAB
 		|_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
 	)
@@ -175,16 +175,16 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 		|txt				->	TXT (lexeme lexbuf)
 		|tab				->	TAB 
 		|dsp_id				->	DSP_ID (lexeme lexbuf)
-		|nl				->	let _ : unit = display.(0) <- false in NL
-		|nl_tab				->	let _ : unit = display.(0) <- false in NL_TAB
-		|nl_tab_tab			->	let _ : unit = display.(0) <- false in NL_TAB_TAB
-		|nl_tab_tab_tab			->	let _ : unit = display.(0) <- false in NL_TAB_TAB_TAB
+		|nl				->	let _ : unit = display.contents <- false in NL
+		|nl_tab				->	let _ : unit = display.contents <- false in NL_TAB
+		|nl_tab_tab			->	let _ : unit = display.contents <- false in NL_TAB_TAB
+		|nl_tab_tab_tab			->	let _ : unit = display.contents <- false in NL_TAB_TAB_TAB
 		|_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
 	)
 
 and end_of_file (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
-	match return_nl.(0) with
-	|true -> let _ = return_nl.(0) <- false in let _ = lex lexbuf in NL
+	match return_nl.contents with
+	|true -> let _ = return_nl.contents <- false in let _ = lex lexbuf in NL
 	|false -> EOF
 
 
