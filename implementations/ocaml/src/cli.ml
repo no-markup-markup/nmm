@@ -26,7 +26,8 @@ HTML-OPTIONS:
   --preserve-vertical-white-space
   --quiet
   --lang <language-code>
-  --css <uri>"
+  --css <uri>
+"
 
 type t_keyspecdoc = (Arg.key *  Arg.spec * Arg.doc)
 
@@ -106,22 +107,22 @@ and quiet : bool ref = ref false
 and keyspecdoc_list : t_keyspecdoc list ref = ref []
 
 and keyspecdoc_margin : t_keyspecdoc =
-	("--margin", Arg.Set_string margin, "Set left margin")
+	("--margin", Arg.Set_string margin, "")
 
 and keyspecdoc_preserve : t_keyspecdoc =
-	("--preserve-vertical-white-space", Arg.Set preserve, "Preserve vertical white-space following blocks on level 0")
+	("--preserve-vertical-white-space", Arg.Set preserve, "")
 
 and keyspecdoc_lang : t_keyspecdoc =
-	("--lang", Arg.Set_string lang, "Set html language attribute")
+	("--lang", Arg.Set_string lang, "")
 
 and keyspecdoc_css : t_keyspecdoc =
-	("--css", Arg.Set_string css, "Set uri of external stylesheet")
+	("--css", Arg.Set_string css, "")
 
 and keyspecdoc_stdin : t_keyspecdoc =
-	("-", Arg.Set read_from_stdin, "Read from standard input")
+	("-", Arg.Set read_from_stdin, "")
 
 and keyspecdoc_quiet : t_keyspecdoc =
-	("--quiet", Arg.Set quiet, "Supress warnings")
+	("--quiet", Arg.Set quiet, "")
 
 
 and keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
