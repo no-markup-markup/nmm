@@ -565,6 +565,16 @@ let path_to_sec_node (path : t_path) : t_path =
 			|_ -> aux tl (hd::acc)
 	in aux (List.rev path) []
 
+let path_to_app_node (path : t_path) : t_path =
+	let rec aux (rev_path : t_path) (acc : t_path) : t_path =
+		match rev_path with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|APP_NODE _ -> hd::acc
+			|_ -> aux tl (hd::acc)
+	in aux (List.rev path) []
+
 
 let path_to_par_node (path : t_path) : t_path =
 	let rec aux (rev_path : t_path) (acc : t_path) : t_path =
@@ -663,12 +673,13 @@ and ids_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.
 	else
 	false
 
-and c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope_opt : tu_id_scope option) (id_loc : t_path) : bool =
+and c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope_opt : tu_scope option) (id_loc : t_path) : bool =
 	match scope_opt with
-	|None | Some Cu_id_scope_gbl -> true
-	|Some Cu_id_scope_ch -> path_to_ch_node c_ref_loc = path_to_ch_node id_loc
-	|Some Cu_id_scope_sec -> path_to_sec_node c_ref_loc = path_to_sec_node id_loc
-	|Some Cu_id_scope_par -> path_to_par_node c_ref_loc = path_to_par_node id_loc
+	|None | Some Cu_scope_GBL -> true
+	|Some Cu_scope_CH -> path_to_ch_node c_ref_loc = path_to_ch_node id_loc
+	|Some Cu_scope_SEC -> path_to_sec_node c_ref_loc = path_to_sec_node id_loc
+	|Some Cu_scope_APP -> path_to_app_node c_ref_loc = path_to_app_node id_loc
+	|Some Cu_scope_PAR -> path_to_par_node c_ref_loc = path_to_par_node id_loc
 
 
 and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
@@ -911,15 +922,16 @@ and label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
 
 and string_of_tr_id (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
-	|Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag;name;string_of_tu_id_scope scope]
+	|Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag;name;string_of_tu_scope scope]
 	|Cs_tag tag, Cs_name name, _ -> String.concat ":" [tag;name]
 
-and string_of_tu_id_scope (scope : tu_id_scope) : string =
+and string_of_tu_scope (scope : tu_scope) : string =
 	match scope with
-	|Cu_id_scope_gbl -> "GBL"
-	|Cu_id_scope_ch -> "CH"
-	|Cu_id_scope_sec -> "SEC"
-	|Cu_id_scope_par -> "PAR"
+	|Cu_scope_GBL -> "GBL"
+	|Cu_scope_CH -> "CH"
+	|Cu_scope_SEC -> "SEC"
+	|Cu_scope_APP -> "APP"
+	|Cu_scope_PAR -> "PAR"
 
 let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_cref_table =
 	let rec aux1 (lst : t_cref_table) (acc : (Doc_types.tr_id * t_path) list): (Doc_types.tr_id * t_path) list =
@@ -929,10 +941,11 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
 			match hd with
 			|(id, path, _) ->
 				match id.fld_id_scope with
-				|None | Some Cu_id_scope_gbl -> aux1 tl ((id,[])::acc)
-				|Some Cu_id_scope_ch -> aux1 tl ((id, path_to_ch_node path)::acc)
-				|Some Cu_id_scope_sec -> aux1 tl ((id, path_to_sec_node path)::acc)
-				|Some Cu_id_scope_par -> aux1 tl ((id, path_to_par_node path)::acc)
+				|None | Some Cu_scope_GBL -> aux1 tl ((id,[])::acc)
+				|Some Cu_scope_CH -> aux1 tl ((id, path_to_ch_node path)::acc)
+				|Some Cu_scope_SEC -> aux1 tl ((id, path_to_sec_node path)::acc)
+				|Some Cu_scope_APP -> aux1 tl ((id, path_to_app_node path)::acc)
+				|Some Cu_scope_PAR -> aux1 tl ((id, path_to_par_node path)::acc)
 	in
 	let rec aux2 (lst : (Doc_types.tr_id * t_path) list) : unit =
 		match lst with

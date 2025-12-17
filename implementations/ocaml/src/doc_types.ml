@@ -79,7 +79,7 @@ and tu_tag_or_id = Cu_tag_or_id_tag of ts_tag | Cu_tag_or_id_id of tr_id
 and tr_id = {
   fld_id_tag : ts_tag;
   fld_id_name: ts_name;
-  fld_id_scope : tu_id_scope option;
+  fld_id_scope : tu_scope option;
 }
 
 and ts_tag = Cs_tag of string
@@ -87,7 +87,7 @@ and ts_tag = Cs_tag of string
 and ts_name = Cs_name of string
 
 
-and tu_id_scope = Cu_id_scope_gbl | Cu_id_scope_ch | Cu_id_scope_sec | Cu_id_scope_par
+and tu_scope = Cu_scope_GBL | Cu_scope_CH | Cu_scope_SEC | Cu_scope_APP | Cu_scope_PAR
 
 and ts_hdr = Cs_hdr of ts_txt_units
 

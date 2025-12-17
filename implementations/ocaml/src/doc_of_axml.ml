@@ -439,11 +439,11 @@ and f_tr_id_of_xml (xml:Xml.xml):tr_id =
             fld_id_name     =   f_ts_name_of_xml y;
             fld_id_scope    =   None;
         }
-    |Xml.Element ("cr_id",[("scope",value)],[x;y]) -> 
+    |Xml.Element ("cr_id",[],[x;y;z]) -> 
         {
             fld_id_tag      =   f_ts_tag_of_xml x;
             fld_id_name     =   f_ts_name_of_xml y;
-            fld_id_scope    =   Some (f_tu_id_scope_of_string value);
+            fld_id_scope    =   Some (f_tu_scope_of_xml z);
         }
     |_ -> raise (Error (String.concat "" ["expected cr_id, got: ";string_of_xml_list [xml]]))
 
@@ -452,13 +452,14 @@ and f_ts_name_of_xml (xml:Xml.xml):ts_name =
     |Xml.Element ("cs_name",[],pcdata_list) -> Cs_name (f_string_of_pcdata_list pcdata_list)
     |_ -> raise (Error (String.concat "" ["expected cs_name, got: ";string_of_xml_list [xml]]))
 
-and f_tu_id_scope_of_string (value : string) : tu_id_scope =
-	match value with
-	|"GBL" -> Cu_id_scope_gbl
-	|"CH" -> Cu_id_scope_ch
-	|"SEC" -> Cu_id_scope_sec
-	|"PAR" -> Cu_id_scope_par
-	|_ -> raise (Error (String.concat "" ["expected GBL, CH, SEC, or PAR, got: ";value]))
+and f_tu_scope_of_xml (xml : Xml.xml) : tu_scope =
+	match xml with
+	|Xml.Element ("cu_scope_GBL",[],[]) -> Cu_scope_GBL 
+	|Xml.Element ("cu_scope_CH",[],[]) -> Cu_scope_CH
+	|Xml.Element ("cu_scope_SEC",[],[]) -> Cu_scope_SEC
+	|Xml.Element ("cu_scope_APP",[],[]) -> Cu_scope_APP
+	|Xml.Element ("cu_scope_PAR",[],[]) -> Cu_scope_PAR
+        |_ -> raise (Error (String.concat "" ["expected cu_scope_GBL, cu_scope_CH, cu_scope_SEC, cu_scope_APP, or cu_scope_PAR; got: ";string_of_xml_list [xml]]))
 
 and f_ts_c_ref_of_xml (xml:Xml.xml):ts_c_ref=
 	match xml with 

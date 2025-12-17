@@ -3,17 +3,14 @@
 <cu_doc_main_chs>
 <cs_chs>
 <cr_ch>
-<cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cu_tag_or_id_tag>
 <cs_tag>CH</cs_tag>
-<cs_name>one</cs_name>
-</cr_id>
-</cu_tag_or_id_id>
+</cu_tag_or_id_tag>
 <cu_secs_pars_or_blks_secs>
 <cs_secs>
 <cr_sec>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -36,7 +33,7 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -62,7 +59,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -90,9 +87,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -124,9 +122,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -183,7 +182,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -235,9 +234,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -287,9 +287,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -309,9 +310,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -342,9 +344,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -415,7 +418,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -465,18 +468,22 @@
 <cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’ ↦ </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
@@ -517,18 +524,22 @@
 <cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’ ↦ </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
@@ -568,7 +579,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -623,9 +634,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -678,9 +690,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -708,9 +721,10 @@
 </cr_sec>
 <cr_sec>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_CH/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
@@ -722,7 +736,13 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>two’</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>CH’</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_hdr>
@@ -731,7 +751,7 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -757,7 +777,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -785,9 +805,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -819,9 +840,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -878,7 +900,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -930,9 +952,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -982,9 +1005,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1004,9 +1028,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1037,9 +1062,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1110,7 +1136,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -1160,18 +1186,22 @@
 <cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’ ↦ </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
@@ -1212,18 +1242,22 @@
 <cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’ ↦ </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>
@@ -1263,7 +1297,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -1318,9 +1352,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1373,9 +1408,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1389,15 +1425,105 @@
 </cs_blks>
 </cr_blk_itm>
 </cu_blk_itm>
-<cu_blk_empty>
-<cs_blk_empty/>
-</cu_blk_empty>
-<cu_blk_empty>
-<cs_blk_empty/>
-</cu_blk_empty>
-<cu_blk_empty>
-<cs_blk_empty/>
-</cu_blk_empty>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>SEC</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>one</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>SEC</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>CH</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>two</cs_name>
+<cu_scope_CH/>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
 </cs_blks>
 </cr_par_std>
 </cu_par_std>
@@ -1406,6 +1532,114 @@
 </cr_sec>
 </cs_secs>
 </cu_secs_pars_or_blks_secs>
+</cr_ch>
+<cr_ch>
+<cu_tag_or_id_tag>
+<cs_tag>CH</cs_tag>
+</cu_tag_or_id_tag>
+<cu_secs_pars_or_blks_blks>
+<cs_blks>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>SEC</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>one</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>one</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>SEC</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>two</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>CH</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ ↦ ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>two</cs_name>
+<cu_scope_CH/>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+</cs_blks>
+</cu_secs_pars_or_blks_blks>
 </cr_ch>
 </cs_chs>
 </cu_doc_main_chs>

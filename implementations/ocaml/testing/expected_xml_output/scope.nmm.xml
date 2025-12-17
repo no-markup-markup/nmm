@@ -87,9 +87,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -121,9 +122,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -232,9 +234,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -284,9 +287,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -306,9 +310,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -339,9 +344,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -467,9 +473,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -522,9 +529,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -626,9 +634,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -681,9 +690,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -711,9 +721,10 @@
 </cr_sec>
 <cr_sec>
 <cu_tag_or_id_id>
-<cr_id scope="CH">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_CH/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
@@ -794,9 +805,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -828,9 +840,10 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -939,9 +952,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -991,9 +1005,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1013,9 +1028,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1046,9 +1062,10 @@
 <cu_par_std>
 <cr_par_std>
 <cu_tag_or_id_id>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1174,9 +1191,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="PAR">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_PAR/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1229,9 +1247,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1333,9 +1352,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1388,9 +1408,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="SEC">
+<cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_SEC/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1486,9 +1507,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="CH">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_CH/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1599,9 +1621,10 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="CH">
+<cr_id>
 <cs_tag>SEC</cs_tag>
 <cs_name>two</cs_name>
+<cu_scope_CH/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>

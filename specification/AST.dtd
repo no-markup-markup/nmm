@@ -65,9 +65,7 @@
 <!ELEMENT cs_txt_unit_c_ref (cs_c_ref)>
 <!ELEMENT cs_c_ref (cr_id)>
 
-<!ELEMENT cr_id (cs_tag, cs_name)>
-<!ATTLIST cr_id scope (GBL | CH | SEC | PAR) #IMPLIED>
-
+<!ELEMENT cr_id (cs_tag, cs_name, (cu_scope_GBL | cu_scope_CH | cu_scope_SEC | cu_scope_APP | cu_scope_PAR)?)>
 <!ELEMENT cu_tag_or_id_tag (cs_tag)>
 <!ELEMENT cu_tag_or_id_id (cr_id)>
 <!ELEMENT cs_hdr (cs_txt_units)>
@@ -77,3 +75,9 @@
 <!ELEMENT cs_lbl_custom (#PCDATA)>
 <!ELEMENT cs_tag (#PCDATA)>
 <!ELEMENT cs_name (#PCDATA)>
+
+<!ELEMENT cu_scope_GBL EMPTY>
+<!ELEMENT cu_scope_CH EMPTY>
+<!ELEMENT cu_scope_SEC EMPTY>
+<!ELEMENT cu_scope_APP EMPTY>
+<!ELEMENT cu_scope_PAR EMPTY>

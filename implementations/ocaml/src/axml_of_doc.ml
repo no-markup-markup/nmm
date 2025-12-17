@@ -267,10 +267,19 @@ and xml_of_tr_id (id:tr_id):Xml.xml=
 	let b:Xml.xml=xml_of_ts_name id.fld_id_name in
 	match id.fld_id_scope with
 	|Some scope ->
-		let c:string=Common_utils.string_of_tu_id_scope scope in
-		Xml.Element ("cr_id",[("scope",c)],[a;b])
+		let c:Xml.xml = xml_of_tu_scope scope in
+		Xml.Element ("cr_id",[],[a;b;c])
 	|None -> 
 		Xml.Element ("cr_id",[],[a;b])
+
+and xml_of_tu_scope (scope : tu_scope) : Xml.xml =
+	match scope with
+	|Cu_scope_GBL -> Xml.Element ("cu_scope_GBL",[],[])
+	|Cu_scope_CH -> Xml.Element ("cu_scope_CH",[],[])
+	|Cu_scope_SEC -> Xml.Element ("cu_scope_SEC",[],[])
+	|Cu_scope_APP -> Xml.Element ("cu_scope_APP",[],[])
+	|Cu_scope_PAR -> Xml.Element ("cu_scope_PAR",[],[])
+
 
 and xml_of_ts_tag (tag:ts_tag):Xml.xml=
 	match tag with

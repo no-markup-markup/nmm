@@ -196,7 +196,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>exp_sum</cs_name>
 </cr_id>
@@ -345,7 +345,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>exp_sum</cs_name>
 </cr_id>
@@ -358,7 +358,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>exp_sum</cs_name>
 </cr_id>
@@ -476,7 +476,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>simple_sum</cs_name>
 </cr_id>
@@ -499,7 +499,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>simple_sum</cs_name>
 </cr_id>
@@ -520,7 +520,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>derivative</cs_name>
 </cr_id>
@@ -543,7 +543,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>simple_sum</cs_name>
 </cr_id>
@@ -556,7 +556,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>derivative</cs_name>
 </cr_id>

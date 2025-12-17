@@ -142,7 +142,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>x</cs_name>
 </cr_id>
@@ -164,7 +164,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>y</cs_name>
 </cr_id>
@@ -178,7 +178,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>x</cs_name>
 </cr_id>
@@ -191,7 +191,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>z</cs_name>
 </cr_id>
@@ -212,7 +212,7 @@
 <cu_lbl_custom>
 <cs_lbl_custom>ä</cs_lbl_custom>
 </cu_lbl_custom>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>z</cs_name>
 </cr_id>
@@ -241,7 +241,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>y</cs_name>
 </cr_id>
@@ -254,7 +254,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>x</cs_name>
 </cr_id>
@@ -267,7 +267,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>z</cs_name>
 </cr_id>
@@ -303,7 +303,7 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
@@ -319,7 +319,7 @@
 <cu_lbl_custom>
 <cs_lbl_custom>+</cs_lbl_custom>
 </cu_lbl_custom>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>two</cs_name>
 </cr_id>
@@ -339,7 +339,7 @@
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
 <cs_c_ref>
-<cr_id scope="GBL">
+<cr_id>
 <cs_tag>DSP</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
