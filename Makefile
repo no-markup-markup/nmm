@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test test-mercury-nmm2xml bin
+.PHONY: default clean test test-nmm2xml test-nmm2txt bin
 
 default:
 	@echo 'no default target'
@@ -25,7 +25,7 @@ readme:
 	make
 	cd -
 
-test: test-mercury-nmm2xml test-nmm2txt
+test: test-nmm2xml test-nmm2txt
 	cd implementations
 	make test
 	cd -
@@ -35,8 +35,8 @@ bin:
 	make
 	cd -
 
+test-nmm2xml: bin
+	./test-nmm2xml.sh
+
 test-nmm2txt: bin
 	./test-nmm2txt.sh
-
-test-mercury-nmm2xml: bin
-	./test-mercury-nmm2xml.sh
