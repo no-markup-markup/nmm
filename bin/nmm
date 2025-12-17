@@ -167,7 +167,7 @@ f_add_shared_flag(subparser_nmm2xml,flag_parser_backend)
 def nmm2xml(args:ap.Namespace) -> None:
   xml_path = _nmm2xml(args.path,args.parser_backend)
   with open(xml_path) as f:
-    print(f.read())
+    print(f.read(),end='')
   os.remove(xml_path)
   sys.exit(0)
 
