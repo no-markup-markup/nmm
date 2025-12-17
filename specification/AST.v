@@ -54,7 +54,7 @@ Inductive ts_name : Type := cs_name : t_str -> ts_name.
 Record    tr_id   : Type := cr_id {
   fld_id_tag   : ts_tag;
   fld_id_name  : ts_name;
-  fld_id_scope : tu_scope;
+  fld_id_scope : option tu_scope;
 }.
 
 Inductive tu_tag_or_id : Type :=
