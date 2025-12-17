@@ -124,21 +124,26 @@ p_test_r_name_5 :-
 
 :- pred p_test_r_id_1 is semidet.
 p_test_r_id_1 :-
-  r_id(cr_id(cs_tag("PAR"),cs_name("a_name")),f_str2tkns("PAR:a_name"),[]).
+  r_id(
+    cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no),
+    f_str2tkns("PAR:a_name"),
+    []
+  ).
 
 %%% P_TEST_R_ID_2
 
 :- pred p_test_r_id_2 is semidet.
 p_test_r_id_2 :-
-  r_id(ID,f_str2tkns("PAR:a_name"),[]),
-  fld_id_tag(ID)  = cs_tag("PAR"),
-  fld_id_name(ID) = cs_name("a_name").
+  r_id(ID,f_str2tkns("PAR:a_name:SEC"),[]),
+  fld_id_tag(ID)   = cs_tag("PAR"),
+  fld_id_name(ID)  = cs_name("a_name"),
+  fld_id_scope(ID) = maybe.yes(cu_scope_sec).
 
 %%% P_TEST_R_ID_3
 
 :- pred p_test_r_id_3 is semidet.
 p_test_r_id_3 :- r_id(
-  cr_id(cs_tag("PAR"),cs_name("a_name")),
+  cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no),
   f_str2tkns("PAR:a_name]"),
   f_str2tkns("]")
 ).
@@ -147,7 +152,7 @@ p_test_r_id_3 :- r_id(
 
 :- pred p_test_r_id_4 is semidet.
 p_test_r_id_4 :- r_id(
-  cr_id(cs_tag("PAR"),cs_name("a_")),
+  cr_id(cs_tag("PAR"),cs_name("a_"),maybe.no),
   f_str2tkns("PAR:a_,name]"),
   f_str2tkns(",name]")
 ).
@@ -156,7 +161,7 @@ p_test_r_id_4 :- r_id(
 
 :- pred p_test_r_c_ref_1 is semidet.
 p_test_r_c_ref_1 :- r_c_ref(
-  cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"))),
+  cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no)),
   f_str2tkns("[PAR:a_name]"),
   []
 ).
@@ -165,7 +170,7 @@ p_test_r_c_ref_1 :- r_c_ref(
 
 :- pred p_test_r_c_ref_2 is semidet.
 p_test_r_c_ref_2 :- r_c_ref(
-  cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"))),
+  cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no)),
   f_str2tkns("[PAR:a_name], gives"),
   f_str2tkns(", gives")
 ).
@@ -291,7 +296,7 @@ p_test_r_txt_unit_11 :- not r_txt_unit(
 p_test_r_txt_unit_12 :- r_txt_unit(
   0u,
   cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-    cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+    cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
   )),
   f_str2tkns("[PAR:name]"),
   []
@@ -303,7 +308,7 @@ p_test_r_txt_unit_12 :- r_txt_unit(
 p_test_r_txt_unit_13 :- r_txt_unit(
   0u,
   cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-    cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+    cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
   )),
   f_str2tkns("[PAR:name], and more"),
   f_str2tkns(", and more")
@@ -350,7 +355,7 @@ p_test_r_txt_units_2 :- r_txt_units(
   cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
     cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-      cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+      cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"),maybe.no))
     ))
   ]),
   f_str2tkns("HEJ![DSP:name]"),
@@ -366,7 +371,7 @@ p_test_r_txt_units_3 :- (
     cs_txt_units([
       cu_txt_unit_emph(cs_txt_unit_emph("HEJ! HAJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"),maybe.no))
       )),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
     ]),
@@ -391,7 +396,7 @@ p_test_r_txt_units_5 :- (
     cs_txt_units([
       cu_txt_unit_emph(cs_txt_unit_emph("HEJ!* HAJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"),maybe.no))
       )),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
     ]),
@@ -471,7 +476,7 @@ p_test_r_blk_txt_4 :- r_blk_txt(
   cs_blk_txt(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ ")),
     cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-      cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"))))
+      cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no)))
     ),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!"))
   ])),
@@ -488,12 +493,12 @@ p_test_r_blk_txt_5 :- (
     cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ ")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       )),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"),maybe.no))
       ))
     ])),
     f_str2tkns("HEJ [PAR:name]!\n\t[DSP:name]\n\n"),
@@ -526,12 +531,12 @@ p_test_r_blk_txt_7 :- r_blk_txt(
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ ")),
     cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-      cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+      cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
     )),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-      cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name")))
+      cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"),maybe.no))
     )),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
@@ -577,7 +582,7 @@ p_test_r_blks_2 :- r_blks(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       ))
     ]))),
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -597,7 +602,7 @@ p_test_r_blks_3 :- r_blks(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       ))
     ]))),
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -617,7 +622,7 @@ p_test_r_blks_4 :- r_blks(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       ))
     ]))),
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -637,7 +642,7 @@ p_test_r_blks_5 :- r_blks(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       ))
     ]))),
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -657,7 +662,7 @@ p_test_r_blks_6 :- r_blks(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       ))
     ]))),
     cu_blk_itm(cr_blk_itm(
@@ -744,7 +749,7 @@ p_test_r_blk_blt_4 :- r_blk_blt(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       )),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
@@ -766,7 +771,7 @@ p_test_r_blk_blt_5 :- r_blk_blt(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       )),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
@@ -791,7 +796,7 @@ p_test_r_blk_blt_6 :- r_blk_blt(
     cu_blk_txt(cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ")),
       cu_txt_unit_c_ref(cs_txt_unit_c_ref(
-        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name")))
+        cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
       ))
     ]))),
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -836,12 +841,12 @@ p_test_r_hdr_1 :- r_hdr(
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ ")),
     cu_txt_unit_c_ref(
-      cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"))))
+      cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no)))
     ),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("!")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     cu_txt_unit_c_ref(
-      cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"))))
+      cs_txt_unit_c_ref(cs_c_ref(cr_id(cs_tag("DSP"),cs_name("name"),maybe.no)))
     ),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ"))
@@ -856,7 +861,7 @@ p_test_r_hdr_1 :- r_hdr(
 
 :- pred p_test_r_tag_or_id_1 is semidet.
 p_test_r_tag_or_id_1 :- r_tag_or_id(
-  cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"))),
+  cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no)),
   f_str2tkns("PAR:name !"),
   f_str2tkns(" !")
 ).
@@ -942,7 +947,7 @@ p_test_r_par_std_3 :- r_par_std(
 :- pred p_test_r_par_std_4 is semidet.
 p_test_r_par_std_4 :- r_par_std(
   cr_par_std(
-    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name")))),
+    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
     maybe.no,
     cs_blks([
       cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -966,7 +971,7 @@ p_test_r_par_std_4 :- r_par_std(
 :- pred p_test_r_par_std_5 is semidet.
 p_test_r_par_std_5 :- r_par_std(
   cr_par_std(
-    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name")))),
+    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
     maybe.yes(cs_hdr(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
@@ -1058,7 +1063,7 @@ p_test_r_blk_itm_4 :- r_blk_itm(
   0u,
   cr_blk_itm(
     cu_lbl_auto(cs_lbl_auto),
-    maybe.yes(cr_id(cs_tag("DEF"),cs_name("name"))),
+    maybe.yes(cr_id(cs_tag("DEF"),cs_name("name"),maybe.no)),
     cs_blks([
       cu_blk_txt(cs_blk_txt(cs_txt_units([
         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej")),

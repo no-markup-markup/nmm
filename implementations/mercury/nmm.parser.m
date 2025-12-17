@@ -385,11 +385,25 @@
 
 :- pred r_name(ts_name::out, ts_tkns::in, ts_tkns::out) is semidet.
 
+%% RULE R_SCOPE, UNION TYPE TU_SCOPE, INSTANCE TU_SCOPE XMLABLE
+
+:- type tu_scope --->
+  cu_scope_gbl;
+  cu_scope_ch;
+  cu_scope_sec;
+  cu_scope_par.
+
+:- instance term_to_xml.xmlable(tu_scope).
+
+:- pred r_scope(tu_scope::out, ts_tkns::in, ts_tkns::out) is semidet.
+
+
 %% RULE R_ID, RECORD TYPE TR_ID, INSTANCE TR_ID XMLABLE
 
 :- type tr_id ---> cr_id(
-  fld_id_tag  :: ts_tag,
-  fld_id_name :: ts_name
+  fld_id_tag   :: ts_tag,
+  fld_id_name  :: ts_name,
+  fld_id_scope :: maybe(tu_scope)
 ).
 
 :- instance term_to_xml.xmlable(tr_id).
@@ -1519,10 +1533,37 @@ f_name_to_xml(cs_name(S)) =
   term_to_xml.elem("cs_name",[],[term_to_xml.data(S)]).
 
 
+%% R_SCOPE AND INSTANCE TU_SCOPE XMLABLE
+
+%%% R_SCOPE
+
+r_scope(S) --> (
+  r_str("GBL") -> {S = cu_scope_gbl};
+  r_str("CH")  -> {S = cu_scope_ch};
+  r_str("SEC") -> {S = cu_scope_sec};
+  r_str("APP") -> {S = cu_scope_sec};
+  r_str("PAR") -> {S = cu_scope_par};
+                  {false}
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(tu_scope) where [
+  func(to_xml/1) is f_scope_to_xml
+].
+:- func (
+  f_scope_to_xml(tu_scope::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_scope_to_xml(cu_scope_gbl) = term_to_xml.elem("cu_scope_gbl",[],[]).
+f_scope_to_xml(cu_scope_ch)  = term_to_xml.elem("cu_scope_ch", [],[]).
+f_scope_to_xml(cu_scope_sec) = term_to_xml.elem("cu_scope_sec",[],[]).
+f_scope_to_xml(cu_scope_par) = term_to_xml.elem("cu_scope_par",[],[]).
+
+
 %% R_ID AND INSTANCE TR_ID XMLABLE
 
-r_id(cr_id(TAG,NAME)) -->
-  r_tag(TAG), r_str(":"), r_name(NAME).
+r_id(cr_id(TAG,NAME,MAYBE_SCOPE)) -->
+  r_tag(TAG), r_str(":"), r_name(NAME), ?([r_str(":")],r_scope,MAYBE_SCOPE,[]).
 
 :- instance term_to_xml.xmlable(tr_id) where [
   func(to_xml/1) is f_id_to_xml
@@ -1530,8 +1571,16 @@ r_id(cr_id(TAG,NAME)) -->
 :- func (
   f_id_to_xml(tr_id::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_id_to_xml(cr_id(TAG,NAME)) =
-  term_to_xml.elem("cr_id",[],[f_tag_to_xml(TAG),f_name_to_xml(NAME)]).
+f_id_to_xml(cr_id(TAG,NAME,MAYBE_SCOPE)) = XML :- (
+  (
+    MAYBE_SCOPE = maybe.yes(SCOPE), SCOPE_LIST = [f_scope_to_xml(SCOPE)]
+    ;
+    MAYBE_SCOPE = maybe.no,         SCOPE_LIST = []
+  ),
+  XML = term_to_xml.elem(
+    "cr_id",[],[f_tag_to_xml(TAG),f_name_to_xml(NAME)]++SCOPE_LIST
+  )
+).
 
 
 %% R_C_REF AND INSTANCE TS_C_REF XMLABLE
