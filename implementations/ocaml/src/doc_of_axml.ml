@@ -454,12 +454,12 @@ and f_ts_name_of_xml (xml:Xml.xml):ts_name =
 
 and f_tu_scope_of_xml (xml : Xml.xml) : tu_scope =
 	match xml with
-	|Xml.Element ("cu_scope_GBL",[],[]) -> Cu_scope_GBL 
-	|Xml.Element ("cu_scope_CH",[],[]) -> Cu_scope_CH
-	|Xml.Element ("cu_scope_SEC",[],[]) -> Cu_scope_SEC
-	|Xml.Element ("cu_scope_APP",[],[]) -> Cu_scope_APP
-	|Xml.Element ("cu_scope_PAR",[],[]) -> Cu_scope_PAR
-        |_ -> raise (Error (String.concat "" ["expected cu_scope_GBL, cu_scope_CH, cu_scope_SEC, cu_scope_APP, or cu_scope_PAR; got: ";string_of_xml_list [xml]]))
+	|Xml.Element ("cu_scope_gbl",[],[]) -> Cu_scope_gbl 
+	|Xml.Element ("cu_scope_ch",[],[]) -> Cu_scope_ch
+	|Xml.Element ("cu_scope_sec",[],[]) -> Cu_scope_sec
+	|Xml.Element ("cu_scope_app",[],[]) -> Cu_scope_app
+	|Xml.Element ("cu_scope_par",[],[]) -> Cu_scope_par
+        |_ -> raise (Error (String.concat "" ["expected cu_scope_gbl, cu_scope_ch, cu_scope_sec, cu_scope_app, or cu_scope_par; got: ";string_of_xml_list [xml]]))
 
 and f_ts_c_ref_of_xml (xml:Xml.xml):ts_c_ref=
 	match xml with 

@@ -93,7 +93,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -128,7 +128,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -163,7 +163,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -275,7 +275,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -328,7 +328,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -351,7 +351,7 @@
 <cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -385,7 +385,7 @@
 <cr_id>
 <cs_tag>DEF</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -514,7 +514,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -567,7 +567,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -669,7 +669,7 @@
 <cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -725,7 +725,7 @@
 <cr_id>
 <cs_tag>DEF</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -833,7 +833,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -868,7 +868,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 <cs_blks>
 <cu_blk_txt>
@@ -980,7 +980,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1033,7 +1033,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1056,7 +1056,7 @@
 <cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1090,7 +1090,7 @@
 <cr_id>
 <cs_tag>DEF</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cu_tag_or_id_id>
 <cs_blks>
@@ -1219,7 +1219,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_PAR/>
+<cu_scope_par/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1272,7 +1272,7 @@
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1374,7 +1374,7 @@
 <cr_id>
 <cs_tag>PAR</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1430,7 +1430,7 @@
 <cr_id>
 <cs_tag>DEF</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_c_ref>
 </cs_txt_unit_c_ref>
@@ -1455,7 +1455,7 @@
 <cr_id>
 <cs_tag>DEF</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_par_rpt>
 </cu_par_rpt>
@@ -1476,7 +1476,7 @@
 <cr_id>
 <cs_tag>DEF</cs_tag>
 <cs_name>one</cs_name>
-<cu_scope_SEC/>
+<cu_scope_sec/>
 </cr_id>
 </cs_par_rpt>
 </cu_par_rpt>

@@ -5,10 +5,10 @@ exception ERROR of string
 
 let scope_of_string (s : string) : tu_scope =
 	match s with
-        |"GBL" -> Cu_scope_GBL
-        |"CH" -> Cu_scope_CH
-        |"SEC" -> Cu_scope_SEC
-        |"PAR" -> Cu_scope_PAR
+        |"GBL" -> Cu_scope_gbl
+        |"CH" -> Cu_scope_ch
+        |"SEC" -> Cu_scope_sec
+        |"PAR" -> Cu_scope_par
 	|_ -> raise (ERROR (String.concat "" ["expected GBL, CH, SEC, or PAR, got: ";s]))
 
 let first ((a,b):('a * 'b)):'a = a

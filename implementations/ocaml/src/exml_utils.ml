@@ -97,16 +97,16 @@ and attr_list_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Comm
 and cdata_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id : Doc_types.tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), None
-	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some Cu_scope_GBL -> (tag_string ^ "_" ^ name_string)
+	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some Cu_scope_gbl -> (tag_string ^ "_" ^ name_string)
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
 
 and string_of_scope (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (scope : Doc_types.tu_scope) : string =
 	match scope with
-	|Cu_scope_GBL -> raise (Error "global scope not expected")
-	|Cu_scope_CH -> "CH_" ^ (Common_utils.string_of_path doc_settings (path_to_ch_node path))
-	|Cu_scope_SEC -> "SEC_" ^ (Common_utils.string_of_path doc_settings (path_to_sec_node path))
-	|Cu_scope_APP -> "APP_" ^ (Common_utils.string_of_path doc_settings (path_to_app_node path))
-	|Cu_scope_PAR -> "PAR_" ^ (Common_utils.string_of_path doc_settings (path_to_par_node path))
+	|Cu_scope_gbl -> raise (Error "global scope not expected")
+	|Cu_scope_ch -> "CH_" ^ (Common_utils.string_of_path doc_settings (path_to_ch_node path))
+	|Cu_scope_sec -> "SEC_" ^ (Common_utils.string_of_path doc_settings (path_to_sec_node path))
+	|Cu_scope_app -> "APP_" ^ (Common_utils.string_of_path doc_settings (path_to_app_node path))
+	|Cu_scope_par -> "PAR_" ^ (Common_utils.string_of_path doc_settings (path_to_par_node path))
 
 
 and xml_of_string (s : string) : Xml.xml =

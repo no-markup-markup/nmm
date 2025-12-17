@@ -87,7 +87,7 @@ and ts_tag = Cs_tag of string
 and ts_name = Cs_name of string
 
 
-and tu_scope = Cu_scope_GBL | Cu_scope_CH | Cu_scope_SEC | Cu_scope_APP | Cu_scope_PAR
+and tu_scope = Cu_scope_gbl | Cu_scope_ch | Cu_scope_sec | Cu_scope_app | Cu_scope_par
 
 and ts_hdr = Cs_hdr of ts_txt_units
 

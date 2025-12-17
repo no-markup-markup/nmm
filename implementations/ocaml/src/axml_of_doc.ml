@@ -274,11 +274,11 @@ and xml_of_tr_id (id:tr_id):Xml.xml=
 
 and xml_of_tu_scope (scope : tu_scope) : Xml.xml =
 	match scope with
-	|Cu_scope_GBL -> Xml.Element ("cu_scope_GBL",[],[])
-	|Cu_scope_CH -> Xml.Element ("cu_scope_CH",[],[])
-	|Cu_scope_SEC -> Xml.Element ("cu_scope_SEC",[],[])
-	|Cu_scope_APP -> Xml.Element ("cu_scope_APP",[],[])
-	|Cu_scope_PAR -> Xml.Element ("cu_scope_PAR",[],[])
+	|Cu_scope_gbl -> Xml.Element ("cu_scope_gbl",[],[])
+	|Cu_scope_ch -> Xml.Element ("cu_scope_ch",[],[])
+	|Cu_scope_sec -> Xml.Element ("cu_scope_sec",[],[])
+	|Cu_scope_app -> Xml.Element ("cu_scope_app",[],[])
+	|Cu_scope_par -> Xml.Element ("cu_scope_par",[],[])
 
 
 and xml_of_ts_tag (tag:ts_tag):Xml.xml=
