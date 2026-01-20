@@ -75,7 +75,7 @@ and string_of_xml (fmt:bool) (xml:Xml.xml):string =
 			match fmt with
 			|false -> ""
 			|true ->
-				match contains_pcdata xml_list with
+				match contains_text xml_list with
 				|true -> ""
 				|false -> "\n"
 		in
@@ -90,13 +90,15 @@ and string_of_xml (fmt:bool) (xml:Xml.xml):string =
 	)
 	|Xml.PCData (s:string) -> s
 
-and contains_pcdata (xml_list:Xml.xml list):bool =
+and contains_text (xml_list:Xml.xml list):bool =
 	match xml_list with
 	|[] -> false
 	|hd::tl -> 
 		match hd with
+		|Xml.Element ("a",_,_)
+		|Xml.Element ("em",_,_)
 		|Xml.PCData _ -> true
-		|_ -> contains_pcdata tl
+		|_ -> contains_text tl
 
 and string_of_tag_open (tag_name:string) (attrs:string):string =
 	String.concat "" ["<";tag_name;attrs;">"]
