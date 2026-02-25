@@ -5,7 +5,7 @@ exception Error of string
 val cref_table_of_tr_doc : Common_utils.t_doc_settings -> Doc_types.tr_doc -> Common_utils.t_cref_table
 (**
 {[cref_table_of_tr_doc doc]}
-searches [doc] for id:s, and adds them and their path to {!val:Common_utils.doc_cref_table}.
+searches [doc] for named elements and records their paths.
 *)
 
 
@@ -22,9 +22,5 @@ evaluates to an object of the {{:https://github.com/ncannasse/xml-light}Xml-ligh
 {!val:Html_utils.html_of_exml} can translate that object into the body of an html-document.
 *)
 
-(**
-Both [txt_of_tr_doc doc] and [exml_of_tr_doc doc] first evaluates [cref_table_of_tr_doc doc] and {!val:Common_utils.doc_settings_of_tr_doc} [ doc].
-
-*)
 
 val margin_labels_of_tr_doc : Common_utils.t_doc_settings -> Doc_types.tr_doc -> string list

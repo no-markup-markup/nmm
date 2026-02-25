@@ -24,11 +24,12 @@ reads from standard input.
 
 TXT-OPTIONS:
   --margin <numeral>
-  --preserve-vertical-white-space
+  --width <numeral>
+  --quiet
 
 HTML-OPTIONS:
   --margin <numeral>
-  --preserve-vertical-white-space
   --lang <language-code>
   --css <uri>
+  --quiet
 ```

@@ -3,63 +3,63 @@ open Common_utils
 
 exception Error of string
 
-let rec xml_list_of_ts_title_opt (title_opt : Doc_types.ts_title option) : Xml.xml list =
+let rec xml_list_of_ts_title_opt (title_opt : ts_title option) : Xml.xml list =
 	match title_opt with
 	|None -> []
 	|Some title -> [xml_of_ts_title title]
 
-and xml_list_of_ts_authors_opt (authors_opt : Doc_types.ts_authors option) : Xml.xml list =
+and xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : Xml.xml list =
 	match authors_opt with
 	|None -> []
 	|Some (Cs_authors (author_list : ts_author list)) -> 
 		[Xml.Element ("authors",[],List.map xml_of_ts_author author_list)]
 
-and xml_of_ts_title (title : Doc_types.ts_title) : Xml.xml =
+and xml_of_ts_title (title : ts_title) : Xml.xml =
 	match title with Cs_title (s : string) -> 
 	let content : Xml.xml list = [xml_of_string s] in 
 	Xml.Element ("title",[],content)
 	
-and xml_of_ts_author (author : Doc_types.ts_author) : Xml.xml =
+and xml_of_ts_author (author : ts_author) : Xml.xml =
 	match author with
 	| Cs_author (s : string) -> Xml.Element ("author", [], [xml_of_string s])
 
-and xml_list_of_abstract_hdr (doc_settings : Common_utils.t_doc_settings) : Xml.xml list =
+and xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : Xml.xml list =
 	match doc_settings.abstract_hdr with
 	|None -> []
 	|Some abstract_hdr -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
 
-and xml_of_refs_hdr (doc_settings : Common_utils.t_doc_settings): Xml.xml =
+and xml_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml =
 	let content : Xml.xml list = [xml_of_string doc_settings.refs_hdr] in
 	Xml.Element ("refs_hdr",[],content)
 
-and xml_of_ts_blk_txt (doc_settings : t_doc_settings) (path : Common_utils.t_path) (blk_txt : Doc_types.ts_blk_txt) : Xml.xml =
+and xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blk_txt : ts_blk_txt) : Xml.xml =
 	match blk_txt with
-	|Cs_blk_txt (txt_units : Doc_types.ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings path txt_units)
+	|Cs_blk_txt (txt_units : ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings cref_table path txt_units)
 
-and xml_of_ts_blk_vrb (blk_vrb : Doc_types.ts_blk_vrb) : Xml.xml =
+and xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : Xml.xml =
 	match blk_vrb with
 	|Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> Xml.Element ("blk_vrb",[],xml_list_of_ts_vrb_lines vrb_lines)
 
-and xml_list_of_ts_vrb_lines (vrb_lines : Doc_types.ts_vrb_lines) : Xml.xml list =
+and xml_list_of_ts_vrb_lines (vrb_lines : ts_vrb_lines) : Xml.xml list =
 	match vrb_lines with
 	|Cs_vrb_lines (vrb_line_list : ts_vrb_line list) -> List.map xml_of_ts_vrb_line vrb_line_list
 
-and xml_of_ts_vrb_line (vrb_line : Doc_types.ts_vrb_line) : Xml.xml =
+and xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
 	match vrb_line with
 	|Cs_vrb_line (line : string) -> 
 		match line with
 		|"" -> Xml.Element ("vrb_line_empty",[],[])
 		|_ -> Xml.Element ("vrb_line",[],[xml_of_string line])
 
-and xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.ts_txt_units) : Xml.xml list =
+and xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_txt_units) : Xml.xml list =
 	match a with
-	| Cs_txt_units (b : Doc_types.tu_txt_unit list) -> List.map (xml_of_tu_txt_unit doc_settings path) b
+	| Cs_txt_units (b : tu_txt_unit list) -> List.map (xml_of_tu_txt_unit doc_settings cref_table path) b
 
-and xml_of_tu_txt_unit (doc_settings : t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.tu_txt_unit) : Xml.xml =
+and xml_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : tu_txt_unit) : Xml.xml =
 	match a with
 	| Cu_txt_unit_wysiwyg (b: ts_txt_unit_wysiwyg) -> xml_of_ts_txt_unit_wysiwyg b
 	| Cu_txt_unit_emph (b : ts_txt_unit_emph) -> xml_of_ts_txt_unit_emph b
-	| Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref doc_settings path b 
+	| Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) -> xml_of_ts_txt_unit_c_ref doc_settings cref_table path b 
 
 and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 	match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [xml_of_string b])
@@ -67,46 +67,46 @@ and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
 and xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : Xml.xml =
 	match a with Cs_txt_unit_emph (b : string) -> Xml.Element ("txt_unit_emph", [], [xml_of_string b])
 
-and xml_of_ts_txt_unit_c_ref (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
+and xml_of_ts_txt_unit_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_txt_unit_c_ref) : Xml.xml =
 	match a with Cs_txt_unit_c_ref (b : ts_c_ref) ->
-	Xml.Element ("txt_unit_c_ref", attr_list_of_ts_c_ref doc_settings path b, [xml_of_ts_c_ref doc_settings path b])
+	Xml.Element ("txt_unit_c_ref", attr_list_of_ts_c_ref doc_settings path b, [xml_of_ts_c_ref doc_settings cref_table path b])
 
-and xml_of_ts_c_ref (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (a : ts_c_ref) : Xml.xml =
-	Xml.PCData (pcdata_of_string (Common_utils.string_of_ts_c_ref doc_settings path a))
+and xml_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_c_ref) : Xml.xml =
+	Xml.PCData (pcdata_of_string (string_of_ts_c_ref doc_settings cref_table path a))
 
-and attr_list_of_ts_c_ref (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (a : Doc_types.ts_c_ref) : (string*string) list =
-	match a with Cs_c_ref (id : Doc_types.tr_id) -> [("href","#" ^ (cdata_of_tr_id doc_settings path id))]
+and attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : ts_c_ref) : (string*string) list =
+	match a with Cs_c_ref (id : tr_id) -> [("href","#" ^ (cdata_of_tr_id doc_settings path id))]
 
-and attr_list_of_tu_tag_or_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (classes : string list) (a : Doc_types.tu_tag_or_id option) : (string*string) list=
+and attr_list_of_tu_tag_or_id (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
 	match a with
 	| None -> ["class", String.concat " " classes]
-	| Some (tag_or_id : Doc_types.tu_tag_or_id) -> 
+	| Some (tag_or_id : tu_tag_or_id) -> 
 		match tag_or_id with
-		| Cu_tag_or_id_tag (tag : Doc_types.ts_tag) -> attr_list_of_ts_tag classes tag
-		| Cu_tag_or_id_id (id : Doc_types.tr_id) -> ("class", String.concat " " classes)::(attr_list_of_tr_id doc_settings path (Some id))
+		| Cu_tag_or_id_tag (tag : ts_tag) -> attr_list_of_ts_tag classes tag
+		| Cu_tag_or_id_id (id : tr_id) -> ("class", String.concat " " classes)::(attr_list_of_tr_id doc_settings path (Some id))
 
-and attr_list_of_ts_tag (classes : string list) (tag : Doc_types.ts_tag) : (string*string) list =
+and attr_list_of_ts_tag (classes : string list) (tag : ts_tag) : (string*string) list =
 	match tag with
 	|Cs_tag (s : string) -> [("class"), String.concat " " (s::classes)]
 
-and attr_list_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id_opt : Doc_types.tr_id option) : (string*string) list =
+and attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id_opt : tr_id option) : (string*string) list =
 	match id_opt with
 	| None -> []
 	| Some id -> [("id", cdata_of_tr_id doc_settings path id)]
 
-and cdata_of_tr_id (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (id : Doc_types.tr_id) : string =
+and cdata_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : string =
 	match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), None
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some Cu_scope_gbl -> (tag_string ^ "_" ^ name_string)
 	|Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
 
-and string_of_scope (doc_settings : Common_utils.t_doc_settings) (path : Common_utils.t_path) (scope : Doc_types.tu_scope) : string =
+and string_of_scope (doc_settings : t_doc_settings) (path : t_path) (scope : tu_scope) : string =
 	match scope with
 	|Cu_scope_gbl -> raise (Error "global scope not expected")
-	|Cu_scope_ch -> "CH_" ^ (Common_utils.string_of_path doc_settings (path_to_ch_node path))
-	|Cu_scope_sec -> "SEC_" ^ (Common_utils.string_of_path doc_settings (path_to_sec_node path))
-	|Cu_scope_app -> "APP_" ^ (Common_utils.string_of_path doc_settings (path_to_app_node path))
-	|Cu_scope_par -> "PAR_" ^ (Common_utils.string_of_path doc_settings (path_to_par_node path))
+	|Cu_scope_ch -> "CH_" ^ (string_of_path doc_settings (path_to_ch_node path))
+	|Cu_scope_sec -> "SEC_" ^ (string_of_path doc_settings (path_to_sec_node path))
+	|Cu_scope_app -> "APP_" ^ (string_of_path doc_settings (path_to_app_node path))
+	|Cu_scope_par -> "PAR_" ^ (string_of_path doc_settings (path_to_par_node path))
 
 
 and xml_of_string (s : string) : Xml.xml =
@@ -147,7 +147,7 @@ and predefined_entity_of_string (s : string) : string =
 	| _ -> s
 
 
-and par_hdr_opt (doc_settings : t_doc_settings) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (Xml.xml list) option=
+and par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (Xml.xml list) option=
 	let tag_content_opt : (Xml.xml list) option = 
 		match tag_or_id_opt with
 		|Some (tag_or_id : tu_tag_or_id) -> (
@@ -167,7 +167,7 @@ and par_hdr_opt (doc_settings : t_doc_settings) (path : t_path) (tag_or_id_opt :
 		match hdr_opt with
 		|None -> None
 		|Some (Cs_hdr (txt_units : ts_txt_units)) ->
-			Some (xml_list_of_ts_txt_units doc_settings path txt_units)
+			Some (xml_list_of_ts_txt_units doc_settings cref_table path txt_units)
 	in
 	match tag_content_opt, hdr_content_opt, inline with
 		|Some tag_content, Some hdr_content, true ->

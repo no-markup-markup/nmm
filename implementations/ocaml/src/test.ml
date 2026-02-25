@@ -29,8 +29,8 @@ try
 	let _ : unit = xml_right_test path "exml" doc exml in
 	let _ : unit = xml_right_test_fmt path "axml" doc axml in
 	let _ : unit = xml_right_test_fmt path "exml" doc exml in
-	let _ : unit = validate_axml path "axml" "testing/dtd/axml.dtd" axml in
-	let _ : unit = validate_exml path "exml" "testing/dtd/exml.dtd" exml in
+	let _ : unit = validate_axml path "axml" "dtd/axml.dtd" axml in
+	let _ : unit = validate_exml path "exml" "dtd/exml.dtd" exml in
 	()
 with
 |Main.Error e -> raise (Error (String.concat " " [path;" -> ";"Main.Error:";e]))
@@ -51,8 +51,8 @@ try
 	let _ : unit = xml_right_test path "exml" doc exml in
 	let _ : unit = xml_right_test_fmt path "axml" doc axml in
 	let _ : unit = xml_right_test_fmt path "exml" doc exml in
-	let _ : unit = validate_axml path "axml" "testing/dtd/axml.dtd" axml in
-	let _ : unit = validate_exml path "exml" "testing/dtd/exml.dtd" exml in
+	let _ : unit = validate_axml path "axml" "dtd/axml.dtd" axml in
+	let _ : unit = validate_exml path "exml" "dtd/exml.dtd" exml in
 	()
 with
 |Xml_right.Error e -> raise (Error (String.concat " " [path;" -> ";"Xml_right.Error:";e]))

@@ -1,0 +1,6000 @@
+State 0:
+## Known stack suffix:
+##
+## LR(1) items:
+main' -> . main [ # ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 2
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 39
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On NL shift to state 50
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On AUTHOR shift to state 61
+-- On ABSTRACT shift to state 66
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 336
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 339
+-- On par shift to state 327
+-- On nls shift to state 340
+-- On main shift to state 375
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On doc_title shift to state 341
+-- On doc_preamble shift to state 343
+-- On doc_main shift to state 345
+-- On doc_author shift to state 351
+-- On doc_abstract shift to state 353
+-- On doc shift to state 376
+-- On dash_tab shift to state 299
+-- On chs shift to state 356
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+-- On c_ref shift to state 264
+-- On blks0 shift to state 369
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 1:
+## Known stack suffix:
+## TXT
+## LR(1) items:
+txt -> TXT . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> TXT
+
+State 2:
+## Known stack suffix:
+## TITLE
+## LR(1) items:
+doc_title -> TITLE . TAB lines [ NL ]
+doc_title -> TITLE . NL_TAB lines [ NL ]
+txt -> TITLE . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TAB shift to state 3
+-- On NL_TAB shift to state 8
+## Reductions:
+-- On TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT
+--   reduce production txt -> TITLE
+
+State 3:
+## Known stack suffix:
+## TITLE TAB
+## LR(1) items:
+doc_title -> TITLE TAB . lines [ NL ]
+## Transitions:
+-- On TXT shift to state 4
+-- On lines shift to state 7
+## Reductions:
+
+State 4:
+## Known stack suffix:
+## TXT
+## LR(1) items:
+lines -> TXT . [ NL ]
+lines -> TXT . NL_TAB lines [ NL ]
+## Transitions:
+-- On NL_TAB shift to state 5
+## Reductions:
+-- On NL
+--   reduce production lines -> TXT
+
+State 5:
+## Known stack suffix:
+## TXT NL_TAB
+## LR(1) items:
+lines -> TXT NL_TAB . lines [ NL ]
+## Transitions:
+-- On TXT shift to state 4
+-- On lines shift to state 6
+## Reductions:
+
+State 6:
+## Known stack suffix:
+## TXT NL_TAB lines
+## LR(1) items:
+lines -> TXT NL_TAB lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production lines -> TXT NL_TAB lines
+
+State 7:
+## Known stack suffix:
+## TITLE TAB lines
+## LR(1) items:
+doc_title -> TITLE TAB lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_title -> TITLE TAB lines
+
+State 8:
+## Known stack suffix:
+## TITLE NL_TAB
+## LR(1) items:
+doc_title -> TITLE NL_TAB . lines [ NL ]
+## Transitions:
+-- On TXT shift to state 4
+-- On lines shift to state 9
+## Reductions:
+
+State 9:
+## Known stack suffix:
+## TITLE NL_TAB lines
+## LR(1) items:
+doc_title -> TITLE NL_TAB lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_title -> TITLE NL_TAB lines
+
+State 10:
+## Known stack suffix:
+## START_VRB
+## LR(1) items:
+blk_vrb0 -> START_VRB . vrb_lines0 END_VRB [ NL ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 11
+-- On VRB_LINE shift to state 12
+-- On vrb_lines0 shift to state 14
+-- On vrb_line0 shift to state 16
+## Reductions:
+
+State 11:
+## Known stack suffix:
+## VRB_LINE_EMPTY
+## LR(1) items:
+vrb_line0 -> VRB_LINE_EMPTY . [ VRB_LINE_EMPTY VRB_LINE END_VRB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line0 -> VRB_LINE_EMPTY
+
+State 12:
+## Known stack suffix:
+## VRB_LINE
+## LR(1) items:
+vrb_line0 -> VRB_LINE . NL [ VRB_LINE_EMPTY VRB_LINE END_VRB ]
+## Transitions:
+-- On NL shift to state 13
+## Reductions:
+
+State 13:
+## Known stack suffix:
+## VRB_LINE NL
+## LR(1) items:
+vrb_line0 -> VRB_LINE NL . [ VRB_LINE_EMPTY VRB_LINE END_VRB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line0 -> VRB_LINE NL
+
+State 14:
+## Known stack suffix:
+## START_VRB vrb_lines0
+## LR(1) items:
+blk_vrb0 -> START_VRB vrb_lines0 . END_VRB [ NL ]
+## Transitions:
+-- On END_VRB shift to state 15
+## Reductions:
+
+State 15:
+## Known stack suffix:
+## START_VRB vrb_lines0 END_VRB
+## LR(1) items:
+blk_vrb0 -> START_VRB vrb_lines0 END_VRB . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_vrb0 -> START_VRB vrb_lines0 END_VRB
+
+State 16:
+## Known stack suffix:
+## vrb_line0
+## LR(1) items:
+vrb_lines0 -> vrb_line0 . [ END_VRB ]
+vrb_lines0 -> vrb_line0 . vrb_lines0 [ END_VRB ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 11
+-- On VRB_LINE shift to state 12
+-- On vrb_lines0 shift to state 17
+-- On vrb_line0 shift to state 16
+## Reductions:
+-- On END_VRB
+--   reduce production vrb_lines0 -> vrb_line0
+
+State 17:
+## Known stack suffix:
+## vrb_line0 vrb_lines0
+## LR(1) items:
+vrb_lines0 -> vrb_line0 vrb_lines0 . [ END_VRB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_lines0 -> vrb_line0 vrb_lines0
+
+State 18:
+## Known stack suffix:
+## STAR
+## LR(1) items:
+txt_unit0 -> STAR . emph_txt0 STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt0 shift to state 31
+-- On emph_txt shift to state 33
+## Reductions:
+
+State 19:
+## Known stack suffix:
+## TITLE
+## LR(1) items:
+txt -> TITLE . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> TITLE
+
+State 20:
+## Known stack suffix:
+## SECTION
+## LR(1) items:
+txt -> SECTION . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> SECTION
+
+State 21:
+## Known stack suffix:
+## RBR
+## LR(1) items:
+txt -> RBR . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> RBR
+
+State 22:
+## Known stack suffix:
+## PREAMBLE
+## LR(1) items:
+txt -> PREAMBLE . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> PREAMBLE
+
+State 23:
+## Known stack suffix:
+## PILCROW
+## LR(1) items:
+txt -> PILCROW . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> PILCROW
+
+State 24:
+## Known stack suffix:
+## LBR
+## LR(1) items:
+txt -> LBR . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> LBR
+
+State 25:
+## Known stack suffix:
+## ESC_CHAR
+## LR(1) items:
+txt -> ESC_CHAR . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> ESC_CHAR
+
+State 26:
+## Known stack suffix:
+## COLON
+## LR(1) items:
+txt -> COLON . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> COLON
+
+State 27:
+## Known stack suffix:
+## AUTHOR
+## LR(1) items:
+txt -> AUTHOR . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> AUTHOR
+
+State 28:
+## Known stack suffix:
+## ABSTRACT
+## LR(1) items:
+txt -> ABSTRACT . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt -> ABSTRACT
+
+State 29:
+## Known stack suffix:
+## txt
+## LR(1) items:
+emph_txt -> txt . [ STAR NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+emph_txt -> txt . emph_txt [ STAR NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt shift to state 30
+## Reductions:
+-- On STAR NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL
+--   reduce production emph_txt -> txt
+
+State 30:
+## Known stack suffix:
+## txt emph_txt
+## LR(1) items:
+emph_txt -> txt emph_txt . [ STAR NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production emph_txt -> txt emph_txt
+
+State 31:
+## Known stack suffix:
+## STAR emph_txt0
+## LR(1) items:
+txt_unit0 -> STAR emph_txt0 . STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On STAR shift to state 32
+## Reductions:
+
+State 32:
+## Known stack suffix:
+## STAR emph_txt0 STAR
+## LR(1) items:
+txt_unit0 -> STAR emph_txt0 STAR . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit0 -> STAR emph_txt0 STAR
+
+State 33:
+## Known stack suffix:
+## emph_txt
+## LR(1) items:
+emph_txt0 -> emph_txt . [ STAR ]
+emph_txt0 -> emph_txt . lb0 emph_txt0 [ STAR ]
+## Transitions:
+-- On NL shift to state 34
+-- On lb0 shift to state 35
+## Reductions:
+-- On STAR
+--   reduce production emph_txt0 -> emph_txt
+
+State 34:
+## Known stack suffix:
+## NL
+## LR(1) items:
+lb0 -> NL . [ TXT TITLE STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production lb0 -> NL
+
+State 35:
+## Known stack suffix:
+## emph_txt lb0
+## LR(1) items:
+emph_txt0 -> emph_txt lb0 . emph_txt0 [ STAR ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt0 shift to state 36
+-- On emph_txt shift to state 33
+## Reductions:
+
+State 36:
+## Known stack suffix:
+## emph_txt lb0 emph_txt0
+## LR(1) items:
+emph_txt0 -> emph_txt lb0 emph_txt0 . [ STAR ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production emph_txt0 -> emph_txt lb0 emph_txt0
+
+State 37:
+## Known stack suffix:
+## SECTION_SPACES_TAG_OR_ID_NL
+## LR(1) items:
+section_spaces_tag_or_id_nl -> SECTION_SPACES_TAG_OR_ID_NL . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production section_spaces_tag_or_id_nl -> SECTION_SPACES_TAG_OR_ID_NL
+
+State 38:
+## Known stack suffix:
+## SECTION_NL
+## LR(1) items:
+section_nl -> SECTION_NL . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production section_nl -> SECTION_NL
+
+State 39:
+## Known stack suffix:
+## PREAMBLE
+## LR(1) items:
+doc_preamble -> PREAMBLE . TAB preamble_lines [ NL ]
+doc_preamble -> PREAMBLE . NL_TAB preamble_lines [ NL ]
+txt -> PREAMBLE . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TAB shift to state 40
+-- On NL_TAB shift to state 45
+## Reductions:
+-- On TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT
+--   reduce production txt -> PREAMBLE
+
+State 40:
+## Known stack suffix:
+## PREAMBLE TAB
+## LR(1) items:
+doc_preamble -> PREAMBLE TAB . preamble_lines [ NL ]
+## Transitions:
+-- On TXT shift to state 41
+-- On preamble_lines shift to state 44
+## Reductions:
+
+State 41:
+## Known stack suffix:
+## TXT
+## LR(1) items:
+preamble_lines -> TXT . [ NL ]
+preamble_lines -> TXT . NL_TAB preamble_lines [ NL ]
+## Transitions:
+-- On NL_TAB shift to state 42
+## Reductions:
+-- On NL
+--   reduce production preamble_lines -> TXT
+
+State 42:
+## Known stack suffix:
+## TXT NL_TAB
+## LR(1) items:
+preamble_lines -> TXT NL_TAB . preamble_lines [ NL ]
+## Transitions:
+-- On TXT shift to state 41
+-- On preamble_lines shift to state 43
+## Reductions:
+
+State 43:
+## Known stack suffix:
+## TXT NL_TAB preamble_lines
+## LR(1) items:
+preamble_lines -> TXT NL_TAB preamble_lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production preamble_lines -> TXT NL_TAB preamble_lines
+
+State 44:
+## Known stack suffix:
+## PREAMBLE TAB preamble_lines
+## LR(1) items:
+doc_preamble -> PREAMBLE TAB preamble_lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_preamble -> PREAMBLE TAB preamble_lines
+
+State 45:
+## Known stack suffix:
+## PREAMBLE NL_TAB
+## LR(1) items:
+doc_preamble -> PREAMBLE NL_TAB . preamble_lines [ NL ]
+## Transitions:
+-- On TXT shift to state 41
+-- On preamble_lines shift to state 46
+## Reductions:
+
+State 46:
+## Known stack suffix:
+## PREAMBLE NL_TAB preamble_lines
+## LR(1) items:
+doc_preamble -> PREAMBLE NL_TAB preamble_lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_preamble -> PREAMBLE NL_TAB preamble_lines
+
+State 47:
+## Known stack suffix:
+## PILCROW_SPACES_TAG_OR_ID_NL
+## LR(1) items:
+pilcrow_spaces_tag_or_id_nl -> PILCROW_SPACES_TAG_OR_ID_NL . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production pilcrow_spaces_tag_or_id_nl -> PILCROW_SPACES_TAG_OR_ID_NL
+
+State 48:
+## Known stack suffix:
+## PILCROW_SPACES_RPT_SPACES_ID_NL
+## LR(1) items:
+pilcrow_spaces_rpt_spaces_id_nl -> PILCROW_SPACES_RPT_SPACES_ID_NL . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production pilcrow_spaces_rpt_spaces_id_nl -> PILCROW_SPACES_RPT_SPACES_ID_NL
+
+State 49:
+## Known stack suffix:
+## PILCROW_NL
+## LR(1) items:
+pilcrow_nl -> PILCROW_NL . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production pilcrow_nl -> PILCROW_NL
+
+State 50:
+## Known stack suffix:
+## NL
+## LR(1) items:
+nls -> NL . [ TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW NL_TAB LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT ]
+nls -> NL . nls [ TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW NL_TAB LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT ]
+## Transitions:
+-- On NL shift to state 50
+-- On nls shift to state 51
+## Reductions:
+-- On TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW NL_TAB LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT
+--   reduce production nls -> NL
+
+State 51:
+## Known stack suffix:
+## NL nls
+## LR(1) items:
+nls -> NL nls . [ TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW NL_TAB LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production nls -> NL nls
+
+State 52:
+## Known stack suffix:
+## ITM_CUSTOM_TAB_ID
+## LR(1) items:
+itm_custom_tab_id -> ITM_CUSTOM_TAB_ID . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_custom_tab_id -> ITM_CUSTOM_TAB_ID
+
+State 53:
+## Known stack suffix:
+## ITM_CUSTOM_TAB
+## LR(1) items:
+itm_custom_tab -> ITM_CUSTOM_TAB . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_custom_tab -> ITM_CUSTOM_TAB
+
+State 54:
+## Known stack suffix:
+## ITM_AUTO_TAB_ID
+## LR(1) items:
+itm_auto_tab_id -> ITM_AUTO_TAB_ID . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_auto_tab_id -> ITM_AUTO_TAB_ID
+
+State 55:
+## Known stack suffix:
+## ITM_AUTO_TAB
+## LR(1) items:
+itm_auto_tab -> ITM_AUTO_TAB . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_auto_tab -> ITM_AUTO_TAB
+
+State 56:
+## Known stack suffix:
+## DSP_CUSTOM_TAB
+## LR(1) items:
+dsp_custom_tab -> DSP_CUSTOM_TAB . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_custom_tab -> DSP_CUSTOM_TAB
+
+State 57:
+## Known stack suffix:
+## DSP_AUTO_TAB
+## LR(1) items:
+dsp_auto_tab -> DSP_AUTO_TAB . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_auto_tab -> DSP_AUTO_TAB
+
+State 58:
+## Known stack suffix:
+## DASH_TAB
+## LR(1) items:
+dash_tab -> DASH_TAB . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dash_tab -> DASH_TAB
+
+State 59:
+## Known stack suffix:
+## C_REF
+## LR(1) items:
+c_ref -> C_REF . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production c_ref -> C_REF
+
+State 60:
+## Known stack suffix:
+## CH_TAG_OR_ID_NL
+## LR(1) items:
+ch_nl -> CH_TAG_OR_ID_NL . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch_nl -> CH_TAG_OR_ID_NL
+
+State 61:
+## Known stack suffix:
+## AUTHOR
+## LR(1) items:
+doc_author -> AUTHOR . TAB lines [ NL ]
+doc_author -> AUTHOR . NL_TAB lines [ NL ]
+txt -> AUTHOR . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TAB shift to state 62
+-- On NL_TAB shift to state 64
+## Reductions:
+-- On TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT
+--   reduce production txt -> AUTHOR
+
+State 62:
+## Known stack suffix:
+## AUTHOR TAB
+## LR(1) items:
+doc_author -> AUTHOR TAB . lines [ NL ]
+## Transitions:
+-- On TXT shift to state 4
+-- On lines shift to state 63
+## Reductions:
+
+State 63:
+## Known stack suffix:
+## AUTHOR TAB lines
+## LR(1) items:
+doc_author -> AUTHOR TAB lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_author -> AUTHOR TAB lines
+
+State 64:
+## Known stack suffix:
+## AUTHOR NL_TAB
+## LR(1) items:
+doc_author -> AUTHOR NL_TAB . lines [ NL ]
+## Transitions:
+-- On TXT shift to state 4
+-- On lines shift to state 65
+## Reductions:
+
+State 65:
+## Known stack suffix:
+## AUTHOR NL_TAB lines
+## LR(1) items:
+doc_author -> AUTHOR NL_TAB lines . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_author -> AUTHOR NL_TAB lines
+
+State 66:
+## Known stack suffix:
+## ABSTRACT
+## LR(1) items:
+doc_abstract -> ABSTRACT . TAB blks1 [ NL ]
+doc_abstract -> ABSTRACT . lb1 blks1 [ NL ]
+txt -> ABSTRACT . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TAB shift to state 67
+-- On NL_TAB shift to state 83
+-- On lb1 shift to state 256
+## Reductions:
+-- On TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT
+--   reduce production txt -> ABSTRACT
+
+State 67:
+## Known stack suffix:
+## ABSTRACT TAB
+## LR(1) items:
+doc_abstract -> ABSTRACT TAB . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 246
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 68:
+## Known stack suffix:
+## START_VRB
+## LR(1) items:
+blk_vrb1 -> START_VRB . vrb_lines1 end_vrb1 [ NL_TAB NL ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 69
+-- On TAB shift to state 70
+-- On vrb_lines1 shift to state 71
+-- On vrb_line1 shift to state 74
+-- On tab1 shift to state 76
+## Reductions:
+
+State 69:
+## Known stack suffix:
+## VRB_LINE_EMPTY
+## LR(1) items:
+vrb_line1 -> VRB_LINE_EMPTY . [ VRB_LINE_EMPTY TAB_END_VRB TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line1 -> VRB_LINE_EMPTY
+
+State 70:
+## Known stack suffix:
+## TAB
+## LR(1) items:
+tab1 -> TAB . [ VRB_LINE ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production tab1 -> TAB
+
+State 71:
+## Known stack suffix:
+## START_VRB vrb_lines1
+## LR(1) items:
+blk_vrb1 -> START_VRB vrb_lines1 . end_vrb1 [ NL_TAB NL ]
+## Transitions:
+-- On TAB_END_VRB shift to state 72
+-- On end_vrb1 shift to state 73
+## Reductions:
+
+State 72:
+## Known stack suffix:
+## TAB_END_VRB
+## LR(1) items:
+end_vrb1 -> TAB_END_VRB . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production end_vrb1 -> TAB_END_VRB
+
+State 73:
+## Known stack suffix:
+## START_VRB vrb_lines1 end_vrb1
+## LR(1) items:
+blk_vrb1 -> START_VRB vrb_lines1 end_vrb1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_vrb1 -> START_VRB vrb_lines1 end_vrb1
+
+State 74:
+## Known stack suffix:
+## vrb_line1
+## LR(1) items:
+vrb_lines1 -> vrb_line1 . [ TAB_END_VRB ]
+vrb_lines1 -> vrb_line1 . vrb_lines1 [ TAB_END_VRB ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 69
+-- On TAB shift to state 70
+-- On vrb_lines1 shift to state 75
+-- On vrb_line1 shift to state 74
+-- On tab1 shift to state 76
+## Reductions:
+-- On TAB_END_VRB
+--   reduce production vrb_lines1 -> vrb_line1
+
+State 75:
+## Known stack suffix:
+## vrb_line1 vrb_lines1
+## LR(1) items:
+vrb_lines1 -> vrb_line1 vrb_lines1 . [ TAB_END_VRB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_lines1 -> vrb_line1 vrb_lines1
+
+State 76:
+## Known stack suffix:
+## tab1
+## LR(1) items:
+vrb_line1 -> tab1 . VRB_LINE NL [ VRB_LINE_EMPTY TAB_END_VRB TAB ]
+## Transitions:
+-- On VRB_LINE shift to state 77
+## Reductions:
+
+State 77:
+## Known stack suffix:
+## tab1 VRB_LINE
+## LR(1) items:
+vrb_line1 -> tab1 VRB_LINE . NL [ VRB_LINE_EMPTY TAB_END_VRB TAB ]
+## Transitions:
+-- On NL shift to state 78
+## Reductions:
+
+State 78:
+## Known stack suffix:
+## tab1 VRB_LINE NL
+## LR(1) items:
+vrb_line1 -> tab1 VRB_LINE NL . [ VRB_LINE_EMPTY TAB_END_VRB TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line1 -> tab1 VRB_LINE NL
+
+State 79:
+## Known stack suffix:
+## STAR
+## LR(1) items:
+txt_unit1 -> STAR . emph_txt1 STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt1 shift to state 80
+-- On emph_txt shift to state 82
+## Reductions:
+
+State 80:
+## Known stack suffix:
+## STAR emph_txt1
+## LR(1) items:
+txt_unit1 -> STAR emph_txt1 . STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On STAR shift to state 81
+## Reductions:
+
+State 81:
+## Known stack suffix:
+## STAR emph_txt1 STAR
+## LR(1) items:
+txt_unit1 -> STAR emph_txt1 STAR . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit1 -> STAR emph_txt1 STAR
+
+State 82:
+## Known stack suffix:
+## emph_txt
+## LR(1) items:
+emph_txt1 -> emph_txt . [ STAR ]
+emph_txt1 -> emph_txt . lb1 emph_txt1 [ STAR ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On lb1 shift to state 84
+## Reductions:
+-- On STAR
+--   reduce production emph_txt1 -> emph_txt
+
+State 83:
+## Known stack suffix:
+## NL_TAB
+## LR(1) items:
+lb1 -> NL_TAB . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production lb1 -> NL_TAB
+
+State 84:
+## Known stack suffix:
+## emph_txt lb1
+## LR(1) items:
+emph_txt1 -> emph_txt lb1 . emph_txt1 [ STAR ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt1 shift to state 85
+-- On emph_txt shift to state 82
+## Reductions:
+
+State 85:
+## Known stack suffix:
+## emph_txt lb1 emph_txt1
+## LR(1) items:
+emph_txt1 -> emph_txt lb1 emph_txt1 . [ STAR ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production emph_txt1 -> emph_txt lb1 emph_txt1
+
+State 86:
+## Known stack suffix:
+## NL
+## LR(1) items:
+blk1 -> NL . blk1 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 240
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 244
+## Reductions:
+
+State 87:
+## Known stack suffix:
+## txt_units1
+## LR(1) items:
+blk_txt1 -> txt_units1 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_txt1 -> txt_units1
+
+State 88:
+## Known stack suffix:
+## txt_unit1
+## LR(1) items:
+txt_units1 -> txt_unit1 . lb0 [ NL_TAB_TAB NL_TAB NL ]
+txt_units1 -> txt_unit1 . txt_units1 [ NL_TAB_TAB NL_TAB NL ]
+txt_units1 -> txt_unit1 . lb1 txt_units1 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 34
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 89
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On lb1 shift to state 91
+-- On lb0 shift to state 94
+-- On c_ref shift to state 93
+## Reductions:
+
+State 89:
+## Known stack suffix:
+## txt_unit1 txt_units1
+## LR(1) items:
+txt_units1 -> txt_unit1 txt_units1 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units1 -> txt_unit1 txt_units1
+
+State 90:
+## Known stack suffix:
+## txt
+## LR(1) items:
+txt_unit1 -> txt . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit1 -> txt
+
+State 91:
+## Known stack suffix:
+## txt_unit1 lb1
+## LR(1) items:
+txt_units1 -> txt_unit1 lb1 . txt_units1 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 92
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On c_ref shift to state 93
+## Reductions:
+
+State 92:
+## Known stack suffix:
+## txt_unit1 lb1 txt_units1
+## LR(1) items:
+txt_units1 -> txt_unit1 lb1 txt_units1 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units1 -> txt_unit1 lb1 txt_units1
+
+State 93:
+## Known stack suffix:
+## c_ref
+## LR(1) items:
+txt_unit1 -> c_ref . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit1 -> c_ref
+
+State 94:
+## Known stack suffix:
+## txt_unit1 lb0
+## LR(1) items:
+txt_units1 -> txt_unit1 lb0 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units1 -> txt_unit1 lb0
+
+State 95:
+## Known stack suffix:
+## itm_lbl_tab_id
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab_id . lb2 blks2 [ NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On lb2 shift to state 97
+## Reductions:
+
+State 96:
+## Known stack suffix:
+## NL_TAB_TAB
+## LR(1) items:
+lb2 -> NL_TAB_TAB . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production lb2 -> NL_TAB_TAB
+
+State 97:
+## Known stack suffix:
+## itm_lbl_tab_id lb2
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab_id lb2 . blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On special_blks2 shift to state 209
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blks2 shift to state 210
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 211
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 217
+## Reductions:
+
+State 98:
+## Known stack suffix:
+## START_VRB
+## LR(1) items:
+blk_vrb2 -> START_VRB . vrb_lines2 end_vrb2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 99
+-- On TAB shift to state 100
+-- On vrb_lines2 shift to state 102
+-- On vrb_line2 shift to state 105
+-- On tab2 shift to state 107
+## Reductions:
+
+State 99:
+## Known stack suffix:
+## VRB_LINE_EMPTY
+## LR(1) items:
+vrb_line2 -> VRB_LINE_EMPTY . [ VRB_LINE_EMPTY TAB_TAB_END_VRB TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line2 -> VRB_LINE_EMPTY
+
+State 100:
+## Known stack suffix:
+## TAB
+## LR(1) items:
+tab2 -> TAB . TAB [ VRB_LINE ]
+## Transitions:
+-- On TAB shift to state 101
+## Reductions:
+
+State 101:
+## Known stack suffix:
+## TAB TAB
+## LR(1) items:
+tab2 -> TAB TAB . [ VRB_LINE ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production tab2 -> TAB TAB
+
+State 102:
+## Known stack suffix:
+## START_VRB vrb_lines2
+## LR(1) items:
+blk_vrb2 -> START_VRB vrb_lines2 . end_vrb2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TAB_TAB_END_VRB shift to state 103
+-- On end_vrb2 shift to state 104
+## Reductions:
+
+State 103:
+## Known stack suffix:
+## TAB_TAB_END_VRB
+## LR(1) items:
+end_vrb2 -> TAB_TAB_END_VRB . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production end_vrb2 -> TAB_TAB_END_VRB
+
+State 104:
+## Known stack suffix:
+## START_VRB vrb_lines2 end_vrb2
+## LR(1) items:
+blk_vrb2 -> START_VRB vrb_lines2 end_vrb2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_vrb2 -> START_VRB vrb_lines2 end_vrb2
+
+State 105:
+## Known stack suffix:
+## vrb_line2
+## LR(1) items:
+vrb_lines2 -> vrb_line2 . [ TAB_TAB_END_VRB ]
+vrb_lines2 -> vrb_line2 . vrb_lines2 [ TAB_TAB_END_VRB ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 99
+-- On TAB shift to state 100
+-- On vrb_lines2 shift to state 106
+-- On vrb_line2 shift to state 105
+-- On tab2 shift to state 107
+## Reductions:
+-- On TAB_TAB_END_VRB
+--   reduce production vrb_lines2 -> vrb_line2
+
+State 106:
+## Known stack suffix:
+## vrb_line2 vrb_lines2
+## LR(1) items:
+vrb_lines2 -> vrb_line2 vrb_lines2 . [ TAB_TAB_END_VRB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_lines2 -> vrb_line2 vrb_lines2
+
+State 107:
+## Known stack suffix:
+## tab2
+## LR(1) items:
+vrb_line2 -> tab2 . VRB_LINE NL [ VRB_LINE_EMPTY TAB_TAB_END_VRB TAB ]
+## Transitions:
+-- On VRB_LINE shift to state 108
+## Reductions:
+
+State 108:
+## Known stack suffix:
+## tab2 VRB_LINE
+## LR(1) items:
+vrb_line2 -> tab2 VRB_LINE . NL [ VRB_LINE_EMPTY TAB_TAB_END_VRB TAB ]
+## Transitions:
+-- On NL shift to state 109
+## Reductions:
+
+State 109:
+## Known stack suffix:
+## tab2 VRB_LINE NL
+## LR(1) items:
+vrb_line2 -> tab2 VRB_LINE NL . [ VRB_LINE_EMPTY TAB_TAB_END_VRB TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line2 -> tab2 VRB_LINE NL
+
+State 110:
+## Known stack suffix:
+## STAR
+## LR(1) items:
+txt_unit2 -> STAR . emph_txt2 STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt2 shift to state 111
+-- On emph_txt shift to state 113
+## Reductions:
+
+State 111:
+## Known stack suffix:
+## STAR emph_txt2
+## LR(1) items:
+txt_unit2 -> STAR emph_txt2 . STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On STAR shift to state 112
+## Reductions:
+
+State 112:
+## Known stack suffix:
+## STAR emph_txt2 STAR
+## LR(1) items:
+txt_unit2 -> STAR emph_txt2 STAR . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit2 -> STAR emph_txt2 STAR
+
+State 113:
+## Known stack suffix:
+## emph_txt
+## LR(1) items:
+emph_txt2 -> emph_txt . [ STAR ]
+emph_txt2 -> emph_txt . lb2 emph_txt2 [ STAR ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On lb2 shift to state 114
+## Reductions:
+-- On STAR
+--   reduce production emph_txt2 -> emph_txt
+
+State 114:
+## Known stack suffix:
+## emph_txt lb2
+## LR(1) items:
+emph_txt2 -> emph_txt lb2 . emph_txt2 [ STAR ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt2 shift to state 115
+-- On emph_txt shift to state 113
+## Reductions:
+
+State 115:
+## Known stack suffix:
+## emph_txt lb2 emph_txt2
+## LR(1) items:
+emph_txt2 -> emph_txt lb2 emph_txt2 . [ STAR ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production emph_txt2 -> emph_txt lb2 emph_txt2
+
+State 116:
+## Known stack suffix:
+## NL
+## LR(1) items:
+blk2 -> NL . blk2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 204
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 208
+## Reductions:
+
+State 117:
+## Known stack suffix:
+## txt_units2
+## LR(1) items:
+blk_txt2 -> txt_units2 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_txt2 -> txt_units2
+
+State 118:
+## Known stack suffix:
+## txt_unit2
+## LR(1) items:
+txt_units2 -> txt_unit2 . lb0 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+txt_units2 -> txt_unit2 . txt_units2 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+txt_units2 -> txt_unit2 . lb2 txt_units2 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB_TAB shift to state 96
+-- On NL shift to state 34
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 119
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On lb2 shift to state 121
+-- On lb0 shift to state 124
+-- On c_ref shift to state 123
+## Reductions:
+
+State 119:
+## Known stack suffix:
+## txt_unit2 txt_units2
+## LR(1) items:
+txt_units2 -> txt_unit2 txt_units2 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units2 -> txt_unit2 txt_units2
+
+State 120:
+## Known stack suffix:
+## txt
+## LR(1) items:
+txt_unit2 -> txt . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit2 -> txt
+
+State 121:
+## Known stack suffix:
+## txt_unit2 lb2
+## LR(1) items:
+txt_units2 -> txt_unit2 lb2 . txt_units2 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 122
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On c_ref shift to state 123
+## Reductions:
+
+State 122:
+## Known stack suffix:
+## txt_unit2 lb2 txt_units2
+## LR(1) items:
+txt_units2 -> txt_unit2 lb2 txt_units2 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units2 -> txt_unit2 lb2 txt_units2
+
+State 123:
+## Known stack suffix:
+## c_ref
+## LR(1) items:
+txt_unit2 -> c_ref . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit2 -> c_ref
+
+State 124:
+## Known stack suffix:
+## txt_unit2 lb0
+## LR(1) items:
+txt_units2 -> txt_unit2 lb0 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units2 -> txt_unit2 lb0
+
+State 125:
+## Known stack suffix:
+## itm_lbl_tab_id
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab_id . lb3 blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On lb3 shift to state 127
+## Reductions:
+
+State 126:
+## Known stack suffix:
+## NL_TAB_TAB_TAB
+## LR(1) items:
+lb3 -> NL_TAB_TAB_TAB . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production lb3 -> NL_TAB_TAB_TAB
+
+State 127:
+## Known stack suffix:
+## itm_lbl_tab_id lb3
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab_id lb3 . blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 128
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 147
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 148
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On c_ref shift to state 154
+-- On blks3 shift to state 159
+-- On blk_vrb3 shift to state 156
+-- On blk_txt3 shift to state 157
+-- On blk3 shift to state 160
+## Reductions:
+
+State 128:
+## Known stack suffix:
+## START_VRB
+## LR(1) items:
+blk_vrb3 -> START_VRB . vrb_lines3 end_vrb3 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 129
+-- On TAB shift to state 130
+-- On vrb_lines3 shift to state 133
+-- On vrb_line3 shift to state 136
+-- On tab3 shift to state 138
+## Reductions:
+
+State 129:
+## Known stack suffix:
+## VRB_LINE_EMPTY
+## LR(1) items:
+vrb_line3 -> VRB_LINE_EMPTY . [ VRB_LINE_EMPTY TAB_TAB_TAB_END_VRB TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line3 -> VRB_LINE_EMPTY
+
+State 130:
+## Known stack suffix:
+## TAB
+## LR(1) items:
+tab3 -> TAB . TAB TAB [ VRB_LINE ]
+## Transitions:
+-- On TAB shift to state 131
+## Reductions:
+
+State 131:
+## Known stack suffix:
+## TAB TAB
+## LR(1) items:
+tab3 -> TAB TAB . TAB [ VRB_LINE ]
+## Transitions:
+-- On TAB shift to state 132
+## Reductions:
+
+State 132:
+## Known stack suffix:
+## TAB TAB TAB
+## LR(1) items:
+tab3 -> TAB TAB TAB . [ VRB_LINE ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production tab3 -> TAB TAB TAB
+
+State 133:
+## Known stack suffix:
+## START_VRB vrb_lines3
+## LR(1) items:
+blk_vrb3 -> START_VRB vrb_lines3 . end_vrb3 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TAB_TAB_TAB_END_VRB shift to state 134
+-- On end_vrb3 shift to state 135
+## Reductions:
+
+State 134:
+## Known stack suffix:
+## TAB_TAB_TAB_END_VRB
+## LR(1) items:
+end_vrb3 -> TAB_TAB_TAB_END_VRB . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production end_vrb3 -> TAB_TAB_TAB_END_VRB
+
+State 135:
+## Known stack suffix:
+## START_VRB vrb_lines3 end_vrb3
+## LR(1) items:
+blk_vrb3 -> START_VRB vrb_lines3 end_vrb3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_vrb3 -> START_VRB vrb_lines3 end_vrb3
+
+State 136:
+## Known stack suffix:
+## vrb_line3
+## LR(1) items:
+vrb_lines3 -> vrb_line3 . [ TAB_TAB_TAB_END_VRB ]
+vrb_lines3 -> vrb_line3 . vrb_lines3 [ TAB_TAB_TAB_END_VRB ]
+## Transitions:
+-- On VRB_LINE_EMPTY shift to state 129
+-- On TAB shift to state 130
+-- On vrb_lines3 shift to state 137
+-- On vrb_line3 shift to state 136
+-- On tab3 shift to state 138
+## Reductions:
+-- On TAB_TAB_TAB_END_VRB
+--   reduce production vrb_lines3 -> vrb_line3
+
+State 137:
+## Known stack suffix:
+## vrb_line3 vrb_lines3
+## LR(1) items:
+vrb_lines3 -> vrb_line3 vrb_lines3 . [ TAB_TAB_TAB_END_VRB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_lines3 -> vrb_line3 vrb_lines3
+
+State 138:
+## Known stack suffix:
+## tab3
+## LR(1) items:
+vrb_line3 -> tab3 . VRB_LINE NL [ VRB_LINE_EMPTY TAB_TAB_TAB_END_VRB TAB ]
+## Transitions:
+-- On VRB_LINE shift to state 139
+## Reductions:
+
+State 139:
+## Known stack suffix:
+## tab3 VRB_LINE
+## LR(1) items:
+vrb_line3 -> tab3 VRB_LINE . NL [ VRB_LINE_EMPTY TAB_TAB_TAB_END_VRB TAB ]
+## Transitions:
+-- On NL shift to state 140
+## Reductions:
+
+State 140:
+## Known stack suffix:
+## tab3 VRB_LINE NL
+## LR(1) items:
+vrb_line3 -> tab3 VRB_LINE NL . [ VRB_LINE_EMPTY TAB_TAB_TAB_END_VRB TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production vrb_line3 -> tab3 VRB_LINE NL
+
+State 141:
+## Known stack suffix:
+## STAR
+## LR(1) items:
+txt_unit3 -> STAR . emph_txt3 STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt3 shift to state 142
+-- On emph_txt shift to state 144
+## Reductions:
+
+State 142:
+## Known stack suffix:
+## STAR emph_txt3
+## LR(1) items:
+txt_unit3 -> STAR emph_txt3 . STAR [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On STAR shift to state 143
+## Reductions:
+
+State 143:
+## Known stack suffix:
+## STAR emph_txt3 STAR
+## LR(1) items:
+txt_unit3 -> STAR emph_txt3 STAR . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit3 -> STAR emph_txt3 STAR
+
+State 144:
+## Known stack suffix:
+## emph_txt
+## LR(1) items:
+emph_txt3 -> emph_txt . [ STAR ]
+emph_txt3 -> emph_txt . lb3 emph_txt3 [ STAR ]
+## Transitions:
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On lb3 shift to state 145
+## Reductions:
+-- On STAR
+--   reduce production emph_txt3 -> emph_txt
+
+State 145:
+## Known stack suffix:
+## emph_txt lb3
+## LR(1) items:
+emph_txt3 -> emph_txt lb3 . emph_txt3 [ STAR ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt3 shift to state 146
+-- On emph_txt shift to state 144
+## Reductions:
+
+State 146:
+## Known stack suffix:
+## emph_txt lb3 emph_txt3
+## LR(1) items:
+emph_txt3 -> emph_txt lb3 emph_txt3 . [ STAR ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production emph_txt3 -> emph_txt lb3 emph_txt3
+
+State 147:
+## Known stack suffix:
+## NL
+## LR(1) items:
+blk3 -> NL . blk3 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 128
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 147
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 148
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On c_ref shift to state 154
+-- On blk_vrb3 shift to state 156
+-- On blk_txt3 shift to state 157
+-- On blk3 shift to state 158
+## Reductions:
+
+State 148:
+## Known stack suffix:
+## txt_units3
+## LR(1) items:
+blk_txt3 -> txt_units3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_txt3 -> txt_units3
+
+State 149:
+## Known stack suffix:
+## txt_unit3
+## LR(1) items:
+txt_units3 -> txt_unit3 . lb0 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+txt_units3 -> txt_unit3 . txt_units3 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+txt_units3 -> txt_unit3 . lb3 txt_units3 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On NL shift to state 34
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 150
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On lb3 shift to state 152
+-- On lb0 shift to state 155
+-- On c_ref shift to state 154
+## Reductions:
+
+State 150:
+## Known stack suffix:
+## txt_unit3 txt_units3
+## LR(1) items:
+txt_units3 -> txt_unit3 txt_units3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units3 -> txt_unit3 txt_units3
+
+State 151:
+## Known stack suffix:
+## txt
+## LR(1) items:
+txt_unit3 -> txt . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit3 -> txt
+
+State 152:
+## Known stack suffix:
+## txt_unit3 lb3
+## LR(1) items:
+txt_units3 -> txt_unit3 lb3 . txt_units3 [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 153
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On c_ref shift to state 154
+## Reductions:
+
+State 153:
+## Known stack suffix:
+## txt_unit3 lb3 txt_units3
+## LR(1) items:
+txt_units3 -> txt_unit3 lb3 txt_units3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units3 -> txt_unit3 lb3 txt_units3
+
+State 154:
+## Known stack suffix:
+## c_ref
+## LR(1) items:
+txt_unit3 -> c_ref . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit3 -> c_ref
+
+State 155:
+## Known stack suffix:
+## txt_unit3 lb0
+## LR(1) items:
+txt_units3 -> txt_unit3 lb0 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units3 -> txt_unit3 lb0
+
+State 156:
+## Known stack suffix:
+## blk_vrb3
+## LR(1) items:
+blk3 -> blk_vrb3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk3 -> blk_vrb3
+
+State 157:
+## Known stack suffix:
+## blk_txt3
+## LR(1) items:
+blk3 -> blk_txt3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk3 -> blk_txt3
+
+State 158:
+## Known stack suffix:
+## NL blk3
+## LR(1) items:
+blk3 -> NL blk3 . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk3 -> NL blk3
+
+State 159:
+## Known stack suffix:
+## itm_lbl_tab_id lb3 blks3
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab_id lb3 blks3 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm2 -> itm_lbl_tab_id lb3 blks3
+
+State 160:
+## Known stack suffix:
+## blk3
+## LR(1) items:
+blks3 -> blk3 . [ NL_TAB_TAB NL_TAB NL ]
+blks3 -> blk3 . lb3 blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On lb3 shift to state 161
+## Reductions:
+-- On NL_TAB_TAB NL_TAB NL
+--   reduce production blks3 -> blk3
+
+State 161:
+## Known stack suffix:
+## blk3 lb3
+## LR(1) items:
+blks3 -> blk3 lb3 . blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 128
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 147
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 148
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On c_ref shift to state 154
+-- On blks3 shift to state 162
+-- On blk_vrb3 shift to state 156
+-- On blk_txt3 shift to state 157
+-- On blk3 shift to state 160
+## Reductions:
+
+State 162:
+## Known stack suffix:
+## blk3 lb3 blks3
+## LR(1) items:
+blks3 -> blk3 lb3 blks3 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks3 -> blk3 lb3 blks3
+
+State 163:
+## Known stack suffix:
+## itm_lbl_tab
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab . blks3 [ NL_TAB_TAB NL_TAB NL ]
+blk_itm2 -> itm_lbl_tab . lb3 blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 128
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On NL shift to state 147
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 148
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On lb3 shift to state 164
+-- On c_ref shift to state 154
+-- On blks3 shift to state 166
+-- On blk_vrb3 shift to state 156
+-- On blk_txt3 shift to state 157
+-- On blk3 shift to state 160
+## Reductions:
+
+State 164:
+## Known stack suffix:
+## itm_lbl_tab lb3
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab lb3 . blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 128
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 147
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 148
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On c_ref shift to state 154
+-- On blks3 shift to state 165
+-- On blk_vrb3 shift to state 156
+-- On blk_txt3 shift to state 157
+-- On blk3 shift to state 160
+## Reductions:
+
+State 165:
+## Known stack suffix:
+## itm_lbl_tab lb3 blks3
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab lb3 blks3 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm2 -> itm_lbl_tab lb3 blks3
+
+State 166:
+## Known stack suffix:
+## itm_lbl_tab blks3
+## LR(1) items:
+blk_itm2 -> itm_lbl_tab blks3 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm2 -> itm_lbl_tab blks3
+
+State 167:
+## Known stack suffix:
+## itm_custom_tab_id
+## LR(1) items:
+itm_lbl_tab_id -> itm_custom_tab_id . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_lbl_tab_id -> itm_custom_tab_id
+
+State 168:
+## Known stack suffix:
+## itm_custom_tab
+## LR(1) items:
+itm_lbl_tab -> itm_custom_tab . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_lbl_tab -> itm_custom_tab
+
+State 169:
+## Known stack suffix:
+## itm_auto_tab_id
+## LR(1) items:
+itm_lbl_tab_id -> itm_auto_tab_id . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_lbl_tab_id -> itm_auto_tab_id
+
+State 170:
+## Known stack suffix:
+## itm_auto_tab
+## LR(1) items:
+itm_lbl_tab -> itm_auto_tab . [ TXT TITLE START_VRB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production itm_lbl_tab -> itm_auto_tab
+
+State 171:
+## Known stack suffix:
+## dsp_lines2
+## LR(1) items:
+blk_dsp2 -> dsp_lines2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_dsp2 -> dsp_lines2
+
+State 172:
+## Known stack suffix:
+## dsp_line
+## LR(1) items:
+dsp_lines2 -> dsp_line . lb0 [ NL_TAB_TAB NL_TAB NL ]
+dsp_lines2 -> dsp_line . lb2 dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+dsp_lines2 -> dsp_line . lb3 special_dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On NL_TAB_TAB shift to state 96
+-- On NL shift to state 34
+-- On lb3 shift to state 173
+-- On lb2 shift to state 198
+-- On lb0 shift to state 200
+## Reductions:
+
+State 173:
+## Known stack suffix:
+## dsp_line lb3
+## LR(1) items:
+dsp_lines2 -> dsp_line lb3 . special_dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines2 shift to state 178
+-- On special_dsp_line shift to state 179
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 174:
+## Known stack suffix:
+## STAR
+## LR(1) items:
+dsp_unit -> STAR . emph_txt STAR [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 29
+-- On emph_txt shift to state 175
+## Reductions:
+
+State 175:
+## Known stack suffix:
+## STAR emph_txt
+## LR(1) items:
+dsp_unit -> STAR emph_txt . STAR [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+-- On STAR shift to state 176
+## Reductions:
+
+State 176:
+## Known stack suffix:
+## STAR emph_txt STAR
+## LR(1) items:
+dsp_unit -> STAR emph_txt STAR . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_unit -> STAR emph_txt STAR
+
+State 177:
+## Known stack suffix:
+## txt
+## LR(1) items:
+dsp_unit -> txt . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_unit -> txt
+
+State 178:
+## Known stack suffix:
+## dsp_line lb3 special_dsp_lines2
+## LR(1) items:
+dsp_lines2 -> dsp_line lb3 special_dsp_lines2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines2 -> dsp_line lb3 special_dsp_lines2
+
+State 179:
+## Known stack suffix:
+## special_dsp_line
+## LR(1) items:
+special_dsp_lines2 -> special_dsp_line . lb0 [ NL_TAB_TAB NL_TAB NL ]
+special_dsp_lines2 -> special_dsp_line . lb3 special_dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+special_dsp_lines2 -> special_dsp_line . lb2 dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On NL_TAB_TAB shift to state 96
+-- On NL shift to state 34
+-- On lb3 shift to state 180
+-- On lb2 shift to state 186
+-- On lb0 shift to state 197
+## Reductions:
+
+State 180:
+## Known stack suffix:
+## special_dsp_line lb3
+## LR(1) items:
+special_dsp_lines2 -> special_dsp_line lb3 . special_dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines2 shift to state 181
+-- On special_dsp_line shift to state 179
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 181:
+## Known stack suffix:
+## special_dsp_line lb3 special_dsp_lines2
+## LR(1) items:
+special_dsp_lines2 -> special_dsp_line lb3 special_dsp_lines2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines2 -> special_dsp_line lb3 special_dsp_lines2
+
+State 182:
+## Known stack suffix:
+## dsp_units
+## LR(1) items:
+special_dsp_line -> dsp_units . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_line -> dsp_units
+
+State 183:
+## Known stack suffix:
+## dsp_unit
+## LR(1) items:
+dsp_units -> dsp_unit . [ TAB NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+dsp_units -> dsp_unit . dsp_units [ TAB NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On dsp_units shift to state 184
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+-- On TAB NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL
+--   reduce production dsp_units -> dsp_unit
+
+State 184:
+## Known stack suffix:
+## dsp_unit dsp_units
+## LR(1) items:
+dsp_units -> dsp_unit dsp_units . [ TAB NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_units -> dsp_unit dsp_units
+
+State 185:
+## Known stack suffix:
+## c_ref
+## LR(1) items:
+dsp_unit -> c_ref . [ TXT TITLE TAB STAR SECTION RBR PREAMBLE PILCROW NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_unit -> c_ref
+
+State 186:
+## Known stack suffix:
+## special_dsp_line lb2
+## LR(1) items:
+special_dsp_lines2 -> special_dsp_line lb2 . dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On dsp_lines2 shift to state 187
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+## Reductions:
+
+State 187:
+## Known stack suffix:
+## special_dsp_line lb2 dsp_lines2
+## LR(1) items:
+special_dsp_lines2 -> special_dsp_line lb2 dsp_lines2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines2 -> special_dsp_line lb2 dsp_lines2
+
+State 188:
+## Known stack suffix:
+## dsp_lbl_tab
+## LR(1) items:
+dsp_line -> dsp_lbl_tab . dsp_units [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+dsp_line -> dsp_lbl_tab . dsp_units tabs dsp_id [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On dsp_units shift to state 189
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 189:
+## Known stack suffix:
+## dsp_lbl_tab dsp_units
+## LR(1) items:
+dsp_line -> dsp_lbl_tab dsp_units . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+dsp_line -> dsp_lbl_tab dsp_units . tabs dsp_id [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TAB shift to state 190
+-- On tabs shift to state 191
+## Reductions:
+-- On NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL
+--   reduce production dsp_line -> dsp_lbl_tab dsp_units
+
+State 190:
+## Known stack suffix:
+## TAB
+## LR(1) items:
+tabs -> TAB . [ TAB DSP_ID ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production tabs -> TAB
+
+State 191:
+## Known stack suffix:
+## dsp_lbl_tab dsp_units tabs
+## LR(1) items:
+dsp_line -> dsp_lbl_tab dsp_units tabs . dsp_id [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+tabs -> tabs . TAB [ TAB DSP_ID ]
+## Transitions:
+-- On TAB shift to state 192
+-- On DSP_ID shift to state 193
+-- On dsp_id shift to state 194
+## Reductions:
+
+State 192:
+## Known stack suffix:
+## tabs TAB
+## LR(1) items:
+tabs -> tabs TAB . [ TAB DSP_ID ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production tabs -> tabs TAB
+
+State 193:
+## Known stack suffix:
+## DSP_ID
+## LR(1) items:
+dsp_id -> DSP_ID . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_id -> DSP_ID
+
+State 194:
+## Known stack suffix:
+## dsp_lbl_tab dsp_units tabs dsp_id
+## LR(1) items:
+dsp_line -> dsp_lbl_tab dsp_units tabs dsp_id . [ NL_TAB_TAB_TAB NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_line -> dsp_lbl_tab dsp_units tabs dsp_id
+
+State 195:
+## Known stack suffix:
+## dsp_custom_tab
+## LR(1) items:
+dsp_lbl_tab -> dsp_custom_tab . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lbl_tab -> dsp_custom_tab
+
+State 196:
+## Known stack suffix:
+## dsp_auto_tab
+## LR(1) items:
+dsp_lbl_tab -> dsp_auto_tab . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lbl_tab -> dsp_auto_tab
+
+State 197:
+## Known stack suffix:
+## special_dsp_line lb0
+## LR(1) items:
+special_dsp_lines2 -> special_dsp_line lb0 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines2 -> special_dsp_line lb0
+
+State 198:
+## Known stack suffix:
+## dsp_line lb2
+## LR(1) items:
+dsp_lines2 -> dsp_line lb2 . dsp_lines2 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On dsp_lines2 shift to state 199
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+## Reductions:
+
+State 199:
+## Known stack suffix:
+## dsp_line lb2 dsp_lines2
+## LR(1) items:
+dsp_lines2 -> dsp_line lb2 dsp_lines2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines2 -> dsp_line lb2 dsp_lines2
+
+State 200:
+## Known stack suffix:
+## dsp_line lb0
+## LR(1) items:
+dsp_lines2 -> dsp_line lb0 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines2 -> dsp_line lb0
+
+State 201:
+## Known stack suffix:
+## dash_tab
+## LR(1) items:
+blk_blt2 -> dash_tab . blks3 [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 128
+-- On STAR shift to state 141
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 147
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units3 shift to state 148
+-- On txt_unit3 shift to state 149
+-- On txt shift to state 151
+-- On c_ref shift to state 154
+-- On blks3 shift to state 202
+-- On blk_vrb3 shift to state 156
+-- On blk_txt3 shift to state 157
+-- On blk3 shift to state 160
+## Reductions:
+
+State 202:
+## Known stack suffix:
+## dash_tab blks3
+## LR(1) items:
+blk_blt2 -> dash_tab blks3 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_blt2 -> dash_tab blks3
+
+State 203:
+## Known stack suffix:
+## blk_vrb2
+## LR(1) items:
+blk2 -> blk_vrb2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk2 -> blk_vrb2
+
+State 204:
+## Known stack suffix:
+## blk_txt2
+## LR(1) items:
+blk2 -> blk_txt2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk2 -> blk_txt2
+
+State 205:
+## Known stack suffix:
+## blk_itm2
+## LR(1) items:
+blk2 -> blk_itm2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk2 -> blk_itm2
+
+State 206:
+## Known stack suffix:
+## blk_dsp2
+## LR(1) items:
+blk2 -> blk_dsp2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk2 -> blk_dsp2
+
+State 207:
+## Known stack suffix:
+## blk_blt2
+## LR(1) items:
+blk2 -> blk_blt2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk2 -> blk_blt2
+
+State 208:
+## Known stack suffix:
+## NL blk2
+## LR(1) items:
+blk2 -> NL blk2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk2 -> NL blk2
+
+State 209:
+## Known stack suffix:
+## special_blks2
+## LR(1) items:
+blks2 -> special_blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks2 -> special_blks2
+
+State 210:
+## Known stack suffix:
+## itm_lbl_tab_id lb2 blks2
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab_id lb2 blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm1 -> itm_lbl_tab_id lb2 blks2
+
+State 211:
+## Known stack suffix:
+## blk_txt2
+## LR(1) items:
+blk2 -> blk_txt2 . [ NL_TAB_TAB NL_TAB NL ]
+special_blks2 -> blk_txt2 . lb3 special_blk_dsp2 [ NL_TAB NL ]
+special_blks2 -> blk_txt2 . lb3 special_blk_dsp2 lb2 blks2 [ NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB_TAB shift to state 126
+-- On lb3 shift to state 212
+## Reductions:
+-- On NL_TAB_TAB NL_TAB NL
+--   reduce production blk2 -> blk_txt2
+
+State 212:
+## Known stack suffix:
+## blk_txt2 lb3
+## LR(1) items:
+special_blks2 -> blk_txt2 lb3 . special_blk_dsp2 [ NL_TAB NL ]
+special_blks2 -> blk_txt2 lb3 . special_blk_dsp2 lb2 blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines2 shift to state 213
+-- On special_dsp_line shift to state 179
+-- On special_blk_dsp2 shift to state 214
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 213:
+## Known stack suffix:
+## special_dsp_lines2
+## LR(1) items:
+special_blk_dsp2 -> special_dsp_lines2 . [ NL_TAB_TAB NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blk_dsp2 -> special_dsp_lines2
+
+State 214:
+## Known stack suffix:
+## blk_txt2 lb3 special_blk_dsp2
+## LR(1) items:
+special_blks2 -> blk_txt2 lb3 special_blk_dsp2 . [ NL_TAB NL ]
+special_blks2 -> blk_txt2 lb3 special_blk_dsp2 . lb2 blks2 [ NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On lb2 shift to state 215
+## Reductions:
+-- On NL_TAB NL
+--   reduce production special_blks2 -> blk_txt2 lb3 special_blk_dsp2
+
+State 215:
+## Known stack suffix:
+## blk_txt2 lb3 special_blk_dsp2 lb2
+## LR(1) items:
+special_blks2 -> blk_txt2 lb3 special_blk_dsp2 lb2 . blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On special_blks2 shift to state 209
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blks2 shift to state 216
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 211
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 217
+## Reductions:
+
+State 216:
+## Known stack suffix:
+## blk_txt2 lb3 special_blk_dsp2 lb2 blks2
+## LR(1) items:
+special_blks2 -> blk_txt2 lb3 special_blk_dsp2 lb2 blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blks2 -> blk_txt2 lb3 special_blk_dsp2 lb2 blks2
+
+State 217:
+## Known stack suffix:
+## blk2
+## LR(1) items:
+blks2 -> blk2 . [ NL_TAB NL ]
+blks2 -> blk2 . lb2 blks2 [ NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On lb2 shift to state 218
+## Reductions:
+-- On NL_TAB NL
+--   reduce production blks2 -> blk2
+
+State 218:
+## Known stack suffix:
+## blk2 lb2
+## LR(1) items:
+blks2 -> blk2 lb2 . blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On special_blks2 shift to state 209
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blks2 shift to state 219
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 211
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 217
+## Reductions:
+
+State 219:
+## Known stack suffix:
+## blk2 lb2 blks2
+## LR(1) items:
+blks2 -> blk2 lb2 blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks2 -> blk2 lb2 blks2
+
+State 220:
+## Known stack suffix:
+## itm_lbl_tab
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab . blks2 [ NL_TAB NL ]
+blk_itm1 -> itm_lbl_tab . lb2 blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB_TAB shift to state 96
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On special_blks2 shift to state 209
+-- On lb2 shift to state 221
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blks2 shift to state 223
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 211
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 217
+## Reductions:
+
+State 221:
+## Known stack suffix:
+## itm_lbl_tab lb2
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab lb2 . blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On special_blks2 shift to state 209
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blks2 shift to state 222
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 211
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 217
+## Reductions:
+
+State 222:
+## Known stack suffix:
+## itm_lbl_tab lb2 blks2
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab lb2 blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm1 -> itm_lbl_tab lb2 blks2
+
+State 223:
+## Known stack suffix:
+## itm_lbl_tab blks2
+## LR(1) items:
+blk_itm1 -> itm_lbl_tab blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm1 -> itm_lbl_tab blks2
+
+State 224:
+## Known stack suffix:
+## dsp_lines1
+## LR(1) items:
+blk_dsp1 -> dsp_lines1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_dsp1 -> dsp_lines1
+
+State 225:
+## Known stack suffix:
+## dsp_line
+## LR(1) items:
+dsp_lines1 -> dsp_line . lb0 [ NL_TAB NL ]
+dsp_lines1 -> dsp_line . lb1 dsp_lines1 [ NL_TAB NL ]
+dsp_lines1 -> dsp_line . lb2 special_dsp_lines1 [ NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On NL_TAB shift to state 83
+-- On NL shift to state 34
+-- On lb2 shift to state 226
+-- On lb1 shift to state 234
+-- On lb0 shift to state 236
+## Reductions:
+
+State 226:
+## Known stack suffix:
+## dsp_line lb2
+## LR(1) items:
+dsp_lines1 -> dsp_line lb2 . special_dsp_lines1 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines1 shift to state 227
+-- On special_dsp_line shift to state 228
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 227:
+## Known stack suffix:
+## dsp_line lb2 special_dsp_lines1
+## LR(1) items:
+dsp_lines1 -> dsp_line lb2 special_dsp_lines1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines1 -> dsp_line lb2 special_dsp_lines1
+
+State 228:
+## Known stack suffix:
+## special_dsp_line
+## LR(1) items:
+special_dsp_lines1 -> special_dsp_line . lb0 [ NL_TAB NL ]
+special_dsp_lines1 -> special_dsp_line . lb2 special_dsp_lines1 [ NL_TAB NL ]
+special_dsp_lines1 -> special_dsp_line . lb1 dsp_lines1 [ NL_TAB NL ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On NL_TAB shift to state 83
+-- On NL shift to state 34
+-- On lb2 shift to state 229
+-- On lb1 shift to state 231
+-- On lb0 shift to state 233
+## Reductions:
+
+State 229:
+## Known stack suffix:
+## special_dsp_line lb2
+## LR(1) items:
+special_dsp_lines1 -> special_dsp_line lb2 . special_dsp_lines1 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines1 shift to state 230
+-- On special_dsp_line shift to state 228
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 230:
+## Known stack suffix:
+## special_dsp_line lb2 special_dsp_lines1
+## LR(1) items:
+special_dsp_lines1 -> special_dsp_line lb2 special_dsp_lines1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines1 -> special_dsp_line lb2 special_dsp_lines1
+
+State 231:
+## Known stack suffix:
+## special_dsp_line lb1
+## LR(1) items:
+special_dsp_lines1 -> special_dsp_line lb1 . dsp_lines1 [ NL_TAB NL ]
+## Transitions:
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On dsp_lines1 shift to state 232
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+## Reductions:
+
+State 232:
+## Known stack suffix:
+## special_dsp_line lb1 dsp_lines1
+## LR(1) items:
+special_dsp_lines1 -> special_dsp_line lb1 dsp_lines1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines1 -> special_dsp_line lb1 dsp_lines1
+
+State 233:
+## Known stack suffix:
+## special_dsp_line lb0
+## LR(1) items:
+special_dsp_lines1 -> special_dsp_line lb0 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines1 -> special_dsp_line lb0
+
+State 234:
+## Known stack suffix:
+## dsp_line lb1
+## LR(1) items:
+dsp_lines1 -> dsp_line lb1 . dsp_lines1 [ NL_TAB NL ]
+## Transitions:
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On dsp_lines1 shift to state 235
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+## Reductions:
+
+State 235:
+## Known stack suffix:
+## dsp_line lb1 dsp_lines1
+## LR(1) items:
+dsp_lines1 -> dsp_line lb1 dsp_lines1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines1 -> dsp_line lb1 dsp_lines1
+
+State 236:
+## Known stack suffix:
+## dsp_line lb0
+## LR(1) items:
+dsp_lines1 -> dsp_line lb0 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines1 -> dsp_line lb0
+
+State 237:
+## Known stack suffix:
+## dash_tab
+## LR(1) items:
+blk_blt1 -> dash_tab . blks2 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 98
+-- On STAR shift to state 110
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 116
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units2 shift to state 117
+-- On txt_unit2 shift to state 118
+-- On txt shift to state 120
+-- On special_blks2 shift to state 209
+-- On itm_lbl_tab_id shift to state 125
+-- On itm_lbl_tab shift to state 163
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines2 shift to state 171
+-- On dsp_line shift to state 172
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 201
+-- On c_ref shift to state 123
+-- On blks2 shift to state 238
+-- On blk_vrb2 shift to state 203
+-- On blk_txt2 shift to state 211
+-- On blk_itm2 shift to state 205
+-- On blk_dsp2 shift to state 206
+-- On blk_blt2 shift to state 207
+-- On blk2 shift to state 217
+## Reductions:
+
+State 238:
+## Known stack suffix:
+## dash_tab blks2
+## LR(1) items:
+blk_blt1 -> dash_tab blks2 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_blt1 -> dash_tab blks2
+
+State 239:
+## Known stack suffix:
+## blk_vrb1
+## LR(1) items:
+blk1 -> blk_vrb1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk1 -> blk_vrb1
+
+State 240:
+## Known stack suffix:
+## blk_txt1
+## LR(1) items:
+blk1 -> blk_txt1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk1 -> blk_txt1
+
+State 241:
+## Known stack suffix:
+## blk_itm1
+## LR(1) items:
+blk1 -> blk_itm1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk1 -> blk_itm1
+
+State 242:
+## Known stack suffix:
+## blk_dsp1
+## LR(1) items:
+blk1 -> blk_dsp1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk1 -> blk_dsp1
+
+State 243:
+## Known stack suffix:
+## blk_blt1
+## LR(1) items:
+blk1 -> blk_blt1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk1 -> blk_blt1
+
+State 244:
+## Known stack suffix:
+## NL blk1
+## LR(1) items:
+blk1 -> NL blk1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk1 -> NL blk1
+
+State 245:
+## Known stack suffix:
+## special_blks1
+## LR(1) items:
+blks1 -> special_blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks1 -> special_blks1
+
+State 246:
+## Known stack suffix:
+## ABSTRACT TAB blks1
+## LR(1) items:
+doc_abstract -> ABSTRACT TAB blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_abstract -> ABSTRACT TAB blks1
+
+State 247:
+## Known stack suffix:
+## blk_txt1
+## LR(1) items:
+blk1 -> blk_txt1 . [ NL_TAB NL ]
+special_blks1 -> blk_txt1 . lb2 special_blk_dsp1 [ NL ]
+special_blks1 -> blk_txt1 . lb2 special_blk_dsp1 lb1 blks1 [ NL ]
+## Transitions:
+-- On NL_TAB_TAB shift to state 96
+-- On lb2 shift to state 248
+## Reductions:
+-- On NL_TAB NL
+--   reduce production blk1 -> blk_txt1
+
+State 248:
+## Known stack suffix:
+## blk_txt1 lb2
+## LR(1) items:
+special_blks1 -> blk_txt1 lb2 . special_blk_dsp1 [ NL ]
+special_blks1 -> blk_txt1 lb2 . special_blk_dsp1 lb1 blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines1 shift to state 249
+-- On special_dsp_line shift to state 228
+-- On special_blk_dsp1 shift to state 250
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 249:
+## Known stack suffix:
+## special_dsp_lines1
+## LR(1) items:
+special_blk_dsp1 -> special_dsp_lines1 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blk_dsp1 -> special_dsp_lines1
+
+State 250:
+## Known stack suffix:
+## blk_txt1 lb2 special_blk_dsp1
+## LR(1) items:
+special_blks1 -> blk_txt1 lb2 special_blk_dsp1 . [ NL ]
+special_blks1 -> blk_txt1 lb2 special_blk_dsp1 . lb1 blks1 [ NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On lb1 shift to state 251
+## Reductions:
+-- On NL
+--   reduce production special_blks1 -> blk_txt1 lb2 special_blk_dsp1
+
+State 251:
+## Known stack suffix:
+## blk_txt1 lb2 special_blk_dsp1 lb1
+## LR(1) items:
+special_blks1 -> blk_txt1 lb2 special_blk_dsp1 lb1 . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 252
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 252:
+## Known stack suffix:
+## blk_txt1 lb2 special_blk_dsp1 lb1 blks1
+## LR(1) items:
+special_blks1 -> blk_txt1 lb2 special_blk_dsp1 lb1 blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blks1 -> blk_txt1 lb2 special_blk_dsp1 lb1 blks1
+
+State 253:
+## Known stack suffix:
+## blk1
+## LR(1) items:
+blks1 -> blk1 . [ NL ]
+blks1 -> blk1 . lb1 blks1 [ NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On lb1 shift to state 254
+## Reductions:
+-- On NL
+--   reduce production blks1 -> blk1
+
+State 254:
+## Known stack suffix:
+## blk1 lb1
+## LR(1) items:
+blks1 -> blk1 lb1 . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 255
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 255:
+## Known stack suffix:
+## blk1 lb1 blks1
+## LR(1) items:
+blks1 -> blk1 lb1 blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks1 -> blk1 lb1 blks1
+
+State 256:
+## Known stack suffix:
+## ABSTRACT lb1
+## LR(1) items:
+doc_abstract -> ABSTRACT lb1 . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 257
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 257:
+## Known stack suffix:
+## ABSTRACT lb1 blks1
+## LR(1) items:
+doc_abstract -> ABSTRACT lb1 blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_abstract -> ABSTRACT lb1 blks1
+
+State 258:
+## Known stack suffix:
+## txt_units0
+## LR(1) items:
+blk_txt0 -> txt_units0 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_txt0 -> txt_units0
+
+State 259:
+## Known stack suffix:
+## txt_unit0
+## LR(1) items:
+txt_units0 -> txt_unit0 . lb0 [ NL_TAB NL ]
+txt_units0 -> txt_unit0 . txt_units0 [ NL_TAB NL ]
+txt_units0 -> txt_unit0 . lb0 txt_units0 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 34
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 260
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On lb0 shift to state 262
+-- On c_ref shift to state 264
+## Reductions:
+
+State 260:
+## Known stack suffix:
+## txt_unit0 txt_units0
+## LR(1) items:
+txt_units0 -> txt_unit0 txt_units0 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units0 -> txt_unit0 txt_units0
+
+State 261:
+## Known stack suffix:
+## txt
+## LR(1) items:
+txt_unit0 -> txt . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit0 -> txt
+
+State 262:
+## Known stack suffix:
+## txt_unit0 lb0
+## LR(1) items:
+txt_units0 -> txt_unit0 lb0 . [ NL_TAB NL ]
+txt_units0 -> txt_unit0 lb0 . txt_units0 [ NL_TAB NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 263
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On c_ref shift to state 264
+## Reductions:
+-- On NL_TAB NL
+--   reduce production txt_units0 -> txt_unit0 lb0
+
+State 263:
+## Known stack suffix:
+## txt_unit0 lb0 txt_units0
+## LR(1) items:
+txt_units0 -> txt_unit0 lb0 txt_units0 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_units0 -> txt_unit0 lb0 txt_units0
+
+State 264:
+## Known stack suffix:
+## c_ref
+## LR(1) items:
+txt_unit0 -> c_ref . [ TXT TITLE STAR SECTION RBR PREAMBLE PILCROW NL LBR ESC_CHAR C_REF COLON AUTHOR ABSTRACT ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production txt_unit0 -> c_ref
+
+State 265:
+## Known stack suffix:
+## special_blks0
+## LR(1) items:
+blks0 -> special_blks0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks0 -> special_blks0
+
+State 266:
+## Known stack suffix:
+## section_spaces_tag_or_id_nl
+## LR(1) items:
+sec -> section_spaces_tag_or_id_nl . sec_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+sec -> section_spaces_tag_or_id_nl . hdr sec_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 267
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks shift to state 268
+-- On sec_main shift to state 269
+-- On nls shift to state 270
+-- On lb1 shift to state 277
+-- On hdr shift to state 330
+-- On c_ref shift to state 264
+## Reductions:
+
+State 267:
+## Known stack suffix:
+## txt_units0
+## LR(1) items:
+hdr -> txt_units0 . [ NL_TAB NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production hdr -> txt_units0
+
+State 268:
+## Known stack suffix:
+## special_blks
+## LR(1) items:
+sec_main -> special_blks . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec_main -> special_blks
+
+State 269:
+## Known stack suffix:
+## section_spaces_tag_or_id_nl sec_main
+## LR(1) items:
+sec -> section_spaces_tag_or_id_nl sec_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec -> section_spaces_tag_or_id_nl sec_main
+
+State 270:
+## Known stack suffix:
+## nls
+## LR(1) items:
+sec_main -> nls . pars [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+sec_main -> nls . blks [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+sec_main -> nls . special_blks [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On special_blks shift to state 271
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 326
+-- On par shift to state 327
+-- On lb1 shift to state 277
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 316
+-- On blks shift to state 329
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 271:
+## Known stack suffix:
+## nls special_blks
+## LR(1) items:
+sec_main -> nls special_blks . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec_main -> nls special_blks
+
+State 272:
+## Known stack suffix:
+## pilcrow_spaces_tag_or_id_nl
+## LR(1) items:
+par -> pilcrow_spaces_tag_or_id_nl . par_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+par -> pilcrow_spaces_tag_or_id_nl . hdr par_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 267
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks shift to state 273
+-- On par_main shift to state 274
+-- On nls shift to state 275
+-- On lb1 shift to state 277
+-- On hdr shift to state 318
+-- On c_ref shift to state 264
+## Reductions:
+
+State 273:
+## Known stack suffix:
+## special_blks
+## LR(1) items:
+par_main -> special_blks . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par_main -> special_blks
+
+State 274:
+## Known stack suffix:
+## pilcrow_spaces_tag_or_id_nl par_main
+## LR(1) items:
+par -> pilcrow_spaces_tag_or_id_nl par_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par -> pilcrow_spaces_tag_or_id_nl par_main
+
+State 275:
+## Known stack suffix:
+## nls
+## LR(1) items:
+par_main -> nls . blks [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+par_main -> nls . special_blks [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On special_blks shift to state 276
+-- On lb1 shift to state 277
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 316
+-- On blks shift to state 317
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 276:
+## Known stack suffix:
+## nls special_blks
+## LR(1) items:
+par_main -> nls special_blks . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par_main -> nls special_blks
+
+State 277:
+## Known stack suffix:
+## lb1
+## LR(1) items:
+special_blks -> lb1 . special_blk_dsp0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+special_blks -> lb1 . special_blk_dsp0 NL blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines0 shift to state 278
+-- On special_dsp_line shift to state 279
+-- On special_blk_dsp0 shift to state 289
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 278:
+## Known stack suffix:
+## special_dsp_lines0
+## LR(1) items:
+special_blk_dsp0 -> special_dsp_lines0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blk_dsp0 -> special_dsp_lines0
+
+State 279:
+## Known stack suffix:
+## special_dsp_line
+## LR(1) items:
+special_dsp_lines0 -> special_dsp_line . lb0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+special_dsp_lines0 -> special_dsp_line . lb1 special_dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+special_dsp_lines0 -> special_dsp_line . lb0 dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 34
+-- On lb1 shift to state 280
+-- On lb0 shift to state 282
+## Reductions:
+
+State 280:
+## Known stack suffix:
+## special_dsp_line lb1
+## LR(1) items:
+special_dsp_lines0 -> special_dsp_line lb1 . special_dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines0 shift to state 281
+-- On special_dsp_line shift to state 279
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 281:
+## Known stack suffix:
+## special_dsp_line lb1 special_dsp_lines0
+## LR(1) items:
+special_dsp_lines0 -> special_dsp_line lb1 special_dsp_lines0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines0 -> special_dsp_line lb1 special_dsp_lines0
+
+State 282:
+## Known stack suffix:
+## special_dsp_line lb0
+## LR(1) items:
+special_dsp_lines0 -> special_dsp_line lb0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+special_dsp_lines0 -> special_dsp_line lb0 . dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On dsp_lines0 shift to state 283
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL
+--   reduce production special_dsp_lines0 -> special_dsp_line lb0
+
+State 283:
+## Known stack suffix:
+## special_dsp_line lb0 dsp_lines0
+## LR(1) items:
+special_dsp_lines0 -> special_dsp_line lb0 dsp_lines0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_dsp_lines0 -> special_dsp_line lb0 dsp_lines0
+
+State 284:
+## Known stack suffix:
+## dsp_line
+## LR(1) items:
+dsp_lines0 -> dsp_line . lb0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+dsp_lines0 -> dsp_line . lb0 dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+dsp_lines0 -> dsp_line . lb1 special_dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 34
+-- On lb1 shift to state 285
+-- On lb0 shift to state 287
+## Reductions:
+
+State 285:
+## Known stack suffix:
+## dsp_line lb1
+## LR(1) items:
+dsp_lines0 -> dsp_line lb1 . special_dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines0 shift to state 286
+-- On special_dsp_line shift to state 279
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 286:
+## Known stack suffix:
+## dsp_line lb1 special_dsp_lines0
+## LR(1) items:
+dsp_lines0 -> dsp_line lb1 special_dsp_lines0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines0 -> dsp_line lb1 special_dsp_lines0
+
+State 287:
+## Known stack suffix:
+## dsp_line lb0
+## LR(1) items:
+dsp_lines0 -> dsp_line lb0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+dsp_lines0 -> dsp_line lb0 . dsp_lines0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On dsp_lines0 shift to state 288
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL
+--   reduce production dsp_lines0 -> dsp_line lb0
+
+State 288:
+## Known stack suffix:
+## dsp_line lb0 dsp_lines0
+## LR(1) items:
+dsp_lines0 -> dsp_line lb0 dsp_lines0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production dsp_lines0 -> dsp_line lb0 dsp_lines0
+
+State 289:
+## Known stack suffix:
+## lb1 special_blk_dsp0
+## LR(1) items:
+special_blk_dsp0 -> special_blk_dsp0 . NL [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+special_blks -> lb1 special_blk_dsp0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+special_blks -> lb1 special_blk_dsp0 . NL blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL shift to state 290
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL
+--   reduce production special_blks -> lb1 special_blk_dsp0
+
+State 290:
+## Known stack suffix:
+## lb1 special_blk_dsp0 NL
+## LR(1) items:
+special_blk_dsp0 -> special_blk_dsp0 NL . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL ]
+special_blks -> lb1 special_blk_dsp0 NL . blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 301
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL NL EOF CH_TAG_OR_ID_NL
+--   reduce production special_blk_dsp0 -> special_blk_dsp0 NL
+
+State 291:
+## Known stack suffix:
+## itm_lbl_tab_id
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab_id . lb1 blks1 [ NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On lb1 shift to state 292
+## Reductions:
+
+State 292:
+## Known stack suffix:
+## itm_lbl_tab_id lb1
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab_id lb1 . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 293
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 293:
+## Known stack suffix:
+## itm_lbl_tab_id lb1 blks1
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab_id lb1 blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm0 -> itm_lbl_tab_id lb1 blks1
+
+State 294:
+## Known stack suffix:
+## itm_lbl_tab
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab . blks1 [ NL ]
+blk_itm0 -> itm_lbl_tab . lb1 blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On lb1 shift to state 295
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 297
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 295:
+## Known stack suffix:
+## itm_lbl_tab lb1
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab lb1 . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 296
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 296:
+## Known stack suffix:
+## itm_lbl_tab lb1 blks1
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab lb1 blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm0 -> itm_lbl_tab lb1 blks1
+
+State 297:
+## Known stack suffix:
+## itm_lbl_tab blks1
+## LR(1) items:
+blk_itm0 -> itm_lbl_tab blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_itm0 -> itm_lbl_tab blks1
+
+State 298:
+## Known stack suffix:
+## dsp_lines0
+## LR(1) items:
+blk_dsp0 -> dsp_lines0 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_dsp0 -> dsp_lines0
+
+State 299:
+## Known stack suffix:
+## dash_tab
+## LR(1) items:
+blk_blt0 -> dash_tab . blks1 [ NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 68
+-- On STAR shift to state 79
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL shift to state 86
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units1 shift to state 87
+-- On txt_unit1 shift to state 88
+-- On txt shift to state 90
+-- On special_blks1 shift to state 245
+-- On itm_lbl_tab_id shift to state 95
+-- On itm_lbl_tab shift to state 220
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines1 shift to state 224
+-- On dsp_line shift to state 225
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 237
+-- On c_ref shift to state 93
+-- On blks1 shift to state 300
+-- On blk_vrb1 shift to state 239
+-- On blk_txt1 shift to state 247
+-- On blk_itm1 shift to state 241
+-- On blk_dsp1 shift to state 242
+-- On blk_blt1 shift to state 243
+-- On blk1 shift to state 253
+## Reductions:
+
+State 300:
+## Known stack suffix:
+## dash_tab blks1
+## LR(1) items:
+blk_blt0 -> dash_tab blks1 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk_blt0 -> dash_tab blks1
+
+State 301:
+## Known stack suffix:
+## lb1 special_blk_dsp0 NL blks0
+## LR(1) items:
+special_blks -> lb1 special_blk_dsp0 NL blks0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blks -> lb1 special_blk_dsp0 NL blks0
+
+State 302:
+## Known stack suffix:
+## blk_vrb0
+## LR(1) items:
+blk0 -> blk_vrb0 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk0 -> blk_vrb0
+
+State 303:
+## Known stack suffix:
+## blk_txt0
+## LR(1) items:
+blk0 -> blk_txt0 . [ NL ]
+special_blks0 -> blk_txt0 . lb1 special_blk_dsp0 lb0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+special_blks0 -> blk_txt0 . lb1 special_blk_dsp0 lb0 blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On lb1 shift to state 304
+## Reductions:
+-- On NL
+--   reduce production blk0 -> blk_txt0
+
+State 304:
+## Known stack suffix:
+## blk_txt0 lb1
+## LR(1) items:
+special_blks0 -> blk_txt0 lb1 . special_blk_dsp0 lb0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+special_blks0 -> blk_txt0 lb1 . special_blk_dsp0 lb0 blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 174
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt shift to state 177
+-- On special_dsp_lines0 shift to state 278
+-- On special_dsp_line shift to state 279
+-- On special_blk_dsp0 shift to state 305
+-- On dsp_units shift to state 182
+-- On dsp_unit shift to state 183
+-- On c_ref shift to state 185
+## Reductions:
+
+State 305:
+## Known stack suffix:
+## blk_txt0 lb1 special_blk_dsp0
+## LR(1) items:
+special_blk_dsp0 -> special_blk_dsp0 . NL [ NL ]
+special_blks0 -> blk_txt0 lb1 special_blk_dsp0 . lb0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+special_blks0 -> blk_txt0 lb1 special_blk_dsp0 . lb0 blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL shift to state 306
+-- On lb0 shift to state 307
+## Reductions:
+
+State 306:
+## Known stack suffix:
+## special_blk_dsp0 NL
+## LR(1) items:
+lb0 -> NL . [ TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT ]
+special_blk_dsp0 -> special_blk_dsp0 NL . [ NL ]
+## Transitions:
+## Reductions:
+-- On TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT
+--   reduce production lb0 -> NL
+-- On NL
+--   reduce production special_blk_dsp0 -> special_blk_dsp0 NL
+
+State 307:
+## Known stack suffix:
+## blk_txt0 lb1 special_blk_dsp0 lb0
+## LR(1) items:
+special_blks0 -> blk_txt0 lb1 special_blk_dsp0 lb0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+special_blks0 -> blk_txt0 lb1 special_blk_dsp0 lb0 . blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 308
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL
+--   reduce production special_blks0 -> blk_txt0 lb1 special_blk_dsp0 lb0
+
+State 308:
+## Known stack suffix:
+## blk_txt0 lb1 special_blk_dsp0 lb0 blks0
+## LR(1) items:
+special_blks0 -> blk_txt0 lb1 special_blk_dsp0 lb0 blks0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production special_blks0 -> blk_txt0 lb1 special_blk_dsp0 lb0 blks0
+
+State 309:
+## Known stack suffix:
+## blk_itm0
+## LR(1) items:
+blk0 -> blk_itm0 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk0 -> blk_itm0
+
+State 310:
+## Known stack suffix:
+## blk_dsp0
+## LR(1) items:
+blk0 -> blk_dsp0 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk0 -> blk_dsp0
+
+State 311:
+## Known stack suffix:
+## blk_blt0
+## LR(1) items:
+blk0 -> blk_blt0 . [ NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blk0 -> blk_blt0
+
+State 312:
+## Known stack suffix:
+## blk0
+## LR(1) items:
+blk0 -> blk0 . NL [ NL ]
+blks0 -> blk0 . lb0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+blks0 -> blk0 . lb0 blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL shift to state 313
+-- On lb0 shift to state 314
+## Reductions:
+
+State 313:
+## Known stack suffix:
+## blk0 NL
+## LR(1) items:
+blk0 -> blk0 NL . [ NL ]
+lb0 -> NL . [ TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT ]
+## Transitions:
+## Reductions:
+-- On NL
+--   reduce production blk0 -> blk0 NL
+-- On TXT TITLE START_VRB STAR SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL SECTION RBR PREAMBLE PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL PILCROW LBR ITM_CUSTOM_TAB_ID ITM_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_AUTO_TAB ESC_CHAR EOF DSP_CUSTOM_TAB DSP_AUTO_TAB DASH_TAB C_REF COLON CH_TAG_OR_ID_NL AUTHOR ABSTRACT
+--   reduce production lb0 -> NL
+
+State 314:
+## Known stack suffix:
+## blk0 lb0
+## LR(1) items:
+blks0 -> blk0 lb0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+blks0 -> blk0 lb0 . blks0 [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 315
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL
+--   reduce production blks0 -> blk0 lb0
+
+State 315:
+## Known stack suffix:
+## blk0 lb0 blks0
+## LR(1) items:
+blks0 -> blk0 lb0 blks0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks0 -> blk0 lb0 blks0
+
+State 316:
+## Known stack suffix:
+## blks0
+## LR(1) items:
+blks -> blks0 . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production blks -> blks0
+
+State 317:
+## Known stack suffix:
+## nls blks
+## LR(1) items:
+par_main -> nls blks . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par_main -> nls blks
+
+State 318:
+## Known stack suffix:
+## pilcrow_spaces_tag_or_id_nl hdr
+## LR(1) items:
+par -> pilcrow_spaces_tag_or_id_nl hdr . par_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On special_blks shift to state 273
+-- On par_main shift to state 319
+-- On nls shift to state 275
+-- On lb1 shift to state 277
+## Reductions:
+
+State 319:
+## Known stack suffix:
+## pilcrow_spaces_tag_or_id_nl hdr par_main
+## LR(1) items:
+par -> pilcrow_spaces_tag_or_id_nl hdr par_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par -> pilcrow_spaces_tag_or_id_nl hdr par_main
+
+State 320:
+## Known stack suffix:
+## pilcrow_spaces_rpt_spaces_id_nl
+## LR(1) items:
+par -> pilcrow_spaces_rpt_spaces_id_nl . nls [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL shift to state 50
+-- On nls shift to state 321
+## Reductions:
+
+State 321:
+## Known stack suffix:
+## pilcrow_spaces_rpt_spaces_id_nl nls
+## LR(1) items:
+par -> pilcrow_spaces_rpt_spaces_id_nl nls . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par -> pilcrow_spaces_rpt_spaces_id_nl nls
+
+State 322:
+## Known stack suffix:
+## pilcrow_nl
+## LR(1) items:
+par -> pilcrow_nl . par_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+par -> pilcrow_nl . hdr par_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 267
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks shift to state 273
+-- On par_main shift to state 323
+-- On nls shift to state 275
+-- On lb1 shift to state 277
+-- On hdr shift to state 324
+-- On c_ref shift to state 264
+## Reductions:
+
+State 323:
+## Known stack suffix:
+## pilcrow_nl par_main
+## LR(1) items:
+par -> pilcrow_nl par_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par -> pilcrow_nl par_main
+
+State 324:
+## Known stack suffix:
+## pilcrow_nl hdr
+## LR(1) items:
+par -> pilcrow_nl hdr . par_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On special_blks shift to state 273
+-- On par_main shift to state 325
+-- On nls shift to state 275
+-- On lb1 shift to state 277
+## Reductions:
+
+State 325:
+## Known stack suffix:
+## pilcrow_nl hdr par_main
+## LR(1) items:
+par -> pilcrow_nl hdr par_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL PILCROW_REFS_NLS PILCROW_NL EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production par -> pilcrow_nl hdr par_main
+
+State 326:
+## Known stack suffix:
+## nls pars
+## LR(1) items:
+sec_main -> nls pars . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec_main -> nls pars
+
+State 327:
+## Known stack suffix:
+## par
+## LR(1) items:
+pars -> par . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+pars -> par . pars [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 328
+-- On par shift to state 327
+## Reductions:
+-- On SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL
+--   reduce production pars -> par
+
+State 328:
+## Known stack suffix:
+## par pars
+## LR(1) items:
+pars -> par pars . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production pars -> par pars
+
+State 329:
+## Known stack suffix:
+## nls blks
+## LR(1) items:
+sec_main -> nls blks . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec_main -> nls blks
+
+State 330:
+## Known stack suffix:
+## section_spaces_tag_or_id_nl hdr
+## LR(1) items:
+sec -> section_spaces_tag_or_id_nl hdr . sec_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On special_blks shift to state 268
+-- On sec_main shift to state 331
+-- On nls shift to state 270
+-- On lb1 shift to state 277
+## Reductions:
+
+State 331:
+## Known stack suffix:
+## section_spaces_tag_or_id_nl hdr sec_main
+## LR(1) items:
+sec -> section_spaces_tag_or_id_nl hdr sec_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec -> section_spaces_tag_or_id_nl hdr sec_main
+
+State 332:
+## Known stack suffix:
+## section_nl
+## LR(1) items:
+sec -> section_nl . sec_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+sec -> section_nl . hdr sec_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 267
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks shift to state 268
+-- On sec_main shift to state 333
+-- On nls shift to state 270
+-- On lb1 shift to state 277
+-- On hdr shift to state 334
+-- On c_ref shift to state 264
+## Reductions:
+
+State 333:
+## Known stack suffix:
+## section_nl sec_main
+## LR(1) items:
+sec -> section_nl sec_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec -> section_nl sec_main
+
+State 334:
+## Known stack suffix:
+## section_nl hdr
+## LR(1) items:
+sec -> section_nl hdr . sec_main [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On special_blks shift to state 268
+-- On sec_main shift to state 335
+-- On nls shift to state 270
+-- On lb1 shift to state 277
+## Reductions:
+
+State 335:
+## Known stack suffix:
+## section_nl hdr sec_main
+## LR(1) items:
+sec -> section_nl hdr sec_main . [ SECTION_SPACES_TAG_OR_ID_NL SECTION_REFS_NLS SECTION_NL PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production sec -> section_nl hdr sec_main
+
+State 336:
+## Known stack suffix:
+## secs
+## LR(1) items:
+doc_main -> secs . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_main -> secs
+
+State 337:
+## Known stack suffix:
+## sec
+## LR(1) items:
+secs -> sec . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+secs -> sec . secs [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 338
+-- On sec shift to state 337
+## Reductions:
+-- On SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL
+--   reduce production secs -> sec
+
+State 338:
+## Known stack suffix:
+## sec secs
+## LR(1) items:
+secs -> sec secs . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production secs -> sec secs
+
+State 339:
+## Known stack suffix:
+## pars
+## LR(1) items:
+doc_main -> pars . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_main -> pars
+
+State 340:
+## Known stack suffix:
+## nls
+## LR(1) items:
+main -> nls . doc EOF [ # ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 2
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 39
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On AUTHOR shift to state 61
+-- On ABSTRACT shift to state 66
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 336
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 339
+-- On par shift to state 327
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On doc_title shift to state 341
+-- On doc_preamble shift to state 343
+-- On doc_main shift to state 345
+-- On doc_author shift to state 351
+-- On doc_abstract shift to state 353
+-- On doc shift to state 373
+-- On dash_tab shift to state 299
+-- On chs shift to state 356
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+-- On c_ref shift to state 264
+-- On blks0 shift to state 369
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 341:
+## Known stack suffix:
+## doc_title
+## LR(1) items:
+doc -> doc_title . nls doc [ EOF ]
+## Transitions:
+-- On NL shift to state 50
+-- On nls shift to state 342
+## Reductions:
+
+State 342:
+## Known stack suffix:
+## doc_title nls
+## LR(1) items:
+doc -> doc_title nls . doc [ EOF ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 2
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 39
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On AUTHOR shift to state 61
+-- On ABSTRACT shift to state 66
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 336
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 339
+-- On par shift to state 327
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On doc_title shift to state 341
+-- On doc_preamble shift to state 343
+-- On doc_main shift to state 345
+-- On doc_author shift to state 351
+-- On doc_abstract shift to state 353
+-- On doc shift to state 372
+-- On dash_tab shift to state 299
+-- On chs shift to state 356
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+-- On c_ref shift to state 264
+-- On blks0 shift to state 369
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 343:
+## Known stack suffix:
+## doc_preamble
+## LR(1) items:
+doc -> doc_preamble . nls doc [ EOF ]
+## Transitions:
+-- On NL shift to state 50
+-- On nls shift to state 344
+## Reductions:
+
+State 344:
+## Known stack suffix:
+## doc_preamble nls
+## LR(1) items:
+doc -> doc_preamble nls . doc [ EOF ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 2
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 39
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On AUTHOR shift to state 61
+-- On ABSTRACT shift to state 66
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 336
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 339
+-- On par shift to state 327
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On doc_title shift to state 341
+-- On doc_preamble shift to state 343
+-- On doc_main shift to state 345
+-- On doc_author shift to state 351
+-- On doc_abstract shift to state 353
+-- On doc shift to state 371
+-- On dash_tab shift to state 299
+-- On chs shift to state 356
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+-- On c_ref shift to state 264
+-- On blks0 shift to state 369
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 345:
+## Known stack suffix:
+## doc_main
+## LR(1) items:
+doc -> doc_main . [ EOF ]
+doc -> doc_main . doc_refs [ EOF ]
+## Transitions:
+-- On SECTION_REFS_NLS shift to state 346
+-- On PILCROW_REFS_NLS shift to state 348
+-- On doc_refs shift to state 350
+## Reductions:
+-- On EOF
+--   reduce production doc -> doc_main
+
+State 346:
+## Known stack suffix:
+## SECTION_REFS_NLS
+## LR(1) items:
+doc_refs -> SECTION_REFS_NLS . blks0 [ EOF ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 347
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 347:
+## Known stack suffix:
+## SECTION_REFS_NLS blks0
+## LR(1) items:
+doc_refs -> SECTION_REFS_NLS blks0 . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_refs -> SECTION_REFS_NLS blks0
+
+State 348:
+## Known stack suffix:
+## PILCROW_REFS_NLS
+## LR(1) items:
+doc_refs -> PILCROW_REFS_NLS . blks0 [ EOF ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 349
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 349:
+## Known stack suffix:
+## PILCROW_REFS_NLS blks0
+## LR(1) items:
+doc_refs -> PILCROW_REFS_NLS blks0 . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_refs -> PILCROW_REFS_NLS blks0
+
+State 350:
+## Known stack suffix:
+## doc_main doc_refs
+## LR(1) items:
+doc -> doc_main doc_refs . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc -> doc_main doc_refs
+
+State 351:
+## Known stack suffix:
+## doc_author
+## LR(1) items:
+doc -> doc_author . nls doc [ EOF ]
+## Transitions:
+-- On NL shift to state 50
+-- On nls shift to state 352
+## Reductions:
+
+State 352:
+## Known stack suffix:
+## doc_author nls
+## LR(1) items:
+doc -> doc_author nls . doc [ EOF ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 2
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 39
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On AUTHOR shift to state 61
+-- On ABSTRACT shift to state 66
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 336
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 339
+-- On par shift to state 327
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On doc_title shift to state 341
+-- On doc_preamble shift to state 343
+-- On doc_main shift to state 345
+-- On doc_author shift to state 351
+-- On doc_abstract shift to state 353
+-- On doc shift to state 370
+-- On dash_tab shift to state 299
+-- On chs shift to state 356
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+-- On c_ref shift to state 264
+-- On blks0 shift to state 369
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 353:
+## Known stack suffix:
+## doc_abstract
+## LR(1) items:
+doc -> doc_abstract . nls doc [ EOF ]
+## Transitions:
+-- On NL shift to state 50
+-- On nls shift to state 354
+## Reductions:
+
+State 354:
+## Known stack suffix:
+## doc_abstract nls
+## LR(1) items:
+doc -> doc_abstract nls . doc [ EOF ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 2
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 39
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On AUTHOR shift to state 61
+-- On ABSTRACT shift to state 66
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 336
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 339
+-- On par shift to state 327
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On doc_title shift to state 341
+-- On doc_preamble shift to state 343
+-- On doc_main shift to state 345
+-- On doc_author shift to state 351
+-- On doc_abstract shift to state 353
+-- On doc shift to state 355
+-- On dash_tab shift to state 299
+-- On chs shift to state 356
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+-- On c_ref shift to state 264
+-- On blks0 shift to state 369
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 355:
+## Known stack suffix:
+## doc_abstract nls doc
+## LR(1) items:
+doc -> doc_abstract nls doc . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc -> doc_abstract nls doc
+
+State 356:
+## Known stack suffix:
+## chs
+## LR(1) items:
+doc_main -> chs . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_main -> chs
+
+State 357:
+## Known stack suffix:
+## ch_nl
+## LR(1) items:
+ch -> ch_nl . ch_main [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+ch -> ch_nl . hdr ch_main [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On STAR shift to state 18
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On LBR shift to state 24
+-- On ESC_CHAR shift to state 25
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 267
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks shift to state 358
+-- On nls shift to state 359
+-- On lb1 shift to state 277
+-- On hdr shift to state 364
+-- On ch_main shift to state 366
+-- On c_ref shift to state 264
+## Reductions:
+
+State 358:
+## Known stack suffix:
+## special_blks
+## LR(1) items:
+ch_main -> special_blks . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch_main -> special_blks
+
+State 359:
+## Known stack suffix:
+## nls
+## LR(1) items:
+ch_main -> nls . secs [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+ch_main -> nls . pars [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+ch_main -> nls . blks [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+ch_main -> nls . special_blks [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On TXT shift to state 1
+-- On TITLE shift to state 19
+-- On START_VRB shift to state 10
+-- On STAR shift to state 18
+-- On SECTION_SPACES_TAG_OR_ID_NL shift to state 37
+-- On SECTION_NL shift to state 38
+-- On SECTION shift to state 20
+-- On RBR shift to state 21
+-- On PREAMBLE shift to state 22
+-- On PILCROW_SPACES_TAG_OR_ID_NL shift to state 47
+-- On PILCROW_SPACES_RPT_SPACES_ID_NL shift to state 48
+-- On PILCROW_NL shift to state 49
+-- On PILCROW shift to state 23
+-- On NL_TAB shift to state 83
+-- On LBR shift to state 24
+-- On ITM_CUSTOM_TAB_ID shift to state 52
+-- On ITM_CUSTOM_TAB shift to state 53
+-- On ITM_AUTO_TAB_ID shift to state 54
+-- On ITM_AUTO_TAB shift to state 55
+-- On ESC_CHAR shift to state 25
+-- On DSP_CUSTOM_TAB shift to state 56
+-- On DSP_AUTO_TAB shift to state 57
+-- On DASH_TAB shift to state 58
+-- On C_REF shift to state 59
+-- On COLON shift to state 26
+-- On AUTHOR shift to state 27
+-- On ABSTRACT shift to state 28
+-- On txt_units0 shift to state 258
+-- On txt_unit0 shift to state 259
+-- On txt shift to state 261
+-- On special_blks0 shift to state 265
+-- On special_blks shift to state 360
+-- On section_spaces_tag_or_id_nl shift to state 266
+-- On section_nl shift to state 332
+-- On secs shift to state 361
+-- On sec shift to state 337
+-- On pilcrow_spaces_tag_or_id_nl shift to state 272
+-- On pilcrow_spaces_rpt_spaces_id_nl shift to state 320
+-- On pilcrow_nl shift to state 322
+-- On pars shift to state 362
+-- On par shift to state 327
+-- On lb1 shift to state 277
+-- On itm_lbl_tab_id shift to state 291
+-- On itm_lbl_tab shift to state 294
+-- On itm_custom_tab_id shift to state 167
+-- On itm_custom_tab shift to state 168
+-- On itm_auto_tab_id shift to state 169
+-- On itm_auto_tab shift to state 170
+-- On dsp_lines0 shift to state 298
+-- On dsp_line shift to state 284
+-- On dsp_lbl_tab shift to state 188
+-- On dsp_custom_tab shift to state 195
+-- On dsp_auto_tab shift to state 196
+-- On dash_tab shift to state 299
+-- On c_ref shift to state 264
+-- On blks0 shift to state 316
+-- On blks shift to state 363
+-- On blk_vrb0 shift to state 302
+-- On blk_txt0 shift to state 303
+-- On blk_itm0 shift to state 309
+-- On blk_dsp0 shift to state 310
+-- On blk_blt0 shift to state 311
+-- On blk0 shift to state 312
+## Reductions:
+
+State 360:
+## Known stack suffix:
+## nls special_blks
+## LR(1) items:
+ch_main -> nls special_blks . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch_main -> nls special_blks
+
+State 361:
+## Known stack suffix:
+## nls secs
+## LR(1) items:
+ch_main -> nls secs . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch_main -> nls secs
+
+State 362:
+## Known stack suffix:
+## nls pars
+## LR(1) items:
+ch_main -> nls pars . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch_main -> nls pars
+
+State 363:
+## Known stack suffix:
+## nls blks
+## LR(1) items:
+ch_main -> nls blks . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch_main -> nls blks
+
+State 364:
+## Known stack suffix:
+## ch_nl hdr
+## LR(1) items:
+ch -> ch_nl hdr . ch_main [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+-- On NL_TAB shift to state 83
+-- On NL shift to state 50
+-- On special_blks shift to state 358
+-- On nls shift to state 359
+-- On lb1 shift to state 277
+-- On ch_main shift to state 365
+## Reductions:
+
+State 365:
+## Known stack suffix:
+## ch_nl hdr ch_main
+## LR(1) items:
+ch -> ch_nl hdr ch_main . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch -> ch_nl hdr ch_main
+
+State 366:
+## Known stack suffix:
+## ch_nl ch_main
+## LR(1) items:
+ch -> ch_nl ch_main . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF CH_TAG_OR_ID_NL ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production ch -> ch_nl ch_main
+
+State 367:
+## Known stack suffix:
+## ch
+## LR(1) items:
+chs -> ch . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+chs -> ch . chs [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+## Transitions:
+-- On CH_TAG_OR_ID_NL shift to state 60
+-- On chs shift to state 368
+-- On ch_nl shift to state 357
+-- On ch shift to state 367
+## Reductions:
+-- On SECTION_REFS_NLS PILCROW_REFS_NLS EOF
+--   reduce production chs -> ch
+
+State 368:
+## Known stack suffix:
+## ch chs
+## LR(1) items:
+chs -> ch chs . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production chs -> ch chs
+
+State 369:
+## Known stack suffix:
+## blks0
+## LR(1) items:
+doc_main -> blks0 . [ SECTION_REFS_NLS PILCROW_REFS_NLS EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc_main -> blks0
+
+State 370:
+## Known stack suffix:
+## doc_author nls doc
+## LR(1) items:
+doc -> doc_author nls doc . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc -> doc_author nls doc
+
+State 371:
+## Known stack suffix:
+## doc_preamble nls doc
+## LR(1) items:
+doc -> doc_preamble nls doc . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc -> doc_preamble nls doc
+
+State 372:
+## Known stack suffix:
+## doc_title nls doc
+## LR(1) items:
+doc -> doc_title nls doc . [ EOF ]
+## Transitions:
+## Default reduction:
+-- After reading the next token, reduce production doc -> doc_title nls doc
+
+State 373:
+## Known stack suffix:
+## nls doc
+## LR(1) items:
+main -> nls doc . EOF [ # ]
+## Transitions:
+-- On EOF shift to state 374
+## Reductions:
+
+State 374:
+## Known stack suffix:
+## nls doc EOF
+## LR(1) items:
+main -> nls doc EOF . [ # ]
+## Transitions:
+## Default reduction:
+-- Without reading the next token, reduce production main -> nls doc EOF
+
+State 375:
+## Known stack suffix:
+## main
+## LR(1) items:
+main' -> main . [ # ]
+## Transitions:
+## Default reduction:
+-- Without reading the next token, accept main
+
+State 376:
+## Known stack suffix:
+## doc
+## LR(1) items:
+main -> doc . EOF [ # ]
+## Transitions:
+-- On EOF shift to state 377
+## Reductions:
+
+State 377:
+## Known stack suffix:
+## doc EOF
+## LR(1) items:
+main -> doc EOF . [ # ]
+## Transitions:
+## Default reduction:
+-- Without reading the next token, reduce production main -> doc EOF
+

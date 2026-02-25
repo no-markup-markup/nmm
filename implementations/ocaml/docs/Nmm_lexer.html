@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Nmm_parser_automaton.html">
+<link rel="next" href="Doc_of_nmm.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_parser_automaton" rel="Chapter" href="Nmm_parser_automaton.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_lexer</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Nmm_parser_automaton.html" title="Nmm_parser_automaton">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Doc_of_nmm.html" title="Doc_of_nmm">Next</a>
+</div>
+<h1>Module <a href="type_Nmm_lexer.html">Nmm_lexer</a></h1>
+
+<pre><span id="MODULENmm_lexer"><span class="keyword">module</span> Nmm_lexer</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Nmm_lexer.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>Lexer used by <a href="Doc_of_nmm.html"><code class="code"><span class="constructor">Doc_of_nmm</span></code></a> together with <a href="Nmm_parser.html"><code class="code"><span class="constructor">Nmm_parser</span></code></a>. Relies on <a href="https://github.com/ocaml-community/sedlex">Sedlex</a>.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="EXCEPTIONERROR"><span class="keyword">exception</span> ERROR</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="VALline_of_lexbuf"><span class="keyword">val</span> line_of_lexbuf</span> : <code class="type">Sedlexing.lexbuf -&gt; string</code></pre>
+<pre><span id="VALreturn_nl"><span class="keyword">val</span> return_nl</span> : <code class="type">bool Stdlib.ref</code></pre>
+<pre><span id="VALverbatim"><span class="keyword">val</span> verbatim</span> : <code class="type">bool Stdlib.ref</code></pre>
+<pre><span id="VALfirst_nl"><span class="keyword">val</span> first_nl</span> : <code class="type">bool Stdlib.ref</code></pre>
+<pre><span id="VALdisplay"><span class="keyword">val</span> display</span> : <code class="type">bool Stdlib.ref</code></pre>
+<pre><span id="VALtoken"><span class="keyword">val</span> token</span> : <code class="type">Sedlexing.lexbuf -&gt; <a href="Nmm_parser.html#TYPEtoken">Nmm_parser.token</a></code></pre></body></html>

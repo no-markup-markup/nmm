@@ -63,7 +63,6 @@ and tu_blk =
   | Cu_blk_itm of tr_blk_itm
   | Cu_blk_dsp of ts_blk_dsp
   | Cu_blk_vrb of ts_blk_vrb
-  | Cu_blk_empty of ts_blk_empty
 
 and tu_secs_pars_or_blks =
   | Cu_secs_pars_or_blks_secs of ts_secs

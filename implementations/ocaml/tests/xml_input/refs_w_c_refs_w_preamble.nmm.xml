@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cs_preamble>abstract-hdr=SUMMARY;refs-hdr=CITED WORKS</cs_preamble>
+<cs_title>Referring to named items under REFERENCES</cs_title>
+<cs_authors>
+<cs_author>Eric Johannesson</cs_author>
+</cs_authors>
+<cs_abstract>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Discussing the problem of referring to items in the bibliography,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>with a proposed solution.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_abstract>
+<cu_doc_main_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Given a named item under REFERENCES, say with the the name ‘ITM</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Euler’,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>what should the cross reference ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ITM</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Euler</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’ look like?</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assuming it is the first item on the list, one could either go for</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>alt1</cs_name>
+</cr_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘REFERENCES(1)’ (or something similar), or</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>alt2</cs_name>
+</cr_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>my preferred solution</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’, with item labels under REFERENCES rendered as</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’, ‘</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’, etc.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Having implemented </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>alt2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, I can refer to </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>Euler</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>Tarski</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> below, as just indicated.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>But for now, I think this would suffice.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_doc_main_blks>
+<cs_refs>
+<cs_blks>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>Euler</cs_name>
+</cr_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Euler, Leonhard (1740)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> De summis serierum reciprocarum. In</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Commentarii academiae scientiarum Petropolitanae, volume 7,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>pages 123–134</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>Tarski</cs_name>
+</cr_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Tarski, Alfred, and Andrzej Mostowski, and Raphael M.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Robinson (1953)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> Undecidable Theories; North-Holland Publishing</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Company; Amsterdam.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+</cs_blks>
+</cs_refs>
+</cr_doc>

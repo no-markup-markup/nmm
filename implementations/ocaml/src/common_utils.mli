@@ -89,7 +89,6 @@ type t_doc_settings = {
   par_prefix : string option;
   expand_tag_singular: Doc_types.ts_tag -> string option;
   expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
-  preserve_vertical_white_space : bool;
 }
 
 
@@ -246,22 +245,7 @@ type t_cref_element =
 
 type t_cref_table = (Doc_types.tr_id * t_path * t_cref_element) list 
 
-type t_doc_cref_table = {
-  	mutable content : t_cref_table;
-}
-
-
-val doc_cref_table : t_doc_cref_table
-(**
-{[= {
-    content = [];
-}]}
-
-Starts as an empty table.
-*)
-
-
-val string_of_ts_c_ref : t_doc_settings -> t_path -> Doc_types.ts_c_ref -> string
+val string_of_ts_c_ref : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_c_ref -> string
 (**
 {[string_of_ts_c_ref doc_settings path c_ref]}
 
@@ -355,7 +339,7 @@ evaluates to
 *)
 
 
-val par_restated_of_tr_id : t_doc_settings -> t_path -> Doc_types.tr_id -> (Doc_types.tr_par_std * t_path) option
+val par_restated_of_tr_id : t_doc_settings -> t_cref_table -> t_path -> Doc_types.tr_id -> (Doc_types.tr_par_std * t_path) option
 
 val string_of_tu_scope : Doc_types.tu_scope -> string
 

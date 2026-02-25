@@ -80,8 +80,6 @@ match element with
 
 |Xml.Element ("clear",[],[]) -> Xml.Element ("div",[("class","clear")],[Xml.PCData ""])
 
-|Xml.Element ("blk_empty",[],[]) -> Xml.Element ("br",[],[])
-
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
 let margin_left_of_tr_doc (doc_settings : Common_utils.t_doc_settings) (doc : Doc_types.tr_doc) : string =
@@ -98,6 +96,10 @@ html {
     line-height   : 150%;
 }
 
+em {
+    font-style      : normal;
+    text-decoration : underline;
+}
 
 a {
     text-decoration : none;
@@ -138,7 +140,8 @@ h2, h3, h4, h5 {
 
 
 .authors {
-    font-size : large;
+    font-size : medium;
+    margin-top : 2rem;
     margin-bottom : 1rem;
 }
 

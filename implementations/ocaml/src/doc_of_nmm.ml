@@ -50,7 +50,7 @@ let string_of_token (t:Nmm_parser.token):string=
 	|TAB_TAB_TAB_END_VRB -> "TAB_TAB_TAB_END_VRB"
 
 let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
-	let t:Nmm_parser.token=Nmm_lexer.lex b in
+	let t:Nmm_parser.token=Nmm_lexer.token b in
 	let start_pos,end_pos=Sedlexing.lexing_positions b in
 	match print_tokens with
 	|true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in (t,start_pos,end_pos)

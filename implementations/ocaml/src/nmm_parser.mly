@@ -94,7 +94,7 @@ let get_id_string (s : string) : string =
 %type <Doc_types.ts_par_rpt>              pilcrow_spaces_rpt_spaces_id_nl
 %type <Doc_types.ts_blks>                 par_main blks special_blks
 %type <Doc_types.tu_par list>             pars
-%type <Doc_types.tu_blk list>             blk0
+%type <Doc_types.tu_blk>                  blk0
 %type <Doc_types.tu_blk>                  blk1 blk2 blk3
 %type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
 %type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
@@ -301,8 +301,8 @@ special_blks:
 (* Level 0: *)
 
 blks0:
-  |blk0 lb0                                       { $1:tu_blk list }
-  |blk0 lb0 blks0                                 { List.concat [$1;$3]:tu_blk list }
+  |blk0 lb0                                       { ($1::[]):tu_blk list }
+  |blk0 lb0 blks0                                 { ($1::$3):tu_blk list }
   |special_blks0                                  { $1:tu_blk list }
 ;
 
@@ -312,16 +312,12 @@ special_blks0:
 ;
 
 blk0:
-  |blk_txt0                                       { [Cu_blk_txt $1]:tu_blk list }
-  |blk_blt0                                       { [Cu_blk_blt $1]:tu_blk list }
-  |blk_itm0                                       { [Cu_blk_itm $1]:tu_blk list }
-  |blk_dsp0                                       { [Cu_blk_dsp $1]:tu_blk list }
-  |blk_vrb0                                       { [Cu_blk_vrb $1]:tu_blk list }
-  |blk0 blk_empty0                                { List.concat [$1;$2]:tu_blk list }
-;
-
-blk_empty0:
-  |NL                                             { [Cu_blk_empty Cs_blk_empty]:tu_blk list }
+  |blk_txt0                                       { Cu_blk_txt $1:tu_blk }
+  |blk_blt0                                       { Cu_blk_blt $1:tu_blk }
+  |blk_itm0                                       { Cu_blk_itm $1:tu_blk }
+  |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
+  |blk_vrb0                                       { Cu_blk_vrb $1:tu_blk }
+  |blk0 NL                                        { $1 : tu_blk }
 ;
 
 blk_txt0:

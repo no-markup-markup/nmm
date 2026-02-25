@@ -19,7 +19,6 @@ type t_doc_settings = {
 	par_prefix : string option;
 	expand_tag_singular: Doc_types.ts_tag -> string option;
 	expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
-	preserve_vertical_white_space : bool;
 }
 
 type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
@@ -63,7 +62,6 @@ let doc_settings_default () : t_doc_settings = {
 	par_prefix = Some "¶";
 	expand_tag_singular = expand_tag_singular_default;
 	expand_tag_plural = expand_tag_plural_default;
-	preserve_vertical_white_space = false;
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
@@ -176,7 +174,6 @@ and set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -200,7 +197,6 @@ and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -224,7 +220,6 @@ and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -248,7 +243,6 @@ and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -272,7 +266,6 @@ and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -296,7 +289,6 @@ and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -321,7 +313,6 @@ and set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -344,7 +335,6 @@ and set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 
 and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -363,7 +353,6 @@ and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 
 and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -382,7 +371,6 @@ and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 
 and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -401,7 +389,6 @@ and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 
 and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -420,7 +407,6 @@ and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	par_prefix = prefix_value_of_string v;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 
 
@@ -441,7 +427,6 @@ and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option)
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = singular_tag_value_of_string expand_tag_old v;
 	expand_tag_plural = doc_settings.expand_tag_plural;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -465,7 +450,6 @@ and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string
 	par_prefix = doc_settings.par_prefix;
 	expand_tag_singular = doc_settings.expand_tag_singular;
 	expand_tag_plural = plural_tag_value_of_string expand_tag_old v;
-	preserve_vertical_white_space = doc_settings.preserve_vertical_white_space;
 	}
 	with _ ->
 	let _ : unit =
@@ -541,10 +525,6 @@ type t_cref_element =
 
 type t_cref_table = (Doc_types.tr_id * t_path * t_cref_element) list
 
-type t_doc_cref_table = { mutable content : t_cref_table }
-
-let doc_cref_table : t_doc_cref_table = { content = [] }
-
 let path_to_ch_node (path : t_path) : t_path =
 	let rec aux (rev_path : t_path) (acc : t_path) : t_path =
 		match rev_path with
@@ -587,8 +567,8 @@ let path_to_par_node (path : t_path) : t_path =
 	in aux (List.rev path) []
 
 
-let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
-	match reference_of_ts_c_ref c_ref_loc c_ref with
+let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
+	match reference_of_ts_c_ref cref_table c_ref_loc c_ref with
 	|Some (_, id_loc, _) -> (
 		match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
 		|id_loc_hd::id_loc_tl, Some (sub : string) -> (
@@ -652,7 +632,7 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (c_ref_loc : t_path) 
 		]) in "??"
 
 
-and reference_of_ts_c_ref (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (Doc_types.tr_id * t_path * t_cref_element) option =
+and reference_of_ts_c_ref (cref_table : t_cref_table) (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (Doc_types.tr_id * t_path * t_cref_element) option =
 	match c_ref with
 	|Cs_c_ref (c_ref_id) ->
 	let rec aux (cref_table : t_cref_table) : (Doc_types.tr_id * t_path * t_cref_element) option =
@@ -663,7 +643,7 @@ and reference_of_ts_c_ref (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (
 			|true -> Some (table_id, table_path, table_element)
 			|false -> aux tl
 	in
-	aux doc_cref_table.content
+	aux cref_table
 
 
 and ids_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
@@ -996,8 +976,8 @@ let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 
 
 
-let par_restated_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (Doc_types.tr_par_std * t_path) option =
-	match reference_of_ts_c_ref path (Cs_c_ref id) with
+let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (id : tr_id) : (Doc_types.tr_par_std * t_path) option =
+	match reference_of_ts_c_ref cref_table path (Cs_c_ref id) with
 	|None -> let _ : unit = Debug_utils.print_warning (String.concat "" [
 			"WARNING: id \'";string_of_tr_id id;
 			"\' referenced in ";

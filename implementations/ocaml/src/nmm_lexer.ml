@@ -111,7 +111,7 @@ let display : bool ref = ref false
 
 (************** the lexer ******************************)
 
-let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
+let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 	match verbatim.contents, display.contents with
 	|false, false -> (
 		match%sedlex lexbuf with
@@ -187,7 +187,7 @@ let rec lex (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
 
 and end_of_file (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
 	match return_nl.contents with
-	|true -> let _ = return_nl.contents <- false in let _ = lex lexbuf in NL
+	|true -> let _ = return_nl.contents <- false in let _ = token lexbuf in NL
 	|false -> EOF
 
 

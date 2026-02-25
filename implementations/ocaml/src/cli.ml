@@ -1,3 +1,5 @@
+open Nmm_ocaml
+
 exception Error of string
 
 let usage : string=
@@ -18,12 +20,11 @@ reads from standard input.
 
 TXT-OPTIONS:
   --margin <numeral>
-  --preserve-vertical-white-space
   --quiet
+  --width <numeral>
 
 HTML-OPTIONS:
   --margin <numeral>
-  --preserve-vertical-white-space
   --quiet
   --lang <language-code>
   --css <uri>
@@ -94,7 +95,7 @@ and anon_arg_count : int ref = ref 0
 
 and margin : string ref = ref ""
 
-and preserve : bool ref = ref false
+and width : string ref = ref ""
 
 and lang : string ref = ref "en"
 
@@ -109,8 +110,8 @@ and keyspecdoc_list : t_keyspecdoc list ref = ref []
 and keyspecdoc_margin : t_keyspecdoc =
 	("--margin", Arg.Set_string margin, "")
 
-and keyspecdoc_preserve : t_keyspecdoc =
-	("--preserve-vertical-white-space", Arg.Set preserve, "")
+and keyspecdoc_width : t_keyspecdoc =
+	("--width", Arg.Set_string width, "")
 
 and keyspecdoc_lang : t_keyspecdoc =
 	("--lang", Arg.Set_string lang, "")
@@ -127,16 +128,16 @@ and keyspecdoc_quiet : t_keyspecdoc =
 
 and keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
-	keyspecdoc_preserve;
 	keyspecdoc_stdin;
 	keyspecdoc_quiet;
+	keyspecdoc_width;
 ]
 
 and keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
 	keyspecdoc_margin;
-	keyspecdoc_preserve;
 	keyspecdoc_stdin;
 	keyspecdoc_quiet;
+	keyspecdoc_width;
 ]
 
 
@@ -146,7 +147,6 @@ and keyspecdoc_list_xml_of_nmm : t_keyspecdoc list = [
 
 and keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
-	keyspecdoc_preserve;
 	keyspecdoc_stdin;
 	keyspecdoc_quiet;
 	keyspecdoc_lang;
@@ -155,7 +155,6 @@ and keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
 
 and keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
 	keyspecdoc_margin;
-	keyspecdoc_preserve;
 	keyspecdoc_stdin;
 	keyspecdoc_quiet;
 	keyspecdoc_lang;
@@ -170,10 +169,10 @@ let _ : unit =
 		|"" -> []
 		|some_margin -> ["--margin";some_margin]
 	in
-	let preserve_options : string list =
-	match preserve.contents with
-		|false -> []
-		|true -> ["--preserve-vertical-white-space"]
+	let width_options : string list =
+		match width.contents with
+		|"" -> []
+		|some_width -> ["--width";some_width]
 	in
 	let quiet_options : string list =
 	match quiet.contents with
@@ -190,7 +189,7 @@ let _ : unit =
 		|"" -> []
 		|uri -> ["--css";uri]
 	in
-	let options = List.concat [margin_options; preserve_options; quiet_options; lang_options; css_options] in
+	let options = List.concat [margin_options; width_options; quiet_options; lang_options; css_options] in
 	match cmd_name.contents with
 	|"txt-of-xml" -> (
 		match read_from_stdin.contents with

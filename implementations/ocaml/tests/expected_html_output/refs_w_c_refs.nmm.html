@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referring to named items under REFERENCES</title>
+<meta name="author" content="Eric Johannesson">
+<style>
+
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+em {
+    font-style      : normal;
+    text-decoration : underline;
+}
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight : normal;
+    font-size   : x-large;
+    margin-bottom : 1rem;
+}
+
+.doc.pars .title {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .title {
+    margin-left : 1.20rem;
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size : medium;
+    margin-top : 2rem;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .authors {
+    margin-left : 1.20rem;
+}
+
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .abstract {
+    margin-left : 1.20rem;
+}
+
+.abstract_hdr {
+    font-weight : normal;
+    font-size   : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .refs {
+    margin-left : 1.20rem;
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size : x-large;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    font-size   : large;
+    font-weight : normal;
+}
+
+.sec_hdr {
+    margin-left : 1.20rem;
+    font-size   : large;
+}
+
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
+}
+
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
+}
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
+}
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content : ")";
+}
+
+.par_main {
+    margin-left : 1.20rem;
+}
+
+
+/************** BLK *********************/
+
+.blk + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : 1.20rem;
+}
+
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_main {
+    margin-left : 6ch;
+}
+
+
+.blk_itm_main {
+    margin-left : 6ch;
+}
+
+
+.dsp_line_main {
+    margin-left : 6ch;
+}
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div style="display:block" class="doc blks">
+<h1 class="title">Referring to named items under REFERENCES</h1>
+<div class="authors" style="display:block">
+<p class="author">Eric Johannesson</p>
+</div>
+<div class="doc_main" style="display:block">
+<p class="blk txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
+<div class="blk itm" style="display:block" id="ITM_alt1">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">‘REFERENCES(1)’ (or something similar), or</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_alt2">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">my preferred solution: ‘[1]’, with item labels under REFERENCES rendered as ‘[1]’, ‘[2]’, etc.</p>
+</div>
+</div>
+<p class="blk txt">Having implemented <a class="txt_unit_c_ref" href="#ITM_alt2">(2)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM_Euler">(1) of REFERENCES</a> and <a class="txt_unit_c_ref" href="#ITM_Tarski">(2) of REFERENCES</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
+<p class="blk txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
+</div>
+<div class="refs" style="display:block">
+<h5 class="refs_hdr">REFERENCES</h5>
+<div class="blk itm" style="display:block" id="ITM_Euler">
+<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_Tarski">
+<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

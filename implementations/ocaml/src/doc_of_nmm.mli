@@ -1,4 +1,4 @@
-(** An LR(1) parser of nmm source-code (generated with {{:https://github.com/ocaml-community/sedlex}Sedlex} and {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}) that returns an abstract syntax tree in the format specified by {!module:Doc_types}. *)
+(** For mapping nmm source-code to objects of type {!type:Doc_types.tr_doc}. *)
 
 exception Error of string
 

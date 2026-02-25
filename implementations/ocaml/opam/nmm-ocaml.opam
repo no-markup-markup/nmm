@@ -1,0 +1,22 @@
+opam-version: "2.0"
+name: "nmm-ocaml"
+version: "1.0"
+maintainer: "Eric Johannesson <eric@ericjohannesson.com>"
+authors: "Eric Johannesson <eric@ericjohannesson.com>"
+synopsis: "An OCaml implementation of the no-markup-markup markup language"
+license: "GPL-3.0-or-later"
+homepage: "https://github.com/ericjohannesson/nmm-ocaml"
+dev-repo: "git+https://github.com/ericjohannesson/nmm-ocaml.git"
+bug-reports: "https://github.com/ericjohannesson/nmm-ocaml/issues"
+depends : [ 
+	"ocaml"
+	"menhirLib"
+	"sedlex"
+	"uuseg"
+	"xml-light"
+	"ocamlfind" { build }
+	"menhir" { build }
+]
+build: [ make "build" ]
+install: [ make "install" ]
+
