@@ -23,7 +23,7 @@ bin/nmm-ocaml: native
 	mkdir -p build_bin
 	cp -f native/* build_bin/
 	cd build_bin
-	ocamlfind ocamlopt -o nmm-ocaml -linkpkg -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str nmm_ocaml.cmxa cli.ml
+	ocamlfind ocamlopt -o nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str nmm_ocaml.cmxa cli.ml
 	cd -
 	mv build_bin/nmm-ocaml bin/
 
@@ -31,13 +31,12 @@ bin/nmm-ocaml: native
 docs: byte
 	mkdir -p docs
 	cd byte
-	ocamlfind ocamldoc -colorize-code -d ../docs -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str -html doc_types.ml xml_right.mli ../src/nmm_parser.mli nmm_parser_automaton.mli nmm_lexer.mli doc_of_nmm.mli common_utils.mli txt_utils.mli exml_utils.mli compiler_of_doc.mli axml_of_doc.mli doc_of_axml.mli html_utils.mli main.mli
-	cp nmm_parser.automaton.resolved ../docs/
+	ocamlfind ocamldoc -colorize-code -d ../docs -package sedlex.ppx -package uuseg -package xml-light -package str -html doc_types.ml xml_right.mli ../src/nmm_parser.mli nmm_lexer.mli doc_of_nmm.mli common_utils.mli txt_utils.mli exml_utils.mli compiler_of_doc.mli axml_of_doc.mli doc_of_axml.mli html_utils.mli main.mli
 	cd -
 
 install: build src/cli.ml
 	ocamlfind install nmm-ocaml build/*
-	ocamlfind ocamlopt -o ~/.opam/default/bin/nmm-ocaml -linkpkg -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str -package nmm-ocaml src/cli.ml
+	ocamlfind ocamlopt -o ~/.opam/default/bin/nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str -package nmm-ocaml src/cli.ml
 
 build: native opam byte
 	mkdir -p build
@@ -51,10 +50,8 @@ native: src
 	cp -f src/* native/
 	cd native
 	ocamlopt -c -for-pack Nmm_ocaml doc_types.ml debug_utils.ml
-	# generate nmm_parser.ml, nmm_parser.mli, nmm_parser.automaton:
-	menhir --infer --explain --dump --dump-resolved --exn-carries-state nmm_parser.mly
-	# generate nmm_parser_automaton.ml:
-	bash nmm_parser.automaton.sh nmm_parser.automaton.resolved > nmm_parser_automaton.ml 
+	# generate nmm_parser.ml, nmm_parser.mli:
+	ocamlyacc -v nmm_parser.mly
 	# generate nmm_parser.cmx, nmm_parser.cmxi:
 	ocamlopt -c -for-pack Nmm_ocaml nmm_parser.mli
 	# generate xml_right_lexer.ml
@@ -64,8 +61,8 @@ native: src
 	# generate xml_right_parser.cmx xml_right_parser.cmxi:
 	ocamlfind ocamlopt -c -for-pack Nmm_ocaml -package xml-light xml_right_parser.mli
 	# generate cmx-files: 
-	ocamlfind ocamlopt -c -for-pack Nmm_ocaml -linkpkg -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str xml_right_parser.mli xml_right_parser.ml xml_right_lexer.ml xml_right.mli xml_right.ml nmm_parser.mli nmm_parser.ml nmm_lexer.mli nmm_lexer.ml nmm_parser_automaton.mli nmm_parser_automaton.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml test.mli test.ml
-	ocamlfind ocamlopt -pack -o nmm_ocaml.cmx -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str doc_types.cmx debug_utils.cmx xml_right_parser.cmx xml_right_lexer.cmx xml_right.cmx nmm_parser.cmx nmm_lexer.cmx nmm_parser_automaton.cmx doc_of_nmm.cmx common_utils.cmx txt_utils.cmx exml_utils.cmx compiler_of_doc.cmx axml_of_doc.cmx doc_of_axml.cmx html_utils.cmx main.cmx test.cmx
+	ocamlfind ocamlopt -c -for-pack Nmm_ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str xml_right_parser.ml xml_right_lexer.ml xml_right.mli xml_right.ml nmm_parser.mli nmm_parser.ml nmm_lexer.mli nmm_lexer.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml test.mli test.ml
+	ocamlfind ocamlopt -pack -o nmm_ocaml.cmx -package sedlex.ppx -package uuseg -package xml-light -package str doc_types.cmx debug_utils.cmx xml_right_parser.cmx xml_right_lexer.cmx xml_right.cmx nmm_parser.cmx nmm_lexer.cmx doc_of_nmm.cmx common_utils.cmx txt_utils.cmx exml_utils.cmx compiler_of_doc.cmx axml_of_doc.cmx doc_of_axml.cmx html_utils.cmx main.cmx test.cmx
 	ocamlfind ocamlopt -a -o nmm_ocaml.cmxa nmm_ocaml.cmx
 	ocamlopt -shared -o nmm_ocaml.cmxs nmm_ocaml.cmxa
 
@@ -75,10 +72,8 @@ byte: src
 	cd byte
 	# generate doc_types.cmo, doc_types.cmi:
 	ocamlc -c -for-pack Nmm_ocaml doc_types.ml debug_utils.ml
-	# generate nmm_parser.ml, nmm_parser.mli, nmm_parser.automaton:
-	menhir --infer --explain --dump --dump-resolved --exn-carries-state nmm_parser.mly
-	# generate nmm_parser_automaton.ml:
-	bash nmm_parser.automaton.sh nmm_parser.automaton.resolved > nmm_parser_automaton.ml 
+	# generate nmm_parser.ml, nmm_parser.mli:
+	ocamlyacc -v nmm_parser.mly
 	# generate nmm_parser.cmo, nmm_parser.cmi:
 	ocamlc -c -for-pack Nmm_ocaml nmm_parser.mli
 	# generate xml_right_lexer.ml
@@ -88,11 +83,11 @@ byte: src
 	# generate xml_right_parser.cmo xml_right_parser.cmi:
 	ocamlfind ocamlc -c -for-pack Nmm_ocaml -package xml-light xml_right_parser.mli
 	# generate cmo-files: 
-	ocamlfind ocamlc -c -for-pack Nmm_ocaml -linkpkg -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str xml_right_parser.mli xml_right_parser.ml xml_right_lexer.ml xml_right.mli xml_right.ml nmm_parser.mli nmm_parser.ml nmm_lexer.mli nmm_lexer.ml nmm_parser_automaton.mli nmm_parser_automaton.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml test.mli test.ml
-	ocamlfind ocamlc -pack -o nmm_ocaml.cmo -package menhirLib -package sedlex.ppx -package uuseg -package xml-light -package str doc_types.cmo debug_utils.cmo xml_right_parser.cmo xml_right_lexer.cmo xml_right.cmo nmm_parser.cmo nmm_lexer.cmo nmm_parser_automaton.cmo doc_of_nmm.cmo common_utils.cmo txt_utils.cmo exml_utils.cmo compiler_of_doc.cmo axml_of_doc.cmo doc_of_axml.cmo html_utils.cmo main.cmo test.cmo
+	ocamlfind ocamlc -c -for-pack Nmm_ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str xml_right_parser.mli xml_right_parser.ml xml_right_lexer.ml xml_right.mli xml_right.ml nmm_parser.mli nmm_parser.ml nmm_lexer.mli nmm_lexer.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml test.mli test.ml
+	ocamlfind ocamlc -pack -o nmm_ocaml.cmo -package sedlex.ppx -package uuseg -package xml-light -package str doc_types.cmo debug_utils.cmo xml_right_parser.cmo xml_right_lexer.cmo xml_right.cmo nmm_parser.cmo nmm_lexer.cmo doc_of_nmm.cmo common_utils.cmo txt_utils.cmo exml_utils.cmo compiler_of_doc.cmo axml_of_doc.cmo doc_of_axml.cmo html_utils.cmo main.cmo test.cmo
 	ocamlc -a -o nmm_ocaml.cma nmm_ocaml.cmo
 	cd -
 
 utop: byte
-	utop -require sedlex -require uuseg -require xml-light -require menhirLib -require str -I $(realpath byte) $(realpath byte/nmm_ocaml.cma)
+	utop -require sedlex -require uuseg -require xml-light -require str -I $(realpath byte) $(realpath byte/nmm_ocaml.cma)
 

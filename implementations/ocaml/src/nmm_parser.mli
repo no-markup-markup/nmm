@@ -1,5 +1,5 @@
 (**
-An LR(1) parser of nmm source-code used by {!module:Doc_of_nmm} together with {!module:Nmm_lexer}. Generated from [nmm_parser.mly] with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}.
+An LR(1) parser of nmm source-code used by {!module:Doc_of_nmm} together with {!module:Nmm_lexer}. Generated from [nmm_parser.mly] with [ocamlyacc].
 *)
 
 type token =

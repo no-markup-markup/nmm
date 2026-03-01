@@ -3,7 +3,7 @@ Primarily for parsing an XML-representation of parsed nmm source-code, for valid
 
 The XML-parser is generated with [ocamllex and ocamlyacc](https://ocaml.org/manual/5.4/lexyacc.html), and the validation relies on [Xml-light](https://github.com/ncannasse/xml-light).
 
-It also includes an experimental LR(1) parser of nmm source-code, generated with [Sedlex](https://github.com/ocaml-community/sedlex) and [Menhir](https://gallium.inria.fr/~fpottier/menhir/).
+It also includes an experimental LR(1) parser of nmm source-code, generated with [Sedlex](https://github.com/ocaml-community/sedlex) and ocamlyacc.
 
 ## Command-line interface
 ```

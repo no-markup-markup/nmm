@@ -10,12 +10,10 @@ dev-repo: "git+https://github.com/ericjohannesson/nmm-ocaml.git"
 bug-reports: "https://github.com/ericjohannesson/nmm-ocaml/issues"
 depends : [ 
 	"ocaml"
-	"menhirLib"
 	"sedlex"
 	"uuseg"
 	"xml-light"
 	"ocamlfind" { build }
-	"menhir" { build }
 ]
 build: [ make "build" ]
 install: [ make "install" ]

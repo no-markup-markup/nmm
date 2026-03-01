@@ -49,15 +49,17 @@ let string_of_token (t:Nmm_parser.token):string=
 	|TAB_TAB_END_VRB -> "TAB_TAB_END_VRB"
 	|TAB_TAB_TAB_END_VRB -> "TAB_TAB_TAB_END_VRB"
 
-let lexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
-	let t:Nmm_parser.token=Nmm_lexer.token b in
+
+let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
+	let token : Nmm_parser.token=Nmm_lexer.token b in
 	let start_pos,end_pos=Sedlexing.lexing_positions b in
 	match print_tokens with
-	|true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in (t,start_pos,end_pos)
-	|false -> (t,start_pos,end_pos)
+	|true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token token)) in (token,start_pos,end_pos)
+	|false -> (token,start_pos,end_pos)
 
 
 (******************************************************************)
+
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.return_nl.contents <- true in
@@ -68,53 +70,58 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
 	|false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
 	|true -> 
 	let ic=open_in filename in
-	let lexbuf=Sedlexing.Utf8.from_channel ic in
-	let revised_lexer () = (lexer print_tokens) lexbuf in 
-	let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
+	let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_channel ic in
+	let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in
+	let lexer (lexbuf : Lexing.lexbuf) : Nmm_parser.token =
+		match sedlexer print_tokens sedlexbuf with
+		|token, start_pos, end_pos -> 
+			let _ : unit = dummy_lexbuf.Lexing.lex_start_p <- start_pos in
+			let _ : unit = dummy_lexbuf.Lexing.lex_curr_p <- end_pos in 
+			token
+	in
 	try
-		let doc = revised_parser revised_lexer in
+		let doc = Nmm_parser.main lexer dummy_lexbuf in
 		let _ : unit = close_in ic in doc
 	with
-	| Nmm_parser.Error (n : int) ->
+	| _ ->
 		match print_tokens with
 		|false -> 
 			let _ : unit = Debug_utils.print_to_stderr (
 				String.concat "\n" [
-					"Parsing failed in the following state of the automaton:";
-					"=======================================================";
-					Nmm_parser_automaton.state n;
-					"=======================================================";
 					"Read the the following tokens from " ^ filename ^ ":";
 				]
 			) 
 			in doc_of_nmm_file true filename
-		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
+		|true -> raise (Error "Parsing failed")
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.return_nl.contents <- true in
 	let _ : unit = Nmm_lexer.verbatim.contents <- false in
 	let _ : unit = Nmm_lexer.first_nl.contents <- true in
 	let _ : unit = Nmm_lexer.display.contents <- false in
-	let lexbuf = Sedlexing.Utf8.from_string s in
-	let revised_lexer () = (lexer print_tokens) lexbuf in 
-	let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
+	let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_string s in
+	let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in
+	let lexer (lexbuf : Lexing.lexbuf) : Nmm_parser.token =
+		match sedlexer print_tokens sedlexbuf with
+		|token, start_pos, end_pos -> 
+			let _ : unit = dummy_lexbuf.Lexing.lex_start_p <- start_pos in
+			let _ : unit = dummy_lexbuf.Lexing.lex_curr_p <- end_pos in 
+			token
+	in
 	try
-		revised_parser revised_lexer
+		let doc = Nmm_parser.main lexer dummy_lexbuf in
+		doc
 	with
-	| Nmm_parser.Error (n : int) ->
+	| _ ->
 		match print_tokens with
 		|false -> 
 			let _ : unit = Debug_utils.print_to_stderr (
 				String.concat "\n" [
-					"Parsing failed in the following state of the automaton:";
-					"=======================================================";
-					Nmm_parser_automaton.state n;
-					"=======================================================";
-					"Read the the following tokens from string:";
+					"Read the the following tokens from \'" ^ s ^ "\':";
 				]
 			) 
 			in doc_of_nmm_string true s
-		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
+		|true -> raise (Error "Parsing failed")
 
 let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.return_nl.contents <- true in
@@ -122,24 +129,27 @@ let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
 	let _ : unit = Nmm_lexer.first_nl.contents <- true in
 	let _ : unit = Nmm_lexer.display.contents <- false in
 	let input : string = In_channel.input_all stdin in
-	let lexbuf = Sedlexing.Utf8.from_string input in
-	let revised_lexer () = (lexer print_tokens) lexbuf in 
-	let revised_parser = MenhirLib.Convert.Simplified.traditional2revised Nmm_parser.main in
+	let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_string input in
+	let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in
+	let lexer (lexbuf : Lexing.lexbuf) : Nmm_parser.token =
+		match sedlexer print_tokens sedlexbuf with
+		|token, start_pos, end_pos -> 
+			let _ : unit = dummy_lexbuf.Lexing.lex_start_p <- start_pos in
+			let _ : unit = dummy_lexbuf.Lexing.lex_curr_p <- end_pos in 
+			token
+	in
 	try
-		revised_parser revised_lexer
+		let doc = Nmm_parser.main lexer dummy_lexbuf in
+		doc
 	with
-	| Nmm_parser.Error (n : int) ->
+	| _ ->
 		match print_tokens with
 		|false -> 
 			let _ : unit = Debug_utils.print_to_stderr (
 				String.concat "\n" [
-					"Parsing failed in the following state of the automaton:";
-					"=======================================================";
-					Nmm_parser_automaton.state n;
-					"=======================================================";
-					"Read the the following tokens from standard input:";
+					"Read the the following tokens from \'" ^ input ^ "\':";
 				]
 			) 
-			in doc_of_nmm_stdin true
-		|true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
+			in doc_of_nmm_string true input
+		|true -> raise (Error "Parsing failed")
 

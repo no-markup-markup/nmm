@@ -49,8 +49,6 @@
           pkgs_ocaml    = [
             pkgs-unstable.ocaml
             pkgs-unstable.ocamlPackages.findlib
-            pkgs-unstable.ocamlPackages.menhir
-            pkgs-unstable.ocamlPackages.menhirLib
             pkgs-unstable.ocamlPackages.sedlex
             pkgs-unstable.ocamlPackages.uuseg
             pkgs-unstable.ocamlPackages.xml-light
