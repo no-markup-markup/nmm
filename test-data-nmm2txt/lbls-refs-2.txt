@@ -1,0 +1,43 @@
+         CHAPTER 1
+         ═════════
+
+§ 1.A    Introduction
+         ────────────
+
+¶ 1.A.1  Some facts about inductively defined structures seem not to admit
+         “straightforward” induction proofs. In such cases, a
+         “non-straightforward” induction proof seems “necessary”. A curious
+         one, or one fond of precision, or anyone with any other motivation,
+         might then wonder whether there is a way to precisely and sensibly
+         state, and prove, that this or that fact does not admit a
+         straightforward induction proof.
+
+
+¶ 1.A.2  DEFINITION
+
+                    b : ℕ → ℚ
+         (B)     b(0) ≔ 1
+         (R)   b(n+1) ≔ b(n)+(n+2)⁻²
+
+
+¶ 1.A.3  REMARK  Definition 1.A.2 is by (successor) recursion on the natural
+         numbers.
+
+         (a)   1.A.2(B) is the the base case.
+
+         (b)   1.A.2(R) is the the recursive case.
+
+
+¶ 1.A.4  FACT  For each n:
+
+               b(n) < 2.
+
+
+¶ 1.A.5  Fact 1.A.4 is a simplification of t̲h̲e̲ ̲B̲a̲s̲e̲l̲ ̲p̲r̲o̲b̲l̲e̲m̲, which ask for a
+         closed-form expression of the infinite sum:
+
+                1     1     1     1
+               ─── + ─── + ─── + ─── + ⋯
+                1²    2²    3²    4²
+
+         Euler (1740) solved this problem and the sum is π²/6 (≈ 1.64).

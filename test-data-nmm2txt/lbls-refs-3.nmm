@@ -1,0 +1,53 @@
+§
+Example of local and global cross-references
+
+
+¶
+
+[]	ITM:a
+	This item is labeled ‘ITM:a’.
+
+	[]	ITM:a_i
+		This item is labeled ‘ITM:a_i’.
+
+	[]	ITM:a_ii
+		This item is labeled ‘ITM:a_ii’.
+
+	[]	This is a reference to the item labeled ‘ITM:a_i’:
+		[ITM:a_i].
+
+[]	This is another reference to the item labeled ‘ITM:a_i’:
+	[ITM:a_i].
+
+
+¶ PAR:itm_ref
+
+This is yet another reference to the item labeled ‘ITM:a_i’:
+[ITM:a_i].
+
+
+¶ FCTS
+
+We have:
+
+[]	FCT:something
+	A fact labeled ‘FCT:something’.
+
+[]	FCT:some_other
+	Some other fact!
+
+This is a reference to the fact labeled ‘FCT:something’:
+[FCT:something]. This one is local.
+
+
+¶ PAR:fct_ref
+
+This is another such reference: [FCT:something]. This one is global.
+
+
+¶
+
+Note the difference between the global reference in [PAR:itm_ref] and
+the one in [PAR:fct_ref]: only one uses the phrasing ‘── of ──’;
+the other is a fact in its own right and is better referred to as
+such.
