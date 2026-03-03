@@ -2,9 +2,9 @@
 	This item block has the tag ‘ITM’ and the name ‘name’ and the ID
 	‘ITM:name’.
 
-[]	DEF
-	This item block has the tag ‘DEF’. It has no name, and thus
-	neither an ID.
+[]	DEF:name
+	This item block has the tag ‘DEF’ and the name ‘name’ and ID
+	‘DEF:name’.
 
 []	Names need not be unique but IDs must be.
 

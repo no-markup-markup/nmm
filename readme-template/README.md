@@ -139,7 +139,7 @@ Due to the feature mentioned in (2)(c), a reference to (2)(b) or
 ```
 </details>
 
-More examples in TODO
+More examples below.
 
 ## Try it out
 
@@ -451,9 +451,9 @@ Here nothing needs escaping and nothing can be escaped. For each expression E:
 	This item block has the tag ‘ITM’ and the name ‘name’ and the ID
 	‘ITM:name’.
 
-[]	DEF
-	This item block has the tag ‘DEF’. It has no name, and thus
-	neither an ID.
+[]	DEF:name
+	This item block has the tag ‘DEF’ and the name ‘name’ and ID
+	‘DEF:name’.
 
 []	Names need not be unique but IDs must be.
 
@@ -478,8 +478,8 @@ The following displayed block has the ID ‘DSP:Q5’.
 (1)   This item block has the tag ‘ITM’ and the name ‘name’ and the
       ID ‘ITM:name’.
 
-(2)   DEF This item block has the tag ‘DEF’. It has no name, and
-      thus neither an ID.
+(2)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
+      ‘DEF:name’.
 
 (3)   Names need not be unique but IDs must be.
 

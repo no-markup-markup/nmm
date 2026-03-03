@@ -67,7 +67,7 @@ INCLUDE-FILE ./raw-text-semantics/example.txt
 ```
 </details>
 
-More examples in TODO
+More examples below.
 
 ## Try it out
 
