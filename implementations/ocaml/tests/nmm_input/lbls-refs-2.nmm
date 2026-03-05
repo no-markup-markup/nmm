@@ -1,0 +1,50 @@
+CH
+
+§ APP:intro
+Introduction
+
+
+¶ PAR:intro
+
+Some facts about inductively defined structures seem not to admit
+“straightforward” induction proofs. In such cases, a
+“non-straightforward” induction proof seems “necessary”. A curious
+one, or one fond of precision, or anyone with any other motivation,
+might then wonder whether there is a way to precisely and sensibly
+state, and prove, that this or that fact does not admit a
+straightforward induction proof.
+
+
+¶ DEFS:basel
+
+	     b : ℕ → ℚ
+(B)	  b(0) ≔ 1			DEF:basel_base_case
+(R)	b(n+1) ≔ b(n)+(n+2)⁻²	DEF:basel_rec_case
+
+
+¶ RMK
+
+[DEFS:basel] is by (successor) recursion on the natural numbers.
+
+[]	[DEF:basel_base_case] is the the base case.
+
+[]	[DEF:basel_rec_case] is the the recursive case.
+
+
+¶ FCT:basel
+
+For each n:
+
+	b(n) < 2.
+
+
+¶
+
+[FCT:basel] is a simplification of *the Basel problem*, which ask for
+a closed-form expression of the infinite sum:
+
+	 1     1     1     1
+	─── + ─── + ─── + ─── + ⋯
+	 1²    2²    3²    4²
+
+Euler (1740) solved this problem and the sum is π²/6 (≈ 1.64).

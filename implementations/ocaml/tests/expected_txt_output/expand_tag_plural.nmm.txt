@@ -4,7 +4,7 @@
 ¶ 1.1  DEFINITION (Goodness)  A thing is good iff it is desirable.
 
 
-¶ 1.2  DEFINITION (Stupidity)  To think that DEFINITION 1.1 is useful.
+¶ 1.2  DEFINITION (Stupidity)  To think that Definition 1.1 is useful.
 
 
 
@@ -13,67 +13,67 @@
 
 ¶ 2.1  THEOREMS (Main)
 
-       (1)   Nothing lasts forever.
+       (a)   Nothing lasts forever.
 
-       (2)   All is well iff
+       (b)   All is well iff
 
-             (a)   nothing is bad, and
+             (1)   nothing is bad, and
 
-             (b)   I know that '[ITM:2+]' is rendered nicely, like this:
+             (2)   I know that '[ITM:2+]' is rendered nicely, like this:
                    (+).
 
              (+)   I know that '[ITM:2a]' is rendered nicely, like this:
-                   (a).
+                   (1).
 
-       (X)   '[ITM:2a]' -> (2)(a)
+       (X)   '[ITM:2a]' -> (b)(1)
 
-       ─     '[ITM:2+]' -> (2)(+)
+       ─     '[ITM:2+]' -> (b)(+)
 
-       '[ITM:2a]' -> (2)(a)
+       '[ITM:2a]' -> (b)(1)
 
-       '[ITM:2+]' -> (2)(+)
+       '[ITM:2+]' -> (b)(+)
 
-       '[ITM:1]' -> THEOREM (1)
+       '[ITM:1]' -> (a)
 
-       '[ITM:X]' -> THEOREM (X)
+       '[ITM:X]' -> (X)
 
 
-¶ 2.2  PROOF (of THEOREMS 2.1)  By straightforward induction on the
+¶ 2.2  PROOF (of Theorems 2.1)  By straightforward induction on the
        complexity of nothing.
 
 
-¶ 2.3  '[THMS:main]' -> THEOREMS 2.1
+¶ 2.3  '[THMS:main]' -> Theorems 2.1
 
-       '[ITM:1]' -> THEOREM (1) of ¶ 2.1
+       '[ITM:1]' -> (a) of Theorems 2.1
 
-       '[ITM:2]' -> THEOREM (2) of ¶ 2.1
+       '[ITM:2]' -> (b) of Theorems 2.1
 
-       '[ITM:2a]' -> 2.1(2)(a)
+       '[ITM:2a]' -> (b)(1) of Theorems 2.1
 
-       '[ITM:2b]' -> 2.1(2)(b)
+       '[ITM:2b]' -> (b)(2) of Theorems 2.1
 
-       '[ITM:2+]' -> 2.1(2)(+)
+       '[ITM:2+]' -> (b)(+) of Theorems 2.1
 
-       '[ITM:X]' -> THEOREM (X) of ¶ 2.1
+       '[ITM:X]' -> (X) of Theorems 2.1
 
 
-¶ 2.4  PROOF (of THEOREM (1) of ¶ 2.1)  Obvious by DEFINITION 1.1.
+¶ 2.4  PROOF (of (a) of Theorems 2.1)  Obvious by Definition 1.1.
 
 
 
 § 3    References to previous section
        ──────────────────────────────
 
-       '[THMS:main]' -> THEOREMS 2.1
+       '[THMS:main]' -> Theorems 2.1
 
-       '[ITM:1]' -> THEOREM (1) of ¶ 2.1
+       '[ITM:1]' -> (a) of Theorems 2.1
 
-       '[ITM:2]' -> THEOREM (2) of ¶ 2.1
+       '[ITM:2]' -> (b) of Theorems 2.1
 
-       '[ITM:2a]' -> 2.1(2)(a)
+       '[ITM:2a]' -> (b)(1) of Theorems 2.1
 
-       '[ITM:2b]' -> 2.1(2)(b)
+       '[ITM:2b]' -> (b)(2) of Theorems 2.1
 
-       '[ITM:2+]' -> 2.1(2)(+)
+       '[ITM:2+]' -> (b)(+) of Theorems 2.1
 
-       '[ITM:X]' -> THEOREM (X) of ¶ 2.1
+       '[ITM:X]' -> (X) of Theorems 2.1

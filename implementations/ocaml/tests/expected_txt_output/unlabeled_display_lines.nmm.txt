@@ -11,7 +11,7 @@
 
                unlabeled display line
          (!)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -26,7 +26,7 @@
 
                unlabeled display line
          (!)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -34,7 +34,7 @@
 ¶ 2.2          unlabeled display line
                unlabeled display line
          (@)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -51,7 +51,7 @@
                unlabeled display line
                unlabeled display line
          (S)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -63,7 +63,7 @@
                unlabeled display line
                unlabeled display line
          (Q)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -81,7 +81,7 @@
 
                unlabeled display line
          (+)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -89,7 +89,7 @@
 ¶ 4.1.2        unlabeled display line
                unlabeled display line
          (?)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -103,7 +103,7 @@
                unlabeled display line
                unlabeled display line
          (~)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.
 
@@ -112,6 +112,6 @@
 
                unlabeled display line
          (£)   manually labeled display line
-         (1)   automatically labeled display line
+         (a)   automatically labeled display line
 
          Block of text.

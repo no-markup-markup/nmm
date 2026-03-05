@@ -1,8 +1,8 @@
-¶ 1  (1)   An item.
+¶ 1  (a)   An item.
 
-     (2)   A reference to the above item: (1).
+     (b)   A reference to the above item: (a).
 
 
-¶ 2  (1)   An item.
+¶ 2  (a)   An item.
 
-     (2)   A reference to the above item: (1).
+     (b)   A reference to the above item: (a).

@@ -1,0 +1,10 @@
+¶ 1  FACTS
+
+     (a)   This is a fact.
+
+     (b)   This is another fact.
+
+
+¶ 2  Let us consider Fact 1(a). -> Let us consider Fact 1(a).
+
+     Let us consider Facts 1. -> Let us consider Facts 1.

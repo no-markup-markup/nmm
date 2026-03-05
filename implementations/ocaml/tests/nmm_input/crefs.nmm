@@ -1,0 +1,13 @@
+¶ FCTS:facts
+
+[]	FCT:one
+	This is a fact.
+
+[]	FCT:two
+	This is another fact.
+
+¶
+
+Let us consider [FCT:one]. -> Let us consider Fact 1(a).
+
+Let us consider [FCTS:facts]. -> Let us consider Facts 1.

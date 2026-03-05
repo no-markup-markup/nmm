@@ -25,12 +25,16 @@ and xml_of_ts_author (author : ts_author) : Xml.xml =
 
 and xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : Xml.xml list =
 	match doc_settings.abstract_hdr with
-	|None -> []
-	|Some abstract_hdr -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
+	|None -> [Xml.Element ("abstract_hdr",[],[xml_of_string "ABSTRACT"])]
+	|Some (abstract_hdr,_) -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
 
 and xml_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml =
-	let content : Xml.xml list = [xml_of_string doc_settings.refs_hdr] in
-	Xml.Element ("refs_hdr",[],content)
+	match doc_settings.refs_hdr with
+	|Some (hdr,_) ->
+		let content : Xml.xml list = [xml_of_string hdr] in
+		Xml.Element ("refs_hdr",[],content)
+	|None -> Xml.Element ("refs_hdr",[],[xml_of_string "REFERENCES"])
+
 
 and xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blk_txt : ts_blk_txt) : Xml.xml =
 	match blk_txt with
@@ -154,12 +158,9 @@ and par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (pat
 			match tag_or_id with
 			|Cu_tag_or_id_tag (tag : ts_tag) 
 			|Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
-				match doc_settings.expand_tag_singular tag with
-				| Some (singular: string) -> Some [xml_of_string singular]
-				| None ->
-					match doc_settings.expand_tag_plural tag with
-					|Some (_,plural) -> Some [xml_of_string plural]
-					|None -> None
+				match doc_settings.expand_tag tag with
+				| Some (lbl,_) -> Some [xml_of_string lbl]
+				| None -> None
 		)
 		| None -> None
 	in

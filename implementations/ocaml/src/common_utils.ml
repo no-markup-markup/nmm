@@ -12,13 +12,13 @@ type t_doc_settings = {
 	abstract_indent: int;
 	refs_indent: int;
 	tab_length : int;
-	abstract_hdr: string option;
-	refs_hdr: string;
-	ch_prefix: string option;
-	sec_prefix: string option;
-	par_prefix : string option;
-	expand_tag_singular: Doc_types.ts_tag -> string option;
-	expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
+	abstract_hdr: (string * string) option;
+	refs_hdr: (string * string) option;
+	ch_prefix: (string * string) option;
+	sec_prefix: (string * string) option;
+	par_prefix : (string * string) option;
+	expand_tag: Doc_types.ts_tag -> (string * string) option;
+	auto_numbering : int -> int -> string;
 }
 
 type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
@@ -26,25 +26,43 @@ type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
 type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
 
 
-let expand_tag_singular_default (tag : Doc_types.ts_tag) : string option =
+let expand_tag_default (tag : Doc_types.ts_tag) : (string * string) option =
 	match tag with
-	|Cs_tag "DEF" -> Some "DEFINITION"
-	|Cs_tag "PRF" -> Some "PROOF"
-	|Cs_tag "FCT" -> Some "FACT"
-	|Cs_tag "LMA" -> Some "LEMMA"
-	|Cs_tag "THM" -> Some "THEOREM"
-	|Cs_tag "RMK" -> Some "REMARK"
+	|Cs_tag "DEF" -> Some ("DEFINITION", "Definition")
+	|Cs_tag "PRF" -> Some ("PROOF", "Proof")
+	|Cs_tag "FCT" -> Some ("FACT", "Fact")
+	|Cs_tag "LMA" -> Some ("LEMMA", "Lemma")
+	|Cs_tag "THM" -> Some ("THEOREM", "Theorem")
+	|Cs_tag "RMK" -> Some ("REMARK", "Remark")
+	|Cs_tag "DEFS" -> Some ("DEFINITIONS", "Definitions")
+	|Cs_tag "PRFS" -> Some ("PROOFS", "Proofs")
+	|Cs_tag "FCTS" -> Some ("FACTS", "Facts")
+	|Cs_tag "LMAS" -> Some ("LEMMAS", "Lemmas")
+	|Cs_tag "THMS" -> Some ("THEOREMS", "Theorems")
+	|Cs_tag "RMKS" -> Some ("REMARKS", "Remarks")
 	| _  -> None
 
-let expand_tag_plural_default (tag : Doc_types.ts_tag) : (string * string) option =
-	match tag with
-	|Cs_tag "DEFS" -> Some ("DEFINITION", "DEFINITIONS")
-	|Cs_tag "PRFS" -> Some ("PROOF", "PROOFS")
-	|Cs_tag "FCTS" -> Some ("FACT", "FACTS")
-	|Cs_tag "LMAS" -> Some ("LEMMA", "LEMMAS")
-	|Cs_tag "THMS" -> Some ("THEOREM", "THEOREMS")
-	|Cs_tag "RMKS" -> Some ("REMARK", "REMARKS")
-	| _  -> None
+let lower_case_latin_letters : string array =
+	[|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]
+
+let lower_case_roman_numerals : string array =
+	[|"i";"ii";"iii";"iv";"v";"vi";"vii";"viii";"ix";"x";"xi";"xii";"xiii";"xiv";"xv";"xvi";"xvii";"xviii";"xix";"xx";|]
+
+let upper_case_latin_letters : string array =
+	[|"A";"B";"C";"D";"E";"F";"G";"H";"I";"J";"K";"L";"M";"N";"O";"P";"Q";"R";"S";"T";"U";"V";"X";"Y";"Z";|]
+
+let upper_case_roman_numerals : string array =
+	[|"I";"II";"III";"IV";"V";"VI";"VII";"VIII";"IX";"X";"XI";"XII";"XIII";"XIV";"XV";"XVI";"XVII";"XVIII";"XIX";"XX";|]
+
+let bullets : string array = [| "─" |]
+
+let auto_numbering_default (lvl : int) (n : int) : string =
+	let s : string =
+		match lvl mod 3 with
+		| 0 -> lower_case_latin_letters.(n)
+		| 1 -> string_of_int (n + 1)
+		| _ -> lower_case_roman_numerals.(n)
+	in String.concat s ["(";")"]
 
 
 let doc_settings_default () : t_doc_settings = {
@@ -55,13 +73,13 @@ let doc_settings_default () : t_doc_settings = {
 	abstract_indent = 0;
 	refs_indent = 0;
 	tab_length = 6;
-	abstract_hdr = Some "ABSTRACT";
-	refs_hdr = "REFERENCES";
-	ch_prefix = Some "CHAPTER";
-	sec_prefix = Some "§";
-	par_prefix = Some "¶";
-	expand_tag_singular = expand_tag_singular_default;
-	expand_tag_plural = expand_tag_plural_default;
+	abstract_hdr = Some ("ABSTRACT", "Abstract");
+	refs_hdr = Some ("REFERENCES", "References");
+	ch_prefix = Some ("CHAPTER", "Chapter");
+	sec_prefix = Some ("§","§");
+	par_prefix = Some ("¶","¶");
+	expand_tag = expand_tag_default;
+	auto_numbering = auto_numbering_default;
 }
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
@@ -139,8 +157,7 @@ and doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
 				|Some ("par-prefix", v) -> set_par_prefix v settings
 				|Some ("abstract-hdr", v) -> set_abstract_hdr v settings
 				|Some ("refs-hdr", v) -> set_refs_hdr v settings
-				|Some ("singular-tag", v) -> set_expand_tag_singular settings.expand_tag_singular v settings
-				|Some ("plural-tag", v) -> set_expand_tag_plural settings.expand_tag_plural v settings
+				|Some ("tag", v) -> set_expand_tag settings.expand_tag v settings
 				|_ -> let _ : unit = Debug_utils.print_warning 
 					(String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings
 			in aux tl new_doc_settings
@@ -172,8 +189,8 @@ and set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -195,8 +212,8 @@ and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -218,8 +235,8 @@ and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -241,8 +258,8 @@ and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -264,8 +281,8 @@ and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -287,8 +304,8 @@ and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -311,8 +328,8 @@ and set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -333,8 +350,8 @@ and set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 
 and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -347,12 +364,12 @@ and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
 	refs_indent = doc_settings.refs_indent;
 	tab_length = doc_settings.tab_length;
 	abstract_hdr = doc_settings.abstract_hdr;
-	refs_hdr = v;
+	refs_hdr = prefix_value_of_string v;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 
 and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -369,8 +386,8 @@ and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	ch_prefix = prefix_value_of_string v;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 
 and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -387,8 +404,8 @@ and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = prefix_value_of_string v;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 
 and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -405,12 +422,12 @@ and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = prefix_value_of_string v;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 
 
-and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
 	try
 	{
 	doc_width = doc_settings.doc_width;
@@ -425,67 +442,33 @@ and set_expand_tag_singular (expand_tag_old : Doc_types.ts_tag -> string option)
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = singular_tag_value_of_string expand_tag_old v;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = tag_value_of_string expand_tag_old v;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	with _ ->
 	let _ : unit =
-	Debug_utils.print_warning (String.concat "" ["WARNING: invalid singular_tag value: ";v;"; ";"using default value"])
+	Debug_utils.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"using default value"])
 	in doc_settings
 
-and set_expand_tag_plural (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-	try
-	{
-	doc_width = doc_settings.doc_width;
-	left_margin = doc_settings.left_margin;
-	title_indent = doc_settings.title_indent;
-	author_indent = doc_settings.author_indent;
-	abstract_indent = doc_settings.abstract_indent;
-	refs_indent = doc_settings.refs_indent;
-	tab_length = doc_settings.tab_length;
-	abstract_hdr = doc_settings.abstract_hdr;
-	refs_hdr = doc_settings.refs_hdr;
-	ch_prefix = doc_settings.ch_prefix;
-	sec_prefix = doc_settings.sec_prefix;
-	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = plural_tag_value_of_string expand_tag_old v;
-	}
-	with _ ->
-	let _ : unit =
-	Debug_utils.print_warning (String.concat "" ["WARNING: invalid plural_tag value: ";v;"; ";"using default value"])
-	in doc_settings
 
-and prefix_value_of_string (v : string) : string option =
-	match v with
-	|"None" | "none" | "" | "\"\"" -> None
-	| _ -> Some v
-
-and singular_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> string option) (v : string) : (Doc_types.ts_tag -> string option) =
+and prefix_value_of_string (v : string) : (string * string) option =
 	match String.split_on_char '>' v with
-	|[tag_string; expanded_tag_string] -> (
-		let expand_tag_new ( tag : Doc_types.ts_tag) : string option = 
+	|[lbl; cref] -> Some (lbl, cref)
+	|_ -> None
+
+and tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
+	match String.split_on_char '>' v with
+	|[tag_string; lbl; cref] -> (
+		let expand_tag_new ( tag : Doc_types.ts_tag) : (string * string) option = 
 			match tag with
 			|Cs_tag (s : string) ->
 				match s = tag_string with
-				|true -> Some expanded_tag_string
+				|true -> Some (lbl, cref)
 				|false -> expand_tag_old tag
 		in expand_tag_new
 	)
-	| _ -> raise (Error "invalid singular_tag value")
+	| _ -> raise (Error "invalid tag value")
 
-and plural_tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
-	match String.split_on_char '>' v with
-	|[tag_string; singular; plural] -> (
-		let expand_tag_new ( tag : Doc_types.ts_tag) : (string *  string) option = 
-			match tag with
-			|Cs_tag (s : string) ->
-				match s = tag_string with
-				|true -> Some (singular, plural)
-				|false -> expand_tag_old tag
-		in expand_tag_new
-	)
-	| _ -> raise (Error "invalid plural_tag value")
 
 
 
@@ -506,7 +489,7 @@ and t_node =
 	| DSP_LINE_NODE of t_dsp_line_node
 	| REFS_NODE
 
-and t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
+and t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
 and t_itm_node = ITM_AUTO of int | ITM_CUSTOM of string | ITM_TAG_AUTO of (string * int) | ITM_TAG_CUSTOM of (string * string)
 
@@ -514,6 +497,8 @@ and t_dsp_line_node =
 	| DSP_AUTO of int
 	| DSP_CUSTOM of string
 	| DSP_NONE
+	| DSP_TAG_AUTO of (string * int)
+	| DSP_TAG_CUSTOM of (string * string)
 
 
 type t_cref_element = 
@@ -567,69 +552,213 @@ let path_to_par_node (path : t_path) : t_path =
 	in aux (List.rev path) []
 
 
+
 let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
 	match reference_of_ts_c_ref cref_table c_ref_loc c_ref with
-	|Some (_, id_loc, _) -> (
-		match id_loc, string_of_sub_path_opt doc_settings id_loc (path_from_common_ancestor c_ref_loc id_loc) with
-		|id_loc_hd::id_loc_tl, Some (sub : string) -> (
-			match List.rev id_loc_tl with 
-			|ABSTRACT_NODE::_ -> (
-				match List.rev c_ref_loc with
-				|ABSTRACT_NODE::_ -> sub
-				|_ -> String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [ABSTRACT_NODE]]
-			)
-			|REFS_NODE::_ -> (
-				match List.rev c_ref_loc with
-				|REFS_NODE::_ -> sub
-				|_ -> String.concat "\u{00A0}" [sub;"of";label_of_path doc_settings [REFS_NODE]]
-			)
-			|_ ->
-			match id_loc_hd with
-			|CH_NODE _ -> (
-				match doc_settings.ch_prefix with
-				|None -> sub
-				|Some prefix -> String.concat "\u{00A0}" [prefix;sub]
-			)
-			|SEC_NODE _ -> (
-				match doc_settings.sec_prefix with
-				|None -> sub
-				|Some prefix -> String.concat "\u{00A0}" [prefix;sub]
-			)
-			|PAR_NODE (par_node : t_par_node) -> (
-				match par_node with
-				|NO_TAG (prefix_opt,_) -> (
-					match prefix_opt with
-					|None -> sub
-					|Some prefix -> String.concat "\u{00A0}" [prefix; sub]
-				)
-				|SINGULAR_TAG (singular, _) -> String.concat "\u{00A0}" [singular; sub]
-				|PLURAL_TAG (_, plural, _) -> String.concat "\u{00A0}" [plural; sub]
-			)
-			|ITM_NODE (ITM_TAG_AUTO (singular,_)) -> (
-				let label = label_of_path doc_settings id_loc in
-				match label = sub with
-				|true -> String.concat "\u{00A0}" [singular;label]
-				|false -> String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl]
-			)
-			|ITM_NODE (ITM_TAG_CUSTOM (singular,_)) -> (
-				let label = label_of_path doc_settings id_loc in
-				match label = sub with
-				|true -> String.concat "\u{00A0}" [singular;label]
-				|false -> String.concat "\u{00A0}" [singular;label;"of";label_of_path doc_settings id_loc_tl]
-			)
-			|_ -> sub
-		)
-		|_ , _ -> raise (Error "id_loc in cref_table not expected to be an empty path")
+	|None -> (
+		match c_ref with
+		|Cs_c_ref id_c_ref ->
+			let _ : unit = Debug_utils.print_warning (String.concat "" [
+				"WARNING: id \'";
+				string_of_tr_id id_c_ref;
+				"\' referenced in ";
+				string_of_path doc_settings c_ref_loc;
+				" is undefined or out of scope";
+			]) in "??"
 	)
-	|None ->
-		match c_ref with Cs_c_ref id_c_ref ->
-		let _ : unit = Debug_utils.print_warning (String.concat "" [
-			"WARNING: id \'";
-			string_of_tr_id id_c_ref;
-			"\' referenced in ";
-			string_of_path doc_settings c_ref_loc;
-			" is undefined or out of scope";
-		]) in "??"
+	|Some (_, id_loc, _) -> 
+		let sub_path = (path_from_common_ancestor c_ref_loc id_loc) in
+		match List.rev sub_path with
+		|hd::tl -> (
+			match hd with
+			|ABSTRACT_NODE | REFS_NODE ->
+				String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
+			|_ -> string_of_shown_path doc_settings id_loc sub_path
+		)
+		|[] -> raise (Error "path to id cannot be empty")
+
+
+and string_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
+	match string_of_path_opt doc_settings path path with
+	|None -> "document"
+	|Some s -> s
+
+and string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string =
+	let inner_path = path_from_ch_sec_par path in
+	let outer_path = path_to_ch_sec_par path in
+	let full_outer_path = path_to_ch_sec_par full_path in
+	match inner_path, outer_path with
+	|[],outer_path_hd::_ -> (
+		match outer_path_hd with
+		|PAR_NODE par_node -> (
+			match par_node with
+			|PAR_AUTO _ -> label_of_path doc_settings full_outer_path
+			|PAR_TAG (_,tag,_) -> String.concat "\u{00A0}" [tag;string_of_path doc_settings full_outer_path]
+		)
+		|_ -> label_of_path doc_settings full_outer_path
+	)
+	|inner_path_hd::_, [] -> (
+		match inner_path_hd with
+		|ITM_NODE itm_node -> (
+			match itm_node with
+			|ITM_AUTO _ | ITM_CUSTOM _ -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> "NONE"
+				|Some s -> s
+			)
+			|ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> tag
+				|Some s -> String.concat "\u{00A0}" [tag;s]
+			)
+		)
+		|DSP_LINE_NODE dsp_line_node -> (
+			match dsp_line_node with
+			|DSP_AUTO _ | DSP_CUSTOM _ -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> "NONE"
+				|Some s -> s
+			)
+			|DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> tag
+				|Some s -> String.concat "\u{00A0}" [tag;s]
+			)
+			|DSP_NONE -> "NONE"
+		)
+		|_ ->
+			match string_of_path_opt doc_settings full_path inner_path with
+			|None -> "NONE"
+			|Some s -> s
+	)
+	|inner_path_hd::_, _::_ -> (
+		match inner_path_hd with
+		|ITM_NODE itm_node -> (
+			match itm_node with
+			|ITM_AUTO _ | ITM_CUSTOM _ -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> "NONE"
+				|Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+			)
+			|ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> tag
+				|Some s -> String.concat "\u{00A0}" [tag;(string_of_path doc_settings full_outer_path) ^ s]
+			)
+		)
+		|DSP_LINE_NODE dsp_line_node -> (
+			match dsp_line_node with
+			|DSP_AUTO _ | DSP_CUSTOM _ -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> "NONE"
+				|Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+			)
+			|DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
+				match string_of_path_opt doc_settings full_path inner_path with
+				|None -> tag
+				|Some s -> String.concat "\u{00A0}" [tag;(string_of_path doc_settings full_outer_path) ^ s]
+			)
+			|DSP_NONE -> raise (Error "cannot refer to unlabeled display line")
+		)
+		|_ ->
+			match string_of_path_opt doc_settings full_path inner_path with
+			|None -> "NONE"
+			|Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+	)
+	|[],[] -> "NONE"
+
+and string_of_path_opt (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string option =
+	let rec aux (full_p : t_path) (p : t_path) (acc : string option) : string option =
+		match full_p, p with
+		|full_p_hd::full_p_tl, p_hd::p_tl -> (
+			match p_hd, string_of_node_opt doc_settings full_p_tl p_hd with
+			|_, None -> aux full_p_tl p_tl acc
+			|CH_NODE _, Some s
+			|SEC_NODE _, Some s
+			|APP_NODE _, Some s
+			|PAR_NODE _, Some s -> (
+				match acc with
+				|Some t -> aux full_p_tl p_tl (Some (s ^ "." ^ t))
+				|None -> aux full_p_tl p_tl (Some s)
+			)
+			|_, Some s ->
+				match acc with
+				|Some t -> aux full_p_tl p_tl (Some (s ^ t))
+				|None -> aux full_p_tl p_tl (Some s)
+		)
+		|full_p_hd::full_p_tl, [] -> (
+			acc
+		)
+		|[],_ -> acc
+	in
+	aux full_path path None
+
+and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t_node) : string option =
+	match head with
+	| CH_NODE (n : int)
+	| SEC_NODE (n : int) -> Some (string_of_int (n+1))
+	| PAR_NODE (par_node : t_par_node) -> (
+		match par_node with
+		|PAR_AUTO n -> Some (string_of_int (n+1))
+		|PAR_TAG (_,_,n) -> Some (string_of_int (n+1))
+	)
+	| APP_NODE (n : int) -> (
+		try Some upper_case_latin_letters.(n) with 
+		|_ -> raise (Error "You have too many appendices!")
+	)
+	| DSP_NODE -> None
+	| DSP_LINE_NODE (a : t_dsp_line_node) -> (
+		match a with
+		| DSP_NONE -> None
+		| DSP_AUTO (n : int) -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		| DSP_CUSTOM (s : string) -> Some (String.concat s ["(";")"])
+		| DSP_TAG_AUTO (tag,n) -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		| DSP_TAG_CUSTOM (tag,s) -> Some (String.concat s ["(";")"])
+	)
+	| ITM_NODE (a : t_itm_node) -> (
+		match a with
+		|ITM_AUTO n -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		|ITM_CUSTOM s -> Some (String.concat s ["(";")"])
+		|ITM_TAG_AUTO (_,n) -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		|ITM_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
+	)
+	| BLT_NODE ->
+		let l : int = lvl_of_path tail in
+		Some bullets.(l mod Array.length bullets)
+	| ABSTRACT_NODE -> (
+		match doc_settings.abstract_hdr with
+		|Some (lbl,cref) -> Some cref
+		|None -> None
+	)
+	| REFS_NODE -> (
+		match doc_settings.refs_hdr with
+		|Some (lbl, cref) -> Some cref
+		|None -> None
+	)
+
+and path_to_ch_sec_par (path : t_path) : t_path =
+	let rec aux (p : t_path) (acc : t_path) : t_path =
+		match p with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|CH_NODE _ | SEC_NODE _ | APP_NODE _ | PAR_NODE _ -> aux tl (hd::acc)
+			|_ -> acc
+	in
+	aux (List.rev path) []
+
+
+and path_from_ch_sec_par (path : t_path) : t_path =
+	let rec aux (p : t_path) (acc : t_path) : t_path =
+		match p with
+		|[] -> List.rev acc
+		|hd::tl ->
+			match hd with
+			|CH_NODE _ | SEC_NODE _ | APP_NODE _ | PAR_NODE _ -> List.rev acc
+			|_ -> aux tl (hd::acc)
+	in
+	aux path []
+
 
 
 and reference_of_ts_c_ref (cref_table : t_cref_table) (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (Doc_types.tr_id * t_path * t_cref_element) option =
@@ -687,111 +816,6 @@ and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
 	in 
 	aux rev_c_ref_loc rev_id_loc
 
-and string_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
-	match string_of_path_opt doc_settings path with
-	|None -> "document"
-	|Some s -> s
-
-and string_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
-	string_of_sub_path_opt doc_settings path path
-
-and string_of_sub_path_opt (doc_settings : t_doc_settings) (full_path:t_path) (sub_path : t_path) : string option =
-	match full_path, sub_path with
-	| _, [] -> None
-	| full_path_hd::full_path_tl,sub_path_hd :: sub_path_tl -> (
-		match sub_path_hd with 
-		| CH_NODE _ 
-		| SEC_NODE _
-		| APP_NODE _
-		| PAR_NODE _ -> 
-			string_of_node_opt doc_settings full_path_tl sub_path_hd
-		| _ -> (
-			match (string_of_sub_path_opt doc_settings full_path_tl sub_path_tl, string_of_node_opt doc_settings full_path_tl sub_path_hd)
-			with
-			| Some s, Some t -> Some (s ^ t)
-			| None, Some t -> Some t
-			| Some s, None -> Some s
-			| None, None -> None
-		)
-	)
-	| [], _ -> raise (Error "full_path shorter than sub_path")
-
-and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t_node) : string option =
-	match head with
-	| CH_NODE (n : int)
-	| SEC_NODE (n : int) -> (
-		match string_of_path_opt doc_settings tail with
-		|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
-		|None -> Some (string_of_int (n + 1))
-	)
-	| PAR_NODE (par_node : t_par_node) -> (
-		match par_node with
-		|NO_TAG (_,n) -> (
-			match string_of_path_opt doc_settings tail with
-			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
-			|None -> Some (string_of_int (n + 1))
-		)
-		|SINGULAR_TAG (_, n) -> (
-			match string_of_path_opt doc_settings tail with
-			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
-			|None -> Some (string_of_int (n + 1))
-		)
-		|PLURAL_TAG (_, _, n) -> (
-			match string_of_path_opt doc_settings tail with
-			|Some s ->  Some (s ^ "." ^ (string_of_int (n + 1)))
-			|None -> Some (string_of_int (n + 1))
-		)
-	)
-	| APP_NODE (n : int) -> (
-		match string_of_path_opt doc_settings tail with
-		|Some s -> (try Some (s ^ "." ^ upper_case_latin_letters.(n)) with _ -> raise (Error "You have too many appendices!"))
-		|None -> Some upper_case_latin_letters.(n)
-	)
-	| DSP_NODE -> None
-	| DSP_LINE_NODE (a : t_dsp_line_node) -> (
-		match a with
-		| DSP_NONE -> None
-		| DSP_AUTO (n : int) ->
-			let s : string =
-				match lvl_of_path tail mod 3 with
-				| 0 -> string_of_int (n + 1)
-				| 1 -> lower_case_latin_letters.(n)
-				| _ -> lower_case_roman_numerals.(n)
-			in Some (String.concat s ["(";")"])
-		| DSP_CUSTOM (s : string) -> Some (String.concat s ["(";")"])
-	)
-	| ITM_NODE (a : t_itm_node) -> (
-		match a with
-		|ITM_AUTO n -> (
-			let s : string =
-				match lvl_of_path tail mod 3 with
-				| 0 -> string_of_int (n + 1)
-				| 1 -> lower_case_latin_letters.(n)
-				| _ -> lower_case_roman_numerals.(n)
-			in Some (String.concat s ["(";")"])
-		)
-		|ITM_CUSTOM s -> Some (String.concat s ["(";")"])
-		|ITM_TAG_AUTO (_,n) -> (
-			let s : string =
-				match lvl_of_path tail mod 3 with
-				| 0 -> string_of_int (n + 1)
-				| 1 -> lower_case_latin_letters.(n)
-				| _ -> lower_case_roman_numerals.(n)
-			in
-			match string_of_path_opt doc_settings tail with
-			|None -> Some (String.concat "" ["("; s;")"])
-			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
-		)
-		|ITM_TAG_CUSTOM (_,s) -> (
-			match string_of_path_opt doc_settings tail with
-			|None -> Some (String.concat "" ["("; s;")"])
-			|Some (t : string) -> Some (String.concat "" ["("; s;")"])
-		)
-	)
-	| BLT_NODE ->
-		let l : int = lvl_of_path tail in
-		Some bullets.(l mod Array.length bullets)
-	| _ -> None
 
 and lvl_of_path (path : t_path) : int =
 	match path with
@@ -804,100 +828,102 @@ and lvl_of_path (path : t_path) : int =
 
 and node_of_tr_par_std (doc_settings : t_doc_settings) (auto_nr : int) (par : Doc_types.tr_par_std) : t_node =
 	match par.fld_par_tag_or_id with
-	|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
+	|None -> PAR_NODE (PAR_AUTO auto_nr)
 	|Some (tag_or_id : tu_tag_or_id) ->
 		match tag_or_id with
 		|Cu_tag_or_id_tag (tag : ts_tag) -> (
-			match doc_settings.expand_tag_singular tag with
-			|Some (expansion : string) -> PAR_NODE (SINGULAR_TAG (expansion,auto_nr))
-			|None ->
-				match doc_settings.expand_tag_plural tag with
-				|Some (singular,plural) -> PAR_NODE (PLURAL_TAG (singular,plural,auto_nr))
-				|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix, auto_nr))
+			match doc_settings.expand_tag tag with
+			|Some (lbl,cref) -> PAR_NODE (PAR_TAG (lbl,cref,auto_nr))
+			|None -> PAR_NODE (PAR_AUTO auto_nr)
 		)
 		|Cu_tag_or_id_id (id : tr_id) -> (
-			match doc_settings.expand_tag_singular id.fld_id_tag with
-			|Some (expansion : string) -> PAR_NODE (SINGULAR_TAG (expansion,auto_nr))
-			|None ->
-				match doc_settings.expand_tag_plural id.fld_id_tag with
-				|Some (singular,plural) -> PAR_NODE (PLURAL_TAG (singular,plural,auto_nr))
-				|None -> PAR_NODE (NO_TAG (doc_settings.par_prefix, auto_nr))
+			match doc_settings.expand_tag id.fld_id_tag with
+			|Some (lbl,cref) -> PAR_NODE (PAR_TAG (lbl,cref,auto_nr))
+			|None -> PAR_NODE (PAR_AUTO auto_nr)
 		)
 
-and node_of_blk_itm (path_hd_opt : t_node option) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
-	let itm_node : t_itm_node =
-		match path_hd_opt with
-		| Some (PAR_NODE (PLURAL_TAG (singular, _, _))) -> (
-			match a.fld_blk_itm_lbl with
-			| Cu_lbl_auto Cs_lbl_auto -> ITM_TAG_AUTO (singular,auto_nr)
-			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_TAG_CUSTOM (singular,s)
+and node_of_blk_itm (doc_settings : t_doc_settings) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
+	match a.fld_blk_itm_lbl with
+		| Cu_lbl_auto Cs_lbl_auto -> (
+			match a.fld_blk_itm_id with
+			|None -> ITM_NODE (ITM_AUTO auto_nr)
+			|Some id -> (
+				match doc_settings.expand_tag id.fld_id_tag with
+				|None -> ITM_NODE (ITM_AUTO auto_nr)
+				|Some (lbl,cref) -> ITM_NODE (ITM_TAG_AUTO (cref, auto_nr))
+			)
 		)
-		|_ -> (
-			match a.fld_blk_itm_lbl with
-			| Cu_lbl_auto Cs_lbl_auto -> ITM_AUTO auto_nr
-			| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> ITM_CUSTOM s
+		| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> 
+			match a.fld_blk_itm_id with
+			|None -> ITM_NODE (ITM_CUSTOM s)
+			|Some id -> (
+				match doc_settings.expand_tag id.fld_id_tag with
+				|None -> ITM_NODE (ITM_CUSTOM s)
+				|Some (_,cref) -> ITM_NODE (ITM_TAG_CUSTOM (cref,s))
+			)
+
+and node_of_dsp_line (doc_settings : t_doc_settings) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
+	match a.fld_dsp_line_lbl with
+		| Some (Cu_lbl_auto Cs_lbl_auto) -> (
+			match a.fld_dsp_line_id with
+			|None -> DSP_LINE_NODE (DSP_AUTO auto_nr)
+			|Some id -> (
+				match doc_settings.expand_tag id.fld_id_tag with
+				|None -> DSP_LINE_NODE (DSP_AUTO auto_nr)
+				|Some (lbl,cref) -> DSP_LINE_NODE (DSP_TAG_AUTO (cref, auto_nr))
+			)
 		)
-	in ITM_NODE itm_node
-
-and node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
-	let dsp_line_node : t_dsp_line_node =
-		match a.fld_dsp_line_lbl with
-		| Some (Cu_lbl_auto Cs_lbl_auto)-> DSP_AUTO auto_nr
-		| Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> DSP_CUSTOM s
-		| None -> DSP_NONE
-	in 
-	DSP_LINE_NODE dsp_line_node
-
-and lower_case_latin_letters : string array =
-	[|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]
-
-and lower_case_roman_numerals : string array =
-	[|"i";"ii";"iii";"iv";"v";"vi";"vii";"viii";"ix";"x";"xi";"xii";"xiii";"xiv";"xv";"xvi";"xvii";"xviii";"xix";"xx";|]
-
-and upper_case_latin_letters : string array =
-	[|"A";"B";"C";"D";"E";"F";"G";"H";"I";"J";"K";"L";"M";"N";"O";"P";"Q";"R";"S";"T";"U";"V";"X";"Y";"Z";|]
-
-and upper_case_roman_numerals : string array =
-	[|"I";"II";"III";"IV";"V";"VI";"VII";"VIII";"IX";"X";"XI";"XII";"XIII";"XIV";"XV";"XVI";"XVII";"XVIII";"XIX";"XX";|]
-
-and bullets : string array = [| "─" |]
+		| Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> ( 
+			match a.fld_dsp_line_id with
+			|None -> DSP_LINE_NODE (DSP_CUSTOM s)
+			|Some id -> (
+				match doc_settings.expand_tag id.fld_id_tag with
+				|None -> DSP_LINE_NODE (DSP_CUSTOM s)
+				|Some (_,cref) -> DSP_LINE_NODE (DSP_TAG_CUSTOM (cref,s))
+			)
+		)
+		| None -> DSP_LINE_NODE DSP_NONE
 
 
 and label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
 	match path with
 	| [] -> None
 	| hd :: tl ->
-		let s_opt : string option = string_of_node_opt doc_settings tl hd in
 		match hd with
 		| CH_NODE _ -> (
-			match (doc_settings.ch_prefix, s_opt) with
-			| None, Some t -> Some t
-			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
-			| _, None-> None
+			match doc_settings.ch_prefix, string_of_path doc_settings path with
+			| None, p -> Some p 
+			| Some (lbl,cref), p -> Some (lbl ^ "\u{00A0}" ^ p)
 		)
 		| SEC_NODE _
 		| APP_NODE _ -> (
-			match (doc_settings.sec_prefix, s_opt) with
-			| None, Some t -> Some t
-			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
-			| _, None-> None
+			match doc_settings.sec_prefix, string_of_path doc_settings path with
+			| None, p -> Some p 
+			| Some (lbl,cref), p -> Some (lbl ^ "\u{00A0}" ^ p)
 		)
 		| PAR_NODE _ -> (
-			match (doc_settings.par_prefix, s_opt) with
-			| None, Some t -> Some t
-			| Some u, Some t -> Some (u ^ "\u{00A0}" ^ t)
-			| _, None-> None
+			match doc_settings.par_prefix, string_of_path doc_settings path with
+			| None, p -> Some p 
+			| Some (lbl,cref), p -> Some (lbl ^ "\u{00A0}" ^ p)
 		)
-		| ITM_NODE _ -> s_opt
-		| BLT_NODE -> s_opt
-		| DSP_LINE_NODE _ -> s_opt
-		| ABSTRACT_NODE -> doc_settings.abstract_hdr
-		| REFS_NODE -> Some doc_settings.refs_hdr
-		| _ -> s_opt
+		| ITM_NODE _
+		| BLT_NODE
+		| DSP_LINE_NODE _ -> string_of_node_opt doc_settings tl hd
+		| ABSTRACT_NODE -> (
+			match doc_settings.abstract_hdr with
+			|Some (lbl,cref) -> Some lbl
+			|None -> None
+		)
+		| REFS_NODE -> (
+			match doc_settings.refs_hdr with
+			|Some (lbl, cref) -> Some lbl
+			|None -> None
+		)
+		| _ -> None
 
 and label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
 	match label_of_path_opt doc_settings path with
-	| None -> ""
+	| None -> "document"
 	| Some (s : string) -> s
 
 and string_of_tr_id (id : Doc_types.tr_id) : string =
@@ -994,6 +1020,6 @@ let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_t
 
 let node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par) : t_node =
 	match p with
-	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (NO_TAG (doc_settings.par_prefix,auto_nr))
+	|Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (PAR_AUTO auto_nr)
 	|Cu_par_std (par : tr_par_std) -> node_of_tr_par_std doc_settings auto_nr par
 

@@ -6,19 +6,19 @@
 
 ¶ 1.1.1  This paragraph is called ‘PAR:one’
 
-         (1)   This item is called ‘ITM:one’
+         (a)   This item is called ‘ITM:one’
 
-         (2)   This item is called ‘ITM:one:PAR’
+         (b)   This item is called ‘ITM:one:PAR’
 
-         (3)   This item is also called ‘ITM:one:PAR’
+         (c)   This item is also called ‘ITM:one:PAR’
 
-         (4)   This item is called ‘ITM:one:SEC’
+         (d)   This item is called ‘ITM:one:SEC’
 
-         ─     ‘[ITM:one]’ ↦ ‘(1)’
+         ─     ‘[ITM:one]’ ↦ ‘(a)’
 
-         ─     ‘[ITM:one:PAR]’ ↦ ‘(2)’
+         ─     ‘[ITM:one:PAR]’ ↦ ‘(b)’
 
-         ─     ‘[ITM:one:SEC]’ ↦ ‘(4)’
+         ─     ‘[ITM:one:SEC]’ ↦ ‘(d)’
 
 
 ¶ 1.1.2  This paragraph is called ‘PAR:one:SEC’
@@ -29,17 +29,17 @@
 
 ¶ 1.1.4  Some cross-references
 
-         (1)   ‘[ITM:one]’ ↦ ‘1.1.1(1)’
+         (a)   ‘[ITM:one]’ ↦ ‘(a) of ¶ 1.1.1’
 
-         (2)   ‘[ITM:one:PAR]’ ↦ ??
+         (b)   ‘[ITM:one:PAR]’ ↦ ??
 
-         (3)   ‘[ITM:one:SEC]’ ↦ 1.1.1(4)
+         (c)   ‘[ITM:one:SEC]’ ↦ (d) of ¶ 1.1.1
 
-         (4)   ‘[PAR:one]’ ↦ ‘¶ 1.1.1’
+         (d)   ‘[PAR:one]’ ↦ ‘¶ 1.1.1’
 
-         (5)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.1.2’
+         (e)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.1.2’
 
-         (6)   ‘[DEF:one:SEC]’ ↦ ‘DEFINITION 1.1.3’
+         (f)   ‘[DEF:one:SEC]’ ↦ ‘Definition 1.1.3’
 
 
 
@@ -48,17 +48,17 @@
 
 ¶ 1.2.1  This paragraph is called ‘PAR:one’
 
-         (1)   This item is called ‘ITM:one’
+         (a)   This item is called ‘ITM:one’
 
-         (2)   This item is called ‘ITM:one:PAR’
+         (b)   This item is called ‘ITM:one:PAR’
 
-         (3)   This item is called ‘ITM:one:SEC’
+         (c)   This item is called ‘ITM:one:SEC’
 
-         ─     ‘[ITM:one]’ ↦ ‘1.1.1(1)’
+         ─     ‘[ITM:one]’ ↦ ‘(a) of ¶ 1.1.1’
 
-         ─     ‘[ITM:one:PAR]’ ↦ ‘(2)’
+         ─     ‘[ITM:one:PAR]’ ↦ ‘(b)’
 
-         ─     ‘[ITM:one:SEC]’ ↦ ‘(3)’
+         ─     ‘[ITM:one:SEC]’ ↦ ‘(c)’
 
 
 ¶ 1.2.2  This paragraph is called ‘PAR:one:SEC’
@@ -69,20 +69,20 @@
 
 ¶ 1.2.4  Some cross-references
 
-         (1)   ‘[ITM:one]’ ↦ ‘1.1.1(1)’
+         (a)   ‘[ITM:one]’ ↦ ‘(a) of ¶ 1.1.1’
 
-         (2)   ‘[ITM:one:PAR]’ ↦ ??
+         (b)   ‘[ITM:one:PAR]’ ↦ ??
 
-         (3)   ‘[ITM:one:SEC]’ ↦ 1.2.1(3)
+         (c)   ‘[ITM:one:SEC]’ ↦ (c) of ¶ 1.2.1
 
-         (4)   ‘[PAR:one]’ ↦ ‘¶ 1.1.1’
+         (d)   ‘[PAR:one]’ ↦ ‘¶ 1.1.1’
 
-         (5)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.2.2’
+         (e)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.2.2’
 
-         (6)   ‘[DEF:one:SEC]’ ↦ ‘DEFINITION 1.2.3’
+         (f)   ‘[DEF:one:SEC]’ ↦ ‘Definition 1.2.3’
 
 
-¶ 1.2.5  DEFINITION 1.2.3 [restated]  This paragraph is called ‘DEF:one:SEC’
+¶ 1.2.5  Definition 1.2.3 [restated]  This paragraph is called ‘DEF:one:SEC’
 
 
 
@@ -94,16 +94,16 @@
 
 ¶ 2.2    ¶ 1.1.1 [restated]  This paragraph is called ‘PAR:one’
 
-         (1)   This item is called ‘ITM:one’
+         (a)   This item is called ‘ITM:one’
 
-         (2)   This item is called ‘ITM:one:PAR’
+         (b)   This item is called ‘ITM:one:PAR’
 
-         (3)   This item is also called ‘ITM:one:PAR’
+         (c)   This item is also called ‘ITM:one:PAR’
 
-         (4)   This item is called ‘ITM:one:SEC’
+         (d)   This item is called ‘ITM:one:SEC’
 
-         ─     ‘[ITM:one]’ ↦ ‘(1)’
+         ─     ‘[ITM:one]’ ↦ ‘(a)’
 
-         ─     ‘[ITM:one:PAR]’ ↦ ‘(2)’
+         ─     ‘[ITM:one:PAR]’ ↦ ‘(b)’
 
-         ─     ‘[ITM:one:SEC]’ ↦ ‘(4)’
+         ─     ‘[ITM:one:SEC]’ ↦ ‘(d)’

@@ -208,56 +208,49 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.abstract_hdr">abstract_hdr</span>&nbsp;: <code class="type">string option</code>;</code></td>
+<code><span id="TYPEELTt_doc_settings.abstract_hdr">abstract_hdr</span>&nbsp;: <code class="type">(string * string) option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.refs_hdr">refs_hdr</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_doc_settings.refs_hdr">refs_hdr</span>&nbsp;: <code class="type">(string * string) option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.ch_prefix">ch_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+<code><span id="TYPEELTt_doc_settings.ch_prefix">ch_prefix</span>&nbsp;: <code class="type">(string * string) option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.sec_prefix">sec_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+<code><span id="TYPEELTt_doc_settings.sec_prefix">sec_prefix</span>&nbsp;: <code class="type">(string * string) option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.par_prefix">par_prefix</span>&nbsp;: <code class="type">string option</code>;</code></td>
+<code><span id="TYPEELTt_doc_settings.par_prefix">par_prefix</span>&nbsp;: <code class="type">(string * string) option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.expand_tag_singular">expand_tag_singular</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_doc_settings.expand_tag_plural">expand_tag_plural</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code>;</code></td>
+<code><span id="TYPEELTt_doc_settings.expand_tag">expand_tag</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code>;</code></td>
 
 </tr></table>
 <code>}</code>
 
 
 <h4 id="3_Defaultsettings">Default settings</h4>
-<pre><span id="VALexpand_tag_singular_default"><span class="keyword">val</span> expand_tag_singular_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; string option</code></pre><div class="info ">
+<pre><span id="VALexpand_tag_default"><span class="keyword">val</span> expand_tag_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">expand_tag_singular_default tag</code></pre>
 <p>evaluates to</p>
@@ -269,22 +262,6 @@
 <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"LMA"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"LEMMA"</span>
 <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"THM"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"THEOREM"</span>
 <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"RMK"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> <span class="string">"REMARK"</span>
-<span class="keywordsign">|</span> _  <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-</code></pre></div>
-</div>
-
-<pre><span id="VALexpand_tag_plural_default"><span class="keyword">val</span> expand_tag_plural_default</span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code></pre><div class="info ">
-<div class="info-desc">
-<pre class="codepre"><code class="code">expand_tag_plural_default tag</code></pre>
-<p>evaluates to</p>
-
-<pre class="codepre"><code class="code"><span class="keyword">match</span> tag <span class="keyword">with</span>
-<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"DEFS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"DEFINITION"</span>, <span class="string">"DEFINITIONS"</span>)
-<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"PRFS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"PROOF"</span>, <span class="string">"PROOFS"</span>)
-<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"FCTS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"FACT"</span>, <span class="string">"FACTS"</span>)
-<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"LMAS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"LEMMA"</span>, <span class="string">"LEMMAS"</span>)
-<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"THMS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"THEOREM"</span>, <span class="string">"THEOREMS"</span>)
-<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"RMKS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="string">"REMARK"</span>, <span class="string">"REMARKS"</span>)
 <span class="keywordsign">|</span> _  <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
 </code></pre></div>
 </div>
@@ -360,21 +337,14 @@ STRING := [! ';']+</pre></div>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_par_node.NO_TAG"><span class="constructor">NO_TAG</span></span> <span class="keyword">of</span> <code class="type">(string option * int)</code></code></td>
+<code><span id="TYPEELTt_par_node.PAR_AUTO"><span class="constructor">PAR_AUTO</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_par_node.SINGULAR_TAG"><span class="constructor">SINGULAR_TAG</span></span> <span class="keyword">of</span> <code class="type">(string * int)</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_par_node.PLURAL_TAG"><span class="constructor">PLURAL_TAG</span></span> <span class="keyword">of</span> <code class="type">(string * string * int)</code></code></td>
+<code><span id="TYPEELTt_par_node.PAR_TAG"><span class="constructor">PAR_TAG</span></span> <span class="keyword">of</span> <code class="type">(string * string * int)</code></code></td>
 
 </tr></table>
 
@@ -432,6 +402,20 @@ STRING := [! ';']+</pre></div>
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTt_dsp_line_node.DSP_NONE"><span class="constructor">DSP_NONE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_dsp_line_node.DSP_TAG_AUTO"><span class="constructor">DSP_TAG_AUTO</span></span> <span class="keyword">of</span> <code class="type">(string * int)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_dsp_line_node.DSP_TAG_CUSTOM"><span class="constructor">DSP_TAG_CUSTOM</span></span> <span class="keyword">of</span> <code class="type">(string * string)</code></code></td>
 
 </tr></table>
 
@@ -570,7 +554,7 @@ STRING := [! ';']+</pre></div>
 </div>
 
 <pre><span id="VALnode_of_tu_par"><span class="keyword">val</span> node_of_tu_par</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt; int -&gt; <a href="Doc_types.html#TYPEtu_par">Doc_types.tu_par</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre>
-<pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type"><a href="Common_utils.html#TYPEt_node">t_node</a> option -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
+<pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> node_of_blk_itm</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_blk_itm)</code></pre>
 <p>evaluates to</p>
@@ -583,7 +567,7 @@ STRING := [! ';']+</pre></div>
 </code></pre></div>
 </div>
 
-<pre><span id="VALnode_of_dsp_line"><span class="keyword">val</span> node_of_dsp_line</span> : <code class="type">int -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
+<pre><span id="VALnode_of_dsp_line"><span class="keyword">val</span> node_of_dsp_line</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><div class="info ">
 <div class="info-desc">
 <pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_dsp_line)</code></pre>
 <p>evaluates to</p>

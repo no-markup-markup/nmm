@@ -47,12 +47,12 @@
      For each subdirectory, the probability of its modification time not
      having been updated is thus given by 
 
-     (1)   q = (1 - p)^(n/k)
+     (a)   q = (1 - p)^(n/k)
 
      The expected number of comparisons that need to be performed is then
      given by the following sum:
 
-     (2)   k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k
+     (b)   k + q^(k - 0) × (1 - q)^0 × k!/0!/(k - 0)! × 0 × n/k
                                      + 
                q^(k - 1) × (1 - q)^1 × k!/1!/(k - 1)! × 1 × n/k
                                      +
@@ -68,10 +68,10 @@
                                      +
                q^(k - k) × (1 - q)^k × k!/k!/(k - k)! × n × n/k
 
-     For a given p and n, we want to find a k that minimizes (2).
+     For a given p and n, we want to find a k that minimizes (b).
      Provided that n is sufficiently small, we can always do so using
      numerical brute force methods. There may also be a way of
-     approximating (2) that makes it amenable to analytical methods, but
+     approximating (b) that makes it amenable to analytical methods, but
      let us consider an alternative approach instead.
 
 
@@ -94,14 +94,14 @@
      In the worst case scenario, the number of comparisons that need to
      be performed is then given by
 
-     (1)   k + n/k
+     (a)   k + n/k
 
-     The derivative of (1) with respect to k is given by
+     The derivative of (a) with respect to k is given by
 
-     (2)   1 - n/k²
+     (b)   1 - n/k²
 
-     For a given n, to minimize (1) with respect to k is simply a matter
-     of finding the root of (2) with respect to k, i.e. to solve the
+     For a given n, to minimize (a) with respect to k is simply a matter
+     of finding the root of (b) with respect to k, i.e. to solve the
      following equation for k:
 
            1 - n/k² = 0

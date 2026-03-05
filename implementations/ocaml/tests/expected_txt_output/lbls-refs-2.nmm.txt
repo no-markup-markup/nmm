@@ -13,14 +13,14 @@
          straightforward induction proof.
 
 
-¶ 1.A.2  DEFINITION
+¶ 1.A.2  DEFINITIONS
 
                     b : ℕ → ℚ
          (B)     b(0) ≔ 1
          (R)   b(n+1) ≔ b(n)+(n+2)⁻²
 
 
-¶ 1.A.3  REMARK  Definition 1.A.2 is by (successor) recursion on the natural
+¶ 1.A.3  REMARK  Definitions 1.A.2 is by (successor) recursion on the natural
          numbers.
 
          (a)   Definition 1.A.2(B) is the the base case.

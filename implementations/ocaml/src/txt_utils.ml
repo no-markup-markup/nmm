@@ -14,10 +14,12 @@ and lines_of_ts_authors_opt (doc_settings : t_doc_settings) (authors_opt : ts_au
 
 
 and lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
-	match doc_settings.abstract_hdr with
-	|None -> []
-	|Some abstract_hdr ->
-		lines_of_string doc_settings doc_settings.abstract_indent abstract_hdr
+	let hdr =
+		match doc_settings.abstract_hdr with
+		|None -> "ABSTRACT"
+		|Some (h,_) -> h
+	in
+	lines_of_string doc_settings doc_settings.abstract_indent hdr
 
 and lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
 	let underline_symbol : string =
@@ -26,8 +28,13 @@ and lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) 
 		| _ -> "─"
 	in
 	let indent : string = String.make doc_settings.refs_indent ' ' in
-	let underline = make_string (Int.min (utf_8_length doc_settings.refs_hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
-	let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent doc_settings.refs_hdr in
+	let hdr =
+		match doc_settings.refs_hdr with
+		|Some (h,_) -> h
+		|None -> "REFERENCES"
+	in
+	let underline = make_string (Int.min (utf_8_length hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
+	let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent hdr in
 	List.concat [hdr_lines;[indent ^ underline;""]]
 
 
@@ -319,12 +326,9 @@ let special_tag (doc_settings : t_doc_settings) (a : tu_tag_or_id option) : tu_t
 		match b with
 		|Cu_tag_or_id_tag (tag : ts_tag) 
 		|Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
-			match doc_settings.expand_tag_singular tag with
-			| Some (singular: string) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg singular))
-			| None ->
-				match doc_settings.expand_tag_plural tag with
-				|Some (_,plural) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg plural))
-				|None -> None
+			match doc_settings.expand_tag tag with
+			| Some (lbl,_) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg lbl))
+			| None -> None
 
 let copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_std = 
 	let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in

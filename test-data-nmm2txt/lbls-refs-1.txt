@@ -20,9 +20,9 @@
 ¶ 1.3  REMARK  Definition 1.2 is by (successor) recursion on the natural
        numbers.
 
-       (a)   1.2(B) is the the base case.
+       (a)   Definition 1.2(B) is the the base case.
 
-       (b)   1.2(R) is the the recursive case.
+       (b)   Definition 1.2(R) is the the recursive case.
 
 
 ¶ 1.4  FACT  For each n:

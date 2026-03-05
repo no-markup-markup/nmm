@@ -1,30 +1,30 @@
 ¶ 1  Block of text.
 
-     (1)   An item
+     (a)   An item
 
-     (2)   I like (1).
+     (b)   I like (a).
 
-     I also like (2) and THEOREM 5.
+     I also like (b) and Theorem 5.
 
 
 ¶ 2  ¶ 1 [restated]  Block of text.
 
-     (1)   An item
+     (a)   An item
 
-     (2)   I like (1).
+     (b)   I like (a).
 
-     I also like (2) and THEOREM 5.
+     I also like (b) and Theorem 5.
 
 
 ¶ 3  Header of paragraph referencing ¶ 3, i.e itself.  Block of text.
 
-     I like 1(1) and ¶ 1. I also like THEOREM 5.
+     I like (a) of ¶ 1 and ¶ 1. I also like Theorem 5.
 
 
 ¶ 4  ¶ 3 (Header of paragraph referencing ¶ 3, i.e itself.) [restated] 
      Block of text.
 
-     I like 1(1) and ¶ 1. I also like THEOREM 5.
+     I like (a) of ¶ 1 and ¶ 1. I also like Theorem 5.
 
 
 ¶ 5  THEOREM  Block of text.
@@ -32,7 +32,7 @@
      Another block of text.
 
 
-¶ 6  THEOREM 5 [restated]  Block of text.
+¶ 6  Theorem 5 [restated]  Block of text.
 
      Another block of text.
 
@@ -42,6 +42,6 @@
      Another block of text.
 
 
-¶ 8  THEOREM 7 (Header of paragraph) [restated]  Block of text.
+¶ 8  Theorem 7 (Header of paragraph) [restated]  Block of text.
 
      Another block of text.

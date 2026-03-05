@@ -41,11 +41,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .title {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .doc.chs .title {
@@ -67,11 +67,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .authors {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 
@@ -86,11 +86,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .abstract_hdr {
@@ -107,11 +107,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .refs {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 .doc.chs .refs {
@@ -175,7 +175,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
     font-size   : large;
 }
 
@@ -209,7 +209,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 
@@ -220,7 +220,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 1.20rem;
+    margin-left : 5.40rem;
 }
 
 
@@ -302,97 +302,102 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc blks">
+<div style="display:block" class="doc chs">
 <div class="doc_main" style="display:block">
-<p class="blk txt">This is a no-markup-markup document, sporting the following cool features:</p>
+<div style="display:block" class="CH ch secs">
+<h2 class="ch_lbl hdr">CHAPTER 1</h2>
+<div class="ch_main" style="display:block">
+<div style="display:block" class="sec" id="APP_intro">
+<div class="sec_lbl" style="display:block;float:left">§ 1.A</div>
+<h3 class="sec_hdr">Introduction</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par" id="PAR_intro">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.A.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">Some facts about inductively defined structures seem not to admit “straightforward” induction proofs. In such cases, a “non-straightforward” induction proof seems “necessary”. A curious one, or one fond of precision, or anyone with any other motivation, might then wonder whether there is a way to precisely and sensibly state, and prove, that this or that fact does not admit a straightforward induction proof.</p>
+</div>
+</div>
+<div style="display:block" class="par" id="DEFS_basel">
+<div class="par_lbl" style="display:block;float:left">¶ 1.A.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">DEFINITIONS</h4>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">     b : ℕ → ℚ</div>
+</div>
+<div class="dsp_line" style="display:block" id="DEF_basel_base_case">
+<div class="dsp_line_lbl" style="display:block;float:left">(B)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">  b(0) ≔ 1</div>
+</div>
+<div class="dsp_line" style="display:block" id="DEF_basel_rec_case">
+<div class="dsp_line_lbl" style="display:block;float:left">(R)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">b(n+1) ≔ b(n)+(n+2)⁻²</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="RMK par">
+<div class="par_lbl" style="display:block;float:left">¶ 1.A.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">REMARK</h4>
+<p class="blk txt"><a class="txt_unit_c_ref" href="#DEFS_basel">Definitions 1.A.2</a> is by (successor) recursion on the natural numbers.</p>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">Bullet lists:</p>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
-<div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
-<p class="blk txt">Here is one bullet item.</p>
-</div>
-</div>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
-<div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
-<p class="blk txt">Here is another one.</p>
-</div>
-</div>
+<p class="blk txt"><a class="txt_unit_c_ref" href="#DEF_basel_base_case">Definition 1.A.2(B)</a> is the the base case.</p>
 </div>
 </div>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
 <div class="clear"></div>
 <div class="blk_itm_main" style="display:block">
-<p class="blk txt">Numbered lists with labels that are either</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<p class="blk txt"><a class="txt_unit_c_ref" href="#DEF_basel_rec_case">Definition 1.A.2(R)</a> is the the recursive case.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par" id="FCT_basel">
+<div class="par_lbl" style="display:block;float:left">¶ 1.A.4</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
-<p class="blk txt">automatic, or</p>
-</div>
-</div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(ö)</div>
-<div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
-<p class="blk txt">custom.</p>
-</div>
-</div>
-<p class="blk txt">Furthermore, each item can be <em class="txt_unit_emph">named</em> and <em class="txt_unit_emph">referred to</em>:</p>
-<div class="blk itm" style="display:block" id="ITM_x">
-<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
-<div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
-<p class="blk txt">The named item can be referred to anywhere in the document.</p>
-</div>
-</div>
-<div class="blk itm" style="display:block" id="ITM_y">
-<div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
-<div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
-<p class="blk txt">When referring to <a class="txt_unit_c_ref" href="#ITM_x">(2)</a> above, any common initial path shared between the location of the referring expression and the location of its referent will be omitted. The same applies with respect to <a class="txt_unit_c_ref" href="#ITM_z">(ä)</a> below.</p>
-</div>
-</div>
-<div class="blk itm" style="display:block" id="ITM_z">
-<div class="blk_itm_lbl" style="display:block;float:left">(ä)</div>
-<div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
-<p class="blk txt">Of course, items with custom labels can also be named!</p>
-</div>
-</div>
-</div>
-</div>
-<p class="blk txt">Due to the feature mentioned in <a class="txt_unit_c_ref" href="#ITM_y">(b)(3)</a>, a reference to <a class="txt_unit_c_ref" href="#ITM_x">(b)(2)</a> or <a class="txt_unit_c_ref" href="#ITM_z">(b)(ä)</a> occurring elsewhere may appear differently.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
-<div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
-<p class="blk txt">Displayed lines of text suitable for mathematical equations, which are either</p>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">FACT</h4>
+<p class="blk txt">For each n:</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block" id="DSP_one">
-<div class="dsp_line_lbl" style="display:block;float:left">(1)</div>
-<div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled (and named),</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">b(n) &lt; 2.</div>
 </div>
-<div class="dsp_line" style="display:block" id="DSP_two">
-<div class="dsp_line_lbl" style="display:block;float:left">(+)</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.A.5</h4>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">custom labeled (and named), or,</div>
+<div class="par_main" style="display:block">
+<p class="blk txt"><a class="txt_unit_c_ref" href="#FCT_basel">Fact 1.A.4</a> is a simplification of <em class="txt_unit_emph">the Basel problem</em>, which ask for a closed-form expression of the infinite sum:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre"> 1     1     1     1</div>
 </div>
 <div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlike <a class="txt_unit_c_ref" href="#DSP_one">(1)</a> above, unlabeled.</div>
+<div class="dsp_line_main" style="display:block;white-space:pre">─── + ─── + ─── + ─── + ⋯</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre"> 1²    2²    3²    4²</div>
+</div>
+</div>
+<p class="blk txt">Euler (1740) solved this problem and the sum is π²/6 (≈ 1.64).</p>
 </div>
 </div>
 </div>
 </div>
-<p class="blk txt">Testing the forbidden characters: &lt; &gt; &amp; &apos; &quot;</p>
+</div>
+</div>
 </div>
 </div>
 </body>

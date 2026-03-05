@@ -40,8 +40,8 @@ and txt_of_tr_doc (options : string list) (doc : tr_doc) : string =
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
 	par_prefix = doc_settings.par_prefix;
-	expand_tag_singular = doc_settings.expand_tag_singular;
-	expand_tag_plural = doc_settings.expand_tag_plural;
+	expand_tag = doc_settings.expand_tag;
+	auto_numbering = doc_settings.auto_numbering;
 	}
 	in
 	String.concat "\n" (lines_of_tr_doc new_doc_settings doc)
@@ -465,12 +465,7 @@ and acc_of_par_main (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
 and acc_of_tu_blk (doc_settings : t_doc_settings) (cref_table : t_cref_table) (auto_nr : int) (path : t_path) (acc : t_acc) (a : tu_blk) : t_acc * int =
 	match a with
 	| Cu_blk_itm (b : tr_blk_itm) ->
-		let path_hd_opt : t_node option=
-			match path with
-			|hd::tl -> Some hd
-			|[] -> None
-		in
-		let node : t_node = node_of_blk_itm path_hd_opt auto_nr b in
+		let node : t_node = node_of_blk_itm doc_settings auto_nr b in
 		let next_auto_nr =
 			match b.fld_blk_itm_lbl with 
 			|Cu_lbl_auto Cs_lbl_auto -> auto_nr + 1
@@ -576,7 +571,7 @@ and acc_of_ts_blk_dsp (doc_settings : t_doc_settings) (cref_table : t_cref_table
 		match c with
 		| [] -> (acc, auto_nr)
 		| hd :: tl ->
-			let node : t_node = node_of_dsp_line auto_nr hd in
+			let node : t_node = node_of_dsp_line doc_settings auto_nr hd in
 			let next_auto_nr =
 				match hd.fld_dsp_line_lbl with 
 				| Some (Cu_lbl_auto Cs_lbl_auto) -> auto_nr + 1 

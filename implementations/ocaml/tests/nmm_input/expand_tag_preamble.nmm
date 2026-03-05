@@ -1,8 +1,8 @@
 PREAMBLE:
-	singular-tag=PRF>Proof
-	singular-tag=THM>Theorem
-	plural-tag=THMS>Theorem>Theorems
-	plural-tag=PRFS>Proof>Proofs
+	tag=PRF>Proof
+	tag=THM>Theorem
+	tag=THMS>Theorems
+	tag=PRFS>Proofs
 
 ¶ THM:main
 Main

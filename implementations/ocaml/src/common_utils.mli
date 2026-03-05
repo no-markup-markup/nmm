@@ -82,20 +82,20 @@ type t_doc_settings = {
   abstract_indent : int;
   refs_indent : int;
   tab_length : int;
-  abstract_hdr : string option;
-  refs_hdr : string;
-  ch_prefix : string option;
-  sec_prefix : string option;
-  par_prefix : string option;
-  expand_tag_singular: Doc_types.ts_tag -> string option;
-  expand_tag_plural: Doc_types.ts_tag -> (string * string) option;
+  abstract_hdr : (string * string) option;
+  refs_hdr : (string * string) option;
+  ch_prefix : (string * string) option;
+  sec_prefix : (string * string) option;
+  par_prefix : (string * string) option;
+  expand_tag: Doc_types.ts_tag -> (string * string) option;
+  auto_numbering : int -> int -> string;
 }
 
 
 (** <h3>Default settings</h3> *)
 
 
-val expand_tag_singular_default : Doc_types.ts_tag -> string option
+val expand_tag_default : Doc_types.ts_tag -> (string * string) option
 (**
 {[expand_tag_singular_default tag]}
 
@@ -109,24 +109,6 @@ match tag with
 |Cs_tag "LMA" -> Some "LEMMA"
 |Cs_tag "THM" -> Some "THEOREM"
 |Cs_tag "RMK" -> Some "REMARK"
-| _  -> None
-]}
-*)
-
-val expand_tag_plural_default : Doc_types.ts_tag -> (string * string) option
-(**
-{[expand_tag_plural_default tag]}
-
-evaluates to
-
-{[
-match tag with
-|Cs_tag "DEFS" -> Some ("DEFINITION", "DEFINITIONS")
-|Cs_tag "PRFS" -> Some ("PROOF", "PROOFS")
-|Cs_tag "FCTS" -> Some ("FACT", "FACTS")
-|Cs_tag "LMAS" -> Some ("LEMMA", "LEMMAS")
-|Cs_tag "THMS" -> Some ("THEOREM", "THEOREMS")
-|Cs_tag "RMKS" -> Some ("REMARK", "REMARKS")
 | _  -> None
 ]}
 *)
@@ -208,7 +190,7 @@ v}
 (** <h2>Cross-references and labels</h2> *)
 
 
-type t_par_node = NO_TAG of (string option * int) | SINGULAR_TAG of (string * int) | PLURAL_TAG of (string * string * int)
+type t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
 type t_itm_node = 
 	|ITM_AUTO of int
@@ -220,6 +202,8 @@ type t_dsp_line_node =
 	|DSP_AUTO of int
 	|DSP_CUSTOM of string
 	|DSP_NONE
+	|DSP_TAG_AUTO of (string * int)
+	|DSP_TAG_CUSTOM of (string * string)
 
 type t_node = 
 	|ABSTRACT_NODE
@@ -262,7 +246,7 @@ Prints a warning to [stderr] if no match is found, and returns ["??"].
 val node_of_tu_par : t_doc_settings -> int -> Doc_types.tu_par -> t_node
 
 
-val node_of_blk_itm : t_node option -> int -> Doc_types.tr_blk_itm -> t_node
+val node_of_blk_itm : t_doc_settings -> int -> Doc_types.tr_blk_itm -> t_node
 (**
 {[node_of_blk_itm (auto_nr : int) (a : Doc_types.tr_blk_itm)]}
 
@@ -278,7 +262,7 @@ in ITM_NODE itm_node
 *)
 
 
-val node_of_dsp_line : int -> Doc_types.tr_dsp_line -> t_node
+val node_of_dsp_line : t_doc_settings -> int -> Doc_types.tr_dsp_line -> t_node
 (**
 {[node_of_dsp_line (auto_nr : int) (a : Doc_types.tr_dsp_line)]}
 

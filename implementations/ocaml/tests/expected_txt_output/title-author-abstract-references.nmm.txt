@@ -11,20 +11,20 @@
        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
        aliquip ex ea commodo consequat.
 
-       (1)   A named item in abstract.
+       (a)   A named item in abstract.
 
-       (2)   Another one.
+       (b)   Another one.
 
-             (a)   Another one.
+             (1)   Another one.
 
        Duis aute irure dolor in reprehenderit in voluptate velit esse
        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
        cupidatat non proident, sunt in culpa qui officia deserunt mollit
        anim id est laborum.
 
-       Reference to (1) of REFERENCES.
+       Reference to (a) of References.
 
-       '[ITM:in_abstract]' -> (1)
+       '[ITM:in_abstract]' -> (a)
 
 
 
@@ -33,25 +33,25 @@
        First chapter
        ═════════════
 
-       (1)   An item
+       (a)   An item
 
        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
        aliquip ex ea commodo consequat.
 
-       '[ITM:in_abstract]' -> (1) of ABSTRACT
+       '[ITM:in_abstract]' -> (a) of Abstract
 
-       '[ITM:second]' -> (2) of ABSTRACT
+       '[ITM:second]' -> (b) of Abstract
 
-       '[ITM:another]' -> (2)(a) of ABSTRACT
+       '[ITM:another]' -> (b)(1) of Abstract
 
        Duis aute irure dolor in reprehenderit in voluptate velit esse
        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
        cupidatat non proident, sunt in culpa qui officia deserunt mollit
        anim id est laborum.
 
-       Reference to (2) of REFERENCES.
+       Reference to (b) of References.
 
 
 
@@ -71,7 +71,7 @@
        cupidatat non proident, sunt in culpa qui officia deserunt mollit
        anim id est laborum.
 
-       Reference to 1(1).
+       Reference to (a) of CHAPTER 1.
 
 
 
@@ -79,14 +79,14 @@
        REFERENCES
        ══════════
 
-       (1)   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
+       (a)   Euler, Leonhard (1740): De summis serierum reciprocarum. In:
              Commentarii academiae scientiarum Petropolitanae, volume 7,
              pages 123–134
 
-       (2)   Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
+       (b)   Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
              Robinson (1953): Undecidable Theories; North-Holland
              Publishing Company; Amsterdam.
 
        ─     Reference to CHAPTER 2.
 
-       A reference to (1).
+       A reference to (a).
