@@ -20,14 +20,18 @@ reads from standard input.
 
 TXT-OPTIONS:
   --margin <numeral>
-  --quiet
   --width <numeral>
+  --quiet
+  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --allow-custom-numbering
 
 HTML-OPTIONS:
   --margin <numeral>
-  --quiet
   --lang <language-code>
   --css <uri>
+  --quiet
+  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --allow-custom-numbering
 "
 
 type t_keyspecdoc = (Arg.key *  Arg.spec * Arg.doc)
@@ -105,6 +109,10 @@ and read_from_stdin : bool ref = ref false
 
 and quiet : bool ref = ref false
 
+and numbering : string ref = ref ""
+
+and allow_custom_numbering : bool ref = ref false
+
 and keyspecdoc_list : t_keyspecdoc list ref = ref []
 
 and keyspecdoc_margin : t_keyspecdoc =
@@ -125,12 +133,19 @@ and keyspecdoc_stdin : t_keyspecdoc =
 and keyspecdoc_quiet : t_keyspecdoc =
 	("--quiet", Arg.Set quiet, "")
 
+and keyspecdoc_numbering : t_keyspecdoc =
+	("--numbering", Arg.Set_string numbering, "")
+
+and keyspecdoc_allow_custom_numbering : t_keyspecdoc =
+	("--allow-custom-numbering", Arg.Set allow_custom_numbering, "")
 
 and keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_margin;
 	keyspecdoc_stdin;
 	keyspecdoc_quiet;
 	keyspecdoc_width;
+	keyspecdoc_numbering;
+	keyspecdoc_allow_custom_numbering;
 ]
 
 and keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
@@ -138,6 +153,8 @@ and keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
 	keyspecdoc_stdin;
 	keyspecdoc_quiet;
 	keyspecdoc_width;
+	keyspecdoc_numbering;
+	keyspecdoc_allow_custom_numbering;
 ]
 
 
@@ -151,6 +168,8 @@ and keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
 	keyspecdoc_quiet;
 	keyspecdoc_lang;
 	keyspecdoc_css;
+	keyspecdoc_numbering;
+	keyspecdoc_allow_custom_numbering;
 ]
 
 and keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
@@ -159,6 +178,8 @@ and keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
 	keyspecdoc_quiet;
 	keyspecdoc_lang;
 	keyspecdoc_css;
+	keyspecdoc_numbering;
+	keyspecdoc_allow_custom_numbering;
 ]
 
 
@@ -175,7 +196,7 @@ let _ : unit =
 		|some_width -> ["--width";some_width]
 	in
 	let quiet_options : string list =
-	match quiet.contents with
+		match quiet.contents with
 		|false -> []
 		|true -> ["--quiet"]
 	in
@@ -189,7 +210,26 @@ let _ : unit =
 		|"" -> []
 		|uri -> ["--css";uri]
 	in
-	let options = List.concat [margin_options; width_options; quiet_options; lang_options; css_options] in
+	let numbering_options : string list =
+		match numbering.contents with
+		|"" -> []
+		|code -> ["--numbering";code]
+	in
+	let allow_custom_numbering_options : string list =
+		match allow_custom_numbering.contents with
+		|false -> []
+		|true -> ["--allow-custom-numbering"]
+	in
+	let options = List.concat [
+		margin_options;
+		width_options;
+		quiet_options;
+		lang_options;
+		css_options;
+		numbering_options;
+		allow_custom_numbering_options;
+	]
+	in
 	match cmd_name.contents with
 	|"txt-of-xml" -> (
 		match read_from_stdin.contents with
@@ -222,7 +262,7 @@ let _ : unit =
 		|true -> print_endline (Main.validate_xml path_to_dtd_file.contents "-")
 		|false -> print_endline (Main.validate_xml path_to_dtd_file.contents path_to_xml_file.contents)
 	)
-	|"show-default-css" -> print_endline Main.default_css
+	|"show-default-css" -> print_endline (Main.default_css ())
 	|"test-with-xml" -> Test.test_with_axml_file options path_to_xml_file.contents
 	|"test-with-nmm" -> Test.test_with_nmm_file options path_to_nmm_file.contents
 	|_ -> Debug_utils.print_to_stderr usage

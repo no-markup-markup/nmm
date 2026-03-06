@@ -92,7 +92,19 @@ match element with
 ]}
 *)
 
+val default_tab_length : unit -> string
+
+val default_lang_code : unit -> string
+
+val default_margin : unit -> string
+
 val margin_left_of_tr_doc : Common_utils.t_doc_settings -> Doc_types.tr_doc -> string
+
+val lang_code_of_options : string list -> string option
+
+val margin_left_of_options : string list -> string option
+
+val external_css_of_options : string list -> string option
 
 val internal_css : string -> string -> string
 (**

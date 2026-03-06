@@ -71,7 +71,7 @@
        cupidatat non proident, sunt in culpa qui officia deserunt mollit
        anim id est laborum.
 
-       Reference to (a) of CHAPTER 1.
+       Reference to (a) of Chapter 1.
 
 
 
@@ -87,6 +87,6 @@
              Robinson (1953): Undecidable Theories; North-Holland
              Publishing Company; Amsterdam.
 
-       ─     Reference to CHAPTER 2.
+       ─     Reference to Chapter 2.
 
        A reference to (a).

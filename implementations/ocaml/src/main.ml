@@ -18,52 +18,6 @@ let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	|Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:";e]))
 
 
-let default_tab_length : string = "6ch"
-
-let default_lang_code : string = "en"
-
-let default_margin : string  = "0"
-
-let default_css : string = Html_utils.internal_css default_tab_length default_margin
-
-let margin_left_of_options (options : string list) : string option =
-	match Txt_utils.left_margin_of_options options with
-	|Some (margin : int) -> Some (String.concat "" [string_of_int margin;"rem"])
-	|None -> None
-
-
-let lang_code_of_options (options : string list) : string option =
-	let rec aux (lst : string list) =
-		match lst with
-		|[] -> None
-		|hd::tl ->
-			match hd with
-			|"--lang" -> (
-				match tl with
-				|lang_code::_ -> Some lang_code
-				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --lang argument; using default (en)" in None
-			)
-			|_ -> aux tl
-	in
-	aux options
-
-let external_css_of_options (options : string list) : string option =
-	let rec aux (lst : string list) =
-		match lst with
-		|[] -> None
-		|hd::tl ->
-			match hd with
-			|"--css" -> (
-				match tl with
-				|uri::_ -> Some uri
-				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --css argument; using default" in None
-
-			)
-			|_ -> aux tl
-	in
-	aux options
-
-
 let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	try
 	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
@@ -86,23 +40,23 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 				|Cs_author s -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">"]
 			in String.concat "\n" (List.map map author_list)
 	in
-	let lang_attr=
-	match lang_code_of_options options with 
-		| None -> (" lang=\"" ^ default_lang_code ^ "\"")
+	let lang_attr : string =
+	match Html_utils.lang_code_of_options options with 
+		| None -> (" lang=\"" ^ (Html_utils.default_lang_code ())^ "\"")
 		| Some lang_code -> (" lang=\"" ^ lang_code ^ "\"") 
 	in
 	let margin_left : string = 
-		match margin_left_of_options options with
+		match Html_utils.margin_left_of_options options with
 		|Some margin -> margin
 		|None -> Html_utils.margin_left_of_tr_doc doc_settings doc
 	in
-	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css default_tab_length margin_left) ^ "\n</style>") in
+	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css (Html_utils.default_tab_length ()) margin_left) ^ "\n</style>") in
 	let external_css: string = 
-		match external_css_of_options options with
+		match Html_utils.external_css_of_options options with
 		|None -> ""
 		|Some uri ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n")
 	in
-	let intro:string = (
+	let intro : string = (
 		"<!DOCTYPE html>\n" ^
 		"<html" ^ lang_attr ^ ">\n" ^
 		"<head>\n" ^
@@ -116,7 +70,7 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 		"<body>\n"
 	) 
 	in
-	let outro:string = (
+	let outro : string = (
 		"\n</body>\n" ^
 		"</html>"
 	)
@@ -193,4 +147,5 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
 	|Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
 	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
 
+let default_css () : string = Html_utils.internal_css (Html_utils.default_tab_length ()) (Html_utils.default_margin ())
 

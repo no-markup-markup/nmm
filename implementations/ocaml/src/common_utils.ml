@@ -2,6 +2,39 @@ open Doc_types
 
 exception Error of string
 
+(** document classes *)
+
+type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
+
+type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
+
+let class_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_class =
+	match doc.fld_doc_main with
+	|Cu_doc_main_chs _ -> DOC_CHS
+	|Cu_doc_main_secs _ -> DOC_SECS
+	|Cu_doc_main_pars _ -> DOC_PARS
+	|Cu_doc_main_blks _ -> DOC_BLKS
+
+let string_of_t_doc_class (doc_class : t_doc_class) : string =
+	match doc_class with
+	|DOC_CHS -> "doc chs"
+	|DOC_SECS -> "doc secs"
+	|DOC_PARS -> "doc pars"
+	|DOC_BLKS -> "doc blks"
+
+let class_of_tr_ch (ch : Doc_types.tr_ch) : t_ch_class =
+	match ch.fld_ch_main with
+	| Cu_secs_pars_or_blks_secs _ -> CH_SECS
+	| Cu_secs_pars_or_blks_pars _ -> CH_PARS
+	| Cu_secs_pars_or_blks_blks _ -> CH_BLKS
+
+let string_of_t_ch_class (ch_class : t_ch_class) : string =
+	match ch_class with
+	|CH_SECS -> "ch secs"
+	|CH_PARS -> "ch pars"
+	|CH_BLKS -> "ch blks"
+
+
 (**************************** document settings ************************)
 
 type t_doc_settings = {
@@ -16,14 +49,13 @@ type t_doc_settings = {
 	refs_hdr: (string * string) option;
 	ch_prefix: (string * string) option;
 	sec_prefix: (string * string) option;
+	app_prefix: (string * string) option;
 	par_prefix : (string * string) option;
 	expand_tag: Doc_types.ts_tag -> (string * string) option;
 	auto_numbering : int -> int -> string;
+	allow_custom_numbering : bool;
 }
 
-type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
-
-type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
 
 
 let expand_tag_default (tag : Doc_types.ts_tag) : (string * string) option =
@@ -56,14 +88,43 @@ let upper_case_roman_numerals : string array =
 
 let bullets : string array = [| "─" |]
 
-let auto_numbering_default (lvl : int) (n : int) : string =
-	let s : string =
-		match lvl mod 3 with
-		| 0 -> lower_case_latin_letters.(n)
-		| 1 -> string_of_int (n + 1)
-		| _ -> lower_case_roman_numerals.(n)
-	in String.concat s ["(";")"]
+let symbol_of_array (a : string array) (i : int) : string =
+	let len : int = Array.length a in
+	let rec aux (n : int) (acc : string) : string =
+		match n < 0 with
+		|true -> acc
+		|false ->
+			let m = n mod (len - 1) in
+			aux (n - m - 1) (acc ^ a.(m))
+	in aux i ""
 
+let auto_numbering_of_string (s: string) (l : int) (i : int) : string =
+	let enumeration (lvl : int) (n: int): string  =
+		match s, lvl mod 3 with
+		|"a1i",0 -> symbol_of_array lower_case_latin_letters n
+		|"a1i",1 -> string_of_int (n+1)
+		|"a1i",_ -> symbol_of_array lower_case_roman_numerals n
+		|"ai1",0 -> symbol_of_array lower_case_latin_letters n
+		|"ai1",1 -> symbol_of_array lower_case_roman_numerals n
+		|"ai1",_ -> string_of_int (n+1)
+		|"1ai",0 -> string_of_int (n+1)
+		|"1ai",1 -> symbol_of_array lower_case_latin_letters n
+		|"1ai",_ -> symbol_of_array lower_case_roman_numerals n
+		|"1ia",0 -> string_of_int (n+1)
+		|"1ia",1 -> symbol_of_array lower_case_roman_numerals n
+		|"1ia",_ -> symbol_of_array lower_case_latin_letters n
+		|"ia1",0 -> symbol_of_array lower_case_roman_numerals n
+		|"ia1",1 -> symbol_of_array lower_case_latin_letters n
+		|"ia1",_ -> string_of_int (n+1)
+		|"i1a",0 -> symbol_of_array lower_case_roman_numerals n
+		|"i1a",1 -> string_of_int (n+1)
+		|"i1a",_ -> symbol_of_array lower_case_latin_letters n
+		|_,_ -> raise (Invalid_argument s)
+	in String.concat (enumeration l i) ["(";")"]
+
+
+let auto_numbering_default (lvl : int) (n : int) : string =
+	auto_numbering_of_string "a1i" lvl n
 
 let doc_settings_default () : t_doc_settings = {
 	doc_width = 68;
@@ -77,66 +138,90 @@ let doc_settings_default () : t_doc_settings = {
 	refs_hdr = Some ("REFERENCES", "References");
 	ch_prefix = Some ("CHAPTER", "Chapter");
 	sec_prefix = Some ("§","§");
+	app_prefix = Some ("§","Appendix");
 	par_prefix = Some ("¶","¶");
 	expand_tag = expand_tag_default;
 	auto_numbering = auto_numbering_default;
+	allow_custom_numbering = true;
 }
+
+let auto_numbering_of_options (options : string list) : int -> int -> string =
+	let rec aux (lst : string list) : int -> int -> string =
+		match lst with
+		|[] -> auto_numbering_default
+		|"--numbering"::(s::_) -> (
+			try auto_numbering_of_string s with
+			|Invalid_argument a -> 
+				let _ : unit = Debug_utils.print_warning ("Invalid auto-numbering argument: \'" ^ a ^ "\'; using default")
+				in auto_numbering_default
+		)
+		|hd::tl -> aux tl
+	in aux options
+
+let allow_custom_numbering_of_options (options : string list) : bool =
+	List.mem "--allow-custom-numbering" options
+
+let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : Doc_types.ts_blks) : t_doc_settings =
+	if not doc_settings.allow_custom_numbering then doc_settings else
+	let rec aux (blk_list : Doc_types.tu_blk list) : t_doc_settings =
+		match blk_list with
+		|[] -> doc_settings
+		|hd ::tl ->
+			match hd with
+			|Cu_blk_itm (blk_itm : tr_blk_itm) -> (
+				match blk_itm.fld_blk_itm_lbl with
+				|Cu_lbl_custom (Cs_lbl_custom s) -> (
+					match s with
+					|"1" | "a" | "i" ->
+						let inc : int =
+							match s, doc_settings.auto_numbering 1 0, doc_settings.auto_numbering 2 0 with
+							|"a","(a)",_  -> 1
+							|"a",_,"(a)" -> 2
+							|"1","(1)",_  -> 1
+							|"1",_,"(1)" -> 2
+							|"i","(i)",_  -> 1
+							|"i",_,"(i)" -> 2
+							|_,_,_ -> 0
+						in
+						let new_auto_numbering (l : int) (n : int) : string =
+							let new_n = if l=lvl then n+1 else n in
+							doc_settings.auto_numbering (l - lvl + inc) new_n
+						in
+						{
+							doc_width = doc_settings.doc_width;
+							left_margin = doc_settings.left_margin;
+							title_indent = doc_settings.title_indent;
+							author_indent = doc_settings.author_indent;
+							abstract_indent = doc_settings.abstract_indent;
+							refs_indent = doc_settings.refs_indent;
+							tab_length = doc_settings.tab_length;
+							abstract_hdr = doc_settings.abstract_hdr;
+							refs_hdr = doc_settings.refs_hdr;
+							ch_prefix = doc_settings.ch_prefix;
+							sec_prefix = doc_settings.sec_prefix;
+							app_prefix = doc_settings.app_prefix;
+							par_prefix = doc_settings.par_prefix;
+							expand_tag = doc_settings.expand_tag;
+							auto_numbering = new_auto_numbering;
+							allow_custom_numbering = doc_settings.allow_custom_numbering;
+						}
+					|_ -> doc_settings
+				)
+				|_ -> doc_settings
+			)
+			|_ -> aux tl
+	in
+	match blks with
+	|Cs_blks blk_list -> aux blk_list
+
+
+
+
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
 	match doc.fld_doc_preamble with
 	|None -> doc_settings_default ()
 	|Some preamble -> doc_settings_of_ts_preamble (doc_settings_default ()) preamble 
-
-and class_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_class =
-	match doc.fld_doc_main with
-	|Cu_doc_main_chs _ -> DOC_CHS
-	|Cu_doc_main_secs _ -> DOC_SECS
-	|Cu_doc_main_pars _ -> DOC_PARS
-	|Cu_doc_main_blks _ -> DOC_BLKS
-
-and string_of_t_doc_class (doc_class : t_doc_class) : string =
-	match doc_class with
-	|DOC_CHS -> "doc chs"
-	|DOC_SECS -> "doc secs"
-	|DOC_PARS -> "doc pars"
-	|DOC_BLKS -> "doc blks"
-
-and class_of_tr_ch (ch : Doc_types.tr_ch) : t_ch_class =
-	match ch.fld_ch_main with
-	| Cu_secs_pars_or_blks_secs _ -> CH_SECS
-	| Cu_secs_pars_or_blks_pars _ -> CH_PARS
-	| Cu_secs_pars_or_blks_blks _ -> CH_BLKS
-
-and string_of_t_ch_class (ch_class : t_ch_class) : string =
-	match ch_class with
-	|CH_SECS -> "ch secs"
-	|CH_PARS -> "ch pars"
-	|CH_BLKS -> "ch blks"
-
-
-and doc_contains_sec_or_par (doc : Doc_types.tr_doc) : bool =
-	match doc.fld_doc_main with
-	| Cu_doc_main_blks _ -> false
-	| Cu_doc_main_chs (chs : Doc_types.ts_chs) -> (
-		let rec aux (ch_list : Doc_types.tr_ch list) : bool =
-			match ch_list with
-			|[] -> false
-			|hd::tl -> 
-				match ch_contains_sec_or_par hd with
-				| true -> true
-				| false -> aux tl
-		in
-		match chs with
-		|Cs_chs ch_list -> aux ch_list
-	)
-	| Cu_doc_main_secs _ -> true
-	| Cu_doc_main_pars _ -> true
-
-and ch_contains_sec_or_par (ch : Doc_types.tr_ch) : bool =
-	match ch.fld_ch_main with
-	| Cu_secs_pars_or_blks_blks _ -> false
-	| Cu_secs_pars_or_blks_secs _ -> true
-	| Cu_secs_pars_or_blks_pars _ -> true
 
 
 and doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
@@ -188,9 +273,11 @@ and set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -211,9 +298,11 @@ and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -234,9 +323,11 @@ and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -257,9 +348,11 @@ and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -280,9 +373,11 @@ and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -303,9 +398,11 @@ and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -327,9 +424,11 @@ and set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -349,9 +448,11 @@ and set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settin
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 
 and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -367,9 +468,11 @@ and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
 	refs_hdr = prefix_value_of_string v;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 
 and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -385,9 +488,11 @@ and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = prefix_value_of_string v;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 
 and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -403,9 +508,11 @@ and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = prefix_value_of_string v;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 
 and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -421,9 +528,11 @@ and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = prefix_value_of_string v;
 	expand_tag = doc_settings.expand_tag;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 
 
@@ -441,9 +550,11 @@ and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) optio
 	refs_hdr = doc_settings.refs_hdr;
 	ch_prefix = doc_settings.ch_prefix;
 	sec_prefix = doc_settings.sec_prefix;
+	app_prefix = doc_settings.app_prefix;
 	par_prefix = doc_settings.par_prefix;
 	expand_tag = tag_value_of_string expand_tag_old v;
 	auto_numbering = doc_settings.auto_numbering;
+	allow_custom_numbering = doc_settings.allow_custom_numbering;
 	}
 	with _ ->
 	let _ : unit =
@@ -452,12 +563,12 @@ and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) optio
 
 
 and prefix_value_of_string (v : string) : (string * string) option =
-	match String.split_on_char '>' v with
+	match String.split_on_char ',' v with
 	|[lbl; cref] -> Some (lbl, cref)
 	|_ -> None
 
 and tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
-	match String.split_on_char '>' v with
+	match String.split_on_char ',' v with
 	|[tag_string; lbl; cref] -> (
 		let expand_tag_new ( tag : Doc_types.ts_tag) : (string * string) option = 
 			match tag with
@@ -491,13 +602,13 @@ and t_node =
 
 and t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
-and t_itm_node = ITM_AUTO of int | ITM_CUSTOM of string | ITM_TAG_AUTO of (string * int) | ITM_TAG_CUSTOM of (string * string)
+and t_itm_node = ITM_AUTO of string | ITM_CUSTOM of string | ITM_TAG_AUTO of (string * string) | ITM_TAG_CUSTOM of (string * string)
 
 and t_dsp_line_node =
-	| DSP_AUTO of int
+	| DSP_AUTO of string
 	| DSP_CUSTOM of string
 	| DSP_NONE
-	| DSP_TAG_AUTO of (string * int)
+	| DSP_TAG_AUTO of (string * string)
 	| DSP_TAG_CUSTOM of (string * string)
 
 
@@ -590,6 +701,21 @@ and string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path) (p
 	match inner_path, outer_path with
 	|[],outer_path_hd::_ -> (
 		match outer_path_hd with
+		|CH_NODE _ -> (
+			match doc_settings.ch_prefix with
+			|Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+			|None -> string_of_path doc_settings full_outer_path
+		)
+		|SEC_NODE _ -> (
+			match doc_settings.sec_prefix with
+			|Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+			|None -> string_of_path doc_settings full_outer_path
+		)
+		|APP_NODE _ -> (
+			match doc_settings.app_prefix with
+			|Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+			|None -> string_of_path doc_settings full_outer_path
+		)
 		|PAR_NODE par_node -> (
 			match par_node with
 			|PAR_AUTO _ -> label_of_path doc_settings full_outer_path
@@ -702,24 +828,21 @@ and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
 		|PAR_AUTO n -> Some (string_of_int (n+1))
 		|PAR_TAG (_,_,n) -> Some (string_of_int (n+1))
 	)
-	| APP_NODE (n : int) -> (
-		try Some upper_case_latin_letters.(n) with 
-		|_ -> raise (Error "You have too many appendices!")
-	)
+	| APP_NODE (n : int) -> Some (symbol_of_array upper_case_latin_letters n)
 	| DSP_NODE -> None
 	| DSP_LINE_NODE (a : t_dsp_line_node) -> (
 		match a with
 		| DSP_NONE -> None
-		| DSP_AUTO (n : int) -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		| DSP_AUTO (n : string) -> Some n
 		| DSP_CUSTOM (s : string) -> Some (String.concat s ["(";")"])
-		| DSP_TAG_AUTO (tag,n) -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
-		| DSP_TAG_CUSTOM (tag,s) -> Some (String.concat s ["(";")"])
+		| DSP_TAG_AUTO (_,n) -> Some n
+		| DSP_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
 	)
 	| ITM_NODE (a : t_itm_node) -> (
 		match a with
-		|ITM_AUTO n -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		|ITM_AUTO n -> Some n
 		|ITM_CUSTOM s -> Some (String.concat s ["(";")"])
-		|ITM_TAG_AUTO (_,n) -> Some (doc_settings.auto_numbering (lvl_of_path tail) n)
+		|ITM_TAG_AUTO (_,n) -> Some n
 		|ITM_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
 	)
 	| BLT_NODE ->
@@ -727,12 +850,12 @@ and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
 		Some bullets.(l mod Array.length bullets)
 	| ABSTRACT_NODE -> (
 		match doc_settings.abstract_hdr with
-		|Some (lbl,cref) -> Some cref
+		|Some (_,cref) -> Some cref
 		|None -> None
 	)
 	| REFS_NODE -> (
 		match doc_settings.refs_hdr with
-		|Some (lbl, cref) -> Some cref
+		|Some (_, cref) -> Some cref
 		|None -> None
 	)
 
@@ -842,15 +965,17 @@ and node_of_tr_par_std (doc_settings : t_doc_settings) (auto_nr : int) (par : Do
 			|None -> PAR_NODE (PAR_AUTO auto_nr)
 		)
 
-and node_of_blk_itm (doc_settings : t_doc_settings) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
+and node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
 	match a.fld_blk_itm_lbl with
 		| Cu_lbl_auto Cs_lbl_auto -> (
+			let lvl : int = lvl_of_path path in
+			let lbl : string = doc_settings.auto_numbering lvl auto_nr in
 			match a.fld_blk_itm_id with
-			|None -> ITM_NODE (ITM_AUTO auto_nr)
+			|None -> ITM_NODE (ITM_AUTO lbl)
 			|Some id -> (
 				match doc_settings.expand_tag id.fld_id_tag with
-				|None -> ITM_NODE (ITM_AUTO auto_nr)
-				|Some (lbl,cref) -> ITM_NODE (ITM_TAG_AUTO (cref, auto_nr))
+				|None -> ITM_NODE (ITM_AUTO lbl)
+				|Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
 			)
 		)
 		| Cu_lbl_custom (Cs_lbl_custom (s : string)) -> 
@@ -859,18 +984,20 @@ and node_of_blk_itm (doc_settings : t_doc_settings) (auto_nr : int) (a : Doc_typ
 			|Some id -> (
 				match doc_settings.expand_tag id.fld_id_tag with
 				|None -> ITM_NODE (ITM_CUSTOM s)
-				|Some (_,cref) -> ITM_NODE (ITM_TAG_CUSTOM (cref,s))
+				|Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag,s))
 			)
 
-and node_of_dsp_line (doc_settings : t_doc_settings) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
+and node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
 	match a.fld_dsp_line_lbl with
 		| Some (Cu_lbl_auto Cs_lbl_auto) -> (
+			let lvl : int = lvl_of_path path in
+			let lbl : string = doc_settings.auto_numbering lvl auto_nr in
 			match a.fld_dsp_line_id with
-			|None -> DSP_LINE_NODE (DSP_AUTO auto_nr)
+			|None -> DSP_LINE_NODE (DSP_AUTO lbl)
 			|Some id -> (
 				match doc_settings.expand_tag id.fld_id_tag with
-				|None -> DSP_LINE_NODE (DSP_AUTO auto_nr)
-				|Some (lbl,cref) -> DSP_LINE_NODE (DSP_TAG_AUTO (cref, auto_nr))
+				|None -> DSP_LINE_NODE (DSP_AUTO lbl)
+				|Some (_,tag) -> DSP_LINE_NODE (DSP_TAG_AUTO (tag, lbl))
 			)
 		)
 		| Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> ( 
@@ -879,7 +1006,7 @@ and node_of_dsp_line (doc_settings : t_doc_settings) (auto_nr : int) (a : Doc_ty
 			|Some id -> (
 				match doc_settings.expand_tag id.fld_id_tag with
 				|None -> DSP_LINE_NODE (DSP_CUSTOM s)
-				|Some (_,cref) -> DSP_LINE_NODE (DSP_TAG_CUSTOM (cref,s))
+				|Some (_,tag) -> DSP_LINE_NODE (DSP_TAG_CUSTOM (tag,s))
 			)
 		)
 		| None -> DSP_LINE_NODE DSP_NONE
@@ -893,30 +1020,34 @@ and label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string o
 		| CH_NODE _ -> (
 			match doc_settings.ch_prefix, string_of_path doc_settings path with
 			| None, p -> Some p 
-			| Some (lbl,cref), p -> Some (lbl ^ "\u{00A0}" ^ p)
+			| Some (lbl,_), p -> Some (lbl ^ "\u{00A0}" ^ p)
 		)
-		| SEC_NODE _
-		| APP_NODE _ -> (
+		| SEC_NODE _ -> (
 			match doc_settings.sec_prefix, string_of_path doc_settings path with
 			| None, p -> Some p 
-			| Some (lbl,cref), p -> Some (lbl ^ "\u{00A0}" ^ p)
+			| Some (lbl,_), p -> Some (lbl ^ "\u{00A0}" ^ p)
+		)
+		| APP_NODE _ -> (
+			match doc_settings.app_prefix, string_of_path doc_settings path with
+			| None, p -> Some p 
+			| Some (lbl,_), p -> Some (lbl ^ "\u{00A0}" ^ p)
 		)
 		| PAR_NODE _ -> (
 			match doc_settings.par_prefix, string_of_path doc_settings path with
 			| None, p -> Some p 
-			| Some (lbl,cref), p -> Some (lbl ^ "\u{00A0}" ^ p)
+			| Some (lbl,_), p -> Some (lbl ^ "\u{00A0}" ^ p)
 		)
 		| ITM_NODE _
 		| BLT_NODE
 		| DSP_LINE_NODE _ -> string_of_node_opt doc_settings tl hd
 		| ABSTRACT_NODE -> (
 			match doc_settings.abstract_hdr with
-			|Some (lbl,cref) -> Some lbl
+			|Some (lbl,_) -> Some lbl
 			|None -> None
 		)
 		| REFS_NODE -> (
 			match doc_settings.refs_hdr with
-			|Some (lbl, cref) -> Some lbl
+			|Some (lbl,_) -> Some lbl
 			|None -> None
 		)
 		| _ -> None

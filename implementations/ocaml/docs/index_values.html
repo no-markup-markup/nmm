@@ -28,9 +28,13 @@
 <h1>Index of values</h1>
 <table>
 <tr><td align="left"><div>A</div></td></tr>
+<tr><td><a href="Common_utils.html#VALallow_custom_numbering_of_options">allow_custom_numbering_of_options</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Exml_utils.html#VALattr_list_of_tr_id">attr_list_of_tr_id</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALattr_list_of_tu_tag_or_id">attr_list_of_tu_tag_or_id</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Common_utils.html#VALauto_numbering_of_options">auto_numbering_of_options</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Main.html#VALaxml_of_doc">axml_of_doc</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
@@ -85,6 +89,12 @@ evaluates to
 <a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a> <code class="code"><span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code>
 </div>
 </td></tr>
+<tr><td><a href="Html_utils.html#VALdefault_lang_code">default_lang_code</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Html_utils.html#VALdefault_margin">default_margin</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Html_utils.html#VALdefault_tab_length">default_tab_length</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Xml_right.html#VALdiff_of_xmls">diff_of_xmls</a> [<a href="Xml_right.html">Xml_right</a>]</td>
 <td></td></tr>
 <tr><td><a href="Nmm_lexer.html#VALdisplay">display</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
@@ -123,21 +133,22 @@ Same as <code class="code">doc_of_nmm_file</code>, except that it reads from the
 evaluates <span class="keyword">to</span>
 
 {
-    doc_width           = 68;
-    left_margin         = 0;
-    title_indent        = 0;
-    author_indent       = 0;
-    abstract_indent     = 0;
-    refs_indent         = 0;
-    tab_length          = 6;
-    abstract_hdr        = <span class="constructor">Some</span> <span class="string">"ABSTRACT"</span>;
-    refs_hdr            = <span class="string">"REFERENCES"</span>;
-    ch_prefix           = <span class="constructor">Some</span> <span class="string">"CHAPTER"</span>;
-    sec_prefix          = <span class="constructor">Some</span> <span class="string">"§"</span>;
-    par_prefix          = <span class="constructor">Some</span> <span class="string">"¶"</span>;
-    expand_tag_singular = expand_tag_singular_default;
-    expand_tag_plural   = expand_tag_plural_default;
-    preserve_vertical_white_space = <span class="keyword">false</span>;
+	doc_width = 68;
+	left_margin = 0;
+	title_indent = 0;
+	author_indent = 0;
+	abstract_indent = 0;
+	refs_indent = 0;
+	tab_length = 6;
+	abstract_hdr = <span class="constructor">Some</span> (<span class="string">"ABSTRACT"</span>, <span class="string">"Abstract"</span>);
+	refs_hdr = <span class="constructor">Some</span> (<span class="string">"REFERENCES"</span>, <span class="string">"References"</span>);
+	ch_prefix = <span class="constructor">Some</span> (<span class="string">"CHAPTER"</span>, <span class="string">"Chapter"</span>);
+	sec_prefix = <span class="constructor">Some</span> (<span class="string">"§"</span>,<span class="string">"§"</span>);
+	app_prefix = <span class="constructor">Some</span> (<span class="string">"§"</span>,<span class="string">"Appendix"</span>);
+	par_prefix = <span class="constructor">Some</span> (<span class="string">"¶"</span>,<span class="string">"¶"</span>);
+	expand_tag = expand_tag_default;
+	auto_numbering = auto_numbering_default;
+	allow_custom_numbering = <span class="keyword">false</span>;
 }
 </code></pre>
 </div>
@@ -147,6 +158,8 @@ evaluates <span class="keyword">to</span>
 <pre class="codepre"><code class="code">doc_settings_of_tr_doc doc</code></pre> 
 </div>
 </td></tr>
+<tr><td><a href="Common_utils.html#VALdoc_settings_of_ts_blks">doc_settings_of_ts_blks</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Txt_utils.html#VALdoc_width_of_options">doc_width_of_options</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>E</div></td></tr>
@@ -158,9 +171,11 @@ evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">X
 </td></tr>
 <tr><td><a href="Common_utils.html#VALexpand_tag_default">expand_tag_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
-<pre class="codepre"><code class="code">expand_tag_singular_default tag</code></pre>
+<pre class="codepre"><code class="code">expand_tag_default tag</code></pre>
 </div>
 </td></tr>
+<tr><td><a href="Html_utils.html#VALexternal_css_of_options">external_css_of_options</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td></td></tr>
 <tr><td align="left"><div>F</div></td></tr>
 <tr><td><a href="Doc_of_axml.html#VALf_tr_doc_of_axml">f_tr_doc_of_axml</a> [<a href="Doc_of_axml.html">Doc_of_axml</a>]</td>
 <td><div class="info">
@@ -205,15 +220,11 @@ if <code class="code">tab_length</code> evaluates to <code class="code"><span cl
 </td></tr>
 <tr><td align="left"><div>L</div></td></tr>
 <tr><td><a href="Common_utils.html#VALlabel_of_path">label_of_path</a> [<a href="Common_utils.html">Common_utils</a>]</td>
-<td><div class="info">
-<pre class="codepre"><code class="code">label_of_path doc_settings path</code></pre>
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td><a href="Common_utils.html#VALlabel_of_path_opt">label_of_path_opt</a> [<a href="Common_utils.html">Common_utils</a>]</td>
-<td><div class="info">
-<code class="code">label_of_path_opt&nbsp;doc_settings_default&nbsp;[<span class="constructor">CH_NODE</span>&nbsp;1]</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;<span class="string">"CHAPTER 1"</span></code>
-</div>
-</td></tr>
+<td></td></tr>
+<tr><td><a href="Html_utils.html#VALlang_code_of_options">lang_code_of_options</a> [<a href="Html_utils.html">Html_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Txt_utils.html#VALleft_margin_of_margin_labels">left_margin_of_margin_labels</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Txt_utils.html#VALleft_margin_of_options">left_margin_of_options</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
@@ -236,10 +247,14 @@ if <code class="code">tab_length</code> evaluates to <code class="code"><span cl
 <td></td></tr>
 <tr><td><a href="Txt_utils.html#VALlines_of_ts_txt_units">lines_of_ts_txt_units</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
+<tr><td><a href="Common_utils.html#VALlvl_of_path">lvl_of_path</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
 <tr><td align="left"><div>M</div></td></tr>
 <tr><td><a href="Nmm_parser.html#VALmain">main</a> [<a href="Nmm_parser.html">Nmm_parser</a>]</td>
 <td></td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALmargin_labels_of_tr_doc">margin_labels_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
+<td></td></tr>
+<tr><td><a href="Html_utils.html#VALmargin_left_of_options">margin_left_of_options</a> [<a href="Html_utils.html">Html_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Html_utils.html#VALmargin_left_of_tr_doc">margin_left_of_tr_doc</a> [<a href="Html_utils.html">Html_utils</a>]</td>
 <td></td></tr>
@@ -247,15 +262,9 @@ if <code class="code">tab_length</code> evaluates to <code class="code"><span cl
 <td></td></tr>
 <tr><td align="left"><div>N</div></td></tr>
 <tr><td><a href="Common_utils.html#VALnode_of_blk_itm">node_of_blk_itm</a> [<a href="Common_utils.html">Common_utils</a>]</td>
-<td><div class="info">
-<pre class="codepre"><code class="code">node_of_blk_itm (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_blk_itm)</code></pre>
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td><a href="Common_utils.html#VALnode_of_dsp_line">node_of_dsp_line</a> [<a href="Common_utils.html">Common_utils</a>]</td>
-<td><div class="info">
-<pre class="codepre"><code class="code">node_of_dsp_line (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_dsp_line)</code></pre>
-</div>
-</td></tr>
+<td></td></tr>
 <tr><td><a href="Common_utils.html#VALnode_of_tu_par">node_of_tu_par</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>P</div></td></tr>

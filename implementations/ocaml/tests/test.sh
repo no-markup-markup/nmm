@@ -196,14 +196,14 @@ make_test(){
 	exit_code=$curr_code
 	fi
 
-	make_txt_output --quiet
+	make_txt_output --quiet --allow-custom-numbering
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then
 	exit_code=$curr_code
 	fi
 
-	make_html_output --quiet
+	make_html_output --quiet --allow-custom-numbering
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then

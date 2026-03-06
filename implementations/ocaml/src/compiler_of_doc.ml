@@ -26,28 +26,52 @@ and txt_of_tr_doc (options : string list) (doc : tr_doc) : string =
 		|Some (width : int) -> width
 		|None -> if 68 + left_margin > 80 then 80 else 68 + left_margin
 	in
-	let new_doc_settings : t_doc_settings =
-	{
-	doc_width = doc_width;
-	left_margin = left_margin;
-	title_indent = left_margin;
-	author_indent = left_margin;
-	abstract_indent = left_margin;
-	refs_indent = left_margin;
-	tab_length = doc_settings.tab_length;
-	abstract_hdr = doc_settings.abstract_hdr;
-	refs_hdr = doc_settings.refs_hdr;
-	ch_prefix = doc_settings.ch_prefix;
-	sec_prefix = doc_settings.sec_prefix;
-	par_prefix = doc_settings.par_prefix;
-	expand_tag = doc_settings.expand_tag;
-	auto_numbering = doc_settings.auto_numbering;
+	let auto_numbering : int -> int -> string = auto_numbering_of_options options in
+	let allow_custom_numbering : bool = allow_custom_numbering_of_options options in
+	let new_doc_settings : t_doc_settings = {
+		doc_width = doc_width;
+		left_margin = left_margin;
+		title_indent = left_margin;
+		author_indent = left_margin;
+		abstract_indent = left_margin;
+		refs_indent = left_margin;
+		tab_length = doc_settings.tab_length;
+		abstract_hdr = doc_settings.abstract_hdr;
+		refs_hdr = doc_settings.refs_hdr;
+		ch_prefix = doc_settings.ch_prefix;
+		sec_prefix = doc_settings.sec_prefix;
+		app_prefix = doc_settings.app_prefix;
+		par_prefix = doc_settings.par_prefix;
+		expand_tag = doc_settings.expand_tag;
+		auto_numbering = auto_numbering;
+		allow_custom_numbering = allow_custom_numbering;
 	}
 	in
 	String.concat "\n" (lines_of_tr_doc new_doc_settings doc)
 
 and exml_of_tr_doc (doc_settings : t_doc_settings) (options : string list) (doc : tr_doc) : Xml.xml =
-	match xml_list_of_tr_doc doc_settings doc with
+	let auto_numbering = auto_numbering_of_options options in
+	let allow_custom_numbering : bool = allow_custom_numbering_of_options options in
+	let new_doc_settings : t_doc_settings = {
+		doc_width = doc_settings.doc_width;
+		left_margin = doc_settings.left_margin;
+		title_indent = doc_settings.title_indent;
+		author_indent = doc_settings.author_indent;
+		abstract_indent = doc_settings.abstract_indent;
+		refs_indent = doc_settings.refs_indent;
+		tab_length = doc_settings.tab_length;
+		abstract_hdr = doc_settings.abstract_hdr;
+		refs_hdr = doc_settings.refs_hdr;
+		ch_prefix = doc_settings.ch_prefix;
+		sec_prefix = doc_settings.sec_prefix;
+		app_prefix = doc_settings.app_prefix;
+		par_prefix = doc_settings.par_prefix;
+		expand_tag = doc_settings.expand_tag;
+		auto_numbering = auto_numbering;
+		allow_custom_numbering = allow_custom_numbering;
+	}
+	in
+	match xml_list_of_tr_doc new_doc_settings doc with
 	| hd::[] -> hd
 	| _ -> raise (Error "function expected to return an exml-list with exactly one element")
 
@@ -277,12 +301,13 @@ and add_empty_lines_after_par (tl : tu_par list) (acc : t_acc) : t_acc =
 
 
 and acc_of_ts_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (acc : t_acc) (a : ts_blks) : t_acc =
+	let new_doc_settings = doc_settings_of_ts_blks doc_settings (lvl_of_path path) a in
 	match a with Cs_blks (b : tu_blk list) ->
 	let rec aux (auto_nr : int) (acc : t_acc) (b : tu_blk list) : t_acc = (
 		match b with
 		| [] -> acc
 		| hd :: tl -> (
-			match acc_of_tu_blk doc_settings cref_table auto_nr path acc hd with
+			match acc_of_tu_blk new_doc_settings cref_table auto_nr path acc hd with
 			(acc : t_acc), (auto_nr : int) -> aux auto_nr (add_empty_lines_after_blk tl acc) tl
 		)
 	)
@@ -465,7 +490,7 @@ and acc_of_par_main (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
 and acc_of_tu_blk (doc_settings : t_doc_settings) (cref_table : t_cref_table) (auto_nr : int) (path : t_path) (acc : t_acc) (a : tu_blk) : t_acc * int =
 	match a with
 	| Cu_blk_itm (b : tr_blk_itm) ->
-		let node : t_node = node_of_blk_itm doc_settings auto_nr b in
+		let node : t_node = node_of_blk_itm doc_settings path auto_nr b in
 		let next_auto_nr =
 			match b.fld_blk_itm_lbl with 
 			|Cu_lbl_auto Cs_lbl_auto -> auto_nr + 1
@@ -571,7 +596,7 @@ and acc_of_ts_blk_dsp (doc_settings : t_doc_settings) (cref_table : t_cref_table
 		match c with
 		| [] -> (acc, auto_nr)
 		| hd :: tl ->
-			let node : t_node = node_of_dsp_line doc_settings auto_nr hd in
+			let node : t_node = node_of_dsp_line doc_settings path auto_nr hd in
 			let next_auto_nr =
 				match hd.fld_dsp_line_lbl with 
 				| Some (Cu_lbl_auto Cs_lbl_auto) -> auto_nr + 1 

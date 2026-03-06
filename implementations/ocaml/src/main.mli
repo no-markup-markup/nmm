@@ -28,7 +28,7 @@ evaluates to
 *)
 
 
-val default_css : string
+val default_css : unit -> string
 (**
 evaluates to 
 {!val:Html_utils.internal_css} ["6ch" "0"]

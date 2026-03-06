@@ -82,6 +82,50 @@ match element with
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
+let default_tab_length () : string = "6ch"
+
+let default_lang_code () : string = "en"
+
+let default_margin () : string  = "0"
+
+let margin_left_of_options (options : string list) : string option =
+	match Txt_utils.left_margin_of_options options with
+	|Some (margin : int) -> Some (String.concat "" [string_of_int margin;"rem"])
+	|None -> None
+
+
+let lang_code_of_options (options : string list) : string option =
+	let rec aux (lst : string list) =
+		match lst with
+		|[] -> None
+		|hd::tl ->
+			match hd with
+			|"--lang" -> (
+				match tl with
+				|lang_code::_ -> Some lang_code
+				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --lang argument; using default (en)" in None
+			)
+			|_ -> aux tl
+	in
+	aux options
+
+let external_css_of_options (options : string list) : string option =
+	let rec aux (lst : string list) =
+		match lst with
+		|[] -> None
+		|hd::tl ->
+			match hd with
+			|"--css" -> (
+				match tl with
+				|uri::_ -> Some uri
+				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --css argument; using default" in None
+
+			)
+			|_ -> aux tl
+	in
+	aux options
+
+
 let margin_left_of_tr_doc (doc_settings : Common_utils.t_doc_settings) (doc : Doc_types.tr_doc) : string =
 	let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc in
 	let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in

@@ -26,10 +26,14 @@ TXT-OPTIONS:
   --margin <numeral>
   --width <numeral>
   --quiet
+  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --allow-custom-numbering
 
 HTML-OPTIONS:
   --margin <numeral>
   --lang <language-code>
   --css <uri>
   --quiet
+  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --allow-custom-numbering
 ```

@@ -1,0 +1,51 @@
+¶
+
+Some text.
+
+[1]	Item with custom label indicating custom numbering of subsequent items in the same paragraph.
+
+[]	Next item.
+
+	[]	Item on the next level.
+
+		[]	Item on the next level.
+
+	[]	Item.
+
+[]	Third item.
+
+()	Display line.
+
+Some text.
+
+¶
+
+[]	Default numbered item.
+
+	[]	Default numbered item.
+
+		[]	Default numbered item.
+
+	[]	Another default numbered item.
+
+[]	Another item.
+
+[1]	Item with custom label having no effect on subsequent numbering, because not first in paragraph.
+
+[]	Next item.
+
+()	Display line.
+
+¶
+
+[]	Auto numbered item.
+
+	[i]	Custom labeled item with effect on subsequent numbering.
+
+	[]	Auto numbered.
+
+		[]	Auto numbered item.
+
+[]	Next item.
+
+

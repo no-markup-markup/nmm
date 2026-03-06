@@ -1,0 +1,54 @@
+¶ 1  Some text.
+
+     (1)   Item with id ‘ITM:1’ with custom label indicating custom
+           numbering of subsequent items in the same paragraph.
+
+     (2)   Item with id ‘ITM:2’.
+
+           (i)   Item on the next level.
+
+                 (a)   Item on the next level.
+
+           (ii)  Item.
+
+     (3)   Third item.
+
+     (4)   Display line with id ‘DSP:1’.
+
+     Reference to (1) and (2).
+
+     Reference to (4).
+
+
+¶ 2  (a)   Default numbered item.
+
+           (1)   Default numbered item.
+
+                 (i)   Default numbered item.
+
+           (2)   Another default numbered item.
+
+     (b)   Another item.
+
+     (1)   Item with custom label having no effect on subsequent
+           numbering, because not first in paragraph.
+
+     (c)   Next item.
+
+     (d)   Display line.
+
+
+¶ 3  (a)   Auto numbered item.
+
+           (i)   Custom labeled item with id ‘ITM:i’ with effect on
+                 subsequent numbering.
+
+           (ii)  Auto numbered item.
+
+                 (a)   Auto numbered item, and a reference to (i).
+
+     (b)   Next item.
+
+     Reference to (1) of ¶ 1 and (2) of ¶ 1.
+
+     Reference to (4) of ¶ 1.
