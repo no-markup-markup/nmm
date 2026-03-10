@@ -105,55 +105,6 @@
 <span class="keywordsign">|</span><span class="constructor">DOC_BLKS</span> <span class="keywordsign">-&gt;</span> <span class="string">"doc blks"</span>
 </code></pre></div>
 </div>
-
-<pre><code><span id="TYPEt_ch_class"><span class="keyword">type</span> <code class="type"></code>t_ch_class</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_ch_class.CH_SECS"><span class="constructor">CH_SECS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_ch_class.CH_PARS"><span class="constructor">CH_PARS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_ch_class.CH_BLKS"><span class="constructor">CH_BLKS</span></span></code></td>
-
-</tr></table>
-
-
-
-<pre><span id="VALclass_of_tr_ch"><span class="keyword">val</span> class_of_tr_ch</span> : <code class="type"><a href="Doc_types.html#TYPEtr_ch">Doc_types.tr_ch</a> -&gt; <a href="Common_utils.html#TYPEt_ch_class">t_ch_class</a></code></pre><div class="info ">
-<div class="info-desc">
-<pre class="codepre"><code class="code">class_of_tr_ch ch</code></pre>
-<p>evaluates to</p>
-<pre class="codepre"><code class="code"><span class="keyword">match</span> ch.fld_ch_main <span class="keyword">with</span>
-<span class="keywordsign">|</span> <span class="constructor">Cu_secs_pars_or_blks_secs</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">CH_SECS</span>
-<span class="keywordsign">|</span> <span class="constructor">Cu_secs_pars_or_blks_pars</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">CH_PARS</span>
-<span class="keywordsign">|</span> <span class="constructor">Cu_secs_pars_or_blks_blks</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">CH_BLKS</span>
-</code></pre></div>
-</div>
-
-<pre><span id="VALstring_of_t_ch_class"><span class="keyword">val</span> string_of_t_ch_class</span> : <code class="type"><a href="Common_utils.html#TYPEt_ch_class">t_ch_class</a> -&gt; string</code></pre><div class="info ">
-<div class="info-desc">
-<pre class="codepre"><code class="code">string_of_t_ch_class ch_class
-</code></pre>
-<p>evaluates to</p>
-
-<pre class="codepre"><code class="code"><span class="keyword">match</span> ch_class <span class="keyword">with</span>
-<span class="keywordsign">|</span><span class="constructor">CH_SECS</span> <span class="keywordsign">-&gt;</span> <span class="string">"ch secs"</span>
-<span class="keywordsign">|</span><span class="constructor">CH_PARS</span> <span class="keywordsign">-&gt;</span> <span class="string">"ch pars"</span>
-<span class="keywordsign">|</span><span class="constructor">CH_BLKS</span> <span class="keywordsign">-&gt;</span> <span class="string">"ch blks"</span>
-</code></pre></div>
-</div>
 <h3 id="2_Documentsettings">Document settings</h3>
 <pre><code><span id="TYPEt_doc_settings"><span class="keyword">type</span> <code class="type"></code>t_doc_settings</span> = {</code></pre><table class="typetable">
 <tr>

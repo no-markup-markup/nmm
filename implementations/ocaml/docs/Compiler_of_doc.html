@@ -35,18 +35,12 @@
 
 <pre><span id="MODULECompiler_of_doc"><span class="keyword">module</span> Compiler_of_doc</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Compiler_of_doc.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For compiling parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) into raw text and XML (in the format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>) with resolved cross-references and labels.</p>
+<p>For compiling parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) into raw text and XML (in the format specified by <a href="specs/exml.dtd.txt">exml.dtd</a>) with resolved cross-references and labels.</p>
 </div>
 </div>
 <hr width="100%">
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
-
-<pre><span id="VALcref_table_of_tr_doc"><span class="keyword">val</span> cref_table_of_tr_doc</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_cref_table">Common_utils.t_cref_table</a></code></pre><div class="info ">
-<div class="info-desc">
-<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre><p>searches <code class="code">doc</code> for named elements and records their paths.</p>
-</div>
-</div>
 
 <pre><span id="VALtxt_of_tr_doc"><span class="keyword">val</span> txt_of_tr_doc</span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
@@ -54,12 +48,17 @@
 </div>
 </div>
 
-<pre><span id="VALexml_of_tr_doc"><span class="keyword">val</span> exml_of_tr_doc</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
+<pre><span id="VALexml_of_tr_doc"><span class="keyword">val</span> exml_of_tr_doc</span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">exml_of_tr_doc options doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.</p>
+<pre class="codepre"><code class="code">exml_of_tr_doc options doc</code></pre><p>evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/exml.dtd.txt">exml.dtd</a>.</p>
 
 <p><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> can translate that object into the body of an html-document.</p>
 </div>
 </div>
 
-<pre><span id="VALmargin_labels_of_tr_doc"><span class="keyword">val</span> margin_labels_of_tr_doc</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string list</code></pre></body></html>
+<pre><span id="VALmargin_labels_of_tr_doc"><span class="keyword">val</span> margin_labels_of_tr_doc</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string list</code></pre><div class="info ">
+<div class="info-desc">
+<p>For determining the size of the left margin.</p>
+</div>
+</div>
+</body></html>

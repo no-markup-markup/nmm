@@ -25,15 +25,15 @@ and xml_of_ts_author (author : ts_author) : Xml.xml =
 
 and xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : Xml.xml list =
 	match doc_settings.abstract_hdr with
-	|None -> [Xml.Element ("abstract_hdr",[],[xml_of_string "ABSTRACT"])]
+	|None -> []
 	|Some (abstract_hdr,_) -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
 
-and xml_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml =
+and xml_list_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml list =
 	match doc_settings.refs_hdr with
+	|None -> []
 	|Some (hdr,_) ->
 		let content : Xml.xml list = [xml_of_string hdr] in
-		Xml.Element ("refs_hdr",[],content)
-	|None -> Xml.Element ("refs_hdr",[],[xml_of_string "REFERENCES"])
+		[Xml.Element ("refs_hdr",[],content)]
 
 
 and xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blk_txt : ts_blk_txt) : Xml.xml =
@@ -83,11 +83,16 @@ and attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : t
 
 and attr_list_of_tu_tag_or_id (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
 	match a with
-	| None -> ["class", String.concat " " classes]
+	| None -> (
+		match classes with
+		|[] -> []
+		|_::_ -> ["class", String.concat " " classes]
+	)
 	| Some (tag_or_id : tu_tag_or_id) -> 
 		match tag_or_id with
 		| Cu_tag_or_id_tag (tag : ts_tag) -> attr_list_of_ts_tag classes tag
-		| Cu_tag_or_id_id (id : tr_id) -> ("class", String.concat " " classes)::(attr_list_of_tr_id doc_settings path (Some id))
+		| Cu_tag_or_id_id (id : tr_id) -> 
+			List.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path (Some id)]
 
 and attr_list_of_ts_tag (classes : string list) (tag : ts_tag) : (string*string) list =
 	match tag with

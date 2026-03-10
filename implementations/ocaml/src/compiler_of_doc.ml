@@ -49,7 +49,8 @@ and txt_of_tr_doc (options : string list) (doc : tr_doc) : string =
 	in
 	String.concat "\n" (lines_of_tr_doc new_doc_settings doc)
 
-and exml_of_tr_doc (doc_settings : t_doc_settings) (options : string list) (doc : tr_doc) : Xml.xml =
+and exml_of_tr_doc (options : string list) (doc : tr_doc) : Xml.xml =
+	let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
 	let auto_numbering = auto_numbering_of_options options in
 	let allow_custom_numbering : bool = allow_custom_numbering_of_options options in
 	let new_doc_settings : t_doc_settings = {
@@ -216,9 +217,9 @@ and acc_of_ts_refs (doc_settings : t_doc_settings) (cref_table : t_cref_table) (
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		|EXML _ -> (
-			let hdr : Xml.xml = Exml_utils.xml_of_refs_hdr doc_settings in
+			let hdr : Xml.xml list = Exml_utils.xml_list_of_refs_hdr doc_settings in
 			match acc_of_ts_blks doc_settings cref_table path (EXML []) b with
-			|EXML xml_list -> EXML [Xml.Element ("refs",[],hdr::xml_list)]
+			|EXML xml_list -> EXML [Xml.Element ("refs",[],List.concat [hdr;xml_list])]
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		| _ -> acc_of_ts_blks doc_settings cref_table path acc b
@@ -321,7 +322,6 @@ and add_empty_lines_after_blk (tl:tu_blk list) (acc : t_acc) : t_acc =
 
 
 and acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (acc : t_acc) (a : tr_ch) : t_acc =
-	let ch_class : t_ch_class = class_of_tr_ch a in
 	match acc with
 	|MARGIN_LABELS _ -> acc_of_ch_main doc_settings cref_table path acc a.fld_ch_main
 	|CREF_TABLE table ->
@@ -356,8 +356,7 @@ and acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (pa
 		in
 		let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
 		let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
-		let ch_class_string = string_of_t_ch_class ch_class in
-		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path [ch_class_string] a.fld_ch_tag_or_id in
+		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["ch"] a.fld_ch_tag_or_id in
 		match a.fld_ch_hdr with
 		|None -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_hdr;xml_main])]])
 		|Some _ -> EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list, [xml_lbl;xml_hdr;xml_main])]])
@@ -454,18 +453,19 @@ and acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
 			|None -> Xml.Element ("par_lbl_hdr",[],xml_list_lbl)
 			|Some _ -> Xml.Element ("par_lbl",[],xml_list_lbl)
 		in
-		let xml_list_main : Xml.xml list= (
+		let xml_main : Xml.xml = (
 			match acc_of_par_main doc_settings cref_table path_origin (EXML []) par.fld_par_main with
 			|EXML xml_list -> (
 				match xml_list_hdr_opt with
-				|None -> xml_list
-				|Some xml_list_hdr -> List.concat [xml_list_hdr;xml_list]
-				
+				|None -> Xml.Element ("par_main",[],xml_list)
+				|Some xml_list_hdr -> 
+					match inline_hdr with
+					|true -> Xml.Element ("par_main_w_hdr_inline",[],List.concat [xml_list_hdr;xml_list])
+					|false -> Xml.Element ("par_main_w_hdr",[],List.concat [xml_list_hdr;xml_list])
 			)
 			| _ -> raise (Error "accumulator output type not identical to accumulator input type")
 		)
 		in
-		let xml_main = Xml.Element ("par_main",[],xml_list_main) in
 		let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
 		let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["par"] par.fld_par_tag_or_id in
 		EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])

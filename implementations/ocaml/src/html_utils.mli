@@ -1,4 +1,4 @@
-(** For translating a compiled nmm-document with resolved cross-references and labels (in the the XML-format specified by {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd}exml.dtd}) to HTML *)
+(** For translating a compiled nmm-document with resolved cross-references and labels (in the the XML-format specified by {{:specs/exml.dtd.txt}exml.dtd}) to HTML *)
 
 exception Error of string
 
@@ -59,6 +59,8 @@ match element with
 |Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","float:left;margin-bottom:0")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_main_w_hdr", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_main_w_hdr_inline", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
@@ -98,7 +100,7 @@ val default_lang_code : unit -> string
 
 val default_margin : unit -> string
 
-val margin_left_of_tr_doc : Common_utils.t_doc_settings -> Doc_types.tr_doc -> string
+val margin_left_of_tr_doc : Doc_types.tr_doc -> string
 
 val lang_code_of_options : string list -> string option
 
@@ -108,9 +110,5 @@ val external_css_of_options : string list -> string option
 
 val internal_css : string -> string -> string
 (**
-if [tab_length] evaluates to ["6ch"], and [left_margin] evaluates to ["8rem"], then
-{[internal_css tab_length left_margin]}
-
-evaluates to a string corresponding to {{:https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css}default.css}
-
+[internal_css tab_length left_margin] evaluates to a string representing an internal css style-sheet.
 *)

@@ -17,6 +17,8 @@ nmm-ocaml [
   | check-xml-schema <path-to-dtd-file>
   | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
   | show-default-css
+  | exml-of-nmm [ <exml-options> ] { <path-to-nmm-file> | - }
+  | exml-of-axml [ <exml-options> ] { <path-to-axml-file> | - }
 ]
 
 In cases where '-' can be given instead of a path, the program
@@ -36,4 +38,9 @@ HTML-OPTIONS:
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
+
+EXML-OPTIONS:
+  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --allow-custom-numbering
+  --quiet
 ```

@@ -21,8 +21,7 @@ let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	try
 	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
-	let doc_settings : Common_utils.t_doc_settings = Common_utils.doc_settings_of_tr_doc doc in
-	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc doc_settings options doc in
+	let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
 	let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
 	let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
 	let html_string:string = Xml_right.to_string_fmt html in
@@ -48,7 +47,7 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
 	let margin_left : string = 
 		match Html_utils.margin_left_of_options options with
 		|Some margin -> margin
-		|None -> Html_utils.margin_left_of_tr_doc doc_settings doc
+		|None -> Html_utils.margin_left_of_tr_doc doc
 	in
 	let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css (Html_utils.default_tab_length ()) margin_left) ^ "\n</style>") in
 	let external_css: string = 
@@ -148,4 +147,17 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
 	|Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
 
 let default_css () : string = Html_utils.internal_css (Html_utils.default_tab_length ()) (Html_utils.default_margin ())
+
+
+let exml_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+	let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
+	"<?xml version=\"1.0\"?>\n" ^ 
+	(Xml_right.to_string_fmt (Compiler_of_doc.exml_of_tr_doc options doc))
+
+let exml_of_nmm (options : string list) (path : string) : string =
+	exml_of_doc options (doc_of_nmm path)
+
+let exml_of_axml (options : string list) (path : string) : string =
+	exml_of_doc options (doc_of_axml path)
+
 

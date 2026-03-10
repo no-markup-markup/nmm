@@ -7,7 +7,7 @@ show_default_css(){
 check_xml_schemas(){
 	local exit_code=0
 	local curr_code=0
-	local input_dir="dtd"
+	local input_dir="../docs/specs"
 	for file in $(ls $input_dir/*.dtd)
 	do
 		../bin/nmm-ocaml check-xml-schema $file > /dev/null

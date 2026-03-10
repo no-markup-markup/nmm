@@ -27,9 +27,6 @@
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_doc_class&nbsp;=&nbsp;<span class="constructor">DOC_CHS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DOC_SECS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DOC_PARS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DOC_BLKS</span><br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;class_of_tr_doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_class<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_t_doc_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_class&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_ch_class&nbsp;=&nbsp;<span class="constructor">CH_SECS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CH_PARS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CH_BLKS</span><br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;class_of_tr_ch&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_ch&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_ch_class<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_t_ch_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_ch_class&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_doc_settings&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;:&nbsp;int;<br>

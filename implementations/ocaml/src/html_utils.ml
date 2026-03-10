@@ -52,6 +52,8 @@ match element with
 |Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag_hdr_inline", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr inline");("style","float:left;margin-bottom:0")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_main_w_hdr", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_main_w_hdr_inline", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
@@ -126,7 +128,8 @@ let external_css_of_options (options : string list) : string option =
 	aux options
 
 
-let margin_left_of_tr_doc (doc_settings : Common_utils.t_doc_settings) (doc : Doc_types.tr_doc) : string =
+let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
+	let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
 	let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc in
 	let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
 	let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in

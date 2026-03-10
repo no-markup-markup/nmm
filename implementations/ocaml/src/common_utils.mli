@@ -44,37 +44,6 @@ match doc_class with
 *)
 
 
-type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
-
-val class_of_tr_ch: Doc_types.tr_ch -> t_ch_class
-(**
-{[class_of_tr_ch ch]}
-
-evaluates to
-{[
-match ch.fld_ch_main with
-| Cu_secs_pars_or_blks_secs _ -> CH_SECS
-| Cu_secs_pars_or_blks_pars _ -> CH_PARS
-| Cu_secs_pars_or_blks_blks _ -> CH_BLKS
-]}
-*)
-
-val string_of_t_ch_class: t_ch_class -> string
-(**
-{[
-string_of_t_ch_class ch_class
-]}
-
-evaluates to
-
-{[
-match ch_class with
-|CH_SECS -> "ch secs"
-|CH_PARS -> "ch pars"
-|CH_BLKS -> "ch blks"
-]}
-
-*)
 
 (** <h2>Document settings</h2> *)
 

@@ -52,7 +52,7 @@ evaluates to
 <tr><td><a href="Axml_of_doc.html#VALaxml_of_tr_doc">axml_of_tr_doc</a> [<a href="Axml_of_doc.html">Axml_of_doc</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">axml_of_tr_doc doc</code></pre>
-evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>.
+evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>.
 </div>
 </td></tr>
 <tr><td align="left"><div>C</div></td></tr>
@@ -64,11 +64,6 @@ evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">X
 calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is a well-defined xml-schema in the format dtd.
 </div>
 </td></tr>
-<tr><td><a href="Common_utils.html#VALclass_of_tr_ch">class_of_tr_ch</a> [<a href="Common_utils.html">Common_utils</a>]</td>
-<td><div class="info">
-<pre class="codepre"><code class="code">class_of_tr_ch ch</code></pre>
-</div>
-</td></tr>
 <tr><td><a href="Common_utils.html#VALclass_of_tr_doc">class_of_tr_doc</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">class_of_tr_doc doc</code></pre>
@@ -76,12 +71,6 @@ calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> functio
 </td></tr>
 <tr><td><a href="Txt_utils.html#VALcopy_hdr_to_main">copy_hdr_to_main</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Compiler_of_doc.html#VALcref_table_of_tr_doc">cref_table_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
-<td><div class="info">
-<pre class="codepre"><code class="code">cref_table_of_tr_doc doc</code></pre>
-searches <code class="code">doc</code> for named elements and records their paths.
-</div>
-</td></tr>
 <tr><td align="left"><div>D</div></td></tr>
 <tr><td><a href="Main.html#VALdefault_css">default_css</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
@@ -163,10 +152,14 @@ evaluates <span class="keyword">to</span>
 <tr><td><a href="Txt_utils.html#VALdoc_width_of_options">doc_width_of_options</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>E</div></td></tr>
+<tr><td><a href="Main.html#VALexml_of_axml">exml_of_axml</a> [<a href="Main.html">Main</a>]</td>
+<td></td></tr>
+<tr><td><a href="Main.html#VALexml_of_nmm">exml_of_nmm</a> [<a href="Main.html">Main</a>]</td>
+<td></td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALexml_of_tr_doc">exml_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">exml_of_tr_doc options doc</code></pre>
-evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>.
+evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/exml.dtd.txt">exml.dtd</a>.
 </div>
 </td></tr>
 <tr><td><a href="Common_utils.html#VALexpand_tag_default">expand_tag_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
@@ -179,7 +172,7 @@ evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">X
 <tr><td align="left"><div>F</div></td></tr>
 <tr><td><a href="Doc_of_axml.html#VALf_tr_doc_of_axml">f_tr_doc_of_axml</a> [<a href="Doc_of_axml.html">Doc_of_axml</a>]</td>
 <td><div class="info">
-If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then 
+If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>, then 
 </div>
 </td></tr>
 <tr><td><a href="Nmm_lexer.html#VALfirst_nl">first_nl</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
@@ -214,8 +207,7 @@ evaluates to
 <td></td></tr>
 <tr><td><a href="Html_utils.html#VALinternal_css">internal_css</a> [<a href="Html_utils.html">Html_utils</a>]</td>
 <td><div class="info">
-if <code class="code">tab_length</code> evaluates to <code class="code"><span class="string">"6ch"</span></code>, and <code class="code">left_margin</code> evaluates to <code class="code"><span class="string">"8rem"</span></code>, then
-<pre class="codepre"><code class="code">internal_css tab_length left_margin</code></pre>
+<code class="code">internal_css&nbsp;tab_length&nbsp;left_margin</code> evaluates to a string representing an internal css style-sheet.
 </div>
 </td></tr>
 <tr><td align="left"><div>L</div></td></tr>
@@ -253,7 +245,10 @@ if <code class="code">tab_length</code> evaluates to <code class="code"><span cl
 <tr><td><a href="Nmm_parser.html#VALmain">main</a> [<a href="Nmm_parser.html">Nmm_parser</a>]</td>
 <td></td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALmargin_labels_of_tr_doc">margin_labels_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
-<td></td></tr>
+<td><div class="info">
+For determining the size of the left margin.
+</div>
+</td></tr>
 <tr><td><a href="Html_utils.html#VALmargin_left_of_options">margin_left_of_options</a> [<a href="Html_utils.html">Html_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Html_utils.html#VALmargin_left_of_tr_doc">margin_left_of_tr_doc</a> [<a href="Html_utils.html">Html_utils</a>]</td>
@@ -305,12 +300,6 @@ Same as <code class="code">parse_file</code>, except that it reads from the prov
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALstring_of_pcdata">string_of_pcdata</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Common_utils.html#VALstring_of_t_ch_class">string_of_t_ch_class</a> [<a href="Common_utils.html">Common_utils</a>]</td>
-<td><div class="info">
-<pre class="codepre"><code class="code">string_of_t_ch_class ch_class
-</code></pre>
-</div>
-</td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_t_doc_class">string_of_t_doc_class</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td><div class="info">
 <pre class="codepre"><code class="code">string_of_t_doc_class doc_class
@@ -382,13 +371,13 @@ first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> f
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_abstract_hdr">xml_list_of_abstract_hdr</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
+<tr><td><a href="Exml_utils.html#VALxml_list_of_refs_hdr">xml_list_of_refs_hdr</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_ts_authors_opt">xml_list_of_ts_authors_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_ts_title_opt">xml_list_of_ts_title_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_ts_txt_units">xml_list_of_ts_txt_units</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
-<td></td></tr>
-<tr><td><a href="Exml_utils.html#VALxml_of_refs_hdr">xml_of_refs_hdr</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_of_string">xml_of_string</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>

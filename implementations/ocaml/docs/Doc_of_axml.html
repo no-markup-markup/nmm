@@ -35,7 +35,7 @@
 
 <pre><span id="MODULEDoc_of_axml"><span class="keyword">module</span> Doc_of_axml</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Doc_of_axml.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For translating parsed nmm source-code (an abstract syntax tree in the XML-format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/axml.dtd">axml.dtd</a>) to an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>.</p>
+<p>For translating parsed nmm source-code (an abstract syntax tree in the XML-format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>) to an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>.</p>
 </div>
 </div>
 <hr width="100%">
@@ -44,7 +44,7 @@
 
 <pre><span id="VALf_tr_doc_of_axml"><span class="keyword">val</span> f_tr_doc_of_axml</span> : <code class="type">Xml.xml -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
-<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="https://github.com/no-markup-markup/nmm/blob/main/specification/AST.dtd">AST.dtd</a>, then</p>
+<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>, then</p>
 
 <p><code class="code">f_tr_doc_of_axml&nbsp;axml</code></p>
 

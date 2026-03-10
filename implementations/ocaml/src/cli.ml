@@ -13,6 +13,8 @@ nmm-ocaml [
   | check-xml-schema <path-to-dtd-file>
   | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
   | show-default-css
+  | exml-of-nmm [ <exml-options> ] { <path-to-nmm-file> | - }
+  | exml-of-axml [ <exml-options> ] { <path-to-axml-file> | - }
 ]
 
 In cases where '-' can be given instead of a path, the program
@@ -32,6 +34,11 @@ HTML-OPTIONS:
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
+
+EXML-OPTIONS:
+  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --allow-custom-numbering
+  --quiet
 "
 
 type t_keyspecdoc = (Arg.key *  Arg.spec * Arg.doc)
@@ -51,6 +58,8 @@ let rec anon_arg_fun arg : unit =
 		|"check-xml-schema" -> ()
 		|"validate-xml" -> ()
 		|"show-default-css" -> ()
+		|"exml-of-nmm" -> keyspecdoc_list.contents <- keyspecdoc_list_exml_of_nmm
+		|"exml-of-axml" -> keyspecdoc_list.contents <- keyspecdoc_list_exml_of_axml
 		|_ -> raise (Error (String.concat " " ["unknown command:";arg]))
 		in
 		let _ : unit = cmd_name.contents <- arg
@@ -69,6 +78,8 @@ let rec anon_arg_fun arg : unit =
 		|"check-xml-schema" -> path_to_dtd_file.contents <- arg
 		|"validate-xml" -> let _ : unit = path_to_dtd_file.contents <- arg in keyspecdoc_list.contents <- (keyspecdoc_stdin::keyspecdoc_list.contents)
 		|"show-default-css" -> raise (Error (String.concat " " ["one too many arguments:";arg]))
+		|"exml-of-nmm" -> path_to_nmm_file.contents <- arg
+		|"exml-of-axml" -> path_to_xml_file.contents <- arg
 		|_ -> raise (Error (String.concat " " ["unknown command:";cmd_name.contents]))
 		in anon_arg_count.contents <- (anon_arg_count.contents + 1)
 	|2 -> 
@@ -182,6 +193,19 @@ and keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
 	keyspecdoc_allow_custom_numbering;
 ]
 
+and keyspecdoc_list_exml_of_nmm : t_keyspecdoc list = [
+	keyspecdoc_stdin;
+	keyspecdoc_quiet;
+	keyspecdoc_numbering;
+	keyspecdoc_allow_custom_numbering;
+]
+
+and keyspecdoc_list_exml_of_axml : t_keyspecdoc list = [
+	keyspecdoc_stdin;
+	keyspecdoc_quiet;
+	keyspecdoc_numbering;
+	keyspecdoc_allow_custom_numbering;
+]
 
 let _ : unit = 
 	let _ : unit = Arg.parse_dynamic keyspecdoc_list anon_arg_fun usage in
@@ -265,6 +289,16 @@ let _ : unit =
 	|"show-default-css" -> print_endline (Main.default_css ())
 	|"test-with-xml" -> Test.test_with_axml_file options path_to_xml_file.contents
 	|"test-with-nmm" -> Test.test_with_nmm_file options path_to_nmm_file.contents
+	|"exml-of-nmm" -> (
+		match read_from_stdin.contents with
+		|true -> print_endline (Main.exml_of_nmm options "-")
+		|false -> print_endline (Main.exml_of_nmm options path_to_nmm_file.contents)
+	)
+	|"exml-of-axml" -> (
+		match read_from_stdin.contents with
+		|true -> print_endline (Main.exml_of_axml options "-")
+		|false -> print_endline (Main.exml_of_axml options path_to_xml_file.contents)
+	)
 	|_ -> Debug_utils.print_to_stderr usage
 
 

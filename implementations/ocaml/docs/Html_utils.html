@@ -35,7 +35,7 @@
 
 <pre><span id="MODULEHtml_utils"><span class="keyword">module</span> Html_utils</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Html_utils.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For translating a compiled nmm-document with resolved cross-references and labels (in the the XML-format specified by <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/dtd/exml.dtd">exml.dtd</a>) to HTML</p>
+<p>For translating a compiled nmm-document with resolved cross-references and labels (in the the XML-format specified by <a href="specs/exml.dtd.txt">exml.dtd</a>) to HTML</p>
 </div>
 </div>
 <hr width="100%">
@@ -96,6 +96,8 @@
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h4"</span>, [(<span class="string">"class"</span>,<span class="string">"par_tag hdr"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr_inline"</span>, _, xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"h4"</span>, [(<span class="string">"class"</span>,<span class="string">"par_tag hdr inline"</span>);(<span class="string">"style"</span>,<span class="string">"float:left;margin-bottom:0"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main_w_hdr"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main_w_hdr_inline"</span>, _ , xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, [(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
 
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_txt"</span>, _, xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"p"</span>, [(<span class="string">"class"</span>, <span class="string">"blk txt"</span>)], <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
 
@@ -132,15 +134,13 @@
 <pre><span id="VALdefault_tab_length"><span class="keyword">val</span> default_tab_length</span> : <code class="type">unit -&gt; string</code></pre>
 <pre><span id="VALdefault_lang_code"><span class="keyword">val</span> default_lang_code</span> : <code class="type">unit -&gt; string</code></pre>
 <pre><span id="VALdefault_margin"><span class="keyword">val</span> default_margin</span> : <code class="type">unit -&gt; string</code></pre>
-<pre><span id="VALmargin_left_of_tr_doc"><span class="keyword">val</span> margin_left_of_tr_doc</span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre>
+<pre><span id="VALmargin_left_of_tr_doc"><span class="keyword">val</span> margin_left_of_tr_doc</span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre>
 <pre><span id="VALlang_code_of_options"><span class="keyword">val</span> lang_code_of_options</span> : <code class="type">string list -&gt; string option</code></pre>
 <pre><span id="VALmargin_left_of_options"><span class="keyword">val</span> margin_left_of_options</span> : <code class="type">string list -&gt; string option</code></pre>
 <pre><span id="VALexternal_css_of_options"><span class="keyword">val</span> external_css_of_options</span> : <code class="type">string list -&gt; string option</code></pre>
 <pre><span id="VALinternal_css"><span class="keyword">val</span> internal_css</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p>if <code class="code">tab_length</code> evaluates to <code class="code"><span class="string">"6ch"</span></code>, and <code class="code">left_margin</code> evaluates to <code class="code"><span class="string">"8rem"</span></code>, then</p>
-<pre class="codepre"><code class="code">internal_css tab_length left_margin</code></pre>
-<p>evaluates to a string corresponding to <a href="https://github.com/no-markup-markup/nmm/blob/main/implementations/ocaml/testing/css/default.css">default.css</a></p>
+<p><code class="code">internal_css&nbsp;tab_length&nbsp;left_margin</code> evaluates to a string representing an internal css style-sheet.</p>
 </div>
 </div>
 </body></html>

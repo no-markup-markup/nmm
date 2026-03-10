@@ -6,8 +6,6 @@ exception Error of string
 
 type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
 
-type t_ch_class = CH_SECS | CH_PARS | CH_BLKS
-
 let class_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_class =
 	match doc.fld_doc_main with
 	|Cu_doc_main_chs _ -> DOC_CHS
@@ -22,17 +20,6 @@ let string_of_t_doc_class (doc_class : t_doc_class) : string =
 	|DOC_PARS -> "doc pars"
 	|DOC_BLKS -> "doc blks"
 
-let class_of_tr_ch (ch : Doc_types.tr_ch) : t_ch_class =
-	match ch.fld_ch_main with
-	| Cu_secs_pars_or_blks_secs _ -> CH_SECS
-	| Cu_secs_pars_or_blks_pars _ -> CH_PARS
-	| Cu_secs_pars_or_blks_blks _ -> CH_BLKS
-
-let string_of_t_ch_class (ch_class : t_ch_class) : string =
-	match ch_class with
-	|CH_SECS -> "ch secs"
-	|CH_PARS -> "ch pars"
-	|CH_BLKS -> "ch blks"
 
 
 (**************************** document settings ************************)
@@ -98,29 +85,63 @@ let symbol_of_array (a : string array) (i : int) : string =
 			aux (n - m - 1) (acc ^ a.(m))
 	in aux i ""
 
-let auto_numbering_of_string (s: string) (l : int) (i : int) : string =
-	let enumeration (lvl : int) (n: int): string  =
-		match s, lvl mod 3 with
-		|"a1i",0 -> symbol_of_array lower_case_latin_letters n
-		|"a1i",1 -> string_of_int (n+1)
-		|"a1i",_ -> symbol_of_array lower_case_roman_numerals n
-		|"ai1",0 -> symbol_of_array lower_case_latin_letters n
-		|"ai1",1 -> symbol_of_array lower_case_roman_numerals n
-		|"ai1",_ -> string_of_int (n+1)
-		|"1ai",0 -> string_of_int (n+1)
-		|"1ai",1 -> symbol_of_array lower_case_latin_letters n
-		|"1ai",_ -> symbol_of_array lower_case_roman_numerals n
-		|"1ia",0 -> string_of_int (n+1)
-		|"1ia",1 -> symbol_of_array lower_case_roman_numerals n
-		|"1ia",_ -> symbol_of_array lower_case_latin_letters n
-		|"ia1",0 -> symbol_of_array lower_case_roman_numerals n
-		|"ia1",1 -> symbol_of_array lower_case_latin_letters n
-		|"ia1",_ -> string_of_int (n+1)
-		|"i1a",0 -> symbol_of_array lower_case_roman_numerals n
-		|"i1a",1 -> string_of_int (n+1)
-		|"i1a",_ -> symbol_of_array lower_case_latin_letters n
-		|_,_ -> raise (Invalid_argument s)
-	in String.concat (enumeration l i) ["(";")"]
+let auto_numbering_of_string (s: string) : int -> int -> string =
+	match s with
+	|"a1i" ->
+		let auto_numbering (lvl : int) (n:int) =
+			let symbol : string =
+			match lvl mod 3 with
+			|0 -> symbol_of_array lower_case_latin_letters n
+			|1 -> string_of_int (n+1)
+			|_ -> symbol_of_array lower_case_roman_numerals n
+			in String.concat symbol ["(";")"]
+		in auto_numbering
+	|"ai1" ->
+		let auto_numbering (lvl : int) (n:int) =
+			let symbol : string =
+			match lvl mod 3 with
+			|0 -> symbol_of_array lower_case_latin_letters n
+			|1 -> symbol_of_array lower_case_roman_numerals n
+			|_ -> string_of_int (n+1)
+			in String.concat symbol ["(";")"]
+		in auto_numbering
+	|"1ai" ->
+		let auto_numbering (lvl : int) (n:int) =
+			let symbol : string =
+			match lvl mod 3 with
+			|0 -> string_of_int (n+1)
+			|1 -> symbol_of_array lower_case_latin_letters n
+			|_ -> symbol_of_array lower_case_roman_numerals n
+			in String.concat symbol ["(";")"]
+		in auto_numbering
+	|"1ia"->
+		let auto_numbering (lvl : int) (n:int) =
+			let symbol : string =
+			match lvl mod 3 with
+			|0 -> string_of_int (n+1)
+			|1 -> symbol_of_array lower_case_roman_numerals n
+			|_ -> symbol_of_array lower_case_latin_letters n
+			in String.concat symbol ["(";")"]
+		in auto_numbering
+	|"ia1" ->
+		let auto_numbering (lvl : int) (n:int) =
+			let symbol : string =
+			match lvl mod 3 with
+			|0 -> symbol_of_array lower_case_roman_numerals n
+			|1 -> symbol_of_array lower_case_latin_letters n
+			|_ -> string_of_int (n+1)
+			in String.concat symbol ["(";")"]
+		in auto_numbering
+	|"i1a" ->
+		let auto_numbering (lvl : int) (n:int) =
+			let symbol : string =
+			match lvl mod 3 with
+			|0 -> symbol_of_array lower_case_roman_numerals n
+			|1 -> string_of_int (n+1)
+			|_ -> symbol_of_array lower_case_latin_letters n
+			in String.concat symbol ["(";")"]
+		in auto_numbering
+	|_ -> raise (Invalid_argument s)
 
 
 let auto_numbering_default (lvl : int) (n : int) : string =
@@ -152,7 +173,7 @@ let auto_numbering_of_options (options : string list) : int -> int -> string =
 		|"--numbering"::(s::_) -> (
 			try auto_numbering_of_string s with
 			|Invalid_argument a -> 
-				let _ : unit = Debug_utils.print_warning ("Invalid auto-numbering argument: \'" ^ a ^ "\'; using default")
+				let _ : unit = Debug_utils.print_warning ("WARNING: Invalid auto-numbering argument: \'" ^ a ^ "\'; using default")
 				in auto_numbering_default
 		)
 		|hd::tl -> aux tl
@@ -213,9 +234,6 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : 
 	in
 	match blks with
 	|Cs_blks blk_list -> aux blk_list
-
-
-
 
 
 let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
@@ -833,16 +851,16 @@ and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
 	| DSP_LINE_NODE (a : t_dsp_line_node) -> (
 		match a with
 		| DSP_NONE -> None
-		| DSP_AUTO (n : string) -> Some n
+		| DSP_AUTO (s : string) -> Some s
 		| DSP_CUSTOM (s : string) -> Some (String.concat s ["(";")"])
-		| DSP_TAG_AUTO (_,n) -> Some n
+		| DSP_TAG_AUTO (_,s) -> Some s
 		| DSP_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
 	)
 	| ITM_NODE (a : t_itm_node) -> (
 		match a with
-		|ITM_AUTO n -> Some n
+		|ITM_AUTO s -> Some s
 		|ITM_CUSTOM s -> Some (String.concat s ["(";")"])
-		|ITM_TAG_AUTO (_,n) -> Some n
+		|ITM_TAG_AUTO (_,s) -> Some s
 		|ITM_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
 	)
 	| BLT_NODE ->
@@ -850,12 +868,12 @@ and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
 		Some bullets.(l mod Array.length bullets)
 	| ABSTRACT_NODE -> (
 		match doc_settings.abstract_hdr with
-		|Some (_,cref) -> Some cref
+		|Some (_,hdr) -> Some hdr
 		|None -> None
 	)
 	| REFS_NODE -> (
 		match doc_settings.refs_hdr with
-		|Some (_, cref) -> Some cref
+		|Some (_, hdr) -> Some hdr
 		|None -> None
 	)
 

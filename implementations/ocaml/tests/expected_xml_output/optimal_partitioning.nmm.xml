@@ -26,7 +26,7 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -35,7 +35,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -44,7 +44,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -84,7 +84,7 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>(with n/k files in each), </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>(with n/k files in each),</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -141,7 +141,7 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -153,7 +153,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>For each subdirectory, the probability of its modification time not having been updated is thus given by </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For each subdirectory, the probability of its modification time not having been updated is thus given by</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -388,7 +388,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Assume, as before, that </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume, as before, that</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -427,7 +427,7 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

@@ -22,15 +22,14 @@ try
 	let doc : Doc_types.tr_doc = Main.doc_of_nmm path in
 	let axml : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
 	let doc_of_axml : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
-	let doc_settings : Common_utils.t_doc_settings = Common_utils.doc_settings_of_tr_doc doc in
-	let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc doc_settings options doc in
+	let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
 	let _ : unit = identity_test_w_doc path doc doc_of_axml in
 	let _ : unit = xml_right_test path "axml" doc axml in
 	let _ : unit = xml_right_test path "exml" doc exml in
 	let _ : unit = xml_right_test_fmt path "axml" doc axml in
 	let _ : unit = xml_right_test_fmt path "exml" doc exml in
-	let _ : unit = validate_axml path "axml" "dtd/axml.dtd" axml in
-	let _ : unit = validate_exml path "exml" "dtd/exml.dtd" exml in
+	let _ : unit = validate_axml path "axml" "../docs/specs/axml.dtd" axml in
+	let _ : unit = validate_exml path "exml" "../docs/specs/exml.dtd" exml in
 	()
 with
 |Main.Error e -> raise (Error (String.concat " " [path;" -> ";"Main.Error:";e]))
@@ -44,15 +43,14 @@ try
 	let axml : Xml.xml = Xml_right.parse_file false path in
 	let doc : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
 	let axml_of_doc : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
-	let doc_settings : Common_utils.t_doc_settings = Common_utils.doc_settings_of_tr_doc doc in
-	let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc doc_settings options doc in
+	let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
 	let _ : unit = identity_test_w_axml path axml axml_of_doc in
 	let _ : unit = xml_right_test path "axml" doc axml in
 	let _ : unit = xml_right_test path "exml" doc exml in
 	let _ : unit = xml_right_test_fmt path "axml" doc axml in
 	let _ : unit = xml_right_test_fmt path "exml" doc exml in
-	let _ : unit = validate_axml path "axml" "dtd/axml.dtd" axml in
-	let _ : unit = validate_exml path "exml" "dtd/exml.dtd" exml in
+	let _ : unit = validate_axml path "axml" "../docs/specs/axml.dtd" axml in
+	let _ : unit = validate_exml path "exml" "../docs/specs/exml.dtd" exml in
 	()
 with
 |Xml_right.Error e -> raise (Error (String.concat " " [path;" -> ";"Xml_right.Error:";e]))

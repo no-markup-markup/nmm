@@ -14,25 +14,21 @@ and lines_of_ts_authors_opt (doc_settings : t_doc_settings) (authors_opt : ts_au
 
 
 and lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
-	let hdr =
-		match doc_settings.abstract_hdr with
-		|None -> "ABSTRACT"
-		|Some (h,_) -> h
-	in
-	lines_of_string doc_settings doc_settings.abstract_indent hdr
+	match doc_settings.abstract_hdr with
+	|None -> []
+	|Some (hdr,_) -> 
+		lines_of_string doc_settings doc_settings.abstract_indent hdr
 
 and lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
+	match doc_settings.refs_hdr with
+	|None -> []
+	|Some (hdr,_) -> 
 	let underline_symbol : string =
 		match doc_class with
 		|DOC_CHS -> "═"
 		| _ -> "─"
 	in
 	let indent : string = String.make doc_settings.refs_indent ' ' in
-	let hdr =
-		match doc_settings.refs_hdr with
-		|Some (h,_) -> h
-		|None -> "REFERENCES"
-	in
 	let underline = make_string (Int.min (utf_8_length hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol in
 	let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent hdr in
 	List.concat [hdr_lines;[indent ^ underline;""]]
@@ -148,50 +144,88 @@ and string_of_ts_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_t
 and emph (a : string) : string = underline a
 
 and underline (s : string) : string =
-	let lst = utf_8_of_string s in
-	let map (el : string) : string = el ^ "\u{0332}" in
+	let lst = utf_8_grapheme_clusters s in
+	let map (el : string) : string = 
+		match el with
+		|" " -> " "
+		|_ -> el ^ "\u{0332}"
+	in
 	String.concat "" (List.map map lst)
 
-and lines_of_string (doc_settings : t_doc_settings) (indent : int) (s : string) : string list =
+and lines_of_string (doc_settings : t_doc_settings) (indent : int) (s: string) : string list =
 	let line_width : int = doc_settings.doc_width - indent in
+	let lines : string list = line_break line_width s in
 	let ind : string = String.make indent ' ' in
-	let rec aux (ind : string) (line_width : int) (s : string) (acc : string list) : string list = (
-		match String.length s with
-		| 0 -> List.rev acc
-		| _ -> match line_break line_width s with
-			| s1, s2 -> aux ind line_width s2 ((ind ^ s1) :: acc)
-	)
-	in 
-	aux ind line_width s []
+	let add_ind (t : string) : string = ind ^ t in
+	List.map add_ind lines
+
+and line_break (line_width : int) (s : string) : string list =
+	let graphemes : string list = utf_8_grapheme_clusters s in
+	let rec aux (remaining_graphemes : string list) (acc_line : (string * string * int) option) (acc_word : (string*int) option) (acc : string list) : string list =
+		match remaining_graphemes with
+		|[] -> (
+			match acc_line, acc_word with
+			|None,None -> acc
+			|None,Some (w,_) -> w::acc
+			|Some (l,s,_),None -> (l ^ s)::acc
+			|Some (l,s,i), Some (w,j) -> 
+				match i + j < line_width with
+				|true -> (l ^ s ^ w)::acc
+				|false -> w :: (l :: acc)
+		)
+		|hd::tl -> 
+			match acc_line, acc_word with
+			|None, None -> (
+				match hd with
+				|" " -> aux tl (Some ("", " ", 0)) None acc
+				|_ -> aux tl acc_line (Some (hd, 1)) acc
+			)
+			|None, Some (w,n) -> (
+				match n < line_width with
+				|true -> (
+					match hd with
+					|" " -> aux tl (Some (w, " ", n)) None acc
+					|_ -> aux tl acc_line (Some (w ^ hd, n + 1)) acc
+				)
+				|false -> (
+					match hd with
+					|" " -> aux tl (Some (w," ", n)) None acc
+					|_ -> aux tl acc_line (Some (w ^ hd, n + 1)) acc
+				)
+			)
+			|Some (l,s,n), None -> (
+				match n < line_width with
+				|true -> (
+					match hd with
+					|" " -> aux tl (Some (l ^ s," ", n + 1)) acc_word acc
+					|_ -> aux tl acc_line (Some (hd, 1)) acc
+				)
+				|false -> (
+					match hd with
+					|" " -> aux tl None acc_word (l::acc)
+					|_ -> aux tl None (Some (hd,1)) (l::acc)
+				)
+			)
+			|Some (l,s,i), Some (w,j) -> (
+				match i+j < line_width with
+				|true -> (
+					match hd with
+					|" " -> aux tl (Some (l ^ s ^ w, " ", i + j + 1)) None acc
+					|_ -> aux tl acc_line (Some (w ^ hd, j + 1)) acc
+				)
+				|false -> (
+					match hd with
+					|" " -> aux tl (Some (w, " ", j)) None (l::acc)
+					|_ -> aux tl None (Some (w ^ hd, j + 1)) (l::acc)
+				)
+			)
+	in List.rev (aux graphemes None None [])
+
+
 
 and lines_of_string_dsp (indent : int) (s : string) : string list =
 	let ind : string = String.make indent ' ' in
-	let lst : string list = String.split_on_char '\n' s in
-	List.map (fun t -> ind ^ t) lst
-
-and line_break (line_width : int) (s : string) : string * string =
-	match utf_8_length s <= line_width with
-	| true -> (s, "")
-	| false -> 
-		let rec aux (line_width : int) (s : string) (i : int) : int = (
-			match String.index_from_opt s (i + 1) ' ' with
-			| None -> i
-			| Some (j : int) -> 
-				match utf_8_length (String.sub s 0 j) <= line_width with
-				| true -> aux line_width s j
-				| false -> i
-		)
-		in
-		match String.index_from_opt s 0 ' ' with
-		| None -> (s, "")
-		| Some (i : int) ->
-			let sub = String.sub s 0 i in
-			match utf_8_length sub <= line_width with
-			| true ->
-				let j = aux line_width s i in
-				(String.sub s 0 j, String.sub s (j + 1) (String.length s - j - 1))
-			| false -> 
-				(sub, String.sub s (i + 1) (String.length s - i - 1))
+	[ind ^ s]
 
 
 and insert_label (doc_settings : t_doc_settings) (path : t_path) (s : string) : string =
@@ -215,11 +249,11 @@ and insert_string (label : string) (pos : int) (s : string) : string =
 	match string_len < pos + label_len with
 	|true -> String.concat "\n" [label;s]
 	|false ->
-	let target : string = String.sub s pos label_len in
+	let actual_target : string = String.sub s pos label_len in
 	let ideal_target : string = String.make label_len ' ' in
 	let s1 : string = String.sub s 0 pos in
 	let s2 : string =
-		match (*0<=(string_len - pos - mark_len) && mark_len<doc_settings.tab_length &&*) target = ideal_target with
+		match actual_target = ideal_target with
 		|true -> String.sub s (pos + label_len) (string_len - pos - label_len)
 		|false -> ("\n"^s)
 	in
@@ -241,36 +275,36 @@ and indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
 		| DSP_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
 		| _ -> indent_of_path doc_settings tl
 
-and utf_8_segments seg s =
-  let flush_segment buf acc =
-    let segment = Buffer.contents buf in
-    Buffer.clear buf;
-    if segment = "" then acc else segment :: acc
-  in
-  let rec add buf acc segmenter v =
-    match Uuseg.add segmenter v with
-    | `Uchar u ->
-        Buffer.add_utf_8_uchar buf u;
-        add buf acc segmenter `Await
-    | `Boundary -> add buf (flush_segment buf acc) segmenter `Await
-    | `Await | `End -> acc
-  in
-  let rec loop buf acc s i max segmenter =
-    if i > max then flush_segment buf (add buf acc segmenter `End)
-    else
-      let dec = String.get_utf_8_uchar s i in
-      let acc = add buf acc segmenter (`Uchar (Uchar.utf_decode_uchar dec)) in
-      loop buf acc s (i + Uchar.utf_decode_length dec) max segmenter
-  in
-  let buf = Buffer.create 42 in
-  let segmenter = Uuseg.create seg in
-  List.rev (loop buf [] s 0 (String.length s - 1) segmenter)
+and utf_8_segments (boundary : Uuseg.boundary) (s : string) : string list =
+        let flush_segment (buf : Buffer.t) (acc : string list) : string list =
+                let segment : string = Buffer.contents buf in
+                let _ : unit = Buffer.clear buf in
+                if segment = "" then acc else segment :: acc
+        in
+        let rec add (buf : Buffer.t) (acc : string list) (segmenter : Uuseg.t) (v : [ `Await | `End | `Uchar of Uchar.t ]) : string list =
+                match ((Uuseg.add segmenter v) : Uuseg.ret) with
+                | `Uchar u ->
+                        let _ : unit = Buffer.add_utf_8_uchar buf u in
+                        add buf acc segmenter `Await
+                | `Boundary -> add buf (flush_segment buf acc) segmenter `Await
+                | `Await 
+                | `End -> acc
+        in
+        let rec loop (buf : Buffer.t) (acc : string list) (s : string) (i : int) (max : int) (segmenter : Uuseg.t) : string list =
+                if i > max then flush_segment buf (add buf acc segmenter `End) else
+                let dec : Uchar.utf_decode = String.get_utf_8_uchar s i in
+                let acc : string list = add buf acc segmenter (`Uchar (Uchar.utf_decode_uchar dec)) in
+                loop buf acc s (i + Uchar.utf_decode_length dec) max segmenter
+        in
+        let buf : Buffer.t = Buffer.create 42 in
+        let segmenter : Uuseg.t = Uuseg.create boundary in
+        List.rev (loop buf [] s 0 (String.length s - 1) segmenter)
 
-and utf_8_of_string (s : string) : string list =
-  utf_8_segments `Grapheme_cluster s
+and utf_8_grapheme_clusters (s : string) : string list =
+        utf_8_segments `Grapheme_cluster s
 
 and utf_8_length (s : string) : int =
-  List.length (utf_8_segments `Grapheme_cluster s)
+	List.length (utf_8_grapheme_clusters s)
 
 
 let max_length_of_margin_labels (margin_labels : string list) : int =
