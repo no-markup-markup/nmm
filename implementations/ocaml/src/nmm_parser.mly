@@ -94,8 +94,7 @@ let get_id_string (s : string) : string =
 %type <Doc_types.ts_par_rpt>              pilcrow_spaces_rpt_spaces_id_nl
 %type <Doc_types.ts_blks>                 par_main blks special_blks
 %type <Doc_types.tu_par list>             pars
-%type <Doc_types.tu_blk>                  blk0
-%type <Doc_types.tu_blk>                  blk1 blk2 blk3
+%type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
 %type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
 %type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
 %type <Doc_types.tr_blk_itm>              blk_itm0 blk_itm1 blk_itm2
