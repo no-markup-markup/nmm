@@ -24,14 +24,14 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Doc_of_axml</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Doc_of_axml</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Axml_of_doc.html" title="Axml_of_doc">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="Html_utils.html" title="Html_utils">Next</a>
 </div>
-<h1>Module <a href="type_Doc_of_axml.html">Doc_of_axml</a></h1>
+<h1>Module <a href="type_Doc_of_axml.html">Doc_of_axml</a> (<a href="code_Doc_of_axml.html">.ml</a>)</h1>
 
 <pre><span id="MODULEDoc_of_axml"><span class="keyword">module</span> Doc_of_axml</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Doc_of_axml.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
@@ -42,21 +42,11 @@
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALf_tr_doc_of_axml"><span class="keyword">val</span> f_tr_doc_of_axml</span> : <code class="type">Xml.xml -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
+<pre><span id="VALf_tr_doc_of_axml"><span class="keyword">val</span> <a href="code_VALDoc_of_axml.f_tr_doc_of_axml.html">f_tr_doc_of_axml</a></span> : <code class="type">Xml.xml -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
-<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>, then</p>
+<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>, then <code class="code">f_tr_doc_of_axml&nbsp;axml</code> evaluates to an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>. Otherwise it raises an error.</p>
 
-<p><code class="code">f_tr_doc_of_axml&nbsp;axml</code></p>
-
-<p>evaluates to an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>. Otherwise it raises an <code class="code"><span class="constructor">Error</span></code>.</p>
-
-<p>---</p>
-
-<p>Ideally, if <code class="code">doc</code> is an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>, then</p>
-
-<p><code class="code">f_tr_doc_of_axml&nbsp;(</code><a href="Axml_of_doc.html#VALaxml_of_tr_doc"><code class="code"><span class="constructor">Axml_of_doc</span>.axml_of_tr_doc</code></a> <code class="code">&nbsp;doc)</code></p>
-
-<p>should evaluate to <code class="code">doc</code>.</p>
+<p>Ideally, if <code class="code">doc</code> is an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>, then <code class="code">f_tr_doc_of_axml&nbsp;(</code><a href="Axml_of_doc.html#VALaxml_of_tr_doc"><code class="code"><span class="constructor">Axml_of_doc</span>.axml_of_tr_doc</code></a><code class="code">&nbsp;doc)</code> should evaluate to <code class="code">doc</code>.</p>
 </div>
 </div>
 </body></html>

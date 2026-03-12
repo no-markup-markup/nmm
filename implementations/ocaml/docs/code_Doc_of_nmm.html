@@ -1,0 +1,180 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Doc_of_nmm</title>
+</head>
+<body>
+<code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">Nmm_parser</span><br>
+<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="comment">(*&nbsp;******************For&nbsp;debugging&nbsp;purposes:&nbsp;***********************&nbsp;*)</span>&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;string_of_token&nbsp;(t:<span class="constructor">Nmm_parser</span>.token):string=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;t&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"SECTION"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION_NL</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"SECTION_NL"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PILCROW</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"PILCROW"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PILCROW_NL</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"PILCROW_NL"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">DASH_TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"DASH_TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">DSP_AUTO_TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"DSP_AUTO_TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ITM_AUTO_TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"ITM_AUTO_TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">NL</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"NL"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">NL_TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"NL_TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">NL_TAB_TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"NL_TAB_TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">NL_TAB_TAB_TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"NL_TAB_TAB_TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">STAR</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"STAR"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">LBR</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"LBR"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">RBR</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"RBR"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">COLON</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"COLON"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">EOF</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"EOF"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">CH_TAG_OR_ID_NL</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"CH_TAG_OR_ID_NL&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION_SPACES_TAG_OR_ID_NL</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"SECTION_SPACES_TAG_OR_ID_NL&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PILCROW_SPACES_TAG_OR_ID_NL</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"PILCROW_SPACES_TAG_OR_ID_NL&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PILCROW_SPACES_RPT_SPACES_ID_NL</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"PILCROW_SPACES_RPT_SPACES_ID_NL&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TXT</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"TXT&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">DSP_CUSTOM_TAB</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"DSP_CUSTOM_TAB&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ITM_CUSTOM_TAB</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"ITM_CUSTOM_TAB&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ITM_AUTO_TAB_ID</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"ITM_AUTO_TAB_ID&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ITM_CUSTOM_TAB_ID</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"ITM_CUSTOM_TAB_ID&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">DSP_ID</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"DSP_ID&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">C_REF</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"C_REF&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TITLE</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"TITLE&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">AUTHOR</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"AUTHOR&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PREAMBLE</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"PREAMBLE&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ESC_CHAR</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"ESC_CHAR&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ABSTRACT</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"ABSTRACT&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION_REFS_NLS</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"SECTION_REFS_NLS"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PILCROW_REFS_NLS</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"PICLROW_REFS_NLS"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">VRB_LINE</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"VRB_LINE&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">START_VRB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"START_VRB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">VRB_LINE_EMPTY</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"VRB_LINE_EMPTY"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">END_VRB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"END_VRB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB_END_VRB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB_END_VRB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB_TAB_END_VRB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB_TAB_END_VRB"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB_TAB_TAB_END_VRB</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB_TAB_TAB_END_VRB"</span><br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;sedlexer&nbsp;(print_tokens:bool)&nbsp;(b:<span class="constructor">Sedlexing</span>.lexbuf):(<span class="constructor">Nmm_parser</span>.token*<span class="constructor">Lexing</span>.position*<span class="constructor">Lexing</span>.position)=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;token&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token=<span class="constructor">Nmm_lexer</span>.token&nbsp;b&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;start_pos,end_pos=<span class="constructor">Sedlexing</span>.lexing_positions&nbsp;b&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<span class="string">"Line&nbsp;"</span>&nbsp;^&nbsp;(<span class="constructor">Nmm_lexer</span>.line_of_lexbuf&nbsp;b)&nbsp;^&nbsp;<span class="string">":&nbsp;"</span>&nbsp;^&nbsp;(string_of_token&nbsp;token))&nbsp;<span class="keyword">in</span>&nbsp;(token,start_pos,end_pos)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(token,start_pos,end_pos)<br>
+<br>
+<br>
+<span class="comment">(*&nbsp;****************************************************************&nbsp;*)</span><br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;doc_of_nmm_file&nbsp;(print_tokens:bool)&nbsp;(filename:string):<span class="constructor">Doc_types</span>.tr_doc=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.return_nl.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.verbatim.contents&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.first_nl.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.display.contents&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">Sys</span>.file_exists&nbsp;filename&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="string">"cannot&nbsp;read&nbsp;from&nbsp;"</span>&nbsp;^&nbsp;filename&nbsp;^&nbsp;<span class="string">":&nbsp;No&nbsp;such&nbsp;file"</span>))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ic=open_in&nbsp;filename&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sedlexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;=&nbsp;<span class="constructor">Sedlexing</span>.<span class="constructor">Utf8</span>.from_channel&nbsp;ic&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dummy_lexbuf&nbsp;:&nbsp;<span class="constructor">Lexing</span>.lexbuf&nbsp;=&nbsp;<span class="constructor">Lexing</span>.from_string&nbsp;<span class="string">""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexer&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Lexing</span>.lexbuf)&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;sedlexer&nbsp;print_tokens&nbsp;sedlexbuf&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>token,&nbsp;start_pos,&nbsp;end_pos&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;dummy_lexbuf.<span class="constructor">Lexing</span>.lex_start_p&nbsp;&lt;-&nbsp;start_pos&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;dummy_lexbuf.<span class="constructor">Lexing</span>.lex_curr_p&nbsp;&lt;-&nbsp;end_pos&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.main&nbsp;lexer&nbsp;dummy_lexbuf&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;close_in&nbsp;ic&nbsp;<span class="keyword">in</span>&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Read&nbsp;the&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;"</span>&nbsp;^&nbsp;filename&nbsp;^&nbsp;<span class="string">":"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_of_nmm_file&nbsp;<span class="keyword">true</span>&nbsp;filename<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"Parsing&nbsp;failed"</span>)<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;doc_of_nmm_string&nbsp;(print_tokens:bool)&nbsp;(s:string):<span class="constructor">Doc_types</span>.tr_doc=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.return_nl.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.verbatim.contents&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.first_nl.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.display.contents&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sedlexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;=&nbsp;<span class="constructor">Sedlexing</span>.<span class="constructor">Utf8</span>.from_string&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dummy_lexbuf&nbsp;:&nbsp;<span class="constructor">Lexing</span>.lexbuf&nbsp;=&nbsp;<span class="constructor">Lexing</span>.from_string&nbsp;<span class="string">""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexer&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Lexing</span>.lexbuf)&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;sedlexer&nbsp;print_tokens&nbsp;sedlexbuf&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>token,&nbsp;start_pos,&nbsp;end_pos&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;dummy_lexbuf.<span class="constructor">Lexing</span>.lex_start_p&nbsp;&lt;-&nbsp;start_pos&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;dummy_lexbuf.<span class="constructor">Lexing</span>.lex_curr_p&nbsp;&lt;-&nbsp;end_pos&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.main&nbsp;lexer&nbsp;dummy_lexbuf&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Read&nbsp;the&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;\'"</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\':"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_of_nmm_string&nbsp;<span class="keyword">true</span>&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"Parsing&nbsp;failed"</span>)<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;doc_of_nmm_stdin&nbsp;(print_tokens:bool)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.return_nl.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.verbatim.contents&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.first_nl.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.display.contents&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;input&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">In_channel</span>.input_all&nbsp;stdin&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sedlexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;=&nbsp;<span class="constructor">Sedlexing</span>.<span class="constructor">Utf8</span>.from_string&nbsp;input&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dummy_lexbuf&nbsp;:&nbsp;<span class="constructor">Lexing</span>.lexbuf&nbsp;=&nbsp;<span class="constructor">Lexing</span>.from_string&nbsp;<span class="string">""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexer&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Lexing</span>.lexbuf)&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;sedlexer&nbsp;print_tokens&nbsp;sedlexbuf&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>token,&nbsp;start_pos,&nbsp;end_pos&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;dummy_lexbuf.<span class="constructor">Lexing</span>.lex_start_p&nbsp;&lt;-&nbsp;start_pos&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;dummy_lexbuf.<span class="constructor">Lexing</span>.lex_curr_p&nbsp;&lt;-&nbsp;end_pos&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;token<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.main&nbsp;lexer&nbsp;dummy_lexbuf&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Read&nbsp;the&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;\'"</span>&nbsp;^&nbsp;input&nbsp;^&nbsp;<span class="string">"\':"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_of_nmm_string&nbsp;<span class="keyword">true</span>&nbsp;input<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"Parsing&nbsp;failed"</span>)<br>
+<br>
+</code></body></html>

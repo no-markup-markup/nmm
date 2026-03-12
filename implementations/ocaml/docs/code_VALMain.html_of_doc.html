@@ -1,0 +1,85 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.html_of_doc</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> html_of_doc (options : string list) (doc : <span class="constructor">Doc_types</span>.tr_doc) : string =
+        <span class="keyword">try</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- <span class="constructor">List</span>.mem <span class="string">"--quiet"</span> options <span class="keyword">in</span>
+        <span class="keyword">let</span> exml:<span class="constructor">Xml</span>.xml = <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc options doc <span class="keyword">in</span>
+        <span class="keyword">let</span> doc_class : <span class="constructor">Common_utils</span>.t_doc_class = <span class="constructor">Common_utils</span>.class_of_tr_doc doc <span class="keyword">in</span>
+        <span class="keyword">let</span> html:<span class="constructor">Xml</span>.xml = <span class="constructor">Html_utils</span>.html_of_exml doc_class exml <span class="keyword">in</span>
+        <span class="keyword">let</span> html_string:string = <span class="constructor">Xml_right</span>.to_string_fmt html <span class="keyword">in</span>
+        <span class="keyword">let</span> title:string = 
+                <span class="keyword">match</span> doc.fld_doc_title <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;title&gt;"</span>;<span class="string">"untitled"</span>;<span class="string">"&lt;/title&gt;"</span>]
+                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_title</span> s) <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;title&gt;"</span>;s;<span class="string">"&lt;/title&gt;"</span>]
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> authors:string = 
+                <span class="keyword">match</span> doc.fld_doc_authors <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_authors</span> (author_list : <span class="constructor">Doc_types</span>.ts_author list)) <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">let</span> map (author : <span class="constructor">Doc_types</span>.ts_author) : string = 
+                                <span class="keyword">match</span> author <span class="keyword">with</span>
+                                <span class="keywordsign">|</span><span class="constructor">Cs_author</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;meta name=\"author\" content=\""</span>;s;<span class="string">"\"&gt;"</span>]
+                        <span class="keyword">in</span> <span class="constructor">String</span>.concat <span class="string">"\n"</span> (<span class="constructor">List</span>.map map author_list)
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> lang_attr : string =
+        <span class="keyword">match</span> <span class="constructor">Html_utils</span>.lang_code_of_options options <span class="keyword">with</span> 
+                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (<span class="string">" lang=\""</span> ^ (<span class="constructor">Html_utils</span>.default_lang_code ())^ <span class="string">"\""</span>)
+                <span class="keywordsign">|</span> <span class="constructor">Some</span> lang_code <span class="keywordsign">-&gt;</span> (<span class="string">" lang=\""</span> ^ lang_code ^ <span class="string">"\""</span>) 
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> margin_left : string = 
+                <span class="keyword">match</span> <span class="constructor">Html_utils</span>.margin_left_of_options options <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> margin <span class="keywordsign">-&gt;</span> margin
+                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Html_utils</span>.margin_left_of_tr_doc doc
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> internal_css: string = (<span class="string">"&lt;style&gt;\n"</span> ^ (<span class="constructor">Html_utils</span>.internal_css (<span class="constructor">Html_utils</span>.default_tab_length ()) margin_left) ^ <span class="string">"\n&lt;/style&gt;"</span>) <span class="keyword">in</span>
+        <span class="keyword">let</span> external_css: string = 
+                <span class="keyword">match</span> <span class="constructor">Html_utils</span>.external_css_of_options options <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> uri <span class="keywordsign">-&gt;</span>  (<span class="string">"&lt;link rel=\"stylesheet\" href=\""</span> ^ uri ^ <span class="string">"\"&gt;\n"</span>)
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> intro : string = (
+                <span class="string">"&lt;!DOCTYPE html&gt;\n"</span> ^
+                <span class="string">"&lt;html"</span> ^ lang_attr ^ <span class="string">"&gt;\n"</span> ^
+                <span class="string">"&lt;head&gt;\n"</span> ^
+                <span class="string">"&lt;meta charset=\"UTF-8\"&gt;\n"</span> ^
+                <span class="string">"&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;\n"</span> ^
+                title ^ <span class="string">"\n"</span> ^
+                authors ^ <span class="string">"\n"</span> ^
+                internal_css ^ <span class="string">"\n"</span> ^
+                external_css ^
+                <span class="string">"&lt;/head&gt;\n"</span> ^
+                <span class="string">"&lt;body&gt;\n"</span>
+        ) 
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> outro : string = (
+                <span class="string">"\n&lt;/body&gt;\n"</span> ^
+                <span class="string">"&lt;/html&gt;"</span>
+        )
+        <span class="keyword">in</span> 
+        (intro ^ html_string ^ outro)
+        <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Html_utils</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Html_utils.Error:"</span>; e]))
+        <span class="keywordsign">|</span><span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Compiler_of_doc.Error:"</span>; e]))
+        <span class="keywordsign">|</span><span class="constructor">Xml_right</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Xml_right.Error:"</span>; e]))</code></body></html>

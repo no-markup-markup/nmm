@@ -1,0 +1,210 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.xml_list_of_ts_title_opt</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> xml_list_of_ts_title_opt (title_opt : ts_title option) : <span class="constructor">Xml</span>.xml list =
+        <span class="keyword">match</span> title_opt <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+        <span class="keywordsign">|</span><span class="constructor">Some</span> title <span class="keywordsign">-&gt;</span> [xml_of_ts_title title]
+
+<span class="keyword">and</span> xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : <span class="constructor">Xml</span>.xml list =
+        <span class="keyword">match</span> authors_opt <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+        <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_authors</span> (author_list : ts_author list)) <span class="keywordsign">-&gt;</span> 
+                [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"authors"</span>,[],<span class="constructor">List</span>.map xml_of_ts_author author_list)]
+
+<span class="keyword">and</span> xml_of_ts_title (title : ts_title) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> title <span class="keyword">with</span> <span class="constructor">Cs_title</span> (s : string) <span class="keywordsign">-&gt;</span> 
+        <span class="keyword">let</span> content : <span class="constructor">Xml</span>.xml list = [xml_of_string s] <span class="keyword">in</span> 
+        <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"title"</span>,[],content)
+        
+<span class="keyword">and</span> xml_of_ts_author (author : ts_author) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> author <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Cs_author</span> (s : string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"author"</span>, [], [xml_of_string s])
+
+<span class="keyword">and</span> xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : <span class="constructor">Xml</span>.xml list =
+        <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+        <span class="keywordsign">|</span><span class="constructor">Some</span> (abstract_hdr,_) <span class="keywordsign">-&gt;</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"abstract_hdr"</span>,[],[xml_of_string abstract_hdr])]
+
+<span class="keyword">and</span> xml_list_of_refs_hdr (doc_settings : t_doc_settings): <span class="constructor">Xml</span>.xml list =
+        <span class="keyword">match</span> doc_settings.refs_hdr <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+        <span class="keywordsign">|</span><span class="constructor">Some</span> (hdr,_) <span class="keywordsign">-&gt;</span>
+                <span class="keyword">let</span> content : <span class="constructor">Xml</span>.xml list = [xml_of_string hdr] <span class="keyword">in</span>
+                [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"refs_hdr"</span>,[],content)]
+
+
+<span class="keyword">and</span> xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blk_txt : ts_blk_txt) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> blk_txt <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_units : ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_txt"</span>,[],xml_list_of_ts_txt_units doc_settings cref_table path txt_units)
+
+<span class="keyword">and</span> xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> blk_vrb <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_blk_vrb</span> (vrb_lines : ts_vrb_lines) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_vrb"</span>,[],xml_list_of_ts_vrb_lines vrb_lines)
+
+<span class="keyword">and</span> xml_list_of_ts_vrb_lines (vrb_lines : ts_vrb_lines) : <span class="constructor">Xml</span>.xml list =
+        <span class="keyword">match</span> vrb_lines <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_vrb_lines</span> (vrb_line_list : ts_vrb_line list) <span class="keywordsign">-&gt;</span> <span class="constructor">List</span>.map xml_of_ts_vrb_line vrb_line_list
+
+<span class="keyword">and</span> xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> vrb_line <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_vrb_line</span> (line : string) <span class="keywordsign">-&gt;</span> 
+                <span class="keyword">match</span> line <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="string">""</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"vrb_line_empty"</span>,[],[])
+                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"vrb_line"</span>,[],[xml_of_string line])
+
+<span class="keyword">and</span> xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_txt_units) : <span class="constructor">Xml</span>.xml list =
+        <span class="keyword">match</span> a <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Cs_txt_units</span> (b : tu_txt_unit list) <span class="keywordsign">-&gt;</span> <span class="constructor">List</span>.map (xml_of_tu_txt_unit doc_settings cref_table path) b
+
+<span class="keyword">and</span> xml_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : tu_txt_unit) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Cu_txt_unit_wysiwyg</span> (b: ts_txt_unit_wysiwyg) <span class="keywordsign">-&gt;</span> xml_of_ts_txt_unit_wysiwyg b
+        <span class="keywordsign">|</span> <span class="constructor">Cu_txt_unit_emph</span> (b : ts_txt_unit_emph) <span class="keywordsign">-&gt;</span> xml_of_ts_txt_unit_emph b
+        <span class="keywordsign">|</span> <span class="constructor">Cu_txt_unit_c_ref</span> (b : ts_txt_unit_c_ref) <span class="keywordsign">-&gt;</span> xml_of_ts_txt_unit_c_ref doc_settings cref_table path b 
+
+<span class="keyword">and</span> xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_wysiwyg</span> (b : string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"txt_unit_wysiwyg"</span>, [], [xml_of_string b])
+
+<span class="keyword">and</span> xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_emph</span> (b : string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"txt_unit_emph"</span>, [], [xml_of_string b])
+
+<span class="keyword">and</span> xml_of_ts_txt_unit_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_txt_unit_c_ref) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_c_ref</span> (b : ts_c_ref) <span class="keywordsign">-&gt;</span>
+        <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"txt_unit_c_ref"</span>, attr_list_of_ts_c_ref doc_settings path b, [xml_of_ts_c_ref doc_settings cref_table path b])
+
+<span class="keyword">and</span> xml_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_c_ref) : <span class="constructor">Xml</span>.xml =
+        <span class="constructor">Xml</span>.<span class="constructor">PCData</span> (pcdata_of_string (string_of_ts_c_ref doc_settings cref_table path a))
+
+<span class="keyword">and</span> attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : ts_c_ref) : (string*string) list =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_c_ref</span> (id : tr_id) <span class="keywordsign">-&gt;</span> [(<span class="string">"href"</span>,<span class="string">"#"</span> ^ (cdata_of_tr_id doc_settings path id))]
+
+<span class="keyword">and</span> attr_list_of_tu_tag_or_id (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
+        <span class="keyword">match</span> a <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
+                <span class="keyword">match</span> classes <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> []
+                <span class="keywordsign">|</span>_::_ <span class="keywordsign">-&gt;</span> [<span class="string">"class"</span>, <span class="constructor">String</span>.concat <span class="string">" "</span> classes]
+        )
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> 
+                <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
+                <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag) <span class="keywordsign">-&gt;</span> attr_list_of_ts_tag classes tag
+                <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_id</span> (id : tr_id) <span class="keywordsign">-&gt;</span> 
+                        <span class="constructor">List</span>.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path (<span class="constructor">Some</span> id)]
+
+<span class="keyword">and</span> attr_list_of_ts_tag (classes : string list) (tag : ts_tag) : (string*string) list =
+        <span class="keyword">match</span> tag <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> (s : string) <span class="keywordsign">-&gt;</span> [(<span class="string">"class"</span>), <span class="constructor">String</span>.concat <span class="string">" "</span> (s::classes)]
+
+<span class="keyword">and</span> attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id_opt : tr_id option) : (string*string) list =
+        <span class="keyword">match</span> id_opt <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> [(<span class="string">"id"</span>, cdata_of_tr_id doc_settings path id)]
+
+<span class="keyword">and</span> cdata_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : string =
+        <span class="keyword">match</span> id.fld_id_tag, id.fld_id_name, id.fld_id_scope <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> (tag_string : string), <span class="constructor">Cs_name</span> (name_string : string), <span class="constructor">None</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> (tag_string : string), <span class="constructor">Cs_name</span> (name_string : string), <span class="constructor">Some</span> <span class="constructor">Cu_scope_gbl</span> <span class="keywordsign">-&gt;</span> (tag_string ^ <span class="string">"_"</span> ^ name_string)
+        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> (tag_string : string), <span class="constructor">Cs_name</span> (name_string : string), <span class="constructor">Some</span> scope <span class="keywordsign">-&gt;</span> (tag_string ^ <span class="string">"_"</span> ^ name_string ^ <span class="string">"_"</span> ^ (string_of_scope doc_settings path scope))
+
+<span class="keyword">and</span> string_of_scope (doc_settings : t_doc_settings) (path : t_path) (scope : tu_scope) : string =
+        <span class="keyword">match</span> scope <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cu_scope_gbl</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"global scope not expected"</span>)
+        <span class="keywordsign">|</span><span class="constructor">Cu_scope_ch</span> <span class="keywordsign">-&gt;</span> <span class="string">"CH_"</span> ^ (string_of_path doc_settings (path_to_ch_node path))
+        <span class="keywordsign">|</span><span class="constructor">Cu_scope_sec</span> <span class="keywordsign">-&gt;</span> <span class="string">"SEC_"</span> ^ (string_of_path doc_settings (path_to_sec_node path))
+        <span class="keywordsign">|</span><span class="constructor">Cu_scope_app</span> <span class="keywordsign">-&gt;</span> <span class="string">"APP_"</span> ^ (string_of_path doc_settings (path_to_app_node path))
+        <span class="keywordsign">|</span><span class="constructor">Cu_scope_par</span> <span class="keywordsign">-&gt;</span> <span class="string">"PAR_"</span> ^ (string_of_path doc_settings (path_to_par_node path))
+
+
+<span class="keyword">and</span> xml_of_string (s : string) : <span class="constructor">Xml</span>.xml =
+        <span class="constructor">Xml</span>.<span class="constructor">PCData</span> (pcdata_of_string s)
+
+<span class="keyword">and</span> pcdata_of_string (s: string): string = 
+        <span class="keyword">let</span> s_amp = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;"</span>) <span class="string">"&amp;amp;"</span> s <span class="keyword">in</span>
+        <span class="keyword">let</span> s_lt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&lt;"</span>) <span class="string">"&amp;lt;"</span> s_amp <span class="keyword">in</span>
+        <span class="keyword">let</span> s_gt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&gt;"</span>) <span class="string">"&amp;gt;"</span> s_lt <span class="keyword">in</span>
+        <span class="keyword">let</span> s_apos = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"\'"</span>) <span class="string">"&amp;apos;"</span> s_gt <span class="keyword">in</span>
+        <span class="keyword">let</span> s_quot = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"\""</span>) <span class="string">"&amp;quot;"</span> s_apos <span class="keyword">in</span>
+        s_quot
+
+<span class="keyword">and</span> string_of_pcdata (s : string): string =
+        <span class="keyword">let</span> s_amp = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;amp;"</span>) <span class="string">"&amp;"</span> s <span class="keyword">in</span>
+        <span class="keyword">let</span> s_lt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;lt;"</span>) <span class="string">"&lt;"</span> s_amp <span class="keyword">in</span>
+        <span class="keyword">let</span> s_gt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;gt;"</span>) <span class="string">"&gt;"</span> s_lt <span class="keyword">in</span>
+        <span class="keyword">let</span> s_apos = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;apos;"</span>) <span class="string">"\'"</span> s_gt <span class="keyword">in</span>
+        <span class="keyword">let</span> s_quot = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;quot;"</span>) <span class="string">"\""</span> s_apos <span class="keyword">in</span>
+        s_quot
+
+<span class="keyword">and</span> string_of_predefined_entity (s : string) : string=
+        <span class="keyword">match</span> s <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="string">"&amp;lt;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&lt;"</span>
+        <span class="keywordsign">|</span> <span class="string">"&amp;gt;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&gt;"</span>
+        <span class="keywordsign">|</span> <span class="string">"&amp;amp;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&amp;"</span>
+        <span class="keywordsign">|</span> <span class="string">"&amp;apos;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"\'"</span>
+        <span class="keywordsign">|</span> <span class="string">"&amp;quot;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"\""</span>
+        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> s
+
+<span class="keyword">and</span> predefined_entity_of_string (s : string) : string =
+        <span class="keyword">match</span> s <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="string">"&lt;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&amp;lt;"</span> 
+        <span class="keywordsign">|</span> <span class="string">"&gt;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&amp;gt;"</span> 
+        <span class="keywordsign">|</span> <span class="string">"&amp;"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&amp;amp;"</span>
+        <span class="keywordsign">|</span> <span class="string">"\'"</span> <span class="keywordsign">-&gt;</span> <span class="string">"&amp;apos;"</span>
+        <span class="keywordsign">|</span> <span class="string">"\""</span> <span class="keywordsign">-&gt;</span> <span class="string">"&amp;quot;"</span>
+        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> s
+
+
+<span class="keyword">and</span> par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (<span class="constructor">Xml</span>.xml list) option=
+        <span class="keyword">let</span> tag_content_opt : (<span class="constructor">Xml</span>.xml list) option = 
+                <span class="keyword">match</span> tag_or_id_opt <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> (
+                        <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag) 
+                        <span class="keywordsign">|</span><span class="constructor">Cu_tag_or_id_id</span> { fld_id_tag = (tag : ts_tag); fld_id_name = _ } <span class="keywordsign">-&gt;</span>
+                                <span class="keyword">match</span> doc_settings.expand_tag tag <span class="keyword">with</span>
+                                <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl,_) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> [xml_of_string lbl]
+                                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+                )
+                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> hdr_content_opt : (<span class="constructor">Xml</span>.xml list) option = 
+                <span class="keyword">match</span> hdr_opt <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (txt_units : ts_txt_units)) <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> (xml_list_of_ts_txt_units doc_settings cref_table path txt_units)
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> tag_content_opt, hdr_content_opt, inline <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">Some</span> hdr_content, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag"</span>,[],tag_content);<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr_inline"</span>,[],hdr_content)]
+                <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">Some</span> hdr_content, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag"</span>,[],tag_content);<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>,[],hdr_content)]
+                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">Some</span> hdr_content, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr_inline"</span>,[],hdr_content)]
+                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">Some</span> hdr_content, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>,[],hdr_content)]
+                <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">None</span>, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr_inline"</span>,[],tag_content)]
+                <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">None</span>, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>,[],tag_content)]
+                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">None</span>, _ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span></code></body></html>

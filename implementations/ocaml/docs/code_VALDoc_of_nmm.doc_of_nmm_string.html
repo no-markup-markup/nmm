@@ -1,0 +1,52 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Doc_of_nmm.doc_of_nmm_string</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> doc_of_nmm_string (print_tokens:bool) (s:string):<span class="constructor">Doc_types</span>.tr_doc=
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_lexer</span>.return_nl.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_lexer</span>.verbatim.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_lexer</span>.first_nl.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_lexer</span>.display.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span>
+        <span class="keyword">let</span> sedlexbuf : <span class="constructor">Sedlexing</span>.lexbuf = <span class="constructor">Sedlexing</span>.<span class="constructor">Utf8</span>.from_string s <span class="keyword">in</span>
+        <span class="keyword">let</span> dummy_lexbuf : <span class="constructor">Lexing</span>.lexbuf = <span class="constructor">Lexing</span>.from_string <span class="string">""</span> <span class="keyword">in</span>
+        <span class="keyword">let</span> lexer (lexbuf : <span class="constructor">Lexing</span>.lexbuf) : <span class="constructor">Nmm_parser</span>.token =
+                <span class="keyword">match</span> sedlexer print_tokens sedlexbuf <span class="keyword">with</span>
+                <span class="keywordsign">|</span>token, start_pos, end_pos <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">let</span> _ : unit = dummy_lexbuf.<span class="constructor">Lexing</span>.lex_start_p &lt;- start_pos <span class="keyword">in</span>
+                        <span class="keyword">let</span> _ : unit = dummy_lexbuf.<span class="constructor">Lexing</span>.lex_curr_p &lt;- end_pos <span class="keyword">in</span> 
+                        token
+        <span class="keyword">in</span>
+        <span class="keyword">try</span>
+                <span class="keyword">let</span> doc = <span class="constructor">Nmm_parser</span>.main lexer dummy_lexbuf <span class="keyword">in</span>
+                doc
+        <span class="keyword">with</span>
+        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
+                <span class="keyword">match</span> print_tokens <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_to_stderr (
+                                <span class="constructor">String</span>.concat <span class="string">"\n"</span> [
+                                        <span class="string">"Read the the following tokens from \'"</span> ^ s ^ <span class="string">"\':"</span>;
+                                ]
+                        ) 
+                        <span class="keyword">in</span> doc_of_nmm_string <span class="keyword">true</span> s
+                <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"Parsing failed"</span>)</code></body></html>

@@ -1,0 +1,194 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Xml_right</title>
+</head>
+<body>
+<code class="code"><span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">let</span>&nbsp;string_of_token&nbsp;(t:<span class="constructor">Xml_right_parser</span>.token):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;t&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right_parser</span>.<span class="constructor">EOF</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"EOF"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right_parser</span>.<span class="constructor">PCDATA</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"PCDATA"</span>;<span class="string">"&nbsp;"</span>;<span class="string">"\'"</span>;s;<span class="string">"\'"</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right_parser</span>.<span class="constructor">TAG_OPEN</span>&nbsp;(x,y)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"TAG_OPEN"</span>;<span class="string">"&nbsp;"</span>;<span class="string">"\'"</span>;x;<span class="string">"'"</span>;<span class="string">"&nbsp;"</span>;<span class="string">"\'"</span>;y;<span class="string">"\'"</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right_parser</span>.<span class="constructor">TAG_OPEN_CLOSE</span>&nbsp;(x,y)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"TAG_OPEN_CLOSE"</span>;<span class="string">"&nbsp;"</span>;<span class="string">"\'"</span>;x;<span class="string">"\'"</span>;<span class="string">"&nbsp;"</span>;<span class="string">"\'"</span>;y;<span class="string">"\'"</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right_parser</span>.<span class="constructor">TAG_CLOSE</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"TAG_CLOSE"</span>;<span class="string">"&nbsp;"</span>;<span class="string">"\'"</span>;s;<span class="string">"\'"</span>]<br>
+<br>
+<span class="keyword">let</span>&nbsp;lexer&nbsp;(print_tokens:bool)&nbsp;(b:<span class="constructor">Lexing</span>.lexbuf):<span class="constructor">Xml_right_parser</span>.token=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t:<span class="constructor">Xml_right_parser</span>.token=<span class="constructor">Xml_right_lexer</span>.token&nbsp;b&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<span class="string">"Line&nbsp;"</span>&nbsp;^&nbsp;(<span class="constructor">Xml_right_lexer</span>.line_of_lexbuf&nbsp;b)&nbsp;^&nbsp;<span class="string">":&nbsp;"</span>&nbsp;^&nbsp;(string_of_token&nbsp;t))&nbsp;<span class="keyword">in</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;parse_file&nbsp;(print_tokens:bool)&nbsp;(s:string):<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">Sys</span>.file_exists&nbsp;s&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="string">"cannot&nbsp;read&nbsp;from&nbsp;"</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">":&nbsp;No&nbsp;such&nbsp;file"</span>))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ic=open_in&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexbuf=<span class="constructor">Lexing</span>.from_channel&nbsp;ic&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;parse=<span class="constructor">Xml_right_parser</span>.main&nbsp;(lexer&nbsp;print_tokens)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;result=parse&nbsp;lexbuf&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_=close_in&nbsp;ic&nbsp;<span class="keyword">in</span>&nbsp;result<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<span class="string">"Xml_right&nbsp;failed,&nbsp;read&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;"</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">":"</span>)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse_file&nbsp;<span class="keyword">true</span>&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"parsing&nbsp;failed"</span>)<br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;parse_string&nbsp;(print_tokens:bool)&nbsp;(s:string):<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexbuf&nbsp;=&nbsp;<span class="constructor">Lexing</span>.from_string&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;parse&nbsp;=&nbsp;<span class="constructor">Xml_right_parser</span>.main&nbsp;(lexer&nbsp;print_tokens)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse&nbsp;lexbuf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;print_tokens&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<span class="string">"Xml_right&nbsp;failed,&nbsp;read&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;string:"</span>)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse_string&nbsp;<span class="keyword">true</span>&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"parsing&nbsp;failed"</span>)<br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;parse_stdin&nbsp;(print_tokens:bool):<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;input&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">In_channel</span>.input_all&nbsp;stdin&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexbuf&nbsp;=&nbsp;<span class="constructor">Lexing</span>.from_string&nbsp;input&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;parse&nbsp;=&nbsp;<span class="constructor">Xml_right_parser</span>.main&nbsp;(lexer&nbsp;print_tokens)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse&nbsp;lexbuf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_to_stderr&nbsp;(<span class="string">"Xml_right&nbsp;failed,&nbsp;read&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;standard&nbsp;input:"</span>)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lexbuf&nbsp;=&nbsp;<span class="constructor">Lexing</span>.from_string&nbsp;input&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;parse&nbsp;=&nbsp;<span class="constructor">Xml_right_parser</span>.main&nbsp;(lexer&nbsp;print_tokens)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parse&nbsp;lexbuf<br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;to_string_fmt&nbsp;(xml:<span class="constructor">Xml</span>.xml):string=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_xml&nbsp;<span class="keyword">true</span>&nbsp;xml<br>
+<br>
+<span class="keyword">and</span>&nbsp;to_string&nbsp;(xml:<span class="constructor">Xml</span>.xml):string=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_xml&nbsp;<span class="keyword">false</span>&nbsp;xml<br>
+<br>
+<span class="keyword">and</span>&nbsp;string_of_xml&nbsp;(fmt:bool)&nbsp;(xml:<span class="constructor">Xml</span>.xml):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;((tag_name:string),(attr_list:(string*string)&nbsp;list),(xml_list:<span class="constructor">Xml</span>.xml&nbsp;list))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sep:string&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;fmt&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;contains_text&nbsp;xml_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_tag_open_close&nbsp;tag_name&nbsp;(string_of_attr_list&nbsp;attr_list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;sep&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_tag_open&nbsp;tag_name&nbsp;(string_of_attr_list&nbsp;attr_list);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;sep&nbsp;(<span class="constructor">List</span>.map&nbsp;(string_of_xml&nbsp;fmt)&nbsp;xml_list);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_tag_close&nbsp;tag_name;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
+<br>
+<span class="keyword">and</span>&nbsp;contains_text&nbsp;(xml_list:<span class="constructor">Xml</span>.xml&nbsp;list):bool&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"a"</span>,_,_)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"em"</span>,_,_)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;contains_text&nbsp;tl<br>
+<br>
+<span class="keyword">and</span>&nbsp;string_of_tag_open&nbsp;(tag_name:string)&nbsp;(attrs:string):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"&lt;"</span>;tag_name;attrs;<span class="string">"&gt;"</span>]<br>
+<br>
+<span class="keyword">and</span>&nbsp;string_of_tag_close&nbsp;(tag_name:string):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"&lt;/"</span>;tag_name;<span class="string">"&gt;"</span>]<br>
+<br>
+<span class="keyword">and</span>&nbsp;string_of_attr_list&nbsp;(attr_list:(string*string)&nbsp;list):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;string_of_key_value_pair&nbsp;attr_list)&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">""</span><span class="keywordsign">-&gt;</span><span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>x&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"&nbsp;"</span>&nbsp;^&nbsp;x)<br>
+<br>
+<span class="keyword">and</span>&nbsp;string_of_key_value_pair&nbsp;(key_value_pair:string*string):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;key_value_pair&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(key,value)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[key;<span class="string">"="</span>;<span class="string">"\""</span>;value;<span class="string">"\""</span>]<br>
+<br>
+<span class="keyword">and</span>&nbsp;string_of_tag_open_close&nbsp;(tag_name:string)&nbsp;(attrs:string):string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"&lt;"</span>;tag_name;attrs;<span class="string">"/&gt;"</span>]<br>
+<br>
+<br>
+<br>
+<span class="comment">(*&nbsp;for&nbsp;debugging&nbsp;purposes&nbsp;*)</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;diff_of_xmls&nbsp;(xml1:<span class="constructor">Xml</span>.xml)&nbsp;(xml2:<span class="constructor">Xml</span>.xml):(<span class="constructor">Xml</span>.xml&nbsp;option*<span class="constructor">Xml</span>.xml&nbsp;option)&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml1=xml2&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml1,xml2&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(tag1,attr_list1,xml_list1),&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(tag2,attr_list2,xml_list2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag1=tag2,&nbsp;attr_list1=attr_list2&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>,_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="constructor">Some</span>&nbsp;xml1,&nbsp;<span class="constructor">Some</span>&nbsp;xml2)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_,<span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="constructor">Some</span>&nbsp;xml1,&nbsp;<span class="constructor">Some</span>&nbsp;xml2)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>,<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(list1:<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;(list2:<span class="constructor">Xml</span>.xml&nbsp;list):(<span class="constructor">Xml</span>.xml&nbsp;option*<span class="constructor">Xml</span>.xml&nbsp;option)&nbsp;list=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;list1,&nbsp;list2&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd1::tl1,&nbsp;hd2::tl2&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.concat&nbsp;[(diff_of_xmls&nbsp;hd1&nbsp;hd2);(aux&nbsp;tl1&nbsp;tl2)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[],hd2::tl2&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">None</span>,&nbsp;<span class="constructor">Some</span>&nbsp;hd2)::(aux&nbsp;[]&nbsp;tl2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd1::tl1,[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Some</span>&nbsp;hd1,&nbsp;<span class="constructor">None</span>)::(aux&nbsp;tl1&nbsp;[])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[],[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;aux&nbsp;xml_list1&nbsp;xml_list2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s,&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;s=t&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="constructor">Some</span>&nbsp;xml1,&nbsp;<span class="constructor">Some</span>&nbsp;xml2)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>x,y&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="constructor">Some</span>&nbsp;x,&nbsp;<span class="constructor">Some</span>&nbsp;y)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+<br>
+<span class="keyword">let</span>&nbsp;string_of_diff&nbsp;(diff:(<span class="constructor">Xml</span>.xml&nbsp;option*<span class="constructor">Xml</span>.xml&nbsp;option)&nbsp;list):string=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sep:string=<span class="string">""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(diff_item:<span class="constructor">Xml</span>.xml&nbsp;option*<span class="constructor">Xml</span>.xml&nbsp;option):string=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;diff_item&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Some</span>&nbsp;xml1,&nbsp;<span class="constructor">Some</span>&nbsp;xml2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;sep&nbsp;[<span class="string">"🡄"</span>;to_string&nbsp;xml1;<span class="string">"\n"</span>;<span class="string">"🡆"</span>;to_string&nbsp;xml2]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Some</span>&nbsp;xml1,&nbsp;<span class="constructor">None</span>)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;sep&nbsp;[<span class="string">"🡄"</span>;to_string&nbsp;xml1;<span class="string">"\n"</span>;<span class="string">"🡆"</span>;<span class="string">""</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">None</span>,&nbsp;<span class="constructor">Some</span>&nbsp;xml2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;sep&nbsp;[<span class="string">"🡄"</span>;<span class="string">""</span>;<span class="string">"\n"</span>;<span class="string">"🡆"</span>;to_string&nbsp;xml2]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">None</span>,&nbsp;<span class="constructor">None</span>)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;sep&nbsp;[<span class="string">"🡄"</span>;<span class="string">""</span>;<span class="string">"\n"</span>;<span class="string">"🡆"</span>;<span class="string">""</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;diff)<br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;xml_diff&nbsp;(xml1&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml)&nbsp;(xml2&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_diff&nbsp;(diff_of_xmls&nbsp;xml1&nbsp;xml2)<br>
+<br>
+<span class="keyword">let</span>&nbsp;xml_diff_of_files&nbsp;(path1&nbsp;:&nbsp;string)&nbsp;(path2&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml1&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;parse_file&nbsp;<span class="keyword">false</span>&nbsp;path1&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml2&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;parse_file&nbsp;<span class="keyword">false</span>&nbsp;path2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_diff&nbsp;xml1&nbsp;xml2<br>
+</code></body></html>

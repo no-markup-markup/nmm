@@ -1,0 +1,385 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.doc_settings_of_tr_doc</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> doc_settings_of_tr_doc (doc : <span class="constructor">Doc_types</span>.tr_doc) : t_doc_settings =
+        <span class="keyword">match</span> doc.fld_doc_preamble <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings_default ()
+        <span class="keywordsign">|</span><span class="constructor">Some</span> preamble <span class="keywordsign">-&gt;</span> doc_settings_of_ts_preamble (doc_settings_default ()) preamble 
+
+
+<span class="keyword">and</span> doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : <span class="constructor">Doc_types</span>.ts_preamble) : t_doc_settings =
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux (str_list : string list) (settings : t_doc_settings) : t_doc_settings =
+                <span class="keyword">match</span> str_list <span class="keyword">with</span>
+                <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+                        <span class="keyword">let</span> new_doc_settings : t_doc_settings =
+                                <span class="keyword">match</span> key_value_pair_of_string_opt hd <span class="keyword">with</span>
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"doc-width"</span>, v) <span class="keywordsign">-&gt;</span> set_doc_width v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"left-margin"</span>, v) <span class="keywordsign">-&gt;</span> set_left_margin v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"title-indent"</span>, v) <span class="keywordsign">-&gt;</span> set_title_indent v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"author-indent"</span>, v) <span class="keywordsign">-&gt;</span> set_author_indent v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"abstract-indent"</span>, v) <span class="keywordsign">-&gt;</span> set_abstract_indent v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"refs-indent"</span>, v) <span class="keywordsign">-&gt;</span> set_refs_indent v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"tab-length"</span>, v) <span class="keywordsign">-&gt;</span> set_tab_length v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"ch-prefix"</span>, v) <span class="keywordsign">-&gt;</span> set_ch_prefix v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"sec-prefix"</span>, v) <span class="keywordsign">-&gt;</span> set_sec_prefix v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"par-prefix"</span>, v) <span class="keywordsign">-&gt;</span> set_par_prefix v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"abstract-hdr"</span>, v) <span class="keywordsign">-&gt;</span> set_abstract_hdr v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"refs-hdr"</span>, v) <span class="keywordsign">-&gt;</span> set_refs_hdr v settings
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="string">"tag"</span>, v) <span class="keywordsign">-&gt;</span> set_expand_tag settings.expand_tag v settings
+                                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning 
+                                        (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid attribute: "</span>;hd;<span class="string">"; "</span>;<span class="string">"ignoring it"</span>]) <span class="keyword">in</span> settings
+                        <span class="keyword">in</span> aux tl new_doc_settings
+                )
+                <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> settings
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> preamble <span class="keyword">with</span> 
+        (<span class="constructor">Cs_preamble</span> (s : string)) <span class="keywordsign">-&gt;</span> 
+                <span class="keyword">let</span> str_list : string list = <span class="constructor">String</span>.split_on_char <span class="string">';'</span> s <span class="keyword">in</span>
+                aux str_list doc_settings
+
+<span class="keyword">and</span> key_value_pair_of_string_opt (s : string): (string*string) option=
+        <span class="keyword">match</span> <span class="constructor">String</span>.split_on_char <span class="string">'='</span> s <span class="keyword">with</span>
+        <span class="keywordsign">|</span>[key;value] <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (key, value)
+        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+
+<span class="keyword">and</span> set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span> 
+        {
+        doc_width = int_of_string v;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid doc_width value: "</span>;v;<span class="string">"\n"</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+<span class="keyword">and</span> set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = int_of_string v;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid left_margin value: "</span>;v;<span class="string">"\n"</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+<span class="keyword">and</span> set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = int_of_string v;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid title_indent value: "</span>;v;<span class="string">"\n"</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+<span class="keyword">and</span> set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = int_of_string v;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid author_indent value: "</span>;v;<span class="string">"\n"</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+<span class="keyword">and</span> set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = int_of_string v;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid abstract_indent value: "</span>;v;<span class="string">"\n"</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+<span class="keyword">and</span> set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = int_of_string v;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid refs_indent value: "</span>;v;<span class="string">"\n"</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+
+<span class="keyword">and</span> set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = int_of_string v;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid tab_length value: "</span>;v;<span class="string">"; "</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+<span class="keyword">and</span> set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = prefix_value_of_string v;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+<span class="keyword">and</span> set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = prefix_value_of_string v;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+<span class="keyword">and</span> set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = prefix_value_of_string v;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+<span class="keyword">and</span> set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = prefix_value_of_string v;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+<span class="keyword">and</span> set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = prefix_value_of_string v;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+
+<span class="keyword">and</span> set_expand_tag (expand_tag_old : <span class="constructor">Doc_types</span>.ts_tag <span class="keywordsign">-&gt;</span> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        <span class="keyword">try</span>
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = tag_value_of_string expand_tag_old v;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit =
+        <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"WARNING: invalid tag value: "</span>;v;<span class="string">"; "</span>;<span class="string">"using default value"</span>])
+        <span class="keyword">in</span> doc_settings
+
+
+<span class="keyword">and</span> prefix_value_of_string (v : string) : (string * string) option =
+        <span class="keyword">match</span> <span class="constructor">String</span>.split_on_char <span class="string">','</span> v <span class="keyword">with</span>
+        <span class="keywordsign">|</span>[lbl; cref] <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl, cref)
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+
+<span class="keyword">and</span> tag_value_of_string (expand_tag_old : <span class="constructor">Doc_types</span>.ts_tag <span class="keywordsign">-&gt;</span> (string * string) option) (v : string) : (<span class="constructor">Doc_types</span>.ts_tag <span class="keywordsign">-&gt;</span> (string * string) option) =
+        <span class="keyword">match</span> <span class="constructor">String</span>.split_on_char <span class="string">','</span> v <span class="keyword">with</span>
+        <span class="keywordsign">|</span>[tag_string; lbl; cref] <span class="keywordsign">-&gt;</span> (
+                <span class="keyword">let</span> expand_tag_new ( tag : <span class="constructor">Doc_types</span>.ts_tag) : (string * string) option = 
+                        <span class="keyword">match</span> tag <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> (s : string) <span class="keywordsign">-&gt;</span>
+                                <span class="keyword">match</span> s = tag_string <span class="keyword">with</span>
+                                <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl, cref)
+                                <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> expand_tag_old tag
+                <span class="keyword">in</span> expand_tag_new
+        )
+        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"invalid tag value"</span>)</code></body></html>

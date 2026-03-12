@@ -24,14 +24,15 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Xml_right</title>
+<link title="Main" rel="Chapter" href="Main.html"><link title="For debugging purposes" rel="Section" href="#2_Fordebuggingpurposes">
+<title>Nmm_ocaml : Xml_right</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="Doc_types.html" title="Doc_types">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="Nmm_parser.html" title="Nmm_parser">Next</a>
 </div>
-<h1>Module <a href="type_Xml_right.html">Xml_right</a></h1>
+<h1>Module <a href="type_Xml_right.html">Xml_right</a> (<a href="code_Xml_right.html">.ml</a>)</h1>
 
 <pre><span id="MODULEXml_right"><span class="keyword">module</span> Xml_right</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Xml_right.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
@@ -42,41 +43,35 @@
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALparse_file"><span class="keyword">val</span> parse_file</span> : <code class="type">bool -&gt; string -&gt; Xml.xml</code></pre><div class="info ">
+<pre><span id="VALparse_file"><span class="keyword">val</span> <a href="code_VALXml_right.parse_file.html">parse_file</a></span> : <code class="type">bool -&gt; string -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">parse_file <span class="keyword">true</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>.</p>
+<p><code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and <code class="code"><span class="string">"parsing&nbsp;failed"</span></code> on parsing failure.</p>
 
-<p>Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and <code class="code"><span class="string">"parsing&nbsp;failed"</span></code> on parsing failure.</p>
-
-<p>---</p>
-
-<pre class="codepre"><code class="code">parse_file <span class="keyword">false</span> <span class="string">"path/to/file"</span></code></pre><p>reads from path/to/file (if such a file exists), and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>.</p>
-
-<p>Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and evaluates to <code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> on parsing failure.</p>
+<p><code class="code">parse_file&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file exists), and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Raises <code class="code"><span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and evaluates to <code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> on parsing failure.</p>
 </div>
 </div>
 
-<pre><span id="VALparse_string"><span class="keyword">val</span> parse_string</span> : <code class="type">bool -&gt; string -&gt; Xml.xml</code></pre><div class="info ">
+<pre><span id="VALparse_string"><span class="keyword">val</span> <a href="code_VALXml_right.parse_string.html">parse_string</a></span> : <code class="type">bool -&gt; string -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
 <p>Same as <code class="code">parse_file</code>, except that it reads from the provided string.</p>
 </div>
 </div>
 
-<pre><span id="VALparse_stdin"><span class="keyword">val</span> parse_stdin</span> : <code class="type">bool -&gt; Xml.xml</code></pre><div class="info ">
+<pre><span id="VALparse_stdin"><span class="keyword">val</span> <a href="code_VALXml_right.parse_stdin.html">parse_stdin</a></span> : <code class="type">bool -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
 <p>Same as <code class="code">parse_file</code>, except that it reads from <code class="code">stdin</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
+<pre><span id="VALto_string"><span class="keyword">val</span> <a href="code_VALXml_right.to_string.html">to_string</a></span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">to_string xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with no white-space between elements.</p>
+<p><code class="code">to_string&nbsp;xml</code> evaluates to a string containing an xml-document representing <code class="code">xml</code>, with no white-space between elements.</p>
 </div>
 </div>
 
-<pre><span id="VALto_string_fmt"><span class="keyword">val</span> to_string_fmt</span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
+<pre><span id="VALto_string_fmt"><span class="keyword">val</span> <a href="code_VALXml_right.to_string_fmt.html">to_string_fmt</a></span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<pre class="codepre"><code class="code">to_string_fmt xml</code></pre><p>evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by line feeds.</p>
+<p><code class="code">to_string_fmt&nbsp;xml</code> evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by line feeds.</p>
 </div>
 </div>
 <p>Ideally, if <code class="code">xml</code> is an object of type <code class="code"><span class="constructor">Xml</span>.xml</code>, all of</p>
@@ -85,8 +80,7 @@ parse_string <span class="keyword">false</span> (to_string xml)
 parse_string <span class="keyword">true</span> (to_string_fmt xml)
 parse_string <span class="keyword">false</span> (to_string_fmt xml)
 </code></pre><p>should evaluate to <code class="code">xml</code>.</p>
-<p>For debugging purposes:</p>
-
-<pre><span id="VALdiff_of_xmls"><span class="keyword">val</span> diff_of_xmls</span> : <code class="type">Xml.xml -&gt; Xml.xml -&gt; (Xml.xml option * Xml.xml option) list</code></pre>
-<pre><span id="VALxml_diff"><span class="keyword">val</span> xml_diff</span> : <code class="type">Xml.xml -&gt; Xml.xml -&gt; string</code></pre>
-<pre><span id="VALxml_diff_of_files"><span class="keyword">val</span> xml_diff_of_files</span> : <code class="type">string -&gt; string -&gt; string</code></pre></body></html>
+<h3 id="2_Fordebuggingpurposes">For debugging purposes</h3>
+<pre><span id="VALdiff_of_xmls"><span class="keyword">val</span> <a href="code_VALXml_right.diff_of_xmls.html">diff_of_xmls</a></span> : <code class="type">Xml.xml -&gt; Xml.xml -&gt; (Xml.xml option * Xml.xml option) list</code></pre>
+<pre><span id="VALxml_diff"><span class="keyword">val</span> <a href="code_VALXml_right.xml_diff.html">xml_diff</a></span> : <code class="type">Xml.xml -&gt; Xml.xml -&gt; string</code></pre>
+<pre><span id="VALxml_diff_of_files"><span class="keyword">val</span> <a href="code_VALXml_right.xml_diff_of_files.html">xml_diff_of_files</a></span> : <code class="type">string -&gt; string -&gt; string</code></pre></body></html>

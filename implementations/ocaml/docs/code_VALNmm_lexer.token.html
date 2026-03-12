@@ -1,0 +1,102 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Nmm_lexer.token</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> token (lexbuf : <span class="constructor">Sedlexing</span>.lexbuf) : <span class="constructor">Nmm_parser</span>.token=
+        <span class="keyword">match</span> verbatim.contents, display.contents <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="keyword">false</span>, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> (
+                <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
+                <span class="keywordsign">|</span>esc_char                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ESC_CHAR</span> (get_esc_char (lexeme lexbuf))
+                <span class="keywordsign">|</span>preamble                       <span class="keywordsign">-&gt;</span>      <span class="constructor">PREAMBLE</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>title                          <span class="keywordsign">-&gt;</span>      <span class="constructor">TITLE</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>author                         <span class="keywordsign">-&gt;</span>      <span class="constructor">AUTHOR</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>abstract                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ABSTRACT</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>ch_tag_or_id_nl                <span class="keywordsign">-&gt;</span>      <span class="constructor">CH_TAG_OR_ID_NL</span> (<span class="constructor">String</span>.trim (lexeme lexbuf))
+                <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>section_nl                     <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_NL</span>
+                <span class="keywordsign">|</span>section_spaces_tag_or_id_nl    <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_SPACES_TAG_OR_ID_NL</span> (get_tag_or_id (lexeme lexbuf))
+                <span class="keywordsign">|</span>pilcrow_nl                     <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_NL</span>
+                <span class="keywordsign">|</span>pilcrow_spaces_tag_or_id_nl    <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_SPACES_TAG_OR_ID_NL</span> (get_tag_or_id (lexeme lexbuf))
+                <span class="keywordsign">|</span>pilcrow_spaces_rpt_spaces_id_nl <span class="keywordsign">-&gt;</span>     <span class="constructor">PILCROW_SPACES_RPT_SPACES_ID_NL</span> (get_id (lexeme lexbuf))
+                <span class="keywordsign">|</span>section_refs_nls               <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_REFS_NLS</span>
+                <span class="keywordsign">|</span>pilcrow_refs_nls               <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_REFS_NLS</span>
+                <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span> 
+                <span class="keywordsign">|</span>dash_tab                       <span class="keywordsign">-&gt;</span>      <span class="constructor">DASH_TAB</span>
+                <span class="keywordsign">|</span>dsp_auto_tab                   <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">DSP_AUTO_TAB</span> 
+                <span class="keywordsign">|</span>dsp_custom_tab                 <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">DSP_CUSTOM_TAB</span> (get_label (lexeme lexbuf))
+                <span class="keywordsign">|</span>itm_auto_tab                   <span class="keywordsign">-&gt;</span>      <span class="constructor">ITM_AUTO_TAB</span>
+                <span class="keywordsign">|</span>itm_custom_tab                 <span class="keywordsign">-&gt;</span>      <span class="constructor">ITM_CUSTOM_TAB</span> (get_label (lexeme lexbuf))
+                <span class="keywordsign">|</span>itm_auto_tab_id                <span class="keywordsign">-&gt;</span>      <span class="constructor">ITM_AUTO_TAB_ID</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>itm_custom_tab_id              <span class="keywordsign">-&gt;</span>      <span class="constructor">ITM_CUSTOM_TAB_ID</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>nl                             <span class="keywordsign">-&gt;</span>      <span class="constructor">NL</span>
+                <span class="keywordsign">|</span>nl_tab                         <span class="keywordsign">-&gt;</span>      <span class="constructor">NL_TAB</span>
+                <span class="keywordsign">|</span>nl_tab_tab                     <span class="keywordsign">-&gt;</span>      <span class="constructor">NL_TAB_TAB</span>
+                <span class="keywordsign">|</span>nl_tab_tab_tab                 <span class="keywordsign">-&gt;</span>      <span class="constructor">NL_TAB_TAB_TAB</span>
+                <span class="keywordsign">|</span>star                           <span class="keywordsign">-&gt;</span>      <span class="constructor">STAR</span>
+                <span class="keywordsign">|</span>lbr                            <span class="keywordsign">-&gt;</span>      <span class="constructor">LBR</span>
+                <span class="keywordsign">|</span>rbr                            <span class="keywordsign">-&gt;</span>      <span class="constructor">RBR</span>
+                <span class="keywordsign">|</span>colon                          <span class="keywordsign">-&gt;</span>      <span class="constructor">COLON</span>
+                <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
+                <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
+                <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>start_vrb                      <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">START_VRB</span>
+                <span class="keywordsign">|</span>eof                            <span class="keywordsign">-&gt;</span>      end_of_file lexbuf
+                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">ERROR</span> (<span class="string">"unexpected string on line "</span> ^ (line_of_lexbuf lexbuf) ^ <span class="string">": \""</span> ^ (lexeme lexbuf) ^ <span class="string">"\""</span>))
+        )
+
+        <span class="keywordsign">|</span><span class="keyword">true</span>, _ <span class="keywordsign">-&gt;</span> (
+                <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
+                <span class="keywordsign">|</span>end_vrb                        <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">END_VRB</span>
+                <span class="keywordsign">|</span>tab_end_vrb                    <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">TAB_END_VRB</span>
+                <span class="keywordsign">|</span>tab_tab_end_vrb                <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">TAB_TAB_END_VRB</span>
+                <span class="keywordsign">|</span>tab_tab_tab_end_vrb            <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">TAB_TAB_TAB_END_VRB</span>
+                <span class="keywordsign">|</span>vrb_line                       <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = first_nl.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">VRB_LINE</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>nl                             <span class="keywordsign">-&gt;</span>      nl_or_vrb_line_empty first_nl.contents
+                <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span>
+                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">ERROR</span> (<span class="string">"unexpected string on line "</span> ^ (line_of_lexbuf lexbuf) ^ <span class="string">": \""</span> ^ (lexeme lexbuf) ^ <span class="string">"\""</span>))
+        )
+
+        <span class="keywordsign">|</span>_, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> (
+                <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
+                <span class="keywordsign">|</span>esc_char                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ESC_CHAR</span> (get_esc_char (lexeme lexbuf))
+                <span class="keywordsign">|</span>star                           <span class="keywordsign">-&gt;</span>      <span class="constructor">STAR</span>
+                <span class="keywordsign">|</span>lbr                            <span class="keywordsign">-&gt;</span>      <span class="constructor">LBR</span>
+                <span class="keywordsign">|</span>rbr                            <span class="keywordsign">-&gt;</span>      <span class="constructor">RBR</span>
+                <span class="keywordsign">|</span>colon                          <span class="keywordsign">-&gt;</span>      <span class="constructor">COLON</span>
+                <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
+                <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
+                <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span> 
+                <span class="keywordsign">|</span>dsp_id                         <span class="keywordsign">-&gt;</span>      <span class="constructor">DSP_ID</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>nl                             <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">NL</span>
+                <span class="keywordsign">|</span>nl_tab                         <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">NL_TAB</span>
+                <span class="keywordsign">|</span>nl_tab_tab                     <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">NL_TAB_TAB</span>
+                <span class="keywordsign">|</span>nl_tab_tab_tab                 <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="constructor">NL_TAB_TAB_TAB</span>
+                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">ERROR</span> (<span class="string">"unexpected string on line "</span> ^ (line_of_lexbuf lexbuf) ^ <span class="string">": \""</span> ^ (lexeme lexbuf) ^ <span class="string">"\""</span>))
+        )
+
+<span class="keyword">and</span> end_of_file (lexbuf : <span class="constructor">Sedlexing</span>.lexbuf) : <span class="constructor">Nmm_parser</span>.token =
+        <span class="keyword">match</span> return_nl.contents <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ = return_nl.contents &lt;- <span class="keyword">false</span> <span class="keyword">in</span> <span class="keyword">let</span> _ = token lexbuf <span class="keyword">in</span> <span class="constructor">NL</span>
+        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> <span class="constructor">EOF</span></code></body></html>

@@ -29,9 +29,13 @@ bin/nmm-ocaml: native
 
 
 docs: byte
-	mkdir -p docs
+	cp docs/specs/axml.dtd docs/specs/axml.dtd.txt
+	cp docs/specs/exml.dtd docs/specs/exml.dtd.txt
+	cp src/xml_right_lexer.mll docs/specs/xml_right_lexer.mll.txt
+	cp src/xml_right_parser.mly docs/specs/xml_right_parser.mly.txt
+	cp src/nmm_parser.mly docs/specs/nmm_parser.mly.txt
 	cd byte
-	ocamlfind ocamldoc -colorize-code -d ../docs -package sedlex.ppx -package uuseg -package xml-light -package str -html doc_types.ml xml_right.mli ../src/nmm_parser.mli nmm_lexer.mli doc_of_nmm.mli common_utils.mli txt_utils.mli exml_utils.mli compiler_of_doc.mli axml_of_doc.mli doc_of_axml.mli html_utils.mli main.mli
+	ocamlfind ocamldoc -t 'Nmm_ocaml' -keep-code -colorize-code -d ../docs -package sedlex.ppx -package uuseg -package xml-light -package str -html doc_types.ml xml_right.mli xml_right.ml ../src/nmm_parser.mli nmm_lexer.mli nmm_lexer.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml
 	cd -
 
 install: build src/cli.ml

@@ -1,0 +1,78 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.copy_hdr_to_main</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_std = 
+        <span class="keyword">let</span> space : tu_txt_unit =  <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">" "</span>) <span class="keyword">in</span>
+        <span class="keyword">let</span> lpar : tu_txt_unit = <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">"("</span>) <span class="keyword">in</span>
+        <span class="keyword">let</span> rpar : tu_txt_unit = <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">")"</span>) <span class="keyword">in</span>
+        <span class="keyword">match</span> special_tag doc_settings par.fld_par_tag_or_id, par.fld_par_hdr, par.fld_par_main <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
+          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> (t : tu_txt_unit list)))::tl) <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [[s;space;lpar];h;[rpar;space;space];t])))::tl)
+          }
+        <span class="keywordsign">|</span> <span class="constructor">None</span>,
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
+          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> (t : tu_txt_unit list)))::tl) <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [h;[space;space];t])))::tl)
+          }
+        <span class="keywordsign">|</span> <span class="constructor">None</span>,
+          <span class="constructor">None</span>,
+          _ <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = par.fld_par_main
+          }
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
+          <span class="constructor">None</span>,
+          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> (t : tu_txt_unit list)))::tl) <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [[s;space;space];t])))::tl)
+          }
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
+          <span class="constructor">Cs_blks</span> (blks : tu_blk list) <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [[s;space;lpar];h;[rpar]]))))::blks)
+          }
+        <span class="keywordsign">|</span> <span class="constructor">None</span>,
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
+          <span class="constructor">Cs_blks</span> (blks : tu_blk list) <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> h)))::blks)
+          }
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
+          <span class="constructor">None</span>,
+          <span class="constructor">Cs_blks</span> (blks : tu_blk list) <span class="keywordsign">-&gt;</span> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> [s])))::blks)
+          }</code></body></html>

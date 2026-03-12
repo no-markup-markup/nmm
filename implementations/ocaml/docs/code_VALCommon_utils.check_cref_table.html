@@ -1,0 +1,56 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.check_cref_table</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_cref_table =
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux1 (lst : t_cref_table) (acc : (<span class="constructor">Doc_types</span>.tr_id * t_path) list): (<span class="constructor">Doc_types</span>.tr_id * t_path) list =
+                <span class="keyword">match</span> lst <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
+                        <span class="keyword">match</span> hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span>(id, path, _) <span class="keywordsign">-&gt;</span>
+                                <span class="keyword">match</span> id.fld_id_scope <span class="keyword">with</span>
+                                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_gbl</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id,[])::acc)
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_ch</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_ch_node path)::acc)
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_sec</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_sec_node path)::acc)
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_app</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_app_node path)::acc)
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_par</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_par_node path)::acc)
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux2 (lst : (<span class="constructor">Doc_types</span>.tr_id * t_path) list) : unit =
+                <span class="keyword">match</span> lst <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> ()
+                <span class="keywordsign">|</span>(id,path)::tl <span class="keywordsign">-&gt;</span>
+                        <span class="keyword">match</span> <span class="constructor">List</span>.mem (id,path) tl <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+                                <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [
+                                        <span class="string">"WARNING: id \'"</span>;
+                                        string_of_tr_id id;<span class="string">"\'"</span>;
+                                        <span class="string">" is defined more than once in "</span>;
+                                        string_of_path doc_settings path;
+                                        ])
+                                <span class="keyword">in</span> aux2 tl
+                        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> aux2 tl
+        <span class="keyword">in</span>
+        <span class="keyword">let</span> lst : (<span class="constructor">Doc_types</span>.tr_id * t_path) list = aux1 table [] <span class="keyword">in</span>
+        <span class="keyword">let</span> _ : unit = aux2 lst <span class="keyword">in</span>
+        table</code></body></html>

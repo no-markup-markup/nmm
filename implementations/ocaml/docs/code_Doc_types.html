@@ -1,0 +1,165 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Doc_types</title>
+</head>
+<body>
+<code class="code"></code><table><tr><td></td><td><span class="comment">(** An abstract syntax tree specification for parsed nmm source-code. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">type</span>&nbsp;tr_doc&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_doc_preamble&nbsp;:&nbsp;ts_preamble&nbsp;option;<br>
+&nbsp;&nbsp;fld_doc_title&nbsp;:&nbsp;ts_title&nbsp;option;<br>
+&nbsp;&nbsp;fld_doc_authors:&nbsp;ts_authors&nbsp;option;<br>
+&nbsp;&nbsp;fld_doc_abstract&nbsp;:&nbsp;ts_abstract&nbsp;option;<br>
+&nbsp;&nbsp;fld_doc_main&nbsp;:&nbsp;tu_doc_main;<br>
+&nbsp;&nbsp;fld_doc_refs&nbsp;:&nbsp;ts_refs&nbsp;option;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_preamble&nbsp;=&nbsp;<span class="constructor">Cs_preamble</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_title&nbsp;=&nbsp;<span class="constructor">Cs_title</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_authors&nbsp;=&nbsp;<span class="constructor">Cs_authors</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_author&nbsp;list)<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_author&nbsp;=&nbsp;<span class="constructor">Cs_author</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_abstract&nbsp;=&nbsp;<span class="constructor">Cs_abstract</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_doc_main&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_doc_main_chs</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_chs<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_doc_main_secs</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_secs<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_doc_main_pars</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_pars<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_doc_main_blks</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_refs&nbsp;=&nbsp;<span class="constructor">Cs_refs</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_chs&nbsp;=&nbsp;<span class="constructor">Cs_chs</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_ch&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_secs&nbsp;=&nbsp;<span class="constructor">Cs_secs</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_sec&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_pars&nbsp;=&nbsp;<span class="constructor">Cs_pars</span>&nbsp;<span class="keyword">of</span>&nbsp;tu_par&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_blks&nbsp;=&nbsp;<span class="constructor">Cs_blks</span>&nbsp;<span class="keyword">of</span>&nbsp;tu_blk&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;tr_ch&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_ch_tag_or_id&nbsp;:&nbsp;tu_tag_or_id&nbsp;option;<br>
+&nbsp;&nbsp;fld_ch_hdr&nbsp;:&nbsp;ts_hdr&nbsp;option;<br>
+&nbsp;&nbsp;fld_ch_main&nbsp;:&nbsp;tu_secs_pars_or_blks;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;tr_sec&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_sec_tag_or_id&nbsp;:&nbsp;tu_tag_or_id&nbsp;option;<br>
+&nbsp;&nbsp;fld_sec_hdr&nbsp;:&nbsp;ts_hdr&nbsp;option;<br>
+&nbsp;&nbsp;fld_sec_main&nbsp;:&nbsp;tu_pars_or_blks;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_par&nbsp;=&nbsp;<span class="constructor">Cu_par_std</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_par_std&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_par_rpt</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_par_rpt<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_par_rpt&nbsp;=&nbsp;<span class="constructor">Cs_par_rpt</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_id<br>
+<br>
+<span class="keyword">and</span>&nbsp;tr_par_std&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_par_tag_or_id&nbsp;:&nbsp;tu_tag_or_id&nbsp;option;<br>
+&nbsp;&nbsp;fld_par_hdr&nbsp;:&nbsp;ts_hdr&nbsp;option;<br>
+&nbsp;&nbsp;fld_par_main&nbsp;:&nbsp;ts_blks;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_blk&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_txt</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blk_txt<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_blt</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blk_blt<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_itm</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_itm<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_dsp</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blk_dsp<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_vrb</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blk_vrb<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_secs_pars_or_blks&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_secs_pars_or_blks_secs</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_secs<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_secs_pars_or_blks_pars</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_pars<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_secs_pars_or_blks_blks</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_pars_or_blks&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_pars_or_blks_pars</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_pars<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_pars_or_blks_blks</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_tag_or_id&nbsp;=&nbsp;<span class="constructor">Cu_tag_or_id_tag</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_tag&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_id</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_id<br>
+<br>
+<span class="keyword">and</span>&nbsp;tr_id&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_id_tag&nbsp;:&nbsp;ts_tag;<br>
+&nbsp;&nbsp;fld_id_name:&nbsp;ts_name;<br>
+&nbsp;&nbsp;fld_id_scope&nbsp;:&nbsp;tu_scope&nbsp;option;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_tag&nbsp;=&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_name&nbsp;=&nbsp;<span class="constructor">Cs_name</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_scope&nbsp;=&nbsp;<span class="constructor">Cu_scope_gbl</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_scope_ch</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_scope_sec</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_scope_app</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_scope_par</span><br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_hdr&nbsp;=&nbsp;<span class="constructor">Cs_hdr</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_units<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_blk_txt&nbsp;=&nbsp;<span class="constructor">Cs_blk_txt</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_units<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_txt_units&nbsp;=&nbsp;<span class="constructor">Cs_txt_units</span>&nbsp;<span class="keyword">of</span>&nbsp;tu_txt_unit&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_txt_unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_wysiwyg</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_wysiwyg<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_emph</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_emph<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_c_ref<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_txt_unit_wysiwyg&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_txt_unit_emph&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_emph</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_txt_unit_c_ref&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_c_ref<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_c_ref&nbsp;=&nbsp;<span class="constructor">Cs_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_id<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_blk_dsp&nbsp;=&nbsp;<span class="constructor">Cs_blk_dsp</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_dsp_lines<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_dsp_lines&nbsp;=&nbsp;<span class="constructor">Cs_dsp_lines</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_dsp_line&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;tr_dsp_line&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_dsp_line_lbl&nbsp;:&nbsp;tu_lbl&nbsp;option;<br>
+&nbsp;&nbsp;fld_dsp_line_id&nbsp;:&nbsp;tr_id&nbsp;option;<br>
+&nbsp;&nbsp;fld_dsp_line_units&nbsp;:&nbsp;ts_txt_units;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;tr_blk_itm&nbsp;=&nbsp;{&nbsp;<br>
+&nbsp;&nbsp;fld_blk_itm_lbl:&nbsp;tu_lbl;&nbsp;<br>
+&nbsp;&nbsp;fld_blk_itm_id&nbsp;:&nbsp;tr_id&nbsp;option;<br>
+&nbsp;&nbsp;fld_blk_itm_main&nbsp;:&nbsp;ts_blks;<br>
+}<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_blk_blt&nbsp;=&nbsp;<span class="constructor">Cs_blk_blt</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_blk_vrb&nbsp;=&nbsp;<span class="constructor">Cs_blk_vrb</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_vrb_lines<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_vrb_lines&nbsp;=&nbsp;<span class="constructor">Cs_vrb_lines</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_vrb_line&nbsp;list)<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_vrb_line&nbsp;=&nbsp;<span class="constructor">Cs_vrb_line</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;tu_lbl&nbsp;=&nbsp;<span class="constructor">Cu_lbl_auto</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_lbl_auto&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_lbl_custom</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_lbl_custom<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_lbl_auto&nbsp;=&nbsp;<span class="constructor">Cs_lbl_auto</span><br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_lbl_custom&nbsp;=&nbsp;<span class="constructor">Cs_lbl_custom</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_blk_empty&nbsp;=&nbsp;<span class="constructor">Cs_blk_empty</span><br>
+</code></body></html>

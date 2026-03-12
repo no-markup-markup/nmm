@@ -1,0 +1,39 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Html_utils.external_css_of_options</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> external_css_of_options (options : string list) : string option =
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux (lst : string list) =
+                <span class="keyword">match</span> lst <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
+                        <span class="keyword">match</span> hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="string">"--css"</span> <span class="keywordsign">-&gt;</span> (
+                                <span class="keyword">match</span> tl <span class="keyword">with</span>
+                                <span class="keywordsign">|</span>uri::_ <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> uri
+                                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_to_stderr <span class="string">"WARNING: missing --css argument; using default"</span> <span class="keyword">in</span> <span class="constructor">None</span>
+
+                        )
+                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> aux tl
+        <span class="keyword">in</span>
+        aux options</code></body></html>

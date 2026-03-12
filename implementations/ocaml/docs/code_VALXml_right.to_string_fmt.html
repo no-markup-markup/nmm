@@ -1,0 +1,79 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Xml_right.to_string_fmt</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> to_string_fmt (xml:<span class="constructor">Xml</span>.xml):string=
+        string_of_xml <span class="keyword">true</span> xml
+
+<span class="keyword">and</span> to_string (xml:<span class="constructor">Xml</span>.xml):string=
+        string_of_xml <span class="keyword">false</span> xml
+
+<span class="keyword">and</span> string_of_xml (fmt:bool) (xml:<span class="constructor">Xml</span>.xml):string =
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> ((tag_name:string),(attr_list:(string*string) list),(xml_list:<span class="constructor">Xml</span>.xml list)) <span class="keywordsign">-&gt;</span> (
+                <span class="keyword">let</span> sep:string = 
+                        <span class="keyword">match</span> fmt <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
+                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+                                <span class="keyword">match</span> contains_text xml_list <span class="keyword">with</span>
+                                <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
+                                <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> <span class="string">"\n"</span>
+                <span class="keyword">in</span>
+                <span class="keyword">match</span> xml_list <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> string_of_tag_open_close tag_name (string_of_attr_list attr_list)
+                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span>
+                        <span class="constructor">String</span>.concat sep [
+                                string_of_tag_open tag_name (string_of_attr_list attr_list);
+                                <span class="constructor">String</span>.concat sep (<span class="constructor">List</span>.map (string_of_xml fmt) xml_list);
+                                string_of_tag_close tag_name;
+                        ]
+        )
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> (s:string) <span class="keywordsign">-&gt;</span> s
+
+<span class="keyword">and</span> contains_text (xml_list:<span class="constructor">Xml</span>.xml list):bool =
+        <span class="keyword">match</span> xml_list <span class="keyword">with</span>
+        <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> <span class="keyword">false</span>
+        <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                <span class="keyword">match</span> hd <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"a"</span>,_,_)
+                <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"em"</span>,_,_)
+                <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> _ <span class="keywordsign">-&gt;</span> <span class="keyword">true</span>
+                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> contains_text tl
+
+<span class="keyword">and</span> string_of_tag_open (tag_name:string) (attrs:string):string =
+        <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;"</span>;tag_name;attrs;<span class="string">"&gt;"</span>]
+
+<span class="keyword">and</span> string_of_tag_close (tag_name:string):string =
+        <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;/"</span>;tag_name;<span class="string">"&gt;"</span>]
+
+<span class="keyword">and</span> string_of_attr_list (attr_list:(string*string) list):string =
+        <span class="keyword">match</span> <span class="constructor">String</span>.concat <span class="string">" "</span> (<span class="constructor">List</span>.map string_of_key_value_pair attr_list) <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="string">""</span><span class="keywordsign">-&gt;</span><span class="string">""</span>
+        <span class="keywordsign">|</span>x <span class="keywordsign">-&gt;</span> (<span class="string">" "</span> ^ x)
+
+<span class="keyword">and</span> string_of_key_value_pair (key_value_pair:string*string):string =
+        <span class="keyword">match</span> key_value_pair <span class="keyword">with</span>
+        <span class="keywordsign">|</span>(key,value) <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">""</span> [key;<span class="string">"="</span>;<span class="string">"\""</span>;value;<span class="string">"\""</span>]
+
+<span class="keyword">and</span> string_of_tag_open_close (tag_name:string) (attrs:string):string =
+        <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;"</span>;tag_name;attrs;<span class="string">"/&gt;"</span>]</code></body></html>

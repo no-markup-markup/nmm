@@ -1,0 +1,322 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Html_utils.internal_css</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> internal_css (tab_length : string) (margin_left : string) : string =
+<span class="string">"
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+em {
+    font-style      : normal;
+    text-decoration : underline;
+}
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight   : normal;
+    font-size     : x-large;
+    margin-bottom : 1rem;
+    line-height   : 130%;
+}
+
+.doc.pars .title {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.doc.secs .title {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size     : medium;
+    margin-top    : 2rem;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.doc.secs .authors {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.doc.secs .abstract {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.abstract_hdr {
+    font-weight   : normal;
+    font-size     : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.doc.secs .refs {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size   : x-large;
+    line-height : 130%;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    font-size   : large;
+    font-weight : normal;
+    line-height : 130%;
+}
+
+.sec_hdr {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+    font-size   : large;
+    line-height : 130%;
+}
+
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
+}
+
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
+}
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
+}
+
+.par_tag + .par_hdr::before {
+    content : \" (\";
+}
+
+.par_tag + .par_hdr::after {
+    content : \")\";
+}
+
+.par_main {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+
+/************** BLK *********************/
+
+.blk + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main &gt; .blk {
+    margin-left : "</span>^ margin_left ^<span class="string">";
+}
+
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_main {
+    margin-left : "</span>^ tab_length ^<span class="string">";
+}
+
+
+.blk_itm_main {
+    margin-left : "</span>^ tab_length ^<span class="string">";
+}
+
+
+.dsp_line_main {
+    margin-left : "</span>^ tab_length ^<span class="string">";
+}
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : \" \";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) \" of \" counter(pages);
+    }
+  }
+}"</span></code></body></html>
