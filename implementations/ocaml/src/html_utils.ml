@@ -168,6 +168,7 @@ h2, h3, h4, h5 {
     font-weight : normal;
     font-size   : x-large;
     margin-bottom : 1rem;
+    line-height   : 130%;
 }
 
 .doc.pars .title {
@@ -282,6 +283,7 @@ h2, h3, h4, h5 {
 
 .ch_hdr {
     font-size : x-large;
+    line-height   : 130%;
 }
 
 .ch_hdr, .ch_lbl.hdr {
@@ -302,11 +304,13 @@ h2, h3, h4, h5 {
 .sec_lbl {
     font-size   : large;
     font-weight : normal;
+    line-height   : 130%;
 }
 
 .sec_hdr {
     margin-left : "^ margin_left ^";
     font-size   : large;
+    line-height   : 130%;
 }
 
 
