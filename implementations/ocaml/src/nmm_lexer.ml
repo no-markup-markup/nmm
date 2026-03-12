@@ -71,29 +71,29 @@ let tab_tab_tab_end_vrb = [%sedlex.regexp? tab, tab_tab_end_vrb]
 (************ helper functions *********************)
 
 let get_esc_char (s : string) : string = 
-	String.sub s 1 (String.length s - 1)
+        String.sub s 1 (String.length s - 1)
 
 let get_label (s:string):string=
-	String.sub s 1 ((String.length s)-3)
+        String.sub s 1 ((String.length s)-3)
 
 let get_tag_or_id (s:string):string=
-	let x=String.trim s in
-	let y=String.split_on_char ' ' x in
-	let z=List.tl y in
-	String.concat "" z
+        let x=String.trim s in
+        let y=String.split_on_char ' ' x in
+        let z=List.tl y in
+        String.concat "" z
 
 let get_id (s : string) : string =
-	let x=String.trim s in
-	let y=String.split_on_char ' ' x in
-	let z=List.tl (List.tl y) in
-	String.concat "" z
+        let x=String.trim s in
+        let y=String.split_on_char ' ' x in
+        let z=List.tl (List.tl y) in
+        String.concat "" z
 
 let lexeme (lexbuf:Sedlexing.lexbuf):string=
-	Sedlexing.Utf8.lexeme lexbuf
+        Sedlexing.Utf8.lexeme lexbuf
 
 let line_of_lexbuf (lexbuf:Sedlexing.lexbuf):string=
-	match Sedlexing.lexing_positions lexbuf with
-	(start_pos,end_pos) -> string_of_int (start_pos.pos_lnum)
+        match Sedlexing.lexing_positions lexbuf with
+        (start_pos,end_pos) -> string_of_int (start_pos.pos_lnum)
 
 let return_nl: bool ref = ref true
 
@@ -102,91 +102,91 @@ let verbatim : bool ref = ref false
 let first_nl : bool ref = ref true
 
 let nl_or_vrb_line_empty (first : bool ) : Nmm_parser.token =
-	match first with
-	|true -> let _ : unit = first_nl.contents <- false in NL
-	|false -> VRB_LINE_EMPTY
+        match first with
+        |true -> let _ : unit = first_nl.contents <- false in NL
+        |false -> VRB_LINE_EMPTY
 
 let display : bool ref = ref false
 
 (************** the lexer ******************************)
 
 let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
-	match verbatim.contents, display.contents with
-	|false, false -> (
-		match%sedlex lexbuf with
-		|esc_char			->	ESC_CHAR (get_esc_char (lexeme lexbuf))
-		|preamble			->	PREAMBLE (lexeme lexbuf)
-		|title				->	TITLE (lexeme lexbuf)
-		|author				->	AUTHOR (lexeme lexbuf)
-		|abstract			->	ABSTRACT (lexeme lexbuf)
-		|ch_tag_or_id_nl		->	CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
-		|c_ref				->	C_REF (lexeme lexbuf)
-		|section_nl			->	SECTION_NL
-		|section_spaces_tag_or_id_nl	->	SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
-		|pilcrow_nl			->	PILCROW_NL
-		|pilcrow_spaces_tag_or_id_nl	->	PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
-		|pilcrow_spaces_rpt_spaces_id_nl ->	PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
-		|section_refs_nls		->	SECTION_REFS_NLS
-		|pilcrow_refs_nls		->	PILCROW_REFS_NLS
-		|tab				->	TAB 
-		|dash_tab			->	DASH_TAB
-		|dsp_auto_tab			->	let _ : unit = display.contents <- true in DSP_AUTO_TAB 
-		|dsp_custom_tab			->	let _ : unit = display.contents <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))
-		|itm_auto_tab			->	ITM_AUTO_TAB
-		|itm_custom_tab			->	ITM_CUSTOM_TAB (get_label (lexeme lexbuf))
-		|itm_auto_tab_id		->	ITM_AUTO_TAB_ID (lexeme lexbuf)
-		|itm_custom_tab_id		->	ITM_CUSTOM_TAB_ID (lexeme lexbuf)
-		|nl				->	NL
-		|nl_tab				->	NL_TAB
-		|nl_tab_tab			->	NL_TAB_TAB
-		|nl_tab_tab_tab			->	NL_TAB_TAB_TAB
-		|star				->	STAR
-		|lbr				->	LBR
-		|rbr				->	RBR
-		|colon				->	COLON
-		|section			->	SECTION
-		|pilcrow			->	PILCROW
-		|txt				->	TXT (lexeme lexbuf)
-		|start_vrb			->	let _ : unit = verbatim.contents <- true in START_VRB
-		|eof				->	end_of_file lexbuf
-		|_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
-	)
+        match verbatim.contents, display.contents with
+        |false, false -> (
+                match%sedlex lexbuf with
+                |esc_char                       ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
+                |preamble                       ->      PREAMBLE (lexeme lexbuf)
+                |title                          ->      TITLE (lexeme lexbuf)
+                |author                         ->      AUTHOR (lexeme lexbuf)
+                |abstract                       ->      ABSTRACT (lexeme lexbuf)
+                |ch_tag_or_id_nl                ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
+                |c_ref                          ->      C_REF (lexeme lexbuf)
+                |section_nl                     ->      SECTION_NL
+                |section_spaces_tag_or_id_nl    ->      SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+                |pilcrow_nl                     ->      PILCROW_NL
+                |pilcrow_spaces_tag_or_id_nl    ->      PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+                |pilcrow_spaces_rpt_spaces_id_nl ->     PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
+                |section_refs_nls               ->      SECTION_REFS_NLS
+                |pilcrow_refs_nls               ->      PILCROW_REFS_NLS
+                |tab                            ->      TAB 
+                |dash_tab                       ->      DASH_TAB
+                |dsp_auto_tab                   ->      let _ : unit = display.contents <- true in DSP_AUTO_TAB 
+                |dsp_custom_tab                 ->      let _ : unit = display.contents <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))
+                |itm_auto_tab                   ->      ITM_AUTO_TAB
+                |itm_custom_tab                 ->      ITM_CUSTOM_TAB (get_label (lexeme lexbuf))
+                |itm_auto_tab_id                ->      ITM_AUTO_TAB_ID (lexeme lexbuf)
+                |itm_custom_tab_id              ->      ITM_CUSTOM_TAB_ID (lexeme lexbuf)
+                |nl                             ->      NL
+                |nl_tab                         ->      NL_TAB
+                |nl_tab_tab                     ->      NL_TAB_TAB
+                |nl_tab_tab_tab                 ->      NL_TAB_TAB_TAB
+                |star                           ->      STAR
+                |lbr                            ->      LBR
+                |rbr                            ->      RBR
+                |colon                          ->      COLON
+                |section                        ->      SECTION
+                |pilcrow                        ->      PILCROW
+                |txt                            ->      TXT (lexeme lexbuf)
+                |start_vrb                      ->      let _ : unit = verbatim.contents <- true in START_VRB
+                |eof                            ->      end_of_file lexbuf
+                |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+        )
 
-	|true, _ -> (
-		match%sedlex lexbuf with
-		|end_vrb			->	let _ : unit = verbatim.contents <- false in END_VRB
-		|tab_end_vrb			->	let _ : unit = verbatim.contents <- false in TAB_END_VRB
-		|tab_tab_end_vrb		->	let _ : unit = verbatim.contents <- false in TAB_TAB_END_VRB
-		|tab_tab_tab_end_vrb		->	let _ : unit = verbatim.contents <- false in TAB_TAB_TAB_END_VRB
-		|vrb_line			->	let _ : unit = first_nl.contents <- true in VRB_LINE (lexeme lexbuf)
-		|nl				->	nl_or_vrb_line_empty first_nl.contents
-		|tab				->	TAB
-		|_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
-	)
+        |true, _ -> (
+                match%sedlex lexbuf with
+                |end_vrb                        ->      let _ : unit = verbatim.contents <- false in END_VRB
+                |tab_end_vrb                    ->      let _ : unit = verbatim.contents <- false in TAB_END_VRB
+                |tab_tab_end_vrb                ->      let _ : unit = verbatim.contents <- false in TAB_TAB_END_VRB
+                |tab_tab_tab_end_vrb            ->      let _ : unit = verbatim.contents <- false in TAB_TAB_TAB_END_VRB
+                |vrb_line                       ->      let _ : unit = first_nl.contents <- true in VRB_LINE (lexeme lexbuf)
+                |nl                             ->      nl_or_vrb_line_empty first_nl.contents
+                |tab                            ->      TAB
+                |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+        )
 
-	|_, true -> (
-		match%sedlex lexbuf with
-		|esc_char			->	ESC_CHAR (get_esc_char (lexeme lexbuf))
-		|star				->	STAR
-		|lbr				->	LBR
-		|rbr				->	RBR
-		|colon				->	COLON
-		|section			->	SECTION
-		|pilcrow			->	PILCROW
-		|c_ref				->	C_REF (lexeme lexbuf)
-		|txt				->	TXT (lexeme lexbuf)
-		|tab				->	TAB 
-		|dsp_id				->	DSP_ID (lexeme lexbuf)
-		|nl				->	let _ : unit = display.contents <- false in NL
-		|nl_tab				->	let _ : unit = display.contents <- false in NL_TAB
-		|nl_tab_tab			->	let _ : unit = display.contents <- false in NL_TAB_TAB
-		|nl_tab_tab_tab			->	let _ : unit = display.contents <- false in NL_TAB_TAB_TAB
-		|_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
-	)
+        |_, true -> (
+                match%sedlex lexbuf with
+                |esc_char                       ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
+                |star                           ->      STAR
+                |lbr                            ->      LBR
+                |rbr                            ->      RBR
+                |colon                          ->      COLON
+                |section                        ->      SECTION
+                |pilcrow                        ->      PILCROW
+                |c_ref                          ->      C_REF (lexeme lexbuf)
+                |txt                            ->      TXT (lexeme lexbuf)
+                |tab                            ->      TAB 
+                |dsp_id                         ->      DSP_ID (lexeme lexbuf)
+                |nl                             ->      let _ : unit = display.contents <- false in NL
+                |nl_tab                         ->      let _ : unit = display.contents <- false in NL_TAB
+                |nl_tab_tab                     ->      let _ : unit = display.contents <- false in NL_TAB_TAB
+                |nl_tab_tab_tab                 ->      let _ : unit = display.contents <- false in NL_TAB_TAB_TAB
+                |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+        )
 
 and end_of_file (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
-	match return_nl.contents with
-	|true -> let _ = return_nl.contents <- false in let _ = token lexbuf in NL
-	|false -> EOF
+        match return_nl.contents with
+        |true -> let _ = return_nl.contents <- false in let _ = token lexbuf in NL
+        |false -> EOF
 
 

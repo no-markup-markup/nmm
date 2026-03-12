@@ -9,7 +9,7 @@ open Doc_types
 exception Error of string
 
 let string_of_xml_list (xml_list:Xml.xml list):string=
-	String.concat "\n" (List.map Xml_right.to_string xml_list)
+        String.concat "\n" (List.map Xml_right.to_string xml_list)
 
 let rec f_tr_doc_of_axml (xml:Xml.xml):tr_doc =
     match xml with
@@ -162,16 +162,16 @@ and f_tr_sec_of_xml (xml:Xml.xml):tr_sec =
     |_ -> raise (Error (String.concat "" ["expected cr_sec, got: ";string_of_xml_list [xml]]))
 
 and f_tu_par_of_xml (xml : Xml.xml) : tu_par =
-	match xml with
-	|Xml.Element ("cu_par_std", [], [x]) -> Cu_par_std (f_tr_par_std_of_xml x)
-	|Xml.Element ("cu_par_rpt", [], [x]) -> Cu_par_rpt (f_ts_par_rpt_of_xml x) 
-	|_ -> raise (Error (String.concat "" ["expected cu_par_std or cu_par_rpt, got: ";string_of_xml_list [xml]]))
+        match xml with
+        |Xml.Element ("cu_par_std", [], [x]) -> Cu_par_std (f_tr_par_std_of_xml x)
+        |Xml.Element ("cu_par_rpt", [], [x]) -> Cu_par_rpt (f_ts_par_rpt_of_xml x) 
+        |_ -> raise (Error (String.concat "" ["expected cu_par_std or cu_par_rpt, got: ";string_of_xml_list [xml]]))
 
 
 and f_ts_par_rpt_of_xml (xml : Xml.xml) : ts_par_rpt =
-	match xml with
-	|Xml.Element ("cs_par_rpt",[],[x]) -> Cs_par_rpt (f_tr_id_of_xml x)
-	|_ -> raise (Error (String.concat "" ["expected cs_par_rpt, got: ";string_of_xml_list [xml]]))
+        match xml with
+        |Xml.Element ("cs_par_rpt",[],[x]) -> Cs_par_rpt (f_tr_id_of_xml x)
+        |_ -> raise (Error (String.concat "" ["expected cs_par_rpt, got: ";string_of_xml_list [xml]]))
 
 and f_tr_par_std_of_xml (xml:Xml.xml):tr_par_std =
     match xml with
@@ -326,13 +326,13 @@ and f_itm_lbl_of_xml_list (xml_list:Xml.xml list) : tu_lbl * (Xml.xml list) =
 
 
 and f_ts_lbl_auto_of_xml (xml:Xml.xml):ts_lbl_auto=
-	match xml with 
-	|Xml.Element ("cs_lbl_auto",[],[]) -> Cs_lbl_auto
+        match xml with 
+        |Xml.Element ("cs_lbl_auto",[],[]) -> Cs_lbl_auto
     |_ -> raise (Error (String.concat "" ["expected cs_lbl_auto, got: ";string_of_xml_list [xml]]))
 
 and f_ts_lbl_custom_of_xml (xml:Xml.xml):ts_lbl_custom=
-	match xml with 
-	|Xml.Element ("cs_lbl_custom",[],pcdata_list) -> Cs_lbl_custom (f_string_of_pcdata_list pcdata_list) 
+        match xml with 
+        |Xml.Element ("cs_lbl_custom",[],pcdata_list) -> Cs_lbl_custom (f_string_of_pcdata_list pcdata_list) 
     |_ -> raise (Error (String.concat "" ["expected cs_lbl_custom, got: ";string_of_xml_list [xml]]))
 
 and f_ts_tag_of_xml (xml:Xml.xml):ts_tag =
@@ -354,18 +354,18 @@ and f_tu_txt_unit_of_xml (xml:Xml.xml):tu_txt_unit =
     |_-> raise (Error (String.concat "" ["expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, or cu_txt_unit_c_ref, got: ";string_of_xml_list [xml]]))
 
 and f_ts_txt_unit_wysiwyg_of_xml (xml:Xml.xml):ts_txt_unit_wysiwyg=
-	match xml with 
-	|Xml.Element ("cs_txt_unit_wysiwyg",[],pcdata_list) -> Cs_txt_unit_wysiwyg (f_string_of_pcdata_list pcdata_list)
+        match xml with 
+        |Xml.Element ("cs_txt_unit_wysiwyg",[],pcdata_list) -> Cs_txt_unit_wysiwyg (f_string_of_pcdata_list pcdata_list)
     |_ -> raise (Error (String.concat "" ["expected cs_txt_unit_wysiwyg, got: ";string_of_xml_list [xml]]))
 
 and f_ts_txt_unit_emph_of_xml (xml:Xml.xml):ts_txt_unit_emph=
-	match xml with 
-	|Xml.Element ("cs_txt_unit_emph",[],pcdata_list) -> Cs_txt_unit_emph (f_string_of_pcdata_list pcdata_list)
+        match xml with 
+        |Xml.Element ("cs_txt_unit_emph",[],pcdata_list) -> Cs_txt_unit_emph (f_string_of_pcdata_list pcdata_list)
     |_ -> raise (Error (String.concat "" ["expected cs_txt_unit_emph, got: ";string_of_xml_list [xml]]))
 
 and f_ts_txt_unit_c_ref (xml:Xml.xml):ts_txt_unit_c_ref=
-	match xml with 
-	|Xml.Element ("cs_txt_unit_c_ref",[],[xml]) -> Cs_txt_unit_c_ref (f_ts_c_ref_of_xml xml)
+        match xml with 
+        |Xml.Element ("cs_txt_unit_c_ref",[],[xml]) -> Cs_txt_unit_c_ref (f_ts_c_ref_of_xml xml)
     |_ -> raise (Error (String.concat "" ["expected cs_txt_unit_c_ref, got: ";string_of_xml_list [xml]]))
 
 and f_ts_dsp_lines_of_xml (xml:Xml.xml):ts_dsp_lines =
@@ -450,23 +450,23 @@ and f_ts_name_of_xml (xml:Xml.xml):ts_name =
     |_ -> raise (Error (String.concat "" ["expected cs_name, got: ";string_of_xml_list [xml]]))
 
 and f_tu_scope_of_xml (xml : Xml.xml) : tu_scope =
-	match xml with
-	|Xml.Element ("cu_scope_gbl",[],[]) -> Cu_scope_gbl 
-	|Xml.Element ("cu_scope_ch",[],[]) -> Cu_scope_ch
-	|Xml.Element ("cu_scope_sec",[],[]) -> Cu_scope_sec
-	|Xml.Element ("cu_scope_app",[],[]) -> Cu_scope_app
-	|Xml.Element ("cu_scope_par",[],[]) -> Cu_scope_par
+        match xml with
+        |Xml.Element ("cu_scope_gbl",[],[]) -> Cu_scope_gbl 
+        |Xml.Element ("cu_scope_ch",[],[]) -> Cu_scope_ch
+        |Xml.Element ("cu_scope_sec",[],[]) -> Cu_scope_sec
+        |Xml.Element ("cu_scope_app",[],[]) -> Cu_scope_app
+        |Xml.Element ("cu_scope_par",[],[]) -> Cu_scope_par
         |_ -> raise (Error (String.concat "" ["expected cu_scope_gbl, cu_scope_ch, cu_scope_sec, cu_scope_app, or cu_scope_par; got: ";string_of_xml_list [xml]]))
 
 and f_ts_c_ref_of_xml (xml:Xml.xml):ts_c_ref=
-	match xml with 
-	|Xml.Element ("cs_c_ref",[],[xml]) -> Cs_c_ref (f_tr_id_of_xml xml)
-	|_ -> raise (Error (String.concat "" ["expected cs_c_ref, got: ";string_of_xml_list [xml]]))
+        match xml with 
+        |Xml.Element ("cs_c_ref",[],[xml]) -> Cs_c_ref (f_tr_id_of_xml xml)
+        |_ -> raise (Error (String.concat "" ["expected cs_c_ref, got: ";string_of_xml_list [xml]]))
 
 and f_string_of_pcdata_list (pcdata_list:Xml.xml list):string=
-	String.concat "" (List.map f_string_of_pcdata pcdata_list)
+        String.concat "" (List.map f_string_of_pcdata pcdata_list)
 
 and f_string_of_pcdata (pcdata:Xml.xml):string=
-	match pcdata with
-	|Xml.PCData s -> Exml_utils.string_of_pcdata s
-	|_ -> raise (Error (String.concat "" ["expected pcdata, got: ";string_of_xml_list [pcdata]]))
+        match pcdata with
+        |Xml.PCData s -> Exml_utils.string_of_pcdata s
+        |_ -> raise (Error (String.concat "" ["expected pcdata, got: ";string_of_xml_list [pcdata]]))

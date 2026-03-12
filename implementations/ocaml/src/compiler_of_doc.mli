@@ -5,13 +5,12 @@ exception Error of string
 
 val txt_of_tr_doc : string list -> Doc_types.tr_doc -> string
 (**
-Implements the raw text semantics of no-markup-markup.
+Implements the raw text semantics for no-markup-markup.
 *)
 
 val exml_of_tr_doc : string list -> Doc_types.tr_doc -> Xml.xml
 (**
-{[exml_of_tr_doc options doc]}
-evaluates to an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml] that is also an instance of the xml-schema {{:specs/exml.dtd.txt}exml.dtd}.
+[exml_of_tr_doc options doc] evaluates to an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml] that is also an instance of the xml-schema {{:specs/exml.dtd.txt}exml.dtd}.
 
 {!val:Html_utils.html_of_exml} can translate that object into the body of an html-document.
 *)

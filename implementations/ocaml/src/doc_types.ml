@@ -2,7 +2,7 @@
 
 type tr_doc = {
   fld_doc_preamble : ts_preamble option;
-  fld_doc_title	: ts_title option;
+  fld_doc_title : ts_title option;
   fld_doc_authors: ts_authors option;
   fld_doc_abstract : ts_abstract option;
   fld_doc_main : tu_doc_main;

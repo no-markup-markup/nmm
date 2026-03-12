@@ -13,20 +13,20 @@ match element with
 
 |Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("abstract_hdr", _, xml_list) -> (
-	match doc_class with
-	|DOC_CHS -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-	|DOC_SECS -> Xml.Element ("h3", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-	|DOC_PARS -> Xml.Element ("h4", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-	|DOC_BLKS -> Xml.Element ("h5", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
+        match doc_class with
+        |DOC_CHS -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
+        |DOC_SECS -> Xml.Element ("h3", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
+        |DOC_PARS -> Xml.Element ("h4", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
+        |DOC_BLKS -> Xml.Element ("h5", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
 )
 
 |Xml.Element ("refs", _ , xml_list) -> Xml.Element ("div", [("class","refs");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("refs_hdr", _, xml_list) -> (
-	match doc_class with
-	|DOC_CHS -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-	|DOC_SECS -> Xml.Element ("h3", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-	|DOC_PARS -> Xml.Element ("h4", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-	|DOC_BLKS -> Xml.Element ("h5", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
+        match doc_class with
+        |DOC_CHS -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
+        |DOC_SECS -> Xml.Element ("h3", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
+        |DOC_PARS -> Xml.Element ("h4", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
+        |DOC_BLKS -> Xml.Element ("h5", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
 )
 
 |Xml.Element ("doc_main", _, xml_list) -> Xml.Element ("div", [("class", "doc_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
@@ -91,49 +91,49 @@ let default_lang_code () : string = "en"
 let default_margin () : string  = "0"
 
 let margin_left_of_options (options : string list) : string option =
-	match Txt_utils.left_margin_of_options options with
-	|Some (margin : int) -> Some (String.concat "" [string_of_int margin;"rem"])
-	|None -> None
+        match Txt_utils.left_margin_of_options options with
+        |Some (margin : int) -> Some (String.concat "" [string_of_int margin;"rem"])
+        |None -> None
 
 
 let lang_code_of_options (options : string list) : string option =
-	let rec aux (lst : string list) =
-		match lst with
-		|[] -> None
-		|hd::tl ->
-			match hd with
-			|"--lang" -> (
-				match tl with
-				|lang_code::_ -> Some lang_code
-				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --lang argument; using default (en)" in None
-			)
-			|_ -> aux tl
-	in
-	aux options
+        let rec aux (lst : string list) =
+                match lst with
+                |[] -> None
+                |hd::tl ->
+                        match hd with
+                        |"--lang" -> (
+                                match tl with
+                                |lang_code::_ -> Some lang_code
+                                |_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --lang argument; using default (en)" in None
+                        )
+                        |_ -> aux tl
+        in
+        aux options
 
 let external_css_of_options (options : string list) : string option =
-	let rec aux (lst : string list) =
-		match lst with
-		|[] -> None
-		|hd::tl ->
-			match hd with
-			|"--css" -> (
-				match tl with
-				|uri::_ -> Some uri
-				|_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --css argument; using default" in None
+        let rec aux (lst : string list) =
+                match lst with
+                |[] -> None
+                |hd::tl ->
+                        match hd with
+                        |"--css" -> (
+                                match tl with
+                                |uri::_ -> Some uri
+                                |_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --css argument; using default" in None
 
-			)
-			|_ -> aux tl
-	in
-	aux options
+                        )
+                        |_ -> aux tl
+        in
+        aux options
 
 
 let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
-	let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-	let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc in
-	let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
-	let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in
-	String.concat "" [Printf.sprintf "%.2f" margin; "rem"]
+        let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
+        let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc in
+        let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
+        let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in
+        String.concat "" [Printf.sprintf "%.2f" margin; "rem"]
 
 let internal_css (tab_length : string) (margin_left : string) : string =
 "
@@ -165,8 +165,8 @@ h2, h3, h4, h5 {
 /************* TITLE ********************/
 
 .title {
-    font-weight : normal;
-    font-size   : x-large;
+    font-weight   : normal;
+    font-size     : x-large;
     margin-bottom : 1rem;
     line-height   : 130%;
 }
@@ -188,8 +188,8 @@ h2, h3, h4, h5 {
 
 
 .authors {
-    font-size : medium;
-    margin-top : 2rem;
+    font-size     : medium;
+    margin-top    : 2rem;
     margin-bottom : 1rem;
 }
 
@@ -225,8 +225,8 @@ h2, h3, h4, h5 {
 }
 
 .abstract_hdr {
-    font-weight : normal;
-    font-size   : large;
+    font-weight   : normal;
+    font-size     : large;
     margin-bottom : 0.5rem;
 }
 
@@ -282,8 +282,8 @@ h2, h3, h4, h5 {
 }
 
 .ch_hdr {
-    font-size : x-large;
-    line-height   : 130%;
+    font-size   : x-large;
+    line-height : 130%;
 }
 
 .ch_hdr, .ch_lbl.hdr {
@@ -304,13 +304,13 @@ h2, h3, h4, h5 {
 .sec_lbl {
     font-size   : large;
     font-weight : normal;
-    line-height   : 130%;
+    line-height : 130%;
 }
 
 .sec_hdr {
     margin-left : "^ margin_left ^";
     font-size   : large;
-    line-height   : 130%;
+    line-height : 130%;
 }
 
 

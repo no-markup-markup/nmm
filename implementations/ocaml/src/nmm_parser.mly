@@ -4,12 +4,12 @@ open Doc_types
 exception ERROR of string
 
 let scope_of_string (s : string) : tu_scope =
-	match s with
+        match s with
         |"GBL" -> Cu_scope_gbl
         |"CH" -> Cu_scope_ch
         |"SEC" -> Cu_scope_sec
         |"PAR" -> Cu_scope_par
-	|_ -> raise (ERROR (String.concat "" ["expected GBL, CH, SEC, or PAR, got: ";s]))
+        |_ -> raise (ERROR (String.concat "" ["expected GBL, CH, SEC, or PAR, got: ";s]))
 
 let first ((a,b):('a * 'b)):'a = a
 
@@ -41,27 +41,27 @@ let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_autho
         |Some (Cs_authors (authors : ts_author list)) -> Some (Cs_authors (author::authors))
 
 let get_custom_string (s : string) : string =
-	try
-	match String.split_on_char '\t' s with
-	|[a;_] -> (
-		match String.split_on_char '[' a with
-		|[_;b] -> (
-			match String.split_on_char ']' b with
-			|lst2 -> String.concat "" lst2
-		)
-		|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
-	)
-	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
-	with
-	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+        try
+        match String.split_on_char '\t' s with
+        |[a;_] -> (
+                match String.split_on_char '[' a with
+                |[_;b] -> (
+                        match String.split_on_char ']' b with
+                        |lst2 -> String.concat "" lst2
+                )
+                |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+        )
+        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+        with
+        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let get_id_string (s : string) : string =
-	try
-	match String.split_on_char '\t' s with
-	|[a;b] -> b
-	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
-	with
-	|_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+        try
+        match String.split_on_char '\t' s with
+        |[a;b] -> b
+        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+        with
+        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 %}
 
