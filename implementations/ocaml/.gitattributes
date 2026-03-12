@@ -1,0 +1,4 @@
+docs/*.html linguist-generated
+docs/specs/*.txt linguist-generated
+tests/*input/* -linguist-detectable
+tests/*output/* -linguist-detectable
