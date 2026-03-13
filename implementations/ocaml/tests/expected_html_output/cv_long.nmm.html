@@ -194,15 +194,15 @@ h2, h3, h4, h5 {
     font-weight : normal;
 }
 
-.par_tag {
-    font-weight : bold;
-    margin-right : 1ch;
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
 }
 
-.par_hdr, .par_tag.hdr {
-    margin-right  : 2ch;
-    margin-bottom : 1rem;
+.par_hdr.inline, .par_tag.hdr.inline {
+    margin-right : 2ch;
 }
+
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,7 +219,11 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.blk + .blk {
+.inline + p.blk.txt {
+    display : inline;
+}
+
+* + .blk {
     margin-top : 1rem;
 }
 
@@ -328,8 +332,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Uppsala University.</p>
 <p class="blk txt">Aug. 2024-Jun. 2025.</p>
 </div>
@@ -338,8 +341,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (60%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (60%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jan. 2024-Apr. 2024.</p>
 </div>
@@ -348,8 +350,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Visiting assistant professor (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Visiting assistant professor (100%)</h4>
 <p class="blk txt">Department of Philosophy, Ashoka University.</p>
 <p class="blk txt">Aug. 2022-May 2023.</p>
 </div>
@@ -358,8 +359,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (40%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (40%)</h4>
 <p class="blk txt">Department of Philosophy, Linguistics and Theory of Science, University of Gothenburg.</p>
 <p class="blk txt">Apr. 2022-Jul. 2022.</p>
 </div>
@@ -368,8 +368,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Project manager (20%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Project manager (20%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Feb. 2021-Feb. 2022.</p>
 </div>
@@ -378,8 +377,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.6</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jul. 2018-Jun. 2020.</p>
 </div>
@@ -388,8 +386,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.7</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Postdoc (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Postdoc (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Nov. 2017-Jun. 2018.</p>
 </div>
@@ -398,8 +395,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.8</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University. </p>
 <p class="blk txt">Feb. 2017-Oct. 2017.</p>
 </div>
@@ -408,8 +404,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.9</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD student (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD student (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholms University. </p>
 <p class="blk txt">Jan. 2012-Dec. 2016.</p>
 </div>
@@ -424,8 +419,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, June 2017. </p>
 <p class="blk txt">Thesis title: <em class="txt_unit_emph">Analyticity, Necessity and Belief: Aspects of Two-Dimensional Semantics</em>. </p>
 <p class="blk txt">Supervisors: Professors Peter Pagin and Dag Westerståhl.</p>
@@ -437,8 +431,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, Nov. 2011.</p>
 </div>
 </div>
@@ -446,8 +439,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Military service</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Military service</h4>
 <p class="blk txt">Tolkskolan (Interpreter/interrogator at the Armed Forces Intelligence and Security Center), Uppsala, Jun. 2001--Jun. 2002.</p>
 </div>
 </div>
@@ -455,8 +447,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
 <p class="blk txt">Natural science program, Sunnerboskolan, Ljungby, 2001.</p>
 </div>
 </div>
@@ -1016,8 +1007,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Uppsala University.</p>
 <p class="blk txt">Aug. 2024-Jun. 2025.</p>
 </div>
@@ -1026,8 +1016,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (60%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (60%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jan. 2024-Apr. 2024.</p>
 </div>
@@ -1036,8 +1025,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Visiting assistant professor (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Visiting assistant professor (100%)</h4>
 <p class="blk txt">Department of Philosophy, Ashoka University.</p>
 <p class="blk txt">Aug. 2022-May 2023.</p>
 </div>
@@ -1046,8 +1034,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (40%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (40%)</h4>
 <p class="blk txt">Department of Philosophy, Linguistics and Theory of Science, University of Gothenburg.</p>
 <p class="blk txt">Apr. 2022-Jul. 2022.</p>
 </div>
@@ -1056,8 +1043,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Project manager (20%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Project manager (20%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Feb. 2021-Feb. 2022.</p>
 </div>
@@ -1066,8 +1052,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.6</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jul. 2018-Jun. 2020.</p>
 </div>
@@ -1076,8 +1061,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.7</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Postdoc (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Postdoc (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Nov. 2017-Jun. 2018.</p>
 </div>
@@ -1086,8 +1070,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.8</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University. </p>
 <p class="blk txt">Feb. 2017-Oct. 2017.</p>
 </div>
@@ -1096,8 +1079,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6.9</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD student (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD student (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholms University. </p>
 <p class="blk txt">Jan. 2012-Dec. 2016.</p>
 </div>
@@ -1112,8 +1094,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 7.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, June 2017. </p>
 <p class="blk txt">Thesis title: <em class="txt_unit_emph">Analyticity, Necessity and Belief: Aspects of Two-Dimensional Semantics</em>. </p>
 <p class="blk txt">Supervisors: Professors Peter Pagin and Dag Westerståhl.</p>
@@ -1125,8 +1106,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 7.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, Nov. 2011.</p>
 </div>
 </div>
@@ -1134,8 +1114,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 7.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Military service</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Military service</h4>
 <p class="blk txt">Tolkskolan (Interpreter/interrogator at the Armed Forces Intelligence and Security Center), Uppsala, Jun. 2001--Jun. 2002.</p>
 </div>
 </div>
@@ -1143,8 +1122,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 7.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
 <p class="blk txt">Natural science program, Sunnerboskolan, Ljungby, 2001.</p>
 </div>
 </div>
@@ -1704,8 +1682,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Uppsala University.</p>
 <p class="blk txt">Aug. 2024-Jun. 2025.</p>
 </div>
@@ -1714,8 +1691,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (60%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (60%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jan. 2024-Apr. 2024.</p>
 </div>
@@ -1724,8 +1700,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Visiting assistant professor (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Visiting assistant professor (100%)</h4>
 <p class="blk txt">Department of Philosophy, Ashoka University.</p>
 <p class="blk txt">Aug. 2022-May 2023.</p>
 </div>
@@ -1734,8 +1709,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (40%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (40%)</h4>
 <p class="blk txt">Department of Philosophy, Linguistics and Theory of Science, University of Gothenburg.</p>
 <p class="blk txt">Apr. 2022-Jul. 2022.</p>
 </div>
@@ -1744,8 +1718,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Project manager (20%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Project manager (20%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Feb. 2021-Feb. 2022.</p>
 </div>
@@ -1754,8 +1727,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.6</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jul. 2018-Jun. 2020.</p>
 </div>
@@ -1764,8 +1736,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.7</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Postdoc (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Postdoc (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Nov. 2017-Jun. 2018.</p>
 </div>
@@ -1774,8 +1745,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.8</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University. </p>
 <p class="blk txt">Feb. 2017-Oct. 2017.</p>
 </div>
@@ -1784,8 +1754,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 11.9</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD student (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD student (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholms University. </p>
 <p class="blk txt">Jan. 2012-Dec. 2016.</p>
 </div>
@@ -1800,8 +1769,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 12.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, June 2017. </p>
 <p class="blk txt">Thesis title: <em class="txt_unit_emph">Analyticity, Necessity and Belief: Aspects of Two-Dimensional Semantics</em>. </p>
 <p class="blk txt">Supervisors: Professors Peter Pagin and Dag Westerståhl.</p>
@@ -1813,8 +1781,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 12.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, Nov. 2011.</p>
 </div>
 </div>
@@ -1822,8 +1789,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 12.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Military service</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Military service</h4>
 <p class="blk txt">Tolkskolan (Interpreter/interrogator at the Armed Forces Intelligence and Security Center), Uppsala, Jun. 2001--Jun. 2002.</p>
 </div>
 </div>
@@ -1831,8 +1797,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 12.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
 <p class="blk txt">Natural science program, Sunnerboskolan, Ljungby, 2001.</p>
 </div>
 </div>
@@ -2392,8 +2357,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Uppsala University.</p>
 <p class="blk txt">Aug. 2024-Jun. 2025.</p>
 </div>
@@ -2402,8 +2366,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (60%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (60%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jan. 2024-Apr. 2024.</p>
 </div>
@@ -2412,8 +2375,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Visiting assistant professor (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Visiting assistant professor (100%)</h4>
 <p class="blk txt">Department of Philosophy, Ashoka University.</p>
 <p class="blk txt">Aug. 2022-May 2023.</p>
 </div>
@@ -2422,8 +2384,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (40%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (40%)</h4>
 <p class="blk txt">Department of Philosophy, Linguistics and Theory of Science, University of Gothenburg.</p>
 <p class="blk txt">Apr. 2022-Jul. 2022.</p>
 </div>
@@ -2432,8 +2393,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Project manager (20%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Project manager (20%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Feb. 2021-Feb. 2022.</p>
 </div>
@@ -2442,8 +2402,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.6</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jul. 2018-Jun. 2020.</p>
 </div>
@@ -2452,8 +2411,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.7</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Postdoc (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Postdoc (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Nov. 2017-Jun. 2018.</p>
 </div>
@@ -2462,8 +2420,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.8</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Lecturer (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Lecturer (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholm University. </p>
 <p class="blk txt">Feb. 2017-Oct. 2017.</p>
 </div>
@@ -2472,8 +2429,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 16.9</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD student (100%)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD student (100%)</h4>
 <p class="blk txt">Department of Philosophy, Stockholms University. </p>
 <p class="blk txt">Jan. 2012-Dec. 2016.</p>
 </div>
@@ -2488,8 +2444,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 17.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">PhD in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">PhD in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, June 2017. </p>
 <p class="blk txt">Thesis title: <em class="txt_unit_emph">Analyticity, Necessity and Belief: Aspects of Two-Dimensional Semantics</em>. </p>
 <p class="blk txt">Supervisors: Professors Peter Pagin and Dag Westerståhl.</p>
@@ -2501,8 +2456,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 17.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h4>
 <p class="blk txt">Stockholm University, Stockholm, Nov. 2011.</p>
 </div>
 </div>
@@ -2510,8 +2464,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 17.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Military service</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Military service</h4>
 <p class="blk txt">Tolkskolan (Interpreter/interrogator at the Armed Forces Intelligence and Security Center), Uppsala, Jun. 2001--Jun. 2002.</p>
 </div>
 </div>
@@ -2519,8 +2472,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 17.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h4>
 <p class="blk txt">Natural science program, Sunnerboskolan, Ljungby, 2001.</p>
 </div>
 </div>

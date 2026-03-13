@@ -194,15 +194,15 @@ h2, h3, h4, h5 {
     font-weight : normal;
 }
 
-.par_tag {
-    font-weight : bold;
-    margin-right : 1ch;
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
 }
 
-.par_hdr, .par_tag.hdr {
-    margin-right  : 2ch;
-    margin-bottom : 1rem;
+.par_hdr.inline, .par_tag.hdr.inline {
+    margin-right : 2ch;
 }
+
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,7 +219,11 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.blk + .blk {
+.inline + p.blk.txt {
+    display : inline;
+}
+
+* + .blk {
     margin-top : 1rem;
 }
 
@@ -328,8 +332,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">First paragraph of second chapter</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">First paragraph of second chapter</h4>
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </div>

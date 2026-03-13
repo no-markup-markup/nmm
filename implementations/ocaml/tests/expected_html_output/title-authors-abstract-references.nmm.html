@@ -195,15 +195,15 @@ h2, h3, h4, h5 {
     font-weight : normal;
 }
 
-.par_tag {
-    font-weight : bold;
-    margin-right : 1ch;
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
 }
 
-.par_hdr, .par_tag.hdr {
-    margin-right  : 2ch;
-    margin-bottom : 1rem;
+.par_hdr.inline, .par_tag.hdr.inline {
+    margin-right : 2ch;
 }
+
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -220,7 +220,11 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.blk + .blk {
+.inline + p.blk.txt {
+    display : inline;
+}
+
+* + .blk {
     margin-top : 1rem;
 }
 

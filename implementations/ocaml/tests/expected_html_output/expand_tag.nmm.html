@@ -194,15 +194,15 @@ h2, h3, h4, h5 {
     font-weight : normal;
 }
 
-.par_tag {
-    font-weight : bold;
-    margin-right : 1ch;
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
 }
 
-.par_hdr, .par_tag.hdr {
-    margin-right  : 2ch;
-    margin-bottom : 1rem;
+.par_hdr.inline, .par_tag.hdr.inline {
+    margin-right : 2ch;
 }
+
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,7 +219,11 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.blk + .blk {
+.inline + p.blk.txt {
+    display : inline;
+}
+
+* + .blk {
     margin-top : 1rem;
 }
 
@@ -315,7 +319,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<div class="par_tag" style="display:block;float:left">THEOREM</div>
+<div class="par_tag">THEOREM</div>
 <h4 class="par_hdr">Main</h4>
 <div class="blk itm" style="display:block" id="ITM_1">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
@@ -355,9 +359,8 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<div class="par_tag" style="display:block;float:left">PROOF</div>
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h4>
-<div class="clear"></div>
+<div class="par_tag">PROOF</div>
+<h4 class="par_hdr inline" style="margin-bottom:0">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h4>
 <p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 <p class="blk txt">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></p>
 <p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorem 1.1</a></p>
@@ -375,9 +378,8 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<div class="par_tag" style="display:block;float:left">PROOF</div>
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h4>
-<div class="clear"></div>
+<div class="par_tag">PROOF</div>
+<h4 class="par_hdr inline" style="margin-bottom:0">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h4>
 <p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 <p class="blk txt">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></p>
 <p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorem 1.1</a></p>

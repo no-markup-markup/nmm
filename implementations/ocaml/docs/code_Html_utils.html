@@ -70,11 +70,11 @@
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;(<span class="string">"style"</span>,<span class="string">"display:block"</span>)::attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_lbl"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"par_lbl"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_lbl_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,[(<span class="string">"class"</span>,<span class="string">"par_lbl&nbsp;hdr"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag"</span>,[],xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"par_tag"</span>);(<span class="string">"style"</span>,<span class="string">"display:block;float:left"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag"</span>,[],xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"par_tag"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_hdr"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr_inline"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_hdr&nbsp;inline"</span>);(<span class="string">"style"</span>,<span class="string">"float:left;margin-bottom:0"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr_inline"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_hdr&nbsp;inline"</span>);(<span class="string">"style"</span>,<span class="string">"margin-bottom:0"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_tag&nbsp;hdr"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr_inline"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_tag&nbsp;hdr&nbsp;inline"</span>);(<span class="string">"style"</span>,<span class="string">"float:left;margin-bottom:0"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr_inline"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_tag&nbsp;hdr&nbsp;inline"</span>);(<span class="string">"style"</span>,<span class="string">"margin-bottom:0"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_main"</span>,&nbsp;_&nbsp;,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_main_w_hdr"</span>,&nbsp;_&nbsp;,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_main_w_hdr_inline"</span>,&nbsp;_&nbsp;,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,<span class="string">"par_main"</span>);(<span class="string">"style"</span>,<span class="string">"display:block"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
@@ -348,15 +348,15 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
 }<br>
 <br>
-.par_tag&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;bold;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-right&nbsp;:&nbsp;1ch;<br>
+.par_tag,&nbsp;.par_hdr&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;&nbsp;:&nbsp;bold;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inline;<br>
 }<br>
 <br>
-.par_hdr,&nbsp;.par_tag.hdr&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-right&nbsp;&nbsp;:&nbsp;2ch;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-bottom&nbsp;:&nbsp;1rem;<br>
+.par_hdr.inline,&nbsp;.par_tag.hdr.inline&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-right&nbsp;:&nbsp;2ch;<br>
 }<br>
+<br>
 <br>
 .par_tag&nbsp;+&nbsp;.par_hdr::before&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;content&nbsp;:&nbsp;\"&nbsp;(\";<br>
@@ -373,7 +373,11 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 <br>
 /**************&nbsp;BLK&nbsp;*********************/<br>
 <br>
-.blk&nbsp;+&nbsp;.blk&nbsp;{<br>
+.inline&nbsp;+&nbsp;p.blk.txt&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;:&nbsp;inline;<br>
+}<br>
+<br>
+*&nbsp;+&nbsp;.blk&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;:&nbsp;1rem;<br>
 }<br>
 <br>

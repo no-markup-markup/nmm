@@ -39,7 +39,7 @@
 	(blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )+)
 >
 <!ELEMENT par_main_w_hdr_inline (
-	((par_tag?, par_hdr_inline, clear) | (par_tag_hdr_inline, clear)), blk_txt,
+	((par_tag?, par_hdr_inline) | par_tag_hdr_inline), blk_txt,
 	(blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )*)
 >
 

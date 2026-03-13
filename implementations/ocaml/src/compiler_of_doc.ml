@@ -461,7 +461,7 @@ and acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
                                 |None -> Xml.Element ("par_main",[],xml_list)
                                 |Some xml_list_hdr -> 
                                         match inline_hdr with
-                                        |true -> Xml.Element ("par_main_w_hdr_inline",[],List.concat [xml_list_hdr;[xml_clear];xml_list])
+                                        |true -> Xml.Element ("par_main_w_hdr_inline",[],List.concat [xml_list_hdr;xml_list])
                                         |false -> Xml.Element ("par_main_w_hdr",[],List.concat [xml_list_hdr;xml_list])
                         )
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")

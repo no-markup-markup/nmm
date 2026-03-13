@@ -194,15 +194,15 @@ h2, h3, h4, h5 {
     font-weight : normal;
 }
 
-.par_tag {
-    font-weight : bold;
-    margin-right : 1ch;
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
 }
 
-.par_hdr, .par_tag.hdr {
-    margin-right  : 2ch;
-    margin-bottom : 1rem;
+.par_hdr.inline, .par_tag.hdr.inline {
+    margin-right : 2ch;
 }
+
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,7 +219,11 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.blk + .blk {
+.inline + p.blk.txt {
+    display : inline;
+}
+
+* + .blk {
     margin-top : 1rem;
 }
 
@@ -467,8 +471,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> and <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h4>
-<div class="clear"></div>
+<h4 class="par_hdr inline" style="margin-bottom:0">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> and <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h4>
 <p class="blk txt">Putting references in a header does not look very nice.</p>
 </div>
 </div>
@@ -476,8 +479,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">DEFINITION</h4>
-<div class="clear"></div>
+<h4 class="par_tag hdr inline" style="margin-bottom:0">DEFINITION</h4>
 <p class="blk txt">We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</p>
 </div>
 </div>
@@ -485,9 +487,8 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<div class="par_tag" style="display:block;float:left">DEFINITION</div>
-<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Provability</h4>
-<div class="clear"></div>
+<div class="par_tag">DEFINITION</div>
+<h4 class="par_hdr inline" style="margin-bottom:0">Provability</h4>
 <p class="blk txt">We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</p>
 </div>
 </div>
@@ -495,8 +496,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="float:left;margin-bottom:0">FACT</h4>
-<div class="clear"></div>
+<h4 class="par_tag hdr inline" style="margin-bottom:0">FACT</h4>
 <p class="blk txt">For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</p>
 </div>
 </div>
