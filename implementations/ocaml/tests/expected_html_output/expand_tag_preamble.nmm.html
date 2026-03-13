@@ -199,10 +199,6 @@ h2, h3, h4, h5 {
     display      : inline;
 }
 
-.par_hdr.inline, .par_tag.hdr.inline {
-    margin-right : 2ch;
-}
-
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,8 +215,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.inline + p.blk.txt {
+.par_hdr + p.blk.txt {
     display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
 }
 
 * + .blk {
@@ -317,7 +325,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main" style="display:block">
 <div class="par_tag">THEOREM</div>
-<h4 class="par_hdr inline" style="margin-bottom:0">Main</h4>
+<h4 class="par_hdr">Main</h4>
 <p class="blk txt">Nothing lasts forever.</p>
 </div>
 </div>
@@ -326,7 +334,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main" style="display:block">
 <div class="par_tag">PROOF</div>
-<h4 class="par_hdr inline" style="margin-bottom:0">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1</a></h4>
+<h4 class="par_hdr">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1</a></h4>
 <p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>

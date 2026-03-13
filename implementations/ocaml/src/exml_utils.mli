@@ -28,7 +28,7 @@ val pcdata_of_string : string -> string
 
 val string_of_pcdata : string -> string
 
-val par_hdr_opt: Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.tu_tag_or_id option -> Doc_types.ts_hdr option -> bool -> (Xml.xml list) option
+val par_hdr_opt: Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.tu_tag_or_id option -> Doc_types.ts_hdr option -> (Xml.xml list) option
 
 (*
 

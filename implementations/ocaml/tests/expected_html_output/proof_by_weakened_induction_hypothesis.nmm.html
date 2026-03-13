@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proof by weakened induction hypothesis</title>
+<meta name="author" content="Eric Johannesson, eric.johannesson@philosophy.su.se">
+<meta name="author" content="Anders Lundstedt, anders.lundstedt@philosophy.su.se">
+<style>
+
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+em {
+    font-style      : normal;
+    text-decoration : underline;
+}
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight   : normal;
+    font-size     : x-large;
+    margin-bottom : 1rem;
+    line-height   : 130%;
+}
+
+.doc.pars .title {
+    margin-left : 4.80rem;
+}
+
+.doc.secs .title {
+    margin-left : 4.80rem;
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size     : medium;
+    margin-top    : 2rem;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : 4.80rem;
+}
+
+.doc.secs .authors {
+    margin-left : 4.80rem;
+}
+
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : 4.80rem;
+}
+
+.doc.secs .abstract {
+    margin-left : 4.80rem;
+}
+
+.abstract_hdr {
+    font-weight   : normal;
+    font-size     : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : 4.80rem;
+}
+
+.doc.secs .refs {
+    margin-left : 4.80rem;
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size   : x-large;
+    line-height : 130%;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    font-size   : large;
+    font-weight : normal;
+    line-height : 130%;
+}
+
+.sec_hdr {
+    margin-left : 4.80rem;
+    font-size   : large;
+    line-height : 130%;
+}
+
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
+}
+
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
+}
+
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content : ")";
+}
+
+.par_main {
+    margin-left : 4.80rem;
+}
+
+
+/************** BLK *********************/
+
+.par_hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+* + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : 4.80rem;
+}
+
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_main {
+    margin-left : 6ch;
+}
+
+
+.blk_itm_main {
+    margin-left : 6ch;
+}
+
+
+.dsp_line_main {
+    margin-left : 6ch;
+}
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div style="display:block" class="doc secs">
+<h1 class="title">Proof by weakened induction hypothesis</h1>
+<div class="authors" style="display:block">
+<p class="author">Eric Johannesson, eric.johannesson@philosophy.su.se</p>
+<p class="author">Anders Lundstedt, anders.lundstedt@philosophy.su.se</p>
+</div>
+<div class="abstract" style="display:block">
+<h3 class="abstract_hdr">ABSTRACT</h3>
+<p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”. We show that this is an instance of a more general phenomenon which we call <em class="txt_unit_emph">proof by non-straightforward induction</em>. Cruacially, we show that there are cases where straightforward induction fails, but where proof by <em class="txt_unit_emph">incomparable</em> or even <em class="txt_unit_emph">weaker</em> induction hypothesis succeeds.</p>
+</div>
+<div class="doc_main" style="display:block">
+<div style="display:block" class="SEC sec" id="SEC_intro">
+<div class="sec_lbl" style="display:block;float:left">§ 1</div>
+<h3 class="sec_hdr">Introduction</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”.</p>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.2</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">To give an example, suppose we want to prove that, for all natural numbers n, the sum of the first n odd numbers is a perfect square. Straightforward induction yields the following:</p>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Base case: the sum of the first 0 odd numbers is 0, which is a perfect square.</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Inductive step: if the sum of the first n odd numbers is a perfect square k², then the sum of the first n + 1 odd numbers is</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">1 + 3 + ... + (2n - 1) + (2n + 1) = k² + 2n + 1</div>
+</div>
+</div>
+<p class="blk txt">But it is not true that k² + 2n + 1 is a perfect square for all k and n. So we are “stuck”.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.3</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">Instead, we may prove the following <em class="txt_unit_emph">more general</em> or <em class="txt_unit_emph">stronger</em> result by induction: for all natural numbers n, the sum of the first n odd numbers is n². Straightforward induction yields the following:</p>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Base case: the sum of the 0 first odd numbers is 0, which is 0².</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Inductive step: if the sum of the first n odd numbers is n², then the sum of the first n + 1 odd numbers is n² + 2n + 1 = (n + 1)².</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="SEC sec" id="SEC_precise">
+<div class="sec_lbl" style="display:block;float:left">§ 2</div>
+<h3 class="sec_hdr">Making it precise</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">What does it mean, more precisely, to say that straightforward induction to prove ∀xφ(x) “does not work”, and that we “must” use a “stronger” induction hypothesis and first prove ∀xψ(x)?</p>
+<p class="blk txt">Here is how <em class="txt_unit_emph">not</em> to characterize the situation (where PA is Peano arithmetic):</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_bad1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">PA ⊬ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_bad2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">PA ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_bad3">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">PA ⊢ ∀xψ(x) → ∀xφ(x)</div>
+</div>
+</div>
+<p class="blk txt">In fact, this situation is impossible: <a class="txt_unit_c_ref" href="#DSP_bad2">(b)</a> yields PA ⊢ ∀xψ(x), which by <a class="txt_unit_c_ref" href="#DSP_bad3">(c)</a> yields PA ⊢ ∀xφ(x), which by pure logic yields</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">PA ⊢ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</div>
+</div>
+</div>
+<p class="blk txt">which contradicts <a class="txt_unit_c_ref" href="#DSP_bad1">(a)</a>.</p>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.2</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">Instead, the situation may perhaps be characterized as follows: starting from the axioms of Peano arithmetic minus the induction axioms, we successively prove more and more theorems using logic and the rule of induction:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">φ(0)   ∀x(φ(x) → φ(x&apos;))</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">───────────────────────</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">         ∀xφ(x)</div>
+</div>
+</div>
+<p class="blk txt">Suppose that, at some stage in this process of mathematical inquiry, we have reached a theory T consisting of the axioms and hitherto proved theorems. Then, as we show in <a class="txt_unit_c_ref" href="#SEC_model">§ 3</a> below, a situation may indeed arise satisfying the following definition:</p>
+</div>
+</div>
+<div style="display:block" class="DEF par" id="DEF_good">
+<div class="par_lbl" style="display:block;float:left">¶ 2.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">DEFINITION</div>
+<h4 class="par_hdr">Proof by non-straightforward induction</h4>
+<p class="blk txt">We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of <em class="txt_unit_emph">proof by non-straightforward induction</em> just in case</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_good1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊬ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_good2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_good3">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ∀xψ(x) → ∀xφ(x)</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_good">
+<div class="par_lbl" style="display:block;float:left">¶ 2.4</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">FACT</h4>
+<p class="blk txt">There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x) exemplifying cases of proof by non-straightforward induction.</p>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.5</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">Perhaps more surprisingly, proof by non-straightforward induction does not really require ψ(x) to be <em class="txt_unit_emph">stronger</em> than φ(x). As we show in <a class="txt_unit_c_ref" href="#SEC_weaker">§ 4</a> below, there are cases of proof by non-straightforward induction where, relative to T, ψ(x) is actually <em class="txt_unit_emph">weaker</em> than φ(x).</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="SEC sec" id="SEC_model">
+<div class="sec_lbl" style="display:block;float:left">§ 3</div>
+<h3 class="sec_hdr">A non-standard model</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">We define a non-standard model M of Robinson arithmetic as follows. Let</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">A = {..., a[−2], a[−1], a[0] ,a[1] , a[2], ...}</div>
+</div>
+</div>
+<p class="blk txt">be a countably infinite set disjoint from the natural numbers ℕ, and let the domain of the model be ℕ ∪ A. We shall call A the (set of) <em class="txt_unit_emph">non-standard numbers</em> (of M). Let the constant 0 be interpreted as the number 0, and extend the interpretation of the function symbols &apos;, +, and × to the non-standard numbers as follows:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_m1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">a[z]&apos; = a[z+1] for z ∈ ℤ.</div>
+</div>
+</div>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_m2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">a[z] + n = n + a[z] = a[z+n] for z ∈ ℤ and n ∈ ℕ.</div>
+</div>
+</div>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_m3">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">a[z] + a[u] = a[u] + a[z] = a[z+u] for z,u ∈ ℤ.</div>
+</div>
+</div>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_m4">
+<div class="dsp_line_lbl" style="display:block;float:left">(d)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">a[z] × 0 = 0 × a[z] = 0 for z ∈ ℤ.</div>
+</div>
+</div>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_m5">
+<div class="dsp_line_lbl" style="display:block;float:left">(e)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">a[z] × n = n × a[z] = a[z × n] for z ∈ ℤ and n ∈ ℕ − {0}.</div>
+</div>
+</div>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_m6">
+<div class="dsp_line_lbl" style="display:block;float:left">(f)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">a[z] × a[u] = a[u] × a[z] = a[z × u] for z,u ∈ ℤ.</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3.2</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">It can easily be verified that M is also a model of what we may call  <em class="txt_unit_emph">minimal arithmetic</em>, which is the theory you get by adding commutativity, associativity and distribution laws for addition and multiplication to the axioms of Robinson arithmetic.</p>
+</div>
+</div>
+<div style="display:block" class="PRF par">
+<div class="par_lbl" style="display:block;float:left">¶ 3.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">PROOF</div>
+<h4 class="par_hdr">of <a class="txt_unit_c_ref" href="#FCT_good">Fact 2.4</a></h4>
+<p class="blk txt">To verify that cases of proof by non-straightforward induction are indeed possible, it suffices to find <em class="txt_unit_emph">true</em> formulas φ(x) and ψ(x) (<em class="txt_unit_emph">true</em> in the sense of being satisfied by all natural numbers in the standard model as well as in the non-standard model) with the following profile regarding the non-standard numbers of M:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">       ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">     ──────────────────────────────────────────────</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">φ(x) | ...  false  false  true   false  false  ...</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">ψ(x) | ...  false  false  false  false  false  ...</div>
+</div>
+</div>
+<p class="blk txt">The induction step will then fail for φ(x) with a[0] assigned to x, but will not fail for ψ(x). Granted as much, we can let T be the theory you get by adding, to minimal arithmetic, the axioms</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_ind">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_imp">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀xψ(x) → ∀xφ(x)</div>
+</div>
+</div>
+<p class="blk txt">Since <a class="txt_unit_c_ref" href="#DSP_ind">(a)</a> and <a class="txt_unit_c_ref" href="#DSP_imp">(b)</a> will be true in M, the model will satisfy T. Moreover, <a class="txt_unit_c_ref" href="#DSP_good1">(a) of Definition 2.3</a> will be satisfied as witnessed by a[0] assigned to x.</p>
+<p class="blk txt">For instance, let φ(x) be the formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y∀z(x = x × x ∨ (y + x = z + x → y = z))</div>
+</div>
+</div>
+<p class="blk txt">and let ψ(x) be the formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y∀z(y + x = z + x → y = z)</div>
+</div>
+</div>
+<p class="blk txt">Clearly, ψ(x) characterizes the non-standard numbers of M in the sense that they and only they fail to satisfy it. But due to <a class="txt_unit_c_ref" href="#DSP_m5">(e) of ¶ 3.1</a>, φ(x) is satisfied by M in the special case of a[0] being assigned to x.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="SEC sec" id="SEC_weaker">
+<div class="sec_lbl" style="display:block;float:left">§ 4</div>
+<h3 class="sec_hdr">Proof by non-strengthened induction hypothesis</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 4.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">In the proof of <a class="txt_unit_c_ref" href="#FCT_good">Fact 2.4</a>, ψ(x) was <em class="txt_unit_emph">stronger</em> than φ(x), even in the  sense that ⊢ ∀x(ψ(x) → φ(x)). Thus, this was a clear case of <em class="txt_unit_emph">proof by strengthened induction hypothesis</em>, albeit a contrived one.</p>
+<p class="blk txt">But does <em class="txt_unit_emph">proof by non-straightforward induction</em> really require a  stronger induction hypothesis? No. As a matter of fact, there are cases of what we call <em class="txt_unit_emph">proof by incomparable induction hypothesis</em> and <em class="txt_unit_emph">proof by weakened induction hypothesis</em>, respectively.</p>
+</div>
+</div>
+<div style="display:block" class="DEF par" id="DEF_inc">
+<div class="par_lbl" style="display:block;float:left">¶ 4.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">DEFINITION</div>
+<h4 class="par_hdr">Proof by incomparable induction hypothesis</h4>
+<p class="blk txt">We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of <em class="txt_unit_emph">proof by incomparable induction hypothesis</em> just in case they exemplify a case of proof by non-straightforward induction and, in addition,</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_inc1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ∀xφ(x) → ∀xψ(x)</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_inc2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊬ ∀x(ψ(x) → φ(x))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_inc3">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊬ ∀x(φ(x) → ψ(x))</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="RMK par">
+<div class="par_lbl" style="display:block;float:left">¶ 4.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">REMARK</h4>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_inc1">(a) of Definition 4.2</a> and <a class="txt_unit_c_ref" href="#DSP_good3">(c) of Definition 2.3</a>, we have in effect</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ∀xφ(x) ↔ ∀xψ(x)</div>
+</div>
+</div>
+<p class="blk txt">But because of <a class="txt_unit_c_ref" href="#DSP_inc2">(b) of Definition 4.2</a> and <a class="txt_unit_c_ref" href="#DSP_inc3">(c) of Definition 4.2</a>, we may still say that φ(x) and  ψ(x) are <em class="txt_unit_emph">incomparable</em> relative to T.</p>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_inc">
+<div class="par_lbl" style="display:block;float:left">¶ 4.4</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">FACT</h4>
+<p class="blk txt">There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x) exemplifying a case of proof by incomparable induction hypothesis.</p>
+</div>
+</div>
+<div style="display:block" class="PRF par" id="PRF_inc">
+<div class="par_lbl" style="display:block;float:left">¶ 4.5</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">To show that proof by incomparable induction hypothesis is possible, it suffices to find true formulas φ(x) and ψ(x) with the following profile regarding the non-standard numbers of M:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">       ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">     ──────────────────────────────────────────────</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">φ(x) | ...  true   true   true   false  false  ...</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">ψ(x) | ...  false  false  true   true   true   ...</div>
+</div>
+</div>
+<p class="blk txt">For instance, let φ(x) be the formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y(x ≠ y ∧ ∃z(y + z = x) → x × x ≠ y × y)</div>
+</div>
+</div>
+<p class="blk txt">and let ψ(x) be the formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)</div>
+</div>
+</div>
+<p class="blk txt">Observe that, by simple relabeling of variables, we have</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ∀xφ(x) ↔ ∀xψ(x)</div>
+</div>
+</div>
+<p class="blk txt">Thus, let T be the theory you get by adding, to minimal arithmetic, the axiom</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</div>
+</div>
+</div>
+<p class="blk txt">Clearly, both φ(x) and ψ(x) are true of all natural numbers in the standard model. To verify that φ(x) has the required profile with respect to M, we need to consider the following two cases:</p>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">x is assigned a natural number n. Whatever y is assigned that is distinct from n, it will be true in M that x × x ≠ y × y. So φ(x) is true of the natural numbers of M.</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">x is assigned a non-standard number a[i] for some integer i. Then either y is assigned a natural number, in which case M satisfies the antecedent x × x ≠ y × y, or y is assigned a non-standard number a[j] for some integer j ≠ i. By <a class="txt_unit_c_ref" href="#DSP_m6">(f) of ¶ 3.1</a>, whenever j &lt; i &lt; 1, M satisfies x × x ≠ y × y. Likewise, whenever i &gt; 0 and j = -i, M satisfies ∃z(y + z = x) and x × x = y × y. Thus, φ(x) is true in M for every non-standard number a[i] such that i &lt; 1, and false whenever i &gt; 0.</p>
+</div>
+</div>
+<p class="blk txt">By symmetry of reasoning, we see that ψ(x) also has the required profile.</p>
+</div>
+</div>
+<div style="display:block" class="DEF par" id="DEF_weak">
+<div class="par_lbl" style="display:block;float:left">¶ 4.6</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">DEFINITION</div>
+<h4 class="par_hdr">Proof by weakened induction hypothesis</h4>
+<p class="blk txt">We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of <em class="txt_unit_emph">proof by weakened induction hypothesis</em> just in case they they exemplify a case of proof by non-straightforward induction and, in addition,</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_weak1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ∀xφ(x) → ∀xψ(x)</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_weak2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊬ ∀x(ψ(x) → φ(x))</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_weak3">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ∀x(φ(x) → ψ(x))</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="RMK par">
+<div class="par_lbl" style="display:block;float:left">¶ 4.7</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">REMARK</h4>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_weak1">(a) of Definition 4.6</a> and <a class="txt_unit_c_ref" href="#DSP_good3">(c) of Definition 2.3</a>, we have in effect</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊢ ∀xφ(x) ↔ ∀xψ(x)</div>
+</div>
+</div>
+<p class="blk txt">But because of <a class="txt_unit_c_ref" href="#DSP_weak2">(b) of Definition 4.6</a> and <a class="txt_unit_c_ref" href="#DSP_weak3">(c) of Definition 4.6</a>, we may still say that ψ(x) is <em class="txt_unit_emph">weaker</em> than φ(x) relative to T.</p>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_weak">
+<div class="par_lbl" style="display:block;float:left">¶ 4.8</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">FACT</h4>
+<p class="blk txt">There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x) exemplifying a case of proof by weakened induction hypothesis.</p>
+</div>
+</div>
+<div style="display:block" class="PRF par">
+<div class="par_lbl" style="display:block;float:left">¶ 4.9</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">To show that proof by weakened induction hypothesis is possible, it suffices to find true  formulas φ(x) and ψ(x) with the following profile:</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">       ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">     ──────────────────────────────────────────────</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">φ(x) | ...  false  false  true   false  false  ...</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">ψ(x) | ...  false  false  true   true   true   ...</div>
+</div>
+</div>
+<p class="blk txt">For instance, let φ(x) be the formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y(x ≠ y → x × x ≠ y × y)</div>
+</div>
+</div>
+<p class="blk txt">and let ψ(x) be the formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)</div>
+</div>
+</div>
+<p class="blk txt">Observe that ⊢ ∀x(φ(x) → ψ(x)). It should be clear from <a class="txt_unit_c_ref" href="#PRF_inc">Proof 4.5</a> that the formulas have the required profile. Moreover, with u &lt; v defined as</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">u ≠ v ∧ ∃z(u + z = v)</div>
+</div>
+</div>
+<p class="blk txt">we have</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀x∀y(x &lt; y ∨ x = y ∨ y &lt; x) ⊢ ∀xψ(x) → ∀xφ(x)</div>
+</div>
+</div>
+<p class="blk txt">To see why, assume that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_tot">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀x∀y(x &lt; y ∨ x = y ∨ y &lt; x)</div>
+</div>
+</div>
+<p class="blk txt">and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_psi">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀x∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)</div>
+</div>
+</div>
+<p class="blk txt">Suppose that x ≠ y. By <a class="txt_unit_c_ref" href="#DSP_tot">(b)</a>, we have x &lt; y or y &lt; x. In the case of x &lt; y, we have by definition that ∃z(x + z = y). Thus, by <a class="txt_unit_c_ref" href="#DSP_psi">(c)</a>, we have x × x ≠ y × y, as desired. In the case of y &lt; x, we have by definition that ∃z(y + z = x). By <a class="txt_unit_c_ref" href="#DSP_tot">(b)</a>, we get by relabeling of variables that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀y∀x(y ≠ x ∧ ∃z(y + z = x) → y × y ≠ x × x)</div>
+</div>
+</div>
+<p class="blk txt">Hence, by <a class="txt_unit_c_ref" href="#DSP_psi">(c)</a>, we get y × y ≠ x × x, which yields the desired result by pure logic.</p>
+<p class="blk txt">Lastly, we observe that M satisfies <a class="txt_unit_c_ref" href="#DSP_tot">(b)</a>. Thus, let T be the theory you get by adding, to minimal arithmetic, the axioms</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(d)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀x∀y(x &lt; y ∨ x = y ∨ y &lt; x)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_lbl" style="display:block;float:left">(e)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="RMK par">
+<div class="par_lbl" style="display:block;float:left">¶ 4.10</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">REMARK</h4>
+<p class="blk txt">We here have cases where, relative to a base theory T, one <em class="txt_unit_emph">must</em> use a different induction hypothesis, and <em class="txt_unit_emph">may</em> use one that is not stronger. Are there cases where one both <em class="txt_unit_emph">may</em> and <em class="txt_unit_emph">must</em> use a non-strengthened induction hypothesis? Indeed there are! (<a class="txt_unit_c_ref" href="#FCT_fct2">Fact 5.11</a>). This follows from a result reported by Hetzl and Wong in <a class="txt_unit_c_ref" href="#ITM_Hetzl&Wong">(a) of References</a>, which we expand upon below.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="SEC sec" id="SEC_gen">
+<div class="sec_lbl" style="display:block;float:left">§ 5</div>
+<h3 class="sec_hdr">Proof by necessarily non-strengthened induction hypothesis</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par">
+<h4 class="par_lbl hdr" style="display:block;float:left">¶ 5.1</h4>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<p class="blk txt">It can be shown that, if something is provable in an arithmetical theory containing all the induction axioms, it is provable in that theory using at most one induction axiom. This generalizes Corollary 2.10 reported by Hetzl and Wong.</p>
+</div>
+</div>
+<div style="display:block" class="DEF par" id="DEF_indax">
+<div class="par_lbl" style="display:block;float:left">¶ 5.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">DEFINITION</h4>
+<p class="blk txt">For each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → ∀xθ(x,z̄)]</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="LMA par" id="LMA_lma">
+<div class="par_lbl" style="display:block;float:left">¶ 5.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">LEMMA</div>
+<h4 class="par_hdr">Generalizing Lemma 2.8 of Hetzl and Wong</h4>
+<p class="blk txt">Let Θ(x,z̄) be a formula, and define φ(x) as</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(x,z̄)]</div>
+</div>
+</div>
+<p class="blk txt">Then we have</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="LMA_lma1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ φ(0) ∧ ∀x(φ(x) → φ(x&apos;)) </div>
+</div>
+</div>
+<p class="blk txt">and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="LMA_lma2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ∀xφ(x) ↔ Iθ</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="PRF par">
+<div class="par_lbl" style="display:block;float:left">¶ 5.4</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">First we show <a class="txt_unit_c_ref" href="#LMA_lma1">Lemma 5.3(a)</a>. We have φ(0) by ∧-elimination, →-introduction and ∀-introduction. To show the second conjunct, assume φ(a), i.e.</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_lma1ass1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(a,z̄)]</div>
+</div>
+</div>
+<p class="blk txt">Assume also </p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_lma1ass2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0, b̄) ∧ ∀y(θ(y, b̄) → θ(y&apos;,b̄))</div>
+</div>
+</div>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_lma1ass1">(a)</a> and ∀-elimination, we have</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → θ(a,b̄)</div>
+</div>
+</div>
+<p class="blk txt">With <a class="txt_unit_c_ref" href="#DSP_lma1ass2">(b)</a>, →-elimination yields Θ(a,b̄). By the second conjunct of <a class="txt_unit_c_ref" href="#DSP_lma1ass2">(b)</a>, this yields Θ(a&apos;,b̄). Discharing <a class="txt_unit_c_ref" href="#DSP_lma1ass2">(b)</a>, →-introduction yields</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → θ(a&apos;,b̄)</div>
+</div>
+</div>
+<p class="blk txt">By ∀-introduction, we get</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(a&apos;,z̄)]</div>
+</div>
+</div>
+<p class="blk txt">Discharging <a class="txt_unit_c_ref" href="#DSP_lma1ass1">(a)</a>, →-introduction yields ⊢ φ(a) → φ(a&apos;), and ∀-introduction finally yields ⊢ ∀x(φ(x) → φ(x&apos;)).</p>
+<p class="blk txt">Secondly, we show <a class="txt_unit_c_ref" href="#LMA_lma2">Lemma 5.3(b)</a>. For right to left, assume Iθ, i.e.</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_lma2ass1">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → ∀xθ(x,z̄)]</div>
+</div>
+</div>
+<p class="blk txt">We need to show ∀xφ(x), i.e.</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_lma2goal">
+<div class="dsp_line_lbl" style="display:block;float:left">(d)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">∀x∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(x,z̄)]</div>
+</div>
+</div>
+<p class="blk txt">To this end, assume</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_lma2ass2">
+<div class="dsp_line_lbl" style="display:block;float:left">(e)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄))</div>
+</div>
+</div>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_lma2ass1">(c)</a> and ∀-elimination, we get</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → ∀xθ(x,b̄)</div>
+</div>
+</div>
+<p class="blk txt">With <a class="txt_unit_c_ref" href="#DSP_lma2ass2">(e)</a>, →-elimination yields ∀xθ(x,b̄), which by ∀-elimination yields θ(a,b̄). Discharging <a class="txt_unit_c_ref" href="#DSP_lma2ass2">(e)</a>, →-introduction followed by ∀-introduction yields <a class="txt_unit_c_ref" href="#DSP_lma2goal">(d)</a>.</p>
+<p class="blk txt">For left to right, assume <a class="txt_unit_c_ref" href="#DSP_lma2goal">(d)</a>. We need to show <a class="txt_unit_c_ref" href="#DSP_lma2ass1">(c)</a>. To this end, assume</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_lma2ass3">
+<div class="dsp_line_lbl" style="display:block;float:left">(f)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄))</div>
+</div>
+</div>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_lma2goal">(d)</a> and ∀-elimination, we get</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → θ(a,b̄)</div>
+</div>
+</div>
+<p class="blk txt">Together with <a class="txt_unit_c_ref" href="#DSP_lma2ass3">(f)</a> and →-elimination, this yields get θ(a,b̄). By ∀-introduction, this yields ∀xΘ(x,b̄). Discharging <a class="txt_unit_c_ref" href="#DSP_lma2ass3">(f)</a>, →-introduction followed by ∀-introduction yields <a class="txt_unit_c_ref" href="#DSP_lma2ass1">(c)</a>.</p>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_fct1">
+<div class="par_lbl" style="display:block;float:left">¶ 5.5</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">FACT</div>
+<h4 class="par_hdr">Generalizing Proposition 2.9 of Hetzl and Wong</h4>
+<p class="blk txt">For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_fct1.1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ϕ(0) ∧ ∀x(ϕ(x) → ϕ(x&apos;))</div>
+</div>
+</div>
+<p class="blk txt">and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_fct1.2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ∀xϕ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="PRF par" id="PRF_prf1">
+<div class="par_lbl" style="display:block;float:left">¶ 5.6</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#LMA_lma">Lemma 5.3</a>, there is a formula φₖ(x) for each 1 ≤ k ≤ n such that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_prf1.1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ φₖ(0) ∧ ∀x(φₖ(x) → φₖ(x&apos;))</div>
+</div>
+</div>
+<p class="blk txt">and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_prf1.2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ∀xφₖ(x) ↔ Iθₖ</div>
+</div>
+</div>
+<p class="blk txt">Define φ(x) as φ₁(x) ∧ ... ∧ φₙ(x). Then <a class="txt_unit_c_ref" href="#DSP_fct1.1">(a) of Fact 5.5</a> easily follows from <a class="txt_unit_c_ref" href="#DSP_prf1.1">(a)</a>. Likewise, <a class="txt_unit_c_ref" href="#DSP_fct1.2">(b) of Fact 5.5</a> follows from <a class="txt_unit_c_ref" href="#DSP_prf1.2">(b)</a> and the fact that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ∀xφ₁(x) ∧ ... ∧ ∀xφₙ(x) ↔ ∀x(φ₁(x) ∧ ... ∧ φₙ(x))</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_crl1">
+<div class="par_lbl" style="display:block;float:left">¶ 5.7</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">FACT</h4>
+<p class="blk txt">For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such that ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.</p>
+</div>
+</div>
+<div style="display:block" class="PRF par">
+<div class="par_lbl" style="display:block;float:left">¶ 5.8</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">By <a class="txt_unit_c_ref" href="#FCT_fct1">Fact 5.5</a>, there is a formula φ(x) such that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</div>
+</div>
+</div>
+<p class="blk txt">and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⊢ ∀xφ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ</div>
+</div>
+</div>
+<p class="blk txt">What remains is to observe that ⊢ ∀xφ(x) ↔ Iφ. Left to right follows essentially by ∀-elimination. For right to left, assume Iφ. Then ∀xφ(x) follows by →-elimination.</p>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_crl2">
+<div class="par_lbl" style="display:block;float:left">¶ 5.9</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">FACT</div>
+<h4 class="par_hdr">Generalizing Corollary 2.10 of Hetzl and Wong</h4>
+<p class="blk txt">Let IND be the set of induction axioms, let T be a set of sentences, and let σ be a sentence. If T + IND ⊢ σ, then there is a formula φ(x) such that T + Iφ ⊢ σ.</p>
+</div>
+</div>
+<div style="display:block" class="PRF par">
+<div class="par_lbl" style="display:block;float:left">¶ 5.10</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">Assume that T + IND ⊢ σ. Then there is a finite set θ₁(x,z̄), ..., θₙ(x,z̄) of formulas such that T + Iθ₁ + ... + Iθₙ ⊢ σ. By <a class="txt_unit_c_ref" href="#FCT_crl1">Fact 5.7</a>, there is a formula φ(x) such that  ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ. Hence, T + Iφ ⊢ σ.</p>
+</div>
+</div>
+<div style="display:block" class="FCT par" id="FCT_fct2">
+<div class="par_lbl" style="display:block;float:left">¶ 5.11</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<div class="par_tag">FACT</div>
+<h4 class="par_hdr">Generalizing Proposition 3.2 of Hetzl and Wong</h4>
+<p class="blk txt">Assume that T + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ. Then we have</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_fct2.1">
+<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T + IND ⊢ ∀xφ(x)</div>
+</div>
+<div class="dsp_line" style="display:block" id="DSP_fct2.2">
+<div class="dsp_line_lbl" style="display:block;float:left">(b)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊬ ∀xφ(x)</div>
+</div>
+</div>
+<p class="blk txt">and there is ψ(x) such that</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_fct2.3">
+<div class="dsp_line_lbl" style="display:block;float:left">(c)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T + Iψ ⊢ ∀xφ(x)</div>
+</div>
+</div>
+<p class="blk txt">Moreover, for any such ψ(x), we have </p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block" id="DSP_fct2.4">
+<div class="dsp_line_lbl" style="display:block;float:left">(d)</div>
+<div class="clear"></div>
+<div class="dsp_line_main" style="display:block;white-space:pre">T ⊬ ∀x(ψ(x) → φ(x))</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="PRF par">
+<div class="par_lbl" style="display:block;float:left">¶ 5.12</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">PROOF</h4>
+<p class="blk txt">The first part follows by <a class="txt_unit_c_ref" href="#FCT_crl2">Fact 5.9</a>. For the last part, assume that ψ(x) is a formula of the required kind. Since T ⊬ σ, there is a model M of T such that M ⊭ σ and thus M ⊭ ∀xφ(x). Hence, by <a class="txt_unit_c_ref" href="#DSP_fct2.3">(c) of Fact 5.11</a>, we have M ⊭ Iψ, which means that M ⊨ ψ(0) but M ⊭ φ(0). Hence, M ⊭ ψ(0) → ϕ(0), so T ⊬ ∀x(ψ(x) → φ(x)).</p>
+</div>
+</div>
+<div style="display:block" class="RMK par">
+<div class="par_lbl" style="display:block;float:left">¶ 5.13</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_tag hdr">REMARK</h4>
+<p class="blk txt">The authors are not aware of any “natural” cases of proof by incomparable or weakened induction hypothesis. Observe that <a class="txt_unit_c_ref" href="#FCT_fct2">Fact 5.11</a> does not yield a case where straightforward induction fails in the induction step, since T ⊬ ϕ(0) but T ⊢ ∀x(ϕ(x) → ϕ(x&apos;)).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="refs" style="display:block">
+<h3 class="refs_hdr">REFERENCES</h3>
+<div class="blk itm" style="display:block" id="ITM_Hetzl&Wong">
+<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">Hetzl, S. and Wong, T. L. (2018). Some observations on the logical foundations of inductive theorem proving. Logical Methods in Computer Science, Volume 13, Issue 4.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

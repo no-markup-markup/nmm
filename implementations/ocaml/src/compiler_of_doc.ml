@@ -439,13 +439,8 @@ and acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
                 |_ -> raise (Error "par_main cannot be empty")
         )
         |EXML acc_list -> (
-                let inline_hdr : bool =
-                        match par.fld_par_main with
-                        |Cs_blks ((Cu_blk_txt _) :: _) -> true
-                        |_ -> false
-                in
                 let xml_list_hdr_opt : (Xml.xml list) option =
-                        Exml_utils.par_hdr_opt doc_settings cref_table path_origin par.fld_par_tag_or_id par.fld_par_hdr inline_hdr
+                        Exml_utils.par_hdr_opt doc_settings cref_table path_origin par.fld_par_tag_or_id par.fld_par_hdr
                 in
                 let xml_list_lbl : Xml.xml list = [Exml_utils.xml_of_string (label_of_path doc_settings path)] in
                 let xml_lbl : Xml.xml = 
@@ -459,10 +454,7 @@ and acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
                         |EXML xml_list -> (
                                 match xml_list_hdr_opt with
                                 |None -> Xml.Element ("par_main",[],xml_list)
-                                |Some xml_list_hdr -> 
-                                        match inline_hdr with
-                                        |true -> Xml.Element ("par_main_w_hdr_inline",[],List.concat [xml_list_hdr;xml_list])
-                                        |false -> Xml.Element ("par_main_w_hdr",[],List.concat [xml_list_hdr;xml_list])
+                                |Some xml_list_hdr -> Xml.Element ("par_main_w_hdr",[],List.concat [xml_list_hdr;xml_list])
                         )
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )

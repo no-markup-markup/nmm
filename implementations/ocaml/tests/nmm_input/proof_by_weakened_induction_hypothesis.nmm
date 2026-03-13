@@ -1,0 +1,583 @@
+TITLE:
+	Proof by weakened induction hypothesis
+
+AUTHOR:
+	Eric Johannesson,
+	eric.johannesson@philosophy.su.se
+
+AUTHOR:
+	Anders Lundstedt,
+	anders.lundstedt@philosophy.su.se
+
+
+ABSTRACT:
+	Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by
+	induction, straightforward induction “does not work”. Instead one
+	“must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x),
+	from which ∀xφ(x) may be derived. This is sometimes
+	called “proof by strengthened induction hypothesis”.
+	We show that this is an instance of a more general phenomenon
+	which we call *proof by non-straightforward induction*.
+	Cruacially, we show that there are cases
+	where straightforward induction fails, but where proof by
+	*incomparable* or even *weaker* induction hypothesis succeeds.
+
+
+§ SEC:intro
+Introduction
+
+¶
+
+Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction,
+straightforward induction “does not work”. Instead one “must” use a
+“stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x)
+may be derived. This is sometimes called “proof by
+strengthened induction hypothesis”.
+
+¶
+
+To give an example, suppose we want to prove that, for all natural numbers
+n, the sum of the first n odd numbers is a perfect square. Straightforward
+induction yields the following:
+
+-	Base case: the sum of the first 0 odd numbers is 0, which is a
+	perfect square.
+
+-	Inductive step: if the sum of the first n odd numbers is a perfect
+	square k², then the sum of the first n + 1 odd numbers is
+
+		1 + 3 + ... + (2n - 1) + (2n + 1) = k² + 2n + 1
+
+	But it is not true that k² + 2n + 1 is a perfect square for all k
+	and n. So we are “stuck”.
+
+¶
+
+Instead, we may prove the following *more general* or *stronger* result by
+induction:
+for all natural numbers n, the sum of the first n odd numbers is n².
+Straightforward induction yields the following:
+
+-	Base case: the sum of the 0 first odd numbers is 0, which is 0².
+
+-	Inductive step: if the sum of the first n odd numbers is n², then
+	the sum of the first n + 1 odd numbers is n² + 2n + 1 = (n + 1)².
+
+
+
+§ SEC:precise
+Making it precise
+
+¶
+
+What does it mean, more precisely, to say that straightforward induction
+to prove ∀xφ(x) “does not work”, and that we “must” use a “stronger”
+induction hypothesis and first prove ∀xψ(x)?
+
+Here is how *not* to characterize the situation (where PA is Peano
+arithmetic):
+
+()	PA ⊬ φ(0) ∧ ∀x(φ(x) → φ(x'))	DSP:bad1
+()	PA ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x'))	DSP:bad2
+()	PA ⊢ ∀xψ(x) → ∀xφ(x)		DSP:bad3
+
+In fact, this situation is impossible: [DSP:bad2] yields PA ⊢ ∀xψ(x),
+which by [DSP:bad3] yields PA ⊢ ∀xφ(x), which by pure logic yields
+
+	PA ⊢ φ(0) ∧ ∀x(φ(x) → φ(x'))
+
+which contradicts [DSP:bad1].
+
+¶
+
+Instead, the situation may perhaps be characterized as follows: starting
+from the axioms of Peano arithmetic minus the induction axioms, we
+successively prove more and more theorems using logic and the rule of
+induction:
+
+	φ(0)   ∀x(φ(x) → φ(x'))
+	───────────────────────
+	         ∀xφ(x)
+
+Suppose that, at some stage in this process of mathematical inquiry, we
+have reached a theory T consisting of the axioms and hitherto proved
+theorems.
+Then, as we show in [SEC:model] below, a situation may indeed
+arise satisfying the following definition:
+
+¶ DEF:good
+Proof by non-straightforward induction
+
+We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
+*proof by non-straightforward induction* just in case
+
+()	T ⊬ φ(0) ∧ ∀x(φ(x) → φ(x'))	DSP:good1
+()	T ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x'))	DSP:good2
+()	T ⊢ ∀xψ(x) → ∀xφ(x)		DSP:good3
+
+¶ FCT:good
+
+There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)
+exemplifying cases of proof by non-straightforward induction.
+
+¶
+
+Perhaps more surprisingly, proof by non-straightforward induction
+does not really require ψ(x) to be *stronger* than φ(x).
+As we show in [SEC:weaker] below, there are cases of proof by
+non-straightforward induction where,
+relative to T, ψ(x) is actually *weaker* than φ(x).
+
+§ SEC:model
+A non-standard model
+
+¶
+
+We define a non-standard model M of Robinson arithmetic as follows.
+Let
+
+	A = {..., a[−2], a[−1], a[0] ,a[1] , a[2], ...}
+
+be a countably infinite set disjoint from the natural numbers ℕ, and let
+the domain of the model be ℕ ∪ A.
+We shall call A the (set of) *non-standard numbers* (of M).
+Let the constant 0 be interpreted as the number 0, and extend the
+interpretation of the function symbols ', +, and × to the non-standard
+numbers as follows:
+
+()	a[z]' = a[z+1] for z ∈ ℤ.				DSP:m1
+
+()	a[z] + n = n + a[z] = a[z+n] for z ∈ ℤ and n ∈ ℕ.	DSP:m2
+
+()	a[z] + a[u] = a[u] + a[z] = a[z+u] for z,u ∈ ℤ.		DSP:m3
+
+()	a[z] × 0 = 0 × a[z] = 0 for z ∈ ℤ.			DSP:m4
+
+()	a[z] × n = n × a[z] = a[z × n] for z ∈ ℤ and n ∈ ℕ − {0}.	DSP:m5
+
+()	a[z] × a[u] = a[u] × a[z] = a[z × u] for z,u ∈ ℤ.	DSP:m6
+
+¶
+
+It can easily be verified that M is also a model of what we may call 
+*minimal arithmetic*, which is the theory you get by adding commutativity,
+associativity and distribution laws for addition and multiplication to the
+axioms of Robinson arithmetic.
+
+¶ PRF
+of [FCT:good]
+
+To verify that cases of proof by non-straightforward induction are indeed
+possible, it
+suffices to find *true* formulas φ(x) and ψ(x) (*true* in the sense of
+being satisfied by all natural numbers in the standard model as well as in
+the non-standard model) with the following profile regarding the
+non-standard numbers of M:
+
+	       ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...
+	     ──────────────────────────────────────────────
+	φ(x) | ...  false  false  true   false  false  ...
+	ψ(x) | ...  false  false  false  false  false  ...
+
+The induction step will then fail for φ(x) with a[0] assigned to x, but
+will not fail for ψ(x).
+Granted as much, we can let T be the theory you get by adding, to minimal
+arithmetic, the axioms
+
+()	ψ(0) ∧ ∀x(ψ(x) → ψ(x'))		DSP:ind
+()	∀xψ(x) → ∀xφ(x)			DSP:imp
+
+Since [DSP:ind] and [DSP:imp] will be true in M, the model will satisfy T.
+Moreover, [DSP:good1] will be satisfied as witnessed by a[0] assigned to x.
+
+For instance, let φ(x) be the formula
+
+	∀y∀z(x = x × x ∨ (y + x = z + x → y = z))
+
+and let ψ(x) be the formula
+
+	∀y∀z(y + x = z + x → y = z)
+
+Clearly, ψ(x) characterizes the non-standard numbers of M in the sense that
+they and only they fail to satisfy it. But due to [DSP:m5],
+φ(x) is satisfied by M in the special case of a[0] being assigned to x.
+
+§ SEC:weaker
+Proof by non-strengthened induction hypothesis
+
+¶
+
+In the proof of [FCT:good], ψ(x) was *stronger* than φ(x), even in the 
+sense that ⊢ ∀x(ψ(x) → φ(x)). Thus, this was a clear case of *proof by
+strengthened induction hypothesis*, albeit a contrived one.
+
+But does *proof by non-straightforward induction* really require a 
+stronger induction hypothesis?
+No. As a matter of fact, there are cases of what we call
+*proof by incomparable induction hypothesis* and
+*proof by weakened induction hypothesis*, respectively.
+
+
+¶ DEF:inc
+Proof by incomparable induction hypothesis
+
+We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
+*proof by incomparable induction hypothesis* just in case they exemplify
+a case of proof by non-straightforward induction and, in addition,
+
+()	T ⊢ ∀xφ(x) → ∀xψ(x)	DSP:inc1
+()	T ⊬ ∀x(ψ(x) → φ(x))	DSP:inc2
+()	T ⊬ ∀x(φ(x) → ψ(x))	DSP:inc3
+
+¶ RMK
+
+By [DSP:inc1] and [DSP:good3], we have in effect
+
+	T ⊢ ∀xφ(x) ↔ ∀xψ(x)
+
+But because of [DSP:inc2] and [DSP:inc3], we may still say that φ(x) and 
+ψ(x) are *incomparable* relative to T.
+
+¶ FCT:inc
+
+There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)
+exemplifying a case of proof by incomparable induction hypothesis.
+
+¶ PRF:inc
+
+To show that proof by incomparable induction hypothesis is possible,
+it suffices to find true formulas
+φ(x) and ψ(x) with the following profile regarding the non-standard
+numbers of M:
+
+	       ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...
+	     ──────────────────────────────────────────────
+	φ(x) | ...  true   true   true   false  false  ...
+	ψ(x) | ...  false  false  true   true   true   ...
+
+For instance, let φ(x) be the formula
+
+	∀y(x ≠ y ∧ ∃z(y + z = x) → x × x ≠ y × y)
+
+and let ψ(x) be the formula
+
+	∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)
+
+Observe that, by simple relabeling of variables, we have
+
+()	⊢ ∀xφ(x) ↔ ∀xψ(x)
+
+Thus, let T be the theory you get by adding, to minimal arithmetic,
+the axiom
+
+()	ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+
+Clearly, both φ(x) and ψ(x) are true of all natural numbers in the
+standard model.
+To verify that φ(x) has the required profile with respect to M,
+we need to consider the following two cases:
+
+-	x is assigned a natural number n. Whatever y is assigned that is
+	distinct from n, it will
+	be true in M that x × x ≠ y × y. So φ(x) is true of the natural
+	numbers of M.
+
+-	x is assigned a non-standard number a[i] for some integer i.
+	Then either y is assigned a natural number, in which case M
+	satisfies the antecedent x × x ≠ y × y, or y is assigned a
+	non-standard number
+	a[j] for some integer j ≠ i. By [DSP:m6], whenever j < i < 1, M
+	satisfies x × x ≠ y × y. Likewise, whenever i > 0 and j = -i, M
+	satisfies ∃z(y + z = x) and x × x = y × y. Thus, φ(x) is true
+	in M for every non-standard number a[i] such that i < 1, and
+	false whenever i > 0.
+
+By symmetry of reasoning, we see that ψ(x) also has the required profile.
+
+¶ DEF:weak
+Proof by weakened induction hypothesis
+
+We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
+*proof by weakened induction hypothesis* just in case they they exemplify
+a case of proof by non-straightforward induction and, in addition,
+
+()	T ⊢ ∀xφ(x) → ∀xψ(x)	DSP:weak1
+()	T ⊬ ∀x(ψ(x) → φ(x))	DSP:weak2
+()	T ⊢ ∀x(φ(x) → ψ(x))	DSP:weak3
+
+
+¶ RMK
+
+By [DSP:weak1] and [DSP:good3], we have in effect
+
+	T ⊢ ∀xφ(x) ↔ ∀xψ(x)
+
+But because of [DSP:weak2] and [DSP:weak3], we may still say that ψ(x)
+is *weaker* than φ(x) relative to T.
+
+¶ FCT:weak
+
+There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)
+exemplifying a case of proof by weakened induction hypothesis.
+
+
+
+¶ PRF
+
+To show that proof by weakened induction hypothesis is possible,
+it suffices to find true 
+formulas φ(x) and ψ(x) with the following profile:
+
+	       ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...
+	     ──────────────────────────────────────────────
+	φ(x) | ...  false  false  true   false  false  ...
+	ψ(x) | ...  false  false  true   true   true   ...
+
+For instance, let φ(x) be the formula
+
+	∀y(x ≠ y → x × x ≠ y × y)
+
+and let ψ(x) be the formula
+
+	∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)
+
+Observe that ⊢ ∀x(φ(x) → ψ(x)). It should be clear from [PRF:inc] that the
+formulas have the required profile.
+Moreover, with u < v defined as
+
+	u ≠ v ∧ ∃z(u + z = v)
+
+we have
+
+()	∀x∀y(x < y ∨ x = y ∨ y < x) ⊢ ∀xψ(x) → ∀xφ(x)
+
+To see why, assume that
+
+()	∀x∀y(x < y ∨ x = y ∨ y < x)	DSP:tot
+
+and
+
+()	∀x∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)	DSP:psi
+
+Suppose that x ≠ y. By [DSP:tot], we have x < y or y < x.
+In the case of x < y, we have by definition that ∃z(x + z = y). Thus, by
+[DSP:psi], we have x × x ≠ y × y, as desired.
+In the case of y < x, we have by definition that ∃z(y + z = x).
+By [DSP:tot], we get by relabeling of variables that
+
+	∀y∀x(y ≠ x ∧ ∃z(y + z = x) → y × y ≠ x × x)
+
+Hence, by [DSP:psi], we get y × y ≠ x × x, which yields the desired result
+by pure logic.
+
+Lastly, we observe that M satisfies [DSP:tot].
+Thus, let T be the theory you get by adding, to minimal arithmetic, the axioms
+
+()	∀x∀y(x < y ∨ x = y ∨ y < x)
+()	ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+
+¶ RMK
+
+We here have cases where, relative to a base theory T, one *must* use a
+different induction hypothesis, and *may* use one that is not stronger.
+Are there cases where one both *may* and *must* use a non-strengthened
+induction hypothesis? Indeed there are! ([FCT:fct2]).
+This follows from a result reported by Hetzl and Wong
+in [ITM:Hetzl&Wong], which we expand upon below.
+
+
+
+§ SEC:gen
+Proof by necessarily non-strengthened induction hypothesis
+
+¶
+
+It can be shown that, if something is provable in an arithmetical theory containing all the
+induction axioms, it is provable in that theory using at most one induction axiom.
+This generalizes Corollary 2.10 reported by Hetzl and Wong.
+
+
+¶ DEF:indax
+
+For each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula
+
+	∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → ∀xθ(x,z̄)]
+
+¶ LMA:lma
+Generalizing Lemma 2.8 of Hetzl and Wong
+
+Let Θ(x,z̄) be a formula, and define φ(x) as
+
+	∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(x,z̄)]
+
+Then we have
+
+()	⊢ φ(0) ∧ ∀x(φ(x) → φ(x')) 	LMA:lma1
+
+and
+
+()	⊢ ∀xφ(x) ↔ Iθ			LMA:lma2
+
+
+¶ PRF
+
+First we show [LMA:lma1]. We have φ(0) by ∧-elimination, →-introduction and ∀-introduction. To show the
+second conjunct, assume φ(a), i.e.
+
+()	∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(a,z̄)]	DSP:lma1ass1
+
+Assume also 
+
+()	θ(0, b̄) ∧ ∀y(θ(y, b̄) → θ(y',b̄))		DSP:lma1ass2
+
+By [DSP:lma1ass1] and ∀-elimination, we have
+
+	θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → θ(a,b̄)
+
+With [DSP:lma1ass2], →-elimination yields Θ(a,b̄). By the second
+conjunct of [DSP:lma1ass2], this yields Θ(a',b̄).
+Discharing [DSP:lma1ass2], →-introduction yields
+
+	θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → θ(a',b̄)
+
+By ∀-introduction, we get
+
+	∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(a',z̄)]
+
+Discharging [DSP:lma1ass1], →-introduction yields ⊢ φ(a) → φ(a'), and
+∀-introduction finally yields ⊢ ∀x(φ(x) → φ(x')).
+
+Secondly, we show [LMA:lma2]. For right to left, assume Iθ, i.e.
+
+()	∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → ∀xθ(x,z̄)]	DSP:lma2ass1
+
+We need to show ∀xφ(x), i.e.
+
+()	∀x∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(x,z̄)]	DSP:lma2goal
+
+To this end, assume
+
+()	θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄))			DSP:lma2ass2
+
+By [DSP:lma2ass1] and ∀-elimination, we get
+
+	θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → ∀xθ(x,b̄)
+
+With [DSP:lma2ass2], →-elimination yields ∀xθ(x,b̄), which
+by ∀-elimination yields θ(a,b̄). Discharging [DSP:lma2ass2],
+→-introduction followed by ∀-introduction yields [DSP:lma2goal].
+
+For left to right, assume [DSP:lma2goal]. We need to show [DSP:lma2ass1].
+To this end, assume
+
+()	θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄))		DSP:lma2ass3
+
+By [DSP:lma2goal] and ∀-elimination, we get
+
+	θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → θ(a,b̄)
+
+Together with [DSP:lma2ass3] and →-elimination, this yields get θ(a,b̄).
+By ∀-introduction, this yields ∀xΘ(x,b̄). Discharging [DSP:lma2ass3],
+→-introduction followed by ∀-introduction yields [DSP:lma2ass1].
+
+
+¶ FCT:fct1
+Generalizing Proposition 2.9 of Hetzl and Wong
+
+For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such
+that
+
+()	⊢ ϕ(0) ∧ ∀x(ϕ(x) → ϕ(x'))	DSP:fct1.1
+
+and
+
+()	⊢ ∀xϕ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ	DSP:fct1.2
+
+¶ PRF:prf1
+
+By [LMA:lma], there is a formula φₖ(x) for each 1 ≤ k ≤ n such that
+
+()	⊢ φₖ(0) ∧ ∀x(φₖ(x) → φₖ(x'))	DSP:prf1.1
+
+and
+
+()	⊢ ∀xφₖ(x) ↔ Iθₖ			DSP:prf1.2
+
+Define φ(x) as φ₁(x) ∧ ... ∧ φₙ(x). Then [DSP:fct1.1] easily follows from
+[DSP:prf1.1]. Likewise, [DSP:fct1.2] follows from [DSP:prf1.2] and the fact
+that
+
+	⊢ ∀xφ₁(x) ∧ ... ∧ ∀xφₙ(x) ↔ ∀x(φ₁(x) ∧ ... ∧ φₙ(x))
+
+¶ FCT:crl1
+
+For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x)
+such that ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.
+
+¶ PRF
+
+By [FCT:fct1], there is a formula φ(x) such that
+
+	⊢ φ(0) ∧ ∀x(φ(x) → φ(x'))
+
+and
+
+	⊢ ∀xφ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ
+
+What remains is to observe that ⊢ ∀xφ(x) ↔ Iφ. Left to right follows essentially
+by ∀-elimination. For right to left, assume Iφ. Then ∀xφ(x)
+follows by →-elimination.
+
+¶ FCT:crl2
+Generalizing Corollary 2.10 of Hetzl and Wong
+
+Let IND be the set of induction axioms, let T be a set of sentences,
+and let σ be a sentence. If T + IND ⊢ σ, then there is a formula φ(x) such
+that T + Iφ ⊢ σ.
+
+¶ PRF
+
+Assume that T + IND ⊢ σ. Then there is a finite set
+θ₁(x,z̄), ..., θₙ(x,z̄) of formulas such that T + Iθ₁ + ... + Iθₙ ⊢ σ.
+By [FCT:crl1], there is a formula φ(x) such that 
+⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ. Hence, T + Iφ ⊢ σ.
+
+¶ FCT:fct2
+Generalizing Proposition 3.2 of Hetzl and Wong
+
+Assume that T + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ.
+Then we have
+
+()	T + IND ⊢ ∀xφ(x)	DSP:fct2.1
+()	T ⊬ ∀xφ(x)		DSP:fct2.2
+
+and there is ψ(x) such that
+
+()	T + Iψ ⊢ ∀xφ(x)		DSP:fct2.3
+
+Moreover, for any such ψ(x), we have 
+
+()	T ⊬ ∀x(ψ(x) → φ(x))	DSP:fct2.4
+
+¶ PRF
+
+The first part follows by [FCT:crl2]. For the last part, assume that ψ(x) is a
+formula of the required kind. Since T ⊬ σ, there is a model M of T such
+that M ⊭ σ and thus M ⊭ ∀xφ(x). Hence, by [DSP:fct2.3], we have M ⊭ Iψ,
+which means that M ⊨ ψ(0) but M ⊭ φ(0). Hence, M ⊭ ψ(0) → ϕ(0),
+so T ⊬ ∀x(ψ(x) → φ(x)).
+
+¶ RMK
+
+The authors are not aware of any “natural” cases of proof by incomparable
+or weakened induction hypothesis.
+Observe that [FCT:fct2] does not yield a case where
+straightforward induction fails in the induction step, since
+T ⊬ ϕ(0) but T ⊢ ∀x(ϕ(x) → ϕ(x')).
+
+§ REFS
+
+[]	ITM:Hetzl&Wong
+	Hetzl, S. and Wong, T. L. (2018). Some observations on the logical
+	foundations of inductive theorem proving. Logical Methods in
+	Computer Science, Volume 13, Issue 4.

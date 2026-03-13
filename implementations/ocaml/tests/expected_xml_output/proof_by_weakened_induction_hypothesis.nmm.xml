@@ -1,0 +1,5083 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cs_title>Proof by weakened induction hypothesis</cs_title>
+<cs_authors>
+<cs_author>Eric Johannesson, eric.johannesson@philosophy.su.se</cs_author>
+<cs_author>Anders Lundstedt, anders.lundstedt@philosophy.su.se</cs_author>
+</cs_authors>
+<cs_abstract>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction, straightforward induction “does not work”. Instead one</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>“must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x),</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>from which ∀xφ(x) may be derived. This is sometimes</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>called “proof by strengthened induction hypothesis”.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We show that this is an instance of a more general phenomenon</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>which we call </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by non-straightforward induction</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Cruacially, we show that there are cases</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>where straightforward induction fails, but where proof by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>incomparable</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> or even </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>weaker</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> induction hypothesis succeeds.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_abstract>
+<cu_doc_main_secs>
+<cs_secs>
+<cr_sec>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>intro</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Introduction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_pars>
+<cs_pars>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>straightforward induction “does not work”. Instead one “must” use a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>“stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>may be derived. This is sometimes called “proof by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>strengthened induction hypothesis”.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To give an example, suppose we want to prove that, for all natural numbers</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>n, the sum of the first n odd numbers is a perfect square. Straightforward</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction yields the following</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Base case</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> the sum of the first 0 odd numbers is 0, which is a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>perfect square.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Inductive step</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> if the sum of the first n odd numbers is a perfect</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>square k², then the sum of the first n + 1 odd numbers is</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1 + 3 + ... + (2n - 1) + (2n + 1) = k² + 2n + 1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>But it is not true that k² + 2n + 1 is a perfect square for all k</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and n. So we are “stuck”.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Instead, we may prove the following </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>more general</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> or </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>stronger</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> result by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>for all natural numbers n, the sum of the first n odd numbers is n².</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Straightforward induction yields the following</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Base case</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> the sum of the 0 first odd numbers is 0, which is 0².</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Inductive step</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> if the sum of the first n odd numbers is n², then</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the sum of the first n + 1 odd numbers is n² + 2n + 1 = (n + 1)².</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+</cs_pars>
+</cu_pars_or_blks_pars>
+</cr_sec>
+<cr_sec>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>precise</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Making it precise</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_pars>
+<cs_pars>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>What does it mean, more precisely, to say that straightforward induction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>to prove ∀xφ(x) “does not work”, and that we “must” use a “stronger”</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction hypothesis and first prove ∀xψ(x)?</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Here is how </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>not</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> to characterize the situation (where PA is Peano</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>arithmetic)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>bad1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>PA ⊬ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>bad2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>PA ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>bad3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>PA ⊢ ∀xψ(x) → ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>In fact, this situation is impossible</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>bad2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> yields PA ⊢ ∀xψ(x),</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>which by </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>bad3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> yields PA ⊢ ∀xφ(x), which by pure logic yields</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>PA ⊢ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>which contradicts </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>bad1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Instead, the situation may perhaps be characterized as follows</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> starting</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>from the axioms of Peano arithmetic minus the induction axioms, we</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>successively prove more and more theorems using logic and the rule of</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>φ(0)   ∀x(φ(x) → φ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>───────────────────────</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>         ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Suppose that, at some stage in this process of mathematical inquiry, we</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>have reached a theory T consisting of the axioms and hitherto proved</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>theorems.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Then, as we show in </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>model</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> below, a situation may indeed</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>arise satisfying the following definition</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>DEF</cs_tag>
+<cs_name>good</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Proof by non-straightforward induction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by non-straightforward induction</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> just in case</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>good1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>good2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>good3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ∀xψ(x) → ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>good</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>exemplifying cases of proof by non-straightforward induction.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Perhaps more surprisingly, proof by non-straightforward induction</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>does not really require ψ(x) to be </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>stronger</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> than φ(x).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>As we show in </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>weaker</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> below, there are cases of proof by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>non-straightforward induction where,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>relative to T, ψ(x) is actually </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>weaker</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> than φ(x).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+</cs_pars>
+</cu_pars_or_blks_pars>
+</cr_sec>
+<cr_sec>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>model</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>A non-standard model</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_pars>
+<cs_pars>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We define a non-standard model M of Robinson arithmetic as follows.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Let</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>A = {..., a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> ,a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> , a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, ...}</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>be a countably infinite set disjoint from the natural numbers ℕ, and let</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the domain of the model be ℕ ∪ A.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We shall call A the (set of) </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>non-standard numbers</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> (of M).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Let the constant 0 be interpreted as the number 0, and extend the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>interpretation of the function symbols &apos;, +, and × to the non-standard</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>numbers as follows</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&apos; = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z+1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for z ∈ ℤ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> + n = n + a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z+n</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for z ∈ ℤ and n ∈ ℕ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> + a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>u</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>u</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> + a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z+u</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for z,u ∈ ℤ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m4</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> × 0 = 0 × a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = 0 for z ∈ ℤ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m5</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> × n = n × a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z × n</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for z ∈ ℤ and n ∈ ℕ − {0}.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m6</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> × a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>u</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>u</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> × a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> = a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>z × u</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for z,u ∈ ℤ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>It can easily be verified that M is also a model of what we may call </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>minimal arithmetic</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, which is the theory you get by adding commutativity,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>associativity and distribution laws for addition and multiplication to the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>axioms of Robinson arithmetic.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>PRF</cs_tag>
+</cu_tag_or_id_tag>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>good</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To verify that cases of proof by non-straightforward induction are indeed</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>possible, it</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>suffices to find </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>true</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> formulas φ(x) and ψ(x) (</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>true</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> in the sense of</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>being satisfied by all natural numbers in the standard model as well as in</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the non-standard model) with the following profile regarding the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>non-standard numbers of M</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>       ...  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>     ──────────────────────────────────────────────</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>φ(x) | ...  false  false  true   false  false  ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(x) | ...  false  false  false  false  false  ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The induction step will then fail for φ(x) with a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> assigned to x, but</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>will not fail for ψ(x).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Granted as much, we can let T be the theory you get by adding, to minimal</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>arithmetic, the axioms</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>ind</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>imp</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀xψ(x) → ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Since </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>ind</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>imp</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> will be true in M, the model will satisfy T.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Moreover, </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>good1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> will be satisfied as witnessed by a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> assigned to x.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y∀z(x = x × x ∨ (y + x = z + x → y = z))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and let ψ(x) be the formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y∀z(y + x = z + x → y = z)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Clearly, ψ(x) characterizes the non-standard numbers of M in the sense that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>they and only they fail to satisfy it. But due to </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m5</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>φ(x) is satisfied by M in the special case of a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> being assigned to x.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+</cs_pars>
+</cu_pars_or_blks_pars>
+</cr_sec>
+<cr_sec>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>weaker</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Proof by non-strengthened induction hypothesis</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_pars>
+<cs_pars>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>In the proof of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>good</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, ψ(x) was </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>stronger</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> than φ(x), even in the </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>sense that ⊢ ∀x(ψ(x) → φ(x)). Thus, this was a clear case of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by strengthened induction hypothesis</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, albeit a contrived one.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>But does </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by non-straightforward induction</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> really require a </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>stronger induction hypothesis?</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>No. As a matter of fact, there are cases of what we call</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by incomparable induction hypothesis</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by weakened induction hypothesis</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, respectively.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>DEF</cs_tag>
+<cs_name>inc</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Proof by incomparable induction hypothesis</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by incomparable induction hypothesis</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> just in case they exemplify</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a case of proof by non-straightforward induction and, in addition,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>inc1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ∀xφ(x) → ∀xψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>inc2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ ∀x(ψ(x) → φ(x))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>inc3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ ∀x(φ(x) → ψ(x))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>RMK</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>inc1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>good3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we have in effect</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ∀xφ(x) ↔ ∀xψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>But because of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>inc2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>inc3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we may still say that φ(x) and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(x) are </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>incomparable</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> relative to T.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>inc</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>exemplifying a case of proof by incomparable induction hypothesis.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>PRF</cs_tag>
+<cs_name>inc</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To show that proof by incomparable induction hypothesis is possible,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>it suffices to find true formulas</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>φ(x) and ψ(x) with the following profile regarding the non-standard</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>numbers of M</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>       ...  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>     ──────────────────────────────────────────────</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>φ(x) | ...  true   true   true   false  false  ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(x) | ...  false  false  true   true   true   ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y(x ≠ y ∧ ∃z(y + z = x) → x × x ≠ y × y)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and let ψ(x) be the formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Observe that, by simple relabeling of variables, we have</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ∀xφ(x) ↔ ∀xψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Thus, let T be the theory you get by adding, to minimal arithmetic,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the axiom</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Clearly, both φ(x) and ψ(x) are true of all natural numbers in the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>standard model.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To verify that φ(x) has the required profile with respect to M,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>we need to consider the following two cases</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>x is assigned a natural number n. Whatever y is assigned that is</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>distinct from n, it will</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>be true in M that x × x ≠ y × y. So φ(x) is true of the natural</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>numbers of M.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>x is assigned a non-standard number a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>i</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for some integer i.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Then either y is assigned a natural number, in which case M</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>satisfies the antecedent x × x ≠ y × y, or y is assigned a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>non-standard number</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>j</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> for some integer j ≠ i. By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>m6</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, whenever j &lt; i &lt; 1, M</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>satisfies x × x ≠ y × y. Likewise, whenever i &gt; 0 and j = -i, M</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>satisfies ∃z(y + z = x) and x × x = y × y. Thus, φ(x) is true</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>in M for every non-standard number a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>i</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> such that i &lt; 1, and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>false whenever i &gt; 0.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By symmetry of reasoning, we see that ψ(x) also has the required profile.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>DEF</cs_tag>
+<cs_name>weak</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Proof by weakened induction hypothesis</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>proof by weakened induction hypothesis</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> just in case they they exemplify</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>a case of proof by non-straightforward induction and, in addition,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>weak1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ∀xφ(x) → ∀xψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>weak2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ ∀x(ψ(x) → φ(x))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>weak3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ∀x(φ(x) → ψ(x))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>RMK</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>weak1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>good3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we have in effect</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊢ ∀xφ(x) ↔ ∀xψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>But because of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>weak2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>weak3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we may still say that ψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>is </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>weaker</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> than φ(x) relative to T.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>weak</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>exemplifying a case of proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>PRF</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To show that proof by weakened induction hypothesis is possible,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>it suffices to find true </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>formulas φ(x) and ψ(x) with the following profile</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>       ...  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>−1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>  a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>0</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>2</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>   ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>     ──────────────────────────────────────────────</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>φ(x) | ...  false  false  true   false  false  ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(x) | ...  false  false  true   true   true   ...</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y(x ≠ y → x × x ≠ y × y)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and let ψ(x) be the formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Observe that ⊢ ∀x(φ(x) → ψ(x)). It should be clear from </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>PRF</cs_tag>
+<cs_name>inc</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> that the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>formulas have the required profile.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Moreover, with u &lt; v defined as</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>u ≠ v ∧ ∃z(u + z = v)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>we have</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀x∀y(x &lt; y ∨ x = y ∨ y &lt; x) ⊢ ∀xψ(x) → ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To see why, assume that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>tot</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀x∀y(x &lt; y ∨ x = y ∨ y &lt; x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>psi</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀x∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Suppose that x ≠ y. By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>tot</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we have x &lt; y or y &lt; x.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>In the case of x &lt; y, we have by definition that ∃z(x + z = y). Thus, by</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>psi</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we have x × x ≠ y × y, as desired.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>In the case of y &lt; x, we have by definition that ∃z(y + z = x).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>tot</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we get by relabeling of variables that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀y∀x(y ≠ x ∧ ∃z(y + z = x) → y × y ≠ x × x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Hence, by </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>psi</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we get y × y ≠ x × x, which yields the desired result</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>by pure logic.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Lastly, we observe that M satisfies </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>tot</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Thus, let T be the theory you get by adding, to minimal arithmetic, the axioms</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀x∀y(x &lt; y ∨ x = y ∨ y &lt; x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ψ(0) ∧ ∀x(ψ(x) → ψ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>RMK</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We here have cases where, relative to a base theory T, one </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>must</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> use a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>different induction hypothesis, and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>may</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> use one that is not stronger.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Are there cases where one both </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>may</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_emph>
+<cs_txt_unit_emph>must</cs_txt_unit_emph>
+</cu_txt_unit_emph>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> use a non-strengthened</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction hypothesis? Indeed there are! (</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>fct2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This follows from a result reported by Hetzl and Wong</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>in </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>Hetzl&amp;Wong</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, which we expand upon below.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+</cs_pars>
+</cu_pars_or_blks_pars>
+</cr_sec>
+<cr_sec>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>SEC</cs_tag>
+<cs_name>gen</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Proof by necessarily non-strengthened induction hypothesis</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_pars>
+<cs_pars>
+<cu_par_std>
+<cr_par_std>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>It can be shown that, if something is provable in an arithmetical theory containing all the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>induction axioms, it is provable in that theory using at most one induction axiom.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This generalizes Corollary 2.10 reported by Hetzl and Wong.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>DEF</cs_tag>
+<cs_name>indax</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀z̄</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → ∀xθ(x,z̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>LMA</cs_tag>
+<cs_name>lma</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Generalizing Lemma 2.8 of Hetzl and Wong</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Let Θ(x,z̄) be a formula, and define φ(x) as</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀z̄</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(x,z̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Then we have</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>LMA</cs_tag>
+<cs_name>lma1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ φ(0) ∧ ∀x(φ(x) → φ(x&apos;)) </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>LMA</cs_tag>
+<cs_name>lma2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ∀xφ(x) ↔ Iθ</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>PRF</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>First we show </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>LMA</cs_tag>
+<cs_name>lma1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. We have φ(0) by ∧-elimination, →-introduction and ∀-introduction. To show the</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>second conjunct, assume φ(a), i.e.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀z̄</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(a,z̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume also </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0, b̄) ∧ ∀y(θ(y, b̄) → θ(y&apos;,b̄))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and ∀-elimination, we have</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → θ(a,b̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>With </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, →-elimination yields Θ(a,b̄). By the second</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>conjunct of </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, this yields Θ(a&apos;,b̄).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Discharing </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, →-introduction yields</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → θ(a&apos;,b̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By ∀-introduction, we get</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀z̄</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(a&apos;,z̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Discharging </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma1ass1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, →-introduction yields ⊢ φ(a) → φ(a&apos;), and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀-introduction finally yields ⊢ ∀x(φ(x) → φ(x&apos;)).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Secondly, we show </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>LMA</cs_tag>
+<cs_name>lma2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. For right to left, assume Iθ, i.e.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀z̄</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → ∀xθ(x,z̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We need to show ∀xφ(x), i.e.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2goal</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>∀x∀z̄</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y&apos;,z̄)) → θ(x,z̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To this end, assume</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and ∀-elimination, we get</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → ∀xθ(x,b̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>With </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, →-elimination yields ∀xθ(x,b̄), which</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>by ∀-elimination yields θ(a,b̄). Discharging </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>→-introduction followed by ∀-introduction yields </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2goal</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For left to right, assume </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2goal</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. We need to show </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>To this end, assume</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2goal</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and ∀-elimination, we get</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y&apos;,b̄)) → θ(a,b̄)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Together with </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and →-elimination, this yields get θ(a,b̄).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By ∀-introduction, this yields ∀xΘ(x,b̄). Discharging </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>→-introduction followed by ∀-introduction yields </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>lma2ass1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>fct1</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Generalizing Proposition 2.9 of Hetzl and Wong</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct1.1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ϕ(0) ∧ ∀x(ϕ(x) → ϕ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct1.2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ∀xϕ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>PRF</cs_tag>
+<cs_name>prf1</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>LMA</cs_tag>
+<cs_name>lma</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, there is a formula φₖ(x) for each 1 ≤ k ≤ n such that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>prf1.1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ φₖ(0) ∧ ∀x(φₖ(x) → φₖ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>prf1.2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ∀xφₖ(x) ↔ Iθₖ</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Define φ(x) as φ₁(x) ∧ ... ∧ φₙ(x). Then </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct1.1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> easily follows from</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>prf1.1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. Likewise, </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct1.2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> follows from </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>prf1.2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> and the fact</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ∀xφ₁(x) ∧ ... ∧ ∀xφₙ(x) ↔ ∀x(φ₁(x) ∧ ... ∧ φₙ(x))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>crl1</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>such that ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>PRF</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>fct1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, there is a formula φ(x) such that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ φ(0) ∧ ∀x(φ(x) → φ(x&apos;))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ ∀xφ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>What remains is to observe that ⊢ ∀xφ(x) ↔ Iφ. Left to right follows essentially</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>by ∀-elimination. For right to left, assume Iφ. Then ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>follows by →-elimination.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>crl2</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Generalizing Corollary 2.10 of Hetzl and Wong</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Let IND be the set of induction axioms, let T be a set of sentences,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and let σ be a sentence. If T + IND ⊢ σ, then there is a formula φ(x) such</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>that T + Iφ ⊢ σ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>PRF</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume that T + IND ⊢ σ. Then there is a finite set</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>θ₁(x,z̄), ..., θₙ(x,z̄) of formulas such that T + Iθ₁ + ... + Iθₙ ⊢ σ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>By </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>crl1</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, there is a formula φ(x) such that </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ. Hence, T + Iφ ⊢ σ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_id>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>fct2</cs_name>
+</cr_id>
+</cu_tag_or_id_id>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Generalizing Proposition 3.2 of Hetzl and Wong</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume that T + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Then we have</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct2.1</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T + IND ⊢ ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct2.2</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and there is ψ(x) such that</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct2.3</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T + Iψ ⊢ ∀xφ(x)</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Moreover, for any such ψ(x), we have </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_lbld>
+<cr_dsp_line_lbld>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct2.4</cs_name>
+</cr_id>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ ∀x(ψ(x) → φ(x))</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cr_dsp_line_lbld>
+</cu_dsp_line_lbld>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>PRF</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The first part follows by </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>crl2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. For the last part, assume that ψ(x) is a</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>formula of the required kind. Since T ⊬ σ, there is a model M of T such</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>that M ⊭ σ and thus M ⊭ ∀xφ(x). Hence, by </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>DSP</cs_tag>
+<cs_name>fct2.3</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, we have M ⊭ Iψ,</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>which means that M ⊨ ψ(0) but M ⊭ φ(0). Hence, M ⊭ ψ(0) → ϕ(0),</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>so T ⊬ ∀x(ψ(x) → φ(x)).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+<cu_par_std>
+<cr_par_std>
+<cu_tag_or_id_tag>
+<cs_tag>RMK</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The authors are not aware of any “natural” cases of proof by incomparable</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>or weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Observe that </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_c_ref>
+<cs_txt_unit_c_ref>
+<cs_c_ref>
+<cr_id>
+<cs_tag>FCT</cs_tag>
+<cs_name>fct2</cs_name>
+</cr_id>
+</cs_c_ref>
+</cs_txt_unit_c_ref>
+</cu_txt_unit_c_ref>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> does not yield a case where</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>straightforward induction fails in the induction step, since</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T ⊬ ϕ(0) but T ⊢ ∀x(ϕ(x) → ϕ(x&apos;)).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+</cs_pars>
+</cu_pars_or_blks_pars>
+</cr_sec>
+</cs_secs>
+</cu_doc_main_secs>
+<cs_refs>
+<cs_blks>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_auto>
+<cs_lbl_auto/>
+</cu_lbl_auto>
+<cr_id>
+<cs_tag>ITM</cs_tag>
+<cs_name>Hetzl&amp;Wong</cs_name>
+</cr_id>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Hetzl, S. and Wong, T. L. (2018). Some observations on the logical</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>foundations of inductive theorem proving. Logical Methods in</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Computer Science, Volume 13, Issue 4.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+</cs_blks>
+</cs_refs>
+</cr_doc>

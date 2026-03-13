@@ -199,10 +199,6 @@ h2, h3, h4, h5 {
     display      : inline;
 }
 
-.par_hdr.inline, .par_tag.hdr.inline {
-    margin-right : 2ch;
-}
-
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,8 +215,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.inline + p.blk.txt {
+.par_hdr + p.blk.txt {
     display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
 }
 
 * + .blk {
@@ -324,7 +332,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a> [restated]</h4>
+<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a> [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -333,7 +341,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0">Header of paragraph</h4>
+<h4 class="par_hdr">Header of paragraph</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -342,7 +350,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0"><a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a> (Header of paragraph) [restated]</h4>
+<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a> (Header of paragraph) [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -351,7 +359,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="margin-bottom:0">THEOREM</h4>
+<h4 class="par_tag hdr">THEOREM</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -360,7 +368,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 6</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0"><a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a> [restated]</h4>
+<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a> [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -370,7 +378,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main" style="display:block">
 <div class="par_tag">THEOREM</div>
-<h4 class="par_hdr inline" style="margin-bottom:0">Header of paragraph</h4>
+<h4 class="par_hdr">Header of paragraph</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -379,7 +387,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 8</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0"><a class="txt_unit_c_ref" href="#THM_two">Theorem 7</a> (Header of paragraph) [restated]</h4>
+<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_two">Theorem 7</a> (Header of paragraph) [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>

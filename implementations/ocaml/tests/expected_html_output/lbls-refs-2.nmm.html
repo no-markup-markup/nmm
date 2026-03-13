@@ -199,10 +199,6 @@ h2, h3, h4, h5 {
     display      : inline;
 }
 
-.par_hdr.inline, .par_tag.hdr.inline {
-    margin-right : 2ch;
-}
-
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,8 +215,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.inline + p.blk.txt {
+.par_hdr + p.blk.txt {
     display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
 }
 
 * + .blk {
@@ -352,7 +360,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.A.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="margin-bottom:0">REMARK</h4>
+<h4 class="par_tag hdr">REMARK</h4>
 <p class="blk txt"><a class="txt_unit_c_ref" href="#DEFS_basel">Definitions 1.A.2</a> is by (successor) recursion on the natural numbers.</p>
 <div class="blk itm" style="display:block">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
@@ -374,7 +382,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.A.4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="margin-bottom:0">FACT</h4>
+<h4 class="par_tag hdr">FACT</h4>
 <p class="blk txt">For each n:</p>
 <div class="blk dsp" style="display:block;white-space:nowrap">
 <div class="dsp_line" style="display:block">

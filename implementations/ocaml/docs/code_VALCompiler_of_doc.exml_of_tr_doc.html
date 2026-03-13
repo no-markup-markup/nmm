@@ -456,13 +456,8 @@
                 <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"par_main cannot be empty"</span>)
         )
         <span class="keywordsign">|</span><span class="constructor">EXML</span> acc_list <span class="keywordsign">-&gt;</span> (
-                <span class="keyword">let</span> inline_hdr : bool =
-                        <span class="keyword">match</span> par.fld_par_main <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> _) :: _) <span class="keywordsign">-&gt;</span> <span class="keyword">true</span>
-                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">false</span>
-                <span class="keyword">in</span>
                 <span class="keyword">let</span> xml_list_hdr_opt : (<span class="constructor">Xml</span>.xml list) option =
-                        <span class="constructor">Exml_utils</span>.par_hdr_opt doc_settings cref_table path_origin par.fld_par_tag_or_id par.fld_par_hdr inline_hdr
+                        <span class="constructor">Exml_utils</span>.par_hdr_opt doc_settings cref_table path_origin par.fld_par_tag_or_id par.fld_par_hdr
                 <span class="keyword">in</span>
                 <span class="keyword">let</span> xml_list_lbl : <span class="constructor">Xml</span>.xml list = [<span class="constructor">Exml_utils</span>.xml_of_string (label_of_path doc_settings path)] <span class="keyword">in</span>
                 <span class="keyword">let</span> xml_lbl : <span class="constructor">Xml</span>.xml = 
@@ -476,10 +471,7 @@
                         <span class="keywordsign">|</span><span class="constructor">EXML</span> xml_list <span class="keywordsign">-&gt;</span> (
                                 <span class="keyword">match</span> xml_list_hdr_opt <span class="keyword">with</span>
                                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main"</span>,[],xml_list)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> xml_list_hdr <span class="keywordsign">-&gt;</span> 
-                                        <span class="keyword">match</span> inline_hdr <span class="keyword">with</span>
-                                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main_w_hdr_inline"</span>,[],<span class="constructor">List</span>.concat [xml_list_hdr;xml_list])
-                                        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main_w_hdr"</span>,[],<span class="constructor">List</span>.concat [xml_list_hdr;xml_list])
+                                <span class="keywordsign">|</span><span class="constructor">Some</span> xml_list_hdr <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main_w_hdr"</span>,[],<span class="constructor">List</span>.concat [xml_list_hdr;xml_list])
                         )
                         <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"accumulator output type not identical to accumulator input type"</span>)
                 )

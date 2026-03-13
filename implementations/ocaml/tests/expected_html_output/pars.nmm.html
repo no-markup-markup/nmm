@@ -199,10 +199,6 @@ h2, h3, h4, h5 {
     display      : inline;
 }
 
-.par_hdr.inline, .par_tag.hdr.inline {
-    margin-right : 2ch;
-}
-
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,8 +215,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.inline + p.blk.txt {
+.par_hdr + p.blk.txt {
     display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
 }
 
 * + .blk {
@@ -417,7 +425,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0">Paragraph header, which is a text block that may contain <em class="txt_unit_emph">emph text</em> and a reference to <a class="txt_unit_c_ref" href="#DSP_one">(c)(1) of ¶ 1</a>.</h4>
+<h4 class="par_hdr">Paragraph header, which is a text block that may contain <em class="txt_unit_emph">emph text</em> and a reference to <a class="txt_unit_c_ref" href="#DSP_one">(c)(1) of ¶ 1</a>.</h4>
 <p class="blk txt">This is a paragraph with a header. As we shall se in <a class="txt_unit_c_ref" href="#PAR_named_paragraph_with_header">¶ 4</a> below, paragraphs with headers can also be named.</p>
 </div>
 </div>
@@ -425,7 +433,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 4</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0">Header of the named paragraph</h4>
+<h4 class="par_hdr">Header of the named paragraph</h4>
 <p class="blk txt">Believe it or not, it actually works!</p>
 </div>
 </div>

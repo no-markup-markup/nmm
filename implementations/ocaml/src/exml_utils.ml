@@ -156,7 +156,7 @@ and predefined_entity_of_string (s : string) : string =
         | _ -> s
 
 
-and par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) (inline : bool) : (Xml.xml list) option=
+and par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) : (Xml.xml list) option=
         let tag_content_opt : (Xml.xml list) option = 
                 match tag_or_id_opt with
                 |Some (tag_or_id : tu_tag_or_id) -> (
@@ -175,19 +175,13 @@ and par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (pat
                 |Some (Cs_hdr (txt_units : ts_txt_units)) ->
                         Some (xml_list_of_ts_txt_units doc_settings cref_table path txt_units)
         in
-        match tag_content_opt, hdr_content_opt, inline with
-                |Some tag_content, Some hdr_content, true ->
-                        Some [Xml.Element ("par_tag",[],tag_content);Xml.Element ("par_hdr_inline",[],hdr_content)]
-                |Some tag_content, Some hdr_content, false ->
+        match tag_content_opt, hdr_content_opt with
+                |Some tag_content, Some hdr_content ->
                         Some [Xml.Element ("par_tag",[],tag_content);Xml.Element ("par_hdr",[],hdr_content)]
-                |None, Some hdr_content, true ->
-                        Some [Xml.Element ("par_hdr_inline",[],hdr_content)]
-                |None, Some hdr_content, false ->
+                |None, Some hdr_content ->
                         Some [Xml.Element ("par_hdr",[],hdr_content)]
-                |Some tag_content, None, true ->
-                        Some [Xml.Element ("par_tag_hdr_inline",[],tag_content)]
-                |Some tag_content, None, false ->
+                |Some tag_content, None ->
                         Some [Xml.Element ("par_tag_hdr",[],tag_content)]
-                |None, None, _ -> None
+                |None, None -> None
 
 

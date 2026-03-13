@@ -199,10 +199,6 @@ h2, h3, h4, h5 {
     display      : inline;
 }
 
-.par_hdr.inline, .par_tag.hdr.inline {
-    margin-right : 2ch;
-}
-
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,8 +215,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.inline + p.blk.txt {
+.par_hdr + p.blk.txt {
     display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
 }
 
 * + .blk {
@@ -316,7 +324,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0">Header 1</h4>
+<h4 class="par_hdr">Header 1</h4>
 <p class="blk txt">Some text.</p>
 </div>
 </div>
@@ -324,7 +332,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="margin-bottom:0">DEFINITION</h4>
+<h4 class="par_tag hdr">DEFINITION</h4>
 <p class="blk txt">Some text.</p>
 </div>
 </div>
@@ -376,7 +384,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main" style="display:block">
 <div class="par_tag">THEOREM</div>
-<h4 class="par_hdr inline" style="margin-bottom:0">Header 4</h4>
+<h4 class="par_hdr">Header 4</h4>
 <p class="blk txt">Some theorem.</p>
 </div>
 </div>

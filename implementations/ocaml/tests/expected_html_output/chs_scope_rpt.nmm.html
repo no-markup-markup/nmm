@@ -199,10 +199,6 @@ h2, h3, h4, h5 {
     display      : inline;
 }
 
-.par_hdr.inline, .par_tag.hdr.inline {
-    margin-right : 2ch;
-}
-
 
 .par_tag + .par_hdr::before {
     content : " (";
@@ -219,8 +215,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.inline + p.blk.txt {
+.par_hdr + p.blk.txt {
     display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
 }
 
 * + .blk {
@@ -386,7 +394,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.1.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="margin-bottom:0">DEFINITION</h4>
+<h4 class="par_tag hdr">DEFINITION</h4>
 <p class="blk txt">This paragraph is called ‘DEF:one:SEC’</p>
 </div>
 </div>
@@ -505,7 +513,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.2.3</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_tag hdr inline" style="margin-bottom:0">DEFINITION</h4>
+<h4 class="par_tag hdr">DEFINITION</h4>
 <p class="blk txt">This paragraph is called ‘DEF:one:SEC’</p>
 </div>
 </div>
@@ -562,7 +570,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 1.2.5</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0"><a class="txt_unit_c_ref" href="#DEF_one_SEC_1.2">Definition 1.2.3</a> [restated]</h4>
+<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#DEF_one_SEC_1.2">Definition 1.2.3</a> [restated]</h4>
 <p class="blk txt">This paragraph is called ‘DEF:one:SEC’</p>
 </div>
 </div>
@@ -577,7 +585,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
 <div class="clear"></div>
 <div class="par_main" style="display:block">
-<h4 class="par_hdr inline" style="margin-bottom:0"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1.1.1</a> [restated]</h4>
+<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1.1.1</a> [restated]</h4>
 <p class="blk txt">This paragraph is called ‘PAR:one’</p>
 <div class="blk itm" style="display:block" id="ITM_one">
 <div class="blk_itm_lbl" style="display:block;float:left">(a)</div>

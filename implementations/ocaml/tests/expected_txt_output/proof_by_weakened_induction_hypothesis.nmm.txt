@@ -1,0 +1,542 @@
+        ════════════════════════════════════════════════════════════════════
+        Proof by weakened induction hypothesis
+        ════════════════════════════════════════════════════════════════════
+
+        Eric Johannesson, eric.johannesson@philosophy.su.se
+
+        Anders Lundstedt, anders.lundstedt@philosophy.su.se
+
+
+        ABSTRACT
+        Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by
+        induction, straightforward induction “does not work”. Instead one
+        “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x),
+        from which ∀xφ(x) may be derived. This is sometimes called “proof by
+        strengthened induction hypothesis”. We show that this is an instance
+        of a more general phenomenon which we call p̲r̲o̲o̲f̲ b̲y̲
+        n̲o̲n̲-̲s̲t̲r̲a̲i̲g̲h̲t̲f̲o̲r̲w̲a̲r̲d̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲. Cruacially, we show that there are
+        cases where straightforward induction fails, but where proof by
+        i̲n̲c̲o̲m̲p̲a̲r̲a̲b̲l̲e̲ or even w̲e̲a̲k̲e̲r̲ induction hypothesis succeeds.
+
+
+
+§ 1     Introduction
+        ────────────
+
+¶ 1.1   Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by
+        induction, straightforward induction “does not work”. Instead one
+        “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x),
+        from which ∀xφ(x) may be derived. This is sometimes called “proof by
+        strengthened induction hypothesis”.
+
+
+¶ 1.2   To give an example, suppose we want to prove that, for all natural
+        numbers n, the sum of the first n odd numbers is a perfect square.
+        Straightforward induction yields the following:
+
+        ─     Base case: the sum of the first 0 odd numbers is 0, which is a
+              perfect square.
+
+        ─     Inductive step: if the sum of the first n odd numbers is a
+              perfect square k², then the sum of the first n + 1 odd numbers
+              is
+
+                    1 + 3 + ... + (2n - 1) + (2n + 1) = k² + 2n + 1
+
+              But it is not true that k² + 2n + 1 is a perfect square for
+              all k and n. So we are “stuck”.
+
+
+¶ 1.3   Instead, we may prove the following m̲o̲r̲e̲ g̲e̲n̲e̲r̲a̲l̲ or s̲t̲r̲o̲n̲g̲e̲r̲ result
+        by induction: for all natural numbers n, the sum of the first n odd
+        numbers is n². Straightforward induction yields the following:
+
+        ─     Base case: the sum of the 0 first odd numbers is 0, which is
+              0².
+
+        ─     Inductive step: if the sum of the first n odd numbers is n²,
+              then the sum of the first n + 1 odd numbers is n² + 2n + 1 =
+              (n + 1)².
+
+
+
+§ 2     Making it precise
+        ─────────────────
+
+¶ 2.1   What does it mean, more precisely, to say that straightforward
+        induction to prove ∀xφ(x) “does not work”, and that we “must” use a
+        “stronger” induction hypothesis and first prove ∀xψ(x)?
+
+        Here is how n̲o̲t̲ to characterize the situation (where PA is Peano
+        arithmetic):
+
+        (a)   PA ⊬ φ(0) ∧ ∀x(φ(x) → φ(x'))
+        (b)   PA ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+        (c)   PA ⊢ ∀xψ(x) → ∀xφ(x)
+
+        In fact, this situation is impossible: (b) yields PA ⊢ ∀xψ(x), which
+        by (c) yields PA ⊢ ∀xφ(x), which by pure logic yields
+
+              PA ⊢ φ(0) ∧ ∀x(φ(x) → φ(x'))
+
+        which contradicts (a).
+
+
+¶ 2.2   Instead, the situation may perhaps be characterized as follows:
+        starting from the axioms of Peano arithmetic minus the induction
+        axioms, we successively prove more and more theorems using logic and
+        the rule of induction:
+
+              φ(0)   ∀x(φ(x) → φ(x'))
+              ───────────────────────
+                       ∀xφ(x)
+
+        Suppose that, at some stage in this process of mathematical inquiry,
+        we have reached a theory T consisting of the axioms and hitherto
+        proved theorems. Then, as we show in § 3 below, a situation may
+        indeed arise satisfying the following definition:
+
+
+¶ 2.3   DEFINITION (Proof by non-straightforward induction)  We say that a
+        theory T and formulas φ(x) and ψ(x) exemplify a case of p̲r̲o̲o̲f̲ b̲y̲
+        n̲o̲n̲-̲s̲t̲r̲a̲i̲g̲h̲t̲f̲o̲r̲w̲a̲r̲d̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ just in case
+
+        (a)   T ⊬ φ(0) ∧ ∀x(φ(x) → φ(x'))
+        (b)   T ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+        (c)   T ⊢ ∀xψ(x) → ∀xφ(x)
+
+
+¶ 2.4   FACT  There are extensions T of Robinson arithmetic and formulas
+        φ(x) and ψ(x) exemplifying cases of proof by non-straightforward
+        induction.
+
+
+¶ 2.5   Perhaps more surprisingly, proof by non-straightforward induction
+        does not really require ψ(x) to be s̲t̲r̲o̲n̲g̲e̲r̲ than φ(x). As we show in
+        § 4 below, there are cases of proof by non-straightforward induction
+        where, relative to T, ψ(x) is actually w̲e̲a̲k̲e̲r̲ than φ(x).
+
+
+
+§ 3     A non-standard model
+        ────────────────────
+
+¶ 3.1   We define a non-standard model M of Robinson arithmetic as follows.
+        Let
+
+              A = {..., a[−2], a[−1], a[0] ,a[1] , a[2], ...}
+
+        be a countably infinite set disjoint from the natural numbers ℕ, and
+        let the domain of the model be ℕ ∪ A. We shall call A the (set of)
+        n̲o̲n̲-̲s̲t̲a̲n̲d̲a̲r̲d̲ n̲u̲m̲b̲e̲r̲s̲ (of M). Let the constant 0 be interpreted as
+        the number 0, and extend the interpretation of the function symbols
+        ', +, and × to the non-standard numbers as follows:
+
+        (a)   a[z]' = a[z+1] for z ∈ ℤ.
+
+        (b)   a[z] + n = n + a[z] = a[z+n] for z ∈ ℤ and n ∈ ℕ.
+
+        (c)   a[z] + a[u] = a[u] + a[z] = a[z+u] for z,u ∈ ℤ.
+
+        (d)   a[z] × 0 = 0 × a[z] = 0 for z ∈ ℤ.
+
+        (e)   a[z] × n = n × a[z] = a[z × n] for z ∈ ℤ and n ∈ ℕ − {0}.
+
+        (f)   a[z] × a[u] = a[u] × a[z] = a[z × u] for z,u ∈ ℤ.
+
+
+¶ 3.2   It can easily be verified that M is also a model of what we may call
+        m̲i̲n̲i̲m̲a̲l̲ a̲r̲i̲t̲h̲m̲e̲t̲i̲c̲, which is the theory you get by adding
+        commutativity, associativity and distribution laws for addition and
+        multiplication to the axioms of Robinson arithmetic.
+
+
+¶ 3.3   PROOF (of Fact 2.4)  To verify that cases of proof by
+        non-straightforward induction are indeed possible, it suffices to
+        find t̲r̲u̲e̲ formulas φ(x) and ψ(x) (t̲r̲u̲e̲ in the sense of being
+        satisfied by all natural numbers in the standard model as well as in
+        the non-standard model) with the following profile regarding the
+        non-standard numbers of M:
+
+                     ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...
+                   ──────────────────────────────────────────────
+              φ(x) | ...  false  false  true   false  false  ...
+              ψ(x) | ...  false  false  false  false  false  ...
+
+        The induction step will then fail for φ(x) with a[0] assigned to x,
+        but will not fail for ψ(x). Granted as much, we can let T be the
+        theory you get by adding, to minimal arithmetic, the axioms
+
+        (a)   ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+        (b)   ∀xψ(x) → ∀xφ(x)
+
+        Since (a) and (b) will be true in M, the model will satisfy T.
+        Moreover, (a) of Definition 2.3 will be satisfied as witnessed by
+        a[0] assigned to x.
+
+        For instance, let φ(x) be the formula
+
+              ∀y∀z(x = x × x ∨ (y + x = z + x → y = z))
+
+        and let ψ(x) be the formula
+
+              ∀y∀z(y + x = z + x → y = z)
+
+        Clearly, ψ(x) characterizes the non-standard numbers of M in the
+        sense that they and only they fail to satisfy it. But due to
+        (e) of ¶ 3.1, φ(x) is satisfied by M in the special case of a[0]
+        being assigned to x.
+
+
+
+§ 4     Proof by non-strengthened induction hypothesis
+        ──────────────────────────────────────────────
+
+¶ 4.1   In the proof of Fact 2.4, ψ(x) was s̲t̲r̲o̲n̲g̲e̲r̲ than φ(x), even in the 
+        sense that ⊢ ∀x(ψ(x) → φ(x)). Thus, this was a clear case of p̲r̲o̲o̲f̲
+        b̲y̲ s̲t̲r̲e̲n̲g̲t̲h̲e̲n̲e̲d̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ h̲y̲p̲o̲t̲h̲e̲s̲i̲s̲, albeit a contrived one.
+
+        But does p̲r̲o̲o̲f̲ b̲y̲ n̲o̲n̲-̲s̲t̲r̲a̲i̲g̲h̲t̲f̲o̲r̲w̲a̲r̲d̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ really require a 
+        stronger induction hypothesis? No. As a matter of fact, there are
+        cases of what we call p̲r̲o̲o̲f̲ b̲y̲ i̲n̲c̲o̲m̲p̲a̲r̲a̲b̲l̲e̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ h̲y̲p̲o̲t̲h̲e̲s̲i̲s̲ and
+        p̲r̲o̲o̲f̲ b̲y̲ w̲e̲a̲k̲e̲n̲e̲d̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ h̲y̲p̲o̲t̲h̲e̲s̲i̲s̲, respectively.
+
+
+¶ 4.2   DEFINITION (Proof by incomparable induction hypothesis)  We say that
+        a theory T and formulas φ(x) and ψ(x) exemplify a case of p̲r̲o̲o̲f̲ b̲y̲
+        i̲n̲c̲o̲m̲p̲a̲r̲a̲b̲l̲e̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ h̲y̲p̲o̲t̲h̲e̲s̲i̲s̲ just in case they exemplify a case
+        of proof by non-straightforward induction and, in addition,
+
+        (a)   T ⊢ ∀xφ(x) → ∀xψ(x)
+        (b)   T ⊬ ∀x(ψ(x) → φ(x))
+        (c)   T ⊬ ∀x(φ(x) → ψ(x))
+
+
+¶ 4.3   REMARK  By (a) of Definition 4.2 and (c) of Definition 2.3, we have
+        in effect
+
+              T ⊢ ∀xφ(x) ↔ ∀xψ(x)
+
+        But because of (b) of Definition 4.2 and (c) of Definition 4.2, we
+        may still say that φ(x) and  ψ(x) are i̲n̲c̲o̲m̲p̲a̲r̲a̲b̲l̲e̲ relative to T.
+
+
+¶ 4.4   FACT  There are extensions T of Robinson arithmetic and formulas
+        φ(x) and ψ(x) exemplifying a case of proof by incomparable induction
+        hypothesis.
+
+
+¶ 4.5   PROOF  To show that proof by incomparable induction hypothesis is
+        possible, it suffices to find true formulas φ(x) and ψ(x) with the
+        following profile regarding the non-standard numbers of M:
+
+                     ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...
+                   ──────────────────────────────────────────────
+              φ(x) | ...  true   true   true   false  false  ...
+              ψ(x) | ...  false  false  true   true   true   ...
+
+        For instance, let φ(x) be the formula
+
+              ∀y(x ≠ y ∧ ∃z(y + z = x) → x × x ≠ y × y)
+
+        and let ψ(x) be the formula
+
+              ∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)
+
+        Observe that, by simple relabeling of variables, we have
+
+        (a)   ⊢ ∀xφ(x) ↔ ∀xψ(x)
+
+        Thus, let T be the theory you get by adding, to minimal arithmetic,
+        the axiom
+
+        (b)   ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+
+        Clearly, both φ(x) and ψ(x) are true of all natural numbers in the
+        standard model. To verify that φ(x) has the required profile with
+        respect to M, we need to consider the following two cases:
+
+        ─     x is assigned a natural number n. Whatever y is assigned that
+              is distinct from n, it will be true in M that x × x ≠ y × y.
+              So φ(x) is true of the natural numbers of M.
+
+        ─     x is assigned a non-standard number a[i] for some integer i.
+              Then either y is assigned a natural number, in which case M
+              satisfies the antecedent x × x ≠ y × y, or y is assigned a
+              non-standard number a[j] for some integer j ≠ i. By
+              (f) of ¶ 3.1, whenever j < i < 1, M satisfies x × x ≠ y × y.
+              Likewise, whenever i > 0 and j = -i, M satisfies ∃z(y + z = x)
+              and x × x = y × y. Thus, φ(x) is true in M for every
+              non-standard number a[i] such that i < 1, and false whenever i
+              > 0.
+
+        By symmetry of reasoning, we see that ψ(x) also has the required
+        profile.
+
+
+¶ 4.6   DEFINITION (Proof by weakened induction hypothesis)  We say that a
+        theory T and formulas φ(x) and ψ(x) exemplify a case of p̲r̲o̲o̲f̲ b̲y̲
+        w̲e̲a̲k̲e̲n̲e̲d̲ i̲n̲d̲u̲c̲t̲i̲o̲n̲ h̲y̲p̲o̲t̲h̲e̲s̲i̲s̲ just in case they they exemplify a
+        case of proof by non-straightforward induction and, in addition,
+
+        (a)   T ⊢ ∀xφ(x) → ∀xψ(x)
+        (b)   T ⊬ ∀x(ψ(x) → φ(x))
+        (c)   T ⊢ ∀x(φ(x) → ψ(x))
+
+
+¶ 4.7   REMARK  By (a) of Definition 4.6 and (c) of Definition 2.3, we have
+        in effect
+
+              T ⊢ ∀xφ(x) ↔ ∀xψ(x)
+
+        But because of (b) of Definition 4.6 and (c) of Definition 4.6, we
+        may still say that ψ(x) is w̲e̲a̲k̲e̲r̲ than φ(x) relative to T.
+
+
+¶ 4.8   FACT  There are extensions T of Robinson arithmetic and formulas
+        φ(x) and ψ(x) exemplifying a case of proof by weakened induction
+        hypothesis.
+
+
+¶ 4.9   PROOF  To show that proof by weakened induction hypothesis is
+        possible, it suffices to find true  formulas φ(x) and ψ(x) with the
+        following profile:
+
+                     ...  a[−2]  a[−1]  a[0]   a[1]   a[2]   ...
+                   ──────────────────────────────────────────────
+              φ(x) | ...  false  false  true   false  false  ...
+              ψ(x) | ...  false  false  true   true   true   ...
+
+        For instance, let φ(x) be the formula
+
+              ∀y(x ≠ y → x × x ≠ y × y)
+
+        and let ψ(x) be the formula
+
+              ∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)
+
+        Observe that ⊢ ∀x(φ(x) → ψ(x)). It should be clear from Proof 4.5
+        that the formulas have the required profile. Moreover, with u < v
+        defined as
+
+              u ≠ v ∧ ∃z(u + z = v)
+
+        we have
+
+        (a)   ∀x∀y(x < y ∨ x = y ∨ y < x) ⊢ ∀xψ(x) → ∀xφ(x)
+
+        To see why, assume that
+
+        (b)   ∀x∀y(x < y ∨ x = y ∨ y < x)
+
+        and
+
+        (c)   ∀x∀y(x ≠ y ∧ ∃z(x + z = y) → x × x ≠ y × y)
+
+        Suppose that x ≠ y. By (b), we have x < y or y < x. In the case of x
+        < y, we have by definition that ∃z(x + z = y). Thus, by (c), we have
+        x × x ≠ y × y, as desired. In the case of y < x, we have by
+        definition that ∃z(y + z = x). By (b), we get by relabeling of
+        variables that
+
+              ∀y∀x(y ≠ x ∧ ∃z(y + z = x) → y × y ≠ x × x)
+
+        Hence, by (c), we get y × y ≠ x × x, which yields the desired result
+        by pure logic.
+
+        Lastly, we observe that M satisfies (b). Thus, let T be the theory
+        you get by adding, to minimal arithmetic, the axioms
+
+        (d)   ∀x∀y(x < y ∨ x = y ∨ y < x)
+        (e)   ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
+
+
+¶ 4.10  REMARK  We here have cases where, relative to a base theory T, one
+        m̲u̲s̲t̲ use a different induction hypothesis, and m̲a̲y̲ use one that is
+        not stronger. Are there cases where one both m̲a̲y̲ and m̲u̲s̲t̲ use a
+        non-strengthened induction hypothesis? Indeed there are!
+        (Fact 5.11). This follows from a result reported by Hetzl and Wong
+        in (a) of References, which we expand upon below.
+
+
+
+§ 5     Proof by necessarily non-strengthened induction hypothesis
+        ──────────────────────────────────────────────────────────
+
+¶ 5.1   It can be shown that, if something is provable in an arithmetical
+        theory containing all the induction axioms, it is provable in that
+        theory using at most one induction axiom. This generalizes Corollary
+        2.10 reported by Hetzl and Wong.
+
+
+¶ 5.2   DEFINITION  For each formula Θ(x,z̄), we define the corresponding
+        induction axiom IΘ as the closed formula
+
+              ∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → ∀xθ(x,z̄)]
+
+
+¶ 5.3   LEMMA (Generalizing Lemma 2.8 of Hetzl and Wong)  Let Θ(x,z̄) be a
+        formula, and define φ(x) as
+
+              ∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(x,z̄)]
+
+        Then we have
+
+        (a)   ⊢ φ(0) ∧ ∀x(φ(x) → φ(x')) 
+
+        and
+
+        (b)   ⊢ ∀xφ(x) ↔ Iθ
+
+
+¶ 5.4   PROOF  First we show Lemma 5.3(a). We have φ(0) by ∧-elimination,
+        →-introduction and ∀-introduction. To show the second conjunct,
+        assume φ(a), i.e.
+
+        (a)   ∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(a,z̄)]
+
+        Assume also 
+
+        (b)   θ(0, b̄) ∧ ∀y(θ(y, b̄) → θ(y',b̄))
+
+        By (a) and ∀-elimination, we have
+
+              θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → θ(a,b̄)
+
+        With (b), →-elimination yields Θ(a,b̄). By the second conjunct of
+        (b), this yields Θ(a',b̄). Discharing (b), →-introduction yields
+
+              θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → θ(a',b̄)
+
+        By ∀-introduction, we get
+
+              ∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(a',z̄)]
+
+        Discharging (a), →-introduction yields ⊢ φ(a) → φ(a'), and
+        ∀-introduction finally yields ⊢ ∀x(φ(x) → φ(x')).
+
+        Secondly, we show Lemma 5.3(b). For right to left, assume Iθ, i.e.
+
+        (c)   ∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → ∀xθ(x,z̄)]
+
+        We need to show ∀xφ(x), i.e.
+
+        (d)   ∀x∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → θ(x,z̄)]
+
+        To this end, assume
+
+        (e)   θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄))
+
+        By (c) and ∀-elimination, we get
+
+              θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → ∀xθ(x,b̄)
+
+        With (e), →-elimination yields ∀xθ(x,b̄), which by ∀-elimination
+        yields θ(a,b̄). Discharging (e), →-introduction followed by
+        ∀-introduction yields (d).
+
+        For left to right, assume (d). We need to show (c). To this end,
+        assume
+
+        (f)   θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄))
+
+        By (d) and ∀-elimination, we get
+
+              θ(0,b̄) ∧ ∀y(θ(y,b̄) → θ(y',b̄)) → θ(a,b̄)
+
+        Together with (f) and →-elimination, this yields get θ(a,b̄). By
+        ∀-introduction, this yields ∀xΘ(x,b̄). Discharging (f),
+        →-introduction followed by ∀-introduction yields (c).
+
+
+¶ 5.5   FACT (Generalizing Proposition 2.9 of Hetzl and Wong)  For any
+        formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such that
+
+        (a)   ⊢ ϕ(0) ∧ ∀x(ϕ(x) → ϕ(x'))
+
+        and
+
+        (b)   ⊢ ∀xϕ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ
+
+
+¶ 5.6   PROOF  By Lemma 5.3, there is a formula φₖ(x) for each 1 ≤ k ≤ n
+        such that
+
+        (a)   ⊢ φₖ(0) ∧ ∀x(φₖ(x) → φₖ(x'))
+
+        and
+
+        (b)   ⊢ ∀xφₖ(x) ↔ Iθₖ
+
+        Define φ(x) as φ₁(x) ∧ ... ∧ φₙ(x). Then (a) of Fact 5.5 easily
+        follows from (a). Likewise, (b) of Fact 5.5 follows from (b) and the
+        fact that
+
+              ⊢ ∀xφ₁(x) ∧ ... ∧ ∀xφₙ(x) ↔ ∀x(φ₁(x) ∧ ... ∧ φₙ(x))
+
+
+¶ 5.7   FACT  For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula
+        φ(x) such that ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.
+
+
+¶ 5.8   PROOF  By Fact 5.5, there is a formula φ(x) such that
+
+              ⊢ φ(0) ∧ ∀x(φ(x) → φ(x'))
+
+        and
+
+              ⊢ ∀xφ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ
+
+        What remains is to observe that ⊢ ∀xφ(x) ↔ Iφ. Left to right follows
+        essentially by ∀-elimination. For right to left, assume Iφ. Then
+        ∀xφ(x) follows by →-elimination.
+
+
+¶ 5.9   FACT (Generalizing Corollary 2.10 of Hetzl and Wong)  Let IND be the
+        set of induction axioms, let T be a set of sentences, and let σ be a
+        sentence. If T + IND ⊢ σ, then there is a formula φ(x) such that T +
+        Iφ ⊢ σ.
+
+
+¶ 5.10  PROOF  Assume that T + IND ⊢ σ. Then there is a finite set θ₁(x,z̄),
+        ..., θₙ(x,z̄) of formulas such that T + Iθ₁ + ... + Iθₙ ⊢ σ. By
+        Fact 5.7, there is a formula φ(x) such that  ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.
+        Hence, T + Iφ ⊢ σ.
+
+
+¶ 5.11  FACT (Generalizing Proposition 3.2 of Hetzl and Wong)  Assume that T
+        + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ. Then we have
+
+        (a)   T + IND ⊢ ∀xφ(x)
+        (b)   T ⊬ ∀xφ(x)
+
+        and there is ψ(x) such that
+
+        (c)   T + Iψ ⊢ ∀xφ(x)
+
+        Moreover, for any such ψ(x), we have 
+
+        (d)   T ⊬ ∀x(ψ(x) → φ(x))
+
+
+¶ 5.12  PROOF  The first part follows by Fact 5.9. For the last part, assume
+        that ψ(x) is a formula of the required kind. Since T ⊬ σ, there is a
+        model M of T such that M ⊭ σ and thus M ⊭ ∀xφ(x). Hence, by
+        (c) of Fact 5.11, we have M ⊭ Iψ, which means that M ⊨ ψ(0) but M ⊭
+        φ(0). Hence, M ⊭ ψ(0) → ϕ(0), so T ⊬ ∀x(ψ(x) → φ(x)).
+
+
+¶ 5.13  REMARK  The authors are not aware of any “natural” cases of proof by
+        incomparable or weakened induction hypothesis. Observe that
+        Fact 5.11 does not yield a case where straightforward induction
+        fails in the induction step, since T ⊬ ϕ(0) but T ⊢ ∀x(ϕ(x) →
+        ϕ(x')).
+
+
+
+        REFERENCES
+        ──────────
+
+        (a)   Hetzl, S. and Wong, T. L. (2018). Some observations on the
+              logical foundations of inductive theorem proving. Logical
+              Methods in Computer Science, Volume 13, Issue 4.
