@@ -13,6 +13,8 @@
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right_parser" rel="Chapter" href="Xml_right_parser.html">
+<link title="Xml_right_lexer" rel="Chapter" href="Xml_right_lexer.html">
 <link title="Xml_right" rel="Chapter" href="Xml_right.html">
 <link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
@@ -46,69 +48,6 @@ Generated from <a href="specs/nmm_parser.mly.txt">nmm_parser.mly</a> with ocamly
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.VRB_LINE_EMPTY"><span class="constructor">VRB_LINE_EMPTY</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.VRB_LINE"><span class="constructor">VRB_LINE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TXT"><span class="constructor">TXT</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TITLE"><span class="constructor">TITLE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TAB_TAB_TAB_END_VRB"><span class="constructor">TAB_TAB_TAB_END_VRB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TAB_TAB_END_VRB"><span class="constructor">TAB_TAB_END_VRB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TAB_END_VRB"><span class="constructor">TAB_END_VRB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TAB"><span class="constructor">TAB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.START_VRB"><span class="constructor">START_VRB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.STAR"><span class="constructor">STAR</span></span></code></td>
 
 </tr>
@@ -116,28 +55,7 @@ Generated from <a href="specs/nmm_parser.mly.txt">nmm_parser.mly</a> with ocamly
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.SECTION_SPACES_TAG_OR_ID_NL"><span class="constructor">SECTION_SPACES_TAG_OR_ID_NL</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.SECTION_REFS_NLS"><span class="constructor">SECTION_REFS_NLS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.SECTION_NL"><span class="constructor">SECTION_NL</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.SECTION"><span class="constructor">SECTION</span></span></code></td>
+<code><span id="TYPEELTtoken.LBR"><span class="constructor">LBR</span></span></code></td>
 
 </tr>
 <tr>
@@ -151,7 +69,231 @@ Generated from <a href="specs/nmm_parser.mly.txt">nmm_parser.mly</a> with ocamly
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
+<code><span id="TYPEELTtoken.COLON"><span class="constructor">COLON</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.PILCROW"><span class="constructor">PILCROW</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.SECTION"><span class="constructor">SECTION</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.EOF"><span class="constructor">EOF</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.NL"><span class="constructor">NL</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TAB"><span class="constructor">TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.NL_TAB"><span class="constructor">NL_TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.NL_TAB_TAB"><span class="constructor">NL_TAB_TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.NL_TAB_TAB_TAB"><span class="constructor">NL_TAB_TAB_TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.DASH_TAB"><span class="constructor">DASH_TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.ITM_AUTO_TAB"><span class="constructor">ITM_AUTO_TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.DSP_AUTO_TAB"><span class="constructor">DSP_AUTO_TAB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.PILCROW_NL"><span class="constructor">PILCROW_NL</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.SECTION_NL"><span class="constructor">SECTION_NL</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.SECTION_REFS_NLS"><span class="constructor">SECTION_REFS_NLS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.PILCROW_REFS_NLS"><span class="constructor">PILCROW_REFS_NLS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.START_VRB"><span class="constructor">START_VRB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.VRB_LINE_EMPTY"><span class="constructor">VRB_LINE_EMPTY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.END_VRB"><span class="constructor">END_VRB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TAB_END_VRB"><span class="constructor">TAB_END_VRB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TAB_TAB_END_VRB"><span class="constructor">TAB_TAB_END_VRB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TAB_TAB_TAB_END_VRB"><span class="constructor">TAB_TAB_TAB_END_VRB</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.VRB_LINE"><span class="constructor">VRB_LINE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.ESC_CHAR"><span class="constructor">ESC_CHAR</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TITLE"><span class="constructor">TITLE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.AUTHOR"><span class="constructor">AUTHOR</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.PREAMBLE"><span class="constructor">PREAMBLE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.ABSTRACT"><span class="constructor">ABSTRACT</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TXT"><span class="constructor">TXT</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.C_REF"><span class="constructor">C_REF</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.DSP_ID"><span class="constructor">DSP_ID</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.CH_TAG_OR_ID_NL"><span class="constructor">CH_TAG_OR_ID_NL</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.SECTION_SPACES_TAG_OR_ID_NL"><span class="constructor">SECTION_SPACES_TAG_OR_ID_NL</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
@@ -172,112 +314,7 @@ Generated from <a href="specs/nmm_parser.mly.txt">nmm_parser.mly</a> with ocamly
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.PILCROW_REFS_NLS"><span class="constructor">PILCROW_REFS_NLS</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.PILCROW_NL"><span class="constructor">PILCROW_NL</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.PILCROW"><span class="constructor">PILCROW</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.NL_TAB_TAB_TAB"><span class="constructor">NL_TAB_TAB_TAB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.NL_TAB_TAB"><span class="constructor">NL_TAB_TAB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.NL_TAB"><span class="constructor">NL_TAB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.NL"><span class="constructor">NL</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.LBR"><span class="constructor">LBR</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.ITM_CUSTOM_TAB_ID"><span class="constructor">ITM_CUSTOM_TAB_ID</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.ITM_CUSTOM_TAB"><span class="constructor">ITM_CUSTOM_TAB</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.ITM_AUTO_TAB_ID"><span class="constructor">ITM_AUTO_TAB_ID</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.ITM_AUTO_TAB"><span class="constructor">ITM_AUTO_TAB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.ESC_CHAR"><span class="constructor">ESC_CHAR</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.EOF"><span class="constructor">EOF</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.END_VRB"><span class="constructor">END_VRB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.DSP_ID"><span class="constructor">DSP_ID</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
@@ -291,54 +328,17 @@ Generated from <a href="specs/nmm_parser.mly.txt">nmm_parser.mly</a> with ocamly
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.DSP_AUTO_TAB"><span class="constructor">DSP_AUTO_TAB</span></span></code></td>
+<code><span id="TYPEELTtoken.ITM_AUTO_TAB_ID"><span class="constructor">ITM_AUTO_TAB_ID</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.DASH_TAB"><span class="constructor">DASH_TAB</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.C_REF"><span class="constructor">C_REF</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.COLON"><span class="constructor">COLON</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.CH_TAG_OR_ID_NL"><span class="constructor">CH_TAG_OR_ID_NL</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.AUTHOR"><span class="constructor">AUTHOR</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.ABSTRACT"><span class="constructor">ABSTRACT</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<code><span id="TYPEELTtoken.ITM_CUSTOM_TAB_ID"><span class="constructor">ITM_CUSTOM_TAB_ID</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr></table>
 
 
-
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">int</code></pre>
 
 <pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="Nmm_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre></body></html>
