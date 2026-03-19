@@ -15,6 +15,6 @@ depends : [
 	"xml-light"
 	"ocamlfind" { build }
 ]
-build: [ make "build" ]
-install: [ make "install" ]
+build: [ make "opam_package" ]
+install: [ make "install_opam_package" ]
 
