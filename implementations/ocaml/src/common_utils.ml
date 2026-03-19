@@ -2,7 +2,7 @@ open Doc_types
 
 exception Error of string
 
-(** document classes *)
+(* document classes *)
 
 type t_doc_class = DOC_CHS | DOC_SECS | DOC_PARS | DOC_BLKS
 
@@ -22,7 +22,7 @@ let string_of_t_doc_class (doc_class : t_doc_class) : string =
 
 
 
-(**************************** document settings ************************)
+(* document settings *)
 
 type t_doc_settings = {
         doc_width : int;
@@ -236,13 +236,334 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : 
         |Cs_blks blk_list -> aux blk_list
 
 
-let rec doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
-        match doc.fld_doc_preamble with
-        |None -> doc_settings_default ()
-        |Some preamble -> doc_settings_of_ts_preamble (doc_settings_default ()) preamble 
 
 
-and doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
+let tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
+        match String.split_on_char ',' v with
+        |[tag_string; lbl; cref] -> (
+                let expand_tag_new ( tag : Doc_types.ts_tag) : (string * string) option = 
+                        match tag with
+                        |Cs_tag (s : string) ->
+                                match s = tag_string with
+                                |true -> Some (lbl, cref)
+                                |false -> expand_tag_old tag
+                in expand_tag_new
+        )
+        | _ -> raise (Error "invalid tag value")
+
+let prefix_value_of_string (v : string) : (string * string) option =
+        match String.split_on_char ',' v with
+        |[lbl; cref] -> Some (lbl, cref)
+        |_ -> None
+
+
+let key_value_pair_of_string_opt (s : string): (string*string) option=
+        match String.split_on_char '=' s with
+        |[key;value] -> Some (key, value)
+        | _ -> None
+
+let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try 
+        {
+        doc_width = int_of_string v;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+        in doc_settings
+
+let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = int_of_string v;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+        in doc_settings
+
+let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = int_of_string v;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+        in doc_settings
+
+let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = int_of_string v;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+        in doc_settings
+
+let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = int_of_string v;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
+        in doc_settings
+
+let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = int_of_string v;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
+        in doc_settings
+
+
+let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = int_of_string v;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
+        in doc_settings
+
+let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = prefix_value_of_string v;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = prefix_value_of_string v;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+let set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = prefix_value_of_string v;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+let set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = prefix_value_of_string v;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+let set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = prefix_value_of_string v;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+let set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        try
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = tag_value_of_string expand_tag_old v;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+        with _ ->
+        let _ : unit =
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"using default value"])
+        in doc_settings
+
+let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
         let rec aux (str_list : string list) (settings : t_doc_settings) : t_doc_settings =
                 match str_list with
                 | hd :: tl -> (
@@ -272,336 +593,15 @@ and doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
                 let str_list : string list = String.split_on_char ';' s in
                 aux str_list doc_settings
 
-and key_value_pair_of_string_opt (s : string): (string*string) option=
-        match String.split_on_char '=' s with
-        |[key;value] -> Some (key, value)
-        | _ -> None
 
-and set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try 
-        {
-        doc_width = int_of_string v;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
-        in doc_settings
-
-and set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = int_of_string v;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
-        in doc_settings
-
-and set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = int_of_string v;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
-        in doc_settings
-
-and set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = int_of_string v;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
-        in doc_settings
-
-and set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = int_of_string v;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
-        in doc_settings
-
-and set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = int_of_string v;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
-        in doc_settings
-
-
-and set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = int_of_string v;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
-        in doc_settings
-
-and set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = prefix_value_of_string v;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-
-and set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = prefix_value_of_string v;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-
-and set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = prefix_value_of_string v;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-
-and set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = prefix_value_of_string v;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-
-and set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = prefix_value_of_string v;
-        expand_tag = doc_settings.expand_tag;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-
-
-and set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-        try
-        {
-        doc_width = doc_settings.doc_width;
-        left_margin = doc_settings.left_margin;
-        title_indent = doc_settings.title_indent;
-        author_indent = doc_settings.author_indent;
-        abstract_indent = doc_settings.abstract_indent;
-        refs_indent = doc_settings.refs_indent;
-        tab_length = doc_settings.tab_length;
-        abstract_hdr = doc_settings.abstract_hdr;
-        refs_hdr = doc_settings.refs_hdr;
-        ch_prefix = doc_settings.ch_prefix;
-        sec_prefix = doc_settings.sec_prefix;
-        app_prefix = doc_settings.app_prefix;
-        par_prefix = doc_settings.par_prefix;
-        expand_tag = tag_value_of_string expand_tag_old v;
-        auto_numbering = doc_settings.auto_numbering;
-        allow_custom_numbering = doc_settings.allow_custom_numbering;
-        }
-        with _ ->
-        let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"using default value"])
-        in doc_settings
-
-
-and prefix_value_of_string (v : string) : (string * string) option =
-        match String.split_on_char ',' v with
-        |[lbl; cref] -> Some (lbl, cref)
-        |_ -> None
-
-and tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string) : (Doc_types.ts_tag -> (string * string) option) =
-        match String.split_on_char ',' v with
-        |[tag_string; lbl; cref] -> (
-                let expand_tag_new ( tag : Doc_types.ts_tag) : (string * string) option = 
-                        match tag with
-                        |Cs_tag (s : string) ->
-                                match s = tag_string with
-                                |true -> Some (lbl, cref)
-                                |false -> expand_tag_old tag
-                in expand_tag_new
-        )
-        | _ -> raise (Error "invalid tag value")
+let doc_settings_of_tr_doc (doc : Doc_types.tr_doc) : t_doc_settings =
+        match doc.fld_doc_preamble with
+        |None -> doc_settings_default ()
+        |Some preamble -> doc_settings_of_ts_preamble (doc_settings_default ()) preamble 
 
 
 
-
-(**************************** labels and cross-references *********************************)
+(* cross-references *)
 
 
 type t_path = t_node list
@@ -680,164 +680,94 @@ let path_to_par_node (path : t_path) : t_path =
                         |_ -> aux tl (hd::acc)
         in aux (List.rev path) []
 
-
-
-let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
-        match reference_of_ts_c_ref cref_table c_ref_loc c_ref with
-        |None -> (
-                match c_ref with
-                |Cs_c_ref id_c_ref ->
-                        let _ : unit = Debug_utils.print_warning (String.concat "" [
-                                "WARNING: id \'";
-                                string_of_tr_id id_c_ref;
-                                "\' referenced in ";
-                                string_of_path doc_settings c_ref_loc;
-                                " is undefined or out of scope";
-                        ]) in "??"
-        )
-        |Some (_, id_loc, _) -> 
-                let sub_path = (path_from_common_ancestor c_ref_loc id_loc) in
-                match List.rev sub_path with
-                |hd::tl -> (
+let path_to_ch_sec_par (path : t_path) : t_path =
+        let rec aux (p : t_path) (acc : t_path) : t_path =
+                match p with
+                |[] -> acc
+                |hd::tl ->
                         match hd with
-                        |ABSTRACT_NODE | REFS_NODE ->
-                                String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
-                        |_ -> string_of_shown_path doc_settings id_loc sub_path
-                )
-                |[] -> raise (Error "path to id cannot be empty")
-
-
-and string_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
-        match string_of_path_opt doc_settings path path with
-        |None -> "document"
-        |Some s -> s
-
-and string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string =
-        let inner_path = path_from_ch_sec_par path in
-        let outer_path = path_to_ch_sec_par path in
-        let full_outer_path = path_to_ch_sec_par full_path in
-        match inner_path, outer_path with
-        |[],outer_path_hd::_ -> (
-                match outer_path_hd with
-                |CH_NODE _ -> (
-                        match doc_settings.ch_prefix with
-                        |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
-                        |None -> string_of_path doc_settings full_outer_path
-                )
-                |SEC_NODE _ -> (
-                        match doc_settings.sec_prefix with
-                        |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
-                        |None -> string_of_path doc_settings full_outer_path
-                )
-                |APP_NODE _ -> (
-                        match doc_settings.app_prefix with
-                        |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
-                        |None -> string_of_path doc_settings full_outer_path
-                )
-                |PAR_NODE par_node -> (
-                        match par_node with
-                        |PAR_AUTO _ -> label_of_path doc_settings full_outer_path
-                        |PAR_TAG (_,tag,_) -> String.concat "\u{00A0}" [tag;string_of_path doc_settings full_outer_path]
-                )
-                |_ -> label_of_path doc_settings full_outer_path
-        )
-        |inner_path_hd::_, [] -> (
-                match inner_path_hd with
-                |ITM_NODE itm_node -> (
-                        match itm_node with
-                        |ITM_AUTO _ | ITM_CUSTOM _ -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> "NONE"
-                                |Some s -> s
-                        )
-                        |ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> tag
-                                |Some s -> String.concat "\u{00A0}" [tag;s]
-                        )
-                )
-                |DSP_LINE_NODE dsp_line_node -> (
-                        match dsp_line_node with
-                        |DSP_AUTO _ | DSP_CUSTOM _ -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> "NONE"
-                                |Some s -> s
-                        )
-                        |DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> tag
-                                |Some s -> String.concat "\u{00A0}" [tag;s]
-                        )
-                        |DSP_NONE -> "NONE"
-                )
-                |_ ->
-                        match string_of_path_opt doc_settings full_path inner_path with
-                        |None -> "NONE"
-                        |Some s -> s
-        )
-        |inner_path_hd::_, _::_ -> (
-                match inner_path_hd with
-                |ITM_NODE itm_node -> (
-                        match itm_node with
-                        |ITM_AUTO _ | ITM_CUSTOM _ -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> "NONE"
-                                |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
-                        )
-                        |ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> tag
-                                |Some s -> String.concat "\u{00A0}" [tag;(string_of_path doc_settings full_outer_path) ^ s]
-                        )
-                )
-                |DSP_LINE_NODE dsp_line_node -> (
-                        match dsp_line_node with
-                        |DSP_AUTO _ | DSP_CUSTOM _ -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> "NONE"
-                                |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
-                        )
-                        |DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
-                                match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> tag
-                                |Some s -> String.concat "\u{00A0}" [tag;(string_of_path doc_settings full_outer_path) ^ s]
-                        )
-                        |DSP_NONE -> raise (Error "cannot refer to unlabeled display line")
-                )
-                |_ ->
-                        match string_of_path_opt doc_settings full_path inner_path with
-                        |None -> "NONE"
-                        |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
-        )
-        |[],[] -> "NONE"
-
-and string_of_path_opt (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string option =
-        let rec aux (full_p : t_path) (p : t_path) (acc : string option) : string option =
-                match full_p, p with
-                |full_p_hd::full_p_tl, p_hd::p_tl -> (
-                        match p_hd, string_of_node_opt doc_settings full_p_tl p_hd with
-                        |_, None -> aux full_p_tl p_tl acc
-                        |CH_NODE _, Some s
-                        |SEC_NODE _, Some s
-                        |APP_NODE _, Some s
-                        |PAR_NODE _, Some s -> (
-                                match acc with
-                                |Some t -> aux full_p_tl p_tl (Some (s ^ "." ^ t))
-                                |None -> aux full_p_tl p_tl (Some s)
-                        )
-                        |_, Some s ->
-                                match acc with
-                                |Some t -> aux full_p_tl p_tl (Some (s ^ t))
-                                |None -> aux full_p_tl p_tl (Some s)
-                )
-                |full_p_hd::full_p_tl, [] -> (
-                        acc
-                )
-                |[],_ -> acc
+                        |CH_NODE _ | SEC_NODE _ | APP_NODE _ | PAR_NODE _ -> aux tl (hd::acc)
+                        |_ -> acc
         in
-        aux full_path path None
+        aux (List.rev path) []
 
-and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t_node) : string option =
+
+let path_from_ch_sec_par (path : t_path) : t_path =
+        let rec aux (p : t_path) (acc : t_path) : t_path =
+                match p with
+                |[] -> List.rev acc
+                |hd::tl ->
+                        match hd with
+                        |CH_NODE _ | SEC_NODE _ | APP_NODE _ | PAR_NODE _ -> List.rev acc
+                        |_ -> aux tl (hd::acc)
+        in
+        aux path []
+
+
+let path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
+        let rev_c_ref_loc : t_path = List.rev c_ref_loc in
+        let rev_id_loc : t_path = List.rev id_loc in
+        let rec aux (rev_c_ref_loc : t_path) (rev_id_loc : t_path) : t_path = (
+                match (rev_c_ref_loc, rev_id_loc) with
+                | rev_c_ref_loc_hd :: rev_c_ref_loc_tl, rev_id_loc_hd :: rev_id_loc_tl -> (
+                        match rev_c_ref_loc_hd = rev_id_loc_hd with
+                        | true -> aux rev_c_ref_loc_tl rev_id_loc_tl
+                        | false -> List.rev rev_id_loc
+                )
+                | [], [] -> (
+(*                      let _ : unit = Debug_utils.print_warning ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
+                        try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
+                )
+                | _ :: _, [] -> (
+(*                      let _ : unit = Debug_utils.print_warning ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
+                        try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
+                )
+                | [], _ :: _ ->
+(*                      let _:unit=Debug_utils.print_warning ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
+                        List.rev rev_id_loc
+        )
+        in 
+        aux rev_c_ref_loc rev_id_loc
+
+let rec lvl_of_path (path : t_path) : int =
+        match path with
+        | [] -> 0
+        | hd :: tl ->
+                match hd with
+                | ITM_NODE _ -> lvl_of_path tl + 1
+                | BLT_NODE -> lvl_of_path tl + 1
+                | _ -> lvl_of_path tl
+
+
+let c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope_opt : tu_scope option) (id_loc : t_path) : bool =
+        match scope_opt with
+        |None | Some Cu_scope_gbl -> true
+        |Some Cu_scope_ch -> path_to_ch_node c_ref_loc = path_to_ch_node id_loc
+        |Some Cu_scope_sec -> path_to_sec_node c_ref_loc = path_to_sec_node id_loc
+        |Some Cu_scope_app -> path_to_app_node c_ref_loc = path_to_app_node id_loc
+        |Some Cu_scope_par -> path_to_par_node c_ref_loc = path_to_par_node id_loc
+
+let ids_match (c_ref : Doc_types.ts_c_ref) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
+        match c_ref with Cs_c_ref id_c_ref ->
+        if id_c_ref = id
+        then
+                c_ref_loc_is_within_scope_of_id c_ref_loc id.fld_id_scope id_loc
+        else
+        false
+
+let reference_of_ts_c_ref (cref_table : t_cref_table) (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (Doc_types.tr_id * t_path * t_cref_element) option =
+        let rec aux (cref_table : t_cref_table) : (Doc_types.tr_id * t_path * t_cref_element) option =
+                match cref_table with
+                |[] -> None
+                |(table_id, table_path, table_element) :: tl ->
+                        match ids_match c_ref c_ref_path table_id table_path with
+                        |true -> Some (table_id, table_path, table_element)
+                        |false -> aux tl
+        in
+        aux cref_table
+
+
+let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t_node) : string option =
         match head with
         | CH_NODE (n : int)
         | SEC_NODE (n : int) -> Some (string_of_int (n+1))
@@ -877,160 +807,218 @@ and string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
                 |None -> None
         )
 
-and path_to_ch_sec_par (path : t_path) : t_path =
-        let rec aux (p : t_path) (acc : t_path) : t_path =
-                match p with
+let string_of_path_opt (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string option =
+        let rec aux (full_p : t_path) (p : t_path) (acc : string option) : string option =
+                match full_p, p with
+                |full_p_hd::full_p_tl, p_hd::p_tl -> (
+                        match p_hd, string_of_node_opt doc_settings full_p_tl p_hd with
+                        |_, None -> aux full_p_tl p_tl acc
+                        |CH_NODE _, Some s
+                        |SEC_NODE _, Some s
+                        |APP_NODE _, Some s
+                        |PAR_NODE _, Some s -> (
+                                match acc with
+                                |Some t -> aux full_p_tl p_tl (Some (s ^ "." ^ t))
+                                |None -> aux full_p_tl p_tl (Some s)
+                        )
+                        |_, Some s ->
+                                match acc with
+                                |Some t -> aux full_p_tl p_tl (Some (s ^ t))
+                                |None -> aux full_p_tl p_tl (Some s)
+                )
+                |full_p_hd::full_p_tl, [] -> (
+                        acc
+                )
+                |[],_ -> acc
+        in
+        aux full_path path None
+
+let string_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
+        match string_of_path_opt doc_settings path path with
+        |None -> "document"
+        |Some s -> s
+
+
+let rec string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string =
+        let inner_path = path_from_ch_sec_par path in
+        let outer_path = path_to_ch_sec_par path in
+        let full_outer_path = path_to_ch_sec_par full_path in
+        match inner_path, outer_path with
+        |[],outer_path_hd::_ -> (
+                match outer_path_hd with
+                |CH_NODE _ -> (
+                        match doc_settings.ch_prefix with
+                        |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+                        |None -> string_of_path doc_settings full_outer_path
+                )
+                |SEC_NODE _ -> (
+                        match doc_settings.sec_prefix with
+                        |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+                        |None -> string_of_path doc_settings full_outer_path
+                )
+                |APP_NODE _ -> (
+                        match doc_settings.app_prefix with
+                        |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+                        |None -> string_of_path doc_settings full_outer_path
+                )
+                |PAR_NODE par_node -> (
+                        match par_node with
+                        |PAR_AUTO _ -> (
+                                match doc_settings.par_prefix with
+                                |None -> string_of_path doc_settings full_outer_path
+                                |Some (_,s) -> String.concat "\u{00A0}" [s;string_of_path doc_settings full_outer_path]
+                        )
+                        |PAR_TAG (_,tag,_) -> String.concat "\u{00A0}" [tag;string_of_path doc_settings full_outer_path]
+                )
+                |_ -> string_of_path doc_settings full_outer_path
+        )
+        |inner_path_hd::_, [] -> (
+                match inner_path_hd with
+                |ITM_NODE itm_node -> (
+                        match itm_node with
+                        |ITM_AUTO _ | ITM_CUSTOM _ -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> "NONE"
+                                |Some s -> s
+                        )
+                        |ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> tag
+                                |Some s -> String.concat "\u{00A0}" [tag;s]
+                        )
+                )
+                |DSP_LINE_NODE dsp_line_node -> (
+                        match dsp_line_node with
+                        |DSP_AUTO _ | DSP_CUSTOM _ -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> "NONE"
+                                |Some s -> s
+                        )
+                        |DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> tag
+                                |Some s -> String.concat "\u{00A0}" [tag;s]
+                        )
+                        |DSP_NONE -> raise (Error "cannot refer to unlabeled display line")
+                )
+                |_ ->
+                        match string_of_path_opt doc_settings full_path inner_path with
+                        |None -> raise (Error "shown path cannot be empty")
+                        |Some s -> s
+        )
+        |inner_path_hd::_, _::_ -> (
+                match inner_path_hd with
+                |ITM_NODE itm_node -> (
+                        match itm_node with
+                        |ITM_AUTO _ | ITM_CUSTOM _ -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> raise (Error "shown path cannot be empty")
+                                |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+                        )
+                        |ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> tag
+                                |Some s -> String.concat "\u{00A0}" [tag;(string_of_path doc_settings full_outer_path) ^ s]
+                        )
+                )
+                |DSP_LINE_NODE dsp_line_node -> (
+                        match dsp_line_node with
+                        |DSP_AUTO _ | DSP_CUSTOM _ -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> raise (Error "shown path cannot be empty")
+                                |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+                        )
+                        |DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> tag
+                                |Some s -> String.concat "\u{00A0}" [tag;(string_of_path doc_settings full_outer_path) ^ s]
+                        )
+                        |DSP_NONE -> raise (Error "cannot refer to unlabeled display line")
+                )
+                |_ ->
+                        match string_of_path_opt doc_settings full_path inner_path with
+                        |None -> raise (Error "shown path cannot be empty")
+                        |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+        )
+        |[],[] -> raise (Error "shown path cannot be empty")
+
+
+let string_of_tu_scope (scope : tu_scope) : string =
+        match scope with
+        |Cu_scope_gbl -> "GBL"
+        |Cu_scope_ch -> "CH"
+        |Cu_scope_sec -> "SEC"
+        |Cu_scope_app -> "APP"
+        |Cu_scope_par -> "PAR"
+
+
+let string_of_tr_id (id : Doc_types.tr_id) : string =
+        match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
+        |Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag;name;string_of_tu_scope scope]
+        |Cs_tag tag, Cs_name name, _ -> String.concat ":" [tag;name]
+
+
+let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
+        match reference_of_ts_c_ref cref_table c_ref_loc c_ref with
+        |None -> (
+                match c_ref with
+                |Cs_c_ref id_c_ref ->
+                        let _ : unit = Debug_utils.print_warning (String.concat "" [
+                                "WARNING: id \'";
+                                string_of_tr_id id_c_ref;
+                                "\' referenced in ";
+                                string_of_path doc_settings c_ref_loc;
+                                " is undefined or out of scope";
+                        ]) in "??"
+        )
+        |Some (_, id_loc, _) -> 
+                let sub_path = (path_from_common_ancestor c_ref_loc id_loc) in
+                match List.rev sub_path with
+                |hd::tl -> (
+                        match hd with
+                        |ABSTRACT_NODE | REFS_NODE ->
+                                String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
+                        |_ -> string_of_shown_path doc_settings id_loc sub_path
+                )
+                |[] -> raise (Error "path to id cannot be empty")
+
+let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_cref_table =
+        let rec aux1 (lst : t_cref_table) (acc : (Doc_types.tr_id * t_path) list): (Doc_types.tr_id * t_path) list =
+                match lst with
                 |[] -> acc
                 |hd::tl ->
                         match hd with
-                        |CH_NODE _ | SEC_NODE _ | APP_NODE _ | PAR_NODE _ -> aux tl (hd::acc)
-                        |_ -> acc
+                        |(id, path, _) ->
+                                match id.fld_id_scope with
+                                |None | Some Cu_scope_gbl -> aux1 tl ((id,[])::acc)
+                                |Some Cu_scope_ch -> aux1 tl ((id, path_to_ch_node path)::acc)
+                                |Some Cu_scope_sec -> aux1 tl ((id, path_to_sec_node path)::acc)
+                                |Some Cu_scope_app -> aux1 tl ((id, path_to_app_node path)::acc)
+                                |Some Cu_scope_par -> aux1 tl ((id, path_to_par_node path)::acc)
         in
-        aux (List.rev path) []
-
-
-and path_from_ch_sec_par (path : t_path) : t_path =
-        let rec aux (p : t_path) (acc : t_path) : t_path =
-                match p with
-                |[] -> List.rev acc
-                |hd::tl ->
-                        match hd with
-                        |CH_NODE _ | SEC_NODE _ | APP_NODE _ | PAR_NODE _ -> List.rev acc
-                        |_ -> aux tl (hd::acc)
+        let rec aux2 (lst : (Doc_types.tr_id * t_path) list) : unit =
+                match lst with
+                |[] -> ()
+                |(id,path)::tl ->
+                        match List.mem (id,path) tl with
+                        |true ->
+                                let _ : unit = Debug_utils.print_warning (String.concat "" [
+                                        "WARNING: id \'";
+                                        string_of_tr_id id;"\'";
+                                        " is defined more than once in ";
+                                        string_of_path doc_settings path;
+                                        ])
+                                in aux2 tl
+                        |false -> aux2 tl
         in
-        aux path []
+        let lst : (Doc_types.tr_id * t_path) list = aux1 table [] in
+        let _ : unit = aux2 lst in
+        table
 
 
+(* labels *)
 
-and reference_of_ts_c_ref (cref_table : t_cref_table) (c_ref_path : t_path) (c_ref : Doc_types.ts_c_ref) : (Doc_types.tr_id * t_path * t_cref_element) option =
-        match c_ref with
-        |Cs_c_ref (c_ref_id) ->
-        let rec aux (cref_table : t_cref_table) : (Doc_types.tr_id * t_path * t_cref_element) option =
-                match cref_table with
-                |[] -> None
-                |(table_id, table_path, table_element) :: tl ->
-                        match ids_match c_ref_id c_ref_path table_id table_path with
-                        |true -> Some (table_id, table_path, table_element)
-                        |false -> aux tl
-        in
-        aux cref_table
-
-
-and ids_match (id_c_ref : Doc_types.tr_id) (c_ref_loc : t_path) (id : Doc_types.tr_id) (id_loc : t_path) : bool =
-        if id_c_ref = id
-        then
-                c_ref_loc_is_within_scope_of_id c_ref_loc id.fld_id_scope id_loc
-        else
-        false
-
-and c_ref_loc_is_within_scope_of_id (c_ref_loc : t_path) (scope_opt : tu_scope option) (id_loc : t_path) : bool =
-        match scope_opt with
-        |None | Some Cu_scope_gbl -> true
-        |Some Cu_scope_ch -> path_to_ch_node c_ref_loc = path_to_ch_node id_loc
-        |Some Cu_scope_sec -> path_to_sec_node c_ref_loc = path_to_sec_node id_loc
-        |Some Cu_scope_app -> path_to_app_node c_ref_loc = path_to_app_node id_loc
-        |Some Cu_scope_par -> path_to_par_node c_ref_loc = path_to_par_node id_loc
-
-
-and path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
-        let rev_c_ref_loc : t_path = List.rev c_ref_loc in
-        let rev_id_loc : t_path = List.rev id_loc in
-        let rec aux (rev_c_ref_loc : t_path) (rev_id_loc : t_path) : t_path = (
-                match (rev_c_ref_loc, rev_id_loc) with
-                | rev_c_ref_loc_hd :: rev_c_ref_loc_tl, rev_id_loc_hd :: rev_id_loc_tl -> (
-                        match rev_c_ref_loc_hd = rev_id_loc_hd with
-                        | true -> aux rev_c_ref_loc_tl rev_id_loc_tl
-                        | false -> List.rev rev_id_loc
-                )
-                | [], [] -> (
-(*                      let _ : unit = Debug_utils.print_warning ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
-                        try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
-                )
-                | _ :: _, [] -> (
-(*                      let _ : unit = Debug_utils.print_warning ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
-                        try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
-                )
-                | [], _ :: _ ->
-(*                      let _:unit=Debug_utils.print_warning ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
-                        List.rev rev_id_loc
-        )
-        in 
-        aux rev_c_ref_loc rev_id_loc
-
-
-and lvl_of_path (path : t_path) : int =
-        match path with
-        | [] -> 0
-        | hd :: tl ->
-                match hd with
-                | ITM_NODE _ -> lvl_of_path tl + 1
-                | BLT_NODE -> lvl_of_path tl + 1
-                | _ -> lvl_of_path tl
-
-and node_of_tr_par_std (doc_settings : t_doc_settings) (auto_nr : int) (par : Doc_types.tr_par_std) : t_node =
-        match par.fld_par_tag_or_id with
-        |None -> PAR_NODE (PAR_AUTO auto_nr)
-        |Some (tag_or_id : tu_tag_or_id) ->
-                match tag_or_id with
-                |Cu_tag_or_id_tag (tag : ts_tag) -> (
-                        match doc_settings.expand_tag tag with
-                        |Some (lbl,cref) -> PAR_NODE (PAR_TAG (lbl,cref,auto_nr))
-                        |None -> PAR_NODE (PAR_AUTO auto_nr)
-                )
-                |Cu_tag_or_id_id (id : tr_id) -> (
-                        match doc_settings.expand_tag id.fld_id_tag with
-                        |Some (lbl,cref) -> PAR_NODE (PAR_TAG (lbl,cref,auto_nr))
-                        |None -> PAR_NODE (PAR_AUTO auto_nr)
-                )
-
-and node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
-        match a.fld_blk_itm_lbl with
-                | Cu_lbl_auto Cs_lbl_auto -> (
-                        let lvl : int = lvl_of_path path in
-                        let lbl : string = doc_settings.auto_numbering lvl auto_nr in
-                        match a.fld_blk_itm_id with
-                        |None -> ITM_NODE (ITM_AUTO lbl)
-                        |Some id -> (
-                                match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> ITM_NODE (ITM_AUTO lbl)
-                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
-                        )
-                )
-                | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> 
-                        match a.fld_blk_itm_id with
-                        |None -> ITM_NODE (ITM_CUSTOM s)
-                        |Some id -> (
-                                match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> ITM_NODE (ITM_CUSTOM s)
-                                |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag,s))
-                        )
-
-and node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
-        match a.fld_dsp_line_lbl with
-                | Some (Cu_lbl_auto Cs_lbl_auto) -> (
-                        let lvl : int = lvl_of_path path in
-                        let lbl : string = doc_settings.auto_numbering lvl auto_nr in
-                        match a.fld_dsp_line_id with
-                        |None -> DSP_LINE_NODE (DSP_AUTO lbl)
-                        |Some id -> (
-                                match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> DSP_LINE_NODE (DSP_AUTO lbl)
-                                |Some (_,tag) -> DSP_LINE_NODE (DSP_TAG_AUTO (tag, lbl))
-                        )
-                )
-                | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> ( 
-                        match a.fld_dsp_line_id with
-                        |None -> DSP_LINE_NODE (DSP_CUSTOM s)
-                        |Some id -> (
-                                match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> DSP_LINE_NODE (DSP_CUSTOM s)
-                                |Some (_,tag) -> DSP_LINE_NODE (DSP_TAG_CUSTOM (tag,s))
-                        )
-                )
-                | None -> DSP_LINE_NODE DSP_NONE
-
-
-and label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
+let label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
         match path with
         | [] -> None
         | hd :: tl ->
@@ -1070,58 +1058,86 @@ and label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string o
                 )
                 | _ -> None
 
-and label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
+let label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
         match label_of_path_opt doc_settings path with
-        | None -> "document"
+        | None -> "DOCUMENT"
         | Some (s : string) -> s
 
-and string_of_tr_id (id : Doc_types.tr_id) : string =
-        match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
-        |Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag;name;string_of_tu_scope scope]
-        |Cs_tag tag, Cs_name name, _ -> String.concat ":" [tag;name]
 
-and string_of_tu_scope (scope : tu_scope) : string =
-        match scope with
-        |Cu_scope_gbl -> "GBL"
-        |Cu_scope_ch -> "CH"
-        |Cu_scope_sec -> "SEC"
-        |Cu_scope_app -> "APP"
-        |Cu_scope_par -> "PAR"
+(* nodes *)
 
-let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_cref_table =
-        let rec aux1 (lst : t_cref_table) (acc : (Doc_types.tr_id * t_path) list): (Doc_types.tr_id * t_path) list =
-                match lst with
-                |[] -> acc
-                |hd::tl ->
-                        match hd with
-                        |(id, path, _) ->
-                                match id.fld_id_scope with
-                                |None | Some Cu_scope_gbl -> aux1 tl ((id,[])::acc)
-                                |Some Cu_scope_ch -> aux1 tl ((id, path_to_ch_node path)::acc)
-                                |Some Cu_scope_sec -> aux1 tl ((id, path_to_sec_node path)::acc)
-                                |Some Cu_scope_app -> aux1 tl ((id, path_to_app_node path)::acc)
-                                |Some Cu_scope_par -> aux1 tl ((id, path_to_par_node path)::acc)
-        in
-        let rec aux2 (lst : (Doc_types.tr_id * t_path) list) : unit =
-                match lst with
-                |[] -> ()
-                |(id,path)::tl ->
-                        match List.mem (id,path) tl with
-                        |true ->
-                                let _ : unit = Debug_utils.print_warning (String.concat "" [
-                                        "WARNING: id \'";
-                                        string_of_tr_id id;"\'";
-                                        " is defined more than once in ";
-                                        string_of_path doc_settings path;
-                                        ])
-                                in aux2 tl
-                        |false -> aux2 tl
-        in
-        let lst : (Doc_types.tr_id * t_path) list = aux1 table [] in
-        let _ : unit = aux2 lst in
-        table
 
-(** Repeat *)
+let node_of_tr_par_std (doc_settings : t_doc_settings) (auto_nr : int) (par : Doc_types.tr_par_std) : t_node =
+        match par.fld_par_tag_or_id with
+        |None -> PAR_NODE (PAR_AUTO auto_nr)
+        |Some (tag_or_id : tu_tag_or_id) ->
+                match tag_or_id with
+                |Cu_tag_or_id_tag (tag : ts_tag) -> (
+                        match doc_settings.expand_tag tag with
+                        |Some (lbl,cref) -> PAR_NODE (PAR_TAG (lbl,cref,auto_nr))
+                        |None -> PAR_NODE (PAR_AUTO auto_nr)
+                )
+                |Cu_tag_or_id_id (id : tr_id) -> (
+                        match doc_settings.expand_tag id.fld_id_tag with
+                        |Some (lbl,cref) -> PAR_NODE (PAR_TAG (lbl,cref,auto_nr))
+                        |None -> PAR_NODE (PAR_AUTO auto_nr)
+                )
+
+let node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par) : t_node =
+        match p with
+        |Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (PAR_AUTO auto_nr)
+        |Cu_par_std (par : tr_par_std) -> node_of_tr_par_std doc_settings auto_nr par
+
+
+let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_blk_itm) : t_node =
+        match a.fld_blk_itm_lbl with
+                | Cu_lbl_auto Cs_lbl_auto -> (
+                        let lvl : int = lvl_of_path path in
+                        let lbl : string = doc_settings.auto_numbering lvl auto_nr in
+                        match a.fld_blk_itm_id with
+                        |None -> ITM_NODE (ITM_AUTO lbl)
+                        |Some id -> (
+                                match doc_settings.expand_tag id.fld_id_tag with
+                                |None -> ITM_NODE (ITM_AUTO lbl)
+                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
+                        )
+                )
+                | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> 
+                        match a.fld_blk_itm_id with
+                        |None -> ITM_NODE (ITM_CUSTOM s)
+                        |Some id -> (
+                                match doc_settings.expand_tag id.fld_id_tag with
+                                |None -> ITM_NODE (ITM_CUSTOM s)
+                                |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag,s))
+                        )
+
+let node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
+        match a.fld_dsp_line_lbl with
+                | Some (Cu_lbl_auto Cs_lbl_auto) -> (
+                        let lvl : int = lvl_of_path path in
+                        let lbl : string = doc_settings.auto_numbering lvl auto_nr in
+                        match a.fld_dsp_line_id with
+                        |None -> DSP_LINE_NODE (DSP_AUTO lbl)
+                        |Some id -> (
+                                match doc_settings.expand_tag id.fld_id_tag with
+                                |None -> DSP_LINE_NODE (DSP_AUTO lbl)
+                                |Some (_,tag) -> DSP_LINE_NODE (DSP_TAG_AUTO (tag, lbl))
+                        )
+                )
+                | Some (Cu_lbl_custom (Cs_lbl_custom (s : string))) -> ( 
+                        match a.fld_dsp_line_id with
+                        |None -> DSP_LINE_NODE (DSP_CUSTOM s)
+                        |Some id -> (
+                                match doc_settings.expand_tag id.fld_id_tag with
+                                |None -> DSP_LINE_NODE (DSP_CUSTOM s)
+                                |Some (_,tag) -> DSP_LINE_NODE (DSP_TAG_CUSTOM (tag,s))
+                        )
+                )
+                | None -> DSP_LINE_NODE DSP_NONE
+
+
+
+(* Repeat *)
 
 let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
         let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
@@ -1167,8 +1183,4 @@ let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_t
                                 "\' does not belong to a paragraph";
                 ]) in None
 
-let node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par) : t_node =
-        match p with
-        |Cu_par_rpt (Cs_par_rpt (id : tr_id)) -> PAR_NODE (PAR_AUTO auto_nr)
-        |Cu_par_std (par : tr_par_std) -> node_of_tr_par_std doc_settings auto_nr par
 

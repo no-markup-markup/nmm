@@ -4,9 +4,9 @@ exception Error of string
 
 val doc_of_nmm_file : bool -> string -> Doc_types.tr_doc
 (** 
-[doc_of_nmm_file true "path/to/file"] reads from path/to/file (if such a file exists), prints read tokens to [stderr], and returns (if succesful) an object of type [Doc_types.tr_doc]. Raises ["cannot read from path/to/file: No such file"] if no file exists, and ["parsing failed"] on parsing failure. 
+[doc_of_nmm_file true "path/to/file"] reads from path/to/file (if such a file exists), prints read tokens to [stderr], and returns (if succesful) an object of type [Doc_types.tr_doc]. Raises [Error "cannot read from path/to/file: No such file"] if no file exists, and [Error "parsing failed"] on parsing failure. 
 
-[doc_of_nmm_file false "path/to/file"] reads from path/to/file (if such a file exists), and returns (if succesful) an object of type [Doc_types.tr_doc]. Raises ["cannot read from path/to/file: No such file"] if no file exists, and evaluates to [doc_of_nmm_file true "path/to/file"] on parsing failure.
+[doc_of_nmm_file false "path/to/file"] reads from path/to/file (if such a file exists), and returns (if succesful) an object of type [Doc_types.tr_doc]. Raises [Error "cannot read from path/to/file: No such file"] if no file exists, and evaluates to [doc_of_nmm_file true "path/to/file"] on parsing failure.
 *)
 
 

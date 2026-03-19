@@ -1,4 +1,4 @@
-<!ELEMENT doc (title?, authors?, abstract?, doc_main, refs?)>
+<!ELEMENT doc (title?, authors?, date?, abstract?, doc_main, refs?)>
 <!ATTLIST doc
 	class CDATA #REQUIRED
 >
@@ -6,6 +6,7 @@
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT authors (author+)>
 <!ELEMENT author (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
 <!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb)+)>
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )+)>
 <!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )+)>

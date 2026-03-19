@@ -36,10 +36,20 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_preamble&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;xml_list_of_ts_preamble_opt&nbsp;doc.fld_doc_preamble&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_title&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;xml_list_of_ts_title_opt&nbsp;doc.fld_doc_title&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_authors&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;xml_list_of_ts_authors_opt&nbsp;doc.fld_doc_authors&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_date&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;xml_list_of_ts_date_opt&nbsp;doc.fld_doc_date&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_abstract&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;xml_list_of_ts_abstract_opt&nbsp;doc.fld_doc_abstract&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_main&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;[xml_of_tu_doc_main&nbsp;doc.fld_doc_main]&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_refs&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;xml_list_of_ts_refs_opt&nbsp;doc.fld_doc_refs&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_doc&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;<span class="constructor">List</span>.concat&nbsp;[xml_list_preamble;&nbsp;xml_list_title;&nbsp;xml_list_authors;&nbsp;xml_list_abstract;&nbsp;xml_list_main;xml_list_refs]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_list_doc&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=&nbsp;<span class="constructor">List</span>.concat&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_preamble;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_title;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_authors;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_date;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_abstract;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_main;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_list_refs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cr_doc"</span>,[],xml_list_doc)<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_list_of_ts_preamble_opt&nbsp;(preamble_opt&nbsp;:&nbsp;ts_preamble&nbsp;option)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
@@ -57,6 +67,11 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_authors</span>&nbsp;(author_list&nbsp;:&nbsp;ts_author&nbsp;list))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_authors"</span>,[],<span class="constructor">List</span>.map&nbsp;xml_of_ts_author&nbsp;author_list)]<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_list_of_ts_date_opt&nbsp;(date_opt&nbsp;:&nbsp;ts_date&nbsp;option)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date_opt&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;date&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[xml_of_ts_date&nbsp;date]<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_list_of_ts_abstract_opt&nbsp;(abstract_opt&nbsp;:&nbsp;ts_abstract&nbsp;option)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;abstract_opt&nbsp;<span class="keyword">with</span><br>
@@ -80,6 +95,10 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_author&nbsp;(author:ts_author):<span class="constructor">Xml</span>.xml=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_author</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_author"</span>,[],[xml_of_string&nbsp;s])<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_date&nbsp;(date&nbsp;:&nbsp;ts_date)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_date</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_date"</span>,[],[xml_of_string&nbsp;s])<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_abstract&nbsp;(abstract:ts_abstract):<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;abstract&nbsp;<span class="keyword">with</span><br>

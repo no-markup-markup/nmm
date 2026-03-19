@@ -28,6 +28,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -76,6 +77,15 @@ h2, h3, h4, h5 {
     margin-left : 4.20rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 4.20rem;
+}
+
+.doc.secs .date {
+    margin-left : 4.20rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -173,6 +183,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -184,6 +195,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -192,6 +206,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -240,25 +255,37 @@ h2, h3, h4, h5 {
     margin-left : 4.20rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -319,31 +346,31 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc chs">
+<div class="doc chs">
 <h1 class="title">Some chapters</h1>
-<div class="authors" style="display:block">
+<div class="authors">
 <p class="author">Donald Duck</p>
 <p class="author">Mickey Mouse</p>
 </div>
-<div class="abstract" style="display:block">
+<div class="abstract">
 <h2 class="abstract_hdr">ABSTRACT</h2>
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-<div class="blk itm" style="display:block" id="ITM_in_abstract">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk itm" id="ITM_in_abstract">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">A named item in abstract.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_second">
-<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk itm" id="ITM_second">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Another one.</p>
-<div class="blk itm" style="display:block" id="ITM_another">
-<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk itm" id="ITM_another">
+<div class="blk_itm_lbl">(1)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Another one.</p>
 </div>
 </div>
@@ -353,15 +380,15 @@ h2, h3, h4, h5 {
 <p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#ITM_Euler">(a) of References</a>.</p>
 <p class="blk txt">&apos;[ITM:in_abstract]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM_in_abstract">(a)</a></p>
 </div>
-<div class="doc_main" style="display:block">
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 1</div>
+<div class="doc_main">
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 1</div>
 <h2 class="ch_hdr">First chapter</h2>
-<div class="ch_main" style="display:block">
-<div class="blk itm" style="display:block" id="ITM_one">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="ch_main">
+<div class="blk itm" id="ITM_one">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">An item</p>
 </div>
 </div>
@@ -373,21 +400,21 @@ h2, h3, h4, h5 {
 <p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#ITM_Tarski">(b) of References</a>.</p>
 </div>
 </div>
-<div style="display:block" class="CH ch" id="CH_2">
-<div class="ch_lbl" style="display:block">CHAPTER 2</div>
+<div class="CH ch" id="CH_2">
+<div class="ch_lbl">CHAPTER 2</div>
 <h2 class="ch_hdr">Second chapter</h2>
-<div class="ch_main" style="display:block">
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.1</h4>
+<div class="ch_main">
+<div class="par">
+<h4 class="par_lbl hdr">¶ 2.1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 2.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#ITM_one">(a) of Chapter 1</a>.</p>
 </div>
@@ -395,26 +422,26 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div class="refs" style="display:block">
+<div class="refs">
 <h2 class="refs_hdr">REFERENCES</h2>
-<div class="blk itm" style="display:block" id="ITM_Euler">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk itm" id="ITM_Euler">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Euler, Leonhard (1740): De summis serierum reciprocarum. In: Commentarii academiae scientiarum Petropolitanae, volume 7, pages 123–134</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_Tarski">
-<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk itm" id="ITM_Tarski">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">Reference to <a class="txt_unit_c_ref" href="#CH_2">Chapter 2</a>.</p>
 </div>
 </div>

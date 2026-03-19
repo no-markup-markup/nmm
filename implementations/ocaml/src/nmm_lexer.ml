@@ -55,6 +55,7 @@ let pilcrow_spaces_rpt_spaces_id_nl = [%sedlex.regexp? pilcrow, Plus " ", "rpt",
 let preamble = [%sedlex.regexp? "PREAMBLE:"]
 let title = [%sedlex.regexp? "TITLE:"]
 let author = [%sedlex.regexp? "AUTHOR:"]
+let date = [%sedlex.regexp? "DATE:"]
 let abstract = [%sedlex.regexp? "ABSTRACT:"]
 let section_refs_nls = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
 let pilcrow_refs_nls = [%sedlex.regexp? Utf8 "¶", Plus " ", "REFS", Plus nl]
@@ -115,10 +116,11 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
         |false, false -> (
                 match%sedlex lexbuf with
                 |esc_char                       ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
-                |preamble                       ->      PREAMBLE (lexeme lexbuf)
-                |title                          ->      TITLE (lexeme lexbuf)
-                |author                         ->      AUTHOR (lexeme lexbuf)
-                |abstract                       ->      ABSTRACT (lexeme lexbuf)
+                |preamble                       ->      PREAMBLE
+                |title                          ->      TITLE
+                |author                         ->      AUTHOR
+                |date                           ->      DATE
+                |abstract                       ->      ABSTRACT
                 |ch_tag_or_id_nl                ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
                 |c_ref                          ->      C_REF (lexeme lexbuf)
                 |section_nl                     ->      SECTION_NL

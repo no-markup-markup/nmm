@@ -4,9 +4,9 @@ exception Error of string
 
 val parse_file : bool -> string -> Xml.xml
 (** 
-[parse_file true "path/to/file"] reads from path/to/file (if such a file exists), prints read tokens to [stderr], and returns (if succesful) an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Raises ["cannot read from path/to/file: No such file"] if no file exists, and ["parsing failed"] on parsing failure. 
+[parse_file true "path/to/file"] reads from path/to/file (if such a file exists), prints read tokens to [stderr], and returns (if succesful) an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Raises [Error "cannot read from path/to/file: No such file"] if no file exists, and [Error "parsing failed"] on parsing failure. 
 
-[parse_file false "path/to/file"] reads from path/to/file (if such a file exists), and returns (if succesful) an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Raises ["cannot read from path/to/file: No such file"] if no file exists, and evaluates to [parse_file true "path/to/file"] on parsing failure.
+[parse_file false "path/to/file"] reads from path/to/file (if such a file exists), and returns (if succesful) an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Raises [Error "cannot read from path/to/file: No such file"] if no file exists, and evaluates to [parse_file true "path/to/file"] on parsing failure.
 *)
 
 val parse_string : bool -> string -> Xml.xml
@@ -31,14 +31,8 @@ val to_string_fmt : Xml.xml -> string
 
 
 (**
-Ideally, if [xml] is an object of type [Xml.xml], all of 
-{[
-parse_string true (to_string xml)
-parse_string false (to_string xml)
-parse_string true (to_string_fmt xml)
-parse_string false (to_string_fmt xml)
-]}
-should evaluate to [xml].
+Ideally, if [xml] is an object of type [Xml.xml], both [parse_string print_tokens (to_string xml)] and
+[parse_string print_tokens (to_string_fmt xml)] should evaluate to [xml].
 *)
 
 

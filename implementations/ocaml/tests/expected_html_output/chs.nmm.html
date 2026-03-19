@@ -27,6 +27,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -75,6 +76,15 @@ h2, h3, h4, h5 {
     margin-left : 5.40rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 5.40rem;
+}
+
+.doc.secs .date {
+    margin-left : 5.40rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -172,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -183,6 +194,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -191,6 +205,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -239,25 +254,37 @@ h2, h3, h4, h5 {
     margin-left : 5.40rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -318,66 +345,66 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc chs">
+<div class="doc chs">
 <h1 class="title">Some chapters</h1>
-<div class="authors" style="display:block">
+<div class="authors">
 <p class="author">Donald Duck and Mickey Mouse</p>
 </div>
-<div class="doc_main" style="display:block">
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 1</div>
+<div class="doc_main">
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 1</div>
 <h2 class="ch_hdr">First chapter</h2>
-<div class="ch_main" style="display:block">
+<div class="ch_main">
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 <p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
 </div>
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 2</div>
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 2</div>
 <h2 class="ch_hdr">Second chapter</h2>
-<div class="ch_main" style="display:block">
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
+<div class="ch_main">
+<div class="par">
+<div class="par_lbl">¶ 2.1</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">First paragraph of second chapter</h4>
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 2.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 3</div>
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 3</div>
 <h2 class="ch_hdr">Third chapter</h2>
-<div class="ch_main" style="display:block">
-<div style="display:block" class="sec">
+<div class="ch_main">
+<div class="sec">
 <h3 class="sec_lbl hdr">§ 3.1</h3>
-<div class="sec_main" style="display:block">
+<div class="sec_main">
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </div>
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 3.2</div>
+<div class="sec">
+<div class="sec_lbl">§ 3.2</div>
 <h3 class="sec_hdr">Second section of third chapter</h3>
-<div class="sec_main" style="display:block">
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3.2.1</h4>
+<div class="sec_main">
+<div class="par">
+<h4 class="par_lbl hdr">¶ 3.2.1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3.2.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 3.2.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>
 </div>
@@ -385,9 +412,9 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div style="display:block" class="CH ch">
+<div class="CH ch">
 <h2 class="ch_lbl hdr">CHAPTER 4</h2>
-<div class="ch_main" style="display:block">
+<div class="ch_main">
 <p class="blk txt">Chapter without header.</p>
 </div>
 </div>

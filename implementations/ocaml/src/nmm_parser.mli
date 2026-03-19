@@ -29,12 +29,13 @@ type token =
         |TAB_END_VRB
         |TAB_TAB_END_VRB
         |TAB_TAB_TAB_END_VRB
+        |PREAMBLE
+        |TITLE
+        |AUTHOR
+        |DATE
+        |ABSTRACT
         |VRB_LINE of string
         |ESC_CHAR of string
-        |TITLE of string
-        |AUTHOR of string
-        |PREAMBLE of string
-        |ABSTRACT of string
         |TXT of string
         |C_REF of string
         |DSP_ID of string

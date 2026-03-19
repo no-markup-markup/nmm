@@ -17,12 +17,14 @@ let rec f_tr_doc_of_axml (xml:Xml.xml):tr_doc =
         let (preamble_opt, preamble_tl) = f_ts_preamble_opt_of_xml_list xml_list in
         let (title_opt, title_tl) = f_ts_title_opt_of_xml_list preamble_tl in
         let (authors_opt, authors_tl) = f_ts_authors_opt_of_xml_list title_tl in
-        let (abstract_opt, abstract_tl) = f_ts_abstract_opt_of_xml_list authors_tl in
+        let (date_opt, date_tl) = f_ts_date_opt_of_xml_list authors_tl in
+        let (abstract_opt, abstract_tl) = f_ts_abstract_opt_of_xml_list date_tl in
         let (doc_main, doc_main_tl) = f_tu_doc_main_of_xml_list abstract_tl in
         let refs_opt = f_ts_doc_refs_opt_of_xml_list doc_main_tl in
         {   
             fld_doc_preamble    =   preamble_opt;
             fld_doc_title       =   title_opt;
+            fld_doc_date        =   date_opt;
             fld_doc_authors     =   authors_opt;
             fld_doc_abstract    =   abstract_opt;
             fld_doc_main        =   doc_main;
@@ -38,6 +40,7 @@ and f_ts_preamble_opt_of_xml_list (xml_list : Xml.xml list) : (ts_preamble optio
         |Xml.Element ("cs_preamble",[],pcdata_list) -> (Some (Cs_preamble (f_string_of_pcdata_list pcdata_list)),tl)
         |Xml.Element ("cs_title",[],_)
         |Xml.Element ("cs_authors",[],_)
+        |Xml.Element ("cs_date",[],_)
         |Xml.Element ("cs_abstract",[],_)
         |Xml.Element ("cu_doc_main_chs",[],_)
         |Xml.Element ("cu_doc_main_secs",[],_)
@@ -53,6 +56,7 @@ and f_ts_title_opt_of_xml_list (xml_list:Xml.xml list):(ts_title option) * (Xml.
         match hd with
         |Xml.Element ("cs_title",[],pcdata_list) -> (Some (Cs_title (f_string_of_pcdata_list pcdata_list)), tl)
         |Xml.Element ("cs_authors",[],_)
+        |Xml.Element ("cs_date",[],_)
         |Xml.Element ("cs_abstract",[],_)
         |Xml.Element ("cu_doc_main_chs",[],_)
         |Xml.Element ("cu_doc_main_secs",[],_)
@@ -67,6 +71,7 @@ and f_ts_authors_opt_of_xml_list (xml_list:Xml.xml list) : (ts_authors option) *
     |hd::tl ->
         match hd with
         |Xml.Element ("cs_authors",[],xmls) -> (Some (Cs_authors (List.map f_ts_author_of_xml xmls)), tl)
+        |Xml.Element ("cs_date",[],_)
         |Xml.Element ("cs_abstract",[],_)
         |Xml.Element ("cu_doc_main_chs",[],_)
         |Xml.Element ("cu_doc_main_secs",[],_)
@@ -79,6 +84,20 @@ and f_ts_author_of_xml (xml : Xml.xml) : ts_author =
         match xml with
         |Xml.Element ("cs_author",[],pcdata_list) -> Cs_author (f_string_of_pcdata_list pcdata_list)
         |x -> raise (Error (String.concat "" ["expected cs_author, got: ";string_of_xml_list [x]]))
+
+and f_ts_date_opt_of_xml_list (xml_list:Xml.xml list) : (ts_date option) *  (Xml.xml list) =
+    match xml_list with
+    |[] -> (None, xml_list)
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cs_date",[],pcdata_list) -> (Some (Cs_date (f_string_of_pcdata_list pcdata_list)), tl)
+        |Xml.Element ("cs_abstract",[],_)
+        |Xml.Element ("cu_doc_main_chs",[],_)
+        |Xml.Element ("cu_doc_main_secs",[],_)
+        |Xml.Element ("cu_doc_main_pars",[],_)
+        |Xml.Element ("cu_doc_main_blks",[],_)
+        |Xml.Element ("cs_refs",[],_) -> (None, xml_list)
+        |xml -> raise (Error (String.concat "" ["unexcpected element: ";string_of_xml_list [xml]]))
 
 and f_ts_abstract_opt_of_xml_list (xml_list:Xml.xml list) : (ts_abstract option) *  (Xml.xml list) =
     match xml_list with

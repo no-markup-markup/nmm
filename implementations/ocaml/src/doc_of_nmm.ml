@@ -34,11 +34,12 @@ let string_of_token (t:Nmm_parser.token):string=
         |ITM_CUSTOM_TAB_ID s -> ("ITM_CUSTOM_TAB_ID " ^ "\"" ^ s ^ "\"")
         |DSP_ID s -> ("DSP_ID " ^ "\"" ^ s ^ "\"")
         |C_REF s -> ("C_REF " ^ "\"" ^ s ^ "\"")
-        |TITLE s -> ("TITLE " ^ "\"" ^ s ^ "\"")
-        |AUTHOR s -> ("AUTHOR " ^ "\"" ^ s ^ "\"")
-        |PREAMBLE s -> ("PREAMBLE " ^ "\"" ^ s ^ "\"")
+        |TITLE -> "TITLE"
+        |AUTHOR -> "AUTHOR"
+        |DATE -> "DATE"
+        |PREAMBLE -> "PREAMBLE"
         |ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
-        |ABSTRACT s -> ("ABSTRACT " ^ "\"" ^ s ^ "\"")
+        |ABSTRACT -> "ABSTRACT"
         |SECTION_REFS_NLS -> "SECTION_REFS_NLS"
         |PILCROW_REFS_NLS -> "PICLROW_REFS_NLS"
         |VRB_LINE s -> ("VRB_LINE " ^ "\"" ^ s ^ "\"")

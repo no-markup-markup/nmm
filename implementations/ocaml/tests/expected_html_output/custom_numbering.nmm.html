@@ -27,6 +27,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -75,6 +76,15 @@ h2, h3, h4, h5 {
     margin-left : 3.00rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 3.00rem;
+}
+
+.doc.secs .date {
+    margin-left : 3.00rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -172,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -183,6 +194,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -191,6 +205,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -239,25 +254,37 @@ h2, h3, h4, h5 {
     margin-left : 3.00rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -318,152 +345,152 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc pars">
-<div class="doc_main" style="display:block">
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1</h4>
+<div class="doc pars">
+<div class="doc_main">
+<div class="par">
+<h4 class="par_lbl hdr">¶ 1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Some text.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(1)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Item with custom label indicating custom numbering of subsequent items in the same paragraph.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(2)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Next item.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(i)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(i)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Item on the next level.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Item on the next level.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(ii)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ii)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Item.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(3)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(3)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Third item.</p>
 </div>
 </div>
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(4)</div>
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_lbl">(4)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">Display line.</div>
+<div class="dsp_line_main">Display line.</div>
 </div>
 </div>
 <p class="blk txt">Some text.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="par_main">
+<div class="blk itm">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Default numbered item.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(1)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Default numbered item.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(i)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(i)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Default numbered item.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(2)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(2)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Another default numbered item.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Another item.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(1)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(1)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Item with custom label having no effect on subsequent numbering, because not first in paragraph.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(c)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(c)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Next item.</p>
 </div>
 </div>
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(d)</div>
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_lbl">(d)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">Display line.</div>
+<div class="dsp_line_main">Display line.</div>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 3</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="par_main">
+<div class="blk itm">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Auto numbered item.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(i)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(i)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Custom labeled item with effect on subsequent numbering.</p>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(ii)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ii)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Auto numbered.</p>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Auto numbered item.</p>
 </div>
 </div>
@@ -471,10 +498,10 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div class="blk itm" style="display:block">
-<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">Next item.</p>
 </div>
 </div>

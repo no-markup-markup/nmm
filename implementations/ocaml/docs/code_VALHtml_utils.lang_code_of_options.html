@@ -33,7 +33,7 @@
                         <span class="keywordsign">|</span><span class="string">"--lang"</span> <span class="keywordsign">-&gt;</span> (
                                 <span class="keyword">match</span> tl <span class="keyword">with</span>
                                 <span class="keywordsign">|</span>lang_code::_ <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> lang_code
-                                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_to_stderr <span class="string">"WARNING: missing --lang argument; using default (en)"</span> <span class="keyword">in</span> <span class="constructor">None</span>
+                                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning <span class="string">"WARNING: missing --lang argument; using default (en)"</span> <span class="keyword">in</span> <span class="constructor">None</span>
                         )
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> aux tl
         <span class="keyword">in</span>

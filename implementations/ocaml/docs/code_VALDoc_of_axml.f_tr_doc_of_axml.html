@@ -30,12 +30,14 @@
         <span class="keyword">let</span> (preamble_opt, preamble_tl) = f_ts_preamble_opt_of_xml_list xml_list <span class="keyword">in</span>
         <span class="keyword">let</span> (title_opt, title_tl) = f_ts_title_opt_of_xml_list preamble_tl <span class="keyword">in</span>
         <span class="keyword">let</span> (authors_opt, authors_tl) = f_ts_authors_opt_of_xml_list title_tl <span class="keyword">in</span>
-        <span class="keyword">let</span> (abstract_opt, abstract_tl) = f_ts_abstract_opt_of_xml_list authors_tl <span class="keyword">in</span>
+        <span class="keyword">let</span> (date_opt, date_tl) = f_ts_date_opt_of_xml_list authors_tl <span class="keyword">in</span>
+        <span class="keyword">let</span> (abstract_opt, abstract_tl) = f_ts_abstract_opt_of_xml_list date_tl <span class="keyword">in</span>
         <span class="keyword">let</span> (doc_main, doc_main_tl) = f_tu_doc_main_of_xml_list abstract_tl <span class="keyword">in</span>
         <span class="keyword">let</span> refs_opt = f_ts_doc_refs_opt_of_xml_list doc_main_tl <span class="keyword">in</span>
         {   
             fld_doc_preamble    =   preamble_opt;
             fld_doc_title       =   title_opt;
+            fld_doc_date        =   date_opt;
             fld_doc_authors     =   authors_opt;
             fld_doc_abstract    =   abstract_opt;
             fld_doc_main        =   doc_main;
@@ -51,6 +53,7 @@
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> (<span class="constructor">Some</span> (<span class="constructor">Cs_preamble</span> (f_string_of_pcdata_list pcdata_list)),tl)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_title"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_authors"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_abstract"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_chs"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_secs"</span>,[],_)
@@ -66,6 +69,7 @@
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_title"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> (<span class="constructor">Some</span> (<span class="constructor">Cs_title</span> (f_string_of_pcdata_list pcdata_list)), tl)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_authors"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_abstract"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_chs"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_secs"</span>,[],_)
@@ -80,6 +84,7 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_authors"</span>,[],xmls) <span class="keywordsign">-&gt;</span> (<span class="constructor">Some</span> (<span class="constructor">Cs_authors</span> (<span class="constructor">List</span>.map f_ts_author_of_xml xmls)), tl)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_abstract"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_chs"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_secs"</span>,[],_)
@@ -92,6 +97,20 @@
         <span class="keyword">match</span> xml <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_author"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_author</span> (f_string_of_pcdata_list pcdata_list)
         <span class="keywordsign">|</span>x <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_author, got: "</span>;string_of_xml_list [x]]))
+
+<span class="keyword">and</span> f_ts_date_opt_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list) : (ts_date option) *  (<span class="constructor">Xml</span>.xml list) =
+    <span class="keyword">match</span> xml_list <span class="keyword">with</span>
+    <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> (<span class="constructor">None</span>, xml_list)
+    <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
+        <span class="keyword">match</span> hd <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> (<span class="constructor">Some</span> (<span class="constructor">Cs_date</span> (f_string_of_pcdata_list pcdata_list)), tl)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_abstract"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_chs"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_secs"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_pars"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_blks"</span>,[],_)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_refs"</span>,[],_) <span class="keywordsign">-&gt;</span> (<span class="constructor">None</span>, xml_list)
+        <span class="keywordsign">|</span>xml <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"unexcpected element: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_abstract_opt_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list) : (ts_abstract option) *  (<span class="constructor">Xml</span>.xml list) =
     <span class="keyword">match</span> xml_list <span class="keyword">with</span>

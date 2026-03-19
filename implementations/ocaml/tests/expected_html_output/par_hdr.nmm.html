@@ -27,6 +27,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -75,6 +76,15 @@ h2, h3, h4, h5 {
     margin-left : 3.00rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 3.00rem;
+}
+
+.doc.secs .date {
+    margin-left : 3.00rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -172,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -183,6 +194,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -191,6 +205,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -239,25 +254,37 @@ h2, h3, h4, h5 {
     margin-left : 3.00rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -318,71 +345,71 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc pars">
-<div class="doc_main" style="display:block">
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 1</div>
+<div class="doc pars">
+<div class="doc_main">
+<div class="par">
+<div class="par_lbl">¶ 1</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">Header 1</h4>
 <p class="blk txt">Some text.</p>
 </div>
 </div>
-<div style="display:block" class="DEF par">
-<div class="par_lbl" style="display:block;float:left">¶ 2</div>
+<div class="DEF par">
+<div class="par_lbl">¶ 2</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_tag hdr">DEFINITION</h4>
 <p class="blk txt">Some text.</p>
 </div>
 </div>
-<div style="display:block" class="DEF par">
-<div class="par_lbl" style="display:block;float:left">¶ 3</div>
+<div class="DEF par">
+<div class="par_lbl">¶ 3</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_tag hdr">DEFINITION</h4>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">bullet</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 4</div>
+<div class="par">
+<div class="par_lbl">¶ 4</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">Header 2</h4>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">bullet</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="THM par">
-<div class="par_lbl" style="display:block;float:left">¶ 5</div>
+<div class="THM par">
+<div class="par_lbl">¶ 5</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <div class="par_tag">THEOREM</div>
 <h4 class="par_hdr">Header 3</h4>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">bullet</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="THM par">
-<div class="par_lbl" style="display:block;float:left">¶ 6</div>
+<div class="THM par">
+<div class="par_lbl">¶ 6</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <div class="par_tag">THEOREM</div>
 <h4 class="par_hdr">Header 4</h4>
 <p class="blk txt">Some theorem.</p>

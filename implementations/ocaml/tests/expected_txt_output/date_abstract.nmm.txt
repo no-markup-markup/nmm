@@ -1,0 +1,18 @@
+     ════════════════════════════════════════════════════════════════════
+     A dated document
+     ════════════════════════════════════════════════════════════════════
+
+     Eric Johannesson
+
+     2026-03-17
+
+
+     ABSTRACT
+     This is an abstract.
+
+
+
+§ 1  Section header
+     ──────────────
+
+     This is a document with a DATE.

@@ -29,10 +29,11 @@
         <span class="keywordsign">|</span><span class="keyword">false</span>, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> (
                 <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
                 <span class="keywordsign">|</span>esc_char                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ESC_CHAR</span> (get_esc_char (lexeme lexbuf))
-                <span class="keywordsign">|</span>preamble                       <span class="keywordsign">-&gt;</span>      <span class="constructor">PREAMBLE</span> (lexeme lexbuf)
-                <span class="keywordsign">|</span>title                          <span class="keywordsign">-&gt;</span>      <span class="constructor">TITLE</span> (lexeme lexbuf)
-                <span class="keywordsign">|</span>author                         <span class="keywordsign">-&gt;</span>      <span class="constructor">AUTHOR</span> (lexeme lexbuf)
-                <span class="keywordsign">|</span>abstract                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ABSTRACT</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>preamble                       <span class="keywordsign">-&gt;</span>      <span class="constructor">PREAMBLE</span>
+                <span class="keywordsign">|</span>title                          <span class="keywordsign">-&gt;</span>      <span class="constructor">TITLE</span>
+                <span class="keywordsign">|</span>author                         <span class="keywordsign">-&gt;</span>      <span class="constructor">AUTHOR</span>
+                <span class="keywordsign">|</span>date                           <span class="keywordsign">-&gt;</span>      <span class="constructor">DATE</span>
+                <span class="keywordsign">|</span>abstract                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ABSTRACT</span>
                 <span class="keywordsign">|</span>ch_tag_or_id_nl                <span class="keywordsign">-&gt;</span>      <span class="constructor">CH_TAG_OR_ID_NL</span> (<span class="constructor">String</span>.trim (lexeme lexbuf))
                 <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>section_nl                     <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_NL</span>

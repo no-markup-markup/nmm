@@ -27,6 +27,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -75,6 +76,15 @@ h2, h3, h4, h5 {
     margin-left : 4.20rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 4.20rem;
+}
+
+.doc.secs .date {
+    margin-left : 4.20rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -172,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -183,6 +194,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -191,6 +205,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -239,25 +254,37 @@ h2, h3, h4, h5 {
     margin-left : 4.20rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -318,62 +345,62 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc secs">
-<div class="doc_main" style="display:block">
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 1</div>
+<div class="doc secs">
+<div class="doc_main">
+<div class="sec">
+<div class="sec_lbl">§ 1</div>
 <h3 class="sec_hdr">Section 1</h3>
-<div class="sec_main" style="display:block">
-<div style="display:block" class="PAR par" id="PAR_par_default_scope">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.1</h4>
+<div class="sec_main">
+<div class="PAR par" id="PAR_par_default_scope">
+<h4 class="par_lbl hdr">¶ 1.1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">The ID (‘PAR:par_default_scope’) of this paragraph has default (global) scope. It may be referred to from anywhere in the document.</p>
 </div>
 </div>
-<div style="display:block" class="PAR par" id="PAR_par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1.2</h4>
+<div class="PAR par" id="PAR_par">
+<h4 class="par_lbl hdr">¶ 1.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">The ID (‘PAR:par:GBL’) of this paragraph has explicitly global scope.</p>
 </div>
 </div>
 </div>
 </div>
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 2</div>
+<div class="sec">
+<div class="sec_lbl">§ 2</div>
 <h3 class="sec_hdr">Section 2</h3>
-<div class="sec_main" style="display:block">
-<div style="display:block" class="PAR par" id="PAR_par_SEC_2">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.1</h4>
+<div class="sec_main">
+<div class="PAR par" id="PAR_par_SEC_2">
+<h4 class="par_lbl hdr">¶ 2.1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">The ID (‘PAR:par:SEC’) of this paragraph has section scope. We may still refer to <a class="txt_unit_c_ref" href="#PAR_par">¶ 1.2</a>, by using ‘[PAR:par:GBL]’.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 2.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Some cross-references:</p>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">‘[PAR:par_default_scope]’: <a class="txt_unit_c_ref" href="#PAR_par_default_scope">¶ 1.1</a></p>
 </div>
 </div>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">‘[PAR:par:GBL]’:           <a class="txt_unit_c_ref" href="#PAR_par">¶ 1.2</a></p>
 </div>
 </div>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">‘[PAR:par:SEC]’:           <a class="txt_unit_c_ref" href="#PAR_par_SEC_2">¶ 2.1</a></p>
 </div>
 </div>
@@ -381,40 +408,40 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 3</div>
+<div class="sec">
+<div class="sec_lbl">§ 3</div>
 <h3 class="sec_hdr">Section 3</h3>
-<div class="sec_main" style="display:block">
-<div style="display:block" class="PAR par" id="PAR_par_SEC_3">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3.1</h4>
+<div class="sec_main">
+<div class="PAR par" id="PAR_par_SEC_3">
+<h4 class="par_lbl hdr">¶ 3.1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">The ID (‘PAR:par:SEC’) of this paragraph has section scope. Since it has section scope there is no problem that it has the same ID as a paragraph in another section.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 3.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 3.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Some cross-references:</p>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">‘[PAR:par_default_scope]’: <a class="txt_unit_c_ref" href="#PAR_par_default_scope">¶ 1.1</a></p>
 </div>
 </div>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">‘[PAR:par:GBL]’:           <a class="txt_unit_c_ref" href="#PAR_par">¶ 1.2</a></p>
 </div>
 </div>
-<div class="blk blt" style="display:block">
-<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
-<div class="blk_blt_main" style="display:block">
+<div class="blk_blt_main">
 <p class="blk txt">‘[PAR:par:SEC]’:           <a class="txt_unit_c_ref" href="#PAR_par_SEC_3">¶ 3.1</a></p>
 </div>
 </div>

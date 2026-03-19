@@ -27,6 +27,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -75,6 +76,15 @@ h2, h3, h4, h5 {
     margin-left : 3.00rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 3.00rem;
+}
+
+.doc.secs .date {
+    margin-left : 3.00rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -172,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -183,6 +194,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -191,6 +205,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -239,25 +254,37 @@ h2, h3, h4, h5 {
     margin-left : 3.00rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -318,103 +345,103 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc pars">
-<div class="doc_main" style="display:block">
-<div style="display:block" class="PAR par" id="PAR_one">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 1</h4>
+<div class="doc pars">
+<div class="doc_main">
+<div class="PAR par" id="PAR_one">
+<h4 class="par_lbl hdr">¶ 1</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <p class="blk txt">Block of text.</p>
-<div class="blk itm" style="display:block" id="ITM_one">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk itm" id="ITM_one">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">An item</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_two">
-<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk itm" id="ITM_two">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">I like <a class="txt_unit_c_ref" href="#ITM_one">(a)</a>.</p>
 </div>
 </div>
 <p class="blk txt">I also like <a class="txt_unit_c_ref" href="#ITM_two">(b)</a> and <a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a>.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 2</div>
+<div class="par">
+<div class="par_lbl">¶ 2</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a> [restated]</h4>
 <p class="blk txt">Block of text.</p>
-<div class="blk itm" style="display:block" id="ITM_one">
-<div class="blk_itm_lbl" style="display:block;float:left">(a)</div>
+<div class="blk itm" id="ITM_one">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">An item</p>
 </div>
 </div>
-<div class="blk itm" style="display:block" id="ITM_two">
-<div class="blk_itm_lbl" style="display:block;float:left">(b)</div>
+<div class="blk itm" id="ITM_two">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
-<div class="blk_itm_main" style="display:block">
+<div class="blk_itm_main">
 <p class="blk txt">I like <a class="txt_unit_c_ref" href="#ITM_one">(a)</a>.</p>
 </div>
 </div>
 <p class="blk txt">I also like <a class="txt_unit_c_ref" href="#ITM_two">(b)</a> and <a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a>.</p>
 </div>
 </div>
-<div style="display:block" class="PAR par" id="PAR_two">
-<div class="par_lbl" style="display:block;float:left">¶ 3</div>
+<div class="PAR par" id="PAR_two">
+<div class="par_lbl">¶ 3</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">Header of paragraph referencing <a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a>, i.e itself.</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">I like <a class="txt_unit_c_ref" href="#ITM_one">(a) of ¶ 1</a> and <a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a>. I also like <a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a>.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 4</div>
+<div class="par">
+<div class="par_lbl">¶ 4</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a> (Header of paragraph referencing <a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a>, i.e itself.) [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">I like <a class="txt_unit_c_ref" href="#ITM_one">(a) of ¶ 1</a> and <a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a>. I also like <a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a>.</p>
 </div>
 </div>
-<div style="display:block" class="THM par" id="THM_one">
-<div class="par_lbl" style="display:block;float:left">¶ 5</div>
+<div class="THM par" id="THM_one">
+<div class="par_lbl">¶ 5</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_tag hdr">THEOREM</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 6</div>
+<div class="par">
+<div class="par_lbl">¶ 6</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a> [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
 </div>
-<div style="display:block" class="THM par" id="THM_two">
-<div class="par_lbl" style="display:block;float:left">¶ 7</div>
+<div class="THM par" id="THM_two">
+<div class="par_lbl">¶ 7</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <div class="par_tag">THEOREM</div>
 <h4 class="par_hdr">Header of paragraph</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 8</div>
+<div class="par">
+<div class="par_lbl">¶ 8</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_two">Theorem 7</a> (Header of paragraph) [restated]</h4>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>

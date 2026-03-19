@@ -89,11 +89,25 @@
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_cref_table&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Doc_types</span>.tr_id&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_cref_element)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_ch_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_sec_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_app_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_par_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lvl_of_path&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_tr_id&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_path&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_ts_c_ref&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.ts_c_ref&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;check_cref_table&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_cref_table<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path_opt&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;node_of_tu_par&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_par&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_node<br>
@@ -104,24 +118,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_dsp_line&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_node<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path_opt&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;option<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_path&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;label_of_path&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;par_restated_of_tr_id&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Doc_types</span>.tr_par_std&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_path)&nbsp;option<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_tu_scope&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tu_scope&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_ch_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_sec_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_app_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;path_to_par_node&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_path<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;check_cref_table&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_cref_table<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_tr_id&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 <span class="keyword">end</span></code></body></html>

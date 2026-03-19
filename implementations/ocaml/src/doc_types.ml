@@ -4,6 +4,7 @@ type tr_doc = {
   fld_doc_preamble : ts_preamble option;
   fld_doc_title : ts_title option;
   fld_doc_authors: ts_authors option;
+  fld_doc_date : ts_date option;
   fld_doc_abstract : ts_abstract option;
   fld_doc_main : tu_doc_main;
   fld_doc_refs : ts_refs option;
@@ -16,6 +17,8 @@ and ts_title = Cs_title of string
 and ts_authors = Cs_authors of (ts_author list)
 
 and ts_author = Cs_author of string
+
+and ts_date = Cs_date of string
 
 and ts_abstract = Cs_abstract of ts_blks
 

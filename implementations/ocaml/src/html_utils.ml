@@ -4,14 +4,16 @@ exception Error of string
 
 let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xml.xml=
 match element with
-|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("title", _, xml_list) -> Xml.Element ("h1", [("class", "title")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("authors", _, xml_list) -> Xml.Element ("div", [("class", "authors");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("authors", _, xml_list) -> Xml.Element ("div", [("class", "authors")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("author", _, xml_list) -> Xml.Element ("p", [("class", "author")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("date", _, [Xml.PCData s]) -> Xml.Element ("time", [("class", "date");("datetime",s)], [Xml.PCData s])
+
+|Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("abstract_hdr", _, xml_list) -> (
         match doc_class with
         |DOC_CHS -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
@@ -20,7 +22,7 @@ match element with
         |DOC_BLKS -> Xml.Element ("h5", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
 )
 
-|Xml.Element ("refs", _ , xml_list) -> Xml.Element ("div", [("class","refs");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("refs", _ , xml_list) -> Xml.Element ("div", [("class","refs")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("refs_hdr", _, xml_list) -> (
         match doc_class with
         |DOC_CHS -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
@@ -29,45 +31,45 @@ match element with
         |DOC_BLKS -> Xml.Element ("h5", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
 )
 
-|Xml.Element ("doc_main", _, xml_list) -> Xml.Element ("div", [("class", "doc_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("doc_main", _, xml_list) -> Xml.Element ("div", [("class", "doc_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_lbl", _ , xml_list) -> Xml.Element ("div", [("class","ch_lbl");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_lbl", _ , xml_list) -> Xml.Element ("div", [("class","ch_lbl")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_main", _ , xml_list) -> Xml.Element ("div", [("class","ch_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_main", _ , xml_list) -> Xml.Element ("div", [("class","ch_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl");("style","display:block;float:left")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", ("style","display:block")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag",[],xml_list) -> Xml.Element ("div", [("class", "par_tag")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_main_w_hdr", _ , xml_list) -> Xml.Element ("div", [("class","par_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_main_w_hdr", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_itm_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_itm_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(attr_list), List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_itm_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_itm_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_blt", _, xml_list) -> Xml.Element ("div", [("class", "blk blt");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_blt_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_blt_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_blt_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_blt_main");("style","display:block")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_blt", _, xml_list) -> Xml.Element ("div", [("class", "blk blt")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_blt_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_blt_lbl")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_blt_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_blt_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_dsp", _, xml_list) -> Xml.Element ("div", [("class", "blk dsp");("style","display:block;white-space:nowrap")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line", attr_list, xml_list) -> Xml.Element ("div", ("class", "dsp_line")::(("style","display:block")::attr_list), List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line_lbl", _, xml_list) -> Xml.Element ("div",[("class","dsp_line_lbl");("style","display:block;float:left")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line_main", _, xml_list) -> Xml.Element ("div", [("class", "dsp_line_main");("style","display:block;white-space:pre")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_dsp", _, xml_list) -> Xml.Element ("div", [("class", "blk dsp")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("dsp_line", attr_list, xml_list) -> Xml.Element ("div", ("class", "dsp_line")::attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("dsp_line_lbl", _, xml_list) -> Xml.Element ("div",[("class","dsp_line_lbl")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("dsp_line_main", _, xml_list) -> Xml.Element ("div", [("class", "dsp_line_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_vrb",_,xml_list) -> Xml.Element ("div",[("class","blk vrb");("style","display:block")],List.map (html_of_exml doc_class) xml_list) 
+|Xml.Element ("blk_vrb",_,xml_list) -> Xml.Element ("div",[("class","blk vrb")],List.map (html_of_exml doc_class) xml_list) 
 |Xml.Element ("vrb_line",_,xml_list) -> Xml.Element ("pre",[("class","vrb_line")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("vrb_line_empty",_,_) -> Xml.Element ("br",[("class","vrb_line_empty")],[])
 
@@ -102,7 +104,7 @@ let lang_code_of_options (options : string list) : string option =
                         |"--lang" -> (
                                 match tl with
                                 |lang_code::_ -> Some lang_code
-                                |_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --lang argument; using default (en)" in None
+                                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: missing --lang argument; using default (en)" in None
                         )
                         |_ -> aux tl
         in
@@ -117,7 +119,7 @@ let external_css_of_options (options : string list) : string option =
                         |"--css" -> (
                                 match tl with
                                 |uri::_ -> Some uri
-                                |_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --css argument; using default" in None
+                                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: missing --css argument; using default" in None
 
                         )
                         |_ -> aux tl
@@ -153,6 +155,7 @@ p, pre {
     margin-top    : 0;
     margin-bottom : 0;
 }
+
 
 h2, h3, h4, h5 {
     margin-top : 0;
@@ -202,6 +205,15 @@ h2, h3, h4, h5 {
     margin-left : "^ margin_left ^";
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : "^ margin_left ^";
+}
+
+.doc.secs .date {
+    margin-left : "^ margin_left ^";
+}
 
 /************ ABSTRACT ******************/
 
@@ -299,6 +311,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -310,6 +323,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -318,6 +334,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -366,25 +383,37 @@ h2, h3, h4, h5 {
     margin-left : "^ margin_left ^";
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : "^ tab_length ^";
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : "^ tab_length ^";
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : "^ tab_length ^";
+    white-space : pre;
 }
 
 

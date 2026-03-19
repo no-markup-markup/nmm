@@ -27,6 +27,7 @@ p, pre {
     margin-bottom : 0;
 }
 
+
 h2, h3, h4, h5 {
     margin-top : 0;
 }
@@ -75,6 +76,15 @@ h2, h3, h4, h5 {
     margin-left : 5.40rem;
 }
 
+/************ DATE ******************/
+
+.doc.pars .date {
+    margin-left : 5.40rem;
+}
+
+.doc.secs .date {
+    margin-left : 5.40rem;
+}
 
 /************ ABSTRACT ******************/
 
@@ -172,6 +182,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    float       : left;
     font-size   : large;
     font-weight : normal;
     line-height : 130%;
@@ -183,6 +194,9 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
+.sec_lbl.hdr {
+    float : none;
+}
 
 /************** PAR *********************/
 
@@ -191,6 +205,7 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    float       : left;
     font-weight : normal;
 }
 
@@ -239,25 +254,37 @@ h2, h3, h4, h5 {
     margin-left : 5.40rem;
 }
 
-
 .blk.txt {
     hyphens     : auto;
     white-space : pre-wrap;
 }
 
 
+.blk_blt_lbl {
+    float : left;
+}
+
 .blk_blt_main {
     margin-left : 6ch;
 }
 
+
+.blk_itm_lbl {
+    float : left;
+}
 
 .blk_itm_main {
     margin-left : 6ch;
 }
 
 
+.dsp_line_lbl {
+    float : left;
+}
+
 .dsp_line_main {
     margin-left : 6ch;
+    white-space : pre;
 }
 
 
@@ -318,81 +345,81 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div style="display:block" class="doc chs">
+<div class="doc chs">
 <h1 class="title">Document with unlabeled display lines</h1>
-<div class="authors" style="display:block">
+<div class="authors">
 <p class="author">Eric Johannesson</p>
 </div>
-<div class="doc_main" style="display:block">
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 1</div>
+<div class="doc_main">
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 1</div>
 <h2 class="ch_hdr">Chapter starting with unlabeled display lines</h2>
-<div class="ch_main" style="display:block">
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="ch_main">
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(!)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(!)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
 </div>
 </div>
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 2</div>
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 2</div>
 <h2 class="ch_hdr">Paragraphs starting with unlabeled display lines</h2>
-<div class="ch_main" style="display:block">
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
+<div class="ch_main">
+<div class="par">
+<div class="par_lbl">¶ 2.1</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">Paragraph with a header</h4>
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(!)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(!)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 2.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 2.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="par_main">
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(@)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(@)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
@@ -400,55 +427,55 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 3</div>
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 3</div>
 <h2 class="ch_hdr">Sections starting with unlabeled display lines</h2>
-<div class="ch_main" style="display:block">
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 3.1</div>
+<div class="ch_main">
+<div class="sec">
+<div class="sec_lbl">§ 3.1</div>
 <h3 class="sec_hdr">First section</h3>
-<div class="sec_main" style="display:block">
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="sec_main">
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(S)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(S)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
 </div>
 </div>
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 3.2</div>
+<div class="sec">
+<div class="sec_lbl">§ 3.2</div>
 <h3 class="sec_hdr">Second section</h3>
-<div class="sec_main" style="display:block">
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="sec_main">
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(Q)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(Q)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
@@ -456,57 +483,57 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div style="display:block" class="CH ch">
-<div class="ch_lbl" style="display:block">CHAPTER 4</div>
+<div class="CH ch">
+<div class="ch_lbl">CHAPTER 4</div>
 <h2 class="ch_hdr">Sections with paragraphs starting with unlabeled display lines</h2>
-<div class="ch_main" style="display:block">
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 4.1</div>
+<div class="ch_main">
+<div class="sec">
+<div class="sec_lbl">§ 4.1</div>
 <h3 class="sec_hdr">First section</h3>
-<div class="sec_main" style="display:block">
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 4.1.1</div>
+<div class="sec_main">
+<div class="par">
+<div class="par_lbl">¶ 4.1.1</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">Paragraph with a header</h4>
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(+)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(+)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<h4 class="par_lbl hdr" style="display:block;float:left">¶ 4.1.2</h4>
+<div class="par">
+<h4 class="par_lbl hdr">¶ 4.1.2</h4>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="par_main">
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(?)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(?)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
@@ -514,54 +541,54 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-<div style="display:block" class="sec">
-<div class="sec_lbl" style="display:block;float:left">§ 4.2</div>
+<div class="sec">
+<div class="sec_lbl">§ 4.2</div>
 <h3 class="sec_hdr">Second section</h3>
-<div class="sec_main" style="display:block">
-<div style="display:block" class="DEF par">
-<div class="par_lbl" style="display:block;float:left">¶ 4.2.1</div>
+<div class="sec_main">
+<div class="DEF par">
+<div class="par_lbl">¶ 4.2.1</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_tag hdr">DEFINITION</h4>
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(~)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(~)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>
 </div>
 </div>
-<div style="display:block" class="par">
-<div class="par_lbl" style="display:block;float:left">¶ 4.2.2</div>
+<div class="par">
+<div class="par_lbl">¶ 4.2.2</div>
 <div class="clear"></div>
-<div class="par_main" style="display:block">
+<div class="par_main">
 <h4 class="par_hdr">Paragraph with a header</h4>
-<div class="blk dsp" style="display:block;white-space:nowrap">
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_main" style="display:block;white-space:pre">unlabeled display line</div>
+<div class="blk dsp">
+<div class="dsp_line">
+<div class="dsp_line_main">unlabeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(£)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(£)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">manually labeled display line</div>
+<div class="dsp_line_main">manually labeled display line</div>
 </div>
-<div class="dsp_line" style="display:block">
-<div class="dsp_line_lbl" style="display:block;float:left">(a)</div>
+<div class="dsp_line">
+<div class="dsp_line_lbl">(a)</div>
 <div class="clear"></div>
-<div class="dsp_line_main" style="display:block;white-space:pre">automatically labeled display line</div>
+<div class="dsp_line_main">automatically labeled display line</div>
 </div>
 </div>
 <p class="blk txt">Block of text.</p>

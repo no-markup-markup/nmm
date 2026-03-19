@@ -1,8 +1,9 @@
-<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)>
+<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, cs_date?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)>
 <!ELEMENT cs_preamble (#PCDATA)>
 <!ELEMENT cs_title (#PCDATA)>
 <!ELEMENT cs_authors (cs_author+)>
 <!ELEMENT cs_author (#PCDATA)>
+<!ELEMENT cs_date (#PCDATA)>
 <!ELEMENT cs_abstract (cs_blks)>
 
 <!ELEMENT cu_doc_main_chs (cs_chs)>

@@ -6,6 +6,7 @@ A toolkit used by {!module:Compiler_of_doc} when compiling raw text, for handlin
 
 val lines_of_ts_title_opt : Common_utils.t_doc_settings -> Doc_types.ts_title option -> string list
 val lines_of_ts_authors_opt : Common_utils.t_doc_settings -> Doc_types.ts_authors option -> string list
+val lines_of_ts_date_opt : Common_utils.t_doc_settings -> Doc_types.ts_date option -> string list
 val lines_of_abstract_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
 val lines_of_refs_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
 val lines_of_ts_blk_txt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.ts_blk_txt -> string list
