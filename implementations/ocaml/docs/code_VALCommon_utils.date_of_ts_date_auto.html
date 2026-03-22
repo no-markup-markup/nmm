@@ -25,8 +25,8 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> date_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) : t_date option =
-	<span class="keyword">match</span> date, <span class="constructor">Sys</span>.unix <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Cs_date_auto</span>, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+	<span class="keyword">match</span> date <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_date_auto</span> <span class="keywordsign">-&gt;</span> <span class="keyword">try</span>
 		<span class="keyword">let</span> time : float = <span class="constructor">Unix</span>.time () <span class="keyword">in</span>
 		<span class="keyword">let</span> local_time : <span class="constructor">Unix</span>.tm = <span class="constructor">Unix</span>.localtime time <span class="keyword">in</span> 
 		<span class="keyword">let</span> gm_time : <span class="constructor">Unix</span>.tm = <span class="constructor">Unix</span>.gmtime time <span class="keyword">in</span>
@@ -68,4 +68,5 @@
 			timezone = timezone_string;
 			diff = utc_diff;
 		}
-	<span class="keywordsign">|</span><span class="constructor">Cs_date_auto</span>, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning <span class="string">"WARNING: auto date only supported on unix-like systems"</span> <span class="keyword">in</span> <span class="constructor">None</span></code></body></html>
+		<span class="keyword">with</span>
+		<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning <span class="string">"WARNING: cannot get system time and date"</span> <span class="keyword">in</span> <span class="constructor">None</span></code></body></html>

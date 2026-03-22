@@ -1197,8 +1197,8 @@ type t_date = {
 }
 
 let date_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) : t_date option =
-	match date, Sys.unix with
-	|Cs_date_auto, true ->
+	match date with
+	|Cs_date_auto -> try
 		let time : float = Unix.time () in
 		let local_time : Unix.tm = Unix.localtime time in 
 		let gm_time : Unix.tm = Unix.gmtime time in
@@ -1240,4 +1240,5 @@ let date_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) :
 			timezone = timezone_string;
 			diff = utc_diff;
 		}
-	|Cs_date_auto, false -> let _ : unit = Debug_utils.print_warning "WARNING: auto date only supported on unix-like systems" in None
+		with
+		|_ -> let _ : unit = Debug_utils.print_warning "WARNING: cannot get system time and date" in None
