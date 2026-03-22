@@ -207,11 +207,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 
@@ -348,7 +350,7 @@ h2, h3, h4, h5 {
 <div class="doc pars">
 <div class="doc_main">
 <div class="PAR par" id="PAR_named_paragraph">
-<h4 class="par_lbl hdr">¶ 1</h4>
+<h2 class="par_lbl hdr">¶ 1</h2>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">This is a no-markup-markup document, sporting the following cool features:</p>
@@ -442,7 +444,7 @@ h2, h3, h4, h5 {
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 2</h4>
+<h2 class="par_lbl hdr">¶ 2</h2>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">We may also refer to <a class="txt_unit_c_ref" href="#ITM_x">(b)(2) of ¶ 1</a> or <a class="txt_unit_c_ref" href="#ITM_y">(b)(3) of ¶ 1</a> from another paragraph. These references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1</a>.</p>
@@ -452,7 +454,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">Paragraph header, which is a text block that may contain <em class="txt_unit_emph">emph text</em> and a reference to <a class="txt_unit_c_ref" href="#DSP_one">(c)(1) of ¶ 1</a>.</h4>
+<h2 class="par_hdr">Paragraph header, which is a text block that may contain <em class="txt_unit_emph">emph text</em> and a reference to <a class="txt_unit_c_ref" href="#DSP_one">(c)(1) of ¶ 1</a>.</h2>
 <p class="blk txt">This is a paragraph with a header. As we shall se in <a class="txt_unit_c_ref" href="#PAR_named_paragraph_with_header">¶ 4</a> below, paragraphs with headers can also be named.</p>
 </div>
 </div>
@@ -460,7 +462,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">Header of the named paragraph</h4>
+<h2 class="par_hdr">Header of the named paragraph</h2>
 <p class="blk txt">Believe it or not, it actually works!</p>
 </div>
 </div>

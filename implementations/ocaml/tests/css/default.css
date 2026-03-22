@@ -199,11 +199,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 

@@ -207,11 +207,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 
@@ -349,10 +351,10 @@ h2, h3, h4, h5 {
 <div class="doc_main">
 <div class="SEC sec" id="SEC_named_section">
 <div class="sec_lbl">§ 1</div>
-<h3 class="sec_hdr">Introduction</h3>
+<h2 class="sec_hdr">Introduction</h2>
 <div class="sec_main">
 <div class="PAR par" id="PAR_named_paragraph">
-<h4 class="par_lbl hdr">¶ 1.1</h4>
+<h3 class="par_lbl hdr">¶ 1.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">According to <a class="txt_unit_c_ref" href="#DEF_provability">Definition 2.4</a> ...</p>
@@ -482,7 +484,7 @@ h2, h3, h4, h5 {
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 1.2</h4>
+<h3 class="par_lbl hdr">¶ 1.2</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">We may also refer to <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> or <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> from another paragraph. These references will appear differently than when occurring in paragraph <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a> above.</p>
@@ -493,10 +495,10 @@ h2, h3, h4, h5 {
 </div>
 <div class="sec">
 <div class="sec_lbl">§ 2</div>
-<h3 class="sec_hdr">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h3>
+<h2 class="sec_hdr">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h2>
 <div class="sec_main">
 <div class="par">
-<h4 class="par_lbl hdr">¶ 2.1</h4>
+<h3 class="par_lbl hdr">¶ 2.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">The same goes for paragraph headers. As we shall see in <a class="txt_unit_c_ref" href="#PAR_named_paragraph_with_header">¶ 2.2</a> below, paragraphs with headers can also be named.</p>
@@ -506,7 +508,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> and <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h4>
+<h3 class="par_hdr">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> and <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h3>
 <p class="blk txt">Putting references in a header does not look very nice.</p>
 </div>
 </div>
@@ -514,7 +516,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">DEFINITION</h4>
+<h3 class="par_tag hdr">DEFINITION</h3>
 <p class="blk txt">We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</p>
 </div>
 </div>
@@ -523,7 +525,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h4 class="par_hdr">Provability</h4>
+<h3 class="par_hdr">Provability</h3>
 <p class="blk txt">We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</p>
 </div>
 </div>
@@ -531,7 +533,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.5</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">FACT</h4>
+<h3 class="par_tag hdr">FACT</h3>
 <p class="blk txt">For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</p>
 </div>
 </div>

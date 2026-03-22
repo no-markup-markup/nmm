@@ -2,6 +2,20 @@ open Common_utils
 
 exception Error of string
 
+let sec_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
+	match doc_class with
+	|DOC_CHS -> "h3"
+	|DOC_SECS -> "h2"
+	|_ -> raise (Error "unexpected document class")
+
+let par_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
+	match doc_class with
+	|DOC_CHS -> "h4"
+	|DOC_SECS -> "h3"
+	|DOC_PARS -> "h2"
+	|DOC_BLKS -> raise (Error "unexpected document class")
+
+
 let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xml.xml=
 match element with
 |Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
@@ -14,22 +28,10 @@ match element with
 |Xml.Element ("date", attr_list, [Xml.PCData s]) -> Xml.Element ("time", ("class", "date")::attr_list, [Xml.PCData s])
 
 |Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("abstract_hdr", _, xml_list) -> (
-        match doc_class with
-        |DOC_CHS -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-        |DOC_SECS -> Xml.Element ("h3", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-        |DOC_PARS -> Xml.Element ("h4", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-        |DOC_BLKS -> Xml.Element ("h5", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-)
+|Xml.Element ("abstract_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("refs", _ , xml_list) -> Xml.Element ("div", [("class","refs")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("refs_hdr", _, xml_list) -> (
-        match doc_class with
-        |DOC_CHS -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-        |DOC_SECS -> Xml.Element ("h3", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-        |DOC_PARS -> Xml.Element ("h4", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-        |DOC_BLKS -> Xml.Element ("h5", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-)
+|Xml.Element ("refs_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("doc_main", _, xml_list) -> Xml.Element ("div", [("class", "doc_main")], List.map (html_of_exml doc_class) xml_list)
 
@@ -41,16 +43,16 @@ match element with
 
 |Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element ("h3", [("class", "sec_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element (sec_hdr_of_doc_class doc_class, [("class", "sec_hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element (sec_hdr_of_doc_class doc_class, [("class", "sec_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element ("h4",[("class","par_lbl hdr")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class,[("class","par_lbl hdr")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag",[],xml_list) -> Xml.Element ("div", [("class", "par_tag")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element ("h4", [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class, [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class, [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main_w_hdr", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
 
@@ -336,11 +338,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 

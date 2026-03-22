@@ -208,11 +208,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 
@@ -353,23 +355,23 @@ h2, h3, h4, h5 {
 <p class="author">Anders Lundstedt, anders.lundstedt@philosophy.su.se</p>
 </div>
 <div class="abstract">
-<h3 class="abstract_hdr">ABSTRACT</h3>
+<h2 class="abstract_hdr">ABSTRACT</h2>
 <p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”. We show that this is an instance of a more general phenomenon which we call <em class="txt_unit_emph">proof by non-straightforward induction</em>. Cruacially, we show that there are cases where straightforward induction fails, but where proof by <em class="txt_unit_emph">incomparable</em> or even <em class="txt_unit_emph">weaker</em> induction hypothesis succeeds.</p>
 </div>
 <div class="doc_main">
 <div class="SEC sec" id="SEC_intro">
 <div class="sec_lbl">§ 1</div>
-<h3 class="sec_hdr">Introduction</h3>
+<h2 class="sec_hdr">Introduction</h2>
 <div class="sec_main">
 <div class="par">
-<h4 class="par_lbl hdr">¶ 1.1</h4>
+<h3 class="par_lbl hdr">¶ 1.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”.</p>
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 1.2</h4>
+<h3 class="par_lbl hdr">¶ 1.2</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">To give an example, suppose we want to prove that, for all natural numbers n, the sum of the first n odd numbers is a perfect square. Straightforward induction yields the following:</p>
@@ -396,7 +398,7 @@ h2, h3, h4, h5 {
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 1.3</h4>
+<h3 class="par_lbl hdr">¶ 1.3</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">Instead, we may prove the following <em class="txt_unit_emph">more general</em> or <em class="txt_unit_emph">stronger</em> result by induction: for all natural numbers n, the sum of the first n odd numbers is n². Straightforward induction yields the following:</p>
@@ -420,10 +422,10 @@ h2, h3, h4, h5 {
 </div>
 <div class="SEC sec" id="SEC_precise">
 <div class="sec_lbl">§ 2</div>
-<h3 class="sec_hdr">Making it precise</h3>
+<h2 class="sec_hdr">Making it precise</h2>
 <div class="sec_main">
 <div class="par">
-<h4 class="par_lbl hdr">¶ 2.1</h4>
+<h3 class="par_lbl hdr">¶ 2.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">What does it mean, more precisely, to say that straightforward induction to prove ∀xφ(x) “does not work”, and that we “must” use a “stronger” induction hypothesis and first prove ∀xψ(x)?</p>
@@ -455,7 +457,7 @@ h2, h3, h4, h5 {
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 2.2</h4>
+<h3 class="par_lbl hdr">¶ 2.2</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">Instead, the situation may perhaps be characterized as follows: starting from the axioms of Peano arithmetic minus the induction axioms, we successively prove more and more theorems using logic and the rule of induction:</p>
@@ -478,7 +480,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h4 class="par_hdr">Proof by non-straightforward induction</h4>
+<h3 class="par_hdr">Proof by non-straightforward induction</h3>
 <p class="blk txt">We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of <em class="txt_unit_emph">proof by non-straightforward induction</em> just in case</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_good1">
@@ -503,12 +505,12 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">FACT</h4>
+<h3 class="par_tag hdr">FACT</h3>
 <p class="blk txt">There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x) exemplifying cases of proof by non-straightforward induction.</p>
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 2.5</h4>
+<h3 class="par_lbl hdr">¶ 2.5</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">Perhaps more surprisingly, proof by non-straightforward induction does not really require ψ(x) to be <em class="txt_unit_emph">stronger</em> than φ(x). As we show in <a class="txt_unit_c_ref" href="#SEC_weaker">§ 4</a> below, there are cases of proof by non-straightforward induction where, relative to T, ψ(x) is actually <em class="txt_unit_emph">weaker</em> than φ(x).</p>
@@ -518,10 +520,10 @@ h2, h3, h4, h5 {
 </div>
 <div class="SEC sec" id="SEC_model">
 <div class="sec_lbl">§ 3</div>
-<h3 class="sec_hdr">A non-standard model</h3>
+<h2 class="sec_hdr">A non-standard model</h2>
 <div class="sec_main">
 <div class="par">
-<h4 class="par_lbl hdr">¶ 3.1</h4>
+<h3 class="par_lbl hdr">¶ 3.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">We define a non-standard model M of Robinson arithmetic as follows. Let</p>
@@ -576,7 +578,7 @@ h2, h3, h4, h5 {
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 3.2</h4>
+<h3 class="par_lbl hdr">¶ 3.2</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">It can easily be verified that M is also a model of what we may call  <em class="txt_unit_emph">minimal arithmetic</em>, which is the theory you get by adding commutativity, associativity and distribution laws for addition and multiplication to the axioms of Robinson arithmetic.</p>
@@ -587,7 +589,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">PROOF</div>
-<h4 class="par_hdr">of <a class="txt_unit_c_ref" href="#FCT_good">Fact 2.4</a></h4>
+<h3 class="par_hdr">of <a class="txt_unit_c_ref" href="#FCT_good">Fact 2.4</a></h3>
 <p class="blk txt">To verify that cases of proof by non-straightforward induction are indeed possible, it suffices to find <em class="txt_unit_emph">true</em> formulas φ(x) and ψ(x) (<em class="txt_unit_emph">true</em> in the sense of being satisfied by all natural numbers in the standard model as well as in the non-standard model) with the following profile regarding the non-standard numbers of M:</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -636,10 +638,10 @@ h2, h3, h4, h5 {
 </div>
 <div class="SEC sec" id="SEC_weaker">
 <div class="sec_lbl">§ 4</div>
-<h3 class="sec_hdr">Proof by non-strengthened induction hypothesis</h3>
+<h2 class="sec_hdr">Proof by non-strengthened induction hypothesis</h2>
 <div class="sec_main">
 <div class="par">
-<h4 class="par_lbl hdr">¶ 4.1</h4>
+<h3 class="par_lbl hdr">¶ 4.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">In the proof of <a class="txt_unit_c_ref" href="#FCT_good">Fact 2.4</a>, ψ(x) was <em class="txt_unit_emph">stronger</em> than φ(x), even in the  sense that ⊢ ∀x(ψ(x) → φ(x)). Thus, this was a clear case of <em class="txt_unit_emph">proof by strengthened induction hypothesis</em>, albeit a contrived one.</p>
@@ -651,7 +653,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h4 class="par_hdr">Proof by incomparable induction hypothesis</h4>
+<h3 class="par_hdr">Proof by incomparable induction hypothesis</h3>
 <p class="blk txt">We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of <em class="txt_unit_emph">proof by incomparable induction hypothesis</em> just in case they exemplify a case of proof by non-straightforward induction and, in addition,</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_inc1">
@@ -676,7 +678,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">REMARK</h4>
+<h3 class="par_tag hdr">REMARK</h3>
 <p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_inc1">(a) of Definition 4.2</a> and <a class="txt_unit_c_ref" href="#DSP_good3">(c) of Definition 2.3</a>, we have in effect</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -690,7 +692,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">FACT</h4>
+<h3 class="par_tag hdr">FACT</h3>
 <p class="blk txt">There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x) exemplifying a case of proof by incomparable induction hypothesis.</p>
 </div>
 </div>
@@ -698,7 +700,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.5</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">To show that proof by incomparable induction hypothesis is possible, it suffices to find true formulas φ(x) and ψ(x) with the following profile regarding the non-standard numbers of M:</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -765,7 +767,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h4 class="par_hdr">Proof by weakened induction hypothesis</h4>
+<h3 class="par_hdr">Proof by weakened induction hypothesis</h3>
 <p class="blk txt">We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of <em class="txt_unit_emph">proof by weakened induction hypothesis</em> just in case they they exemplify a case of proof by non-straightforward induction and, in addition,</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_weak1">
@@ -790,7 +792,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.7</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">REMARK</h4>
+<h3 class="par_tag hdr">REMARK</h3>
 <p class="blk txt">By <a class="txt_unit_c_ref" href="#DSP_weak1">(a) of Definition 4.6</a> and <a class="txt_unit_c_ref" href="#DSP_good3">(c) of Definition 2.3</a>, we have in effect</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -804,7 +806,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.8</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">FACT</h4>
+<h3 class="par_tag hdr">FACT</h3>
 <p class="blk txt">There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x) exemplifying a case of proof by weakened induction hypothesis.</p>
 </div>
 </div>
@@ -812,7 +814,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.9</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">To show that proof by weakened induction hypothesis is possible, it suffices to find true  formulas φ(x) and ψ(x) with the following profile:</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -896,7 +898,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.10</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">REMARK</h4>
+<h3 class="par_tag hdr">REMARK</h3>
 <p class="blk txt">We here have cases where, relative to a base theory T, one <em class="txt_unit_emph">must</em> use a different induction hypothesis, and <em class="txt_unit_emph">may</em> use one that is not stronger. Are there cases where one both <em class="txt_unit_emph">may</em> and <em class="txt_unit_emph">must</em> use a non-strengthened induction hypothesis? Indeed there are! (<a class="txt_unit_c_ref" href="#FCT_fct2">Fact 5.11</a>). This follows from a result reported by Hetzl and Wong in <a class="txt_unit_c_ref" href="#ITM_Hetzl&Wong">(a) of References</a>, which we expand upon below.</p>
 </div>
 </div>
@@ -904,10 +906,10 @@ h2, h3, h4, h5 {
 </div>
 <div class="SEC sec" id="SEC_gen">
 <div class="sec_lbl">§ 5</div>
-<h3 class="sec_hdr">Proof by necessarily non-strengthened induction hypothesis</h3>
+<h2 class="sec_hdr">Proof by necessarily non-strengthened induction hypothesis</h2>
 <div class="sec_main">
 <div class="par">
-<h4 class="par_lbl hdr">¶ 5.1</h4>
+<h3 class="par_lbl hdr">¶ 5.1</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">It can be shown that, if something is provable in an arithmetical theory containing all the induction axioms, it is provable in that theory using at most one induction axiom. This generalizes Corollary 2.10 reported by Hetzl and Wong.</p>
@@ -917,7 +919,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">DEFINITION</h4>
+<h3 class="par_tag hdr">DEFINITION</h3>
 <p class="blk txt">For each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -931,7 +933,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">LEMMA</div>
-<h4 class="par_hdr">Generalizing Lemma 2.8 of Hetzl and Wong</h4>
+<h3 class="par_hdr">Generalizing Lemma 2.8 of Hetzl and Wong</h3>
 <p class="blk txt">Let Θ(x,z̄) be a formula, and define φ(x) as</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -960,7 +962,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">First we show <a class="txt_unit_c_ref" href="#LMA_lma1">Lemma 5.3(a)</a>. We have φ(0) by ∧-elimination, →-introduction and ∀-introduction. To show the second conjunct, assume φ(a), i.e.</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_lma1ass1">
@@ -1049,7 +1051,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">FACT</div>
-<h4 class="par_hdr">Generalizing Proposition 2.9 of Hetzl and Wong</h4>
+<h3 class="par_hdr">Generalizing Proposition 2.9 of Hetzl and Wong</h3>
 <p class="blk txt">For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such that</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_fct1.1">
@@ -1072,7 +1074,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.6</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">By <a class="txt_unit_c_ref" href="#LMA_lma">Lemma 5.3</a>, there is a formula φₖ(x) for each 1 ≤ k ≤ n such that</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_prf1.1">
@@ -1101,7 +1103,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.7</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">FACT</h4>
+<h3 class="par_tag hdr">FACT</h3>
 <p class="blk txt">For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such that ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.</p>
 </div>
 </div>
@@ -1109,7 +1111,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.8</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">By <a class="txt_unit_c_ref" href="#FCT_fct1">Fact 5.5</a>, there is a formula φ(x) such that</p>
 <div class="blk dsp">
 <div class="dsp_line">
@@ -1130,7 +1132,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">FACT</div>
-<h4 class="par_hdr">Generalizing Corollary 2.10 of Hetzl and Wong</h4>
+<h3 class="par_hdr">Generalizing Corollary 2.10 of Hetzl and Wong</h3>
 <p class="blk txt">Let IND be the set of induction axioms, let T be a set of sentences, and let σ be a sentence. If T + IND ⊢ σ, then there is a formula φ(x) such that T + Iφ ⊢ σ.</p>
 </div>
 </div>
@@ -1138,7 +1140,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.10</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">Assume that T + IND ⊢ σ. Then there is a finite set θ₁(x,z̄), ..., θₙ(x,z̄) of formulas such that T + Iθ₁ + ... + Iθₙ ⊢ σ. By <a class="txt_unit_c_ref" href="#FCT_crl1">Fact 5.7</a>, there is a formula φ(x) such that  ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ. Hence, T + Iφ ⊢ σ.</p>
 </div>
 </div>
@@ -1147,7 +1149,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">FACT</div>
-<h4 class="par_hdr">Generalizing Proposition 3.2 of Hetzl and Wong</h4>
+<h3 class="par_hdr">Generalizing Proposition 3.2 of Hetzl and Wong</h3>
 <p class="blk txt">Assume that T + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ. Then we have</p>
 <div class="blk dsp">
 <div class="dsp_line" id="DSP_fct2.1">
@@ -1183,7 +1185,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.12</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">PROOF</h4>
+<h3 class="par_tag hdr">PROOF</h3>
 <p class="blk txt">The first part follows by <a class="txt_unit_c_ref" href="#FCT_crl2">Fact 5.9</a>. For the last part, assume that ψ(x) is a formula of the required kind. Since T ⊬ σ, there is a model M of T such that M ⊭ σ and thus M ⊭ ∀xφ(x). Hence, by <a class="txt_unit_c_ref" href="#DSP_fct2.3">(c) of Fact 5.11</a>, we have M ⊭ Iψ, which means that M ⊨ ψ(0) but M ⊭ φ(0). Hence, M ⊭ ψ(0) → ϕ(0), so T ⊬ ∀x(ψ(x) → φ(x)).</p>
 </div>
 </div>
@@ -1191,7 +1193,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.13</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">REMARK</h4>
+<h3 class="par_tag hdr">REMARK</h3>
 <p class="blk txt">The authors are not aware of any “natural” cases of proof by incomparable or weakened induction hypothesis. Observe that <a class="txt_unit_c_ref" href="#FCT_fct2">Fact 5.11</a> does not yield a case where straightforward induction fails in the induction step, since T ⊬ ϕ(0) but T ⊢ ∀x(ϕ(x) → ϕ(x&apos;)).</p>
 </div>
 </div>
@@ -1199,7 +1201,7 @@ h2, h3, h4, h5 {
 </div>
 </div>
 <div class="refs">
-<h3 class="refs_hdr">REFERENCES</h3>
+<h2 class="refs_hdr">REFERENCES</h2>
 <div class="blk itm" id="ITM_Hetzl&Wong">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>

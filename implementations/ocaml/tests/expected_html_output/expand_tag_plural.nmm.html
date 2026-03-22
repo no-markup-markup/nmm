@@ -207,11 +207,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 
@@ -349,14 +351,14 @@ h2, h3, h4, h5 {
 <div class="doc_main">
 <div class="sec">
 <div class="sec_lbl">§ 1</div>
-<h3 class="sec_hdr">Some definitions</h3>
+<h2 class="sec_hdr">Some definitions</h2>
 <div class="sec_main">
 <div class="DEF par" id="DEF_goodness">
 <div class="par_lbl">¶ 1.1</div>
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h4 class="par_hdr">Goodness</h4>
+<h3 class="par_hdr">Goodness</h3>
 <p class="blk txt">A thing is good iff it is desirable.</p>
 </div>
 </div>
@@ -365,7 +367,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h4 class="par_hdr">Stupidity</h4>
+<h3 class="par_hdr">Stupidity</h3>
 <p class="blk txt">To think that <a class="txt_unit_c_ref" href="#DEF_goodness">Definition 1.1</a> is useful.</p>
 </div>
 </div>
@@ -373,14 +375,14 @@ h2, h3, h4, h5 {
 </div>
 <div class="sec">
 <div class="sec_lbl">§ 2</div>
-<h3 class="sec_hdr">Our main results</h3>
+<h2 class="sec_hdr">Our main results</h2>
 <div class="sec_main">
 <div class="THMS par" id="THMS_main">
 <div class="par_lbl">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">THEOREMS</div>
-<h4 class="par_hdr">Main</h4>
+<h3 class="par_hdr">Main</h3>
 <div class="blk itm" id="ITM_1">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
@@ -441,12 +443,12 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">PROOF</div>
-<h4 class="par_hdr">of <a class="txt_unit_c_ref" href="#THMS_main">Theorems 2.1</a></h4>
+<h3 class="par_hdr">of <a class="txt_unit_c_ref" href="#THMS_main">Theorems 2.1</a></h3>
 <p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 </div>
 </div>
 <div class="par">
-<h4 class="par_lbl hdr">¶ 2.3</h4>
+<h3 class="par_lbl hdr">¶ 2.3</h3>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS_main">Theorems 2.1</a></p>
@@ -463,7 +465,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">PROOF</div>
-<h4 class="par_hdr">of <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorems 2.1</a></h4>
+<h3 class="par_hdr">of <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorems 2.1</a></h3>
 <p class="blk txt">Obvious by <a class="txt_unit_c_ref" href="#DEF_goodness">Definition 1.1</a>.</p>
 </div>
 </div>
@@ -471,7 +473,7 @@ h2, h3, h4, h5 {
 </div>
 <div class="sec">
 <div class="sec_lbl">§ 3</div>
-<h3 class="sec_hdr">References to previous section</h3>
+<h2 class="sec_hdr">References to previous section</h2>
 <div class="sec_main">
 <p class="blk txt">&apos;[THMS:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THMS_main">Theorems 2.1</a></p>
 <p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorems 2.1</a></p>

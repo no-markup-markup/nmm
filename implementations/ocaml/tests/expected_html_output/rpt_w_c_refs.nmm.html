@@ -207,11 +207,13 @@ h2, h3, h4, h5 {
 .par_lbl {
     float       : left;
     font-weight : normal;
+    font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
     font-weight  : bold;
     display      : inline;
+    font-size    : inherit;
 }
 
 
@@ -348,7 +350,7 @@ h2, h3, h4, h5 {
 <div class="doc pars">
 <div class="doc_main">
 <div class="PAR par" id="PAR_one">
-<h4 class="par_lbl hdr">¶ 1</h4>
+<h2 class="par_lbl hdr">¶ 1</h2>
 <div class="clear"></div>
 <div class="par_main">
 <p class="blk txt">Block of text.</p>
@@ -373,7 +375,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a> [restated]</h4>
+<h2 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a> [restated]</h2>
 <p class="blk txt">Block of text.</p>
 <div class="blk itm" id="ITM_one">
 <div class="blk_itm_lbl">(a)</div>
@@ -396,7 +398,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">Header of paragraph referencing <a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a>, i.e itself.</h4>
+<h2 class="par_hdr">Header of paragraph referencing <a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a>, i.e itself.</h2>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">I like <a class="txt_unit_c_ref" href="#ITM_one">(a) of ¶ 1</a> and <a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a>. I also like <a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a>.</p>
 </div>
@@ -405,7 +407,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a> (Header of paragraph referencing <a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a>, i.e itself.) [restated]</h4>
+<h2 class="par_hdr"><a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a> (Header of paragraph referencing <a class="txt_unit_c_ref" href="#PAR_two">¶ 3</a>, i.e itself.) [restated]</h2>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">I like <a class="txt_unit_c_ref" href="#ITM_one">(a) of ¶ 1</a> and <a class="txt_unit_c_ref" href="#PAR_one">¶ 1</a>. I also like <a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a>.</p>
 </div>
@@ -414,7 +416,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">THEOREM</h4>
+<h2 class="par_tag hdr">THEOREM</h2>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -423,7 +425,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 6</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a> [restated]</h4>
+<h2 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_one">Theorem 5</a> [restated]</h2>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -433,7 +435,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">THEOREM</div>
-<h4 class="par_hdr">Header of paragraph</h4>
+<h2 class="par_hdr">Header of paragraph</h2>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
@@ -442,7 +444,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 8</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_two">Theorem 7</a> (Header of paragraph) [restated]</h4>
+<h2 class="par_hdr"><a class="txt_unit_c_ref" href="#THM_two">Theorem 7</a> (Header of paragraph) [restated]</h2>
 <p class="blk txt">Block of text.</p>
 <p class="blk txt">Another block of text.</p>
 </div>
