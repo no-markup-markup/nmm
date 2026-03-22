@@ -63,6 +63,11 @@ let get_id_string (s : string) : string =
         with
         |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
+let date_of_string (s : string) : tu_date =
+	match s with
+	|"auto" -> Cu_date_auto Cs_date_auto
+	|_ -> Cu_date_custom (Cs_date_custom s)
+
 %}
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
@@ -81,7 +86,7 @@ let get_id_string (s : string) : string =
 %type <Doc_types.ts_preamble>             doc_preamble
 %type <Doc_types.ts_title>                doc_title
 %type <Doc_types.ts_author>               doc_author
-%type <Doc_types.ts_date>                 doc_date
+%type <Doc_types.tu_date>                 doc_date
 %type <string>                            lines
 %type <string>                            preamble_lines
 %type <Doc_types.tu_doc_main>             doc_main
@@ -223,8 +228,8 @@ doc_author:
 ;
 
 doc_date:
-  | DATE TAB lines                              { (Cs_date $3) : ts_date }
-  | DATE NL_TAB lines                           { (Cs_date $3) : ts_date }
+  | DATE TAB lines                              { (date_of_string $3) : tu_date }
+  | DATE NL_TAB lines                           { (date_of_string $3) : tu_date }
 ;
 
 doc_abstract:

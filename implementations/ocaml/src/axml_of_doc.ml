@@ -10,7 +10,7 @@ let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
         let xml_list_preamble : Xml.xml list = xml_list_of_ts_preamble_opt doc.fld_doc_preamble in
         let xml_list_title : Xml.xml list = xml_list_of_ts_title_opt doc.fld_doc_title in
         let xml_list_authors : Xml.xml list = xml_list_of_ts_authors_opt doc.fld_doc_authors in
-        let xml_list_date : Xml.xml list = xml_list_of_ts_date_opt doc.fld_doc_date in
+        let xml_list_date : Xml.xml list = xml_list_of_tu_date_opt doc.fld_doc_date in
         let xml_list_abstract : Xml.xml list = xml_list_of_ts_abstract_opt doc.fld_doc_abstract in
         let xml_list_main : Xml.xml list = [xml_of_tu_doc_main doc.fld_doc_main] in
         let xml_list_refs : Xml.xml list = xml_list_of_ts_refs_opt doc.fld_doc_refs in
@@ -42,10 +42,10 @@ and xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : Xml.xml list 
         | Some (Cs_authors (author_list : ts_author list)) -> 
                 [Xml.Element ("cs_authors",[],List.map xml_of_ts_author author_list)]
 
-and xml_list_of_ts_date_opt (date_opt : ts_date option) : Xml.xml list =
+and xml_list_of_tu_date_opt (date_opt : tu_date option) : Xml.xml list =
         match date_opt with
         | None -> []
-        | Some date -> [xml_of_ts_date date]
+        | Some date -> [xml_of_tu_date date]
 
 and xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) : Xml.xml list =
         match abstract_opt with
@@ -70,9 +70,18 @@ and xml_of_ts_author (author:ts_author):Xml.xml=
         match author with
         |Cs_author (s:string) -> Xml.Element ("cs_author",[],[xml_of_string s])
 
-and xml_of_ts_date (date : ts_date) : Xml.xml =
+and xml_of_tu_date (date : tu_date) : Xml.xml =
         match date with
-        | Cs_date (s : string) -> Xml.Element ("cs_date",[],[xml_of_string s])
+	|Cu_date_auto d -> Xml.Element ("cu_date_auto",[],[xml_of_ts_date_auto d])
+	|Cu_date_custom d -> Xml.Element ("cu_date_custom",[],[xml_of_ts_date_custom d])
+
+and xml_of_ts_date_auto (d : ts_date_auto) : Xml.xml =
+	match d with
+	|Cs_date_auto -> Xml.Element ("cs_date_auto",[],[])
+
+and xml_of_ts_date_custom (d : ts_date_custom) : Xml.xml =
+	match d with
+	|Cs_date_custom s -> Xml.Element ("cs_date_custom",[],[xml_of_string s])
 
 and xml_of_ts_abstract (abstract:ts_abstract):Xml.xml = 
         match abstract with

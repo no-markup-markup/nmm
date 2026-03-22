@@ -28,7 +28,7 @@
         <span class="keyword">let</span> xml_list_preamble : <span class="constructor">Xml</span>.xml list = xml_list_of_ts_preamble_opt doc.fld_doc_preamble <span class="keyword">in</span>
         <span class="keyword">let</span> xml_list_title : <span class="constructor">Xml</span>.xml list = xml_list_of_ts_title_opt doc.fld_doc_title <span class="keyword">in</span>
         <span class="keyword">let</span> xml_list_authors : <span class="constructor">Xml</span>.xml list = xml_list_of_ts_authors_opt doc.fld_doc_authors <span class="keyword">in</span>
-        <span class="keyword">let</span> xml_list_date : <span class="constructor">Xml</span>.xml list = xml_list_of_ts_date_opt doc.fld_doc_date <span class="keyword">in</span>
+        <span class="keyword">let</span> xml_list_date : <span class="constructor">Xml</span>.xml list = xml_list_of_tu_date_opt doc.fld_doc_date <span class="keyword">in</span>
         <span class="keyword">let</span> xml_list_abstract : <span class="constructor">Xml</span>.xml list = xml_list_of_ts_abstract_opt doc.fld_doc_abstract <span class="keyword">in</span>
         <span class="keyword">let</span> xml_list_main : <span class="constructor">Xml</span>.xml list = [xml_of_tu_doc_main doc.fld_doc_main] <span class="keyword">in</span>
         <span class="keyword">let</span> xml_list_refs : <span class="constructor">Xml</span>.xml list = xml_list_of_ts_refs_opt doc.fld_doc_refs <span class="keyword">in</span>
@@ -60,10 +60,10 @@
         <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cs_authors</span> (author_list : ts_author list)) <span class="keywordsign">-&gt;</span> 
                 [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_authors"</span>,[],<span class="constructor">List</span>.map xml_of_ts_author author_list)]
 
-<span class="keyword">and</span> xml_list_of_ts_date_opt (date_opt : ts_date option) : <span class="constructor">Xml</span>.xml list =
+<span class="keyword">and</span> xml_list_of_tu_date_opt (date_opt : tu_date option) : <span class="constructor">Xml</span>.xml list =
         <span class="keyword">match</span> date_opt <span class="keyword">with</span>
         <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span> <span class="constructor">Some</span> date <span class="keywordsign">-&gt;</span> [xml_of_ts_date date]
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> date <span class="keywordsign">-&gt;</span> [xml_of_tu_date date]
 
 <span class="keyword">and</span> xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) : <span class="constructor">Xml</span>.xml list =
         <span class="keyword">match</span> abstract_opt <span class="keyword">with</span>
@@ -88,9 +88,18 @@
         <span class="keyword">match</span> author <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Cs_author</span> (s:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_author"</span>,[],[xml_of_string s])
 
-<span class="keyword">and</span> xml_of_ts_date (date : ts_date) : <span class="constructor">Xml</span>.xml =
+<span class="keyword">and</span> xml_of_tu_date (date : tu_date) : <span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> date <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">Cs_date</span> (s : string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date"</span>,[],[xml_of_string s])
+	<span class="keywordsign">|</span><span class="constructor">Cu_date_auto</span> d <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_date_auto"</span>,[],[xml_of_ts_date_auto d])
+	<span class="keywordsign">|</span><span class="constructor">Cu_date_custom</span> d <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_date_custom"</span>,[],[xml_of_ts_date_custom d])
+
+<span class="keyword">and</span> xml_of_ts_date_auto (d : ts_date_auto) : <span class="constructor">Xml</span>.xml =
+	<span class="keyword">match</span> d <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_date_auto</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date_auto"</span>,[],[])
+
+<span class="keyword">and</span> xml_of_ts_date_custom (d : ts_date_custom) : <span class="constructor">Xml</span>.xml =
+	<span class="keyword">match</span> d <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_date_custom</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_date_custom"</span>,[],[xml_of_string s])
 
 <span class="keyword">and</span> xml_of_ts_abstract (abstract:ts_abstract):<span class="constructor">Xml</span>.xml = 
         <span class="keyword">match</span> abstract <span class="keyword">with</span>

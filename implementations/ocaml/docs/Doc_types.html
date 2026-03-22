@@ -66,7 +66,7 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtr_doc.fld_doc_date">fld_doc_date</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_date">ts_date</a> option</code>;</code></td>
+<code><span id="TYPEELTtr_doc.fld_doc_date">fld_doc_date</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEtu_date">tu_date</a> option</code>;</code></td>
 
 </tr>
 <tr>
@@ -138,12 +138,41 @@
 
 
 
-<pre><code><span id="TYPEts_date"><span class="keyword">type</span> <code class="type"></code>ts_date</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEtu_date"><span class="keyword">type</span> <code class="type"></code>tu_date</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTts_date.Cs_date"><span class="constructor">Cs_date</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<code><span id="TYPEELTtu_date.Cu_date_auto"><span class="constructor">Cu_date_auto</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_date_auto">ts_date_auto</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_date.Cu_date_custom"><span class="constructor">Cu_date_custom</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_date_custom">ts_date_custom</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_date_auto"><span class="keyword">type</span> <code class="type"></code>ts_date_auto</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_date_auto.Cs_date_auto"><span class="constructor">Cs_date_auto</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_date_custom"><span class="keyword">type</span> <code class="type"></code>ts_date_custom</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_date_custom.Cs_date_custom"><span class="constructor">Cs_date_custom</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr></table>
 

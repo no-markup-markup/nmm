@@ -517,7 +517,7 @@ let rec acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table
         | LINES _ -> (
                 let lines_title:string list = Txt_utils.lines_of_ts_title_opt doc_settings doc.fld_doc_title in
                 let lines_authors:string list = Txt_utils.lines_of_ts_authors_opt doc_settings doc.fld_doc_authors in
-                let lines_date:string list = Txt_utils.lines_of_ts_date_opt doc_settings doc.fld_doc_date in
+                let lines_date:string list = Txt_utils.lines_of_tu_date_opt doc_settings doc.fld_doc_date in
                 let lines_abstract:string list =
                         match doc.fld_doc_abstract with
                         |None -> []
@@ -551,7 +551,7 @@ let rec acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table
         | EXML _ ->
                 let xml_list_title:Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc.fld_doc_title in
                 let xml_list_authors:Xml.xml list = Exml_utils.xml_list_of_ts_authors_opt doc.fld_doc_authors in
-                let xml_list_date:Xml.xml list = Exml_utils.xml_list_of_ts_date_opt doc.fld_doc_date in
+                let xml_list_date:Xml.xml list = Exml_utils.xml_list_of_tu_date_opt doc_settings doc.fld_doc_date in
                 let xml_list_abstract : Xml.xml list = 
                         match doc.fld_doc_abstract with
                         |None -> []

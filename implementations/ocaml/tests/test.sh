@@ -163,6 +163,21 @@ show_xml_diff(){
 	return $exit_code
 }
 
+test_auto_date(){
+	local DATE
+	local LINE
+	local curr_code
+	DATE=$(date +'%Y-%m-%d %H:%M UTC%:::z')
+	LINE=$(../bin/nmm-ocaml txt-of-nmm nmm_input/date_auto/date_auto.nmm | head -n 1)
+	if [ "$LINE" = "$DATE" ]
+	then
+		return 0
+	else
+		echo "test_auto_date FAILED"
+		return 2
+	fi
+}
+
 
 make_test(){
 	local exit_code=0
@@ -238,8 +253,26 @@ make_test(){
 	exit_code=$curr_code
 	fi
 
+
+	test_auto_date
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
 	return $exit_code
+
 }
 
 make_test
 
+curr_code=$?
+if [ $curr_code -gt 0 ]
+then
+	echo "nmm-ocaml: some tests FAILED."
+else
+	echo "nmm-ocaml: all tests PASSED."
+fi
+
+exit $curr_code

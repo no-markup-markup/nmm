@@ -30,7 +30,7 @@
 &nbsp;&nbsp;fld_doc_preamble&nbsp;:&nbsp;ts_preamble&nbsp;option;<br>
 &nbsp;&nbsp;fld_doc_title&nbsp;:&nbsp;ts_title&nbsp;option;<br>
 &nbsp;&nbsp;fld_doc_authors:&nbsp;ts_authors&nbsp;option;<br>
-&nbsp;&nbsp;fld_doc_date&nbsp;:&nbsp;ts_date&nbsp;option;<br>
+&nbsp;&nbsp;fld_doc_date&nbsp;:&nbsp;tu_date&nbsp;option;<br>
 &nbsp;&nbsp;fld_doc_abstract&nbsp;:&nbsp;ts_abstract&nbsp;option;<br>
 &nbsp;&nbsp;fld_doc_main&nbsp;:&nbsp;tu_doc_main;<br>
 &nbsp;&nbsp;fld_doc_refs&nbsp;:&nbsp;ts_refs&nbsp;option;<br>
@@ -44,7 +44,11 @@
 <br>
 <span class="keyword">and</span>&nbsp;ts_author&nbsp;=&nbsp;<span class="constructor">Cs_author</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
-<span class="keyword">and</span>&nbsp;ts_date&nbsp;=&nbsp;<span class="constructor">Cs_date</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<span class="keyword">and</span>&nbsp;tu_date&nbsp;=&nbsp;<span class="constructor">Cu_date_auto</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_date_auto&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_date_custom</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_date_custom<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_date_auto&nbsp;=&nbsp;<span class="constructor">Cs_date_auto</span><br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_date_custom&nbsp;=&nbsp;<span class="constructor">Cs_date_custom</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_abstract&nbsp;=&nbsp;<span class="constructor">Cs_abstract</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blks<br>
 <br>

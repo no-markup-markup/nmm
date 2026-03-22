@@ -7,6 +7,10 @@
 <!ELEMENT authors (author+)>
 <!ELEMENT author (#PCDATA)>
 <!ELEMENT date (#PCDATA)>
+<!ATTLIST date
+	datetime CDATA #IMPLIED
+>
+
 <!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb)+)>
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )+)>
 <!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )+)>

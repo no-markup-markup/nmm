@@ -11,7 +11,7 @@ match element with
 |Xml.Element ("authors", _, xml_list) -> Xml.Element ("div", [("class", "authors")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("author", _, xml_list) -> Xml.Element ("p", [("class", "author")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("date", _, [Xml.PCData s]) -> Xml.Element ("time", [("class", "date");("datetime",s)], [Xml.PCData s])
+|Xml.Element ("date", attr_list, [Xml.PCData s]) -> Xml.Element ("time", ("class", "date")::attr_list, [Xml.PCData s])
 
 |Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("abstract_hdr", _, xml_list) -> (

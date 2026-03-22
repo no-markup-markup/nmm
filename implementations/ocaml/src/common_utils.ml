@@ -1183,4 +1183,61 @@ let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_t
                                 "\' does not belong to a paragraph";
                 ]) in None
 
+(* date *)
 
+type t_date = {
+	year : string;
+	month : string;
+	day : string;
+	hour : string;
+	minute : string;
+	second : string;
+	timezone : string;
+	diff : string * int * int;
+}
+
+let date_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) : t_date option =
+	match date, Sys.unix with
+	|Cs_date_auto, true ->
+		let time : float = Unix.time () in
+		let local_time : Unix.tm = Unix.localtime time in 
+		let gm_time : Unix.tm = Unix.gmtime time in
+		let year_string : string = string_of_int (local_time.tm_year + 1900) in
+		let month_string : string = Printf.sprintf "%.2i" (local_time.tm_mon + 1) in
+		let day_string : string = Printf.sprintf "%.2i" local_time.tm_mday in
+		let hour_string : string = Printf.sprintf "%.2i" local_time.tm_hour in
+		let minute_string : string = Printf.sprintf "%.2i" local_time.tm_min in
+		let second_string : string = Printf.sprintf "%.2i" local_time.tm_sec in
+		let local_minutes : int = (local_time.tm_hour * 60) + local_time.tm_min in
+		let gm_minutes : int = (gm_time.tm_hour * 60) + gm_time.tm_min in
+		let diff_minutes : int = local_minutes - gm_minutes in
+		let (timezone_string : string), (utc_diff : string * int * int) =
+			match diff_minutes < 0 with
+			|true -> (
+				let diff_minute : int = -diff_minutes mod 60 in
+				let diff_hour : int = (-diff_minutes - diff_minute) / 60 in  
+				match diff_hour, diff_minute with
+				|0,0 -> "UTC", ("+",0,0)
+				|_,0 -> "UTC-" ^ (string_of_int diff_hour), ("-",diff_hour,0)
+				|_,_ -> "UTC-" ^ (string_of_int diff_hour) ^ ":" ^ (string_of_int diff_minute), ("-",diff_hour,diff_minute)
+			)
+			|false -> ( 
+				let diff_minute : int = diff_minutes mod 60 in
+				let diff_hour : int = (diff_minutes - diff_minute) / 60 in 
+				match diff_hour, diff_minute with
+				|0,0 -> "UTC", ("+",0,0)
+				|_,0 -> "UTC+" ^ (Printf.sprintf "%.2i" diff_hour), ("+",diff_hour,0)
+				|_,_ -> "UTC+" ^ (Printf.sprintf "%.2i" diff_hour) ^ ":" ^ (Printf.sprintf "%.2i" diff_minute), ("+",diff_hour,diff_minute)
+			)
+		in Some
+		{
+			year = year_string;
+			month = month_string;
+			day = day_string;
+			hour = hour_string;
+			minute = minute_string;
+			second = second_string;
+			timezone = timezone_string;
+			diff = utc_diff;
+		}
+	|Cs_date_auto, false -> let _ : unit = Debug_utils.print_warning "WARNING: auto date only supported on unix-like systems" in None

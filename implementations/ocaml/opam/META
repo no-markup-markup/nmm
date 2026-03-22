@@ -1,6 +1,6 @@
 version = "1.0"
 description = "An OCaml implementation of the no-markup-markup markup language"
-requires = "sedlex uuseg xml-light str"
+requires = "sedlex uuseg xml-light str unix"
 archive(byte) = "nmm_ocaml.cma"
 archive(native) = "nmm_ocaml.cmxa"
 plugin(byte) = "nmm_ocaml.cma"

@@ -1,9 +1,10 @@
-<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, cs_date?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)>
+<!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, (cu_date_auto | cu_date_custom)?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)>
 <!ELEMENT cs_preamble (#PCDATA)>
 <!ELEMENT cs_title (#PCDATA)>
 <!ELEMENT cs_authors (cs_author+)>
 <!ELEMENT cs_author (#PCDATA)>
-<!ELEMENT cs_date (#PCDATA)>
+<!ELEMENT cu_date_auto (cs_date_auto)>
+<!ELEMENT cu_date_custom (cs_date_custom)>
 <!ELEMENT cs_abstract (cs_blks)>
 
 <!ELEMENT cu_doc_main_chs (cs_chs)>
@@ -81,3 +82,6 @@
 <!ELEMENT cu_scope_sec EMPTY>
 <!ELEMENT cu_scope_app EMPTY>
 <!ELEMENT cu_scope_par EMPTY>
+
+<!ELEMENT cs_date_auto EMPTY>
+<!ELEMENT cs_date_custom (#PCDATA)>

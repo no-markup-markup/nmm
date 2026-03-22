@@ -240,14 +240,28 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;authors&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_authors&nbsp;doc_settings&nbsp;authors<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;lines_of_ts_date&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;ts_date)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;lines_of_ts_date_custom&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;ts_date_custom)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_date</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.concat&nbsp;[lines_of_string&nbsp;doc_settings&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[<span class="string">""</span>]]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_date_custom</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.concat&nbsp;[lines_of_string&nbsp;doc_settings&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[<span class="string">""</span>]]<br>
 <br>
-<span class="keyword">let</span>&nbsp;lines_of_ts_date_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date_opt&nbsp;:&nbsp;ts_date&nbsp;option)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;lines_of_ts_date_auto&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;ts_date_auto)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">Common_utils</span>.date_of_ts_date_auto&nbsp;doc_settings&nbsp;date&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;d&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;date_string&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"-"</span>&nbsp;[d.year;d.month;d.day]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;time_string&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">":"</span>&nbsp;[d.hour;d.minute]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[date_string;time_string;d.timezone]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[lines_of_string&nbsp;doc_settings&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[<span class="string">""</span>]]<br>
+<br>
+<span class="keyword">let</span>&nbsp;lines_of_tu_date&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;tu_date)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_date_auto</span>&nbsp;d&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_date_auto&nbsp;doc_settings&nbsp;d<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_date_custom</span>&nbsp;d&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_date_custom&nbsp;doc_settings&nbsp;d<br>
+<br>
+<span class="keyword">let</span>&nbsp;lines_of_tu_date_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date_opt&nbsp;:&nbsp;tu_date&nbsp;option)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date_opt&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;date&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_date&nbsp;doc_settings&nbsp;date<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;date&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_tu_date&nbsp;doc_settings&nbsp;date<br>
 <br>
 <br>
 <br>
