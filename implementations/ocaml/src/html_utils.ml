@@ -209,6 +209,10 @@ h2, h3, h4, h5 {
 
 /************ DATE ******************/
 
+.date {
+    font-size : small;
+}
+
 .doc.pars .date {
     margin-left : "^ margin_left ^";
 }
