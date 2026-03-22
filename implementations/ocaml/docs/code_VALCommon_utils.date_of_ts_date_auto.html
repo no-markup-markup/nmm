@@ -46,8 +46,8 @@
 				<span class="keyword">let</span> diff_hour : int = (-diff_minutes - diff_minute) / 60 <span class="keyword">in</span>  
 				<span class="keyword">match</span> diff_hour, diff_minute <span class="keyword">with</span>
 				<span class="keywordsign">|</span>0,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span>, (<span class="string">"+"</span>,0,0)
-				<span class="keywordsign">|</span>_,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC-"</span> ^ (string_of_int diff_hour), (<span class="string">"-"</span>,diff_hour,0)
-				<span class="keywordsign">|</span>_,_ <span class="keywordsign">-&gt;</span> <span class="string">"UTC-"</span> ^ (string_of_int diff_hour) ^ <span class="string">":"</span> ^ (string_of_int diff_minute), (<span class="string">"-"</span>,diff_hour,diff_minute)
+				<span class="keywordsign">|</span>_,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC-"</span> ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> diff_hour), (<span class="string">"-"</span>,diff_hour,0)
+				<span class="keywordsign">|</span>_,_ <span class="keywordsign">-&gt;</span> <span class="string">"UTC-"</span> ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> diff_hour) ^ <span class="string">":"</span> ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> diff_minute), (<span class="string">"-"</span>,diff_hour,diff_minute)
 			)
 			<span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> ( 
 				<span class="keyword">let</span> diff_minute : int = diff_minutes <span class="keyword">mod</span> 60 <span class="keyword">in</span>

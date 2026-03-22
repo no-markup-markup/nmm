@@ -1218,8 +1218,8 @@ let date_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) :
 				let diff_hour : int = (-diff_minutes - diff_minute) / 60 in  
 				match diff_hour, diff_minute with
 				|0,0 -> "UTC", ("+",0,0)
-				|_,0 -> "UTC-" ^ (string_of_int diff_hour), ("-",diff_hour,0)
-				|_,_ -> "UTC-" ^ (string_of_int diff_hour) ^ ":" ^ (string_of_int diff_minute), ("-",diff_hour,diff_minute)
+				|_,0 -> "UTC-" ^ (Printf.sprintf "%.2i" diff_hour), ("-",diff_hour,0)
+				|_,_ -> "UTC-" ^ (Printf.sprintf "%.2i" diff_hour) ^ ":" ^ (Printf.sprintf "%.2i" diff_minute), ("-",diff_hour,diff_minute)
 			)
 			|false -> ( 
 				let diff_minute : int = diff_minutes mod 60 in

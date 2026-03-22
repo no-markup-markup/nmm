@@ -173,7 +173,7 @@ test_auto_date(){
 	then
 		return 0
 	else
-		echo "test_auto_date FAILED"
+		echo "$DATE ≠ $LINE"
 		return 2
 	fi
 }
