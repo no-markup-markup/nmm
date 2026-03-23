@@ -219,12 +219,13 @@ let lines_of_ts_date_custom (doc_settings : t_doc_settings) (date : ts_date_cust
         |Cs_date_custom (s : string) -> List.concat [lines_of_string doc_settings doc_settings.author_indent s; [""]]
 
 let lines_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) : string list =
-	match Common_utils.date_of_ts_date_auto doc_settings date with
+	match Common_utils.time_of_ts_date_auto doc_settings date with
 	|None -> []
-	|Some d ->
-		let date_string : string = String.concat "-" [d.year;d.month;d.day] in
-		let time_string : string = String.concat ":" [d.hour;d.minute] in
-		let s : string = String.concat " " [date_string;time_string;d.timezone] in
+	|Some time ->
+		let format (i : int) : string = Printf.sprintf "%.2i" i in
+		let date_string : string = String.concat "-" [format time.year;format time.month;format time.day] in
+		let time_string : string = String.concat ":" [format time.hour;format time.minute] in
+		let s : string = String.concat " " [date_string;time_string;utc_timezone time.timezone] in
 		List.concat [lines_of_string doc_settings doc_settings.author_indent s; [""]]
 
 let lines_of_tu_date (doc_settings : t_doc_settings) (date : tu_date) : string list =

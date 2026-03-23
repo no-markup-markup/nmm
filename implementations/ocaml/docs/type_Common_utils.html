@@ -123,17 +123,17 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Doc_types</span>.tr_par_std&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_path)&nbsp;option<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_date&nbsp;=&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;year&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;hour&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;minute&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;second&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;timezone&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;diff&nbsp;:&nbsp;string&nbsp;*&nbsp;int&nbsp;*&nbsp;int;<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_time&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;year&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;month&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hour&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;minute&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;second&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;timezone&nbsp;:&nbsp;string&nbsp;*&nbsp;int&nbsp;*&nbsp;int;<br>
 &nbsp;&nbsp;}<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;date_of_ts_date_auto&nbsp;:<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;utc_timezone&nbsp;:&nbsp;string&nbsp;*&nbsp;int&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;time_of_ts_date_auto&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.ts_date_auto&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_date&nbsp;option<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.ts_date_auto&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_time&nbsp;option<br>
 <span class="keyword">end</span></code></body></html>

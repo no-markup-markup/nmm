@@ -473,65 +473,59 @@ INT := ['0'-'9']+
 <pre><span id="VALnode_of_blk_itm"><span class="keyword">val</span> <a href="code_VALCommon_utils.node_of_blk_itm.html">node_of_blk_itm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; int -&gt; <a href="Doc_types.html#TYPEtr_blk_itm">Doc_types.tr_blk_itm</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre>
 <pre><span id="VALnode_of_dsp_line"><span class="keyword">val</span> <a href="code_VALCommon_utils.node_of_dsp_line.html">node_of_dsp_line</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; int -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_node">t_node</a></code></pre><h3 id="2_Repeat">Repeat</h3>
 <pre><span id="VALpar_restated_of_tr_id"><span class="keyword">val</span> <a href="code_VALCommon_utils.par_restated_of_tr_id.html">par_restated_of_tr_id</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt;<br>       <a href="Doc_types.html#TYPEtr_id">Doc_types.tr_id</a> -&gt; (<a href="Doc_types.html#TYPEtr_par_std">Doc_types.tr_par_std</a> * <a href="Common_utils.html#TYPEt_path">t_path</a>) option</code></pre><h3 id="2_Date">Date</h3>
-<pre><code><span id="TYPEt_date"><span class="keyword">type</span> <code class="type"></code>t_date</span> = {</code></pre><table class="typetable">
+<pre><code><span id="TYPEt_time"><span class="keyword">type</span> <code class="type"></code>t_time</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.year">year</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_time.year">year</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.month">month</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_time.month">month</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.day">day</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_time.day">day</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.hour">hour</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_time.hour">hour</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.minute">minute</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_time.minute">minute</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.second">second</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_time.second">second</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_date.timezone">timezone</span>&nbsp;: <code class="type">string</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_date.diff">diff</span>&nbsp;: <code class="type">string * int * int</code>;</code></td>
+<code><span id="TYPEELTt_time.timezone">timezone</span>&nbsp;: <code class="type">string * int * int</code>;</code></td>
 
 </tr></table>
 <code>}</code>
 
 
 
-<pre><span id="VALdate_of_ts_date_auto"><span class="keyword">val</span> <a href="code_VALCommon_utils.date_of_ts_date_auto.html">date_of_ts_date_auto</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Doc_types.html#TYPEts_date_auto">Doc_types.ts_date_auto</a> -&gt; <a href="Common_utils.html#TYPEt_date">t_date</a> option</code></pre></body></html>
+<pre><span id="VALutc_timezone"><span class="keyword">val</span> <a href="code_VALCommon_utils.utc_timezone.html">utc_timezone</a></span> : <code class="type">string * int * int -&gt; string</code></pre>
+<pre><span id="VALtime_of_ts_date_auto"><span class="keyword">val</span> <a href="code_VALCommon_utils.time_of_ts_date_auto.html">time_of_ts_date_auto</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Doc_types.html#TYPEts_date_auto">Doc_types.ts_date_auto</a> -&gt; <a href="Common_utils.html#TYPEt_time">t_time</a> option</code></pre></body></html>

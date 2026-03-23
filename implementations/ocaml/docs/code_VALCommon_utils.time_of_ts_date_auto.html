@@ -1,0 +1,58 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right_parser" rel="Chapter" href="Xml_right_parser.html">
+<link title="Xml_right_lexer" rel="Chapter" href="Xml_right_lexer.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.time_of_ts_date_auto</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> time_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) : t_time option =
+	<span class="keyword">match</span> date <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_date_auto</span> <span class="keywordsign">-&gt;</span> <span class="keyword">try</span>
+		<span class="keyword">let</span> time : float = <span class="constructor">Unix</span>.time () <span class="keyword">in</span>
+		<span class="keyword">let</span> local_time : <span class="constructor">Unix</span>.tm = <span class="constructor">Unix</span>.localtime time <span class="keyword">in</span> 
+		<span class="keyword">let</span> year_int : int = local_time.tm_year + 1900 <span class="keyword">in</span>
+		<span class="keyword">let</span> month_int : int = local_time.tm_mon + 1 <span class="keyword">in</span>
+		<span class="keyword">let</span> day_int : int = local_time.tm_mday <span class="keyword">in</span>
+		<span class="keyword">let</span> hour_int : int = local_time.tm_hour <span class="keyword">in</span>
+		<span class="keyword">let</span> minute_int : int = local_time.tm_min <span class="keyword">in</span>
+		<span class="keyword">let</span> second_int : int = local_time.tm_sec <span class="keyword">in</span>
+		<span class="keyword">let</span> time_ref : float = 12. *. 60. *. 60. <span class="keyword">in</span>
+		<span class="keyword">let</span> local_time_ref : <span class="constructor">Unix</span>.tm = <span class="constructor">Unix</span>.localtime time_ref <span class="keyword">in</span> 
+		<span class="keyword">let</span> local_minutes_ref : int = (local_time_ref.tm_hour * 60) + local_time_ref.tm_min <span class="keyword">in</span>
+		<span class="keyword">let</span> gm_time_ref : <span class="constructor">Unix</span>.tm = <span class="constructor">Unix</span>.gmtime time_ref <span class="keyword">in</span>
+		<span class="keyword">let</span> gm_minutes_ref : int = (gm_time_ref.tm_hour * 60) + gm_time_ref.tm_min <span class="keyword">in</span>
+		<span class="keyword">let</span> diff_minutes : int = local_minutes_ref - gm_minutes_ref <span class="keyword">in</span>
+		<span class="keyword">let</span> sign : string = <span class="keyword">if</span> diff_minutes &lt; 0 <span class="keyword">then</span> <span class="string">"-"</span> <span class="keyword">else</span> <span class="string">"+"</span> <span class="keyword">in</span>
+		<span class="keyword">let</span> diff_minute : int = abs diff_minutes <span class="keyword">mod</span> 60 <span class="keyword">in</span>
+		<span class="keyword">let</span> diff_hour : int = (abs diff_minutes - diff_minute) / 60 <span class="keyword">in</span>
+		<span class="constructor">Some</span>
+		{
+			year = year_int;
+			month = month_int;
+			day = day_int;
+			hour = hour_int;
+			minute = minute_int;
+			second = second_int;
+			timezone = (sign, diff_hour, diff_minute);
+		}
+		<span class="keyword">with</span>
+		<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning <span class="string">"WARNING: cannot get system time and date"</span> <span class="keyword">in</span> <span class="constructor">None</span></code></body></html>

@@ -185,16 +185,16 @@ val par_restated_of_tr_id : t_doc_settings -> t_cref_table -> t_path -> Doc_type
 
 (** {2 Date} *)
 
-type t_date = {
-	year : string;
-	month : string;
-	day : string;
-	hour : string;
-	minute : string;
-	second : string;
-	timezone : string;
-	diff : string * int * int;
+type t_time = {
+	year : int;
+	month : int;
+	day : int;
+	hour : int;
+	minute : int;
+	second : int;
+	timezone : string * int * int;
 }
 
+val utc_timezone : (string * int * int) -> string
 
-val date_of_ts_date_auto : t_doc_settings -> Doc_types.ts_date_auto -> t_date option
+val time_of_ts_date_auto : t_doc_settings -> Doc_types.ts_date_auto -> t_time option
