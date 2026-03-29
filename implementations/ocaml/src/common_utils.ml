@@ -1217,7 +1217,7 @@ let time_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) :
 		let local_minutes_ref : int = (local_time_ref.tm_hour * 60) + local_time_ref.tm_min in
 		let gm_time_ref : Unix.tm = Unix.gmtime time_ref in
 		let gm_minutes_ref : int = (gm_time_ref.tm_hour * 60) + gm_time_ref.tm_min in
-		let diff_minutes : int = local_minutes_ref - gm_minutes_ref in
+		let diff_minutes : int = local_minutes_ref + (60 * (Bool.to_int local_time.tm_isdst)) - gm_minutes_ref in
 		let sign : string = if diff_minutes < 0 then "-" else "+" in
 		let diff_minute : int = abs diff_minutes mod 60 in
 		let diff_hour : int = (abs diff_minutes - diff_minute) / 60 in
