@@ -37,7 +37,7 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>   eric@ericjohannesson.com</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> eric@ericjohannesson.com</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -52,7 +52,13 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> ericjohannesson.com</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> &lt;https</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//ericjohannesson.com&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -67,7 +73,13 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>   orcid.org/0000-0001-9128-2565</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> &lt;https</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//orcid.org/0000-0001-9128-2565&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -82,7 +94,13 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>  github.com/ericjohannesson</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> &lt;https</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//github.com/ericjohannesson&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -407,7 +425,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Stockholm University, Stockholm, June 2017. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Stockholm University, Stockholm, June 2017.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -458,7 +476,7 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> Professor Graeme Forbes, University of Colorado Boulder. </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> Professor Graeme Forbes, University of Colorado Boulder.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -607,13 +625,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10670-022-00609-8</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10670-022-00609-8&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -652,13 +670,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1080/00048402.2021.2013909</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1080/00048402.2021.2013909&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -703,13 +721,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.5840/tht202432226</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.5840/tht202432226&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -742,13 +760,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1007/s11229-022-03683-1</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1007/s11229-022-03683-1&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -787,13 +805,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10988-019-09291-6</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10988-019-09291-6&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -826,13 +844,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1086/707588</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1086/707588&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -871,13 +889,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10992-019-09526-8</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10992-019-09526-8&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -916,13 +934,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10992-018-9461-6</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1007/s10992-018-9461-6&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -967,13 +985,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>//doi.org/10.1002/tht3.207</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>//doi.org/10.1002/tht3.207&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -1025,7 +1043,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -1037,7 +1055,7 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>1087481</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1087481&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -1083,7 +1101,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -1095,7 +1113,7 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>1088900</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1088900&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -1128,7 +1146,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -1140,7 +1158,7 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>1088899</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1088899&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -1173,7 +1191,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>https</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>&lt;https</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -1185,7 +1203,7 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>1088898</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>1088898&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

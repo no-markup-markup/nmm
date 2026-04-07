@@ -24,10 +24,10 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.html_of_doc</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> html_of_doc (options : string list) (doc : <span class="constructor">Doc_types</span>.tr_doc) : string =
+<code class="code"><span class="keyword">let</span> html_of_doc (options : <span class="constructor">Common_utils</span>.t_html_options) (doc : <span class="constructor">Doc_types</span>.tr_doc) : string =
         <span class="keyword">try</span>
-        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- <span class="constructor">List</span>.mem <span class="string">"--quiet"</span> options <span class="keyword">in</span>
-        <span class="keyword">let</span> exml:<span class="constructor">Xml</span>.xml = <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc options doc <span class="keyword">in</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- options.quiet <span class="keyword">in</span>
+        <span class="keyword">let</span> exml:<span class="constructor">Xml</span>.xml = <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc (<span class="constructor">Common_utils</span>.exml_options_of_html_options options) doc <span class="keyword">in</span>
         <span class="keyword">let</span> doc_class : <span class="constructor">Common_utils</span>.t_doc_class = <span class="constructor">Common_utils</span>.class_of_tr_doc doc <span class="keyword">in</span>
         <span class="keyword">let</span> html:<span class="constructor">Xml</span>.xml = <span class="constructor">Html_utils</span>.html_of_exml doc_class exml <span class="keyword">in</span>
         <span class="keyword">let</span> html_string:string = <span class="constructor">Xml_right</span>.to_string_fmt html <span class="keyword">in</span>
@@ -45,21 +45,16 @@
                                 <span class="keywordsign">|</span><span class="constructor">Cs_author</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"&lt;meta name=\"author\" content=\""</span>;s;<span class="string">"\"&gt;"</span>]
                         <span class="keyword">in</span> <span class="constructor">String</span>.concat <span class="string">"\n"</span> (<span class="constructor">List</span>.map map author_list)
         <span class="keyword">in</span>
-        <span class="keyword">let</span> lang_attr : string =
-        <span class="keyword">match</span> <span class="constructor">Html_utils</span>.lang_code_of_options options <span class="keyword">with</span> 
-                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (<span class="string">" lang=\""</span> ^ (<span class="constructor">Html_utils</span>.default_lang_code ())^ <span class="string">"\""</span>)
-                <span class="keywordsign">|</span> <span class="constructor">Some</span> lang_code <span class="keywordsign">-&gt;</span> (<span class="string">" lang=\""</span> ^ lang_code ^ <span class="string">"\""</span>) 
-        <span class="keyword">in</span>
+        <span class="keyword">let</span> lang_attr : string = (<span class="string">" lang=\""</span> ^ options.lang ^ <span class="string">"\""</span>) <span class="keyword">in</span>
         <span class="keyword">let</span> margin_left : string = 
-                <span class="keyword">match</span> <span class="constructor">Html_utils</span>.margin_left_of_options options <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Some</span> margin <span class="keywordsign">-&gt;</span> margin
+                <span class="keyword">match</span> options.margin <span class="keyword">with</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> m <span class="keywordsign">-&gt;</span> (string_of_int m) ^ <span class="string">"rem"</span>
                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Html_utils</span>.margin_left_of_tr_doc doc
         <span class="keyword">in</span>
-        <span class="keyword">let</span> internal_css: string = (<span class="string">"&lt;style&gt;\n"</span> ^ (<span class="constructor">Html_utils</span>.internal_css (<span class="constructor">Html_utils</span>.default_tab_length ()) margin_left) ^ <span class="string">"\n&lt;/style&gt;"</span>) <span class="keyword">in</span>
-        <span class="keyword">let</span> external_css: string = 
-                <span class="keyword">match</span> <span class="constructor">Html_utils</span>.external_css_of_options options <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
-                <span class="keywordsign">|</span><span class="constructor">Some</span> uri <span class="keywordsign">-&gt;</span>  (<span class="string">"&lt;link rel=\"stylesheet\" href=\""</span> ^ uri ^ <span class="string">"\"&gt;\n"</span>)
+        <span class="keyword">let</span> internal_css: string = (<span class="string">"&lt;style&gt;\n"</span> ^ (<span class="constructor">Html_utils</span>.internal_css <span class="string">"6ch"</span> margin_left) ^ <span class="string">"\n&lt;/style&gt;"</span>) <span class="keyword">in</span>
+        <span class="keyword">let</span> external_css: string =
+                <span class="keyword">let</span> map (uri : string) : string = (<span class="string">"&lt;link rel=\"stylesheet\" href=\""</span> ^ uri ^ <span class="string">"\"&gt;\n"</span>) <span class="keyword">in</span>
+                <span class="constructor">String</span>.concat <span class="string">""</span> (<span class="constructor">List</span>.map map options.css)
         <span class="keyword">in</span>
         <span class="keyword">let</span> intro : string = (
                 <span class="string">"&lt;!DOCTYPE html&gt;\n"</span> ^

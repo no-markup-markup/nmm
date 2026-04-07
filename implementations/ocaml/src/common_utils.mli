@@ -50,9 +50,7 @@ val doc_settings_default : unit -> t_doc_settings
 
 (** {3 User-defined settings} *)
 
-val auto_numbering_of_options : string list -> int -> int -> string
-
-val allow_custom_numbering_of_options : string list -> bool
+val auto_numbering_of_string : string -> int -> int -> string
 
 val doc_settings_of_ts_blks : t_doc_settings -> int -> Doc_types.ts_blks -> t_doc_settings
 
@@ -122,6 +120,7 @@ type t_node =
         |BLT_NODE
         |DSP_LINE_NODE of t_dsp_line_node
         |REFS_NODE
+        |FTN_NODE of int
 
 type t_path = t_node list 
 
@@ -131,6 +130,7 @@ type t_cref_element =
         |Cref_element_par of Doc_types.tr_par_std
         |Cref_element_blk_itm of Doc_types.tr_blk_itm
         |Cref_element_dsp_line of Doc_types.tr_dsp_line
+        |Cref_element_blk_ftn of Doc_types.tr_blk_ftn
 
 
 type t_cref_table = (Doc_types.tr_id * t_path * t_cref_element) list 
@@ -186,15 +186,64 @@ val par_restated_of_tr_id : t_doc_settings -> t_cref_table -> t_path -> Doc_type
 (** {2 Date} *)
 
 type t_time = {
-	year : int;
-	month : int;
-	day : int;
-	hour : int;
-	minute : int;
-	second : int;
-	timezone : string * int * int;
+        year : int;
+        month : int;
+        day : int;
+        hour : int;
+        minute : int;
+        second : int;
+        timezone : string * int * int;
 }
 
 val utc_timezone : (string * int * int) -> string
 
 val time_of_ts_date_auto : t_doc_settings -> Doc_types.ts_date_auto -> t_time option
+
+
+(** {2 Footnotes} *)
+
+type t_ftn_table =  (Doc_types.ts_ftn_ref * t_path * int *  Doc_types.tr_blk_ftn) list
+
+val ftn_table_of_ts_blk_txt : t_doc_settings -> t_cref_table -> t_path -> t_ftn_table  -> Doc_types.ts_blk_txt -> t_ftn_table
+
+val ftn_table_of_tr_dsp_line : t_doc_settings -> t_cref_table -> t_path -> t_ftn_table  -> Doc_types.tr_dsp_line -> t_ftn_table
+
+val string_of_ts_ftn_ref : t_doc_settings -> t_ftn_table -> t_path -> Doc_types.ts_ftn_ref -> string
+
+val ftn_table_of_ts_hdr_opt : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_hdr option -> t_ftn_table
+
+val reference_of_ts_ftn_ref : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_ftn_ref -> Doc_types.tr_blk_ftn option
+
+(** {2 Options} *)
+
+type t_txt_options = {
+        margin : int option;
+        width : int option;
+        quiet : bool;
+        numbering : string;
+        allow_custom_numbering : bool;
+}
+
+type t_html_options = {
+        margin : int option;
+        lang : string;
+        css : string list;
+        quiet : bool;
+        numbering : string;
+        allow_custom_numbering : bool;
+}
+
+type t_exml_options = {
+        quiet : bool;
+        numbering : string;
+        allow_custom_numbering : bool;
+}
+
+val exml_options_of_html_options : t_html_options -> t_exml_options
+
+(* for debugging *)
+
+val txt_options_default : unit -> t_txt_options
+val html_options_default : unit -> t_html_options
+val exml_options_default : unit -> t_exml_options
+

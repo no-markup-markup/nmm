@@ -1,0 +1,15 @@
+¶ 1  This is a sentence with a reference to a footnote attached to it.¹
+
+     If a footnote is referenced multiple times², it will be displayed
+     multiple times with the same content but different numbering.³
+
+─────────────────────────────────────────────────────────────────────────
+1  Here is the content of that footnote, which should be displayed at the
+   bottom of the page on which it is referenced, but may occur anywhere
+   in the source document (modulo scope).
+
+2  Any number of times.
+
+3  Here is the content of that footnote, which should be displayed at the
+   bottom of the page on which it is referenced, but may occur anywhere
+   in the source document (modulo scope).

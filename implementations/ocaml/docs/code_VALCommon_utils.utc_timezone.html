@@ -25,7 +25,7 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> utc_timezone ((sign, hour, minute) : string * int * int) : string =
-	<span class="keyword">match</span> hour, minute <span class="keyword">with</span>
-	<span class="keywordsign">|</span>0,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span>
-	<span class="keywordsign">|</span>_,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span> ^ sign ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> hour)
-	<span class="keywordsign">|</span>_,_ <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span> ^ sign ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> hour) ^ <span class="string">":"</span> ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> minute)</code></body></html>
+        <span class="keyword">match</span> hour, minute <span class="keyword">with</span>
+        <span class="keywordsign">|</span>0,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span>
+        <span class="keywordsign">|</span>_,0 <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span> ^ sign ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> hour)
+        <span class="keywordsign">|</span>_,_ <span class="keywordsign">-&gt;</span> <span class="string">"UTC"</span> ^ sign ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> hour) ^ <span class="string">":"</span> ^ (<span class="constructor">Printf</span>.sprintf <span class="string">"%.2i"</span> minute)</code></body></html>

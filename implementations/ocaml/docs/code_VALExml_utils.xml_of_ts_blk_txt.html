@@ -24,6 +24,6 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.xml_of_ts_blk_txt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blk_txt : ts_blk_txt) : <span class="constructor">Xml</span>.xml =
+<code class="code"><span class="keyword">let</span> xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (blk_txt : ts_blk_txt) : <span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> blk_txt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_units : ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_txt"</span>,[],xml_list_of_ts_txt_units doc_settings cref_table path txt_units)</code></body></html>
+        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_units : ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_txt"</span>,[],xml_list_of_ts_txt_units doc_settings cref_table ftn_table path txt_units)</code></body></html>

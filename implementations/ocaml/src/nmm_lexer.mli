@@ -14,5 +14,8 @@ val first_nl : bool ref
 
 val display : bool ref
 
+val ftn_counter : int ref
+
 val token : Sedlexing.lexbuf -> Nmm_parser.token
+
 

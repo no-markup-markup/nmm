@@ -2,7 +2,7 @@ open Nmm_parser
 
 exception ERROR of string
 
-(************ regular expressions ******************)
+(* regular expressions *)
 
 let tab = [%sedlex.regexp? "\t"]
 let nl = [%sedlex.regexp? "\n" | "\r\n"]
@@ -10,6 +10,7 @@ let nl_tab = [%sedlex.regexp? nl, tab]
 let nl_tab_tab = [%sedlex.regexp? nl_tab, tab]
 let nl_tab_tab_tab = [%sedlex.regexp? nl_tab_tab, tab]
 let dash_tab = [%sedlex.regexp? "-", tab]
+let star_tab = [%sedlex.regexp? "*", tab]
 let dsp_auto_tab = [%sedlex.regexp? "()", tab]
 let itm_auto_tab = [%sedlex.regexp? "[]", tab]
 let non_custom_chars = [%sedlex.regexp? Chars "\r\n\t"]
@@ -38,10 +39,13 @@ let sec_tag_or_id = [%sedlex.regexp? ("SEC" | "APP"), Opt (":", name, Opt (":", 
 let par_tag_or_id = [%sedlex.regexp? ("PAR" | tag_shared), Opt (":", name, Opt (":", ("GBL" | "CH" | "SEC" | "APP")))]
 let itm_id = [%sedlex.regexp? ("ITM" | tag_shared), ":", name, Opt (":", scope)]
 let dsp_id = [%sedlex.regexp? ("DSP" | tag_shared), ":", name, Opt (":", scope)]
+let ftn_id = [%sedlex.regexp? "FTN", ":", name, Opt (":", scope)]
 let c_ref = [%sedlex.regexp? "[", tag, ":", name, Opt (":", scope), "]"]
+let ftn_ref = [%sedlex.regexp? "[", ftn_id, "]"]
 let par_id = [%sedlex.regexp? ("PAR" | tag_shared), ":", name, Opt (":", ("GBL" | "CH" | "SEC" | "APP"))]
 let itm_auto_tab_id = [%sedlex.regexp? itm_auto_tab, itm_id]
 let itm_custom_tab_id = [%sedlex.regexp? itm_custom_tab, itm_id]
+let star_tab_id = [%sedlex.regexp? star_tab, ftn_id]
 
 let ch_tag_or_id_nl = [%sedlex.regexp? ch_tag_or_id, nl]
 
@@ -69,7 +73,8 @@ let tab_end_vrb = [%sedlex.regexp? tab, end_vrb]
 let tab_tab_end_vrb = [%sedlex.regexp? tab, tab_end_vrb]
 let tab_tab_tab_end_vrb = [%sedlex.regexp? tab, tab_tab_end_vrb]
 
-(************ helper functions *********************)
+
+(* helper functions *)
 
 let get_esc_char (s : string) : string = 
         String.sub s 1 (String.length s - 1)
@@ -109,7 +114,14 @@ let nl_or_vrb_line_empty (first : bool ) : Nmm_parser.token =
 
 let display : bool ref = ref false
 
-(************** the lexer ******************************)
+let ftn_counter : int ref = ref 0
+
+let ftn_count () : int =
+        let n = ftn_counter.contents in
+        let _ : unit = ftn_counter.contents <- n + 1 in
+        n
+
+(* the lexer *)
 
 let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
         match verbatim.contents, display.contents with
@@ -123,6 +135,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |abstract                       ->      ABSTRACT
                 |ch_tag_or_id_nl                ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
                 |c_ref                          ->      C_REF (lexeme lexbuf)
+                |ftn_ref                        ->      FTN_REF (lexeme lexbuf, ftn_count ())
                 |section_nl                     ->      SECTION_NL
                 |section_spaces_tag_or_id_nl    ->      SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
                 |pilcrow_nl                     ->      PILCROW_NL
@@ -132,6 +145,8 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |pilcrow_refs_nls               ->      PILCROW_REFS_NLS
                 |tab                            ->      TAB 
                 |dash_tab                       ->      DASH_TAB
+                |star_tab                       ->      STAR_TAB
+                |star_tab_id                    ->      STAR_TAB_ID (lexeme lexbuf)
                 |dsp_auto_tab                   ->      let _ : unit = display.contents <- true in DSP_AUTO_TAB 
                 |dsp_custom_tab                 ->      let _ : unit = display.contents <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))
                 |itm_auto_tab                   ->      ITM_AUTO_TAB
@@ -176,6 +191,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
                 |c_ref                          ->      C_REF (lexeme lexbuf)
+                |ftn_ref                        ->      FTN_REF (lexeme lexbuf, ftn_count ())
                 |txt                            ->      TXT (lexeme lexbuf)
                 |tab                            ->      TAB 
                 |dsp_id                         ->      DSP_ID (lexeme lexbuf)

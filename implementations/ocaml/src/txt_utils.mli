@@ -9,9 +9,9 @@ val lines_of_ts_authors_opt : Common_utils.t_doc_settings -> Doc_types.ts_author
 val lines_of_tu_date_opt : Common_utils.t_doc_settings -> Doc_types.tu_date option -> string list
 val lines_of_abstract_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
 val lines_of_refs_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
-val lines_of_ts_blk_txt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.ts_blk_txt -> string list
-val lines_of_ts_hdr_opt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.ts_hdr option -> string list
-val lines_of_ts_txt_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.ts_txt_units -> string list
+val lines_of_ts_blk_txt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.ts_blk_txt -> string list
+val lines_of_ts_hdr_opt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.ts_hdr option -> string list
+val lines_of_ts_txt_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.ts_txt_units -> string list
 val insert_label : Common_utils.t_doc_settings -> Common_utils.t_path -> string -> string
 val lines_of_ts_blk_vrb : Common_utils.t_doc_settings -> Common_utils.t_path -> Doc_types.ts_blk_vrb -> string list
 
@@ -22,24 +22,4 @@ val doc_width_of_options : string list -> int option
 
 val copy_hdr_to_main : Common_utils.t_doc_settings -> Doc_types.tr_par_std -> Doc_types.tr_par_std
 
-(*
-
-val lines_of_ts_hdr : Common_utils.t_path -> Doc_types.ts_hdr -> string list
-val lines_of_ts_title : Doc_types.ts_title -> string list
-val lines_of_ts_authors : Doc_types.ts_authors -> string list
-val lines_of_ts_author : Doc_types.ts_author -> string list
-val make_string : int -> string -> string
-val string_of_ts_txt_units : Common_utils.t_path -> Doc_types.ts_txt_units -> string
-val string_of_ts_txt_unit : Common_utils.t_path -> Doc_types.tu_txt_unit -> string
-val emph : string -> string
-val underline : string -> string
-val lines_of_string : int -> string -> string list
-val lines_of_string_dsp : int -> string -> string list
-val line_break : int -> string -> string * string
-val pos_of_label : Common_utils.t_path -> int
-val insert_string : string -> int -> string -> string
-val indent_of_path : Common_utils.t_path -> int
-val utf_8_segments : [< Uuseg.boundary > `Grapheme_cluster ] -> Stdlib.String.t -> string list
-val utf_8_of_string : string -> string list
-val utf_8_length : string -> int
-*)
+val lines_of_ftn_table : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Common_utils.t_ftn_table -> string list

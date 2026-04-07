@@ -16,13 +16,13 @@ let validate_axml (path : string) (format : string) (path_to_dtd : string) (axml
         with
         |Dtd.Prove_error e -> raise (Error (String.concat " " [path;format;"->";"Ddt.prove_error:";Dtd.prove_error e]))
 
-let rec test_with_nmm_file (options : string list) (path : string) : unit =
+let rec test_with_nmm_file (options : Common_utils.t_html_options) (path : string) : unit =
 try
-        let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
+        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         let doc : Doc_types.tr_doc = Main.doc_of_nmm path in
         let axml : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
         let doc_of_axml : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
-        let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
+        let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc (Common_utils.exml_options_of_html_options options) doc in
         let _ : unit = identity_test_w_doc path doc doc_of_axml in
         let _ : unit = xml_right_test path "axml" doc axml in
         let _ : unit = xml_right_test path "exml" doc exml in
@@ -37,13 +37,13 @@ with
 |Doc_of_axml.Error e -> raise (Error (String.concat " " [path;" -> ";"Doc_of_axml.Error:";e]))
 
 
-and test_with_axml_file (options : string list) (path : string) : unit =
+and test_with_axml_file (options : Common_utils.t_html_options) (path : string) : unit =
 try
-        let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
+        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         let axml : Xml.xml = Xml_right.parse_file false path in
         let doc : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
         let axml_of_doc : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
-        let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
+        let exml : Xml.xml = Compiler_of_doc.exml_of_tr_doc (Common_utils.exml_options_of_html_options options) doc in
         let _ : unit = identity_test_w_axml path axml axml_of_doc in
         let _ : unit = xml_right_test path "axml" doc axml in
         let _ : unit = xml_right_test path "exml" doc exml in

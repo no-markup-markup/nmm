@@ -1,0 +1,24 @@
+¶
+
+*	Comment
+
+This is a sentence with a reference to a footnote attached to it.[FTN:one]
+
+*	FTN:one
+	Here is the content of that footnote, which should be displayed at
+	the bottom of the page on which it is referenced, but may occur
+	anywhere in the source document (modulo scope).
+
+*	This is an unnamed footnote, which is not displayed in the compiled
+	document, effectively acting as a comment.
+
+*	FTN:two
+	This is a named footnote, which is only displayed in the compiled
+	document if referenced, and otherwise acts as a comment.
+
+If a footnote is referenced multiple times[FTN:times], it will be displayed
+multiple times with the same content but different numbering.[FTN:one]
+
+
+*	FTN:times
+	Any number of times.

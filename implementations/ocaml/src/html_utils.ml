@@ -3,17 +3,17 @@ open Common_utils
 exception Error of string
 
 let sec_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
-	match doc_class with
-	|DOC_CHS -> "h3"
-	|DOC_SECS -> "h2"
-	|_ -> raise (Error "unexpected document class")
+        match doc_class with
+        |DOC_CHS -> "h3"
+        |DOC_SECS -> "h2"
+        |_ -> raise (Error "unexpected document class")
 
 let par_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
-	match doc_class with
-	|DOC_CHS -> "h4"
-	|DOC_SECS -> "h3"
-	|DOC_PARS -> "h2"
-	|DOC_BLKS -> raise (Error "unexpected document class")
+        match doc_class with
+        |DOC_CHS -> "h4"
+        |DOC_SECS -> "h3"
+        |DOC_PARS -> "h2"
+        |DOC_BLKS -> raise (Error "unexpected document class")
 
 
 let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xml.xml=
@@ -78,55 +78,25 @@ match element with
 |Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
 |Xml.Element ("txt_unit_emph", _, xml_list) -> Xml.Element ("em", [("class", "txt_unit_emph")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -> Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("txt_unit_ftn_ref",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_ftn_ref")::attr_list,List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("txt_unit_url",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_url")::attr_list,List.map (html_of_exml doc_class) xml_list)
+
+|Xml.Element ("ftn",attr_list,xml_list) -> Xml.Element ("span", ("class", "ftn")::attr_list, List.map (html_of_exml doc_class) xml_list)
+
+|Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("div",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("div",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("doc_endnotes_hdr",_,xml_list) -> Xml.Element ("h2",[("class","doc_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_endnotes_hdr",_,xml_list) -> Xml.Element ("h3",[("class","ch_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
+
+|Xml.Element ("blk_ftn",attr_list,xml_list) -> Xml.Element ("div",("class","blk ftn")::attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_ftn_lbl",attr_list,xml_list) -> Xml.Element ("a",("class","blk_ftn_lbl")::attr_list,List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_ftn_main",_,xml_list) -> Xml.Element ("p", [("class", "blk_ftn_main")],List.map (html_of_exml doc_class) xml_list)
 
 |Xml.PCData s -> Xml.PCData s
 
 |Xml.Element ("clear",[],[]) -> Xml.Element ("div",[("class","clear")],[Xml.PCData ""])
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
-
-let default_tab_length () : string = "6ch"
-
-let default_lang_code () : string = "en"
-
-let default_margin () : string  = "0"
-
-let margin_left_of_options (options : string list) : string option =
-        match Txt_utils.left_margin_of_options options with
-        |Some (margin : int) -> Some (String.concat "" [string_of_int margin;"rem"])
-        |None -> None
-
-
-let lang_code_of_options (options : string list) : string option =
-        let rec aux (lst : string list) =
-                match lst with
-                |[] -> None
-                |hd::tl ->
-                        match hd with
-                        |"--lang" -> (
-                                match tl with
-                                |lang_code::_ -> Some lang_code
-                                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: missing --lang argument; using default (en)" in None
-                        )
-                        |_ -> aux tl
-        in
-        aux options
-
-let external_css_of_options (options : string list) : string option =
-        let rec aux (lst : string list) =
-                match lst with
-                |[] -> None
-                |hd::tl ->
-                        match hd with
-                        |"--css" -> (
-                                match tl with
-                                |uri::_ -> Some uri
-                                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: missing --css argument; using default" in None
-
-                        )
-                        |_ -> aux tl
-        in
-        aux options
 
 
 let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
@@ -424,6 +394,25 @@ h2, h3, h4, h5 {
     white-space : pre;
 }
 
+/******** ENDNOTES and FOOTNOTES **********/
+
+.doc_endnotes, .ch_endnotes {
+    margin-top  : 2rem;
+    border-top  : thin grey solid;
+    padding-top : 0.5rem;
+}
+
+.blk_ftn_lbl {
+    float : left;
+}
+
+.blk_ftn_main {
+    margin-left : 3ch;
+}
+
+span.ftn {
+    display : none;
+}
 
 /*************** PRINTING ***************/
 
@@ -432,7 +421,6 @@ h2, h3, h4, h5 {
   html {
     font-size : 13px;
   }
-
 
   h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
     break-after  : avoid-page;

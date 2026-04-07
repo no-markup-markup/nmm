@@ -24,7 +24,7 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.par_hdr_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) : (<span class="constructor">Xml</span>.xml list) option=
+<code class="code"><span class="keyword">let</span> par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) : (<span class="constructor">Xml</span>.xml list) option=
         <span class="keyword">let</span> tag_content_opt : (<span class="constructor">Xml</span>.xml list) option = 
                 <span class="keyword">match</span> tag_or_id_opt <span class="keyword">with</span>
                 <span class="keywordsign">|</span><span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> (
@@ -41,7 +41,7 @@
                 <span class="keyword">match</span> hdr_opt <span class="keyword">with</span>
                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
                 <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (txt_units : ts_txt_units)) <span class="keywordsign">-&gt;</span>
-                        <span class="constructor">Some</span> (xml_list_of_ts_txt_units doc_settings cref_table path txt_units)
+                        <span class="constructor">Some</span> (xml_list_of_ts_txt_units doc_settings cref_table ftn_table path txt_units)
         <span class="keyword">in</span>
         <span class="keyword">match</span> tag_content_opt, hdr_content_opt <span class="keyword">with</span>
                 <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">Some</span> hdr_content <span class="keywordsign">-&gt;</span>

@@ -17,6 +17,7 @@ type token =
         |NL_TAB_TAB
         |NL_TAB_TAB_TAB
         |DASH_TAB
+        |STAR_TAB
         |ITM_AUTO_TAB
         |DSP_AUTO_TAB
         |PILCROW_NL
@@ -47,5 +48,7 @@ type token =
         |DSP_CUSTOM_TAB of string
         |ITM_AUTO_TAB_ID of string
         |ITM_CUSTOM_TAB_ID of string
+        |STAR_TAB_ID of string
+        |FTN_REF of (string * int)
 
 val main : (Stdlib.Lexing.lexbuf -> token) -> Stdlib.Lexing.lexbuf -> Doc_types.tr_doc

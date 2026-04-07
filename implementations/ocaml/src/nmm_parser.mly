@@ -35,6 +35,13 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
         |[tag;name;scope] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }
         | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
+let ftn_of_string_int ((s,i):string * int) : Doc_types.ts_ftn_ref =
+        let t:string=String.sub s 1 ((String.length s)-2) in
+        match String.split_on_char ':' t with
+        |[tag;name] -> Cs_ftn_ref ({ fld_id_tag=Cs_tag tag; fld_id_name=Cs_name name; fld_id_scope = None }, Cs_int i)
+        |[tag;name;scope] -> Cs_ftn_ref ({ fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }, Cs_int i)
+        | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+
 let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_authors option =
         match authors_opt with
         |None -> Some (Cs_authors [author])
@@ -64,15 +71,15 @@ let get_id_string (s : string) : string =
         |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let date_of_string (s : string) : tu_date =
-	match s with
-	|"auto" -> Cu_date_auto Cs_date_auto
-	|_ -> Cu_date_custom (Cs_date_custom s)
+        match s with
+        |"auto" -> Cu_date_auto Cs_date_auto
+        |_ -> Cu_date_custom (Cs_date_custom s)
 
 %}
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
-%token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
+%token                          DASH_TAB STAR_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
 %token                          PREAMBLE TITLE AUTHOR DATE ABSTRACT
 %token <string>                 VRB_LINE
@@ -80,48 +87,10 @@ let date_of_string (s : string) : tu_date =
 %token <string>                 TXT C_REF
 %token <string>                 DSP_ID
 %token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
-%token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID
+%token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID STAR_TAB_ID
+%token <string * int>           FTN_REF
 
 %type <Doc_types.tr_doc>                  main doc
-%type <Doc_types.ts_preamble>             doc_preamble
-%type <Doc_types.ts_title>                doc_title
-%type <Doc_types.ts_author>               doc_author
-%type <Doc_types.tu_date>                 doc_date
-%type <string>                            lines
-%type <string>                            preamble_lines
-%type <Doc_types.tu_doc_main>             doc_main
-%type <Doc_types.tr_ch>                   ch
-%type <Doc_types.tu_secs_pars_or_blks>    ch_main
-%type <Doc_types.tr_ch list>              chs
-%type <Doc_types.tr_sec>                  sec
-%type <Doc_types.tu_pars_or_blks>         sec_main
-%type <Doc_types.tr_sec list>             secs
-%type <Doc_types.tu_par>                  par
-%type <Doc_types.ts_par_rpt>              pilcrow_spaces_rpt_spaces_id_nl
-%type <Doc_types.ts_blks>                 par_main blks special_blks
-%type <Doc_types.tu_par list>             pars
-%type <Doc_types.tu_blk>                  blk0 blk1 blk2 blk3
-%type <Doc_types.ts_blk_blt>              blk_blt0 blk_blt1 blk_blt2
-%type <Doc_types.ts_blk_dsp>              blk_dsp0 blk_dsp1 blk_dsp2 special_blk_dsp0 special_blk_dsp1 special_blk_dsp2
-%type <Doc_types.tr_blk_itm>              blk_itm0 blk_itm1 blk_itm2
-%type <Doc_types.ts_blk_txt>              blk_txt0 blk_txt1 blk_txt2 blk_txt3
-%type <Doc_types.ts_blk_vrb>              blk_vrb0 blk_vrb1 blk_vrb2 blk_vrb3
-%type <Doc_types.tu_blk list>             blks0 blks1 blks2 blks3 special_blks0 special_blks1 special_blks2
-%type <Doc_types.ts_c_ref>                c_ref
-%type <Doc_types.tr_dsp_line>             dsp_line special_dsp_line
-%type <Doc_types.tr_dsp_line list>        dsp_lines0 dsp_lines1 dsp_lines2 special_dsp_lines0 special_dsp_lines1 special_dsp_lines2
-%type <Doc_types.ts_vrb_line list>        vrb_lines0 vrb_lines1 vrb_lines2 vrb_lines3
-%type <Doc_types.ts_vrb_line>             vrb_line0 vrb_line1 vrb_line2 vrb_line3
-%type <Doc_types.tu_tag_or_id>            pilcrow_spaces_tag_or_id_nl section_spaces_tag_or_id_nl
-%type <Doc_types.tr_id>                   dsp_id
-%type <Doc_types.ts_hdr>                  hdr
-%type <Doc_types.tu_lbl>                  itm_lbl_tab dsp_lbl_tab
-%type <Doc_types.tu_txt_unit>             txt_unit0 txt_unit1 txt_unit2 txt_unit3 dsp_unit
-%type <Doc_types.tu_txt_unit list>        txt_units0 txt_units1 txt_units2 txt_units3 dsp_units
-%type <Doc_types.ts_lbl_custom>           dsp_custom_tab itm_custom_tab
-%type <Doc_types.ts_lbl_auto>             dsp_auto_tab itm_auto_tab
-%type <string>                            txt emph_txt emph_txt0 emph_txt1 emph_txt2 emph_txt3
-%type <unit>                              dash_tab lb0 lb1 lb2 lb3 pilcrow_nl section_nl tabs
 
 %start main
 
@@ -344,6 +313,7 @@ blk0:
   |blk_itm0                                       { Cu_blk_itm $1:tu_blk }
   |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
   |blk_vrb0                                       { Cu_blk_vrb $1:tu_blk }
+  |blk_ftn0                                       { Cu_blk_ftn $1:tu_blk }
   |blk0 NL                                        { $1 : tu_blk }
 ;
 
@@ -361,6 +331,7 @@ txt_unit0:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt0 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
 ;
 
 emph_txt0:
@@ -372,6 +343,12 @@ emph_txt0:
 blk_blt0:
   |dash_tab blks1                                 { (Cs_blk_blt (Cs_blks $2)):ts_blk_blt }
 ;
+
+blk_ftn0:
+  |star_tab ftn_units1                            { { fld_blk_ftn_id=None; fld_blk_ftn_main=Cs_ftn_units $2} : tr_blk_ftn }
+  |star_tab_id lb1 ftn_units1                    { { fld_blk_ftn_id=Some $1; fld_blk_ftn_main=Cs_ftn_units $3} : tr_blk_ftn }
+;
+
 
 blk_itm0:
   |itm_lbl_tab blks1                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
@@ -550,10 +527,23 @@ txt_units1:
   |txt_unit1 lb1 txt_units1                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
+ftn_units1:
+  |ftn_unit1 lb0                                  { ($1::[]):tu_ftn_unit list }
+  |ftn_unit1 ftn_units1                           { ($1::$2):tu_ftn_unit list }
+  |ftn_unit1 lb1 ftn_units1                       { ($1::((Cu_ftn_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_ftn_unit list }
+;
+
 txt_unit1:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt1 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
+;
+
+ftn_unit1:
+  |txt                                            { (Cu_ftn_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_ftn_unit }
+  |STAR emph_txt1 STAR                            { (Cu_ftn_unit_emph (Cs_txt_unit_emph $2)):tu_ftn_unit }
+  |c_ref                                          { (Cu_ftn_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_ftn_unit }
 ;
 
 emph_txt1:
@@ -649,10 +639,12 @@ txt_units2:
   |txt_unit2 lb2 txt_units2                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
+
 txt_unit2:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt2 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
 ;
 
 emph_txt2:
@@ -744,6 +736,7 @@ txt_unit3:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt3 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
 ;
 
 emph_txt3:
@@ -823,6 +816,9 @@ c_ref:
   |C_REF                                          { (c_ref_of_string $1):ts_c_ref }
 ;
 
+ftn_ref:
+  |FTN_REF                                        { (ftn_of_string_int $1):ts_ftn_ref }
+;
 
 dsp_id:
   |DSP_ID                                         { (id_of_string $1):tr_id }
@@ -899,6 +895,14 @@ dash_tab:
   |DASH_TAB                                       { }
 ;
 
+star_tab:
+  |STAR_TAB                                       { }
+;
+
+star_tab_id:
+  |STAR_TAB_ID                                    { id_of_string (get_id_string $1) : tr_id }
+;
+
 tabs:
   |TAB                                            { }
   |tabs TAB                                       { }
@@ -908,3 +912,4 @@ nls:
   |NL                                             { }
   |NL nls                                         { }
 ;
+

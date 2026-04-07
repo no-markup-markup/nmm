@@ -10,18 +10,18 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
         |Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
 
-let txt_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
-        let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
+let txt_of_doc (options : Common_utils.t_txt_options) (doc : Doc_types.tr_doc) : string =
+        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         try
         Compiler_of_doc.txt_of_tr_doc options doc
         with
         |Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:";e]))
 
 
-let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
+let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc) : string =
         try
-        let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
-        let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc options doc in
+        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
+        let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc (Common_utils.exml_options_of_html_options options) doc in
         let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
         let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
         let html_string:string = Xml_right.to_string_fmt html in
@@ -39,21 +39,16 @@ let html_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
                                 |Cs_author s -> String.concat "" ["<meta name=\"author\" content=\"";s;"\">"]
                         in String.concat "\n" (List.map map author_list)
         in
-        let lang_attr : string =
-        match Html_utils.lang_code_of_options options with 
-                | None -> (" lang=\"" ^ (Html_utils.default_lang_code ())^ "\"")
-                | Some lang_code -> (" lang=\"" ^ lang_code ^ "\"") 
-        in
+        let lang_attr : string = (" lang=\"" ^ options.lang ^ "\"") in
         let margin_left : string = 
-                match Html_utils.margin_left_of_options options with
-                |Some margin -> margin
+                match options.margin with
+                |Some m -> (string_of_int m) ^ "rem"
                 |None -> Html_utils.margin_left_of_tr_doc doc
         in
-        let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css (Html_utils.default_tab_length ()) margin_left) ^ "\n</style>") in
-        let external_css: string = 
-                match Html_utils.external_css_of_options options with
-                |None -> ""
-                |Some uri ->  ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n")
+        let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css "6ch" margin_left) ^ "\n</style>") in
+        let external_css: string =
+                let map (uri : string) : string = ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n") in
+                String.concat "" (List.map map options.css)
         in
         let intro : string = (
                 "<!DOCTYPE html>\n" ^
@@ -99,16 +94,16 @@ let axml_of_doc (doc : Doc_types.tr_doc) : string =
         "<?xml version=\"1.0\"?>\n" ^ 
         (Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc))
 
-let html_of_nmm (options : string list) (path : string) : string =
+let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
         html_of_doc options (doc_of_nmm path)
 
-let txt_of_nmm (options : string list) (path:string):string =
+let txt_of_nmm (options : Common_utils.t_txt_options) (path:string):string =
         txt_of_doc options (doc_of_nmm path)
 
-let txt_of_axml (options : string list) (path : string) : string =
+let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string =
         txt_of_doc options (doc_of_axml path) 
 
-let html_of_axml (options : string list) (path : string) : string =
+let html_of_axml (options : Common_utils.t_html_options) (path : string) : string =
         try 
         html_of_doc options (doc_of_axml path)
         with
@@ -117,7 +112,7 @@ let html_of_axml (options : string list) (path : string) : string =
 let axml_of_nmm (path : string) : string =
         axml_of_doc (doc_of_nmm path)
 
-let check_xml_schema (path:string):string =
+let check_xml_schema (path : string) : string =
         try
         let dtd:Dtd.dtd=Dtd.parse_file path in
         let _:Dtd.checked=Dtd.check dtd in
@@ -146,18 +141,18 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
         |Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
         |Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
 
-let default_css () : string = Html_utils.internal_css (Html_utils.default_tab_length ()) (Html_utils.default_margin ())
+let default_css () : string = Html_utils.internal_css "6ch" "0rem"
 
 
-let exml_of_doc (options : string list) (doc : Doc_types.tr_doc) : string =
-        let _ : unit = Debug_utils.quiet.contents <- List.mem "--quiet" options in
+let exml_of_doc (options : Common_utils.t_exml_options) (doc : Doc_types.tr_doc) : string =
+        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         "<?xml version=\"1.0\"?>\n" ^ 
         (Xml_right.to_string_fmt (Compiler_of_doc.exml_of_tr_doc options doc))
 
-let exml_of_nmm (options : string list) (path : string) : string =
+let exml_of_nmm (options : Common_utils.t_exml_options) (path : string) : string =
         exml_of_doc options (doc_of_nmm path)
 
-let exml_of_axml (options : string list) (path : string) : string =
+let exml_of_axml (options : Common_utils.t_exml_options) (path : string) : string =
         exml_of_doc options (doc_of_axml path)
 
 

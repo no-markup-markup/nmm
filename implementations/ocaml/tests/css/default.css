@@ -35,11 +35,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.secs .title {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.chs .title {
@@ -61,11 +61,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.secs .authors {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 /************ DATE ******************/
@@ -75,11 +75,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .date {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.secs .date {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 /************ ABSTRACT ******************/
@@ -93,11 +93,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .abstract_hdr {
@@ -114,11 +114,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.secs .refs {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .doc.chs .refs {
@@ -185,7 +185,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 0;
+    margin-left : 0rem;
     font-size   : large;
     line-height : 130%;
 }
@@ -222,7 +222,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 
@@ -249,7 +249,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 0;
+    margin-left : 0rem;
 }
 
 .blk.txt {
@@ -285,6 +285,25 @@ h2, h3, h4, h5 {
     white-space : pre;
 }
 
+/******** ENDNOTES and FOOTNOTES **********/
+
+.doc_endnotes, .ch_endnotes {
+    margin-top  : 2rem;
+    border-top  : thin grey solid;
+    padding-top : 0.5rem;
+}
+
+.blk_ftn_lbl {
+    float : left;
+}
+
+.blk_ftn_main {
+    margin-left : 3ch;
+}
+
+span.ftn {
+    display : none;
+}
 
 /*************** PRINTING ***************/
 
@@ -293,7 +312,6 @@ h2, h3, h4, h5 {
   html {
     font-size : 13px;
   }
-
 
   h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
     break-after  : avoid-page;

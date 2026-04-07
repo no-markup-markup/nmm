@@ -44,13 +44,13 @@
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALtxt_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.txt_of_tr_doc.html">txt_of_tr_doc</a></span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.txt_of_tr_doc.html">txt_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">Common_utils.t_txt_options</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p>Implements the raw text semantics for no-markup-markup.</p>
 </div>
 </div>
 
-<pre><span id="VALexml_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.exml_of_tr_doc.html">exml_of_tr_doc</a></span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
+<pre><span id="VALexml_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.exml_of_tr_doc.html">exml_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">exml_of_tr_doc&nbsp;options&nbsp;doc</code> evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/exml.dtd.txt">exml.dtd</a>.</p>
 
@@ -63,4 +63,6 @@
 <p>For determining the size of the left margin.</p>
 </div>
 </div>
-</body></html>
+
+<pre><span id="VALcref_table_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.cref_table_of_tr_doc.html">cref_table_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_cref_table">Common_utils.t_cref_table</a></code></pre>
+<pre><span id="VALftn_table_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.ftn_table_of_tr_doc.html">ftn_table_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">Common_utils.t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">Common_utils.t_cref_table</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_ftn_table">Common_utils.t_ftn_table</a></code></pre></body></html>

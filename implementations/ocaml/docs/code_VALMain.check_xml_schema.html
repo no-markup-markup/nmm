@@ -24,7 +24,7 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.check_xml_schema</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> check_xml_schema (path:string):string =
+<code class="code"><span class="keyword">let</span> check_xml_schema (path : string) : string =
         <span class="keyword">try</span>
         <span class="keyword">let</span> dtd:<span class="constructor">Dtd</span>.dtd=<span class="constructor">Dtd</span>.parse_file path <span class="keyword">in</span>
         <span class="keyword">let</span> _:<span class="constructor">Dtd</span>.checked=<span class="constructor">Dtd</span>.check dtd <span class="keyword">in</span>

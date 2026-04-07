@@ -50,7 +50,7 @@
 </div>
 </div>
 
-<pre><span id="VALtxt_of_doc"><span class="keyword">val</span> <a href="code_VALMain.txt_of_doc.html">txt_of_doc</a></span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_doc"><span class="keyword">val</span> <a href="code_VALMain.txt_of_doc.html">txt_of_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">Common_utils.t_txt_options</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">txt_of_doc&nbsp;doc</code> evaluates to <a href="Compiler_of_doc.html#VALtxt_of_tr_doc"><code class="code"><span class="constructor">Compiler_of_doc</span>.txt_of_tr_doc</code></a><code class="code">&nbsp;doc</code>.</p>
 </div>
@@ -62,7 +62,7 @@
 </div>
 </div>
 
-<pre><span id="VALhtml_of_doc"><span class="keyword">val</span> <a href="code_VALMain.html_of_doc.html">html_of_doc</a></span> : <code class="type">string list -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALhtml_of_doc"><span class="keyword">val</span> <a href="code_VALMain.html_of_doc.html">html_of_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">Common_utils.t_html_options</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">html_of_doc&nbsp;options&nbsp;doc</code> evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
@@ -90,25 +90,25 @@
 </div>
 </div>
 
-<pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.html_of_nmm.html">html_of_nmm</a></span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.html_of_nmm.html">html_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">Common_utils.t_html_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">html_of_nmm&nbsp;options&nbsp;path</code> evaluates to <code class="code">html_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.txt_of_nmm.html">txt_of_nmm</a></span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.txt_of_nmm.html">txt_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">Common_utils.t_txt_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">txt_of_nmm&nbsp;options&nbsp;path</code> evaluate to <code class="code">txt_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALtxt_of_axml"><span class="keyword">val</span> <a href="code_VALMain.txt_of_axml.html">txt_of_axml</a></span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_axml"><span class="keyword">val</span> <a href="code_VALMain.txt_of_axml.html">txt_of_axml</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">Common_utils.t_txt_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">txt_of_axml&nbsp;options&nbsp;path</code> evaluates to <code class="code">txt_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALhtml_of_axml"><span class="keyword">val</span> <a href="code_VALMain.html_of_axml.html">html_of_axml</a></span> : <code class="type">string list -&gt; string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALhtml_of_axml"><span class="keyword">val</span> <a href="code_VALMain.html_of_axml.html">html_of_axml</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">Common_utils.t_html_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">html_of_axml&nbsp;options&nbsp;path</code> evaluates to <code class="code">html_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)</code>.</p>
 </div>
@@ -132,5 +132,5 @@
 </div>
 </div>
 
-<pre><span id="VALexml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.exml_of_nmm.html">exml_of_nmm</a></span> : <code class="type">string list -&gt; string -&gt; string</code></pre>
-<pre><span id="VALexml_of_axml"><span class="keyword">val</span> <a href="code_VALMain.exml_of_axml.html">exml_of_axml</a></span> : <code class="type">string list -&gt; string -&gt; string</code></pre></body></html>
+<pre><span id="VALexml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.exml_of_nmm.html">exml_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; string -&gt; string</code></pre>
+<pre><span id="VALexml_of_axml"><span class="keyword">val</span> <a href="code_VALMain.exml_of_axml.html">exml_of_axml</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; string -&gt; string</code></pre></body></html>
