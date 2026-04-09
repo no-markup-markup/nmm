@@ -62,26 +62,15 @@ Inductive tu_tag_or_id : Type :=
 | cu_tag_or_id_id  : tr_id  -> tu_tag_or_id
 .
 
+(*
 Inductive tu_c_ref_type :=
 | cu_cref_type_lcl : tu_c_ref_type
 | cu_cref_type_gbl : tu_c_ref_type
 .
+*)
 
-Inductive ts_c_ref : Type := cs_c_ref : tr_id -> ts_c_ref.
-
-Inductive ts_txt_unit_wysiwyg : Type :=
-  cs_txt_unit_wysiwyg : t_str    -> ts_txt_unit_wysiwyg.
-Inductive ts_txt_unit_emph    : Type :=
-  cs_txt_unit_emph    : t_str    -> ts_txt_unit_emph.
-Inductive ts_txt_unit_c_ref   : Type :=
-  cs_txt_unit_c_ref   : ts_c_ref -> ts_txt_unit_c_ref.
-Inductive tu_txt_unit         : Type :=
-| cu_txt_unit_wysiwyg : ts_txt_unit_wysiwyg -> tu_txt_unit
-| cu_txt_unit_emph    : ts_txt_unit_emph    -> tu_txt_unit
-| cu_txt_unit_c_ref   : ts_txt_unit_c_ref   -> tu_txt_unit
-.
-Inductive ts_txt_units : Type :=
-  cs_txt_units : list tu_txt_unit -> ts_txt_units.
+Inductive ts_c_ref   : Type := cs_c_ref   : tr_id -> ts_c_ref.
+Inductive ts_ftn_ref : Type := cs_ftn_ref : tr_id -> ts_ftn_ref.
 
 Inductive ts_lbl_auto   : Type := cs_lbl_auto   :          ts_lbl_auto.
 Inductive ts_lbl_custom : Type := cs_lbl_custom : t_str -> ts_lbl_custom.
@@ -90,59 +79,111 @@ Inductive tu_lbl        : Type :=
 | cu_lbl_custom : ts_lbl_custom -> tu_lbl
 .
 
-Inductive ts_dsp_line_no_lbl : Type :=
-| cs_dsp_line_no_lbl : ts_txt_units -> ts_dsp_line_no_lbl.
-Record tr_dsp_line_lbld : Type := cr_dsp_line_lbld {
-  fld_dsp_line_lbld_lbl   : tu_lbl;
-  fld_dsp_line_lbld_id    : option tr_id;
-  fld_dsp_line_lbld_units : ts_txt_units;
-}.
-Inductive tu_dsp_line : Type :=
-| cu_dsp_line_no_lbl : ts_dsp_line_no_lbl -> tu_dsp_line
-| cu_dsp_line_lbld   : tr_dsp_line_lbld   -> tu_dsp_line
-.
-Inductive ts_dsp_lines : Type :=
-  cs_dsp_lines : list tu_dsp_line -> ts_dsp_lines.
-
-Inductive ts_vrb_line  : Type :=
-  cs_vrb_line :  t_str            -> ts_vrb_line.
-Inductive ts_vrb_lines : Type :=
-  cs_vrb_lines : list ts_vrb_line -> ts_vrb_lines.
-
 Inductive
-  tu_blk : Type :=
-  | cu_blk_txt : ts_blk_txt -> tu_blk
-  | cu_blk_blt : ts_blk_blt -> tu_blk
-  | cu_blk_itm : tr_blk_itm -> tu_blk
-  | cu_blk_dsp : ts_blk_dsp -> tu_blk
-  | cu_blk_vrb : ts_blk_vrb -> tu_blk
+  ts_blks                : Type :=
+  | cs_blks                : list tu_blk            -> ts_blks
 with
-  ts_blk_txt : Type :=
-  | cs_blk_txt : ts_txt_units ->                      ts_blk_txt
+  tu_blk                 : Type :=
+  | cu_blk_txt             : ts_blk_txt             -> tu_blk
+  | cu_blk_blt             : ts_blk_blt             -> tu_blk
+  | cu_blk_itm             : tr_blk_itm             -> tu_blk
+  | cu_blk_dsp             : ts_blk_dsp             -> tu_blk
+  | cu_blk_vrb             : ts_blk_vrb             -> tu_blk
 with
-  ts_blk_blt : Type :=
-  | cs_blk_blt : ts_blks ->                           ts_blk_blt
+  ts_blk_txt             : Type :=
+  | cs_blk_txt             : ts_txt_units           -> ts_blk_txt
 with
-  tr_blk_itm : Type :=
-  | cr_blk_itm : tu_lbl -> option tr_id -> ts_blks -> tr_blk_itm
+  ts_blk_blt             : Type :=
+  | cs_blk_blt             : ts_blks                -> ts_blk_blt
 with
-  ts_blk_dsp : Type :=
-  | cs_blk_dsp : ts_dsp_lines ->                      ts_blk_dsp
+  tr_blk_itm             : Type :=
+  | cr_blk_itm             :
+    tu_lbl
+    ->
+    option tr_id
+    ->
+    ts_blks
+    ->
+    tr_blk_itm
+  (* field functions below *)
 with
-  ts_blk_vrb : Type :=
-  | cs_blk_vrb : ts_vrb_lines ->                      ts_blk_vrb
+  ts_blk_dsp             : Type :=
+  | cs_blk_dsp             : ts_dsp_lines           -> ts_blk_dsp
 with
-  ts_blks    : Type :=
-  | cs_blks    : list tu_blk  ->                      ts_blks
+  ts_blk_vrb             : Type :=
+  | cs_blk_vrb             : ts_vrb_lines           -> ts_blk_vrb
+with
+  ts_txt_units           : Type :=
+  | cs_txt_units           : list tu_txt_unit       -> ts_txt_units
+with
+  tu_txt_unit            : Type :=
+  | cu_txt_unit_wysiwyg    : ts_txt_unit_wysiwyg    -> tu_txt_unit
+  | cu_txt_unit_emph       : ts_txt_unit_emph       -> tu_txt_unit
+  | cu_txt_unit_c_ref      : ts_txt_unit_c_ref      -> tu_txt_unit
+  | cu_txt_unit_ftn_ref    : ts_txt_unit_ftn_ref    -> tu_txt_unit
+  | cu_txt_unit_ftn_inline : ts_txt_unit_ftn_inline -> tu_txt_unit
+with
+  ts_txt_unit_wysiwyg    : Type :=
+  | cs_txt_unit_wysiwyg    : t_str                  -> ts_txt_unit_wysiwyg
+with
+  ts_txt_unit_emph       : Type :=
+  | cs_txt_unit_emph       : t_str                  -> ts_txt_unit_emph
+with
+  ts_txt_unit_c_ref      : Type :=
+  | cs_txt_unit_c_ref      : ts_c_ref               -> ts_txt_unit_c_ref
+with
+  ts_txt_unit_ftn_ref    : Type :=
+  | cs_txt_unit_ftn_ref    : ts_ftn_ref             -> ts_txt_unit_ftn_ref
+with
+  ts_txt_unit_ftn_inline : Type :=
+  | cs_txt_unit_ftn_inline : ts_blks                -> ts_txt_unit_ftn_inline
+with ts_dsp_lines        : Type :=
+  | cs_dsp_lines           : list tu_dsp_line       -> ts_dsp_lines
+with
+  tu_dsp_line            : Type :=
+  | cu_dsp_line_no_lbl     : ts_dsp_line_no_lbl     -> tu_dsp_line
+  | cu_dsp_line_lbld       : tr_dsp_line_lbld       -> tu_dsp_line
+with
+  ts_dsp_line_no_lbl     : Type :=
+  | cs_dsp_line_no_lbl     : ts_txt_units           -> ts_dsp_line_no_lbl
+with
+  tr_dsp_line_lbld       : Type :=
+  | cr_dsp_line_lbld       :
+                          tu_lbl
+                          ->
+                          option tr_id
+                          ->
+                          ts_txt_units
+                          ->
+                          tr_dsp_line_lbld
+  (* field functions below *)
+with
+  ts_vrb_lines           : Type :=
+  | cs_vrb_lines           : list ts_vrb_line       -> ts_vrb_lines
+with
+  ts_vrb_line            : Type :=
+  | cs_vrb_line            : t_str                  -> ts_vrb_line
 .
+
 (* Cannot mix inductive definitions with record definitions so we have to define
-   the fld functions manually for tr_blk_itm *)
+   some field functions manually *)
+
 Definition fld_blk_itm_lbl  (blk_itm : tr_blk_itm) : tu_lbl
   := match blk_itm with cr_blk_itm lbl _  _    => lbl  end.
 Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
   := match blk_itm with cr_blk_itm _   id _    => id   end.
 Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
   := match blk_itm with cr_blk_itm _   _  blks => blks end.
+
+Definition fld_dsp_line_lbld_lbl   (dsp_line_lbld : tr_dsp_line_lbld)
+  : tu_lbl
+  := match dsp_line_lbld with cr_dsp_line_lbld id _ _   => id    end.
+Definition fld_dsp_line_lbld_id    (dsp_line_lbld : tr_dsp_line_lbld)
+  : option tr_id
+  := match dsp_line_lbld with cr_dsp_line_lbld _ id _   => id    end.
+Definition fld_dsp_line_lbld_units (dsp_line_lbld : tr_dsp_line_lbld)
+  : ts_txt_units
+  := match dsp_line_lbld with cr_dsp_line_lbld _ _  blks => blks end.
 
 Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
 
