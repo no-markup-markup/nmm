@@ -243,10 +243,16 @@ Inductive ts_preamble : Type := cs_preamble : t_str          -> ts_preamble.
 
 Inductive ts_authors  : Type := cs_authors  : list ts_author -> ts_authors.
 
+Inductive tu_date     : Type :=
+| cu_date_auto   :          tu_date
+| cu_date_custom : t_str -> tu_date
+.
+
 Record tr_doc : Type := cr_doc {
   fld_doc_preamble : option ts_preamble;
   fld_doc_title    : option ts_title;
   fld_doc_authors  : option ts_authors;
+  fld_doc_date     : option tu_date;
   fld_doc_abstract : option ts_abstract;
   fld_doc_main     : tu_doc_main;
   fld_doc_refs     : option ts_refs;
