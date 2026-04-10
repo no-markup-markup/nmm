@@ -35,7 +35,7 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
         |[tag;name;scope] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }
         | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
-let ftn_of_string_int ((s,i):string * int) : Doc_types.ts_ftn_ref =
+let ftn_ref_of_string_int ((s,i):string * int) : Doc_types.ts_ftn_ref =
         let t:string=String.sub s 1 ((String.length s)-2) in
         match String.split_on_char ':' t with
         |[tag;name] -> Cs_ftn_ref ({ fld_id_tag=Cs_tag tag; fld_id_name=Cs_name name; fld_id_scope = None }, Cs_int i)
@@ -77,7 +77,7 @@ let date_of_string (s : string) : tu_date =
 
 %}
 
-%token                          STAR LBR RBR COLON PILCROW SECTION EOF
+%token                          STAR LBR RBR COLON PILCROW SECTION EOF F
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB STAR_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
@@ -89,6 +89,7 @@ let date_of_string (s : string) : tu_date =
 %token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
 %token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID STAR_TAB_ID
 %token <string * int>           FTN_REF
+%token <int>			FTN_LBR
 
 %type <Doc_types.tr_doc>                  main doc
 
@@ -212,13 +213,15 @@ doc_refs:
 ;
 
 lines:
-  | TXT                                           { $1 : string }
-  | TXT NL_TAB lines                              { ($1 ^ " " ^ $3) : string }
+  | txt                                           { $1 : string }
+  | txt lines                                     { ($1 ^ $2) : string }
+  | txt NL_TAB lines                              { ($1 ^ " " ^ $3) : string }
 ;
 
 preamble_lines:
-  | TXT                                           { $1 : string }
-  | TXT NL_TAB preamble_lines                     { ($1 ^ ";" ^ $3) : string }
+  | txt                                           { $1 : string }
+  | txt preamble_lines                            { ($1 ^ $2) : string }
+  | txt NL_TAB preamble_lines                     { ($1 ^ ";" ^ $3) : string }
 ;
 
 doc_main:
@@ -332,6 +335,16 @@ txt_unit0:
   |STAR emph_txt0 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
   |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
+  |ftn_inline0                                    { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+;
+
+ftn_inline0:
+  |ftn_inline_short                               { $1 : ts_ftn_inline}
+  |ftn_inline_long0                               { $1 : ts_ftn_inline}
+;
+
+ftn_inline_long0:
+  |FTN_LBR lb1 blks1 RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
 ;
 
 emph_txt0:
@@ -538,6 +551,16 @@ txt_unit1:
   |STAR emph_txt1 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
   |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
+  |ftn_inline1                                    { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+;
+
+ftn_inline1:
+  |ftn_inline_short                               { $1 : ts_ftn_inline}
+  |ftn_inline_long1                               { $1 : ts_ftn_inline}
+;
+
+ftn_inline_long1:
+  |FTN_LBR lb2 blks2 RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
 ;
 
 ftn_unit1:
@@ -792,6 +815,26 @@ dsp_unit:
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
+ftn_inline_short:
+  |FTN_LBR blk_txt_ftn RBR                        { Cs_ftn_inline (Cs_blks [Cu_blk_txt $2], Cs_int $1) : ts_ftn_inline}
+;
+
+blk_txt_ftn:
+  |txt_units_ftn                                  { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+;
+
+txt_units_ftn:
+  |txt_unit_ftn                                   { ($1::[]):tu_txt_unit list }
+  |txt_unit_ftn txt_units_ftn                     { ($1::$2):tu_txt_unit list }
+;
+
+txt_unit_ftn:
+  |txt_ftn                                        { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt_ftn STAR                         { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
+  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+;
+
+
 txt:
   |TXT                                            { $1:string }
   |COLON                                          { ":":string }
@@ -805,11 +848,32 @@ txt:
   |DATE                                           { "DATE":string }
   |ABSTRACT                                       { "ABSTRACT":string }
   |ESC_CHAR                                       { $1:string }
+  |F                                              { "F":string }
+;
+
+txt_ftn:
+  |TXT                                            { $1:string }
+  |COLON                                          { ":":string }
+  |LBR                                            { "[":string }
+  |PILCROW                                        { "¶":string }
+  |SECTION                                        { "§":string }
+  |PREAMBLE                                       { "PREAMBLE":string }
+  |TITLE                                          { "TITLE":string }
+  |AUTHOR                                         { "AUTHOR":string }
+  |DATE                                           { "DATE":string }
+  |ABSTRACT                                       { "ABSTRACT":string }
+  |ESC_CHAR                                       { $1:string }
+  |F                                              { "F":string }
 ;
 
 emph_txt:
-  |txt                                           { $1:string }
-  |txt emph_txt                                  { ($1 ^ $2):string }
+  |txt                                            { $1:string }
+  |txt emph_txt                                   { ($1 ^ $2):string }
+;
+
+emph_txt_ftn:
+  |txt_ftn                                        { $1:string }
+  |txt_ftn emph_txt_ftn                           { ($1 ^ $2):string }
 ;
 
 c_ref:
@@ -817,7 +881,7 @@ c_ref:
 ;
 
 ftn_ref:
-  |FTN_REF                                        { (ftn_of_string_int $1):ts_ftn_ref }
+  |FTN_REF                                        { (ftn_ref_of_string_int $1):ts_ftn_ref }
 ;
 
 dsp_id:
@@ -888,7 +952,7 @@ itm_auto_tab_id:
 ;
 
 itm_custom_tab_id:
-  |ITM_CUSTOM_TAB_ID                                { (Cs_lbl_custom (get_custom_string $1), id_of_string (get_id_string $1)): ts_lbl_custom * tr_id }
+  |ITM_CUSTOM_TAB_ID                              { (Cs_lbl_custom (get_custom_string $1), id_of_string (get_id_string $1)): ts_lbl_custom * tr_id }
 ;
 
 dash_tab:

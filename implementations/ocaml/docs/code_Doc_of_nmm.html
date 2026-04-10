@@ -32,6 +32,8 @@
 <br>
 <span class="keyword">let</span>&nbsp;string_of_token&nbsp;(t:<span class="constructor">Nmm_parser</span>.token):string=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;t&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">F</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"F"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">FTN_LBR</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"FTN_LBR&nbsp;"</span>&nbsp;^&nbsp;(string_of_int&nbsp;n)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"SECTION"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION_NL</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"SECTION_NL"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PILCROW</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"PILCROW"</span><br>

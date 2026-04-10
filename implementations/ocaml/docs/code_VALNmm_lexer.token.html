@@ -64,6 +64,8 @@
                 <span class="keywordsign">|</span>colon                          <span class="keywordsign">-&gt;</span>      <span class="constructor">COLON</span>
                 <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
                 <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
+                <span class="keywordsign">|</span>ftn_lbr                        <span class="keywordsign">-&gt;</span>      <span class="constructor">FTN_LBR</span> (ftn_count ())
+                <span class="keywordsign">|</span>f                              <span class="keywordsign">-&gt;</span>      <span class="constructor">F</span>
                 <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>start_vrb                      <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">START_VRB</span>
                 <span class="keywordsign">|</span>eof                            <span class="keywordsign">-&gt;</span>      end_of_file lexbuf
@@ -92,6 +94,8 @@
                 <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
                 <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
                 <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>ftn_lbr                        <span class="keywordsign">-&gt;</span>      <span class="constructor">FTN_LBR</span> (ftn_count ())
+                <span class="keywordsign">|</span>f                              <span class="keywordsign">-&gt;</span>      <span class="constructor">F</span>
                 <span class="keywordsign">|</span>ftn_ref                        <span class="keywordsign">-&gt;</span>      <span class="constructor">FTN_REF</span> (lexeme lexbuf, ftn_count ())
                 <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span> 

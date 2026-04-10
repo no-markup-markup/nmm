@@ -133,6 +133,7 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_emph</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_emph<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_c_ref<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_ftn_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_ftn_ref<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_ftn_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_ftn_inline<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_txt_unit_wysiwyg&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
@@ -142,11 +143,13 @@
 <br>
 <span class="keyword">and</span>&nbsp;ts_txt_unit_ftn_ref&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_ftn_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_ftn_ref<br>
 <br>
-<span class="keyword">and</span>&nbsp;ts_txt_unit_url&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_url</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<span class="keyword">and</span>&nbsp;ts_txt_unit_ftn_inline&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_ftn_inline</span>&nbsp;&nbsp;<span class="keyword">of</span>&nbsp;ts_ftn_inline<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_c_ref&nbsp;=&nbsp;<span class="constructor">Cs_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_id<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_ftn_ref&nbsp;=&nbsp;<span class="constructor">Cs_ftn_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;(tr_id&nbsp;*&nbsp;ts_int)<br>
+<br>
+<span class="keyword">and</span>&nbsp;ts_ftn_inline&nbsp;=&nbsp;<span class="constructor">Cs_ftn_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_blks&nbsp;*&nbsp;ts_int)<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_int&nbsp;=&nbsp;<span class="constructor">Cs_int</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
 <br>

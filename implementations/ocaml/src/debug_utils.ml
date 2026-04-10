@@ -13,7 +13,9 @@ let print_to_file (s : string) (path : string) : unit =
         let _ = close_out oc in ()
 
 let print_to_stderr (s:string):unit = 
-        Printf.eprintf "%s\n" s
+        Printf.eprintf "\027[31m%s\027[m\n" s
+
 
 let print_warning (s:string):unit =
-        if quiet.contents then () else print_to_stderr s
+        if quiet.contents then () else Printf.eprintf "\027[33m%s\027[m\n" s
+

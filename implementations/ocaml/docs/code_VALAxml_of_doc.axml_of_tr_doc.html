@@ -285,6 +285,7 @@
         <span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_emph</span> (b:ts_txt_unit_emph) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_emph"</span>,[],[xml_of_ts_txt_unit_emph b])
         <span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_c_ref</span> (b:ts_txt_unit_c_ref) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_c_ref"</span>,[],[xml_of_ts_txt_unit_c_ref b])
         <span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_ftn_ref</span> (b:ts_txt_unit_ftn_ref) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_ref"</span>,[],[xml_of_ts_txt_unit_ftn_ref b])
+        <span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_ftn_inline</span> (b:ts_txt_unit_ftn_inline) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_inline"</span>,[],[xml_of_ts_txt_unit_ftn_inline b])
 
 <span class="keyword">and</span> xml_of_tu_ftn_unit (a:tu_ftn_unit):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> a <span class="keyword">with</span>
@@ -304,14 +305,18 @@
 <span class="keyword">and</span> xml_of_ts_txt_unit_ftn_ref (a:ts_txt_unit_ftn_ref):<span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_ftn_ref</span> (b:ts_ftn_ref) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_ftn_ref"</span>,[],[xml_of_ts_ftn_ref b])
 
-<span class="keyword">and</span> xml_of_ts_txt_unit_url (a:ts_txt_unit_url):<span class="constructor">Xml</span>.xml =
-        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_url</span> (b:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_url"</span>,[],[xml_of_string b]) 
+<span class="keyword">and</span> xml_of_ts_txt_unit_ftn_inline (a:ts_txt_unit_ftn_inline):<span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_ftn_inline</span> (b:ts_ftn_inline) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_ftn_inline"</span>,[],[xml_of_ts_ftn_inline b])
+
 
 <span class="keyword">and</span> xml_of_ts_c_ref (a:ts_c_ref):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_c_ref</span> (b:tr_id) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_c_ref"</span>,[],[xml_of_tr_id b])
 
 <span class="keyword">and</span> xml_of_ts_ftn_ref (a:ts_ftn_ref):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_ftn_ref</span> (id, _) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_ftn_ref"</span>,[],[xml_of_tr_id id])
+
+<span class="keyword">and</span> xml_of_ts_ftn_inline (a:ts_ftn_inline):<span class="constructor">Xml</span>.xml=
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_ftn_inline</span> (blks, _) <span class="keywordsign">-&gt;</span> xml_of_ts_blks blks
 
 <span class="keyword">and</span> xml_of_ts_int (i : ts_int) : <span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> i <span class="keyword">with</span>

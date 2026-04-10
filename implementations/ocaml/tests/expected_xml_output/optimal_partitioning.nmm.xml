@@ -26,7 +26,10 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>urthermore, suppose you want to keep a directory in your file system synced with another directory in your file system.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -153,7 +156,10 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>For each subdirectory, the probability of its modification time not having been updated is thus given by</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>or each subdirectory, the probability of its modification time not having been updated is thus given by</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -340,7 +346,10 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>For a given p and n, we want to find a k that minimizes </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>or a given p and n, we want to find a k that minimizes </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -538,7 +547,10 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>For a given n, to minimize </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>or a given n, to minimize </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>

@@ -23,8 +23,10 @@ let rbr = [%sedlex.regexp? "]"]
 let colon = [%sedlex.regexp? ":"]
 let section = [%sedlex.regexp? Utf8 "§"]
 let pilcrow = [%sedlex.regexp? Utf8 "¶"]
+let f = [%sedlex.regexp? "F"]
+let ftn_lbr = [%sedlex.regexp? "FTN["]
 
-let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section]
+let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section | f]
 let txt_chars = [%sedlex.regexp? Compl non_txt_chars]
 let txt = [%sedlex.regexp? Plus txt_chars]
 
@@ -163,6 +165,8 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |colon                          ->      COLON
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
+                |ftn_lbr                        ->      FTN_LBR (ftn_count ())
+                |f                              ->      F
                 |txt                            ->      TXT (lexeme lexbuf)
                 |start_vrb                      ->      let _ : unit = verbatim.contents <- true in START_VRB
                 |eof                            ->      end_of_file lexbuf
@@ -191,6 +195,8 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
                 |c_ref                          ->      C_REF (lexeme lexbuf)
+                |ftn_lbr                        ->      FTN_LBR (ftn_count ())
+                |f                              ->      F
                 |ftn_ref                        ->      FTN_REF (lexeme lexbuf, ftn_count ())
                 |txt                            ->      TXT (lexeme lexbuf)
                 |tab                            ->      TAB 

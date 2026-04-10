@@ -137,10 +137,13 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;time_of_ts_date_auto&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.ts_date_auto&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_time&nbsp;option<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_ftn_table&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Doc_types</span>.ts_ftn_ref&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;*&nbsp;int&nbsp;*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_blk_ftn)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_ftn_entry&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Ftn_entry_ref</span>&nbsp;<span class="keyword">of</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Doc_types</span>.ts_ftn_ref&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;*&nbsp;int&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_blk_ftn)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;<span class="keyword">of</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Doc_types</span>.ts_ftn_inline&nbsp;*&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;*&nbsp;int)<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_ftn_table&nbsp;=&nbsp;<span class="constructor">Common_utils</span>.t_ftn_entry&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ftn_table_of_ts_blk_txt&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span><br>
@@ -157,6 +160,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_ftn_table&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.ts_ftn_ref&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_ts_ftn_inline&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_ftn_table&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.ts_ftn_inline&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ftn_table_of_ts_hdr_opt&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_cref_table&nbsp;<span class="keywordsign">-&gt;</span><br>

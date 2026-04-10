@@ -202,13 +202,17 @@ val time_of_ts_date_auto : t_doc_settings -> Doc_types.ts_date_auto -> t_time op
 
 (** {2 Footnotes} *)
 
-type t_ftn_table =  (Doc_types.ts_ftn_ref * t_path * int *  Doc_types.tr_blk_ftn) list
+type t_ftn_entry = Ftn_entry_ref of (Doc_types.ts_ftn_ref * t_path * int * Doc_types.tr_blk_ftn) | Ftn_entry_inline of (Doc_types.ts_ftn_inline * t_path * int)
+
+type t_ftn_table = t_ftn_entry list
 
 val ftn_table_of_ts_blk_txt : t_doc_settings -> t_cref_table -> t_path -> t_ftn_table  -> Doc_types.ts_blk_txt -> t_ftn_table
 
 val ftn_table_of_tr_dsp_line : t_doc_settings -> t_cref_table -> t_path -> t_ftn_table  -> Doc_types.tr_dsp_line -> t_ftn_table
 
 val string_of_ts_ftn_ref : t_doc_settings -> t_ftn_table -> t_path -> Doc_types.ts_ftn_ref -> string
+
+val string_of_ts_ftn_inline : t_doc_settings -> t_ftn_table -> t_path -> Doc_types.ts_ftn_inline -> string
 
 val ftn_table_of_ts_hdr_opt : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_hdr option -> t_ftn_table
 

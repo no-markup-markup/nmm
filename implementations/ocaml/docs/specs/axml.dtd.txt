@@ -52,7 +52,7 @@
 <!ELEMENT cs_vrb_lines (cs_vrb_line+)>
 <!ELEMENT cs_vrb_line (#PCDATA)>
 
-<!ELEMENT cs_txt_units (cu_txt_unit_wysiwyg | cu_txt_unit_emph | cu_txt_unit_c_ref | cu_txt_unit_ftn_ref)+>
+<!ELEMENT cs_txt_units (cu_txt_unit_wysiwyg | cu_txt_unit_emph | cu_txt_unit_c_ref | cu_txt_unit_ftn_ref | cu_txt_unit_ftn_inline)+>
 <!ELEMENT cs_dsp_lines (cu_dsp_line_no_lbl | cu_dsp_line_lbld)+>
 
 <!ELEMENT cu_dsp_line_no_lbl (cs_dsp_line_no_lbl)>
@@ -64,6 +64,7 @@
 <!ELEMENT cu_txt_unit_emph (cs_txt_unit_emph)>
 <!ELEMENT cu_txt_unit_c_ref (cs_txt_unit_c_ref)>
 <!ELEMENT cu_txt_unit_ftn_ref (cs_txt_unit_ftn_ref)>
+<!ELEMENT cu_txt_unit_ftn_inline (cs_txt_unit_ftn_inline)>
 
 <!ELEMENT cu_ftn_unit_wysiwyg (cs_txt_unit_wysiwyg)>
 <!ELEMENT cu_ftn_unit_emph (cs_txt_unit_emph)>
@@ -73,6 +74,7 @@
 <!ELEMENT cs_txt_unit_emph (#PCDATA)>
 <!ELEMENT cs_txt_unit_c_ref (cs_c_ref)>
 <!ELEMENT cs_txt_unit_ftn_ref (cs_ftn_ref)>
+<!ELEMENT cs_txt_unit_ftn_inline (cs_blks)>
 
 <!ELEMENT cs_c_ref (cr_id)>
 <!ELEMENT cs_ftn_ref (cr_id)>

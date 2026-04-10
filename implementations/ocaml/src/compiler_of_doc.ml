@@ -7,9 +7,129 @@ exception Error of string
 
 type t_acc = CREF_TABLE of t_cref_table | LINES of (string list) | EXML of (Xml.xml list) | MARGIN_LABELS of (string list) | FTN_TABLE of t_ftn_table
 
+(* footnotes *)
+
+let rec lines_of_ftn_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_inline : ts_ftn_inline) : string list =
+	match ftn_inline with
+	|Cs_ftn_inline (blks,_) ->
+	        match acc_of_ts_blks doc_settings cref_table [] path (LINES []) blks with
+	        |LINES lines -> (
+			match lines with
+		        |hd :: tl -> (insert_label doc_settings path hd)::tl
+			|[] -> []
+		)
+		|_ -> raise (Error "unexpected")
+
+and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) : string list =
+        let map (ftn_entry : t_ftn_entry) : (string list) option =
+                match ftn_entry with
+                |Ftn_entry_ref (_, table_path, n, blk_ftn) -> (
+                        match List.rev path, List.rev table_path with
+                        |[],_ -> Some (lines_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) blk_ftn)
+                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
+                                if i=j then Some (lines_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) blk_ftn)
+                                else None
+                        |_,_ -> None
+		)
+		|Ftn_entry_inline (ftn_inline, table_path, n) -> (
+                        match List.rev path, List.rev table_path with
+                        |[],_ -> Some (lines_of_ftn_inline doc_settings cref_table ((FTN_NODE n)::path) ftn_inline)
+                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
+                                if i=j then Some (lines_of_ftn_inline doc_settings cref_table ((FTN_NODE n)::path) ftn_inline)
+                                else None
+                        |_,_ -> None
+		)
+        in
+        let rec aux (table : t_ftn_table) (acc : string list list) : string list list=
+                match table with
+                |[] -> acc
+                |hd::tl ->
+                        match map hd with
+                        |None -> aux tl acc
+                        |Some lst -> aux tl (lst::acc)
+        in
+        let footnote_list : string list list = List.rev (aux ftn_table []) in
+        let rec aux (string_list_list : string list list) (acc : string list) =
+                match string_list_list with
+                |[] -> acc
+                |hd::[] -> List.concat [hd;acc]
+                |hd::tl -> aux tl (List.concat [[""];hd;acc])
+        in
+        let footnotes : string list = aux footnote_list [] in
+        match footnotes with
+        |[] -> []
+        |_ -> let overline : string = make_string doc_settings.doc_width "─" in
+                ""::(overline::footnotes)
+
+
+
+and xml_of_ftn_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (ftn_inline : ts_ftn_inline) : Xml.xml =
+	match ftn_inline with
+	|Cs_ftn_inline (blks,Cs_int i) ->
+        let xml_list_main : Xml.xml list = 
+	        match acc_of_ts_blks doc_settings cref_table [] path (EXML []) blks with
+	        |EXML xml_list -> xml_list
+		|_ -> raise (Error "unexpected")
+        in
+        let addendum : string = string_of_int i in
+        let attr_list : (string * string) list = [("id","FTN" ^ addendum)] in
+        let xml_list_lbl:Xml.xml list = [xml_of_string (label_of_path doc_settings path)] in
+        let attr_list_lbl : (string * string) list =
+                match attr_list with
+                |[("id",s)] -> [("href","#ref_" ^ s)]
+                |_ -> []
+        in
+        let xml_lbl:Xml.xml = Xml.Element ("blk_ftn_lbl", attr_list_lbl, xml_list_lbl) in
+        let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
+        let xml_main:Xml.xml = Xml.Element ("blk_ftn_inline_main",[],xml_list_main) in
+        Xml.Element ("blk_ftn_inline",attr_list,[xml_lbl;xml_clear;xml_main])
+
+
+
+
+and xml_of_ftn_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) : Xml.xml option =
+        let map (ftn_entry : t_ftn_entry) : Xml.xml option =
+                match ftn_entry with
+                |Ftn_entry_ref (ftn_ref, table_path, n, blk_ftn) -> (
+                        match List.rev path, List.rev table_path with
+                        |[],_ -> Some (xml_of_blk_ftn doc_settings cref_table ftn_table ftn_ref ((FTN_NODE n)::path) blk_ftn)
+                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
+                                if i=j then Some (xml_of_blk_ftn doc_settings cref_table ftn_table ftn_ref ((FTN_NODE n)::path) blk_ftn)
+                                else None
+                        |_,_ -> None
+		)
+		|Ftn_entry_inline (ftn_inline, table_path, n) -> (
+                        match List.rev path, List.rev table_path with
+                        |[],_ -> Some (xml_of_ftn_inline doc_settings cref_table [] ((FTN_NODE n)::path) ftn_inline)
+                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
+                                if i=j then Some (xml_of_ftn_inline doc_settings cref_table [] ((FTN_NODE n)::path) ftn_inline)
+                                else None
+                        |_,_ -> None
+		)
+        in
+        let rec aux (table : t_ftn_table) (acc : Xml.xml list) : Xml.xml list = 
+                match table with
+                |[] -> acc
+                |hd::tl -> match map hd with
+                        |None -> aux tl acc
+                        |Some xml -> aux tl (xml::acc)
+        in
+        let xml_list : Xml.xml list = aux ftn_table [] in
+        let xml_hdr : Xml.xml = 
+                match List.rev path with
+                |[] -> Xml.Element ("doc_endnotes_hdr",[],[xml_of_string "Endnotes"])
+                |(CH_NODE _)::_ -> Xml.Element ("ch_endnotes_hdr",[], [xml_of_string "Endnotes"])
+                |_ -> raise (Error "unexpected argument")
+        in
+        match xml_list, List.rev path with
+        |[],_ -> None
+        |_::_, [] -> Some (Xml.Element ("doc_endnotes",[],xml_hdr::xml_list))
+        |_::_, (CH_NODE _)::_ -> Some (Xml.Element ("ch_endnotes",[], xml_hdr::xml_list))
+        |_, _ -> raise (Error "unexpected arguments")
+
 (* blk *)
 
-let acc_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (acc : t_acc) (a : ts_blk_txt) : t_acc =
+and acc_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (acc : t_acc) (a : ts_blk_txt) : t_acc =
         match acc with
                 | MARGIN_LABELS _
                 | CREF_TABLE _ -> acc
@@ -18,7 +138,7 @@ let acc_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table
                 | FTN_TABLE acc_table -> FTN_TABLE (Common_utils.ftn_table_of_ts_blk_txt doc_settings cref_table path acc_table a)
 
 
-let acc_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (acc : t_acc) (a : tr_dsp_line) : t_acc =
+and acc_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (acc : t_acc) (a : tr_dsp_line) : t_acc =
         match acc with
         | MARGIN_LABELS _ -> acc
         | CREF_TABLE table -> (
@@ -49,7 +169,7 @@ let acc_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
         )
         | FTN_TABLE acc_table -> FTN_TABLE (Common_utils.ftn_table_of_tr_dsp_line doc_settings cref_table path acc_table a)
 
-let acc_of_ts_blk_dsp (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (auto_nr : int) (path : t_path) (acc : t_acc) (a : ts_blk_dsp) : t_acc * int =
+and acc_of_ts_blk_dsp (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (auto_nr : int) (path : t_path) (acc : t_acc) (a : ts_blk_dsp) : t_acc * int =
         match a with Cs_blk_dsp (b : ts_dsp_lines) ->
         match b with Cs_dsp_lines (c : tr_dsp_line list) ->
         let rec aux (auto_nr : int) (acc : t_acc) (c : tr_dsp_line list) : t_acc * int = (
@@ -85,7 +205,7 @@ let acc_of_ts_blk_dsp (doc_settings : t_doc_settings) (cref_table : t_cref_table
         )
 
 
-let acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_acc) (a : ts_blk_vrb): t_acc =
+and acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_acc) (a : ts_blk_vrb): t_acc =
         match acc with
         |FTN_TABLE _
         |MARGIN_LABELS _
@@ -94,7 +214,7 @@ let acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
         |EXML acc_list -> EXML (List.concat [acc_list;[Exml_utils.xml_of_ts_blk_vrb a]])
 
 
-let add_empty_lines_after_blk (hd : tu_blk) (tl:tu_blk list) (acc : t_acc) : t_acc =
+and add_empty_lines_after_blk (hd : tu_blk) (tl:tu_blk list) (acc : t_acc) : t_acc =
         match hd, tl, acc with
         |Cu_blk_ftn _, _, _ -> acc
         |_, (Cu_blk_ftn _)::[], _ -> acc
@@ -102,7 +222,7 @@ let add_empty_lines_after_blk (hd : tu_blk) (tl:tu_blk list) (acc : t_acc) : t_a
         |_, _, _ -> acc
 
 
-let rec acc_of_ts_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (acc : t_acc) (a : ts_blks) : t_acc =
+and acc_of_ts_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (acc : t_acc) (a : ts_blks) : t_acc =
         let new_doc_settings = doc_settings_of_ts_blks doc_settings (lvl_of_path path) a in
         match a with Cs_blks (b : tu_blk list) ->
         let rec aux (auto_nr : int) (acc : t_acc) (b : tu_blk list) : t_acc = (
@@ -447,7 +567,7 @@ and acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ft
                         |_ -> raise (Error "accumulator output type not identical to accumulator input type")
                 in
                 let lines_footnotes : string list = 
-                        Txt_utils.lines_of_ftn_table doc_settings cref_table path ftn_table
+                        lines_of_ftn_table doc_settings cref_table path ftn_table
                 in
                 LINES (List.concat [acc_lines; lines_hdr; lines_main; lines_footnotes])
         |EXML acc_list -> 
@@ -466,7 +586,7 @@ and acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ft
                                 |Cs_hdr (t : ts_txt_units) -> Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units doc_settings cref_table ftn_table path t)
                 )
                 in
-                let xml_endnotes_opt : Xml.xml option = Exml_utils.xml_of_ftn_table_opt doc_settings cref_table path ftn_table in
+                let xml_endnotes_opt : Xml.xml option = xml_of_ftn_table_opt doc_settings cref_table path ftn_table in
                 let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
                 let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["ch"] a.fld_ch_tag_or_id in
@@ -626,7 +746,7 @@ let rec acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table
                 let lines_footnotes : string list = 
                         match doc_class with
                         |DOC_CHS -> []
-                        |_ -> Txt_utils.lines_of_ftn_table doc_settings cref_table [] ftn_table
+                        |_ -> lines_of_ftn_table doc_settings cref_table [] ftn_table
                 in
                 LINES (List.concat [lines_title;lines_authors_date;lines_abstract;lines_main;lines_refs;lines_footnotes])
         )
@@ -659,7 +779,7 @@ let rec acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table
                 let xml_endnotes_opt : Xml.xml option =
                         match doc_class with
                         |DOC_CHS -> None
-                        |_ -> Exml_utils.xml_of_ftn_table_opt doc_settings cref_table [] ftn_table
+                        |_ -> xml_of_ftn_table_opt doc_settings cref_table [] ftn_table
                 in
                 let xml_endnotes_list : Xml.xml list =
                         match xml_endnotes_opt with

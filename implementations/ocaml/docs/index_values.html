@@ -109,8 +109,6 @@ Same as <code class="code">doc_of_nmm_file</code>, except that it reads from the
 </td></tr>
 <tr><td><a href="Common_utils.html#VALdoc_settings_of_ts_blks">doc_settings_of_ts_blks</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Txt_utils.html#VALdoc_width_of_options">doc_width_of_options</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
-<td></td></tr>
 <tr><td align="left"><div>E</div></td></tr>
 <tr><td><a href="Main.html#VALexml_of_axml">exml_of_axml</a> [<a href="Main.html">Main</a>]</td>
 <td></td></tr>
@@ -180,15 +178,13 @@ If <code class="code">axml</code> is an object of the <a href="https://github.co
 <td></td></tr>
 <tr><td><a href="Txt_utils.html#VALleft_margin_of_margin_labels">left_margin_of_margin_labels</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Txt_utils.html#VALleft_margin_of_options">left_margin_of_options</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
-<td></td></tr>
 <tr><td><a href="Nmm_lexer.html#VALline_of_lexbuf">line_of_lexbuf</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
 <td></td></tr>
 <tr><td><a href="Xml_right_lexer.html#VALline_of_lexbuf">line_of_lexbuf</a> [<a href="Xml_right_lexer.html">Xml_right_lexer</a>]</td>
 <td></td></tr>
 <tr><td><a href="Txt_utils.html#VALlines_of_abstract_hdr">lines_of_abstract_hdr</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Txt_utils.html#VALlines_of_ftn_table">lines_of_ftn_table</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
+<tr><td><a href="Txt_utils.html#VALlines_of_blk_ftn">lines_of_blk_ftn</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Txt_utils.html#VALlines_of_refs_hdr">lines_of_refs_hdr</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
@@ -212,6 +208,8 @@ If <code class="code">axml</code> is an object of the <a href="https://github.co
 <tr><td><a href="Nmm_parser.html#VALmain">main</a> [<a href="Nmm_parser.html">Nmm_parser</a>]</td>
 <td></td></tr>
 <tr><td><a href="Xml_right_parser.html#VALmain">main</a> [<a href="Xml_right_parser.html">Xml_right_parser</a>]</td>
+<td></td></tr>
+<tr><td><a href="Txt_utils.html#VALmake_string">make_string</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALmargin_labels_of_tr_doc">margin_labels_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
 <td><div class="info">
@@ -278,6 +276,8 @@ Same as <code class="code">parse_file</code>, except that it reads from the prov
 <code class="code">string_of_ts_c_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;c_ref</code> attempts to match <code class="code">c_ref</code> ocurring at <code class="code">path</code> with an <code class="code">id</code> in <code class="code">cref_table</code>, and return a string representation of the path to <code class="code">id</code> relative to the closest common ancestor of <code class="code">c_ref</code> and <code class="code">id</code>.
 </div>
 </td></tr>
+<tr><td><a href="Common_utils.html#VALstring_of_ts_ftn_inline">string_of_ts_ftn_inline</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_ts_ftn_ref">string_of_ts_ftn_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>T</div></td></tr>
@@ -341,13 +341,15 @@ Implements the raw text semantics for no-markup-markup.
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_ts_authors_opt">xml_list_of_ts_authors_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
+<tr><td><a href="Exml_utils.html#VALxml_list_of_ts_ftn_units">xml_list_of_ts_ftn_units</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
+<td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_ts_title_opt">xml_list_of_ts_title_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_ts_txt_units">xml_list_of_ts_txt_units</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_list_of_tu_date_opt">xml_list_of_tu_date_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Exml_utils.html#VALxml_of_ftn_table_opt">xml_of_ftn_table_opt</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
+<tr><td><a href="Exml_utils.html#VALxml_of_blk_ftn">xml_of_blk_ftn</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALxml_of_string">xml_of_string</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>

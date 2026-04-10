@@ -520,6 +520,8 @@
 				aux tl ((<span class="constructor">Cu_txt_unit_c_ref</span> (f_ts_txt_unit_c_ref_of_xml xml))::acc) ftn_nr
 			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> 
 				aux tl ((<span class="constructor">Cu_txt_unit_ftn_ref</span> (f_ts_txt_unit_ftn_ref_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
+			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_inline"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> 
+				aux tl ((<span class="constructor">Cu_txt_unit_ftn_inline</span> (f_ts_txt_unit_ftn_inline_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
     			<span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, or cu_txt_unit_ftn; got: "</span>;string_of_xml_list [xml]]))
 	<span class="keyword">in</span>
 	<span class="keyword">match</span> aux xml_list [] ftn_count <span class="keyword">with</span>
@@ -537,9 +539,10 @@
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_wysiwyg"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_wysiwyg</span> (f_ts_txt_unit_wysiwyg_of_xml xml)
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_emph"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_emph</span> (f_ts_txt_unit_emph_of_xml xml)
-    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_c_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_c_ref</span> (f_ts_txt_unit_c_ref_of_xml xml) 
+    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_c_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_c_ref</span> (f_ts_txt_unit_c_ref_of_xml xml)
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_ftn_ref</span> (f_ts_txt_unit_ftn_ref_of_xml ftn_count xml) 
-    <span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, or cu_txt_unit_ftn; got: "</span>;string_of_xml_list [xml]]))
+    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_inline"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_ftn_inline</span> (f_ts_txt_unit_ftn_inline_of_xml ftn_count xml) 
+    <span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, cu_txt_unit_ftn_ref, or cu_txt_unit_ftn_inline; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_tu_ftn_unit_of_xml (xml:<span class="constructor">Xml</span>.xml):tu_ftn_unit =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
@@ -569,10 +572,11 @@
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_txt_unit_ftn_ref</span> (f_ts_ftn_ref_of_xml ftn_count xml)
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_unit_ftn_ref; got: "</span>;string_of_xml_list [xml]]))
 
-<span class="keyword">and</span> f_ts_txt_unit_url_of_xml (xml:<span class="constructor">Xml</span>.xml):ts_txt_unit_url=
+<span class="keyword">and</span> f_ts_txt_unit_ftn_inline_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_txt_unit_ftn_inline =
         <span class="keyword">match</span> xml <span class="keyword">with</span> 
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_url"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_txt_unit_url</span> (f_string_of_pcdata_list pcdata_list)
-    <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_unit_url; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_ftn_inline"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_txt_unit_ftn_inline</span> (f_ts_ftn_inline_of_xml_list ftn_count xml_list)
+    <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_unit_ftn_ref; got: "</span>;string_of_xml_list [xml]]))
+
 
 <span class="keyword">and</span> f_ts_dsp_lines_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_dsp_lines * int=
     <span class="keyword">match</span> xml <span class="keyword">with</span>
@@ -696,6 +700,10 @@
         <span class="keyword">match</span> xml <span class="keyword">with</span> 
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_ftn_ref</span> (f_tr_id_of_xml xml, <span class="constructor">Cs_int</span> ftn_count <span class="comment">(* f_ts_int_of_xml xml_int *)</span>)
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_ftn_ref; got: "</span>;string_of_xml_list [xml]]))
+
+<span class="keyword">and</span> f_ts_ftn_inline_of_xml_list (ftn_count : int) (xml_list:<span class="constructor">Xml</span>.xml list):ts_ftn_inline =
+	<span class="keyword">match</span> f_ts_blks_of_xml_list ftn_count xml_list <span class="keyword">with</span>
+	<span class="keywordsign">|</span>blks,ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_ftn_inline</span> (blks, <span class="constructor">Cs_int</span> ftn_nr <span class="comment">(* f_ts_int_of_xml xml_int *)</span>)
 
 <span class="keyword">and</span> f_ts_int_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_int =
         <span class="keyword">match</span> xml <span class="keyword">with</span>

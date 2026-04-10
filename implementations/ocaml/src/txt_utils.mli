@@ -17,9 +17,9 @@ val lines_of_ts_blk_vrb : Common_utils.t_doc_settings -> Common_utils.t_path -> 
 
 val max_length_of_margin_labels : string list -> int
 val left_margin_of_margin_labels : string list -> int
-val left_margin_of_options : string list -> int option
-val doc_width_of_options : string list -> int option
 
 val copy_hdr_to_main : Common_utils.t_doc_settings -> Doc_types.tr_par_std -> Doc_types.tr_par_std
 
-val lines_of_ftn_table : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Common_utils.t_ftn_table -> string list
+
+val lines_of_blk_ftn : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.tr_blk_ftn -> string list
+val make_string : int -> string -> string

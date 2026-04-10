@@ -961,7 +961,7 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_
                                 string_of_tr_id id_c_ref;
                                 "\' referenced in ";
                                 string_of_path doc_settings c_ref_loc;
-                                " is undefined or out of scope";
+                                " does not exist or is out of scope.";
                         ]) in "??"
         )
         |Some (_, id_loc, _) -> 
@@ -1166,14 +1166,14 @@ let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_t
                         "WARNING: id \'";string_of_tr_id id;
                         "\' referenced in ";
                         string_of_path doc_settings path;
-                        " is undefined or out of scope";
+                        " does not exist or is out of scope.";
                 ]) in None
         |Some (table_id, table_path, Cref_element_par par) ->
                 Some (par_restated_of_tr_par par, table_path)
         |_ -> let _ : unit = Debug_utils.print_warning (String.concat "" [
                                 "WARNING: id \'";
                                 string_of_tr_id id;
-                                "\' does not belong to a paragraph";
+                                "\' does not belong to a paragraph.";
                 ]) in None
 
 (* date *)
@@ -1225,23 +1225,20 @@ let time_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) :
                         timezone = (sign, diff_hour, diff_minute);
                 }
                 with
-                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: cannot get system time and date" in None
+                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: cannot get system time and date." in None
 
 (* footnotes *)
 
-type t_ftn_table = (ts_ftn_ref * t_path * int * tr_blk_ftn) list
+type t_ftn_entry = Ftn_entry_ref of (ts_ftn_ref * t_path * int * tr_blk_ftn) | Ftn_entry_inline of (ts_ftn_inline * t_path * int)
+
+type t_ftn_table = t_ftn_entry list
 
 let reference_of_ts_ftn_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_path : t_path) (ftn_ref : Doc_types.ts_ftn_ref) : tr_blk_ftn option =
         match ftn_ref with
         |Cs_ftn_ref (ftn_id,i) ->
         let rec aux (cref_table : t_cref_table) : tr_blk_ftn option =
                 match cref_table with
-                |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
-                        "WARNING: id \'";string_of_tr_id ftn_id;
-                        "\' referenced in ";
-                        string_of_path doc_settings ftn_path;
-                        " is undefined or out of scope";
-                ]) in None
+                |[] -> None
                 |(table_id, table_path, Cref_element_blk_ftn blk_ftn) :: tl -> (
                         match ids_match ftn_id ftn_path table_id table_path with
                         |true -> Some blk_ftn
@@ -1259,8 +1256,18 @@ let ftn_table_of_ts_txt_unit_ftn_ref (doc_settings : t_doc_settings) (cref_table
                 |None -> ftn_table
                 |Some blk_ftn ->
                         match ftn_table with
-                        |[] -> (ftn_ref, path, 1, blk_ftn) :: ftn_table
-                        |(_,_,n,_)::_ -> (ftn_ref, path, n+1, blk_ftn) :: ftn_table
+                        |[] -> (Ftn_entry_ref (ftn_ref, path, 1, blk_ftn)):: ftn_table
+                        |(Ftn_entry_ref (_,_,n,_))::_ -> Ftn_entry_ref((ftn_ref, path, n+1, blk_ftn)) :: ftn_table
+                        |(Ftn_entry_inline (_,_,n))::_ -> Ftn_entry_ref((ftn_ref, path, n+1, blk_ftn)) :: ftn_table
+
+let ftn_table_of_ts_txt_unit_ftn_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (txt_unit_ftn_inline : ts_txt_unit_ftn_inline) : t_ftn_table =
+        match txt_unit_ftn_inline with
+        |Cs_txt_unit_ftn_inline ftn_inline ->
+                        match ftn_table with
+                        |[] -> (Ftn_entry_inline (ftn_inline, path, 1)):: ftn_table
+                        |(Ftn_entry_inline (_,_,n))::_ -> Ftn_entry_inline ((ftn_inline, path, n+1)) :: ftn_table
+                        |(Ftn_entry_ref (_,_,n,_))::_ -> Ftn_entry_inline ((ftn_inline, path, n+1)) :: ftn_table
+
 
 let rec ftn_table_of_tu_txt_unit_list (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (txt_unit_list : tu_txt_unit list) : t_ftn_table =
         match txt_unit_list with
@@ -1269,6 +1276,9 @@ let rec ftn_table_of_tu_txt_unit_list (doc_settings : t_doc_settings) (cref_tabl
                 match hd with
                 |Cu_txt_unit_ftn_ref ftn_ref -> 
                         let new_ftn_table = ftn_table_of_ts_txt_unit_ftn_ref doc_settings cref_table path ftn_table ftn_ref in
+                        ftn_table_of_tu_txt_unit_list doc_settings cref_table path new_ftn_table tl
+                |Cu_txt_unit_ftn_inline ftn_inline -> 
+                        let new_ftn_table = ftn_table_of_ts_txt_unit_ftn_inline doc_settings cref_table path ftn_table ftn_inline in
                         ftn_table_of_tu_txt_unit_list doc_settings cref_table path new_ftn_table tl
                 |_ -> ftn_table_of_tu_txt_unit_list doc_settings cref_table path ftn_table tl
 
@@ -1296,12 +1306,36 @@ let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_tabl
         |Cs_ftn_ref (id,i) ->
         let rec aux (table : t_ftn_table) : string =
                 match table with
-                |[] -> "??"
-                |(table_ftn_ref, table_path, n, blk_ftn)::tl ->
-                        if Some id = blk_ftn.fld_blk_ftn_id && path=table_path && ftn_ref=table_ftn_ref then ftn_string_of_int n
+                |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
+                        "WARNING: id \'";string_of_tr_id id;
+                        "\' referenced in ";
+                        string_of_path doc_settings path;
+                        " is undefined or out of scope.";
+                ]) in "??"
+                |(Ftn_entry_ref (table_ftn_ref, _, n, _))::tl ->
+                        if ftn_ref=table_ftn_ref then ftn_string_of_int n
                         else aux tl
+		|hd::tl -> aux tl
         in
         aux ftn_table
+
+let string_of_ts_ftn_inline (doc_settings : t_doc_settings) (ftn_table : t_ftn_table) (path : t_path) (ftn_inline : ts_ftn_inline) : string =
+        match ftn_inline with
+        |Cs_ftn_inline (_,i) ->
+        let rec aux (table : t_ftn_table) : string =
+                match table with
+                |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
+                        "WARNING: footnote ";
+                        string_of_path doc_settings path;
+                        " contains a footnote; nested footnotes are not supported.";
+                ]) in "??"
+                |(Ftn_entry_inline (Cs_ftn_inline (_,j), _, n))::tl ->
+                        if i=j then ftn_string_of_int n
+                        else aux tl
+		|hd::tl -> aux tl
+        in
+        aux ftn_table
+
 
 let ftn_table_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr : ts_hdr) =
         match hdr with

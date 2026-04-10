@@ -30,12 +30,12 @@
                         <span class="string">"WARNING: id \'"</span>;string_of_tr_id id;
                         <span class="string">"\' referenced in "</span>;
                         string_of_path doc_settings path;
-                        <span class="string">" is undefined or out of scope"</span>;
+                        <span class="string">" does not exist or is out of scope."</span>;
                 ]) <span class="keyword">in</span> <span class="constructor">None</span>
         <span class="keywordsign">|</span><span class="constructor">Some</span> (table_id, table_path, <span class="constructor">Cref_element_par</span> par) <span class="keywordsign">-&gt;</span>
                 <span class="constructor">Some</span> (par_restated_of_tr_par par, table_path)
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [
                                 <span class="string">"WARNING: id \'"</span>;
                                 string_of_tr_id id;
-                                <span class="string">"\' does not belong to a paragraph"</span>;
+                                <span class="string">"\' does not belong to a paragraph."</span>;
                 ]) <span class="keyword">in</span> <span class="constructor">None</span></code></body></html>

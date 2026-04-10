@@ -188,7 +188,10 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Furthermore, each item can be </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>urthermore, each item can be </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_emph>
 <cs_txt_unit_emph>named</cs_txt_unit_emph>
@@ -795,7 +798,10 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>or every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

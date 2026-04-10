@@ -178,16 +178,17 @@ let underline (s : string) : string =
 let emph (a : string) : string = underline a
 
 
-let string_of_ts_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : tu_txt_unit) : string =
+let string_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : tu_txt_unit) : string =
         match a with
         | Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
         | Cu_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
         | Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref doc_settings cref_table path b
         | Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref (b : ts_ftn_ref)) -> string_of_ts_ftn_ref doc_settings ftn_table path b
+        | Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline (b : ts_ftn_inline)) -> string_of_ts_ftn_inline doc_settings ftn_table path b
 
 let string_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : ts_txt_units) : string =
         match a with Cs_txt_units (b: tu_txt_unit list) ->
-        String.concat "" (List.map (string_of_ts_txt_unit doc_settings cref_table ftn_table path) b)
+        String.concat "" (List.map (string_of_tu_txt_unit doc_settings cref_table ftn_table path) b)
 
 let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : ts_txt_units) : string list =
         let lines_of_string_function : int -> string -> string list = (
@@ -366,39 +367,6 @@ let left_margin_of_margin_labels (margin_labels : string list) : int =
         let max_length : int = max_length_of_margin_labels margin_labels in
         if max_length = 0 then 0 else max_length + 2
 
-let left_margin_of_options (options : string list) : int option =
-        let rec aux (lst : string list) =
-                match lst with
-                |[] -> None
-                |hd::tl ->
-                        match hd with
-                        |"--margin" -> (
-                                match tl with
-                                |margin::_ -> (
-                                        try 
-                                                let i = int_of_string margin in
-                                                if i<0 then raise (Error "negative margin") else Some i
-                                        with
-                                        | _ ->
-                                                let _ : unit = Debug_utils.print_to_stderr (String.concat "" ["WARNING: invalid --margin argument: ";margin;"; using default"]) in None
-                                )
-                                |_ -> let _ : unit = Debug_utils.print_to_stderr "WARNING: missing --margin argument; using default" in None
-
-                        )
-                        |_ -> aux tl
-        in
-        aux options
-
-let doc_width_of_options (options : string list) : int option =
-        let rec aux (lst : string list) : int option =
-                match lst with
-                |"--width"::((width)::tl) -> (
-                        try Some (int_of_string width) with _ -> None
-                )
-                |hd::tl -> aux tl
-                |[] -> None
-        in aux options
-
 
 let special_tag (doc_settings : t_doc_settings) (a : tu_tag_or_id option) : tu_txt_unit option =
         match a with
@@ -491,34 +459,4 @@ let lines_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table)
         |[] -> []
         |hd :: tl -> (insert_label doc_settings path hd)::tl
 
-let lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) : string list =
-        let map (ftn_table_entry : ts_ftn_ref * t_path * int * tr_blk_ftn) : (string list) option =
-                match ftn_table_entry with
-                |_, table_path, n, blk_ftn ->
-                        match List.rev path, List.rev table_path with
-                        |[],_ -> Some (lines_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) blk_ftn)
-                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
-                                if i=j then Some (lines_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) blk_ftn)
-                                else None
-                        |_,_ -> None
-        in
-        let rec aux (table : t_ftn_table) (acc : string list list) : string list list=
-                match table with
-                |[] -> acc
-                |hd::tl ->
-                        match map hd with
-                        |None -> aux tl acc
-                        |Some lst -> aux tl (lst::acc)
-        in
-        let footnote_list : string list list = List.rev (aux ftn_table []) in
-        let rec aux (string_list_list : string list list) (acc : string list) =
-                match string_list_list with
-                |[] -> acc
-                |hd::[] -> List.concat [hd;acc]
-                |hd::tl -> aux tl (List.concat [[""];hd;acc])
-        in
-        let footnotes : string list = aux footnote_list [] in
-        match footnotes with
-        |[] -> []
-        |_ -> let overline : string = make_string doc_settings.doc_width "─" in
-                ""::(overline::footnotes)
+

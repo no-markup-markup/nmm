@@ -227,7 +227,10 @@
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>First section</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>irst section</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_hdr>
@@ -383,7 +386,10 @@
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>First section</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>irst section</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_hdr>

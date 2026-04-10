@@ -267,6 +267,7 @@ and xml_of_tu_txt_unit (a:tu_txt_unit):Xml.xml=
         |Cu_txt_unit_emph (b:ts_txt_unit_emph) -> Xml.Element ("cu_txt_unit_emph",[],[xml_of_ts_txt_unit_emph b])
         |Cu_txt_unit_c_ref (b:ts_txt_unit_c_ref) -> Xml.Element ("cu_txt_unit_c_ref",[],[xml_of_ts_txt_unit_c_ref b])
         |Cu_txt_unit_ftn_ref (b:ts_txt_unit_ftn_ref) -> Xml.Element ("cu_txt_unit_ftn_ref",[],[xml_of_ts_txt_unit_ftn_ref b])
+        |Cu_txt_unit_ftn_inline (b:ts_txt_unit_ftn_inline) -> Xml.Element ("cu_txt_unit_ftn_inline",[],[xml_of_ts_txt_unit_ftn_inline b])
 
 and xml_of_tu_ftn_unit (a:tu_ftn_unit):Xml.xml=
         match a with
@@ -286,14 +287,18 @@ and xml_of_ts_txt_unit_c_ref (a:ts_txt_unit_c_ref):Xml.xml =
 and xml_of_ts_txt_unit_ftn_ref (a:ts_txt_unit_ftn_ref):Xml.xml =
         match a with Cs_txt_unit_ftn_ref (b:ts_ftn_ref) -> Xml.Element ("cs_txt_unit_ftn_ref",[],[xml_of_ts_ftn_ref b])
 
-and xml_of_ts_txt_unit_url (a:ts_txt_unit_url):Xml.xml =
-        match a with Cs_txt_unit_url (b:string) -> Xml.Element ("cs_txt_unit_url",[],[xml_of_string b]) 
+and xml_of_ts_txt_unit_ftn_inline (a:ts_txt_unit_ftn_inline):Xml.xml =
+        match a with Cs_txt_unit_ftn_inline (b:ts_ftn_inline) -> Xml.Element ("cs_txt_unit_ftn_inline",[],[xml_of_ts_ftn_inline b])
+
 
 and xml_of_ts_c_ref (a:ts_c_ref):Xml.xml=
         match a with Cs_c_ref (b:tr_id) -> Xml.Element ("cs_c_ref",[],[xml_of_tr_id b])
 
 and xml_of_ts_ftn_ref (a:ts_ftn_ref):Xml.xml=
         match a with Cs_ftn_ref (id, _) -> Xml.Element ("cs_ftn_ref",[],[xml_of_tr_id id])
+
+and xml_of_ts_ftn_inline (a:ts_ftn_inline):Xml.xml=
+        match a with Cs_ftn_inline (blks, _) -> xml_of_ts_blks blks
 
 and xml_of_ts_int (i : ts_int) : Xml.xml =
         match i with

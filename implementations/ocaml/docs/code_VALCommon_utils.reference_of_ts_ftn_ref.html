@@ -29,12 +29,7 @@
         <span class="keywordsign">|</span><span class="constructor">Cs_ftn_ref</span> (ftn_id,i) <span class="keywordsign">-&gt;</span>
         <span class="keyword">let</span> <span class="keyword">rec</span> aux (cref_table : t_cref_table) : tr_blk_ftn option =
                 <span class="keyword">match</span> cref_table <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [
-                        <span class="string">"WARNING: id \'"</span>;string_of_tr_id ftn_id;
-                        <span class="string">"\' referenced in "</span>;
-                        string_of_path doc_settings ftn_path;
-                        <span class="string">" is undefined or out of scope"</span>;
-                ]) <span class="keyword">in</span> <span class="constructor">None</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
                 <span class="keywordsign">|</span>(table_id, table_path, <span class="constructor">Cref_element_blk_ftn</span> blk_ftn) :: tl <span class="keywordsign">-&gt;</span> (
                         <span class="keyword">match</span> ids_match ftn_id ftn_path table_id table_path <span class="keyword">with</span>
                         <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> blk_ftn
