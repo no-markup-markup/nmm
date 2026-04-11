@@ -89,6 +89,7 @@ with
   | cu_blk_itm             : tr_blk_itm             -> tu_blk
   | cu_blk_dsp             : ts_blk_dsp             -> tu_blk
   | cu_blk_vrb             : ts_blk_vrb             -> tu_blk
+  | cu_blk_ftn             : ts_blk_ftn             -> tu_blk
 with
   ts_blk_txt             : Type :=
   | cs_blk_txt             : ts_txt_units           -> ts_blk_txt
@@ -112,6 +113,9 @@ with
 with
   ts_blk_vrb             : Type :=
   | cs_blk_vrb             : ts_vrb_lines           -> ts_blk_vrb
+with
+  ts_blk_ftn             : Type :=
+  | cs_blk_ftn             : ts_blks                -> ts_blk_ftn
 with
   ts_txt_units           : Type :=
   | cs_txt_units           : list tu_txt_unit       -> ts_txt_units
