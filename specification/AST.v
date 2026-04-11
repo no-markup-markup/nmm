@@ -243,9 +243,11 @@ Inductive ts_preamble : Type := cs_preamble : t_str          -> ts_preamble.
 
 Inductive ts_authors  : Type := cs_authors  : list ts_author -> ts_authors.
 
-Inductive tu_date     : Type :=
-| cu_date_auto   :          tu_date
-| cu_date_custom : t_str -> tu_date
+Inductive ts_date_auto   : Type := cs_date_auto   :          ts_date_auto.
+Inductive ts_date_custom : Type := cs_date_custom : t_str -> ts_date_custom.
+Inductive tu_date        : Type :=
+| cu_date_auto   : ts_date_auto   -> tu_date
+| cu_date_custom : ts_date_custom -> tu_date
 .
 
 Record tr_doc : Type := cr_doc {

@@ -34,6 +34,7 @@
   fld_doc_preamble :: maybe(ts_preamble),
   fld_doc_title    :: maybe(ts_title),
   fld_doc_authors  :: maybe(ts_authors),
+  fld_doc_date     :: maybe(tu_date),
   fld_doc_abstract :: maybe(ts_abstract),
   fld_doc_main     :: tu_doc_main,
   fld_doc_refs     :: maybe(ts_refs)
@@ -79,6 +80,33 @@
 :- instance term_to_xml.xmlable(ts_author).
 
 :- pred r_author(ts_author::out, ts_tkns::in, ts_tkns::out) is semidet.
+
+
+%% SIMPLE TYPE TS_DATE_AUTO, INSTANCE TS_DATE_CUSTOM XMLABLE
+
+:- type ts_date_auto ---> cs_date_auto.
+
+:- instance term_to_xml.xmlable(ts_date_auto).
+
+
+%% SIMPLE TYPE TS_DATE_CUSTOM, INSTANCE TS_DATE_CUSTOM XMLABLE
+
+:- type ts_date_custom ---> cs_date_custom(str).
+
+:- instance term_to_xml.xmlable(ts_date_custom).
+
+
+%% RULE R_DATE, UNION TYPE TU_DATE, INSTANCE TU_DATE XMLABLE
+
+:- type tu_date --->
+  cu_date_auto(ts_date_auto)
+  ;
+  cu_date_custom(ts_date_custom)
+  .
+
+:- instance term_to_xml.xmlable(tu_date).
+
+:- pred r_date(tu_date::out, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_ABSTRACT, SIMPLE TYPE TS_ABSTRACT, INSTANCE TS_ABSTRACT XMLABLE
@@ -577,6 +605,7 @@ r_doc(cr_doc(
   MAYBE_PREAMBLE,
   MAYBE_TITLE,
   MAYBE_AUTHORS,
+  MAYBE_DATE,
   MAYBE_ABSTRACT,
   MAIN,
   MAYBE_REFS
@@ -584,6 +613,7 @@ r_doc(cr_doc(
   ?([],         r_preamble,MAYBE_PREAMBLE,[*([r_lb])]),
   ?([],         r_title,   MAYBE_TITLE,   [*([r_lb])]),
   ?([],         r_authors, MAYBE_AUTHORS, [*([r_lb])]),
+  ?([],         r_date,    MAYBE_DATE,    [*([r_lb])]),
   ?([],         r_abstract,MAYBE_ABSTRACT,[*([r_lb])]),
   r_doc_main(MAIN),
   ?([+([r_lb])],r_refs,    MAYBE_REFS,    []),
@@ -632,6 +662,16 @@ f_doc_to_xml(DOC) = XML :- (
   ),
   (
     (
+      fld_doc_date(DOC) = maybe.no,
+      DATE_XML_LIST     = []
+    );
+    (
+      fld_doc_date(DOC) = maybe.yes(DATE),
+      DATE_XML_LIST     = [f_date_to_xml(DATE)]
+    )
+  ),
+  (
+    (
       fld_doc_abstract(DOC) = maybe.no,
       ABSTRACT_XML_LIST     = []
     );
@@ -659,6 +699,8 @@ f_doc_to_xml(DOC) = XML :- (
       TITLE_XML_LIST
       ++
       AUTHORS_XML_LIST
+      ++
+      DATE_XML_LIST
       ++
       ABSTRACT_XML_LIST
       ++
@@ -771,6 +813,63 @@ r_author_line_chr(        C) --> r_c(C).
 ) is det.
 f_author_to_xml(cs_author(STR)) =
   term_to_xml.elem("cs_author",[],[term_to_xml.data(STR)]).
+
+
+%% TS_DATE_AUTO XMLABLE
+
+:- instance term_to_xml.xmlable(ts_date_auto) where [
+  func(to_xml/1) is f_date_auto_to_xml
+].
+:- func (
+  f_date_auto_to_xml(ts_date_auto::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_date_auto_to_xml(cs_date_auto) = term_to_xml.elem("cs_date_auto",[],[]).
+
+
+%% TS_DATE_CUSTOM XMLABLE
+
+:- instance term_to_xml.xmlable(ts_date_custom) where [
+  func(to_xml/1) is f_date_custom_to_xml
+].
+:- func (
+  f_date_custom_to_xml(ts_date_custom::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_date_custom_to_xml(cs_date_custom(STR)) =
+  term_to_xml.elem("cs_date_custom",[],[term_to_xml.data(STR)]).
+
+
+%% R_DATE, TU_DATE XMLABLE
+
+%%% R_DATE
+
+r_date(DATE) --> (
+  r_str("DATE:"),
+  +([r_lb]),
+  r_tab,
+  (
+    r_str("auto")  -> {DATE = cu_date_auto(cs_date_auto)};
+    r(STR)         -> {DATE = cu_date_custom(cs_date_custom(STR))};
+                      {false}
+  ),
+  r_lb
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(tu_date) where [
+  func(to_xml/1) is f_date_to_xml
+].
+:- func (
+  f_date_to_xml(tu_date::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+f_date_to_xml(cu_date_auto(DATE_AUTO))     =
+  term_to_xml.elem("cu_date_auto",  [],[f_date_auto_to_xml(DATE_AUTO)]).
+f_date_to_xml(cu_date_custom(DATE_CUSTOM)) =
+  term_to_xml.elem("cu_date_custom",[],[f_date_custom_to_xml(DATE_CUSTOM)]).
 
 
 %% R_ABSTRACT, TS_ABSTRACT XMLABLE
