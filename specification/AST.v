@@ -89,7 +89,7 @@ with
   | cu_blk_itm             : tr_blk_itm             -> tu_blk
   | cu_blk_dsp             : ts_blk_dsp             -> tu_blk
   | cu_blk_vrb             : ts_blk_vrb             -> tu_blk
-  | cu_blk_ftn             : ts_blk_ftn             -> tu_blk
+  | cu_blk_ftn             : tr_blk_ftn             -> tu_blk
 with
   ts_blk_txt             : Type :=
   | cs_blk_txt             : ts_txt_units           -> ts_blk_txt
@@ -114,8 +114,8 @@ with
   ts_blk_vrb             : Type :=
   | cs_blk_vrb             : ts_vrb_lines           -> ts_blk_vrb
 with
-  ts_blk_ftn             : Type :=
-  | cs_blk_ftn             : tr_id -> ts_blks       -> ts_blk_ftn
+  tr_blk_ftn             : Type :=
+  | cr_blk_ftn             : tr_id -> ts_blks       -> tr_blk_ftn
 with
   ts_txt_units           : Type :=
   | cs_txt_units           : list tu_txt_unit       -> ts_txt_units
@@ -178,6 +178,11 @@ Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
   := match blk_itm with cr_blk_itm _   id _    => id   end.
 Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
   := match blk_itm with cr_blk_itm _   _  blks => blks end.
+
+Definition fld_blk_ftn_id   (blk_ftn : tr_blk_ftn) : tr_id
+  := match blk_ftn with cr_blk_ftn id _    => id   end.
+Definition fld_blk_ftn_main (blk_ftn : tr_blk_ftn) : ts_blks
+  := match blk_ftn with cr_blk_ftn  _ blks => blks end.
 
 Definition fld_dsp_line_lbld_lbl   (dsp_line_lbld : tr_dsp_line_lbld)
   : tu_lbl
