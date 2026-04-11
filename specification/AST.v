@@ -115,7 +115,7 @@ with
   | cs_blk_vrb             : ts_vrb_lines           -> ts_blk_vrb
 with
   ts_blk_ftn             : Type :=
-  | cs_blk_ftn             : ts_blks                -> ts_blk_ftn
+  | cs_blk_ftn             : tr_id -> ts_blks       -> ts_blk_ftn
 with
   ts_txt_units           : Type :=
   | cs_txt_units           : list tu_txt_unit       -> ts_txt_units
