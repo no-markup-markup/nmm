@@ -46,7 +46,6 @@
                 <span class="keywordsign">|</span>pilcrow_refs_nls               <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_REFS_NLS</span>
                 <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span> 
                 <span class="keywordsign">|</span>dash_tab                       <span class="keywordsign">-&gt;</span>      <span class="constructor">DASH_TAB</span>
-                <span class="keywordsign">|</span>star_tab                       <span class="keywordsign">-&gt;</span>      <span class="constructor">STAR_TAB</span>
                 <span class="keywordsign">|</span>star_tab_id                    <span class="keywordsign">-&gt;</span>      <span class="constructor">STAR_TAB_ID</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>dsp_auto_tab                   <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">DSP_AUTO_TAB</span> 
                 <span class="keywordsign">|</span>dsp_custom_tab                 <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = display.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">DSP_CUSTOM_TAB</span> (get_label (lexeme lexbuf))

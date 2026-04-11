@@ -175,16 +175,9 @@
 <span class="keyword">and</span>&nbsp;ts_blk_vrb&nbsp;=&nbsp;<span class="constructor">Cs_blk_vrb</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_vrb_lines<br>
 <br>
 <span class="keyword">and</span>&nbsp;tr_blk_ftn&nbsp;=&nbsp;{<br>
-&nbsp;&nbsp;fld_blk_ftn_id&nbsp;:&nbsp;tr_id&nbsp;option;<br>
-&nbsp;&nbsp;fld_blk_ftn_main&nbsp;:&nbsp;ts_ftn_units;<br>
+&nbsp;&nbsp;fld_blk_ftn_id&nbsp;:&nbsp;tr_id;<br>
+&nbsp;&nbsp;fld_blk_ftn_main&nbsp;:&nbsp;ts_blks;<br>
 }<br>
-<br>
-<span class="keyword">and</span>&nbsp;ts_ftn_units&nbsp;=&nbsp;<span class="constructor">Cs_ftn_units</span>&nbsp;<span class="keyword">of</span>&nbsp;tu_ftn_unit&nbsp;list<br>
-&nbsp;<br>
-<span class="keyword">and</span>&nbsp;tu_ftn_unit&nbsp;=<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_ftn_unit_wysiwyg</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_wysiwyg<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_ftn_unit_emph</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_emph<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_ftn_unit_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_c_ref<br>
 <br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_vrb_lines&nbsp;=&nbsp;<span class="constructor">Cs_vrb_lines</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_vrb_line&nbsp;list)<br>

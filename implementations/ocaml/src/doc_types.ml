@@ -149,16 +149,9 @@ and ts_blk_blt = Cs_blk_blt of ts_blks
 and ts_blk_vrb = Cs_blk_vrb of ts_vrb_lines
 
 and tr_blk_ftn = {
-  fld_blk_ftn_id : tr_id option;
-  fld_blk_ftn_main : ts_ftn_units;
+  fld_blk_ftn_id : tr_id;
+  fld_blk_ftn_main : ts_blks;
 }
-
-and ts_ftn_units = Cs_ftn_units of tu_ftn_unit list
- 
-and tu_ftn_unit =
-  | Cu_ftn_unit_wysiwyg of ts_txt_unit_wysiwyg
-  | Cu_ftn_unit_emph of ts_txt_unit_emph
-  | Cu_ftn_unit_c_ref of ts_txt_unit_c_ref
 
 
 and ts_vrb_lines = Cs_vrb_lines of (ts_vrb_line list)

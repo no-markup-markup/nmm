@@ -11,15 +11,6 @@
 <cu_par_std>
 <cr_par_std>
 <cs_blks>
-<cu_blk_ftn>
-<cr_blk_ftn>
-<cs_ftn_units>
-<cu_ftn_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Comment</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-</cs_ftn_units>
-</cr_blk_ftn>
-</cu_blk_ftn>
 <cu_blk_txt>
 <cs_blk_txt>
 <cs_txt_units>
@@ -45,38 +36,29 @@
 <cs_tag>FTN</cs_tag>
 <cs_name>one</cs_name>
 </cr_id>
-<cs_ftn_units>
-<cu_ftn_unit_wysiwyg>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Here is the content of that footnote, which should be displayed at</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>the bottom of the page on which it is referenced, but may occur</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>anywhere in the source document (modulo scope).</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-</cs_ftn_units>
-</cr_blk_ftn>
-</cu_blk_ftn>
-<cu_blk_ftn>
-<cr_blk_ftn>
-<cs_ftn_units>
-<cu_ftn_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>This is an unnamed footnote, which is not displayed in the compiled</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>document, effectively acting as a comment.</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-</cs_ftn_units>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
 </cr_blk_ftn>
 </cu_blk_ftn>
 <cu_blk_ftn>
@@ -85,17 +67,23 @@
 <cs_tag>FTN</cs_tag>
 <cs_name>two</cs_name>
 </cr_id>
-<cs_ftn_units>
-<cu_ftn_unit_wysiwyg>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is a named footnote, which is only displayed in the compiled</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-<cu_ftn_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>document if referenced, and otherwise acts as a comment.</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-</cs_ftn_units>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
 </cr_blk_ftn>
 </cu_blk_ftn>
 <cu_blk_txt>
@@ -142,11 +130,17 @@
 <cs_tag>FTN</cs_tag>
 <cs_name>times</cs_name>
 </cr_id>
-<cs_ftn_units>
-<cu_ftn_unit_wysiwyg>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Any number of times.</cs_txt_unit_wysiwyg>
-</cu_ftn_unit_wysiwyg>
-</cs_ftn_units>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
 </cr_blk_ftn>
 </cu_blk_ftn>
 </cs_blks>

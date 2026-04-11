@@ -444,13 +444,17 @@
 
 <span class="keyword">and</span> f_tr_blk_ftn_of_xml (xml:<span class="constructor">Xml</span>.xml):tr_blk_ftn =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
-    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cr_blk_ftn"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> 
+    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cr_blk_ftn"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
         <span class="keyword">let</span> (id_opt, id_tl) = f_itm_id_opt_of_xml_list xml_list <span class="keyword">in</span>
-        <span class="keyword">let</span> main = f_ts_ftn_units_of_xml_list id_tl <span class="keyword">in</span>
+        <span class="keyword">let</span> main = f_ts_blks_of_xml_list 0 id_tl <span class="keyword">in</span>
+	<span class="keyword">match</span> id_opt, main <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">None</span>,_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"blk_ftn needs an id"</span>)
+	<span class="keywordsign">|</span><span class="constructor">Some</span> id, (blks,_) <span class="keywordsign">-&gt;</span>
         {   
-            fld_blk_ftn_id          =   id_opt;
-            fld_blk_ftn_main        =   main;
+            fld_blk_ftn_id          =   id;
+            fld_blk_ftn_main        =   blks;
         }
+    )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cr_blk_ftn; got: "</span>;string_of_xml_list [xml]]))
 
 
@@ -529,10 +533,6 @@
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_units; got: "</span>;string_of_xml_list [xml]]))
 
-<span class="keyword">and</span> f_ts_ftn_units_of_xml (xml:<span class="constructor">Xml</span>.xml):ts_ftn_units =
-    <span class="keyword">match</span> xml <span class="keyword">with</span>
-    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_ftn_units"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_ftn_units</span> (<span class="constructor">List</span>.map f_tu_ftn_unit_of_xml xml_list)
-    <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_ftn_units; got: "</span>;string_of_xml_list [xml]]))
 
 
 <span class="keyword">and</span> f_tu_txt_unit_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):tu_txt_unit =
@@ -543,13 +543,6 @@
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_ftn_ref</span> (f_ts_txt_unit_ftn_ref_of_xml ftn_count xml) 
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_inline"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_txt_unit_ftn_inline</span> (f_ts_txt_unit_ftn_inline_of_xml ftn_count xml) 
     <span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, cu_txt_unit_ftn_ref, or cu_txt_unit_ftn_inline; got: "</span>;string_of_xml_list [xml]]))
-
-<span class="keyword">and</span> f_tu_ftn_unit_of_xml (xml:<span class="constructor">Xml</span>.xml):tu_ftn_unit =
-    <span class="keyword">match</span> xml <span class="keyword">with</span>
-    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_ftn_unit_wysiwyg"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_ftn_unit_wysiwyg</span> (f_ts_txt_unit_wysiwyg_of_xml xml)
-    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_ftn_unit_emph"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_ftn_unit_emph</span> (f_ts_txt_unit_emph_of_xml xml)
-    <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_ftn_unit_c_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_ftn_unit_c_ref</span> (f_ts_txt_unit_c_ref_of_xml xml) 
-    <span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_ftn_unit_wysiwyg, cu_ftn_unit_emph, or cu_ftn_unit_c_ref; got: "</span>;string_of_xml_list [xml]]))
 
 
 <span class="keyword">and</span> f_ts_txt_unit_wysiwyg_of_xml (xml:<span class="constructor">Xml</span>.xml):ts_txt_unit_wysiwyg=
@@ -651,15 +644,6 @@
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_units; got: "</span>;string_of_xml_list xml_list]))
 
-
-<span class="keyword">and</span> f_ts_ftn_units_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list):ts_ftn_units =
-    <span class="keyword">match</span> xml_list <span class="keyword">with</span>
-    <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> (
-        <span class="keyword">match</span> hd <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_ftn_units"</span>,_,_) <span class="keywordsign">-&gt;</span> f_ts_ftn_units_of_xml hd
-        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_ftn_units; got: "</span>;string_of_xml_list xml_list]))
-    )
-    <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_units; got: "</span>;string_of_xml_list xml_list]))
 
 <span class="keyword">and</span> f_tr_id_of_xml (xml:<span class="constructor">Xml</span>.xml):tr_id =
     <span class="keyword">match</span> xml <span class="keyword">with</span>

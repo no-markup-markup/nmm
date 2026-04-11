@@ -13,7 +13,6 @@ let string_of_token (t:Nmm_parser.token):string=
         |PILCROW -> "PILCROW"
         |PILCROW_NL -> "PILCROW_NL"
         |DASH_TAB -> "DASH_TAB"
-        |STAR_TAB -> "STAR_TAB"
         |STAR_TAB_ID s -> "STAR_TAB_ID " ^ "\"" ^ s ^ "\""
         |DSP_AUTO_TAB -> "DSP_AUTO_TAB"
         |ITM_AUTO_TAB -> "ITM_AUTO_TAB"

@@ -18,7 +18,6 @@ type token =
         |NL_TAB_TAB
         |NL_TAB_TAB_TAB
         |DASH_TAB
-        |STAR_TAB
         |ITM_AUTO_TAB
         |DSP_AUTO_TAB
         |PILCROW_NL

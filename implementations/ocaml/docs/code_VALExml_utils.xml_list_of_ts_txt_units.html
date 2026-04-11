@@ -30,19 +30,7 @@
                 <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc
                 <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
                         <span class="keyword">let</span> xml_hd : <span class="constructor">Xml</span>.xml = xml_of_tu_txt_unit doc_settings cref_table ftn_table path hd <span class="keyword">in</span>
-                        <span class="keyword">match</span> hd <span class="keyword">with</span>
-                        <span class="keywordsign">|</span>(<span class="constructor">Cu_txt_unit_ftn_ref</span> (<span class="constructor">Cs_txt_unit_ftn_ref</span> ftn_ref)) <span class="keywordsign">-&gt;</span> (
-                                <span class="keyword">match</span> reference_of_ts_ftn_ref doc_settings cref_table path ftn_ref <span class="keyword">with</span>
-                                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> aux tl (xml_hd::acc)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> blk_ftn <span class="keywordsign">-&gt;</span> 
-                                        <span class="keyword">let</span> xml_blk_ftn_main : <span class="constructor">Xml</span>.xml =
-                                                <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"ftn"</span>,[],
-                                                        xml_list_of_ts_ftn_units doc_settings cref_table path blk_ftn.fld_blk_ftn_main
-                                                )
-                                        <span class="keyword">in</span>
-                                        aux tl (xml_blk_ftn_main :: (xml_hd :: acc))
-                        )
-                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> aux tl (xml_hd::acc)
+                        aux tl (xml_hd::acc)
         <span class="keyword">in</span>
         <span class="keyword">match</span> a <span class="keyword">with</span>
         <span class="keywordsign">|</span> <span class="constructor">Cs_txt_units</span> (b : tu_txt_unit list) <span class="keywordsign">-&gt;</span> <span class="constructor">List</span>.rev (aux b [])</code></body></html>

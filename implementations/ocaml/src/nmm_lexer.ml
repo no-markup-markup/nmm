@@ -147,7 +147,6 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |pilcrow_refs_nls               ->      PILCROW_REFS_NLS
                 |tab                            ->      TAB 
                 |dash_tab                       ->      DASH_TAB
-                |star_tab                       ->      STAR_TAB
                 |star_tab_id                    ->      STAR_TAB_ID (lexeme lexbuf)
                 |dsp_auto_tab                   ->      let _ : unit = display.contents <- true in DSP_AUTO_TAB 
                 |dsp_custom_tab                 ->      let _ : unit = display.contents <- true in DSP_CUSTOM_TAB (get_label (lexeme lexbuf))

@@ -90,10 +90,7 @@ match element with
 
 |Xml.Element ("blk_ftn",attr_list,xml_list) -> Xml.Element ("div",("class","blk ftn")::attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_ftn_lbl",attr_list,xml_list) -> Xml.Element ("a",("class","blk_ftn_lbl")::attr_list,List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_ftn_main",_,xml_list) -> Xml.Element ("p", [("class", "blk_ftn_main")],List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_ftn_inline",attr_list,xml_list) -> Xml.Element ("div",("class","blk ftn")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_ftn_inline_main",_,xml_list) -> Xml.Element ("div", [("class", "blk_ftn_main")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_ftn_main",_,xml_list) -> Xml.Element ("div", [("class", "blk_ftn_main")],List.map (html_of_exml doc_class) xml_list)
 
 |Xml.PCData s -> Xml.PCData s
 
@@ -413,9 +410,6 @@ h2, h3, h4, h5 {
     margin-left : 3ch;
 }
 
-span.ftn {
-    display : none;
-}
 
 /*************** PRINTING ***************/
 

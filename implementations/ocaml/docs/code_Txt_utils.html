@@ -460,30 +460,5 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_par_main&nbsp;=&nbsp;<span class="constructor">Cs_blks</span>&nbsp;((<span class="constructor">Cu_blk_txt</span>&nbsp;(<span class="constructor">Cs_blk_txt</span>&nbsp;(<span class="constructor">Cs_txt_units</span>&nbsp;[s])))::blks)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 <br>
-<span class="comment">(*&nbsp;footnotes&nbsp;*)</span><br>
-<br>
-<span class="keyword">let</span>&nbsp;string_of_ts_ftn_unit&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;tu_ftn_unit)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_ftn_unit_wysiwyg</span>&nbsp;(<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;(b&nbsp;:&nbsp;string))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;b<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_ftn_unit_emph</span>&nbsp;(<span class="constructor">Cs_txt_unit_emph</span>&nbsp;(b&nbsp;:&nbsp;string))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;emph&nbsp;b<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_ftn_unit_c_ref</span>&nbsp;(<span class="constructor">Cs_txt_unit_c_ref</span>&nbsp;(b&nbsp;:&nbsp;ts_c_ref))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_ts_c_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;b<br>
-<br>
-<br>
-<span class="keyword">let</span>&nbsp;string_of_ts_ftn_units&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;ts_ftn_units)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_ftn_units</span>&nbsp;(b:&nbsp;tu_ftn_unit&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;(string_of_ts_ftn_unit&nbsp;doc_settings&nbsp;cref_table&nbsp;path)&nbsp;b)<br>
-<br>
-<br>
-<span class="keyword">let</span>&nbsp;lines_of_blk_ftn&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(blk_ftn&nbsp;:&nbsp;tr_blk_ftn)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ftn_string&nbsp;:&nbsp;string&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_ts_ftn_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;blk_ftn.fld_blk_ftn_main<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ftn_lines&nbsp;:&nbsp;string&nbsp;&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;(indent_of_path&nbsp;doc_settings&nbsp;path)&nbsp;ftn_string<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_lines&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(insert_label&nbsp;doc_settings&nbsp;path&nbsp;hd)::tl<br>
-<br>
 <br>
 </code></body></html>

@@ -434,29 +434,4 @@ let copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_
                 fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_units [s])))::blks)
           }
 
-(* footnotes *)
-
-let string_of_ts_ftn_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : tu_ftn_unit) : string =
-        match a with
-        | Cu_ftn_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
-        | Cu_ftn_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
-        | Cu_ftn_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref doc_settings cref_table path b
-
-
-let string_of_ts_ftn_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_ftn_units) : string =
-        match a with Cs_ftn_units (b: tu_ftn_unit list) ->
-        String.concat "" (List.map (string_of_ts_ftn_unit doc_settings cref_table path) b)
-
-
-let lines_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blk_ftn : tr_blk_ftn) : string list =
-        let ftn_string : string = 
-                string_of_ts_ftn_units doc_settings cref_table path blk_ftn.fld_blk_ftn_main
-        in
-        let ftn_lines : string  list =
-                lines_of_string doc_settings (indent_of_path doc_settings path) ftn_string
-        in
-        match ftn_lines with
-        |[] -> []
-        |hd :: tl -> (insert_label doc_settings path hd)::tl
-
 

@@ -116,10 +116,7 @@
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_ftn"</span>,attr_list,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,(<span class="string">"class"</span>,<span class="string">"blk&nbsp;ftn"</span>)::attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_ftn_lbl"</span>,attr_list,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"a"</span>,(<span class="string">"class"</span>,<span class="string">"blk_ftn_lbl"</span>)::attr_list,<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_ftn_main"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"p"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk_ftn_main"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_ftn_inline"</span>,attr_list,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,(<span class="string">"class"</span>,<span class="string">"blk&nbsp;ftn"</span>)::attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_ftn_inline_main"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk_ftn_main"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_ftn_main"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk_ftn_main"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s<br>
 <br>
@@ -439,9 +436,6 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;3ch;<br>
 }<br>
 <br>
-span.ftn&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;:&nbsp;none;<br>
-}<br>
 <br>
 /***************&nbsp;PRINTING&nbsp;***************/<br>
 <br>

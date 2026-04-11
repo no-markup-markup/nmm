@@ -207,13 +207,7 @@ and xml_of_tr_blk_itm (blk_itm:tr_blk_itm):Xml.xml=
                 Xml.Element ("cr_blk_itm",[],List.concat [a;b;c])
 
 and xml_of_tr_blk_ftn (blk_ftn:tr_blk_ftn):Xml.xml=
-        let b:Xml.xml list=
-                match blk_ftn.fld_blk_ftn_id with
-                |None -> []
-                |Some (id:tr_id)-> [xml_of_tr_id id]
-                in
-                let c:Xml.xml list=[xml_of_ts_ftn_units blk_ftn.fld_blk_ftn_main] in
-                Xml.Element ("cr_blk_ftn",[],List.concat [b;c])
+        Xml.Element ("cr_blk_ftn",[],[xml_of_tr_id blk_ftn.fld_blk_ftn_id;xml_of_ts_blks blk_ftn.fld_blk_ftn_main])
 
 and xml_of_ts_blk_dsp (blk_dsp:ts_blk_dsp):Xml.xml=
         match blk_dsp with
@@ -237,10 +231,6 @@ and xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
 and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
         match txt_units with
         |Cs_txt_units (txt_unit_list:tu_txt_unit list) -> Xml.Element ("cs_txt_units",[],List.map xml_of_tu_txt_unit txt_unit_list)
-
-and xml_of_ts_ftn_units (ftn_units:ts_ftn_units):Xml.xml=
-        match ftn_units with
-        |Cs_ftn_units (ftn_unit_list:tu_ftn_unit list) -> Xml.Element ("cs_ftn_units",[],List.map xml_of_tu_ftn_unit ftn_unit_list)
 
 
 and xml_of_ts_dsp_lines (dsp_lines:ts_dsp_lines):Xml.xml=
@@ -268,12 +258,6 @@ and xml_of_tu_txt_unit (a:tu_txt_unit):Xml.xml=
         |Cu_txt_unit_c_ref (b:ts_txt_unit_c_ref) -> Xml.Element ("cu_txt_unit_c_ref",[],[xml_of_ts_txt_unit_c_ref b])
         |Cu_txt_unit_ftn_ref (b:ts_txt_unit_ftn_ref) -> Xml.Element ("cu_txt_unit_ftn_ref",[],[xml_of_ts_txt_unit_ftn_ref b])
         |Cu_txt_unit_ftn_inline (b:ts_txt_unit_ftn_inline) -> Xml.Element ("cu_txt_unit_ftn_inline",[],[xml_of_ts_txt_unit_ftn_inline b])
-
-and xml_of_tu_ftn_unit (a:tu_ftn_unit):Xml.xml=
-        match a with
-        |Cu_ftn_unit_wysiwyg (b:ts_txt_unit_wysiwyg) -> Xml.Element ("cu_ftn_unit_wysiwyg",[],[xml_of_ts_txt_unit_wysiwyg b]) 
-        |Cu_ftn_unit_emph (b:ts_txt_unit_emph) -> Xml.Element ("cu_ftn_unit_emph",[],[xml_of_ts_txt_unit_emph b])
-        |Cu_ftn_unit_c_ref (b:ts_txt_unit_c_ref) -> Xml.Element ("cu_ftn_unit_c_ref",[],[xml_of_ts_txt_unit_c_ref b])
 
 and xml_of_ts_txt_unit_wysiwyg (a:ts_txt_unit_wysiwyg):Xml.xml =
         match a with Cs_txt_unit_wysiwyg (b:string) -> Xml.Element ("cs_txt_unit_wysiwyg",[],[xml_of_string b]) 

@@ -50,30 +50,4 @@
                         <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>,[],hdr_content)]
                 <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
                         <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>,[],tag_content)]
-                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-
-<span class="comment">(* footnotes *)</span>
-
-<span class="keyword">and</span> xml_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (ftn_ref : ts_ftn_ref) (path : t_path) (blk_ftn : tr_blk_ftn) : <span class="constructor">Xml</span>.xml =
-        <span class="keyword">let</span> xml_list_main : <span class="constructor">Xml</span>.xml list = 
-                xml_list_of_ts_ftn_units doc_settings cref_table path blk_ftn.fld_blk_ftn_main
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> addendum : string =
-                <span class="keyword">match</span> ftn_ref <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Cs_ftn_ref</span> (id, <span class="constructor">Cs_int</span> i) <span class="keywordsign">-&gt;</span> string_of_int i
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> attr_list : (string * string) list = 
-                <span class="keyword">match</span> attr_list_of_tr_id doc_settings path blk_ftn.fld_blk_ftn_id <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[(<span class="string">"id"</span>,s)] <span class="keywordsign">-&gt;</span> [(<span class="string">"id"</span>,s ^ addendum)]
-                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> []
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> xml_list_lbl:<span class="constructor">Xml</span>.xml list = [xml_of_string (label_of_path doc_settings path)] <span class="keyword">in</span>
-        <span class="keyword">let</span> attr_list_lbl : (string * string) list =
-                <span class="keyword">match</span> attr_list <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[(<span class="string">"id"</span>,s)] <span class="keywordsign">-&gt;</span> [(<span class="string">"href"</span>,<span class="string">"#ref_"</span> ^ s)]
-                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> []
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> xml_lbl:<span class="constructor">Xml</span>.xml = <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_ftn_lbl"</span>, attr_list_lbl, xml_list_lbl) <span class="keyword">in</span>
-        <span class="keyword">let</span> xml_clear : <span class="constructor">Xml</span>.xml = <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"clear"</span>,[],[]) <span class="keyword">in</span>
-        <span class="keyword">let</span> xml_main:<span class="constructor">Xml</span>.xml = <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_ftn_main"</span>,[],xml_list_main) <span class="keyword">in</span>
-        <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_ftn"</span>,attr_list,[xml_lbl;xml_clear;xml_main])</code></body></html>
+                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span></code></body></html>

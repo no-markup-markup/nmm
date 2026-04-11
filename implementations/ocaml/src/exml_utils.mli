@@ -32,6 +32,4 @@ val attr_list_of_tr_id : Common_utils.t_doc_settings -> Common_utils.t_path -> D
 
 val par_hdr_opt: Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.tu_tag_or_id option -> Doc_types.ts_hdr option -> (Xml.xml list) option
 
-val xml_list_of_ts_ftn_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_path -> Doc_types.ts_ftn_units -> Xml.xml list
 
-val xml_of_blk_ftn : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Doc_types.ts_ftn_ref -> Common_utils.t_path -> Doc_types.tr_blk_ftn -> Xml.xml
