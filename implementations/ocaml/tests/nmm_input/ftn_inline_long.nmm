@@ -1,5 +1,8 @@
 This is some text with a longer footnoteFTN[
 	The use of footnotes should be discouraged,
 
-	[]	for obvious reasons.
+	[]	ITM:a
+		for obvious reasons.
+
+	as we see in [ITM:a].
 ] in the middle of it.

@@ -12,7 +12,12 @@ type t_acc = CREF_TABLE of t_cref_table | LINES of (string list) | EXML of (Xml.
 let rec lines_of_ftn_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_inline : ts_ftn_inline) : string list =
 	match ftn_inline with
 	|Cs_ftn_inline (blks,_) ->
-	        match acc_of_ts_blks doc_settings cref_table [] path (LINES []) blks with
+	let ftn_cref_table =
+		match acc_of_ts_blks doc_settings cref_table [] path (CREF_TABLE []) blks with
+		|CREF_TABLE table -> table
+		|_ -> raise (Error "unexpected")
+	in
+        match acc_of_ts_blks doc_settings (List.concat [ftn_cref_table;cref_table]) [] path (LINES []) blks with
 	        |LINES lines -> (
 			match lines with
 		        |hd :: tl -> (insert_label doc_settings path hd)::tl
@@ -66,8 +71,13 @@ and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
 and xml_of_ftn_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (ftn_inline : ts_ftn_inline) : Xml.xml =
 	match ftn_inline with
 	|Cs_ftn_inline (blks,Cs_int i) ->
+	let ftn_cref_table =
+		match acc_of_ts_blks doc_settings cref_table [] path (CREF_TABLE []) blks with
+		|CREF_TABLE table -> table
+		|_ -> raise (Error "unexpected")
+	in
         let xml_list_main : Xml.xml list = 
-	        match acc_of_ts_blks doc_settings cref_table [] path (EXML []) blks with
+	        match acc_of_ts_blks doc_settings (List.concat [ftn_cref_table;cref_table]) [] path (EXML []) blks with
 	        |EXML xml_list -> xml_list
 		|_ -> raise (Error "unexpected")
         in
