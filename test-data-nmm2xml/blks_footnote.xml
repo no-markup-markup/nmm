@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<cr_doc>
+	<cu_doc_main_blks>
+		<cs_blks>
+			<cu_blk_txt>
+				<cs_blk_txt>
+					<cs_txt_units>
+						<cu_txt_unit_wysiwyg>
+							<cs_txt_unit_wysiwyg>A text block.</cs_txt_unit_wysiwyg>
+						</cu_txt_unit_wysiwyg>
+						<cu_txt_unit_ftn_ref>
+							<cs_txt_unit_ftn_ref>
+								<cs_ftn_ref>
+									<cr_id>
+										<cs_tag>FTN</cs_tag>
+										<cs_name>one</cs_name>
+									</cr_id>
+								</cs_ftn_ref>
+							</cs_txt_unit_ftn_ref>
+						</cu_txt_unit_ftn_ref>
+					</cs_txt_units>
+				</cs_blk_txt>
+			</cu_blk_txt>
+			<cu_blk_txt>
+				<cs_blk_txt>
+					<cs_txt_units>
+						<cu_txt_unit_wysiwyg>
+							<cs_txt_unit_wysiwyg>Another text block.</cs_txt_unit_wysiwyg>
+						</cu_txt_unit_wysiwyg>
+						<cu_txt_unit_ftn_ref>
+							<cs_txt_unit_ftn_ref>
+								<cs_ftn_ref>
+									<cr_id>
+										<cs_tag>FTN</cs_tag>
+										<cs_name>two</cs_name>
+									</cr_id>
+								</cs_ftn_ref>
+							</cs_txt_unit_ftn_ref>
+						</cu_txt_unit_ftn_ref>
+					</cs_txt_units>
+				</cs_blk_txt>
+			</cu_blk_txt>
+			<cu_blk_ftn>
+				<cr_blk_ftn>
+					<cr_id>
+						<cs_tag>FTN</cs_tag>
+						<cs_name>one</cs_name>
+					</cr_id>
+					<cs_blks>
+						<cu_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>A footnote.</cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</cu_blk_txt>
+					</cs_blks>
+				</cr_blk_ftn>
+			</cu_blk_ftn>
+			<cu_blk_ftn>
+				<cr_blk_ftn>
+					<cr_id>
+						<cs_tag>FTN</cs_tag>
+						<cs_name>two</cs_name>
+					</cr_id>
+					<cs_blks>
+						<cu_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Another footnote.</cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>Multiple lines in the source for this footnote.</cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</cu_blk_txt>
+					</cs_blks>
+				</cr_blk_ftn>
+			</cu_blk_ftn>
+		</cs_blks>
+	</cu_doc_main_blks>
+</cr_doc>

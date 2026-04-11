@@ -1,0 +1,10 @@
+A text block.[FTN:one]
+
+Another text block.[FTN:two]
+
+*	FTN:one
+	A footnote.
+
+*	FTN:two
+	Another footnote.
+	Multiple lines in the source for this footnote.
