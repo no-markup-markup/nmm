@@ -68,7 +68,7 @@ and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
 
 
 
-and xml_of_ftn_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) ((blks,i) : ts_blks * int) : Xml.xml =
+and xml_of_ftn_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (i : int) (blks : ts_blks) : Xml.xml =
 	let new_cref_table =
 		match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
 		|CREF_TABLE table -> table
@@ -93,7 +93,7 @@ and xml_of_ftn_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
         Xml.Element ("blk_ftn",attr_list,[xml_lbl;xml_clear;xml_main])
 
 
-and xml_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (ftn_ref : ts_ftn_ref) (path : t_path) (blk_ftn : tr_blk_ftn) : Xml.xml =
+and xml_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_ref : ts_ftn_ref) (blk_ftn : tr_blk_ftn) : Xml.xml =
 	let new_cref_table =
 		match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blk_ftn.fld_blk_ftn_main with
 		|CREF_TABLE table -> table
@@ -130,17 +130,17 @@ and xml_of_ftn_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
                 match ftn_entry with
                 |Ftn_entry_ref (ftn_ref, table_path, n, blk_ftn) -> (
                         match List.rev path, List.rev table_path with
-                        |[],_ -> Some (xml_of_blk_ftn doc_settings cref_table ftn_table ftn_ref ((FTN_NODE n)::path) blk_ftn)
+                        |[],_ -> Some (xml_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) ftn_ref blk_ftn)
                         |(CH_NODE x)::_, (CH_NODE y)::_ ->
-                                if x=y then Some (xml_of_blk_ftn doc_settings cref_table ftn_table ftn_ref ((FTN_NODE n)::path) blk_ftn)
+                                if x=y then Some (xml_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) ftn_ref blk_ftn)
                                 else None
                         |_,_ -> None
 		)
 		|Ftn_entry_inline (Cs_ftn_inline (blks,Cs_int i), table_path, n) -> (
                         match List.rev path, List.rev table_path with
-                        |[],_ -> Some (xml_of_ftn_blks doc_settings cref_table [] ((FTN_NODE n)::path) (blks,i))
+                        |[],_ -> Some (xml_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) i blks)
                         |(CH_NODE x)::_, (CH_NODE y)::_ ->
-                                if x=y then Some (xml_of_ftn_blks doc_settings cref_table [] ((FTN_NODE n)::path) (blks,i))
+                                if x=y then Some (xml_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) i blks)
                                 else None
                         |_,_ -> None
 		)
