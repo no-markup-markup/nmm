@@ -1,0 +1,61 @@
+[]	labeled ‘(a)’?
+
+	[]	labeled ‘(1)’?
+
+	[]	labeled ‘(2)’?
+
+		[]	labeled ‘(i)’?
+
+		[]	labeled ‘(ii)’?
+
+		some intervening text ...
+
+		[]	labeled ‘(iii)’?
+
+	[]	labeled ‘(3)’?
+
+	[]	labeled ‘(4)’?
+
+[]	labeled ‘(b)’?
+
+	[]	labeled ‘(1)’?
+
+	[]	labeled ‘(2)’?
+
+		[]	labeled ‘(i)’?
+
+		[]	labeled ‘(ii)’?
+
+	[]	labeled ‘(3)’?
+
+	[]	labeled ‘(4)’?
+
+some intervening text …
+
+[]	labeled ‘(c)’?
+
+	[]	labeled ‘(1)’?
+
+	[]	labeled ‘(2)’?
+
+		[]	labeled ‘(i)’?
+
+		[]	labeled ‘(ii)’?
+
+	[]	labeled ‘(3)’?
+
+	[]	labeled ‘(4)’?
+
+[]	labeled ‘(d)’?
+
+	[]	labeled ‘(1)’?
+
+	[]	labeled ‘(2)’?
+
+		[]	labeled ‘(i)’?
+
+		[]	labeled ‘(ii)’?
+
+	[]	labeled ‘(3)’?
+
+	[]	labeled ‘(4)’?

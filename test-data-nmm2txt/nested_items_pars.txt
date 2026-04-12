@@ -1,0 +1,124 @@
+¶ 1  (a)   labeled ‘(a)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+                 some intervening text ...
+
+                 (iii) labeled ‘(iii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+     (b)   labeled ‘(b)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+     some intervening text …
+
+     (c)   labeled ‘(c)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+     (d)   labeled ‘(d)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+
+¶ 2  (a)   labeled ‘(a)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+                 some intervening text ...
+
+                 (iii) labeled ‘(iii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+     (b)   labeled ‘(b)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+     some intervening text …
+
+     (c)   labeled ‘(c)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
+
+     (d)   labeled ‘(d)’?
+
+           (1)   labeled ‘(1)’?
+
+           (2)   labeled ‘(2)’?
+
+                 (i)   labeled ‘(i)’?
+
+                 (ii)  labeled ‘(ii)’?
+
+           (3)   labeled ‘(3)’?
+
+           (4)   labeled ‘(4)’?
