@@ -78,10 +78,8 @@ match element with
 |Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
 |Xml.Element ("txt_unit_emph", _, xml_list) -> Xml.Element ("em", [("class", "txt_unit_emph")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -> Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("txt_unit_ftn_ref",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_ftn_ref")::attr_list,List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("txt_unit_ftn_inline",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_ftn_inline")::attr_list,List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("txt_unit_ftn",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_ftn")::attr_list,List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("ftn",attr_list,xml_list) -> Xml.Element ("span", ("class", "ftn")::attr_list, List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("div",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("div",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)

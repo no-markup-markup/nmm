@@ -44,7 +44,7 @@
 	(blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb )+)
 >
 
-<!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn_ref | txt_unit_ftn_inline)+>
+<!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn)+>
 <!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)>
 <!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)>
 <!ATTLIST blk_itm 
@@ -59,10 +59,10 @@
 <!ELEMENT blk_blt_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb)+>
 <!ELEMENT blk_itm_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb)+>
 
-<!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn_ref | txt_unit_ftn_inline)+>
-<!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn_ref | txt_unit_ftn_inline)+>
-<!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn_ref | txt_unit_ftn_inline)+>
-<!ELEMENT par_hdr_inline (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn_ref | txt_unit_ftn_inline)+>
+<!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn)+>
+<!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn)+>
+<!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn)+>
+<!ELEMENT par_hdr_inline (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn)+>
 
 <!ELEMENT par_tag (#PCDATA)>
 <!ELEMENT par_tag_hdr (#PCDATA)>
@@ -85,13 +85,8 @@
 <!ATTLIST txt_unit_c_ref 
 	href CDATA #REQUIRED
 >
-<!ELEMENT txt_unit_ftn_ref (#PCDATA)>
-<!ATTLIST txt_unit_ftn_ref 
-	href CDATA #REQUIRED
-	id CDATA #REQUIRED
->
-<!ELEMENT txt_unit_ftn_inline (#PCDATA)>
-<!ATTLIST txt_unit_ftn_inline 
+<!ELEMENT txt_unit_ftn (#PCDATA)>
+<!ATTLIST txt_unit_ftn 
 	href CDATA #REQUIRED
 	id CDATA #REQUIRED
 >
@@ -101,7 +96,7 @@
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn_ref | txt_unit_ftn_inline)+>
+<!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_ftn)+>
 <!ELEMENT clear EMPTY>
 
 <!ELEMENT doc_endnotes (doc_endnotes_hdr, blk_ftn+)>

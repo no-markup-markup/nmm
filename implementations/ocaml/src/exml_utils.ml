@@ -169,11 +169,11 @@ let xml_of_ts_txt_unit_c_ref (doc_settings : t_doc_settings) (cref_table : t_cre
 
 let xml_of_ts_txt_unit_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_table) (path : t_path) (a : ts_txt_unit_ftn_ref) : Xml.xml =
         match a with Cs_txt_unit_ftn_ref (b : ts_ftn_ref) ->
-        Xml.Element ("txt_unit_ftn_ref", attr_list_of_ts_ftn_ref doc_settings path b, [xml_of_ts_ftn_ref doc_settings ftn_table path b])
+        Xml.Element ("txt_unit_ftn", attr_list_of_ts_ftn_ref doc_settings path b, [xml_of_ts_ftn_ref doc_settings ftn_table path b])
 
 let xml_of_ts_txt_unit_ftn_inline (doc_settings : t_doc_settings) (ftn_table : t_ftn_table) (path : t_path) (a : ts_txt_unit_ftn_inline) : Xml.xml =
         match a with Cs_txt_unit_ftn_inline (b : ts_ftn_inline) ->
-        Xml.Element ("txt_unit_ftn_inline", attr_list_of_ts_ftn_inline doc_settings path b, [xml_of_ts_ftn_inline doc_settings ftn_table path b])
+        Xml.Element ("txt_unit_ftn", attr_list_of_ts_ftn_inline doc_settings path b, [xml_of_ts_ftn_inline doc_settings ftn_table path b])
 
 let xml_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : tu_txt_unit) : Xml.xml =
         match a with
