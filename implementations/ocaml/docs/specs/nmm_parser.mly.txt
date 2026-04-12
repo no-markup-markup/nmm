@@ -656,7 +656,18 @@ txt_unit2:
   |STAR emph_txt2 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
   |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
+  |ftn_inline2                                    { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
 ;
+
+ftn_inline2:
+  |ftn_inline_short                               { $1 : ts_ftn_inline}
+  |ftn_inline_long2                               { $1 : ts_ftn_inline}
+;
+
+ftn_inline_long2:
+  |FTN_LBR lb3 blks3 RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
+;
+
 
 emph_txt2:
   |emph_txt                                       { $1:string }
