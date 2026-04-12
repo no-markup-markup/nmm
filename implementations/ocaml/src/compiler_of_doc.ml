@@ -10,18 +10,18 @@ type t_acc = CREF_TABLE of t_cref_table | LINES of (string list) | EXML of (Xml.
 (* footnotes *)
 
 let rec lines_of_ftn_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blks : ts_blks) : string list =
-	let new_cref_table =
-		match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
-		|CREF_TABLE table -> table
-		|_ -> raise (Error "unexpected")
-	in
+        let new_cref_table =
+                match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
+                |CREF_TABLE table -> table
+                |_ -> raise (Error "unexpected")
+        in
         match acc_of_ts_blks doc_settings new_cref_table [] path (LINES []) blks with
-	        |LINES lines -> (
-			match lines with
-		        |hd :: tl -> (insert_label doc_settings path hd)::tl
-			|[] -> []
-		)
-		|_ -> raise (Error "unexpected")
+                |LINES lines -> (
+                        match lines with
+                        |hd :: tl -> (insert_label doc_settings path hd)::tl
+                        |[] -> []
+                )
+                |_ -> raise (Error "unexpected")
 
 
 
@@ -35,15 +35,15 @@ and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
                                 if i=j then Some (lines_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) blk_ftn.fld_blk_ftn_main)
                                 else None
                         |_,_ -> None
-		)
-		|Ftn_entry_inline (Cs_ftn_inline (blks,_), table_path, n) -> (
+                )
+                |Ftn_entry_inline (Cs_ftn_inline (blks,_), table_path, n) -> (
                         match List.rev path, List.rev table_path with
                         |[],_ -> Some (lines_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) blks)
                         |(CH_NODE i)::_, (CH_NODE j)::_ ->
                                 if i=j then Some (lines_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) blks)
                                 else None
                         |_,_ -> None
-		)
+                )
         in
         let rec aux (table : t_ftn_table) (acc : string list list) : string list list=
                 match table with
@@ -61,7 +61,7 @@ and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
                 |hd::tl -> aux tl (List.concat [[""];hd;acc])
         in
         let endnotes : string list = aux endnote_list [] in
-	let hdr_lines : string list = lines_of_endnotes_hdr doc_settings in
+        let hdr_lines : string list = lines_of_endnotes_hdr doc_settings in
         match endnotes with
         |[] -> []
         |_ -> let overline : string = make_string doc_settings.doc_width "─" in
@@ -70,15 +70,15 @@ and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
 
 
 and xml_of_ftn_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (i : int) (blks : ts_blks) : Xml.xml =
-	let new_cref_table =
-		match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
-		|CREF_TABLE table -> table
-		|_ -> raise (Error "unexpected")
-	in
+        let new_cref_table =
+                match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
+                |CREF_TABLE table -> table
+                |_ -> raise (Error "unexpected")
+        in
         let xml_list_main : Xml.xml list = 
-	        match acc_of_ts_blks doc_settings new_cref_table [] path (EXML []) blks with
-	        |EXML xml_list -> xml_list
-		|_ -> raise (Error "unexpected")
+                match acc_of_ts_blks doc_settings new_cref_table [] path (EXML []) blks with
+                |EXML xml_list -> xml_list
+                |_ -> raise (Error "unexpected")
         in
         let addendum : string = string_of_int i in
         let attr_list : (string * string) list = [("id","FTN" ^ addendum)] in
@@ -95,15 +95,15 @@ and xml_of_ftn_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
 
 
 and xml_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_ref : ts_ftn_ref) (blk_ftn : tr_blk_ftn) : Xml.xml =
-	let new_cref_table =
-		match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blk_ftn.fld_blk_ftn_main with
-		|CREF_TABLE table -> table
-		|_ -> raise (Error "unexpected")
-	in
+        let new_cref_table =
+                match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blk_ftn.fld_blk_ftn_main with
+                |CREF_TABLE table -> table
+                |_ -> raise (Error "unexpected")
+        in
         let xml_list_main : Xml.xml list = 
-	        match acc_of_ts_blks doc_settings new_cref_table [] path (EXML []) blk_ftn.fld_blk_ftn_main with
-	        |EXML xml_list -> xml_list
-		|_ -> raise (Error "unexpected")
+                match acc_of_ts_blks doc_settings new_cref_table [] path (EXML []) blk_ftn.fld_blk_ftn_main with
+                |EXML xml_list -> xml_list
+                |_ -> raise (Error "unexpected")
         in
         let addendum : string =
                 match ftn_ref with
@@ -136,15 +136,15 @@ and xml_of_ftn_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
                                 if x=y then Some (xml_of_blk_ftn doc_settings cref_table ((FTN_NODE n)::path) ftn_ref blk_ftn)
                                 else None
                         |_,_ -> None
-		)
-		|Ftn_entry_inline (Cs_ftn_inline (blks,Cs_int i), table_path, n) -> (
+                )
+                |Ftn_entry_inline (Cs_ftn_inline (blks,Cs_int i), table_path, n) -> (
                         match List.rev path, List.rev table_path with
                         |[],_ -> Some (xml_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) i blks)
                         |(CH_NODE x)::_, (CH_NODE y)::_ ->
                                 if x=y then Some (xml_of_ftn_blks doc_settings cref_table ((FTN_NODE n)::path) i blks)
                                 else None
                         |_,_ -> None
-		)
+                )
         in
         let rec aux (table : t_ftn_table) (acc : Xml.xml list) : Xml.xml list = 
                 match table with
@@ -158,7 +158,7 @@ and xml_of_ftn_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
                 match List.rev path, doc_settings.endnotes_hdr with
                 |[], Some (hdr,_) -> Some (Xml.Element ("doc_endnotes_hdr",[],[xml_of_string hdr]))
                 |(CH_NODE _)::_, Some (hdr,_) -> Some (Xml.Element ("ch_endnotes_hdr",[], [xml_of_string hdr]))
-		|_, None -> None
+                |_, None -> None
                 |_,_ -> raise (Error "unexpected argument")
         in
         match xml_list, List.rev path, xml_hdr_opt with
@@ -900,7 +900,7 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 tab_length = doc_settings.tab_length;
                 abstract_hdr = doc_settings.abstract_hdr;
                 refs_hdr = doc_settings.refs_hdr;
-	        endnotes_hdr = doc_settings.endnotes_hdr;
+                endnotes_hdr = doc_settings.endnotes_hdr;
                 ch_prefix = doc_settings.ch_prefix;
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;
@@ -936,7 +936,7 @@ let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
                 tab_length = doc_settings.tab_length;
                 abstract_hdr = doc_settings.abstract_hdr;
                 refs_hdr = doc_settings.refs_hdr;
-	        endnotes_hdr = doc_settings.endnotes_hdr;
+                endnotes_hdr = doc_settings.endnotes_hdr;
                 ch_prefix = doc_settings.ch_prefix;
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;

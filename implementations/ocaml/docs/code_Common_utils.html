@@ -870,7 +870,7 @@
 <br>
 <span class="keyword">let</span>&nbsp;string_of_path&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;string_of_path_opt&nbsp;doc_settings&nbsp;path&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"document"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"Document"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
 <br>
 <br>
@@ -1053,6 +1053,10 @@
 <br>
 <span class="comment">(*&nbsp;labels&nbsp;*)</span><br>
 <br>
+<span class="keyword">let</span>&nbsp;ftn_string_of_int&nbsp;(n&nbsp;:&nbsp;int)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol_of_array&nbsp;superscript_digits&nbsp;n<br>
+<br>
+<br>
 <span class="keyword">let</span>&nbsp;label_of_path_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;string&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
@@ -1091,7 +1095,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(lbl,_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;lbl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">FTN_NODE</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(string_of_int&nbsp;n)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">FTN_NODE</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(ftn_string_of_int&nbsp;n)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;label_of_path&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;string=<br>
@@ -1340,8 +1344,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftn_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;dsp_line.fld_dsp_line_units<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_string_of_int&nbsp;(n&nbsp;:&nbsp;int)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol_of_array&nbsp;superscript_digits&nbsp;n<br>
 <br>
 <span class="keyword">let</span>&nbsp;string_of_ts_ftn_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_ref&nbsp;:&nbsp;ts_ftn_ref)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_ref&nbsp;<span class="keyword">with</span><br>

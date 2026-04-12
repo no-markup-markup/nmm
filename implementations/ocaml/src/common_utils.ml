@@ -34,7 +34,7 @@ type t_doc_settings = {
         tab_length : int;
         abstract_hdr: (string * string) option;
         refs_hdr: (string * string) option;
-	endnotes_hdr : (string * string) option;
+        endnotes_hdr : (string * string) option;
         ch_prefix: (string * string) option;
         sec_prefix: (string * string) option;
         app_prefix: (string * string) option;
@@ -162,7 +162,7 @@ let doc_settings_default () : t_doc_settings = {
         tab_length = 6;
         abstract_hdr = Some ("ABSTRACT", "Abstract");
         refs_hdr = Some ("REFERENCES", "References");
-	endnotes_hdr = Some ("ENDNOTES", "Endnotes");
+        endnotes_hdr = Some ("ENDNOTES", "Endnotes");
         ch_prefix = Some ("CHAPTER", "Chapter");
         sec_prefix = Some ("§","§");
         app_prefix = Some ("§","Appendix");
@@ -209,7 +209,7 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : 
                                                         tab_length = doc_settings.tab_length;
                                                         abstract_hdr = doc_settings.abstract_hdr;
                                                         refs_hdr = doc_settings.refs_hdr;
-							endnotes_hdr = doc_settings.endnotes_hdr;
+                                                        endnotes_hdr = doc_settings.endnotes_hdr;
                                                         ch_prefix = doc_settings.ch_prefix;
                                                         sec_prefix = doc_settings.sec_prefix;
                                                         app_prefix = doc_settings.app_prefix;
@@ -844,7 +844,7 @@ let string_of_path_opt (doc_settings : t_doc_settings) (full_path : t_path) (pat
 
 let string_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
         match string_of_path_opt doc_settings path path with
-        |None -> "document"
+        |None -> "Document"
         |Some s -> s
 
 
@@ -1027,6 +1027,10 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
 
 (* labels *)
 
+let ftn_string_of_int (n : int) : string =
+        symbol_of_array superscript_digits n
+
+
 let label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
         match path with
         | [] -> None
@@ -1065,7 +1069,7 @@ let label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string o
                         |Some (lbl,_) -> Some lbl
                         |None -> None
                 )
-                |FTN_NODE n -> Some (string_of_int n)
+                |FTN_NODE n -> Some (ftn_string_of_int n)
                 | _ -> None
 
 let label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
@@ -1314,8 +1318,6 @@ let ftn_table_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cre
         ftn_table_of_ts_txt_units doc_settings cref_table path ftn_table dsp_line.fld_dsp_line_units
 
 
-let ftn_string_of_int (n : int) : string =
-        symbol_of_array superscript_digits n
 
 let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_table) (path : t_path) (ftn_ref : ts_ftn_ref) : string =
         match ftn_ref with
@@ -1331,7 +1333,7 @@ let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_tabl
                 |(Ftn_entry_ref (table_ftn_ref, _, n, _))::tl ->
                         if ftn_ref=table_ftn_ref then ftn_string_of_int n
                         else aux tl
-		|hd::tl -> aux tl
+                |hd::tl -> aux tl
         in
         aux ftn_table
 
@@ -1348,7 +1350,7 @@ let string_of_ts_ftn_inline (doc_settings : t_doc_settings) (ftn_table : t_ftn_t
                 |(Ftn_entry_inline (Cs_ftn_inline (_,j), _, n))::tl ->
                         if i=j then ftn_string_of_int n
                         else aux tl
-		|hd::tl -> aux tl
+                |hd::tl -> aux tl
         in
         aux ftn_table
 

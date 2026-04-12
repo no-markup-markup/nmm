@@ -6,12 +6,12 @@ multiple times with the same content but different numbering.³
 ────────────────────────────────────────────────────────────────────
 ENDNOTES
 
-1  Here is the content of that footnote, which should be displayed
+¹  Here is the content of that footnote, which should be displayed
    at the bottom of the page on which it is referenced, but may
    occur anywhere in the source document (modulo scope).
 
-2  Any number of times.
+²  Any number of times.
 
-3  Here is the content of that footnote, which should be displayed
+³  Here is the content of that footnote, which should be displayed
    at the bottom of the page on which it is referenced, but may
    occur anywhere in the source document (modulo scope).

@@ -120,9 +120,9 @@ and f_ts_abstract_opt_of_xml_list (xml_list:Xml.xml list) : (ts_abstract option)
     |hd::tl ->
         match hd with
         |Xml.Element ("cs_abstract",[],[xml]) -> (
-		match f_ts_blks_of_xml 0 xml with 
-		|blks, ftn_nr -> Some (Cs_abstract blks), tl, ftn_nr
-	)
+                match f_ts_blks_of_xml 0 xml with 
+                |blks, ftn_nr -> Some (Cs_abstract blks), tl, ftn_nr
+        )
         |Xml.Element ("cu_doc_main_chs",[],_)
         |Xml.Element ("cu_doc_main_secs",[],_)
         |Xml.Element ("cu_doc_main_pars",[],_)
@@ -135,21 +135,21 @@ and f_tu_doc_main_of_xml_list (ftn_count : int) (xml_list:Xml.xml list): tu_doc_
     |hd::tl -> (
         match hd with
         |Xml.Element ("cu_doc_main_chs",[],[xml]) -> (
-		match f_ts_chs_of_xml ftn_count xml with
-		|chs, ftn_nr -> Cu_doc_main_chs chs, tl, ftn_nr
-	)
+                match f_ts_chs_of_xml ftn_count xml with
+                |chs, ftn_nr -> Cu_doc_main_chs chs, tl, ftn_nr
+        )
         |Xml.Element ("cu_doc_main_secs",[],[xml]) -> (
-		match f_ts_secs_of_xml ftn_count xml with
-		|secs, ftn_nr -> Cu_doc_main_secs secs, tl, ftn_nr
-	)
+                match f_ts_secs_of_xml ftn_count xml with
+                |secs, ftn_nr -> Cu_doc_main_secs secs, tl, ftn_nr
+        )
         |Xml.Element ("cu_doc_main_pars",[],[xml]) -> (
-		match f_ts_pars_of_xml ftn_count xml with
-		|pars, ftn_nr -> Cu_doc_main_pars pars, tl, ftn_nr
-	)
+                match f_ts_pars_of_xml ftn_count xml with
+                |pars, ftn_nr -> Cu_doc_main_pars pars, tl, ftn_nr
+        )
         |Xml.Element ("cu_doc_main_blks",[],[xml]) -> (
-		match f_ts_blks_of_xml ftn_count xml with
-		|blks, ftn_nr -> Cu_doc_main_blks blks, tl, ftn_nr
-	)
+                match f_ts_blks_of_xml ftn_count xml with
+                |blks, ftn_nr -> Cu_doc_main_blks blks, tl, ftn_nr
+        )
         |Xml.Element ("cs_refs",[],_) -> raise (Error "doc_main must exist")
         |xml -> raise (Error (String.concat "" ["unexcpected element: ";string_of_xml_list [xml]]))
     )
@@ -161,68 +161,68 @@ and f_ts_doc_refs_opt_of_xml_list (ftn_nr : int) (xml_list):ts_refs option =
     |hd::tl ->
         match hd with
         |Xml.Element ("cs_refs",[],[xml]) -> (
-		match f_ts_blks_of_xml ftn_nr xml with
-		|blks, _ -> Some (Cs_refs blks)
-	)
+                match f_ts_blks_of_xml ftn_nr xml with
+                |blks, _ -> Some (Cs_refs blks)
+        )
         |xml -> raise (Error (String.concat "" ["unexcpected element: ";string_of_xml_list [xml]]))
 
 and f_ts_chs_of_xml (ftn_count : int) (xml:Xml.xml):ts_chs * int =
     match xml with
     |Xml.Element ("cs_chs",[],xml_list) -> (
-	let rec aux xmls ftn_nr (acc : tr_ch list) : (tr_ch list) * int =
-		match xmls with
-		|[] -> acc, ftn_nr
-		|hd::tl -> 
-			match f_tr_ch_of_xml ftn_nr hd with
-			|ch, ftn_nr -> aux tl ftn_nr (ch::acc)
-	in
-	match aux xml_list ftn_count [] with
-	|chs, ftn_nr -> Cs_chs (List.rev chs), ftn_nr
+        let rec aux xmls ftn_nr (acc : tr_ch list) : (tr_ch list) * int =
+                match xmls with
+                |[] -> acc, ftn_nr
+                |hd::tl -> 
+                        match f_tr_ch_of_xml ftn_nr hd with
+                        |ch, ftn_nr -> aux tl ftn_nr (ch::acc)
+        in
+        match aux xml_list ftn_count [] with
+        |chs, ftn_nr -> Cs_chs (List.rev chs), ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_chs; got: ";string_of_xml_list [xml]]))
 
 and f_ts_secs_of_xml (ftn_count : int) (xml:Xml.xml):ts_secs * int =
     match xml with
     |Xml.Element ("cs_secs",[],xml_list) -> (
-	let rec aux xmls ftn_nr (acc : tr_sec list) : (tr_sec list) * int =
-		match xmls with
-		|[] -> acc, ftn_nr
-		|hd::tl -> 
-			match f_tr_sec_of_xml ftn_nr hd with
-			|sec, ftn_nr -> aux tl ftn_nr (sec::acc)
-	in
-	match aux xml_list ftn_count [] with
-	|secs, ftn_nr -> Cs_secs (List.rev secs), ftn_nr
+        let rec aux xmls ftn_nr (acc : tr_sec list) : (tr_sec list) * int =
+                match xmls with
+                |[] -> acc, ftn_nr
+                |hd::tl -> 
+                        match f_tr_sec_of_xml ftn_nr hd with
+                        |sec, ftn_nr -> aux tl ftn_nr (sec::acc)
+        in
+        match aux xml_list ftn_count [] with
+        |secs, ftn_nr -> Cs_secs (List.rev secs), ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_secs; got: "; string_of_xml_list [xml]]))
 
 and f_ts_pars_of_xml (ftn_count : int) (xml:Xml.xml):ts_pars * int =
     match xml with
     |Xml.Element ("cs_pars",[],xml_list) -> (
-	let rec aux xmls ftn_nr (acc : tu_par list) : (tu_par list) * int =
-		match xmls with
-		|[] -> acc, ftn_nr
-		|hd::tl -> 
-			match f_tu_par_of_xml ftn_nr hd with
-			|par, ftn_nr -> aux tl ftn_nr (par::acc)
-	in
-	match aux xml_list ftn_count [] with
-	|pars, ftn_nr -> Cs_pars (List.rev pars), ftn_nr
+        let rec aux xmls ftn_nr (acc : tu_par list) : (tu_par list) * int =
+                match xmls with
+                |[] -> acc, ftn_nr
+                |hd::tl -> 
+                        match f_tu_par_of_xml ftn_nr hd with
+                        |par, ftn_nr -> aux tl ftn_nr (par::acc)
+        in
+        match aux xml_list ftn_count [] with
+        |pars, ftn_nr -> Cs_pars (List.rev pars), ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_pars; got: ";string_of_xml_list [xml]]))
 
 and f_ts_blks_of_xml (ftn_count : int) (xml:Xml.xml):ts_blks * int =
     match xml with
     |Xml.Element ("cs_blks",[],xml_list) -> (
-	let rec aux xmls ftn_nr (acc : tu_blk list) : (tu_blk list) * int =
-		match xmls with
-		|[] -> acc, ftn_nr
-		|hd::tl -> 
-			match f_tu_blk_of_xml ftn_nr hd with
-			|blk, ftn_nr -> aux tl ftn_nr (blk::acc)
-	in
-	match aux xml_list ftn_count [] with
-	|blks, ftn_nr -> Cs_blks (List.rev blks), ftn_nr
+        let rec aux xmls ftn_nr (acc : tu_blk list) : (tu_blk list) * int =
+                match xmls with
+                |[] -> acc, ftn_nr
+                |hd::tl -> 
+                        match f_tu_blk_of_xml ftn_nr hd with
+                        |blk, ftn_nr -> aux tl ftn_nr (blk::acc)
+        in
+        match aux xml_list ftn_count [] with
+        |blks, ftn_nr -> Cs_blks (List.rev blks), ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_blks; got: ";string_of_xml_list [xml]]))
 
@@ -256,9 +256,9 @@ and f_tr_sec_of_xml (ftn_count : int) (xml:Xml.xml):tr_sec * int =
 and f_tu_par_of_xml (ftn_count : int) (xml : Xml.xml) : tu_par * int =
         match xml with
         |Xml.Element ("cu_par_std", [], [x]) -> (
-		match f_tr_par_std_of_xml ftn_count x with
-		|par, ftn_nr -> Cu_par_std par, ftn_nr
-	)
+                match f_tr_par_std_of_xml ftn_count x with
+                |par, ftn_nr -> Cu_par_std par, ftn_nr
+        )
         |Xml.Element ("cu_par_rpt", [], [x]) -> Cu_par_rpt (f_ts_par_rpt_of_xml x), ftn_count
         |_ -> raise (Error (String.concat "" ["expected cu_par_std or cu_par_rpt; got: ";string_of_xml_list [xml]]))
 
@@ -296,10 +296,10 @@ and f_ch_sec_par_hdr_opt_of_xml_list (ftn_count : int) (xml_list:Xml.xml list): 
     |hd::tl ->
         match hd with
         |Xml.Element ("cs_hdr",[],[xml]) -> (
-		match f_ts_txt_units_of_xml ftn_count xml with
-		|txt_units, ftn_nr -> Some (Cs_hdr txt_units), tl, ftn_nr
-	)
-	|_ -> None, xml_list, ftn_count
+                match f_ts_txt_units_of_xml ftn_count xml with
+                |txt_units, ftn_nr -> Some (Cs_hdr txt_units), tl, ftn_nr
+        )
+        |_ -> None, xml_list, ftn_count
 
 and f_tu_tag_or_id_opt_of_xml_list (xml_list:Xml.xml list):tu_tag_or_id option =
     match xml_list with
@@ -316,9 +316,9 @@ and f_ts_hdr_opt_of_xml_list (ftn_count : int) (xml_list:Xml.xml list):(ts_hdr o
     |hd::tl ->
         match hd with
         |Xml.Element ("cs_hdr",[],[xml]) -> (
-		match f_ts_txt_units_of_xml ftn_count xml with
-		|txt_units, ftn_nr -> Some (Cs_hdr txt_units), ftn_nr
-	)
+                match f_ts_txt_units_of_xml ftn_count xml with
+                |txt_units, ftn_nr -> Some (Cs_hdr txt_units), ftn_nr
+        )
         |_ -> f_ts_hdr_opt_of_xml_list ftn_count tl
 
 and f_tu_secs_pars_or_blks_of_xml_list (ftn_count : int) (xml_list:Xml.xml list):tu_secs_pars_or_blks * int =
@@ -326,17 +326,17 @@ and f_tu_secs_pars_or_blks_of_xml_list (ftn_count : int) (xml_list:Xml.xml list)
     |hd::tl -> (
         match hd with
         |Xml.Element ("cu_secs_pars_or_blks_secs",[],[xml]) -> (
-		match f_ts_secs_of_xml ftn_count xml with
-		|secs, ftn_nr -> Cu_secs_pars_or_blks_secs secs, ftn_nr
-	)
+                match f_ts_secs_of_xml ftn_count xml with
+                |secs, ftn_nr -> Cu_secs_pars_or_blks_secs secs, ftn_nr
+        )
         |Xml.Element ("cu_secs_pars_or_blks_pars",[],[xml]) -> (
-		match f_ts_pars_of_xml ftn_count xml with
-		|pars, ftn_nr -> Cu_secs_pars_or_blks_pars pars, ftn_nr
-	)
+                match f_ts_pars_of_xml ftn_count xml with
+                |pars, ftn_nr -> Cu_secs_pars_or_blks_pars pars, ftn_nr
+        )
         |Xml.Element ("cu_secs_pars_or_blks_blks",[],[xml]) -> (
-		match f_ts_blks_of_xml ftn_count xml with
-		|blks, ftn_nr -> Cu_secs_pars_or_blks_blks blks, ftn_nr
-	)
+                match f_ts_blks_of_xml ftn_count xml with
+                |blks, ftn_nr -> Cu_secs_pars_or_blks_blks blks, ftn_nr
+        )
         |xml -> raise (Error (String.concat "" ["unexcpected element: ";string_of_xml_list [xml]]))
     )
     |_ -> raise (Error "ch_main must exist")
@@ -347,13 +347,13 @@ and f_tu_pars_or_blks_of_xml_list (ftn_count : int) (xml_list:Xml.xml list):tu_p
     |hd::tl -> (
         match hd with
         |Xml.Element ("cu_pars_or_blks_pars",[],[xml]) -> (
-		match f_ts_pars_of_xml ftn_count xml with
-		|pars, ftn_nr -> Cu_pars_or_blks_pars pars, ftn_nr
-	)
+                match f_ts_pars_of_xml ftn_count xml with
+                |pars, ftn_nr -> Cu_pars_or_blks_pars pars, ftn_nr
+        )
         |Xml.Element ("cu_pars_or_blks_blks",[],[xml]) -> (
-		match f_ts_blks_of_xml ftn_count xml with
-		|blks, ftn_nr -> Cu_pars_or_blks_blks blks, ftn_nr
-	)
+                match f_ts_blks_of_xml ftn_count xml with
+                |blks, ftn_nr -> Cu_pars_or_blks_blks blks, ftn_nr
+        )
         |xml -> raise (Error (String.concat "" ["unexcpected element: ";string_of_xml_list [xml]]))
     )
     |_ -> raise (Error "sec_main must exist")
@@ -380,20 +380,20 @@ and f_ts_blks_of_xml_list (ftn_count : int) (xml_list:Xml.xml list):ts_blks * in
 and f_tu_blk_of_xml (ftn_count : int) (xml:Xml.xml):tu_blk * int =
     match xml with
     |Xml.Element ("cu_blk_txt",[],[x]) -> (
-		match f_ts_blk_txt_of_xml ftn_count x with
-		|blk_txt, ftn_nr -> Cu_blk_txt blk_txt, ftn_nr
+                match f_ts_blk_txt_of_xml ftn_count x with
+                |blk_txt, ftn_nr -> Cu_blk_txt blk_txt, ftn_nr
     )
     |Xml.Element ("cu_blk_blt",[],[x]) -> (
-		match f_ts_blk_blt_of_xml ftn_count x with
-		|blk_blt, ftn_nr -> Cu_blk_blt blk_blt, ftn_nr
+                match f_ts_blk_blt_of_xml ftn_count x with
+                |blk_blt, ftn_nr -> Cu_blk_blt blk_blt, ftn_nr
     )
     |Xml.Element ("cu_blk_itm",[],[x]) -> (
-		match f_tr_blk_itm_of_xml ftn_count x with
-		|blk_itm, ftn_nr -> Cu_blk_itm blk_itm, ftn_nr
+                match f_tr_blk_itm_of_xml ftn_count x with
+                |blk_itm, ftn_nr -> Cu_blk_itm blk_itm, ftn_nr
     )
     |Xml.Element ("cu_blk_dsp",[],[x]) -> (
-		match f_ts_blk_dsp_of_xml ftn_count x with
-		|blk_dsp, ftn_nr -> Cu_blk_dsp blk_dsp, ftn_nr
+                match f_ts_blk_dsp_of_xml ftn_count x with
+                |blk_dsp, ftn_nr -> Cu_blk_dsp blk_dsp, ftn_nr
     )
     |Xml.Element ("cu_blk_vrb",[],[x]) -> Cu_blk_vrb (f_ts_blk_vrb_of_xml x), ftn_count
     |Xml.Element ("cu_blk_ftn",[],[x]) -> Cu_blk_ftn (f_tr_blk_ftn_of_xml x), ftn_count
@@ -403,16 +403,16 @@ and f_tu_blk_of_xml (ftn_count : int) (xml:Xml.xml):tu_blk * int =
 and f_ts_blk_txt_of_xml (ftn_count) (xml:Xml.xml): ts_blk_txt * int =
     match xml with
     |Xml.Element ("cs_blk_txt",[],[x]) -> (
-	match f_ts_txt_units_of_xml ftn_count x with
-	|txt_units, ftn_nr -> Cs_blk_txt txt_units, ftn_nr
+        match f_ts_txt_units_of_xml ftn_count x with
+        |txt_units, ftn_nr -> Cs_blk_txt txt_units, ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_blk_txt; got: ";string_of_xml_list [xml]]))
 
 and f_ts_blk_blt_of_xml (ftn_count : int) (xml:Xml.xml):ts_blk_blt * int=
     match xml with
     |Xml.Element ("cs_blk_blt",[],[x]) -> (
-	match f_ts_blks_of_xml ftn_count x with
-	|blks, ftn_nr -> Cs_blk_blt blks, ftn_nr
+        match f_ts_blks_of_xml ftn_count x with
+        |blks, ftn_nr -> Cs_blk_blt blks, ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_blk_blt; got: ";string_of_xml_list [xml]]))
 
@@ -434,9 +434,9 @@ and f_tr_blk_ftn_of_xml (xml:Xml.xml):tr_blk_ftn =
     |Xml.Element ("cr_blk_ftn",[],xml_list) -> (
         let (id_opt, id_tl) = f_itm_id_opt_of_xml_list xml_list in
         let main = f_ts_blks_of_xml_list 0 id_tl in
-	match id_opt, main with
-	|None,_ -> raise (Error "blk_ftn needs an id")
-	|Some id, (blks,_) ->
+        match id_opt, main with
+        |None,_ -> raise (Error "blk_ftn needs an id")
+        |Some id, (blks,_) ->
         {   
             fld_blk_ftn_id          =   id;
             fld_blk_ftn_main        =   blks;
@@ -448,8 +448,8 @@ and f_tr_blk_ftn_of_xml (xml:Xml.xml):tr_blk_ftn =
 and f_ts_blk_dsp_of_xml (ftn_count : int) (xml:Xml.xml):ts_blk_dsp * int=
     match xml with
     |Xml.Element ("cs_blk_dsp",[],[x]) -> (
-	match f_ts_dsp_lines_of_xml ftn_count x with
-	|dsp_lines, ftn_nr -> Cs_blk_dsp dsp_lines, ftn_nr
+        match f_ts_dsp_lines_of_xml ftn_count x with
+        |dsp_lines, ftn_nr -> Cs_blk_dsp dsp_lines, ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_blk_dsp; got: ";string_of_xml_list [xml]]))
 
@@ -498,25 +498,25 @@ and f_ts_tag_of_xml (xml:Xml.xml):ts_tag =
 and f_ts_txt_units_of_xml (ftn_count : int) (xml:Xml.xml):ts_txt_units * int =
     match xml with
     |Xml.Element ("cs_txt_units",[],xml_list) -> (
-	let rec aux (xmls : Xml.xml list) (acc : tu_txt_unit list) (ftn_nr : int) : (tu_txt_unit list) * int =
-		match xmls with
-		|[] -> acc, ftn_nr
-		|hd::tl -> 
-			match hd with
-			|Xml.Element ("cu_txt_unit_wysiwyg",[],[xml]) ->
-				aux tl ((Cu_txt_unit_wysiwyg (f_ts_txt_unit_wysiwyg_of_xml xml))::acc) ftn_nr
-			|Xml.Element ("cu_txt_unit_emph",[],[xml]) ->
-				aux tl ((Cu_txt_unit_emph (f_ts_txt_unit_emph_of_xml xml))::acc) ftn_nr
-			|Xml.Element ("cu_txt_unit_c_ref",[],[xml]) ->
-				aux tl ((Cu_txt_unit_c_ref (f_ts_txt_unit_c_ref_of_xml xml))::acc) ftn_nr
-			|Xml.Element ("cu_txt_unit_ftn_ref",[],[xml]) -> 
-				aux tl ((Cu_txt_unit_ftn_ref (f_ts_txt_unit_ftn_ref_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
-			|Xml.Element ("cu_txt_unit_ftn_inline",[],[xml]) -> 
-				aux tl ((Cu_txt_unit_ftn_inline (f_ts_txt_unit_ftn_inline_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
-    			|_-> raise (Error (String.concat "" ["expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, or cu_txt_unit_ftn; got: ";string_of_xml_list [xml]]))
-	in
-	match aux xml_list [] ftn_count with
-	|txt_units, ftn_nr -> Cs_txt_units (List.rev txt_units), ftn_nr
+        let rec aux (xmls : Xml.xml list) (acc : tu_txt_unit list) (ftn_nr : int) : (tu_txt_unit list) * int =
+                match xmls with
+                |[] -> acc, ftn_nr
+                |hd::tl -> 
+                        match hd with
+                        |Xml.Element ("cu_txt_unit_wysiwyg",[],[xml]) ->
+                                aux tl ((Cu_txt_unit_wysiwyg (f_ts_txt_unit_wysiwyg_of_xml xml))::acc) ftn_nr
+                        |Xml.Element ("cu_txt_unit_emph",[],[xml]) ->
+                                aux tl ((Cu_txt_unit_emph (f_ts_txt_unit_emph_of_xml xml))::acc) ftn_nr
+                        |Xml.Element ("cu_txt_unit_c_ref",[],[xml]) ->
+                                aux tl ((Cu_txt_unit_c_ref (f_ts_txt_unit_c_ref_of_xml xml))::acc) ftn_nr
+                        |Xml.Element ("cu_txt_unit_ftn_ref",[],[xml]) -> 
+                                aux tl ((Cu_txt_unit_ftn_ref (f_ts_txt_unit_ftn_ref_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
+                        |Xml.Element ("cu_txt_unit_ftn_inline",[],[xml]) -> 
+                                aux tl ((Cu_txt_unit_ftn_inline (f_ts_txt_unit_ftn_inline_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
+                        |_-> raise (Error (String.concat "" ["expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, or cu_txt_unit_ftn; got: ";string_of_xml_list [xml]]))
+        in
+        match aux xml_list [] ftn_count with
+        |txt_units, ftn_nr -> Cs_txt_units (List.rev txt_units), ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_txt_units; got: ";string_of_xml_list [xml]]))
 
@@ -561,23 +561,23 @@ and f_ts_txt_unit_ftn_inline_of_xml (ftn_count : int) (xml:Xml.xml):ts_txt_unit_
 and f_ts_dsp_lines_of_xml (ftn_count : int) (xml:Xml.xml):ts_dsp_lines * int=
     match xml with
     |Xml.Element ("cs_dsp_lines",[],xml_list) -> (
-	let rec aux xmls ftn_nr (acc : tr_dsp_line list) : (tr_dsp_line list) * int =
-		match xmls with
-		|[] -> acc, ftn_nr
-		|hd::tl -> 
-			match f_tr_dsp_line_of_xml ftn_nr hd with
-			|dsp_line, ftn_nr -> aux tl ftn_nr (dsp_line::acc)
-	in
-	match aux xml_list ftn_count [] with
-	|dsp_lines, ftn_nr -> Cs_dsp_lines (List.rev dsp_lines), ftn_nr
+        let rec aux xmls ftn_nr (acc : tr_dsp_line list) : (tr_dsp_line list) * int =
+                match xmls with
+                |[] -> acc, ftn_nr
+                |hd::tl -> 
+                        match f_tr_dsp_line_of_xml ftn_nr hd with
+                        |dsp_line, ftn_nr -> aux tl ftn_nr (dsp_line::acc)
+        in
+        match aux xml_list ftn_count [] with
+        |dsp_lines, ftn_nr -> Cs_dsp_lines (List.rev dsp_lines), ftn_nr
     )
     |_ -> raise (Error (String.concat "" ["expected cs_dsp_lines; got: ";string_of_xml_list [xml]]))
 
 and f_tr_dsp_line_of_xml (ftn_count : int) (xml:Xml.xml):tr_dsp_line * int =
     match xml with
     |Xml.Element ("cu_dsp_line_no_lbl",[],[Xml.Element ("cs_dsp_line_no_lbl",[],[x])]) -> (
-	match f_ts_txt_units_of_xml ftn_count x with
-	|txt_units, ftn_nr ->
+        match f_ts_txt_units_of_xml ftn_count x with
+        |txt_units, ftn_nr ->
         {   
             fld_dsp_line_lbl        =   None;
             fld_dsp_line_id         =   None;
@@ -673,8 +673,8 @@ and f_ts_ftn_ref_of_xml (ftn_count : int) (xml:Xml.xml):ts_ftn_ref =
         |_ -> raise (Error (String.concat "" ["expected cs_ftn_ref; got: ";string_of_xml_list [xml]]))
 
 and f_ts_ftn_inline_of_xml_list (ftn_count : int) (xml_list:Xml.xml list):ts_ftn_inline =
-	match f_ts_blks_of_xml_list ftn_count xml_list with
-	|blks,ftn_nr -> Cs_ftn_inline (blks, Cs_int ftn_nr (* f_ts_int_of_xml xml_int *))
+        match f_ts_blks_of_xml_list ftn_count xml_list with
+        |blks,ftn_nr -> Cs_ftn_inline (blks, Cs_int ftn_nr (* f_ts_int_of_xml xml_int *))
 
 and f_ts_int_of_xml (xml : Xml.xml) : ts_int =
         match xml with

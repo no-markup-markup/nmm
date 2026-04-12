@@ -89,7 +89,7 @@ let date_of_string (s : string) : tu_date =
 %token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
 %token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID STAR_TAB_ID
 %token <string * int>           FTN_REF
-%token <int>			FTN_LBR
+%token <int>                    FTN_LBR
 
 %type <Doc_types.tr_doc>                  main doc
 
@@ -442,7 +442,19 @@ txt_units(n):
 txt_unit(n):
   |txt                                                    { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt(n) STAR                                  { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
-  |LBR crefs RBR                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |cref                                                   { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |ftn_ref                                                { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
+  |ftn_inline(n)                                          { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+;
+
+ftn_inline(n):
+  |ftn_inline_short                                       { $1 : ts_ftn_inline}
+  |ftn_inline_long(n)                                     { $1 : ts_ftn_inline}
+;
+
+ftn_inline_long(n):
+  |FTN_LBR lb(n+1) blks(n+1) RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
+;
 ;
 
 emph_txt(n):

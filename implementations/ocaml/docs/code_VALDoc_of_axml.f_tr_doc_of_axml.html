@@ -133,9 +133,9 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_abstract"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blks_of_xml 0 xml <span class="keyword">with</span> 
-		<span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_abstract</span> blks), tl, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_blks_of_xml 0 xml <span class="keyword">with</span> 
+                <span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_abstract</span> blks), tl, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_chs"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_secs"</span>,[],_)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_pars"</span>,[],_)
@@ -148,21 +148,21 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> (
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_chs"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_chs_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>chs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_chs</span> chs, tl, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_chs_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>chs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_chs</span> chs, tl, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_secs"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_secs_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>secs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_secs</span> secs, tl, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_secs_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>secs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_secs</span> secs, tl, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_pars"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_pars_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_pars</span> pars, tl, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_pars_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_pars</span> pars, tl, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_doc_main_blks"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blks_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_blks</span> blks, tl, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_blks_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_doc_main_blks</span> blks, tl, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_refs"</span>,[],_) <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"doc_main must exist"</span>)
         <span class="keywordsign">|</span>xml <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"unexcpected element: "</span>;string_of_xml_list [xml]]))
     )
@@ -174,68 +174,68 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_refs"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blks_of_xml ftn_nr xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blks, _ <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_refs</span> blks)
-	)
+                <span class="keyword">match</span> f_ts_blks_of_xml ftn_nr xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blks, _ <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_refs</span> blks)
+        )
         <span class="keywordsign">|</span>xml <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"unexcpected element: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_chs_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_chs * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_chs"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tr_ch list) : (tr_ch list) * int =
-		<span class="keyword">match</span> xmls <span class="keyword">with</span>
-		<span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
-		<span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-			<span class="keyword">match</span> f_tr_ch_of_xml ftn_nr hd <span class="keyword">with</span>
-			<span class="keywordsign">|</span>ch, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (ch::acc)
-	<span class="keyword">in</span>
-	<span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
-	<span class="keywordsign">|</span>chs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_chs</span> (<span class="constructor">List</span>.rev chs), ftn_nr
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tr_ch list) : (tr_ch list) * int =
+                <span class="keyword">match</span> xmls <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">match</span> f_tr_ch_of_xml ftn_nr hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span>ch, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (ch::acc)
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
+        <span class="keywordsign">|</span>chs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_chs</span> (<span class="constructor">List</span>.rev chs), ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_chs; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_secs_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_secs * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_secs"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tr_sec list) : (tr_sec list) * int =
-		<span class="keyword">match</span> xmls <span class="keyword">with</span>
-		<span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
-		<span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-			<span class="keyword">match</span> f_tr_sec_of_xml ftn_nr hd <span class="keyword">with</span>
-			<span class="keywordsign">|</span>sec, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (sec::acc)
-	<span class="keyword">in</span>
-	<span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
-	<span class="keywordsign">|</span>secs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_secs</span> (<span class="constructor">List</span>.rev secs), ftn_nr
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tr_sec list) : (tr_sec list) * int =
+                <span class="keyword">match</span> xmls <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">match</span> f_tr_sec_of_xml ftn_nr hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span>sec, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (sec::acc)
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
+        <span class="keywordsign">|</span>secs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_secs</span> (<span class="constructor">List</span>.rev secs), ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_secs; got: "</span>; string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_pars_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_pars * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_pars"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tu_par list) : (tu_par list) * int =
-		<span class="keyword">match</span> xmls <span class="keyword">with</span>
-		<span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
-		<span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-			<span class="keyword">match</span> f_tu_par_of_xml ftn_nr hd <span class="keyword">with</span>
-			<span class="keywordsign">|</span>par, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (par::acc)
-	<span class="keyword">in</span>
-	<span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
-	<span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_pars</span> (<span class="constructor">List</span>.rev pars), ftn_nr
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tu_par list) : (tu_par list) * int =
+                <span class="keyword">match</span> xmls <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">match</span> f_tu_par_of_xml ftn_nr hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span>par, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (par::acc)
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
+        <span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_pars</span> (<span class="constructor">List</span>.rev pars), ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_pars; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_blks_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_blks * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blks"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tu_blk list) : (tu_blk list) * int =
-		<span class="keyword">match</span> xmls <span class="keyword">with</span>
-		<span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
-		<span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-			<span class="keyword">match</span> f_tu_blk_of_xml ftn_nr hd <span class="keyword">with</span>
-			<span class="keywordsign">|</span>blk, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (blk::acc)
-	<span class="keyword">in</span>
-	<span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
-	<span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blks</span> (<span class="constructor">List</span>.rev blks), ftn_nr
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tu_blk list) : (tu_blk list) * int =
+                <span class="keyword">match</span> xmls <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">match</span> f_tu_blk_of_xml ftn_nr hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span>blk, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (blk::acc)
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
+        <span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blks</span> (<span class="constructor">List</span>.rev blks), ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_blks; got: "</span>;string_of_xml_list [xml]]))
 
@@ -269,9 +269,9 @@
 <span class="keyword">and</span> f_tu_par_of_xml (ftn_count : int) (xml : <span class="constructor">Xml</span>.xml) : tu_par * int =
         <span class="keyword">match</span> xml <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_par_std"</span>, [], [x]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_tr_par_std_of_xml ftn_count x <span class="keyword">with</span>
-		<span class="keywordsign">|</span>par, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_par_std</span> par, ftn_nr
-	)
+                <span class="keyword">match</span> f_tr_par_std_of_xml ftn_count x <span class="keyword">with</span>
+                <span class="keywordsign">|</span>par, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_par_std</span> par, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_par_rpt"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_par_rpt</span> (f_ts_par_rpt_of_xml x), ftn_count
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_par_std or cu_par_rpt; got: "</span>;string_of_xml_list [xml]]))
 
@@ -309,10 +309,10 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_hdr"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> txt_units), tl, ftn_nr
-	)
-	<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>, xml_list, ftn_count
+                <span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> txt_units), tl, ftn_nr
+        )
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>, xml_list, ftn_count
 
 <span class="keyword">and</span> f_tu_tag_or_id_opt_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list):tu_tag_or_id option =
     <span class="keyword">match</span> xml_list <span class="keyword">with</span>
@@ -329,9 +329,9 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_hdr"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> txt_units), ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> txt_units), ftn_nr
+        )
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> f_ts_hdr_opt_of_xml_list ftn_count tl
 
 <span class="keyword">and</span> f_tu_secs_pars_or_blks_of_xml_list (ftn_count : int) (xml_list:<span class="constructor">Xml</span>.xml list):tu_secs_pars_or_blks * int =
@@ -339,17 +339,17 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> (
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_secs_pars_or_blks_secs"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_secs_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>secs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_secs_pars_or_blks_secs</span> secs, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_secs_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>secs, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_secs_pars_or_blks_secs</span> secs, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_secs_pars_or_blks_pars"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_pars_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_secs_pars_or_blks_pars</span> pars, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_pars_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_secs_pars_or_blks_pars</span> pars, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_secs_pars_or_blks_blks"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blks_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_secs_pars_or_blks_blks</span> blks, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_blks_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_secs_pars_or_blks_blks</span> blks, ftn_nr
+        )
         <span class="keywordsign">|</span>xml <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"unexcpected element: "</span>;string_of_xml_list [xml]]))
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"ch_main must exist"</span>)
@@ -360,13 +360,13 @@
     <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> (
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_pars_or_blks_pars"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_pars_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_pars_or_blks_pars</span> pars, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_pars_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>pars, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_pars_or_blks_pars</span> pars, ftn_nr
+        )
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_pars_or_blks_blks"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blks_of_xml ftn_count xml <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_pars_or_blks_blks</span> blks, ftn_nr
-	)
+                <span class="keyword">match</span> f_ts_blks_of_xml ftn_count xml <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_pars_or_blks_blks</span> blks, ftn_nr
+        )
         <span class="keywordsign">|</span>xml <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"unexcpected element: "</span>;string_of_xml_list [xml]]))
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"sec_main must exist"</span>)
@@ -393,20 +393,20 @@
 <span class="keyword">and</span> f_tu_blk_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):tu_blk * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_txt"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blk_txt_of_xml ftn_count x <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blk_txt, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_txt</span> blk_txt, ftn_nr
+                <span class="keyword">match</span> f_ts_blk_txt_of_xml ftn_count x <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blk_txt, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_txt</span> blk_txt, ftn_nr
     )
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_blt"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blk_blt_of_xml ftn_count x <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blk_blt, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_blt</span> blk_blt, ftn_nr
+                <span class="keyword">match</span> f_ts_blk_blt_of_xml ftn_count x <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blk_blt, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_blt</span> blk_blt, ftn_nr
     )
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_itm"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_tr_blk_itm_of_xml ftn_count x <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blk_itm, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_itm</span> blk_itm, ftn_nr
+                <span class="keyword">match</span> f_tr_blk_itm_of_xml ftn_count x <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blk_itm, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_itm</span> blk_itm, ftn_nr
     )
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_dsp"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-		<span class="keyword">match</span> f_ts_blk_dsp_of_xml ftn_count x <span class="keyword">with</span>
-		<span class="keywordsign">|</span>blk_dsp, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_dsp</span> blk_dsp, ftn_nr
+                <span class="keyword">match</span> f_ts_blk_dsp_of_xml ftn_count x <span class="keyword">with</span>
+                <span class="keywordsign">|</span>blk_dsp, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_dsp</span> blk_dsp, ftn_nr
     )
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_vrb"</span>,[],[x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_vrb</span> (f_ts_blk_vrb_of_xml x), ftn_count
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_ftn"</span>,[],[x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_blk_ftn</span> (f_tr_blk_ftn_of_xml x), ftn_count
@@ -416,16 +416,16 @@
 <span class="keyword">and</span> f_ts_blk_txt_of_xml (ftn_count) (xml:<span class="constructor">Xml</span>.xml): ts_blk_txt * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_txt"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count x <span class="keyword">with</span>
-	<span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blk_txt</span> txt_units, ftn_nr
+        <span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count x <span class="keyword">with</span>
+        <span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blk_txt</span> txt_units, ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_blk_txt; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_blk_blt_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_blk_blt * int=
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_blt"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">match</span> f_ts_blks_of_xml ftn_count x <span class="keyword">with</span>
-	<span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blk_blt</span> blks, ftn_nr
+        <span class="keyword">match</span> f_ts_blks_of_xml ftn_count x <span class="keyword">with</span>
+        <span class="keywordsign">|</span>blks, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blk_blt</span> blks, ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_blk_blt; got: "</span>;string_of_xml_list [xml]]))
 
@@ -447,9 +447,9 @@
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cr_blk_ftn"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
         <span class="keyword">let</span> (id_opt, id_tl) = f_itm_id_opt_of_xml_list xml_list <span class="keyword">in</span>
         <span class="keyword">let</span> main = f_ts_blks_of_xml_list 0 id_tl <span class="keyword">in</span>
-	<span class="keyword">match</span> id_opt, main <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">None</span>,_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"blk_ftn needs an id"</span>)
-	<span class="keywordsign">|</span><span class="constructor">Some</span> id, (blks,_) <span class="keywordsign">-&gt;</span>
+        <span class="keyword">match</span> id_opt, main <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">None</span>,_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"blk_ftn needs an id"</span>)
+        <span class="keywordsign">|</span><span class="constructor">Some</span> id, (blks,_) <span class="keywordsign">-&gt;</span>
         {   
             fld_blk_ftn_id          =   id;
             fld_blk_ftn_main        =   blks;
@@ -461,8 +461,8 @@
 <span class="keyword">and</span> f_ts_blk_dsp_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_blk_dsp * int=
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_dsp"</span>,[],[x]) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">match</span> f_ts_dsp_lines_of_xml ftn_count x <span class="keyword">with</span>
-	<span class="keywordsign">|</span>dsp_lines, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blk_dsp</span> dsp_lines, ftn_nr
+        <span class="keyword">match</span> f_ts_dsp_lines_of_xml ftn_count x <span class="keyword">with</span>
+        <span class="keywordsign">|</span>dsp_lines, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_blk_dsp</span> dsp_lines, ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_blk_dsp; got: "</span>;string_of_xml_list [xml]]))
 
@@ -511,25 +511,25 @@
 <span class="keyword">and</span> f_ts_txt_units_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_txt_units * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_units"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">let</span> <span class="keyword">rec</span> aux (xmls : <span class="constructor">Xml</span>.xml list) (acc : tu_txt_unit list) (ftn_nr : int) : (tu_txt_unit list) * int =
-		<span class="keyword">match</span> xmls <span class="keyword">with</span>
-		<span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
-		<span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-			<span class="keyword">match</span> hd <span class="keyword">with</span>
-			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_wysiwyg"</span>,[],[xml]) <span class="keywordsign">-&gt;</span>
-				aux tl ((<span class="constructor">Cu_txt_unit_wysiwyg</span> (f_ts_txt_unit_wysiwyg_of_xml xml))::acc) ftn_nr
-			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_emph"</span>,[],[xml]) <span class="keywordsign">-&gt;</span>
-				aux tl ((<span class="constructor">Cu_txt_unit_emph</span> (f_ts_txt_unit_emph_of_xml xml))::acc) ftn_nr
-			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_c_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span>
-				aux tl ((<span class="constructor">Cu_txt_unit_c_ref</span> (f_ts_txt_unit_c_ref_of_xml xml))::acc) ftn_nr
-			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> 
-				aux tl ((<span class="constructor">Cu_txt_unit_ftn_ref</span> (f_ts_txt_unit_ftn_ref_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
-			<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_inline"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> 
-				aux tl ((<span class="constructor">Cu_txt_unit_ftn_inline</span> (f_ts_txt_unit_ftn_inline_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
-    			<span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, or cu_txt_unit_ftn; got: "</span>;string_of_xml_list [xml]]))
-	<span class="keyword">in</span>
-	<span class="keyword">match</span> aux xml_list [] ftn_count <span class="keyword">with</span>
-	<span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_txt_units</span> (<span class="constructor">List</span>.rev txt_units), ftn_nr
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux (xmls : <span class="constructor">Xml</span>.xml list) (acc : tu_txt_unit list) (ftn_nr : int) : (tu_txt_unit list) * int =
+                <span class="keyword">match</span> xmls <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">match</span> hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_wysiwyg"</span>,[],[xml]) <span class="keywordsign">-&gt;</span>
+                                aux tl ((<span class="constructor">Cu_txt_unit_wysiwyg</span> (f_ts_txt_unit_wysiwyg_of_xml xml))::acc) ftn_nr
+                        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_emph"</span>,[],[xml]) <span class="keywordsign">-&gt;</span>
+                                aux tl ((<span class="constructor">Cu_txt_unit_emph</span> (f_ts_txt_unit_emph_of_xml xml))::acc) ftn_nr
+                        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_c_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span>
+                                aux tl ((<span class="constructor">Cu_txt_unit_c_ref</span> (f_ts_txt_unit_c_ref_of_xml xml))::acc) ftn_nr
+                        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_ref"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> 
+                                aux tl ((<span class="constructor">Cu_txt_unit_ftn_ref</span> (f_ts_txt_unit_ftn_ref_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
+                        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_ftn_inline"</span>,[],[xml]) <span class="keywordsign">-&gt;</span> 
+                                aux tl ((<span class="constructor">Cu_txt_unit_ftn_inline</span> (f_ts_txt_unit_ftn_inline_of_xml ftn_nr xml))::acc) (ftn_nr + 1)
+                        <span class="keywordsign">|</span>_<span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_txt_unit_wysiwyg, cu_txt_unit_emph, cu_txt_unit_c_ref, or cu_txt_unit_ftn; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> aux xml_list [] ftn_count <span class="keyword">with</span>
+        <span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_txt_units</span> (<span class="constructor">List</span>.rev txt_units), ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_txt_units; got: "</span>;string_of_xml_list [xml]]))
 
@@ -574,23 +574,23 @@
 <span class="keyword">and</span> f_ts_dsp_lines_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):ts_dsp_lines * int=
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_dsp_lines"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tr_dsp_line list) : (tr_dsp_line list) * int =
-		<span class="keyword">match</span> xmls <span class="keyword">with</span>
-		<span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
-		<span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-			<span class="keyword">match</span> f_tr_dsp_line_of_xml ftn_nr hd <span class="keyword">with</span>
-			<span class="keywordsign">|</span>dsp_line, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (dsp_line::acc)
-	<span class="keyword">in</span>
-	<span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
-	<span class="keywordsign">|</span>dsp_lines, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_dsp_lines</span> (<span class="constructor">List</span>.rev dsp_lines), ftn_nr
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux xmls ftn_nr (acc : tr_dsp_line list) : (tr_dsp_line list) * int =
+                <span class="keyword">match</span> xmls <span class="keyword">with</span>
+                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc, ftn_nr
+                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
+                        <span class="keyword">match</span> f_tr_dsp_line_of_xml ftn_nr hd <span class="keyword">with</span>
+                        <span class="keywordsign">|</span>dsp_line, ftn_nr <span class="keywordsign">-&gt;</span> aux tl ftn_nr (dsp_line::acc)
+        <span class="keyword">in</span>
+        <span class="keyword">match</span> aux xml_list ftn_count [] <span class="keyword">with</span>
+        <span class="keywordsign">|</span>dsp_lines, ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_dsp_lines</span> (<span class="constructor">List</span>.rev dsp_lines), ftn_nr
     )
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_dsp_lines; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_tr_dsp_line_of_xml (ftn_count : int) (xml:<span class="constructor">Xml</span>.xml):tr_dsp_line * int =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_dsp_line_no_lbl"</span>,[],[<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_dsp_line_no_lbl"</span>,[],[x])]) <span class="keywordsign">-&gt;</span> (
-	<span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count x <span class="keyword">with</span>
-	<span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span>
+        <span class="keyword">match</span> f_ts_txt_units_of_xml ftn_count x <span class="keyword">with</span>
+        <span class="keywordsign">|</span>txt_units, ftn_nr <span class="keywordsign">-&gt;</span>
         {   
             fld_dsp_line_lbl        =   <span class="constructor">None</span>;
             fld_dsp_line_id         =   <span class="constructor">None</span>;
@@ -686,8 +686,8 @@
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_ftn_ref; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_ftn_inline_of_xml_list (ftn_count : int) (xml_list:<span class="constructor">Xml</span>.xml list):ts_ftn_inline =
-	<span class="keyword">match</span> f_ts_blks_of_xml_list ftn_count xml_list <span class="keyword">with</span>
-	<span class="keywordsign">|</span>blks,ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_ftn_inline</span> (blks, <span class="constructor">Cs_int</span> ftn_nr <span class="comment">(* f_ts_int_of_xml xml_int *)</span>)
+        <span class="keyword">match</span> f_ts_blks_of_xml_list ftn_count xml_list <span class="keyword">with</span>
+        <span class="keywordsign">|</span>blks,ftn_nr <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_ftn_inline</span> (blks, <span class="constructor">Cs_int</span> ftn_nr <span class="comment">(* f_ts_int_of_xml xml_int *)</span>)
 
 <span class="keyword">and</span> f_ts_int_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_int =
         <span class="keyword">match</span> xml <span class="keyword">with</span>

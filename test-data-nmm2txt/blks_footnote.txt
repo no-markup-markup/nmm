@@ -6,6 +6,6 @@ Another text block.²
 ────────────────────────────────────────────────────────────────────
 ENDNOTES
 
-1  A footnote.
+¹  A footnote.
 
-2  Another footnote. Multiple lines in the source for this footnote.
+²  Another footnote. Multiple lines in the source for this footnote.
