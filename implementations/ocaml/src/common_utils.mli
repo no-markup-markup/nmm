@@ -29,6 +29,7 @@ type t_doc_settings = {
   tab_length : int;
   abstract_hdr : (string * string) option;
   refs_hdr : (string * string) option;
+  endnotes_hdr : (string * string) option;
   ch_prefix : (string * string) option;
   sec_prefix : (string * string) option;
   app_prefix : (string * string) option;

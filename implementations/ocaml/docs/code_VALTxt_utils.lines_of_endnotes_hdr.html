@@ -21,10 +21,10 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.string_of_tr_id</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_endnotes_hdr</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> string_of_tr_id (id : <span class="constructor">Doc_types</span>.tr_id) : string =
-        <span class="keyword">match</span> id.fld_id_tag, id.fld_id_name, id.fld_id_scope <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> tag, <span class="constructor">Cs_name</span> name, <span class="constructor">Some</span> scope <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">":"</span> [tag;name;string_of_tu_scope scope]
-        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> tag, <span class="constructor">Cs_name</span> name, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">":"</span> [tag;name]</code></body></html>
+<code class="code"><span class="keyword">let</span> lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
+	<span class="keyword">match</span> doc_settings.endnotes_hdr <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+	<span class="keywordsign">|</span><span class="constructor">Some</span> (hdr,_) <span class="keywordsign">-&gt;</span> lines_of_string doc_settings 0 hdr</code></body></html>

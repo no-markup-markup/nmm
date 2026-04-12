@@ -53,18 +53,19 @@ and lines_of_ftn_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
                         |None -> aux tl acc
                         |Some lst -> aux tl (lst::acc)
         in
-        let footnote_list : string list list = List.rev (aux ftn_table []) in
+        let endnote_list : string list list = List.rev (aux ftn_table []) in
         let rec aux (string_list_list : string list list) (acc : string list) =
                 match string_list_list with
                 |[] -> acc
                 |hd::[] -> List.concat [hd;acc]
                 |hd::tl -> aux tl (List.concat [[""];hd;acc])
         in
-        let footnotes : string list = aux footnote_list [] in
-        match footnotes with
+        let endnotes : string list = aux endnote_list [] in
+	let hdr_lines : string list = lines_of_endnotes_hdr doc_settings in
+        match endnotes with
         |[] -> []
         |_ -> let overline : string = make_string doc_settings.doc_width "─" in
-                ""::(overline::footnotes)
+                ""::(overline::(List.concat [hdr_lines;[""];endnotes]))
 
 
 
@@ -153,17 +154,18 @@ and xml_of_ftn_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
                         |Some xml -> aux tl (xml::acc)
         in
         let xml_list : Xml.xml list = aux ftn_table [] in
-        let xml_hdr : Xml.xml = 
-                match List.rev path with
-                |[] -> Xml.Element ("doc_endnotes_hdr",[],[xml_of_string "Endnotes"])
-                |(CH_NODE _)::_ -> Xml.Element ("ch_endnotes_hdr",[], [xml_of_string "Endnotes"])
-                |_ -> raise (Error "unexpected argument")
+        let xml_hdr_opt : Xml.xml option = 
+                match List.rev path, doc_settings.endnotes_hdr with
+                |[], Some (hdr,_) -> Some (Xml.Element ("doc_endnotes_hdr",[],[xml_of_string hdr]))
+                |(CH_NODE _)::_, Some (hdr,_) -> Some (Xml.Element ("ch_endnotes_hdr",[], [xml_of_string hdr]))
+		|_, None -> None
+                |_,_ -> raise (Error "unexpected argument")
         in
-        match xml_list, List.rev path with
-        |[],_ -> None
-        |_::_, [] -> Some (Xml.Element ("doc_endnotes",[],xml_hdr::xml_list))
-        |_::_, (CH_NODE _)::_ -> Some (Xml.Element ("ch_endnotes",[], xml_hdr::xml_list))
-        |_, _ -> raise (Error "unexpected arguments")
+        match xml_list, List.rev path, xml_hdr_opt with
+        |[],_,_ -> None
+        |_::_, [], Some xml_hdr -> Some (Xml.Element ("doc_endnotes",[],xml_hdr::xml_list))
+        |_::_, (CH_NODE _)::_, Some xml_hdr -> Some (Xml.Element ("ch_endnotes",[], xml_hdr::xml_list))
+        |_, _, _ -> raise (Error "unexpected arguments")
 
 (* blk *)
 
@@ -898,6 +900,7 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 tab_length = doc_settings.tab_length;
                 abstract_hdr = doc_settings.abstract_hdr;
                 refs_hdr = doc_settings.refs_hdr;
+	        endnotes_hdr = doc_settings.endnotes_hdr;
                 ch_prefix = doc_settings.ch_prefix;
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;
@@ -933,6 +936,7 @@ let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
                 tab_length = doc_settings.tab_length;
                 abstract_hdr = doc_settings.abstract_hdr;
                 refs_hdr = doc_settings.refs_hdr;
+	        endnotes_hdr = doc_settings.endnotes_hdr;
                 ch_prefix = doc_settings.ch_prefix;
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;

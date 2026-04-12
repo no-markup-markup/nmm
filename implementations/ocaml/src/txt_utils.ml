@@ -328,6 +328,10 @@ let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) 
         let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent hdr in
         List.concat [hdr_lines;[indent ^ underline;""]]
 
+let lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
+	match doc_settings.endnotes_hdr with
+	|None -> []
+	|Some (hdr,_) -> lines_of_string doc_settings 0 hdr
 
 let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
         match blk_txt with

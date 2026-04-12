@@ -9,6 +9,8 @@ val lines_of_ts_authors_opt : Common_utils.t_doc_settings -> Doc_types.ts_author
 val lines_of_tu_date_opt : Common_utils.t_doc_settings -> Doc_types.tu_date option -> string list
 val lines_of_abstract_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
 val lines_of_refs_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
+val lines_of_endnotes_hdr : Common_utils.t_doc_settings -> string list
+
 val lines_of_ts_blk_txt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.ts_blk_txt -> string list
 val lines_of_ts_hdr_opt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.ts_hdr option -> string list
 val lines_of_ts_txt_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_ftn_table -> Common_utils.t_path -> Doc_types.ts_txt_units -> string list

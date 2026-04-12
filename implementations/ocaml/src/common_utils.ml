@@ -34,6 +34,7 @@ type t_doc_settings = {
         tab_length : int;
         abstract_hdr: (string * string) option;
         refs_hdr: (string * string) option;
+	endnotes_hdr : (string * string) option;
         ch_prefix: (string * string) option;
         sec_prefix: (string * string) option;
         app_prefix: (string * string) option;
@@ -161,6 +162,7 @@ let doc_settings_default () : t_doc_settings = {
         tab_length = 6;
         abstract_hdr = Some ("ABSTRACT", "Abstract");
         refs_hdr = Some ("REFERENCES", "References");
+	endnotes_hdr = Some ("ENDNOTES", "Endnotes");
         ch_prefix = Some ("CHAPTER", "Chapter");
         sec_prefix = Some ("§","§");
         app_prefix = Some ("§","Appendix");
@@ -207,6 +209,7 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : 
                                                         tab_length = doc_settings.tab_length;
                                                         abstract_hdr = doc_settings.abstract_hdr;
                                                         refs_hdr = doc_settings.refs_hdr;
+							endnotes_hdr = doc_settings.endnotes_hdr;
                                                         ch_prefix = doc_settings.ch_prefix;
                                                         sec_prefix = doc_settings.sec_prefix;
                                                         app_prefix = doc_settings.app_prefix;
@@ -263,6 +266,7 @@ let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -288,6 +292,7 @@ let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -313,6 +318,7 @@ let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -338,6 +344,7 @@ let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -363,6 +370,7 @@ let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -388,6 +396,7 @@ let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -414,6 +423,7 @@ let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         tab_length = int_of_string v;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -438,6 +448,7 @@ let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         tab_length = doc_settings.tab_length;
         abstract_hdr = prefix_value_of_string v;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -458,6 +469,7 @@ let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = prefix_value_of_string v;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -478,6 +490,7 @@ let set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = prefix_value_of_string v;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -498,6 +511,7 @@ let set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = prefix_value_of_string v;
         app_prefix = doc_settings.app_prefix;
@@ -518,6 +532,7 @@ let set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -539,6 +554,7 @@ let set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) optio
         tab_length = doc_settings.tab_length;
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = doc_settings.endnotes_hdr;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -948,7 +964,7 @@ let string_of_tu_scope (scope : tu_scope) : string =
 let string_of_tr_id (id : Doc_types.tr_id) : string =
         match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
         |Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag;name;string_of_tu_scope scope]
-        |Cs_tag tag, Cs_name name, _ -> String.concat ":" [tag;name]
+        |Cs_tag tag, Cs_name name, None -> String.concat ":" [tag;name]
 
 
 let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
@@ -1310,7 +1326,7 @@ let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_tabl
                         "WARNING: id \'";string_of_tr_id id;
                         "\' referenced in ";
                         string_of_path doc_settings path;
-                        " is undefined or out of scope.";
+                        " does not exist or is out of scope.";
                 ]) in "??"
                 |(Ftn_entry_ref (table_ftn_ref, _, n, _))::tl ->
                         if ftn_ref=table_ftn_ref then ftn_string_of_int n

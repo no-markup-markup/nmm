@@ -1,6 +1,8 @@
 This is some text with a short footnote¹ in the middle of it.²
 
 ────────────────────────────────────────────────────────────────────
+ENDNOTES
+
 1  The use of footnotes should be discouraged!
 
 2  Really!

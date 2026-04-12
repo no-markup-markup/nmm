@@ -354,6 +354,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hdr_lines&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.refs_indent&nbsp;hdr&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[hdr_lines;[indent&nbsp;^&nbsp;underline;<span class="string">""</span>]]<br>
 <br>
+<span class="keyword">let</span>&nbsp;lines_of_endnotes_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.endnotes_hdr&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(hdr,_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings&nbsp;0&nbsp;hdr<br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_blk_txt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(blk_txt&nbsp;:&nbsp;ts_blk_txt)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_txt&nbsp;<span class="keyword">with</span><br>
