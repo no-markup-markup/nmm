@@ -1,3 +1,4 @@
+# for purposes of more accurate GitHub statistics:
 docs/*.html linguist-generated
 docs/specs/*.txt linguist-generated
 tests/*input/* -linguist-detectable
