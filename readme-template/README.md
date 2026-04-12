@@ -847,6 +847,56 @@ want to state it again!
 ```
 </details>
 
+### Footnotes/endnotes
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+This is a sentence followed by a note reference.[FTN:f]
+
+This is another sentence followed by a note reference.[FTN:f']
+
+*	FTN:f
+	A footnote/endnote.
+
+*	FTN:f'
+	A footnote/endnote.
+	It spans multiple lines in the source.
+
+	-	Actually the grammar allows any kind of blocks in a
+		footnote; but
+
+	-	implementations of the semantics have quite some freedom
+		in how to handle footnotes going wild---for example by
+		erroring out.
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+This is a sentence followed by a note reference.¹
+
+This is another sentence followed by a note reference.²
+
+
+────────────────────────────────────────────────────────────────────
+ENDNOTES
+
+1  A footnote/endnote.
+
+2  A footnote/endnote. It spans multiple lines in the source.
+
+   ─     Actually the grammar allows any kind of blocks in a
+         footnote; but
+
+   ─     implementations of the semantics have quite some freedom in
+         how to handle footnotes going wild---for example by
+         erroring out.
+```
+</details>
 
 ### Under typical circumstances, no need for escape sequences
 

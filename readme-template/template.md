@@ -370,6 +370,23 @@ INCLUDE-FILE ./raw-text-semantics/restating_paragraphs.txt
 ```
 </details>
 
+### Footnotes/endnotes
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+INCLUDE-FILE ./nmm-sources/footnotes.nmm
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+INCLUDE-FILE ./raw-text-semantics/footnotes.txt
+```
+</details>
 
 ### Under typical circumstances, no need for escape sequences
 
