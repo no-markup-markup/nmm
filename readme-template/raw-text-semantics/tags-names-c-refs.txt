@@ -1,19 +1,19 @@
-(1)   This item block has the tag ‘ITM’ and the name ‘name’ and the
+(a)   This item block has the tag ‘ITM’ and the name ‘name’ and the
       ID ‘ITM:name’.
 
-(2)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
+(b)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
       ‘DEF:name’.
 
-(3)   Names need not be unique but IDs must be.
+(c)   Names need not be unique but IDs must be.
 
-(4)   Neither tags nor names may include whitespace, which together
+(d)   Neither tags nor names may include whitespace, which together
       with where they must be placed removes virtually any practical
       need for escaping valid tags or IDs.
 
-(5)   Tags allow the semantics to have special treatment of blocks
+(e)   Tags allow the semantics to have special treatment of blocks
       with certain tags.
 
-This is a reference to the item block with ID ‘ITM:name’: (1). The
+This is a reference to the item block with ID ‘ITM:name’: (a). The
 following displayed block has the ID ‘DSP:Q5’.
 
-(6)   x+Sy = S(x+y)
+(f)   x+Sy = S(x+y)

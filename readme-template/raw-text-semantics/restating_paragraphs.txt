@@ -7,6 +7,6 @@
      want to state it again!
 
 
-¶ 3  FACT 1 [restated]
+¶ 3  Fact 1 [restated]
 
            a²+b² = c²

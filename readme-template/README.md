@@ -103,39 +103,39 @@ Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or
 This is a no-markup-markup document, sporting the following
 features:
 
-(1)   Bullet lists:
+(a)   Bullet lists:
 
       ─     Here is one bullet item.
 
       ─     Here is another one.
 
-(2)   Numbered lists with labels that are either
+(b)   Numbered lists with labels that are either
 
-      (a)   automatic, or
+      (1)   automatic, or
 
       (!)   custom.
 
-      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
+      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ t̲o̲:
 
-      (b)   The named item can be referred to anywhere in the
+      (2)   The named item can be referred to anywhere in the
             document.
 
-      (c)   When referring to (b) above, any common initial path
+      (3)   When referring to (2) above, any common initial path
             shared between the location of the referring expression
             and the location of its referent will be omitted. The
             same applies with respect to (S) below.
 
       (S)   Of course, items with custom labels can also be named!
 
-Due to the feature mentioned in (2)(c), a reference to (2)(b) or
-(2)(S) occurring elsewhere may appear differently.
+Due to the feature mentioned in (b)(3), a reference to (b)(2) or
+(b)(S) occurring elsewhere may appear differently.
 
-(3)   Displayed lines of text suitable for mathematical equations,
+(c)   Displayed lines of text suitable for mathematical equations,
       which are either
 
-      (a)   automatically labeled (and named),
+      (1)   automatically labeled (and named),
       (+)   custom labeled (and named), or,
-            unlike (a) above, unlabeled.
+            unlike (1) above, unlabeled.
 ```
 </details>
 
@@ -213,7 +213,7 @@ pariatur.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.̲
+L̲o̲r̲e̲m̲ i̲p̲s̲u̲m̲ d̲o̲l̲o̲r̲ s̲i̲t̲ a̲m̲e̲t̲.̲
 ```
 </details>
 
@@ -259,9 +259,9 @@ L̲o̲r̲e̲m̲ ̲i̲p̲s̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.�
   <summary><b>default raw text semantics</b></summary>
 
 ```
-(1)   item block 1
+(a)   item block 1
 
-(2)   item block 2
+(b)   item block 2
 ```
 </details>
 
@@ -327,7 +327,7 @@ By Pythagoras we have:
 ```
 By Pythagoras we have:
 
-(1)   a²+b² = c²
+(a)   a²+b² = c²
 ```
 </details>
 
@@ -369,7 +369,7 @@ By Pythagoras we have:
   <summary><b>default raw text semantics</b></summary>
 
 ```
-(1)   1+(1+1)
+(a)   1+(1+1)
         = 1+1
         = 2
 ```
@@ -426,13 +426,13 @@ Here nothing needs escaping and nothing can be escaped. For each expression E:
   <summary><b>default raw text semantics</b></summary>
 
 ```
-(1)   Pythagoras:
+(a)   Pythagoras:
 
-      (a)   a²+b² = c²
+      (1)   a²+b² = c²
 
       What a remarkable discovery that was!
 
-(2)   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+(b)   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
       do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
       ─     a bullet
@@ -475,25 +475,25 @@ The following displayed block has the ID ‘DSP:Q5’.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-(1)   This item block has the tag ‘ITM’ and the name ‘name’ and the
+(a)   This item block has the tag ‘ITM’ and the name ‘name’ and the
       ID ‘ITM:name’.
 
-(2)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
+(b)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
       ‘DEF:name’.
 
-(3)   Names need not be unique but IDs must be.
+(c)   Names need not be unique but IDs must be.
 
-(4)   Neither tags nor names may include whitespace, which together
+(d)   Neither tags nor names may include whitespace, which together
       with where they must be placed removes virtually any practical
       need for escaping valid tags or IDs.
 
-(5)   Tags allow the semantics to have special treatment of blocks
+(e)   Tags allow the semantics to have special treatment of blocks
       with certain tags.
 
-This is a reference to the item block with ID ‘ITM:name’: (1). The
+This is a reference to the item block with ID ‘ITM:name’: (a). The
 following displayed block has the ID ‘DSP:Q5’.
 
-(6)   x+Sy = S(x+y)
+(f)   x+Sy = S(x+y)
 ```
 </details>
 
@@ -620,17 +620,17 @@ This chapter's header is omitted.
 
          An nmm source is made up of the following, in that order:
 
-         ─     an optional p̲r̲e̲a̲m̲b̲l̲e̲ ̲p̲a̲r̲t̲,
+         ─     an optional p̲r̲e̲a̲m̲b̲l̲e̲ p̲a̲r̲t̲,
 
-         ─     an optional t̲i̲t̲l̲e̲ ̲p̲a̲r̲t̲,
+         ─     an optional t̲i̲t̲l̲e̲ p̲a̲r̲t̲,
 
-         ─     an optional a̲u̲t̲h̲o̲r̲ ̲p̲a̲r̲t̲,
+         ─     an optional a̲u̲t̲h̲o̲r̲ p̲a̲r̲t̲,
 
-         ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲p̲a̲r̲t̲,
+         ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ p̲a̲r̲t̲,
 
-         ─     a non-optional m̲a̲i̲n̲ ̲p̲a̲r̲t̲, and
+         ─     a non-optional m̲a̲i̲n̲ p̲a̲r̲t̲, and
 
-         ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲p̲a̲r̲t̲.
+         ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ p̲a̲r̲t̲.
 
          ─     The main part must consist of either of:
 
@@ -642,7 +642,7 @@ This chapter's header is omitted.
 
                ─     blocks.
 
-         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲p̲t̲e̲r̲ must consist of either of:
+         ─     T̲h̲e̲ m̲a̲i̲n̲ p̲a̲r̲t̲ o̲f̲ a̲ c̲h̲a̲p̲t̲e̲r̲ must consist of either of:
 
                ─     sections (appendices count as sections);
 
@@ -650,14 +650,14 @@ This chapter's header is omitted.
 
                ─     blocks.
 
-         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲p̲p̲e̲n̲d̲i̲x̲, must consist of
+         ─     T̲h̲e̲ m̲a̲i̲n̲ p̲a̲r̲t̲ o̲f̲ a̲ s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ a̲n̲ a̲p̲p̲e̲n̲d̲i̲x̲, must consist of
                either of:
 
                ─     paragraphs;
 
                ─     blocks.
 
-         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲p̲a̲r̲t̲ ̲o̲f̲ ̲a̲ ̲p̲a̲r̲a̲g̲r̲a̲p̲h̲ must consist of blocks.
+         ─     T̲h̲e̲ m̲a̲i̲n̲ p̲a̲r̲t̲ o̲f̲ a̲ p̲a̲r̲a̲g̲r̲a̲p̲h̲ must consist of blocks.
 
 
 
@@ -841,7 +841,7 @@ want to state it again!
      want to state it again!
 
 
-¶ 3  FACT 1 [restated]
+¶ 3  Fact 1 [restated]
 
            a²+b² = c²
 ```
@@ -925,7 +925,7 @@ than ‘\*’ is needed.
      ─     Instead of using ‘*’ for multiplication one should use ‘×’.
            (One should not use the abonimation ‘⋅’!)
 
-     ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲p̲e̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
+     ─     For denoting t̲h̲e̲ K̲l̲e̲e̲n̲e̲ s̲t̲a̲r̲ o̲p̲e̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
            resort to escaping. As the No-Markup-Markup grammar uses ‘*’
            as the notation for this operator, this is somewhat ironic.
 

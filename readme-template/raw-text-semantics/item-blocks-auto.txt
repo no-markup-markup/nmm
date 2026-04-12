@@ -1,3 +1,3 @@
-(1)   item block 1
+(a)   item block 1
 
-(2)   item block 2
+(b)   item block 2

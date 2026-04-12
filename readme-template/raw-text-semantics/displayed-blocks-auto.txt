@@ -1,3 +1,3 @@
 By Pythagoras we have:
 
-(1)   a²+b² = c²
+(a)   a²+b² = c²
