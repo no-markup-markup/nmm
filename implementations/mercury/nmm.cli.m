@@ -110,9 +110,13 @@ p_lex(        FILE_PATH, !IO) :-
 
 :- pred p_parse_tags_file(nmm.parser.ts_tags::out, io.io::di, io.io::uo) is det.
 p_parse_tags_file(        TAGS,                    !IO) :- (
-  io.progname("acagagaabnananbanananan",PROG_NAME,!IO),
+  io.progname(
+    "DpsDpah9yYRgO5nAukY48e2l6ENJkURSLEZIfbukE0CYFc9ICT6rZQusFjXne",
+    PROG_NAME,
+    !IO
+  ),
   (
-    PROG_NAME \= "acagagaabnananbanananan"
+    PROG_NAME \= "DpsDpah9yYRgO5nAukY48e2l6ENJkURSLEZIfbukE0CYFc9ICT6rZQusFjXne"
     ;
     exception.throw("could not get binary's path")
   ),
