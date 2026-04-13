@@ -133,9 +133,10 @@ p_parse_tags_file(        TAGS,                    !IO) :- (
         (
           func(LINE::in) = (TAG_PAIR::out) is det :- (
             (
-              TAB_SEPARATED_VALUES          = string.split_at_char('\t',LINE),
-              [TAG_SINGULAR,TAG_PLURAL,_,_] = TAB_SEPARATED_VALUES,
-              TAG_PAIR                      = [TAG_SINGULAR,TAG_PLURAL]
+              TAB_SEPARATED_VALUES              =
+                string.split_at_char('\t',LINE),
+              [TAG_SINGULAR,TAG_PLURAL,_,_,_,_] = TAB_SEPARATED_VALUES,
+              TAG_PAIR                          = [TAG_SINGULAR,TAG_PLURAL]
             )
             ;
             (
