@@ -38,10 +38,14 @@ docs: byte
 	ocamlfind ocamldoc -t 'Nmm_ocaml' -keep-code -colorize-code -d ../docs -package sedlex.ppx -package uuseg -package xml-light -package str -package unix -html doc_types.ml xml_right_parser.mli xml_right_lexer.mli xml_right.mli xml_right.ml nmm_parser.mli nmm_lexer.mli nmm_lexer.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml
 	cd -
 
-install_bin: bin/nmm-ocaml
+clean-docs:
+	rm -f docs/*.html
+	rm -f docs/specs/*.txt
+
+install-bin: bin/nmm-ocaml
 	cp bin/nmm-ocaml ~/bin/
 
-install_opam_package: opam_package src/cli.ml
+install-opam_package: opam_package src/cli.ml
 	ocamlfind install nmm-ocaml opam_package/*
 	ocamlfind ocamlopt -o ~/.opam/default/bin/nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str -package unix -package nmm-ocaml src/cli.ml
 
@@ -107,6 +111,6 @@ byte: src
 	ocamlc -a -o nmm_ocaml.cma nmm_ocaml.cmo
 	cd -
 
-utop: byte
-	utop -require sedlex -require uuseg -require xml-light -require str -I $(realpath byte) $(realpath byte/nmm_ocaml.cma)
+utop: opam_package
+	utop -require sedlex -require uuseg -require xml-light -require str -I $(realpath opam_package) $(realpath opam_package/nmm_ocaml.cma)
 
