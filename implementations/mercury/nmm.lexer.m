@@ -231,7 +231,7 @@ p_sp_but_not_tab(char.det_from_int(0x3000)). % ideographic space
 
 f_detknize(TKNS) = string.join_list("",list.map(f_detknize_tkn,TKNS)).
 
-:- func f_detknize_tkn(tu_tkn) = str.
+:- func f_detknize_tkn(tu_tkn)  = str.
 f_detknize_tkn(cu_tkn_nws(_,C)) = chr2str(C).
 f_detknize_tkn(cu_tkn_sp( _,C)) = chr2str(C).
 f_detknize_tkn(cu_tkn_esc(_,C)) = "\\" ++ chr2str(C).

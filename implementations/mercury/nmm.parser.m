@@ -27,6 +27,10 @@
 :- type tu_tkn  == nmm.lexer.tu_tkn.
 :- type ts_tkns == nmm.lexer.ts_tkns.
 
+%% SIMPLE TYPE TS_TAGS
+
+:- type ts_tags ---> cs_tags(list(str)).
+
 
 %% RULE R_DOC, TYPE TR_DOC, INSTANCE TR_DOC XMLABLE
 
@@ -42,8 +46,7 @@
 
 :- instance term_to_xml.xmlable(tr_doc).
 
-:- pred r_doc(tr_doc, ts_tkns, ts_tkns).
-:- mode r_doc(out,    in,      out) is semidet.
+:- pred r_doc(tr_doc::out, ts_tags::in, ts_tkns::in, ts_tkns::out) is semidet.
 
 
 %% RULE R_PREAMBLE (TODO), SIMPLE TYPE TS_PREAMBLE, INSTANCE TS_PREAMBLE XMLABLE
@@ -636,15 +639,18 @@ k_forbidden_strs_in_tags_names = ["\\", "[", "]", "(", ")", ":", ",", ";", "*"].
 
 %%% R_DOC
 
-r_doc(cr_doc(
-  MAYBE_PREAMBLE,
-  MAYBE_TITLE,
-  MAYBE_AUTHORS,
-  MAYBE_DATE,
-  MAYBE_ABSTRACT,
-  MAIN,
-  MAYBE_REFS
-)) --> (
+r_doc(
+  cr_doc(
+    MAYBE_PREAMBLE,
+    MAYBE_TITLE,
+    MAYBE_AUTHORS,
+    MAYBE_DATE,
+    MAYBE_ABSTRACT,
+    MAIN,
+    MAYBE_REFS
+  ),
+  TAGS
+) --> (
   ?([],         r_preamble,MAYBE_PREAMBLE,[*([r_lb])]),
   ?([],         r_title,   MAYBE_TITLE,   [*([r_lb])]),
   ?([],         r_authors, MAYBE_AUTHORS, [*([r_lb])]),

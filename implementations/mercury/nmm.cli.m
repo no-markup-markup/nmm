@@ -27,7 +27,7 @@
 
 %% MODULE IMPORTS
 
-:- use_module term_to_xml, nmm.lexer, nmm.parser, nmm.test.
+:- use_module dir, exception, term_to_xml, nmm.lexer, nmm.parser, nmm.test.
 
 
 %% TYPE ABBREVIATIONS TU_TKN AND TS_TKNS
@@ -106,33 +106,84 @@ p_lex(        FILE_PATH, !IO) :-
 
 %% P_PARSE
 
+%%% HELPER P_PARSE_TAGS_FILE
+
+:- pred p_parse_tags_file(nmm.parser.ts_tags::out, io.io::di, io.io::uo) is det.
+p_parse_tags_file(        TAGS,                    !IO) :- (
+  io.progname("acagagaabnananbanananan",PROG_NAME,!IO),
+  (
+    PROG_NAME \= "acagagaabnananbanananan"
+    ;
+    exception.throw("could not get binary's path")
+  ),
+  dir.directory_separator(SEP_CHR),
+  TAGS_FILE_PATH = dir.dirname(PROG_NAME) ++ chr2str(SEP_CHR) ++ "tags.tsv",
+  io.read_named_file_as_string(TAGS_FILE_PATH,RES,!IO),
+  (
+    (
+      RES = io.error(ERR_CODE),
+      io.error_message(ERR_CODE,ERR_STR),
+      io.write_string("cannot open tags.tsv\n",!IO),
+      exception.throw(ERR_STR)
+    );
+    (
+      RES        = io.ok(FILE_AS_STR),
+      LINES      = string.split_into_lines(FILE_AS_STR),
+      TAG_PAIRS  = list.map(
+        (
+          func(LINE::in) = (TAG_PAIR::out) is det :- (
+            (
+              TAB_SEPARATED_VALUES          = string.split_at_char('\t',LINE),
+              [TAG_SINGULAR,TAG_PLURAL,_,_] = TAB_SEPARATED_VALUES,
+              TAG_PAIR                      = [TAG_SINGULAR,TAG_PLURAL]
+            )
+            ;
+            (
+              exception.throw("failed to parse tag file line:\n\t" ++ LINE)
+            )
+          )
+        ),
+        LINES
+      ),
+      TAGS = nmm.parser.cs_tags(list.filter(
+        (pred(TAG::in) is semidet :- TAG \= ""),
+        list.condense(TAG_PAIRS)
+      ))
+    )
+  )
+).
+
 %%% HELPER P_PARSE_AS_FAR_AS_POSSIBLE
 
 :- pred p_parse_as_far_as_possible(
-  ts_tkns::in, nmm.lexer.ta_line_no::out, nmm.parser.tr_doc::out
+  nmm.parser.ts_tags, ts_tkns, nmm.lexer.ta_line_no, nmm.parser.tr_doc
+).
+:- mode p_parse_as_far_as_possible(
+  in,                 in,      out,                  out
 ) is semidet.
 p_parse_as_far_as_possible(
-  TKNS,       LINE_NO_BEFORE_FAIL,      DOC
+  TAGS,            TKNS,    LINE_NO_BEFORE_FAIL,  DOC
 ) :- (
   % remove one token at a time from end of source, until parsing succeeds
   % this is very inefficient
   % a binary search for longest possible parsing ought to be performed instead
   list.last(TKNS,LAST_TKN),
   (
-    if nmm.parser.r_doc(DOC_,TKNS++[nmm.lexer.cu_tkn_eof],[]) then (
+    if nmm.parser.r_doc(DOC_,TAGS,TKNS++[nmm.lexer.cu_tkn_eof],[]) then (
       DOC = DOC_,
       nmm.lexer.p_tkn_line_no(LAST_TKN,LINE_NO_BEFORE_FAIL)
     ) else (
       list.remove_suffix(TKNS,[LAST_TKN],TKNS_),
-      p_parse_as_far_as_possible(TKNS_,LINE_NO_BEFORE_FAIL,DOC)
+      p_parse_as_far_as_possible(TAGS,TKNS_,LINE_NO_BEFORE_FAIL,DOC)
     )
   )
 ).
 
 %%% HELPER P_HANDLE_PARSE_FAILURE
 
-:- pred p_handle_parse_failure(ts_tkns::in, io.io::di, io.io::uo) is det.
-p_handle_parse_failure(        TKNS,       !IO) :-
+:- pred p_handle_parse_failure(ts_tkns, nmm.parser.ts_tags, io.io, io.io).
+:- mode p_handle_parse_failure(in,      in,                 di,    uo) is det.
+p_handle_parse_failure(        TKNS,    TAGS,               !IO) :-
   io.set_exit_status(1,!IO),
   io.write_string(
     io.stderr_stream,
@@ -146,7 +197,7 @@ p_handle_parse_failure(        TKNS,       !IO) :-
     !IO
   ),
   (
-    if p_parse_as_far_as_possible(TKNS,LINE_NO_BEFORE_FAIL,DOC) then (
+    if p_parse_as_far_as_possible(TAGS,TKNS,LINE_NO_BEFORE_FAIL,DOC) then (
       io.write_string(io.stderr_stream,"\n",                            !IO),
       term_to_xml.write_xml_doc(io.stderr_stream,DOC,                   !IO),
       io.write_string(io.stderr_stream,"\n",                            !IO),
@@ -162,6 +213,7 @@ p_handle_parse_failure(        TKNS,       !IO) :-
 
 :- pred p_parse(str::in,   io.io::di, io.io::uo) is det.
 p_parse(        FILE_PATH, !IO) :-
+  p_parse_tags_file(TAGS,!IO),
   p_lex_file(FILE_PATH,RES,!IO),
   (
     (
@@ -173,10 +225,10 @@ p_parse(        FILE_PATH, !IO) :-
     (
       RES = cu_lex_file_res_ok(TKNS),
       (
-        if nmm.parser.r_doc(DOC,TKNS,[]) then
+        if nmm.parser.r_doc(DOC,TAGS,TKNS,[]) then
           term_to_xml.write_xml_doc(io.stdout_stream,DOC,!IO)
         else
-          p_handle_parse_failure(TKNS,!IO)
+          p_handle_parse_failure(TKNS,TAGS,!IO)
       )
     )
   ).
