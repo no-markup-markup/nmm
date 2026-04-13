@@ -885,9 +885,9 @@ This is another sentence followed by a note reference.²
 ────────────────────────────────────────────────────────────────────
 ENDNOTES
 
-1  A footnote/endnote.
+¹  A footnote/endnote.
 
-2  A footnote/endnote. It spans multiple lines in the source.
+²  A footnote/endnote. It spans multiple lines in the source.
 
    ─     Actually the grammar allows any kind of blocks in a
          footnote; but
