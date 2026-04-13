@@ -1,0 +1,226 @@
+(a)   An item¹
+
+(b)   An item²
+
+(c)   An item³
+
+(d)   An item⁴
+
+(e)   An item⁵
+
+(f)   An item⁶
+
+(g)   An item⁷
+
+(h)   An item⁸
+
+(i)   An item⁹
+
+(j)   An item¹⁰
+
+(k)   An item¹¹
+
+(l)   An item¹²
+
+(m)   An item¹³
+
+(n)   An item¹⁴
+
+(o)   An item¹⁵
+
+(p)   An item¹⁶
+
+(q)   An item¹⁷
+
+(r)   An item¹⁸
+
+(s)   An item¹⁹
+
+(t)   An item²⁰
+
+(u)   An item²¹
+
+(v)   An item²²
+
+(x)   An item²³
+
+(y)   An item²⁴
+
+(z)   An item²⁵
+
+(aa)  An item²⁶
+
+(ab)  An item²⁷
+
+(ac)  An item²⁸
+
+(ad)  An item²⁹
+
+(ae)  An item³⁰
+
+(af)  An item³¹
+
+(ag)  An item³²
+
+(ah)  An item³³
+
+(ai)  An item³⁴
+
+(aj)  An item³⁵
+
+(ak)  An item³⁶
+
+(al)  An item³⁷
+
+(am)  An item³⁸
+
+(an)  An item³⁹
+
+(ao)  An item⁴⁰
+
+(ap)  An item⁴¹
+
+(aq)  An item⁴²
+
+(ar)  An item⁴³
+
+(as)  An item⁴⁴
+
+(at)  An item⁴⁵
+
+(au)  An item⁴⁶
+
+(av)  An item⁴⁷
+
+(ax)  An item⁴⁸
+
+(ay)  An item⁴⁹
+
+(az)  An item⁵⁰
+
+(ba)  An item⁵¹
+
+(bb)  An item⁵²
+
+(bc)  An item⁵³
+
+(bd)  An item⁵⁴
+
+(be)  An item⁵⁵
+
+(bf)  An item⁵⁶
+
+────────────────────────────────────────────────────────────────────
+ENDNOTES
+
+¹  A footnote
+
+²  A footnote
+
+³  A footnote
+
+⁴  A footnote
+
+⁵  A footnote
+
+⁶  A footnote
+
+⁷  A footnote
+
+⁸  A footnote
+
+⁹  A footnote
+
+¹⁰ A footnote
+
+¹¹ A footnote
+
+¹² A footnote
+
+¹³ A footnote
+
+¹⁴ A footnote
+
+¹⁵ A footnote
+
+¹⁶ A footnote
+
+¹⁷ A footnote
+
+¹⁸ A footnote
+
+¹⁹ A footnote
+
+²⁰ A footnote
+
+²¹ A footnote
+
+²² A footnote
+
+²³ A footnote
+
+²⁴ A footnote
+
+²⁵ A footnote
+
+²⁶ A footnote
+
+²⁷ A footnote
+
+²⁸ A footnote
+
+²⁹ A footnote
+
+³⁰ A footnote
+
+³¹ A footnote
+
+³² A footnote
+
+³³ A footnote
+
+³⁴ A footnote
+
+³⁵ A footnote
+
+³⁶ A footnote
+
+³⁷ A footnote
+
+³⁸ A footnote
+
+³⁹ A footnote
+
+⁴⁰ A footnote
+
+⁴¹ A footnote
+
+⁴² A footnote
+
+⁴³ A footnote
+
+⁴⁴ A footnote
+
+⁴⁵ A footnote
+
+⁴⁶ A footnote
+
+⁴⁷ A footnote
+
+⁴⁸ A footnote
+
+⁴⁹ A footnote
+
+⁵⁰ A footnote
+
+⁵¹ A footnote
+
+⁵² A footnote
+
+⁵³ A footnote
+
+⁵⁴ A footnote
+
+⁵⁵ A footnote
+
+⁵⁶ A footnote

@@ -74,20 +74,18 @@ let upper_case_latin_letters : string array =
 let upper_case_roman_numerals : string array =
         [|"I";"II";"III";"IV";"V";"VI";"VII";"VIII";"IX";"X";"XI";"XII";"XIII";"XIV";"XV";"XVI";"XVII";"XVIII";"XIX";"XX";|]
 
-let superscript_digits : string array = 
-        [|"⁰";"¹";"²";"³";"⁴";"⁵";"⁶";"⁷";"⁸";"⁹"|]
-
 
 let bullets : string array = [| "─" |]
 
+
 let symbol_of_array (a : string array) (i : int) : string =
-        let len : int = Array.length a in
-        let rec aux (n : int) (acc : string) : string =
-                match n < 0 with
-                |true -> acc
-                |false ->
-                        let m = n mod (len - 1) in
-                        aux (n - m - 1) (acc ^ a.(m))
+        let base : int = Array.length a in
+        let rec aux (rest : int) (acc : string) : string =
+                match rest < base with
+                |true -> a.(rest) ^ acc
+                |false -> 
+                        let rem = rest mod base in
+                        aux (((rest - rem) / base) - 1) (a.(rem) ^ acc)
         in aux i ""
 
 let auto_numbering_of_string (s: string) : int -> int -> string =
@@ -773,6 +771,23 @@ let reference_of_ts_c_ref (cref_table : t_cref_table) (c_ref_path : t_path) (c_r
         in
         aux cref_table
 
+let string_of_int_gen (digits : string array) (i : int) : string =
+        let base : int = Array.length digits in
+        let rec aux (rest : int) (acc : string) : string =
+                match rest < base with
+                |true -> digits.(rest) ^ acc
+                |false ->
+                        let rem = rest mod base in
+                        aux ((rest - rem) / base) (digits.(rem) ^ acc)
+        in aux i ""
+
+let superscript_digits : string array = 
+        [|"⁰";"¹";"²";"³";"⁴";"⁵";"⁶";"⁷";"⁸";"⁹"|]
+
+
+let superscript_string_of_int (n : int) : string =
+        string_of_int_gen superscript_digits n
+
 
 let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t_node) : string option =
         match head with
@@ -813,7 +828,7 @@ let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
                 |Some (_, hdr) -> Some hdr
                 |None -> None
         )
-        | FTN_NODE n -> Some (string_of_int n)
+        | FTN_NODE n -> Some (superscript_string_of_int n)
 
 
 let string_of_path_opt (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string option =
@@ -1027,9 +1042,6 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
 
 (* labels *)
 
-let ftn_string_of_int (n : int) : string =
-        symbol_of_array superscript_digits n
-
 
 let label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
         match path with
@@ -1069,7 +1081,7 @@ let label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string o
                         |Some (lbl,_) -> Some lbl
                         |None -> None
                 )
-                |FTN_NODE n -> Some (ftn_string_of_int n)
+                |FTN_NODE n -> Some (superscript_string_of_int n)
                 | _ -> None
 
 let label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
@@ -1331,7 +1343,7 @@ let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_tabl
                         " does not exist or is out of scope.";
                 ]) in "??"
                 |(Ftn_entry_ref (table_ftn_ref, _, n, _))::tl ->
-                        if ftn_ref=table_ftn_ref then ftn_string_of_int n
+                        if ftn_ref=table_ftn_ref then string_of_path doc_settings [FTN_NODE n]
                         else aux tl
                 |hd::tl -> aux tl
         in
@@ -1348,7 +1360,7 @@ let string_of_ts_ftn_inline (doc_settings : t_doc_settings) (ftn_table : t_ftn_t
                         " contains a footnote; nested footnotes are not supported.";
                 ]) in "??"
                 |(Ftn_entry_inline (Cs_ftn_inline (_,j), _, n))::tl ->
-                        if i=j then ftn_string_of_int n
+                        if i=j then string_of_path doc_settings [FTN_NODE n]
                         else aux tl
                 |hd::tl -> aux tl
         in

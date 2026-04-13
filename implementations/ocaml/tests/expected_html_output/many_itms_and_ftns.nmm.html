@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>untitled</title>
+
+<style>
+
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+em {
+    font-style      : normal;
+    text-decoration : underline;
+}
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight   : normal;
+    font-size     : x-large;
+    margin-bottom : 1rem;
+    line-height   : 130%;
+}
+
+.doc.pars .title {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .title {
+    margin-left : 1.20rem;
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size     : medium;
+    margin-top    : 2rem;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .authors {
+    margin-left : 1.20rem;
+}
+
+/************ DATE ******************/
+
+.date {
+    font-size : small;
+}
+
+.doc.pars .date {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .date {
+    margin-left : 1.20rem;
+}
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .abstract {
+    margin-left : 1.20rem;
+}
+
+.abstract_hdr {
+    font-weight   : normal;
+    font-size     : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .refs {
+    margin-left : 1.20rem;
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size   : x-large;
+    line-height : 130%;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    float       : left;
+    font-size   : large;
+    font-weight : normal;
+    line-height : 130%;
+}
+
+.sec_hdr {
+    margin-left : 1.20rem;
+    font-size   : large;
+    line-height : 130%;
+}
+
+.sec_lbl.hdr {
+    float : none;
+}
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    float       : left;
+    font-weight : normal;
+    font-size   : inherit;
+}
+
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
+    font-size    : inherit;
+}
+
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content : ")";
+}
+
+.par_main {
+    margin-left : 1.20rem;
+}
+
+
+/************** BLK *********************/
+
+.par_hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+* + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : 1.20rem;
+}
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_lbl {
+    float : left;
+}
+
+.blk_blt_main {
+    margin-left : 6ch;
+}
+
+
+.blk_itm_lbl {
+    float : left;
+}
+
+.blk_itm_main {
+    margin-left : 6ch;
+}
+
+
+.dsp_line_lbl {
+    float : left;
+}
+
+.dsp_line_main {
+    margin-left : 6ch;
+    white-space : pre;
+}
+
+/******** ENDNOTES and FOOTNOTES **********/
+
+.doc_endnotes_hdr, .ch_endnotes_hdr {
+    font-weight : normal;
+}
+
+.doc_endnotes, .ch_endnotes {
+    margin-top  : 2rem;
+    border-top  : thin grey solid;
+    padding-top : 0.5rem;
+}
+
+.blk_ftn_lbl {
+    float : left;
+}
+
+.blk_ftn_main {
+    margin-left : 3ch;
+}
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div class="doc blks">
+<div class="doc_main">
+<div class="blk itm">
+<div class="blk_itm_lbl">(a)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one0" id="ref_FTN_one0">¹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(b)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one1" id="ref_FTN_one1">²</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(c)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one2" id="ref_FTN_one2">³</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(d)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one3" id="ref_FTN_one3">⁴</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(e)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one4" id="ref_FTN_one4">⁵</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(f)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one5" id="ref_FTN_one5">⁶</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(g)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one6" id="ref_FTN_one6">⁷</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(h)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one7" id="ref_FTN_one7">⁸</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(i)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one8" id="ref_FTN_one8">⁹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(j)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one9" id="ref_FTN_one9">¹⁰</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(k)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one10" id="ref_FTN_one10">¹¹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(l)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one11" id="ref_FTN_one11">¹²</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(m)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one12" id="ref_FTN_one12">¹³</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(n)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one13" id="ref_FTN_one13">¹⁴</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(o)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one14" id="ref_FTN_one14">¹⁵</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(p)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one15" id="ref_FTN_one15">¹⁶</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(q)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one16" id="ref_FTN_one16">¹⁷</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(r)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one17" id="ref_FTN_one17">¹⁸</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(s)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one18" id="ref_FTN_one18">¹⁹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(t)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one19" id="ref_FTN_one19">²⁰</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(u)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one20" id="ref_FTN_one20">²¹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(v)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one21" id="ref_FTN_one21">²²</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(x)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one22" id="ref_FTN_one22">²³</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(y)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one23" id="ref_FTN_one23">²⁴</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(z)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one24" id="ref_FTN_one24">²⁵</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(aa)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one25" id="ref_FTN_one25">²⁶</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ab)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one26" id="ref_FTN_one26">²⁷</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ac)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one27" id="ref_FTN_one27">²⁸</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ad)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one28" id="ref_FTN_one28">²⁹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ae)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one29" id="ref_FTN_one29">³⁰</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(af)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one30" id="ref_FTN_one30">³¹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ag)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one31" id="ref_FTN_one31">³²</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ah)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one32" id="ref_FTN_one32">³³</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ai)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one33" id="ref_FTN_one33">³⁴</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(aj)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one34" id="ref_FTN_one34">³⁵</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ak)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one35" id="ref_FTN_one35">³⁶</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(al)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one36" id="ref_FTN_one36">³⁷</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(am)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one37" id="ref_FTN_one37">³⁸</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(an)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one38" id="ref_FTN_one38">³⁹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ao)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one39" id="ref_FTN_one39">⁴⁰</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ap)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one40" id="ref_FTN_one40">⁴¹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(aq)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one41" id="ref_FTN_one41">⁴²</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ar)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one42" id="ref_FTN_one42">⁴³</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(as)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one43" id="ref_FTN_one43">⁴⁴</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(at)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one44" id="ref_FTN_one44">⁴⁵</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(au)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one45" id="ref_FTN_one45">⁴⁶</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(av)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one46" id="ref_FTN_one46">⁴⁷</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ax)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one47" id="ref_FTN_one47">⁴⁸</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ay)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one48" id="ref_FTN_one48">⁴⁹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(az)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one49" id="ref_FTN_one49">⁵⁰</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(ba)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one50" id="ref_FTN_one50">⁵¹</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(bb)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one51" id="ref_FTN_one51">⁵²</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(bc)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one52" id="ref_FTN_one52">⁵³</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(bd)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one53" id="ref_FTN_one53">⁵⁴</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(be)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one54" id="ref_FTN_one54">⁵⁵</a></p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(bf)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">An item<a class="txt_unit_ftn" href="#FTN_one55" id="ref_FTN_one55">⁵⁶</a></p>
+</div>
+</div>
+</div>
+<div class="doc_endnotes">
+<h2 class="doc_endnotes_hdr">ENDNOTES</h2>
+<div class="blk ftn" id="FTN_one0"><a class="blk_ftn_lbl" href="#ref_FTN_one0">¹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one1"><a class="blk_ftn_lbl" href="#ref_FTN_one1">²</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one2"><a class="blk_ftn_lbl" href="#ref_FTN_one2">³</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one3"><a class="blk_ftn_lbl" href="#ref_FTN_one3">⁴</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one4"><a class="blk_ftn_lbl" href="#ref_FTN_one4">⁵</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one5"><a class="blk_ftn_lbl" href="#ref_FTN_one5">⁶</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one6"><a class="blk_ftn_lbl" href="#ref_FTN_one6">⁷</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one7"><a class="blk_ftn_lbl" href="#ref_FTN_one7">⁸</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one8"><a class="blk_ftn_lbl" href="#ref_FTN_one8">⁹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one9"><a class="blk_ftn_lbl" href="#ref_FTN_one9">¹⁰</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one10"><a class="blk_ftn_lbl" href="#ref_FTN_one10">¹¹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one11"><a class="blk_ftn_lbl" href="#ref_FTN_one11">¹²</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one12"><a class="blk_ftn_lbl" href="#ref_FTN_one12">¹³</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one13"><a class="blk_ftn_lbl" href="#ref_FTN_one13">¹⁴</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one14"><a class="blk_ftn_lbl" href="#ref_FTN_one14">¹⁵</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one15"><a class="blk_ftn_lbl" href="#ref_FTN_one15">¹⁶</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one16"><a class="blk_ftn_lbl" href="#ref_FTN_one16">¹⁷</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one17"><a class="blk_ftn_lbl" href="#ref_FTN_one17">¹⁸</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one18"><a class="blk_ftn_lbl" href="#ref_FTN_one18">¹⁹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one19"><a class="blk_ftn_lbl" href="#ref_FTN_one19">²⁰</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one20"><a class="blk_ftn_lbl" href="#ref_FTN_one20">²¹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one21"><a class="blk_ftn_lbl" href="#ref_FTN_one21">²²</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one22"><a class="blk_ftn_lbl" href="#ref_FTN_one22">²³</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one23"><a class="blk_ftn_lbl" href="#ref_FTN_one23">²⁴</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one24"><a class="blk_ftn_lbl" href="#ref_FTN_one24">²⁵</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one25"><a class="blk_ftn_lbl" href="#ref_FTN_one25">²⁶</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one26"><a class="blk_ftn_lbl" href="#ref_FTN_one26">²⁷</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one27"><a class="blk_ftn_lbl" href="#ref_FTN_one27">²⁸</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one28"><a class="blk_ftn_lbl" href="#ref_FTN_one28">²⁹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one29"><a class="blk_ftn_lbl" href="#ref_FTN_one29">³⁰</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one30"><a class="blk_ftn_lbl" href="#ref_FTN_one30">³¹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one31"><a class="blk_ftn_lbl" href="#ref_FTN_one31">³²</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one32"><a class="blk_ftn_lbl" href="#ref_FTN_one32">³³</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one33"><a class="blk_ftn_lbl" href="#ref_FTN_one33">³⁴</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one34"><a class="blk_ftn_lbl" href="#ref_FTN_one34">³⁵</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one35"><a class="blk_ftn_lbl" href="#ref_FTN_one35">³⁶</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one36"><a class="blk_ftn_lbl" href="#ref_FTN_one36">³⁷</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one37"><a class="blk_ftn_lbl" href="#ref_FTN_one37">³⁸</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one38"><a class="blk_ftn_lbl" href="#ref_FTN_one38">³⁹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one39"><a class="blk_ftn_lbl" href="#ref_FTN_one39">⁴⁰</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one40"><a class="blk_ftn_lbl" href="#ref_FTN_one40">⁴¹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one41"><a class="blk_ftn_lbl" href="#ref_FTN_one41">⁴²</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one42"><a class="blk_ftn_lbl" href="#ref_FTN_one42">⁴³</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one43"><a class="blk_ftn_lbl" href="#ref_FTN_one43">⁴⁴</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one44"><a class="blk_ftn_lbl" href="#ref_FTN_one44">⁴⁵</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one45"><a class="blk_ftn_lbl" href="#ref_FTN_one45">⁴⁶</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one46"><a class="blk_ftn_lbl" href="#ref_FTN_one46">⁴⁷</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one47"><a class="blk_ftn_lbl" href="#ref_FTN_one47">⁴⁸</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one48"><a class="blk_ftn_lbl" href="#ref_FTN_one48">⁴⁹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one49"><a class="blk_ftn_lbl" href="#ref_FTN_one49">⁵⁰</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one50"><a class="blk_ftn_lbl" href="#ref_FTN_one50">⁵¹</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one51"><a class="blk_ftn_lbl" href="#ref_FTN_one51">⁵²</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one52"><a class="blk_ftn_lbl" href="#ref_FTN_one52">⁵³</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one53"><a class="blk_ftn_lbl" href="#ref_FTN_one53">⁵⁴</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one54"><a class="blk_ftn_lbl" href="#ref_FTN_one54">⁵⁵</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+<div class="blk ftn" id="FTN_one55"><a class="blk_ftn_lbl" href="#ref_FTN_one55">⁵⁶</a><div class="clear"></div><div class="blk_ftn_main">
+<p class="blk txt">A footnote</p>
+</div></div>
+</div>
+</div>
+</body>
+</html>
