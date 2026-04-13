@@ -7,7 +7,7 @@
 
            (i)   Item on the next level.
 
-                 (a)   Item on the next level.
+                 (A)   Item on the next level.
 
            (ii)  Item.
 
@@ -42,6 +42,6 @@
 
            (ii)  Auto numbered.
 
-                 (a)   Auto numbered item.
+                 (A)   Auto numbered item.
 
      (b)   Next item.

@@ -66,19 +66,19 @@ let lower_case_latin_letters : string array =
         [|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]
 
 let lower_case_roman_numerals : string array =
-        [|"i";"ii";"iii";"iv";"v";"vi";"vii";"viii";"ix";"x";"xi";"xii";"xiii";"xiv";"xv";"xvi";"xvii";"xviii";"xix";"xx";|]
+        [|"i";"ii";"iii";"iv";"v";"vi";"vii";"viii";"ix";"x";|]
 
 let upper_case_latin_letters : string array =
         [|"A";"B";"C";"D";"E";"F";"G";"H";"I";"J";"K";"L";"M";"N";"O";"P";"Q";"R";"S";"T";"U";"V";"X";"Y";"Z";|]
 
 let upper_case_roman_numerals : string array =
-        [|"I";"II";"III";"IV";"V";"VI";"VII";"VIII";"IX";"X";"XI";"XII";"XIII";"XIV";"XV";"XVI";"XVII";"XVIII";"XIX";"XX";|]
+        [|"I";"II";"III";"IV";"V";"VI";"VII";"VIII";"IX";"X";|]
 
 
 let bullets : string array = [| "─" |]
 
 
-let symbol_of_array (a : string array) (i : int) : string =
+let symbol_of_array_latin (a : string array) (i : int) : string =
         let base : int = Array.length a in
         let rec aux (rest : int) (acc : string) : string =
                 match rest < base with
@@ -88,60 +88,92 @@ let symbol_of_array (a : string array) (i : int) : string =
                         aux (((rest - rem) / base) - 1) (a.(rem) ^ acc)
         in aux i ""
 
+let lower_case_latin_letter (n : int) : string =
+        symbol_of_array_latin lower_case_latin_letters n
+
+let upper_case_latin_letter (n : int) : string =
+        symbol_of_array_latin upper_case_latin_letters n
+
+let symbol_of_array_roman (a : string array) (i : int) : string =
+        let base : int = Array.length a in
+        let rec aux (rest : int) (acc : string) : string =
+                match rest < base with
+                |true -> acc ^ a.(rest)
+                |false -> aux (rest - base) (acc ^ a.(base-1))
+        in aux i ""
+
+let lower_case_roman_numeral (n : int) : string =
+        symbol_of_array_roman lower_case_roman_numerals n
+
+let upper_case_roman_numeral (n : int) : string =
+        symbol_of_array_roman upper_case_roman_numerals n
+
 let auto_numbering_of_string (s: string) : int -> int -> string =
         match s with
         |"a1i" ->
                 let auto_numbering (lvl : int) (n:int) =
                         let symbol : string =
-                        match lvl mod 3 with
-                        |0 -> symbol_of_array lower_case_latin_letters n
+                        match lvl mod 5 with
+                        |0 -> lower_case_latin_letter n
                         |1 -> string_of_int (n+1)
-                        |_ -> symbol_of_array lower_case_roman_numerals n
+                        |2 -> lower_case_roman_numeral n
+                        |3 -> upper_case_latin_letter n
+                        |_ -> upper_case_roman_numeral n
                         in String.concat symbol ["(";")"]
                 in auto_numbering
         |"ai1" ->
                 let auto_numbering (lvl : int) (n:int) =
                         let symbol : string =
-                        match lvl mod 3 with
-                        |0 -> symbol_of_array lower_case_latin_letters n
-                        |1 -> symbol_of_array lower_case_roman_numerals n
-                        |_ -> string_of_int (n+1)
+                        match lvl mod 5 with
+                        |0 -> lower_case_latin_letter n
+                        |1 -> lower_case_roman_numeral n
+                        |2 -> string_of_int (n+1)
+                        |3 -> upper_case_latin_letter n
+                        |_ -> upper_case_roman_numeral n
                         in String.concat symbol ["(";")"]
                 in auto_numbering
         |"1ai" ->
                 let auto_numbering (lvl : int) (n:int) =
                         let symbol : string =
-                        match lvl mod 3 with
+                        match lvl mod 5 with
                         |0 -> string_of_int (n+1)
-                        |1 -> symbol_of_array lower_case_latin_letters n
-                        |_ -> symbol_of_array lower_case_roman_numerals n
+                        |1 -> lower_case_latin_letter n
+                        |2 -> lower_case_roman_numeral n
+                        |3 -> upper_case_latin_letter n
+                        |_ -> upper_case_roman_numeral n
                         in String.concat symbol ["(";")"]
                 in auto_numbering
         |"1ia"->
                 let auto_numbering (lvl : int) (n:int) =
                         let symbol : string =
-                        match lvl mod 3 with
+                        match lvl mod 5 with
                         |0 -> string_of_int (n+1)
-                        |1 -> symbol_of_array lower_case_roman_numerals n
-                        |_ -> symbol_of_array lower_case_latin_letters n
+                        |1 -> lower_case_roman_numeral n
+                        |2 -> lower_case_latin_letter n
+                        |3 -> upper_case_roman_numeral n
+                        |_ -> upper_case_latin_letter n
                         in String.concat symbol ["(";")"]
                 in auto_numbering
         |"ia1" ->
                 let auto_numbering (lvl : int) (n:int) =
                         let symbol : string =
-                        match lvl mod 3 with
-                        |0 -> symbol_of_array lower_case_roman_numerals n
-                        |1 -> symbol_of_array lower_case_latin_letters n
-                        |_ -> string_of_int (n+1)
+                        match lvl mod 5 with
+                        |0 -> lower_case_roman_numeral n
+                        |1 -> lower_case_latin_letter n
+                        |2 -> string_of_int (n+1)
+                        |3 -> upper_case_roman_numeral n
+                        |_ -> upper_case_latin_letter n
                         in String.concat symbol ["(";")"]
                 in auto_numbering
         |"i1a" ->
                 let auto_numbering (lvl : int) (n:int) =
                         let symbol : string =
-                        match lvl mod 3 with
-                        |0 -> symbol_of_array lower_case_roman_numerals n
+                        match lvl mod 5 with
+                        |0 -> lower_case_roman_numeral n
                         |1 -> string_of_int (n+1)
-                        |_ -> symbol_of_array lower_case_latin_letters n
+                        |2 -> lower_case_latin_letter n
+                        |3 -> upper_case_roman_numeral n
+                        |_ -> upper_case_latin_letter n
                         in String.concat symbol ["(";")"]
                 in auto_numbering
         |_ -> raise (Invalid_argument s)
@@ -798,7 +830,7 @@ let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
                 |PAR_AUTO n -> Some (string_of_int (n+1))
                 |PAR_TAG (_,_,n) -> Some (string_of_int (n+1))
         )
-        | APP_NODE (n : int) -> Some (symbol_of_array upper_case_latin_letters n)
+        | APP_NODE (n : int) -> Some (upper_case_latin_letter n)
         | DSP_NODE -> None
         | DSP_LINE_NODE (a : t_dsp_line_node) -> (
                 match a with
