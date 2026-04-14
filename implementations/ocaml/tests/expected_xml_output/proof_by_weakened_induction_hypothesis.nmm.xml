@@ -1768,10 +1768,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -1948,7 +1945,10 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>No. As a matter of fact, there are cases of what we call</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>o. As a matter of fact, there are cases of what we call</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -2349,10 +2349,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -3009,10 +3006,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For instance, let φ(x) be the formula</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -3524,10 +3518,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -3683,10 +3674,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>irst we show </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>First we show </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -3962,13 +3950,7 @@
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>. </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or right to left, assume Iθ, i.e.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. For right to left, assume Iθ, i.e.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -4176,10 +4158,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or left to right, assume </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For left to right, assume </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -4358,10 +4337,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -4613,10 +4589,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x)</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -4707,13 +4680,7 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>by ∀-elimination. </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or right to left, assume Iφ. Then ∀xφ(x)</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>by ∀-elimination. For right to left, assume Iφ. Then ∀xφ(x)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -4747,13 +4714,25 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Let IND be the set of induction axioms, let T be a set of sentences,</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Let I</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>D be the set of induction axioms, let T be a set of sentences,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>and let σ be a sentence. If T + IND ⊢ σ, then there is a formula φ(x) such</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>and let σ be a sentence. If T + I</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>D ⊢ σ, then there is a formula φ(x) such</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -4777,7 +4756,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Assume that T + IND ⊢ σ. Then there is a finite set</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume that T + I</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>D ⊢ σ. Then there is a finite set</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -4836,7 +4821,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Assume that T + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Assume that T + I</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>D ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -4861,7 +4852,13 @@
 </cr_id>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>T + IND ⊢ ∀xφ(x)</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>T + I</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>D ⊢ ∀xφ(x)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cr_dsp_line_lbld>
@@ -4973,13 +4970,7 @@
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>. </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or the last part, assume that ψ(x) is a</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>. For the last part, assume that ψ(x) is a</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>

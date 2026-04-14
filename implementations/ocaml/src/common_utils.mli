@@ -123,7 +123,7 @@ type t_node =
         |BLT_NODE
         |DSP_LINE_NODE of t_dsp_line_node
         |REFS_NODE
-        |FTN_NODE of int
+        |NTE_NODE of int
 
 type t_path = t_node list 
 
@@ -133,7 +133,7 @@ type t_cref_element =
         |Cref_element_par of Doc_types.tr_par_std
         |Cref_element_blk_itm of Doc_types.tr_blk_itm
         |Cref_element_dsp_line of Doc_types.tr_dsp_line
-        |Cref_element_blk_ftn of Doc_types.tr_blk_ftn
+        |Cref_element_blk_nte of Doc_types.tr_blk_nte
 
 
 type t_cref_table = (Doc_types.tr_id * t_path * t_cref_element) list 
@@ -205,21 +205,21 @@ val time_of_ts_date_auto : t_doc_settings -> Doc_types.ts_date_auto -> t_time op
 
 (** {2 Footnotes} *)
 
-type t_ftn_entry = Ftn_entry_ref of (Doc_types.ts_ftn_ref * t_path * int * Doc_types.tr_blk_ftn) | Ftn_entry_inline of (Doc_types.ts_ftn_inline * t_path * int)
+type t_nte_entry = Ftn_entry_ref of (Doc_types.ts_nte_ref * t_path * int * Doc_types.tr_blk_nte) | Ftn_entry_inline of (Doc_types.ts_nte_inline * t_path * int)
 
-type t_ftn_table = t_ftn_entry list
+type t_nte_table = t_nte_entry list
 
-val ftn_table_of_ts_blk_txt : t_doc_settings -> t_cref_table -> t_path -> t_ftn_table  -> Doc_types.ts_blk_txt -> t_ftn_table
+val nte_table_of_ts_blk_txt : t_doc_settings -> t_cref_table -> t_path -> t_nte_table  -> Doc_types.ts_blk_txt -> t_nte_table
 
-val ftn_table_of_tr_dsp_line : t_doc_settings -> t_cref_table -> t_path -> t_ftn_table  -> Doc_types.tr_dsp_line -> t_ftn_table
+val nte_table_of_tr_dsp_line : t_doc_settings -> t_cref_table -> t_path -> t_nte_table  -> Doc_types.tr_dsp_line -> t_nte_table
 
-val string_of_ts_ftn_ref : t_doc_settings -> t_ftn_table -> t_path -> Doc_types.ts_ftn_ref -> string
+val string_of_ts_nte_ref : t_doc_settings -> t_nte_table -> t_path -> Doc_types.ts_nte_ref -> string
 
-val string_of_ts_ftn_inline : t_doc_settings -> t_ftn_table -> t_path -> Doc_types.ts_ftn_inline -> string
+val string_of_ts_nte_inline : t_doc_settings -> t_nte_table -> t_path -> Doc_types.ts_nte_inline -> string
 
-val ftn_table_of_ts_hdr_opt : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_hdr option -> t_ftn_table
+val nte_table_of_ts_hdr_opt : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_hdr option -> t_nte_table
 
-val reference_of_ts_ftn_ref : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_ftn_ref -> Doc_types.tr_blk_ftn option
+val reference_of_ts_nte_ref : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_nte_ref -> Doc_types.tr_blk_nte option
 
 (** {2 Options} *)
 

@@ -22,9 +22,7 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.ftn_table_of_ts_blk_txt</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Nmm_lexer.nte_counter</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> ftn_table_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (blk_txt : ts_blk_txt) : t_ftn_table =
-        <span class="keyword">match</span> blk_txt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> txt_units <span class="keywordsign">-&gt;</span> ftn_table_of_ts_txt_units doc_settings cref_table path ftn_table txt_units</code></body></html>
+<code class="code"><span class="keyword">let</span> nte_counter : int ref = ref 0</code></body></html>

@@ -654,7 +654,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BLT_NODE</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_LINE_NODE</span>&nbsp;<span class="keyword">of</span>&nbsp;t_dsp_line_node<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">REFS_NODE</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">FTN_NODE</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
 <br>
 <span class="keyword">and</span>&nbsp;t_par_node&nbsp;=&nbsp;<span class="constructor">PAR_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAR_TAG</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;int)<br>
 <br>
@@ -679,7 +679,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cref_element_par</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_par_std<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cref_element_blk_itm</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_itm<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cref_element_dsp_line</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_dsp_line<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cref_element_blk_ftn</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_ftn<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cref_element_blk_nte</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_nte<br>
 <br>
 <span class="keyword">type</span>&nbsp;t_cref_table&nbsp;=&nbsp;(<span class="constructor">Doc_types</span>.tr_id&nbsp;*&nbsp;t_path&nbsp;*&nbsp;t_cref_element)&nbsp;list<br>
 <br>
@@ -874,7 +874,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(_,&nbsp;hdr)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;hdr<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">FTN_NODE</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(superscript_string_of_int&nbsp;n)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(superscript_string_of_int&nbsp;n)<br>
 <br>
 <br>
 <span class="keyword">let</span>&nbsp;string_of_path_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(full_path&nbsp;:&nbsp;t_path)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;string&nbsp;option&nbsp;=<br>
@@ -1136,7 +1136,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(lbl,_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;lbl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">FTN_NODE</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(superscript_string_of_int&nbsp;n)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">NTE_NODE</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(superscript_string_of_int&nbsp;n)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;label_of_path&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;string=<br>
@@ -1324,19 +1324,19 @@
 <br>
 <span class="comment">(*&nbsp;footnotes&nbsp;*)</span><br>
 <br>
-<span class="keyword">type</span>&nbsp;t_ftn_entry&nbsp;=&nbsp;<span class="constructor">Ftn_entry_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_ftn_ref&nbsp;*&nbsp;t_path&nbsp;*&nbsp;int&nbsp;*&nbsp;tr_blk_ftn)&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_ftn_inline&nbsp;*&nbsp;t_path&nbsp;*&nbsp;int)<br>
+<span class="keyword">type</span>&nbsp;t_nte_entry&nbsp;=&nbsp;<span class="constructor">Ftn_entry_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_nte_ref&nbsp;*&nbsp;t_path&nbsp;*&nbsp;int&nbsp;*&nbsp;tr_blk_nte)&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_nte_inline&nbsp;*&nbsp;t_path&nbsp;*&nbsp;int)<br>
 <br>
-<span class="keyword">type</span>&nbsp;t_ftn_table&nbsp;=&nbsp;t_ftn_entry&nbsp;list<br>
+<span class="keyword">type</span>&nbsp;t_nte_table&nbsp;=&nbsp;t_nte_entry&nbsp;list<br>
 <br>
-<span class="keyword">let</span>&nbsp;reference_of_ts_ftn_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(ftn_path&nbsp;:&nbsp;t_path)&nbsp;(ftn_ref&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_ftn_ref)&nbsp;:&nbsp;tr_blk_ftn&nbsp;option&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_ref&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_ftn_ref</span>&nbsp;(ftn_id,i)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;:&nbsp;tr_blk_ftn&nbsp;option&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;reference_of_ts_nte_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(nte_path&nbsp;:&nbsp;t_path)&nbsp;(nte_ref&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_nte_ref)&nbsp;:&nbsp;tr_blk_nte&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;nte_ref&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_nte_ref</span>&nbsp;(nte_id,i)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;:&nbsp;tr_blk_nte&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;cref_table&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(table_id,&nbsp;table_path,&nbsp;<span class="constructor">Cref_element_blk_ftn</span>&nbsp;blk_ftn)&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ids_match&nbsp;ftn_id&nbsp;ftn_path&nbsp;table_id&nbsp;table_path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;blk_ftn<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(table_id,&nbsp;table_path,&nbsp;<span class="constructor">Cref_element_blk_nte</span>&nbsp;blk_nte)&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ids_match&nbsp;nte_id&nbsp;nte_path&nbsp;table_id&nbsp;table_path&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;blk_nte<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl<br>
@@ -1344,60 +1344,60 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;cref_table<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_ts_txt_unit_ftn_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(txt_unit_ftn_ref&nbsp;:&nbsp;ts_txt_unit_ftn_ref)&nbsp;:&nbsp;t_ftn_table&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_unit_ftn_ref&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_unit_ftn_ref</span>&nbsp;ftn_ref&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;reference_of_ts_ftn_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_ref&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ftn_table<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;blk_ftn&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_table&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Ftn_entry_ref</span>&nbsp;(ftn_ref,&nbsp;path,&nbsp;1,&nbsp;blk_ftn))::&nbsp;ftn_table<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_ref</span>&nbsp;(_,_,n,_))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_ref</span>((ftn_ref,&nbsp;path,&nbsp;n+1,&nbsp;blk_ftn))&nbsp;::&nbsp;ftn_table<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_inline</span>&nbsp;(_,_,n))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_ref</span>((ftn_ref,&nbsp;path,&nbsp;n+1,&nbsp;blk_ftn))&nbsp;::&nbsp;ftn_table<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_txt_unit_nte_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(txt_unit_nte_ref&nbsp;:&nbsp;ts_txt_unit_nte_ref)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_unit_nte_ref&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_unit_nte_ref</span>&nbsp;nte_ref&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;reference_of_ts_nte_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_ref&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;blk_nte&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;nte_table&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Ftn_entry_ref</span>&nbsp;(nte_ref,&nbsp;path,&nbsp;1,&nbsp;blk_nte))::&nbsp;nte_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_ref</span>&nbsp;(_,_,n,_))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_ref</span>((nte_ref,&nbsp;path,&nbsp;n+1,&nbsp;blk_nte))&nbsp;::&nbsp;nte_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_inline</span>&nbsp;(_,_,n))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_ref</span>((nte_ref,&nbsp;path,&nbsp;n+1,&nbsp;blk_nte))&nbsp;::&nbsp;nte_table<br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_ts_txt_unit_ftn_inline&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(txt_unit_ftn_inline&nbsp;:&nbsp;ts_txt_unit_ftn_inline)&nbsp;:&nbsp;t_ftn_table&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_unit_ftn_inline&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_unit_ftn_inline</span>&nbsp;ftn_inline&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_table&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Ftn_entry_inline</span>&nbsp;(ftn_inline,&nbsp;path,&nbsp;1))::&nbsp;ftn_table<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_inline</span>&nbsp;(_,_,n))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;((ftn_inline,&nbsp;path,&nbsp;n+1))&nbsp;::&nbsp;ftn_table<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_ref</span>&nbsp;(_,_,n,_))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;((ftn_inline,&nbsp;path,&nbsp;n+1))&nbsp;::&nbsp;ftn_table<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_txt_unit_nte_inline&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(txt_unit_nte_inline&nbsp;:&nbsp;ts_txt_unit_nte_inline)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_unit_nte_inline&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_unit_nte_inline</span>&nbsp;nte_inline&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;nte_table&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Ftn_entry_inline</span>&nbsp;(nte_inline,&nbsp;path,&nbsp;1))::&nbsp;nte_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_inline</span>&nbsp;(_,_,n))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;((nte_inline,&nbsp;path,&nbsp;n+1))&nbsp;::&nbsp;nte_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_ref</span>&nbsp;(_,_,n,_))::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Ftn_entry_inline</span>&nbsp;((nte_inline,&nbsp;path,&nbsp;n+1))&nbsp;::&nbsp;nte_table<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;ftn_table_of_tu_txt_unit_list&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(txt_unit_list&nbsp;:&nbsp;tu_txt_unit&nbsp;list)&nbsp;:&nbsp;t_ftn_table&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;nte_table_of_tu_txt_unit_list&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(txt_unit_list&nbsp;:&nbsp;tu_txt_unit&nbsp;list)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_unit_list&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ftn_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_ftn_ref</span>&nbsp;ftn_ref&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_ftn_table&nbsp;=&nbsp;ftn_table_of_ts_txt_unit_ftn_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;ftn_ref&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftn_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;new_ftn_table&nbsp;tl<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_ftn_inline</span>&nbsp;ftn_inline&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_ftn_table&nbsp;=&nbsp;ftn_table_of_ts_txt_unit_ftn_inline&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;ftn_inline&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftn_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;new_ftn_table&nbsp;tl<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ftn_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;tl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_nte_ref</span>&nbsp;nte_ref&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_nte_table&nbsp;=&nbsp;nte_table_of_ts_txt_unit_nte_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;nte_ref&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;new_nte_table&nbsp;tl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_nte_inline</span>&nbsp;nte_inline&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_nte_table&nbsp;=&nbsp;nte_table_of_ts_txt_unit_nte_inline&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;nte_inline&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;new_nte_table&nbsp;tl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;tl<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_ts_txt_units&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(txt_units&nbsp;:&nbsp;ts_txt_units)&nbsp;:&nbsp;t_ftn_table&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_txt_units&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(txt_units&nbsp;:&nbsp;ts_txt_units)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_units&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_units</span>&nbsp;txt_unit_list&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftn_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;txt_unit_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_table_of_tu_txt_unit_list&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;txt_unit_list<br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_ts_blk_txt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(blk_txt&nbsp;:&nbsp;ts_blk_txt)&nbsp;:&nbsp;t_ftn_table&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_blk_txt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(blk_txt&nbsp;:&nbsp;ts_blk_txt)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_txt&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span>&nbsp;txt_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ftn_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;txt_units<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span>&nbsp;txt_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;txt_units<br>
 <br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_tr_dsp_line&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(dsp_line&nbsp;:&nbsp;tr_dsp_line)&nbsp;:&nbsp;t_ftn_table&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftn_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;ftn_table&nbsp;dsp_line.fld_dsp_line_units<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_tr_dsp_line&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(dsp_line&nbsp;:&nbsp;tr_dsp_line)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;dsp_line.fld_dsp_line_units<br>
 <br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;string_of_ts_ftn_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_ref&nbsp;:&nbsp;ts_ftn_ref)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_ref&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_ftn_ref</span>&nbsp;(id,i)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(table&nbsp;:&nbsp;t_ftn_table)&nbsp;:&nbsp;string&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;string_of_ts_nte_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_ref&nbsp;:&nbsp;ts_nte_ref)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;nte_ref&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_nte_ref</span>&nbsp;(id,i)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(table&nbsp;:&nbsp;t_nte_table)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;table&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"WARNING:&nbsp;id&nbsp;\'"</span>;string_of_tr_id&nbsp;id;<br>
@@ -1405,39 +1405,39 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_path&nbsp;doc_settings&nbsp;path;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&nbsp;does&nbsp;not&nbsp;exist&nbsp;or&nbsp;is&nbsp;out&nbsp;of&nbsp;scope."</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])&nbsp;<span class="keyword">in</span>&nbsp;<span class="string">"??"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_ref</span>&nbsp;(table_ftn_ref,&nbsp;_,&nbsp;n,&nbsp;_))::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ftn_ref=table_ftn_ref&nbsp;<span class="keyword">then</span>&nbsp;string_of_path&nbsp;doc_settings&nbsp;[<span class="constructor">FTN_NODE</span>&nbsp;n]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_ref</span>&nbsp;(table_nte_ref,&nbsp;_,&nbsp;n,&nbsp;_))::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;nte_ref=table_nte_ref&nbsp;<span class="keyword">then</span>&nbsp;string_of_path&nbsp;doc_settings&nbsp;[<span class="constructor">NTE_NODE</span>&nbsp;n]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;aux&nbsp;tl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;ftn_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;nte_table<br>
 <br>
-<span class="keyword">let</span>&nbsp;string_of_ts_ftn_inline&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(ftn_table&nbsp;:&nbsp;t_ftn_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(ftn_inline&nbsp;:&nbsp;ts_ftn_inline)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;ftn_inline&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_ftn_inline</span>&nbsp;(_,i)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(table&nbsp;:&nbsp;t_ftn_table)&nbsp;:&nbsp;string&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;string_of_ts_nte_inline&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_inline&nbsp;:&nbsp;ts_nte_inline)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;nte_inline&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_nte_inline</span>&nbsp;(_,i)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(table&nbsp;:&nbsp;t_nte_table)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;table&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"WARNING:&nbsp;footnote&nbsp;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_path&nbsp;doc_settings&nbsp;path;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&nbsp;contains&nbsp;a&nbsp;footnote;&nbsp;nested&nbsp;footnotes&nbsp;are&nbsp;not&nbsp;supported."</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;])&nbsp;<span class="keyword">in</span>&nbsp;<span class="string">"??"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_inline</span>&nbsp;(<span class="constructor">Cs_ftn_inline</span>&nbsp;(_,j),&nbsp;_,&nbsp;n))::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;i=j&nbsp;<span class="keyword">then</span>&nbsp;string_of_path&nbsp;doc_settings&nbsp;[<span class="constructor">FTN_NODE</span>&nbsp;n]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(<span class="constructor">Ftn_entry_inline</span>&nbsp;(<span class="constructor">Cs_nte_inline</span>&nbsp;(_,j),&nbsp;_,&nbsp;n))::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;i=j&nbsp;<span class="keyword">then</span>&nbsp;string_of_path&nbsp;doc_settings&nbsp;[<span class="constructor">NTE_NODE</span>&nbsp;n]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;aux&nbsp;tl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;ftn_table<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;nte_table<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_ts_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(hdr&nbsp;:&nbsp;ts_hdr)&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(hdr&nbsp;:&nbsp;ts_hdr)&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hdr&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_hdr</span>&nbsp;txt_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ftn_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;([]&nbsp;:&nbsp;t_ftn_table)&nbsp;txt_units<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_hdr</span>&nbsp;txt_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;([]&nbsp;:&nbsp;t_nte_table)&nbsp;txt_units<br>
 <br>
-<span class="keyword">let</span>&nbsp;ftn_table_of_ts_hdr_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(hdr_opt&nbsp;:&nbsp;ts_hdr&nbsp;option)&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_hdr_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(hdr_opt&nbsp;:&nbsp;ts_hdr&nbsp;option)&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hdr_opt&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ftn_table_of_ts_hdr&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_hdr&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;hdr<br>
 <br>
 <br>
 <span class="comment">(*&nbsp;options&nbsp;*)</span><br>

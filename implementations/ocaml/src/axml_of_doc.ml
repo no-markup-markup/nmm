@@ -174,7 +174,7 @@ and xml_of_tu_blk (blk:tu_blk):Xml.xml=
         |Cu_blk_itm (blk_itm:tr_blk_itm) -> Xml.Element ("cu_blk_itm",[],[xml_of_tr_blk_itm blk_itm])
         |Cu_blk_dsp (blk_dsp:ts_blk_dsp) -> Xml.Element ("cu_blk_dsp",[],[xml_of_ts_blk_dsp blk_dsp])
         |Cu_blk_vrb (blk_vrb:ts_blk_vrb) -> Xml.Element ("cu_blk_vrb",[],[xml_of_ts_blk_vrb blk_vrb])
-        |Cu_blk_ftn (blk_ftn:tr_blk_ftn) -> Xml.Element ("cu_blk_ftn",[],[xml_of_tr_blk_ftn blk_ftn])
+        |Cu_blk_nte (blk_nte:tr_blk_nte) -> Xml.Element ("cu_blk_nte",[],[xml_of_tr_blk_nte blk_nte])
 
 and xml_of_tu_secs_pars_or_blks (secs_pars_or_blks:tu_secs_pars_or_blks):Xml.xml=
         match secs_pars_or_blks with
@@ -206,8 +206,8 @@ and xml_of_tr_blk_itm (blk_itm:tr_blk_itm):Xml.xml=
                 let c:Xml.xml list=[xml_of_ts_blks blk_itm.fld_blk_itm_main] in
                 Xml.Element ("cr_blk_itm",[],List.concat [a;b;c])
 
-and xml_of_tr_blk_ftn (blk_ftn:tr_blk_ftn):Xml.xml=
-        Xml.Element ("cr_blk_ftn",[],[xml_of_tr_id blk_ftn.fld_blk_ftn_id;xml_of_ts_blks blk_ftn.fld_blk_ftn_main])
+and xml_of_tr_blk_nte (blk_nte:tr_blk_nte):Xml.xml=
+        Xml.Element ("cr_blk_nte",[],[xml_of_tr_id blk_nte.fld_blk_nte_id;xml_of_ts_blks blk_nte.fld_blk_nte_main])
 
 and xml_of_ts_blk_dsp (blk_dsp:ts_blk_dsp):Xml.xml=
         match blk_dsp with
@@ -256,8 +256,8 @@ and xml_of_tu_txt_unit (a:tu_txt_unit):Xml.xml=
         |Cu_txt_unit_wysiwyg (b:ts_txt_unit_wysiwyg) -> Xml.Element ("cu_txt_unit_wysiwyg",[],[xml_of_ts_txt_unit_wysiwyg b]) 
         |Cu_txt_unit_emph (b:ts_txt_unit_emph) -> Xml.Element ("cu_txt_unit_emph",[],[xml_of_ts_txt_unit_emph b])
         |Cu_txt_unit_c_ref (b:ts_txt_unit_c_ref) -> Xml.Element ("cu_txt_unit_c_ref",[],[xml_of_ts_txt_unit_c_ref b])
-        |Cu_txt_unit_ftn_ref (b:ts_txt_unit_ftn_ref) -> Xml.Element ("cu_txt_unit_ftn_ref",[],[xml_of_ts_txt_unit_ftn_ref b])
-        |Cu_txt_unit_ftn_inline (b:ts_txt_unit_ftn_inline) -> Xml.Element ("cu_txt_unit_ftn_inline",[],[xml_of_ts_txt_unit_ftn_inline b])
+        |Cu_txt_unit_nte_ref (b:ts_txt_unit_nte_ref) -> Xml.Element ("cu_txt_unit_nte_ref",[],[xml_of_ts_txt_unit_nte_ref b])
+        |Cu_txt_unit_nte_inline (b:ts_txt_unit_nte_inline) -> Xml.Element ("cu_txt_unit_nte_inline",[],[xml_of_ts_txt_unit_nte_inline b])
 
 and xml_of_ts_txt_unit_wysiwyg (a:ts_txt_unit_wysiwyg):Xml.xml =
         match a with Cs_txt_unit_wysiwyg (b:string) -> Xml.Element ("cs_txt_unit_wysiwyg",[],[xml_of_string b]) 
@@ -268,21 +268,21 @@ and xml_of_ts_txt_unit_emph (a:ts_txt_unit_emph):Xml.xml =
 and xml_of_ts_txt_unit_c_ref (a:ts_txt_unit_c_ref):Xml.xml =
         match a with Cs_txt_unit_c_ref (b:ts_c_ref) -> Xml.Element ("cs_txt_unit_c_ref",[],[xml_of_ts_c_ref b])
 
-and xml_of_ts_txt_unit_ftn_ref (a:ts_txt_unit_ftn_ref):Xml.xml =
-        match a with Cs_txt_unit_ftn_ref (b:ts_ftn_ref) -> Xml.Element ("cs_txt_unit_ftn_ref",[],[xml_of_ts_ftn_ref b])
+and xml_of_ts_txt_unit_nte_ref (a:ts_txt_unit_nte_ref):Xml.xml =
+        match a with Cs_txt_unit_nte_ref (b:ts_nte_ref) -> Xml.Element ("cs_txt_unit_nte_ref",[],[xml_of_ts_nte_ref b])
 
-and xml_of_ts_txt_unit_ftn_inline (a:ts_txt_unit_ftn_inline):Xml.xml =
-        match a with Cs_txt_unit_ftn_inline (b:ts_ftn_inline) -> Xml.Element ("cs_txt_unit_ftn_inline",[],[xml_of_ts_ftn_inline b])
+and xml_of_ts_txt_unit_nte_inline (a:ts_txt_unit_nte_inline):Xml.xml =
+        match a with Cs_txt_unit_nte_inline (b:ts_nte_inline) -> Xml.Element ("cs_txt_unit_nte_inline",[],[xml_of_ts_nte_inline b])
 
 
 and xml_of_ts_c_ref (a:ts_c_ref):Xml.xml=
         match a with Cs_c_ref (b:tr_id) -> Xml.Element ("cs_c_ref",[],[xml_of_tr_id b])
 
-and xml_of_ts_ftn_ref (a:ts_ftn_ref):Xml.xml=
-        match a with Cs_ftn_ref (id, _) -> Xml.Element ("cs_ftn_ref",[],[xml_of_tr_id id])
+and xml_of_ts_nte_ref (a:ts_nte_ref):Xml.xml=
+        match a with Cs_nte_ref (id, _) -> Xml.Element ("cs_nte_ref",[],[xml_of_tr_id id])
 
-and xml_of_ts_ftn_inline (a:ts_ftn_inline):Xml.xml=
-        match a with Cs_ftn_inline (blks, _) -> xml_of_ts_blks blks
+and xml_of_ts_nte_inline (a:ts_nte_inline):Xml.xml=
+        match a with Cs_nte_inline (blks, _) -> xml_of_ts_blks blks
 
 and xml_of_ts_int (i : ts_int) : Xml.xml =
         match i with

@@ -10,13 +10,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Given a named item under RE</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Given a named item under REFERE</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>ERENCES, say with the the name ‘ITM</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>CES, say with the the name ‘ITM</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
@@ -71,13 +71,13 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘RE</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘REFERE</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>ERENCES(1)’ (or something similar), or</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>CES(1)’ (or something similar), or</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -117,13 +117,13 @@
 <cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’, with item labels under RE</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>’, with item labels under REFERE</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>ERENCES rendered as</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>CES rendered as</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
@@ -210,13 +210,7 @@
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>I think it looks quite nice. </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>or good or bad, it is also familiar from the default in LaTex.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -309,7 +303,13 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> Undecidable Theories; North-Holland Publishing</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> Undecidable Theories; </cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>orth-Holland Publishing</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>

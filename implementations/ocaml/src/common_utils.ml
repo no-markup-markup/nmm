@@ -627,7 +627,7 @@ and t_node =
         | BLT_NODE
         | DSP_LINE_NODE of t_dsp_line_node
         | REFS_NODE
-        | FTN_NODE of int
+        | NTE_NODE of int
 
 and t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
@@ -652,7 +652,7 @@ type t_cref_element =
         |Cref_element_par of tr_par_std
         |Cref_element_blk_itm of tr_blk_itm
         |Cref_element_dsp_line of tr_dsp_line
-        |Cref_element_blk_ftn of tr_blk_ftn
+        |Cref_element_blk_nte of tr_blk_nte
 
 type t_cref_table = (Doc_types.tr_id * t_path * t_cref_element) list
 
@@ -847,7 +847,7 @@ let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
                 |Some (_, hdr) -> Some hdr
                 |None -> None
         )
-        | FTN_NODE n -> Some (superscript_string_of_int n)
+        | NTE_NODE n -> Some (superscript_string_of_int n)
 
 
 let string_of_path_opt (doc_settings : t_doc_settings) (full_path : t_path) (path : t_path) : string option =
@@ -1109,7 +1109,7 @@ let label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string o
                         |Some (lbl,_) -> Some lbl
                         |None -> None
                 )
-                |FTN_NODE n -> Some (superscript_string_of_int n)
+                |NTE_NODE n -> Some (superscript_string_of_int n)
                 | _ -> None
 
 let label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
@@ -1297,19 +1297,19 @@ let time_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) :
 
 (* footnotes *)
 
-type t_ftn_entry = Ftn_entry_ref of (ts_ftn_ref * t_path * int * tr_blk_ftn) | Ftn_entry_inline of (ts_ftn_inline * t_path * int)
+type t_nte_entry = Ftn_entry_ref of (ts_nte_ref * t_path * int * tr_blk_nte) | Ftn_entry_inline of (ts_nte_inline * t_path * int)
 
-type t_ftn_table = t_ftn_entry list
+type t_nte_table = t_nte_entry list
 
-let reference_of_ts_ftn_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_path : t_path) (ftn_ref : Doc_types.ts_ftn_ref) : tr_blk_ftn option =
-        match ftn_ref with
-        |Cs_ftn_ref (ftn_id,i) ->
-        let rec aux (cref_table : t_cref_table) : tr_blk_ftn option =
+let reference_of_ts_nte_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_path : t_path) (nte_ref : Doc_types.ts_nte_ref) : tr_blk_nte option =
+        match nte_ref with
+        |Cs_nte_ref (nte_id,i) ->
+        let rec aux (cref_table : t_cref_table) : tr_blk_nte option =
                 match cref_table with
                 |[] -> None
-                |(table_id, table_path, Cref_element_blk_ftn blk_ftn) :: tl -> (
-                        match ids_match ftn_id ftn_path table_id table_path with
-                        |true -> Some blk_ftn
+                |(table_id, table_path, Cref_element_blk_nte blk_nte) :: tl -> (
+                        match ids_match nte_id nte_path table_id table_path with
+                        |true -> Some blk_nte
                         |false -> aux tl
                 )
                 |_::tl -> aux tl
@@ -1317,60 +1317,60 @@ let reference_of_ts_ftn_ref (doc_settings : t_doc_settings) (cref_table : t_cref
         aux cref_table
 
 
-let ftn_table_of_ts_txt_unit_ftn_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (txt_unit_ftn_ref : ts_txt_unit_ftn_ref) : t_ftn_table =
-        match txt_unit_ftn_ref with
-        |Cs_txt_unit_ftn_ref ftn_ref ->
-                match reference_of_ts_ftn_ref doc_settings cref_table path ftn_ref with
-                |None -> ftn_table
-                |Some blk_ftn ->
-                        match ftn_table with
-                        |[] -> (Ftn_entry_ref (ftn_ref, path, 1, blk_ftn)):: ftn_table
-                        |(Ftn_entry_ref (_,_,n,_))::_ -> Ftn_entry_ref((ftn_ref, path, n+1, blk_ftn)) :: ftn_table
-                        |(Ftn_entry_inline (_,_,n))::_ -> Ftn_entry_ref((ftn_ref, path, n+1, blk_ftn)) :: ftn_table
+let nte_table_of_ts_txt_unit_nte_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (txt_unit_nte_ref : ts_txt_unit_nte_ref) : t_nte_table =
+        match txt_unit_nte_ref with
+        |Cs_txt_unit_nte_ref nte_ref ->
+                match reference_of_ts_nte_ref doc_settings cref_table path nte_ref with
+                |None -> nte_table
+                |Some blk_nte ->
+                        match nte_table with
+                        |[] -> (Ftn_entry_ref (nte_ref, path, 1, blk_nte)):: nte_table
+                        |(Ftn_entry_ref (_,_,n,_))::_ -> Ftn_entry_ref((nte_ref, path, n+1, blk_nte)) :: nte_table
+                        |(Ftn_entry_inline (_,_,n))::_ -> Ftn_entry_ref((nte_ref, path, n+1, blk_nte)) :: nte_table
 
-let ftn_table_of_ts_txt_unit_ftn_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (txt_unit_ftn_inline : ts_txt_unit_ftn_inline) : t_ftn_table =
-        match txt_unit_ftn_inline with
-        |Cs_txt_unit_ftn_inline ftn_inline ->
-                        match ftn_table with
-                        |[] -> (Ftn_entry_inline (ftn_inline, path, 1)):: ftn_table
-                        |(Ftn_entry_inline (_,_,n))::_ -> Ftn_entry_inline ((ftn_inline, path, n+1)) :: ftn_table
-                        |(Ftn_entry_ref (_,_,n,_))::_ -> Ftn_entry_inline ((ftn_inline, path, n+1)) :: ftn_table
+let nte_table_of_ts_txt_unit_nte_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (txt_unit_nte_inline : ts_txt_unit_nte_inline) : t_nte_table =
+        match txt_unit_nte_inline with
+        |Cs_txt_unit_nte_inline nte_inline ->
+                        match nte_table with
+                        |[] -> (Ftn_entry_inline (nte_inline, path, 1)):: nte_table
+                        |(Ftn_entry_inline (_,_,n))::_ -> Ftn_entry_inline ((nte_inline, path, n+1)) :: nte_table
+                        |(Ftn_entry_ref (_,_,n,_))::_ -> Ftn_entry_inline ((nte_inline, path, n+1)) :: nte_table
 
 
-let rec ftn_table_of_tu_txt_unit_list (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (txt_unit_list : tu_txt_unit list) : t_ftn_table =
+let rec nte_table_of_tu_txt_unit_list (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (txt_unit_list : tu_txt_unit list) : t_nte_table =
         match txt_unit_list with
-        |[] -> ftn_table
+        |[] -> nte_table
         |hd::tl ->
                 match hd with
-                |Cu_txt_unit_ftn_ref ftn_ref -> 
-                        let new_ftn_table = ftn_table_of_ts_txt_unit_ftn_ref doc_settings cref_table path ftn_table ftn_ref in
-                        ftn_table_of_tu_txt_unit_list doc_settings cref_table path new_ftn_table tl
-                |Cu_txt_unit_ftn_inline ftn_inline -> 
-                        let new_ftn_table = ftn_table_of_ts_txt_unit_ftn_inline doc_settings cref_table path ftn_table ftn_inline in
-                        ftn_table_of_tu_txt_unit_list doc_settings cref_table path new_ftn_table tl
-                |_ -> ftn_table_of_tu_txt_unit_list doc_settings cref_table path ftn_table tl
+                |Cu_txt_unit_nte_ref nte_ref -> 
+                        let new_nte_table = nte_table_of_ts_txt_unit_nte_ref doc_settings cref_table path nte_table nte_ref in
+                        nte_table_of_tu_txt_unit_list doc_settings cref_table path new_nte_table tl
+                |Cu_txt_unit_nte_inline nte_inline -> 
+                        let new_nte_table = nte_table_of_ts_txt_unit_nte_inline doc_settings cref_table path nte_table nte_inline in
+                        nte_table_of_tu_txt_unit_list doc_settings cref_table path new_nte_table tl
+                |_ -> nte_table_of_tu_txt_unit_list doc_settings cref_table path nte_table tl
 
 
-let ftn_table_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (txt_units : ts_txt_units) : t_ftn_table =
+let nte_table_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (txt_units : ts_txt_units) : t_nte_table =
         match txt_units with
         |Cs_txt_units txt_unit_list ->
-                ftn_table_of_tu_txt_unit_list doc_settings cref_table path ftn_table txt_unit_list
+                nte_table_of_tu_txt_unit_list doc_settings cref_table path nte_table txt_unit_list
 
-let ftn_table_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (blk_txt : ts_blk_txt) : t_ftn_table =
+let nte_table_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (blk_txt : ts_blk_txt) : t_nte_table =
         match blk_txt with
-        |Cs_blk_txt txt_units -> ftn_table_of_ts_txt_units doc_settings cref_table path ftn_table txt_units
+        |Cs_blk_txt txt_units -> nte_table_of_ts_txt_units doc_settings cref_table path nte_table txt_units
 
 
 
-let ftn_table_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (ftn_table : t_ftn_table) (dsp_line : tr_dsp_line) : t_ftn_table =
-        ftn_table_of_ts_txt_units doc_settings cref_table path ftn_table dsp_line.fld_dsp_line_units
+let nte_table_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (dsp_line : tr_dsp_line) : t_nte_table =
+        nte_table_of_ts_txt_units doc_settings cref_table path nte_table dsp_line.fld_dsp_line_units
 
 
 
-let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_table) (path : t_path) (ftn_ref : ts_ftn_ref) : string =
-        match ftn_ref with
-        |Cs_ftn_ref (id,i) ->
-        let rec aux (table : t_ftn_table) : string =
+let string_of_ts_nte_ref (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (nte_ref : ts_nte_ref) : string =
+        match nte_ref with
+        |Cs_nte_ref (id,i) ->
+        let rec aux (table : t_nte_table) : string =
                 match table with
                 |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
                         "WARNING: id \'";string_of_tr_id id;
@@ -1378,39 +1378,39 @@ let string_of_ts_ftn_ref (doc_settings : t_doc_settings) (ftn_table : t_ftn_tabl
                         string_of_path doc_settings path;
                         " does not exist or is out of scope.";
                 ]) in "??"
-                |(Ftn_entry_ref (table_ftn_ref, _, n, _))::tl ->
-                        if ftn_ref=table_ftn_ref then string_of_path doc_settings [FTN_NODE n]
+                |(Ftn_entry_ref (table_nte_ref, _, n, _))::tl ->
+                        if nte_ref=table_nte_ref then string_of_path doc_settings [NTE_NODE n]
                         else aux tl
                 |hd::tl -> aux tl
         in
-        aux ftn_table
+        aux nte_table
 
-let string_of_ts_ftn_inline (doc_settings : t_doc_settings) (ftn_table : t_ftn_table) (path : t_path) (ftn_inline : ts_ftn_inline) : string =
-        match ftn_inline with
-        |Cs_ftn_inline (_,i) ->
-        let rec aux (table : t_ftn_table) : string =
+let string_of_ts_nte_inline (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (nte_inline : ts_nte_inline) : string =
+        match nte_inline with
+        |Cs_nte_inline (_,i) ->
+        let rec aux (table : t_nte_table) : string =
                 match table with
                 |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
                         "WARNING: footnote ";
                         string_of_path doc_settings path;
                         " contains a footnote; nested footnotes are not supported.";
                 ]) in "??"
-                |(Ftn_entry_inline (Cs_ftn_inline (_,j), _, n))::tl ->
-                        if i=j then string_of_path doc_settings [FTN_NODE n]
+                |(Ftn_entry_inline (Cs_nte_inline (_,j), _, n))::tl ->
+                        if i=j then string_of_path doc_settings [NTE_NODE n]
                         else aux tl
                 |hd::tl -> aux tl
         in
-        aux ftn_table
+        aux nte_table
 
 
-let ftn_table_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr : ts_hdr) =
+let nte_table_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr : ts_hdr) =
         match hdr with
-        |Cs_hdr txt_units -> ftn_table_of_ts_txt_units doc_settings cref_table path ([] : t_ftn_table) txt_units
+        |Cs_hdr txt_units -> nte_table_of_ts_txt_units doc_settings cref_table path ([] : t_nte_table) txt_units
 
-let ftn_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr_opt : ts_hdr option) =
+let nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr_opt : ts_hdr option) =
         match hdr_opt with
         |None -> []
-        |Some hdr -> ftn_table_of_ts_hdr doc_settings cref_table path hdr
+        |Some hdr -> nte_table_of_ts_hdr doc_settings cref_table path hdr
 
 
 (* options *)

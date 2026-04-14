@@ -23,10 +23,10 @@ let rbr = [%sedlex.regexp? "]"]
 let colon = [%sedlex.regexp? ":"]
 let section = [%sedlex.regexp? Utf8 "§"]
 let pilcrow = [%sedlex.regexp? Utf8 "¶"]
-let f = [%sedlex.regexp? "F"]
-let ftn_lbr = [%sedlex.regexp? "FTN["]
+let n = [%sedlex.regexp? "N"]
+let nte_lbr = [%sedlex.regexp? "NTE["]
 
-let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section | f]
+let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section | n]
 let txt_chars = [%sedlex.regexp? Compl non_txt_chars]
 let txt = [%sedlex.regexp? Plus txt_chars]
 
@@ -40,13 +40,13 @@ let sec_tag_or_id = [%sedlex.regexp? ("SEC" | "APP"), Opt (":", name, Opt (":", 
 let par_tag_or_id = [%sedlex.regexp? ("PAR" | tag_shared), Opt (":", name, Opt (":", ("GBL" | "CH" | "SEC" | "APP")))]
 let itm_id = [%sedlex.regexp? ("ITM" | "BIB" | tag_shared), ":", name, Opt (":", scope)]
 let dsp_id = [%sedlex.regexp? ("DSP" | tag_shared), ":", name, Opt (":", scope)]
-let ftn_id = [%sedlex.regexp? "FTN", ":", name, Opt (":", scope)]
+let nte_id = [%sedlex.regexp? "NTE", ":", name, Opt (":", scope)]
 let c_ref = [%sedlex.regexp? "[", tag, ":", name, Opt (":", scope), "]"]
-let ftn_ref = [%sedlex.regexp? "[", ftn_id, "]"]
+let nte_ref = [%sedlex.regexp? "[", nte_id, "]"]
 let par_id = [%sedlex.regexp? ("PAR" | tag_shared), ":", name, Opt (":", ("GBL" | "CH" | "SEC" | "APP"))]
 let itm_auto_tab_id = [%sedlex.regexp? itm_auto_tab, itm_id]
 let itm_custom_tab_id = [%sedlex.regexp? itm_custom_tab, itm_id]
-let star_tab_id = [%sedlex.regexp? star_tab, ftn_id]
+let star_tab_id = [%sedlex.regexp? star_tab, nte_id]
 
 let ch_tag_or_id_nl = [%sedlex.regexp? ch_tag_or_id, nl]
 
@@ -115,11 +115,11 @@ let nl_or_vrb_line_empty (first : bool ) : Nmm_parser.token =
 
 let display : bool ref = ref false
 
-let ftn_counter : int ref = ref 0
+let nte_counter : int ref = ref 0
 
-let ftn_count () : int =
-        let n = ftn_counter.contents in
-        let _ : unit = ftn_counter.contents <- n + 1 in
+let nte_count () : int =
+        let n = nte_counter.contents in
+        let _ : unit = nte_counter.contents <- n + 1 in
         n
 
 (* the lexer *)
@@ -136,7 +136,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |abstract                       ->      ABSTRACT
                 |ch_tag_or_id_nl                ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
                 |c_ref                          ->      C_REF (lexeme lexbuf)
-                |ftn_ref                        ->      FTN_REF (lexeme lexbuf, ftn_count ())
+                |nte_ref                        ->      NTE_REF (lexeme lexbuf, nte_count ())
                 |section_nl                     ->      SECTION_NL
                 |section_tab_tag_or_id_nl       ->      SECTION_TAB_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
                 |pilcrow_nl                     ->      PILCROW_NL
@@ -163,8 +163,8 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |colon                          ->      COLON
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
-                |ftn_lbr                        ->      FTN_LBR (ftn_count ())
-                |f                              ->      F
+                |nte_lbr                        ->      NTE_LBR (nte_count ())
+                |n                              ->      N
                 |txt                            ->      TXT (lexeme lexbuf)
                 |start_vrb                      ->      let _ : unit = verbatim.contents <- true in START_VRB
                 |eof                            ->      end_of_file lexbuf
@@ -193,9 +193,9 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
                 |c_ref                          ->      C_REF (lexeme lexbuf)
-                |ftn_lbr                        ->      FTN_LBR (ftn_count ())
-                |f                              ->      F
-                |ftn_ref                        ->      FTN_REF (lexeme lexbuf, ftn_count ())
+                |nte_lbr                        ->      NTE_LBR (nte_count ())
+                |n                              ->      N
+                |nte_ref                        ->      NTE_REF (lexeme lexbuf, nte_count ())
                 |txt                            ->      TXT (lexeme lexbuf)
                 |tab                            ->      TAB 
                 |dsp_id                         ->      DSP_ID (lexeme lexbuf)

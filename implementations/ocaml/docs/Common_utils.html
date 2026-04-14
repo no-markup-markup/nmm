@@ -430,7 +430,7 @@ INT := ['0'-'9']+
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_node.FTN_NODE"><span class="constructor">FTN_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+<code><span id="TYPEELTt_node.NTE_NODE"><span class="constructor">NTE_NODE</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
 
 </tr></table>
 
@@ -479,7 +479,7 @@ INT := ['0'-'9']+
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_cref_element.Cref_element_blk_ftn"><span class="constructor">Cref_element_blk_ftn</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_blk_ftn">Doc_types.tr_blk_ftn</a></code></code></td>
+<code><span id="TYPEELTt_cref_element.Cref_element_blk_nte"><span class="constructor">Cref_element_blk_nte</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_blk_nte">Doc_types.tr_blk_nte</a></code></code></td>
 
 </tr></table>
 
@@ -566,33 +566,33 @@ INT := ['0'-'9']+
 
 <pre><span id="VALutc_timezone"><span class="keyword">val</span> <a href="code_VALCommon_utils.utc_timezone.html">utc_timezone</a></span> : <code class="type">string * int * int -&gt; string</code></pre>
 <pre><span id="VALtime_of_ts_date_auto"><span class="keyword">val</span> <a href="code_VALCommon_utils.time_of_ts_date_auto.html">time_of_ts_date_auto</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Doc_types.html#TYPEts_date_auto">Doc_types.ts_date_auto</a> -&gt; <a href="Common_utils.html#TYPEt_time">t_time</a> option</code></pre><h3 id="2_Footnotes">Footnotes</h3>
-<pre><code><span id="TYPEt_ftn_entry"><span class="keyword">type</span> <code class="type"></code>t_ftn_entry</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEt_nte_entry"><span class="keyword">type</span> <code class="type"></code>t_nte_entry</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_ftn_entry.Ftn_entry_ref"><span class="constructor">Ftn_entry_ref</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEts_ftn_ref">Doc_types.ts_ftn_ref</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * int * <a href="Doc_types.html#TYPEtr_blk_ftn">Doc_types.tr_blk_ftn</a>)</code></code></td>
+<code><span id="TYPEELTt_nte_entry.Ftn_entry_ref"><span class="constructor">Ftn_entry_ref</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEts_nte_ref">Doc_types.ts_nte_ref</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * int * <a href="Doc_types.html#TYPEtr_blk_nte">Doc_types.tr_blk_nte</a>)</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_ftn_entry.Ftn_entry_inline"><span class="constructor">Ftn_entry_inline</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEts_ftn_inline">Doc_types.ts_ftn_inline</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * int)</code></code></td>
+<code><span id="TYPEELTt_nte_entry.Ftn_entry_inline"><span class="constructor">Ftn_entry_inline</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEts_nte_inline">Doc_types.ts_nte_inline</a> * <a href="Common_utils.html#TYPEt_path">t_path</a> * int)</code></code></td>
 
 </tr></table>
 
 
 
-<pre><span id="TYPEt_ftn_table"><span class="keyword">type</span> <code class="type"></code>t_ftn_table</span> = <code class="type"><a href="Common_utils.html#TYPEt_ftn_entry">t_ftn_entry</a> list</code> </pre>
+<pre><span id="TYPEt_nte_table"><span class="keyword">type</span> <code class="type"></code>t_nte_table</span> = <code class="type"><a href="Common_utils.html#TYPEt_nte_entry">t_nte_entry</a> list</code> </pre>
 
 
-<pre><span id="VALftn_table_of_ts_blk_txt"><span class="keyword">val</span> <a href="code_VALCommon_utils.ftn_table_of_ts_blk_txt.html">ftn_table_of_ts_blk_txt</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a> -&gt; <a href="Doc_types.html#TYPEts_blk_txt">Doc_types.ts_blk_txt</a> -&gt; <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a></code></pre>
-<pre><span id="VALftn_table_of_tr_dsp_line"><span class="keyword">val</span> <a href="code_VALCommon_utils.ftn_table_of_tr_dsp_line.html">ftn_table_of_tr_dsp_line</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a> -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a></code></pre>
-<pre><span id="VALstring_of_ts_ftn_ref"><span class="keyword">val</span> <a href="code_VALCommon_utils.string_of_ts_ftn_ref.html">string_of_ts_ftn_ref</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_ftn_ref">Doc_types.ts_ftn_ref</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_ts_ftn_inline"><span class="keyword">val</span> <a href="code_VALCommon_utils.string_of_ts_ftn_inline.html">string_of_ts_ftn_inline</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_ftn_inline">Doc_types.ts_ftn_inline</a> -&gt; string</code></pre>
-<pre><span id="VALftn_table_of_ts_hdr_opt"><span class="keyword">val</span> <a href="code_VALCommon_utils.ftn_table_of_ts_hdr_opt.html">ftn_table_of_ts_hdr_opt</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_hdr">Doc_types.ts_hdr</a> option -&gt; <a href="Common_utils.html#TYPEt_ftn_table">t_ftn_table</a></code></pre>
-<pre><span id="VALreference_of_ts_ftn_ref"><span class="keyword">val</span> <a href="code_VALCommon_utils.reference_of_ts_ftn_ref.html">reference_of_ts_ftn_ref</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_ftn_ref">Doc_types.ts_ftn_ref</a> -&gt; <a href="Doc_types.html#TYPEtr_blk_ftn">Doc_types.tr_blk_ftn</a> option</code></pre><h3 id="2_Options">Options</h3>
+<pre><span id="VALnte_table_of_ts_blk_txt"><span class="keyword">val</span> <a href="code_VALCommon_utils.nte_table_of_ts_blk_txt.html">nte_table_of_ts_blk_txt</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a> -&gt; <a href="Doc_types.html#TYPEts_blk_txt">Doc_types.ts_blk_txt</a> -&gt; <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a></code></pre>
+<pre><span id="VALnte_table_of_tr_dsp_line"><span class="keyword">val</span> <a href="code_VALCommon_utils.nte_table_of_tr_dsp_line.html">nte_table_of_tr_dsp_line</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a> -&gt; <a href="Doc_types.html#TYPEtr_dsp_line">Doc_types.tr_dsp_line</a> -&gt; <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a></code></pre>
+<pre><span id="VALstring_of_ts_nte_ref"><span class="keyword">val</span> <a href="code_VALCommon_utils.string_of_ts_nte_ref.html">string_of_ts_nte_ref</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_nte_ref">Doc_types.ts_nte_ref</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_ts_nte_inline"><span class="keyword">val</span> <a href="code_VALCommon_utils.string_of_ts_nte_inline.html">string_of_ts_nte_inline</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_nte_inline">Doc_types.ts_nte_inline</a> -&gt; string</code></pre>
+<pre><span id="VALnte_table_of_ts_hdr_opt"><span class="keyword">val</span> <a href="code_VALCommon_utils.nte_table_of_ts_hdr_opt.html">nte_table_of_ts_hdr_opt</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_hdr">Doc_types.ts_hdr</a> option -&gt; <a href="Common_utils.html#TYPEt_nte_table">t_nte_table</a></code></pre>
+<pre><span id="VALreference_of_ts_nte_ref"><span class="keyword">val</span> <a href="code_VALCommon_utils.reference_of_ts_nte_ref.html">reference_of_ts_nte_ref</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_nte_ref">Doc_types.ts_nte_ref</a> -&gt; <a href="Doc_types.html#TYPEtr_blk_nte">Doc_types.tr_blk_nte</a> option</code></pre><h3 id="2_Options">Options</h3>
 <pre><code><span id="TYPEt_txt_options"><span class="keyword">type</span> <code class="type"></code>t_txt_options</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >

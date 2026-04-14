@@ -6,8 +6,8 @@ exception Error of string
 
 let string_of_token (t:Nmm_parser.token):string=
         match t with
-        |F -> "F"
-        |FTN_LBR n -> "FTN_LBR " ^ (string_of_int n)
+        |N -> "N"
+        |NTE_LBR n -> "NTE_LBR " ^ (string_of_int n)
         |SECTION -> "SECTION"
         |SECTION_NL -> "SECTION_NL"
         |PILCROW -> "PILCROW"
@@ -37,7 +37,7 @@ let string_of_token (t:Nmm_parser.token):string=
         |ITM_CUSTOM_TAB_ID s -> ("ITM_CUSTOM_TAB_ID " ^ "\"" ^ s ^ "\"")
         |DSP_ID s -> ("DSP_ID " ^ "\"" ^ s ^ "\"")
         |C_REF s -> ("C_REF " ^ "\"" ^ s ^ "\"")
-        |FTN_REF (s,i) -> ("FTN_REF " ^ "(\"" ^ s ^ "\"," ^ (string_of_int i )^ ")")
+        |NTE_REF (s,i) -> ("NTE_REF " ^ "(\"" ^ s ^ "\"," ^ (string_of_int i )^ ")")
         |TITLE -> "TITLE"
         |AUTHOR -> "AUTHOR"
         |DATE -> "DATE"
@@ -70,7 +70,7 @@ let reset_refs () : unit =
         let _ : unit = Nmm_lexer.verbatim.contents <- false in
         let _ : unit = Nmm_lexer.first_nl.contents <- true in
         let _ : unit = Nmm_lexer.display.contents <- false in
-        let _ : unit = Nmm_lexer.ftn_counter.contents <- 0 in
+        let _ : unit = Nmm_lexer.nte_counter.contents <- 0 in
         ()
 
 

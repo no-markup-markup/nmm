@@ -97,7 +97,7 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_itm</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_itm<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_dsp</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blk_dsp<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_vrb</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_blk_vrb<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_ftn</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_ftn<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_nte</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_blk_nte<br>
 <br>
 <span class="keyword">and</span>&nbsp;tu_secs_pars_or_blks&nbsp;=<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_secs_pars_or_blks_secs</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_secs<br>
@@ -133,8 +133,8 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_wysiwyg</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_wysiwyg<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_emph</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_emph<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_c_ref<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_ftn_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_ftn_ref<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_ftn_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_ftn_inline<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_nte_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_nte_ref<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_nte_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_txt_unit_nte_inline<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_txt_unit_wysiwyg&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
@@ -142,15 +142,15 @@
 <br>
 <span class="keyword">and</span>&nbsp;ts_txt_unit_c_ref&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_c_ref<br>
 <br>
-<span class="keyword">and</span>&nbsp;ts_txt_unit_ftn_ref&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_ftn_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_ftn_ref<br>
+<span class="keyword">and</span>&nbsp;ts_txt_unit_nte_ref&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_nte_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_nte_ref<br>
 <br>
-<span class="keyword">and</span>&nbsp;ts_txt_unit_ftn_inline&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_ftn_inline</span>&nbsp;&nbsp;<span class="keyword">of</span>&nbsp;ts_ftn_inline<br>
+<span class="keyword">and</span>&nbsp;ts_txt_unit_nte_inline&nbsp;=&nbsp;<span class="constructor">Cs_txt_unit_nte_inline</span>&nbsp;&nbsp;<span class="keyword">of</span>&nbsp;ts_nte_inline<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_c_ref&nbsp;=&nbsp;<span class="constructor">Cs_c_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;tr_id<br>
 <br>
-<span class="keyword">and</span>&nbsp;ts_ftn_ref&nbsp;=&nbsp;<span class="constructor">Cs_ftn_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;(tr_id&nbsp;*&nbsp;ts_int)<br>
+<span class="keyword">and</span>&nbsp;ts_nte_ref&nbsp;=&nbsp;<span class="constructor">Cs_nte_ref</span>&nbsp;<span class="keyword">of</span>&nbsp;(tr_id&nbsp;*&nbsp;ts_int)<br>
 <br>
-<span class="keyword">and</span>&nbsp;ts_ftn_inline&nbsp;=&nbsp;<span class="constructor">Cs_ftn_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_blks&nbsp;*&nbsp;ts_int)<br>
+<span class="keyword">and</span>&nbsp;ts_nte_inline&nbsp;=&nbsp;<span class="constructor">Cs_nte_inline</span>&nbsp;<span class="keyword">of</span>&nbsp;(ts_blks&nbsp;*&nbsp;ts_int)<br>
 <br>
 <span class="keyword">and</span>&nbsp;ts_int&nbsp;=&nbsp;<span class="constructor">Cs_int</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
 <br>
@@ -175,9 +175,9 @@
 <br>
 <span class="keyword">and</span>&nbsp;ts_blk_vrb&nbsp;=&nbsp;<span class="constructor">Cs_blk_vrb</span>&nbsp;<span class="keyword">of</span>&nbsp;ts_vrb_lines<br>
 <br>
-<span class="keyword">and</span>&nbsp;tr_blk_ftn&nbsp;=&nbsp;{<br>
-&nbsp;&nbsp;fld_blk_ftn_id&nbsp;:&nbsp;tr_id;<br>
-&nbsp;&nbsp;fld_blk_ftn_main&nbsp;:&nbsp;ts_blks;<br>
+<span class="keyword">and</span>&nbsp;tr_blk_nte&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;fld_blk_nte_id&nbsp;:&nbsp;tr_id;<br>
+&nbsp;&nbsp;fld_blk_nte_main&nbsp;:&nbsp;ts_blks;<br>
 }<br>
 <br>
 <br>

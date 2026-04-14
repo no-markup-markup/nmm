@@ -25,9 +25,9 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_ts_hdr_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (hdr_opt : ts_hdr option) : string list =
+<code class="code"><span class="keyword">let</span> lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (hdr_opt : ts_hdr option) : string list =
         <span class="keyword">match</span> hdr_opt <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">Some</span> (hdr : ts_hdr) <span class="keywordsign">-&gt;</span> lines_of_ts_hdr doc_settings cref_table ftn_table path hdr
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> (hdr : ts_hdr) <span class="keywordsign">-&gt;</span> lines_of_ts_hdr doc_settings cref_table nte_table path hdr
         <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
                 <span class="keyword">match</span> path <span class="keyword">with</span>
                 <span class="keywordsign">|</span> hd::tl <span class="keywordsign">-&gt;</span> (

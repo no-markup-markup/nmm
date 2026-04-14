@@ -22,10 +22,8 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Compiler_of_doc.ftn_table_of_tr_doc</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.nte_table_of_tr_dsp_line</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> ftn_table_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (doc : tr_doc) : t_ftn_table =
-        <span class="keyword">match</span> acc_of_tr_doc doc_settings cref_table ([] : t_ftn_table) ([] : t_path) (<span class="constructor">FTN_TABLE</span> []) doc <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">FTN_TABLE</span> table <span class="keywordsign">-&gt;</span> table
-        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"accumulator output type not identical to accumulator input type"</span>)</code></body></html>
+<code class="code"><span class="keyword">let</span> nte_table_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (dsp_line : tr_dsp_line) : t_nte_table =
+        nte_table_of_ts_txt_units doc_settings cref_table path nte_table dsp_line.fld_dsp_line_units</code></body></html>

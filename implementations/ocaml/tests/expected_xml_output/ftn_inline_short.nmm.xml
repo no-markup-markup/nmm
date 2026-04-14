@@ -8,8 +8,8 @@
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is some text with a short footnote</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
-<cu_txt_unit_ftn_inline>
-<cs_txt_unit_ftn_inline>
+<cu_txt_unit_nte_inline>
+<cs_txt_unit_nte_inline>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
@@ -21,13 +21,13 @@
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
-</cs_txt_unit_ftn_inline>
-</cu_txt_unit_ftn_inline>
+</cs_txt_unit_nte_inline>
+</cu_txt_unit_nte_inline>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg> in the middle of it.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
-<cu_txt_unit_ftn_inline>
-<cs_txt_unit_ftn_inline>
+<cu_txt_unit_nte_inline>
+<cs_txt_unit_nte_inline>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
@@ -39,8 +39,8 @@
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
-</cs_txt_unit_ftn_inline>
-</cu_txt_unit_ftn_inline>
+</cs_txt_unit_nte_inline>
+</cu_txt_unit_nte_inline>
 </cs_txt_units>
 </cs_blk_txt>
 </cu_blk_txt>

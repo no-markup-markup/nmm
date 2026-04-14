@@ -35,11 +35,11 @@ let c_ref_of_string (s:string):Doc_types.ts_c_ref=
         |[tag;name;scope] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }
         | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
-let ftn_ref_of_string_int ((s,i):string * int) : Doc_types.ts_ftn_ref =
+let nte_ref_of_string_int ((s,i):string * int) : Doc_types.ts_nte_ref =
         let t:string=String.sub s 1 ((String.length s)-2) in
         match String.split_on_char ':' t with
-        |[tag;name] -> Cs_ftn_ref ({ fld_id_tag=Cs_tag tag; fld_id_name=Cs_name name; fld_id_scope = None }, Cs_int i)
-        |[tag;name;scope] -> Cs_ftn_ref ({ fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }, Cs_int i)
+        |[tag;name] -> Cs_nte_ref ({ fld_id_tag=Cs_tag tag; fld_id_name=Cs_name name; fld_id_scope = None }, Cs_int i)
+        |[tag;name;scope] -> Cs_nte_ref ({ fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }, Cs_int i)
         | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
 
 let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_authors option =
@@ -77,7 +77,7 @@ let date_of_string (s : string) : tu_date =
 
 %}
 
-%token                          STAR LBR RBR COLON PILCROW SECTION EOF F
+%token                          STAR LBR RBR COLON PILCROW SECTION EOF N
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
@@ -88,8 +88,8 @@ let date_of_string (s : string) : tu_date =
 %token <string>                 DSP_ID
 %token <string>                 CH_TAG_OR_ID_NL SECTION_TAB_TAG_OR_ID_NL PILCROW_TAB_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
 %token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID STAR_TAB_ID
-%token <string * int>           FTN_REF
-%token <int>                    FTN_LBR
+%token <string * int>           NTE_REF
+%token <int>                    NTE_LBR
 
 %type <Doc_types.tr_doc>                  main doc
 
@@ -316,7 +316,7 @@ blk0:
   |blk_itm0                                       { Cu_blk_itm $1:tu_blk }
   |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
   |blk_vrb0                                       { Cu_blk_vrb $1:tu_blk }
-  |blk_ftn0                                       { Cu_blk_ftn $1:tu_blk }
+  |blk_nte0                                       { Cu_blk_nte $1:tu_blk }
   |blk0 NL                                        { $1 : tu_blk }
 ;
 
@@ -334,17 +334,17 @@ txt_unit0:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt0 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
-  |ftn_inline0                                    { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
+  |nte_inline0                                    { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
 ;
 
-ftn_inline0:
-  |ftn_inline_short                               { $1 : ts_ftn_inline}
-  |ftn_inline_long0                               { $1 : ts_ftn_inline}
+nte_inline0:
+  |nte_inline_short                               { $1 : ts_nte_inline}
+  |nte_inline_long0                               { $1 : ts_nte_inline}
 ;
 
-ftn_inline_long0:
-  |FTN_LBR lb1 blks1 RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
+nte_inline_long0:
+  |NTE_LBR lb1 blks1 RBR                          { Cs_nte_inline (Cs_blks $3, Cs_int $1) : ts_nte_inline}
 ;
 
 emph_txt0:
@@ -357,8 +357,8 @@ blk_blt0:
   |dash_tab blks1                                 { (Cs_blk_blt (Cs_blks $2)):ts_blk_blt }
 ;
 
-blk_ftn0:
-  |star_tab_id lb1 blks1                          { { fld_blk_ftn_id=$1; fld_blk_ftn_main=Cs_blks $3} : tr_blk_ftn }
+blk_nte0:
+  |star_tab_id lb1 blks1                          { { fld_blk_nte_id=$1; fld_blk_nte_main=Cs_blks $3} : tr_blk_nte }
 ;
 
 
@@ -443,17 +443,17 @@ txt_unit(n):
   |txt                                                    { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt(n) STAR                                  { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
   |cref                                                   { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |ftn_ref                                                { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
-  |ftn_inline(n)                                          { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+  |nte_ref                                                { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
+  |nte_inline(n)                                          { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
 ;
 
-ftn_inline(n):
-  |ftn_inline_short                                       { $1 : ts_ftn_inline}
-  |ftn_inline_long(n)                                     { $1 : ts_ftn_inline}
+nte_inline(n):
+  |nte_inline_short                                       { $1 : ts_nte_inline}
+  |nte_inline_long(n)                                     { $1 : ts_nte_inline}
 ;
 
-ftn_inline_long(n):
-  |FTN_LBR lb(n+1) blks(n+1) RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
+nte_inline_long(n):
+  |NTE_LBR lb(n+1) blks(n+1) RBR                          { Cs_nte_inline (Cs_blks $3, Cs_int $1) : ts_nte_inline}
 ;
 ;
 
@@ -556,17 +556,17 @@ txt_unit1:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt1 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
-  |ftn_inline1                                    { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
+  |nte_inline1                                    { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
 ;
 
-ftn_inline1:
-  |ftn_inline_short                               { $1 : ts_ftn_inline}
-  |ftn_inline_long1                               { $1 : ts_ftn_inline}
+nte_inline1:
+  |nte_inline_short                               { $1 : ts_nte_inline}
+  |nte_inline_long1                               { $1 : ts_nte_inline}
 ;
 
-ftn_inline_long1:
-  |FTN_LBR lb2 blks2 RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
+nte_inline_long1:
+  |NTE_LBR lb2 blks2 RBR                          { Cs_nte_inline (Cs_blks $3, Cs_int $1) : ts_nte_inline}
 ;
 
 emph_txt1:
@@ -667,17 +667,17 @@ txt_unit2:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt2 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
-  |ftn_inline2                                    { (Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline $1)):tu_txt_unit }
+  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
+  |nte_inline2                                    { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
 ;
 
-ftn_inline2:
-  |ftn_inline_short                               { $1 : ts_ftn_inline}
-  |ftn_inline_long2                               { $1 : ts_ftn_inline}
+nte_inline2:
+  |nte_inline_short                               { $1 : ts_nte_inline}
+  |nte_inline_long2                               { $1 : ts_nte_inline}
 ;
 
-ftn_inline_long2:
-  |FTN_LBR lb3 blks3 RBR                          { Cs_ftn_inline (Cs_blks $3, Cs_int $1) : ts_ftn_inline}
+nte_inline_long2:
+  |NTE_LBR lb3 blks3 RBR                          { Cs_nte_inline (Cs_blks $3, Cs_int $1) : ts_nte_inline}
 ;
 
 
@@ -770,7 +770,7 @@ txt_unit3:
   |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
   |STAR emph_txt3 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |ftn_ref                                        { (Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref $1)):tu_txt_unit }
+  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
 ;
 
 emph_txt3:
@@ -826,22 +826,22 @@ dsp_unit:
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
-ftn_inline_short:
-  |FTN_LBR blk_txt_ftn RBR                        { Cs_ftn_inline (Cs_blks [Cu_blk_txt $2], Cs_int $1) : ts_ftn_inline}
+nte_inline_short:
+  |NTE_LBR blk_txt_nte RBR                        { Cs_nte_inline (Cs_blks [Cu_blk_txt $2], Cs_int $1) : ts_nte_inline}
 ;
 
-blk_txt_ftn:
-  |txt_units_ftn                                  { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+blk_txt_nte:
+  |txt_units_nte                                  { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
 ;
 
-txt_units_ftn:
-  |txt_unit_ftn                                   { ($1::[]):tu_txt_unit list }
-  |txt_unit_ftn txt_units_ftn                     { ($1::$2):tu_txt_unit list }
+txt_units_nte:
+  |txt_unit_nte                                   { ($1::[]):tu_txt_unit list }
+  |txt_unit_nte txt_units_nte                     { ($1::$2):tu_txt_unit list }
 ;
 
-txt_unit_ftn:
-  |txt_ftn                                        { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt_ftn STAR                         { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
+txt_unit_nte:
+  |txt_nte                                        { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
+  |STAR emph_txt_nte STAR                         { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
   |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
 ;
 
@@ -859,10 +859,10 @@ txt:
   |DATE                                           { "DATE":string }
   |ABSTRACT                                       { "ABSTRACT":string }
   |ESC_CHAR                                       { $1:string }
-  |F                                              { "F":string }
+  |N                                              { "N":string }
 ;
 
-txt_ftn:
+txt_nte:
   |TXT                                            { $1:string }
   |COLON                                          { ":":string }
   |LBR                                            { "[":string }
@@ -874,7 +874,7 @@ txt_ftn:
   |DATE                                           { "DATE":string }
   |ABSTRACT                                       { "ABSTRACT":string }
   |ESC_CHAR                                       { $1:string }
-  |F                                              { "F":string }
+  |N                                              { "N":string }
 ;
 
 emph_txt:
@@ -882,17 +882,17 @@ emph_txt:
   |txt emph_txt                                   { ($1 ^ $2):string }
 ;
 
-emph_txt_ftn:
-  |txt_ftn                                        { $1:string }
-  |txt_ftn emph_txt_ftn                           { ($1 ^ $2):string }
+emph_txt_nte:
+  |txt_nte                                        { $1:string }
+  |txt_nte emph_txt_nte                           { ($1 ^ $2):string }
 ;
 
 c_ref:
   |C_REF                                          { (c_ref_of_string $1):ts_c_ref }
 ;
 
-ftn_ref:
-  |FTN_REF                                        { (ftn_ref_of_string_int $1):ts_ftn_ref }
+nte_ref:
+  |NTE_REF                                        { (nte_ref_of_string_int $1):ts_nte_ref }
 ;
 
 dsp_id:

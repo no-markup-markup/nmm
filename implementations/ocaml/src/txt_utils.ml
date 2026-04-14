@@ -49,7 +49,7 @@ let rec indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
                 | ITM_NODE _ -> indent_of_path doc_settings tl + doc_settings.tab_length
                 | BLT_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
                 | DSP_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
-                | FTN_NODE _ -> 3
+                | NTE_NODE _ -> 3
                 | _ -> indent_of_path doc_settings tl
 
 
@@ -78,7 +78,7 @@ let pos_of_label (doc_settings : t_doc_settings) (path : t_path) : int =
                 | ITM_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
                 | BLT_NODE -> indent_of_path doc_settings path - doc_settings.tab_length
                 | DSP_LINE_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
-                | FTN_NODE _ -> 0
+                | NTE_NODE _ -> 0
                 |_ -> 0
 
 
@@ -178,19 +178,19 @@ let underline (s : string) : string =
 let emph (a : string) : string = underline a
 
 
-let string_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : tu_txt_unit) : string =
+let string_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : tu_txt_unit) : string =
         match a with
         | Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
         | Cu_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
         | Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref doc_settings cref_table path b
-        | Cu_txt_unit_ftn_ref (Cs_txt_unit_ftn_ref (b : ts_ftn_ref)) -> string_of_ts_ftn_ref doc_settings ftn_table path b
-        | Cu_txt_unit_ftn_inline (Cs_txt_unit_ftn_inline (b : ts_ftn_inline)) -> string_of_ts_ftn_inline doc_settings ftn_table path b
+        | Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref (b : ts_nte_ref)) -> string_of_ts_nte_ref doc_settings nte_table path b
+        | Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline (b : ts_nte_inline)) -> string_of_ts_nte_inline doc_settings nte_table path b
 
-let string_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : ts_txt_units) : string =
+let string_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string =
         match a with Cs_txt_units (b: tu_txt_unit list) ->
-        String.concat "" (List.map (string_of_tu_txt_unit doc_settings cref_table ftn_table path) b)
+        String.concat "" (List.map (string_of_tu_txt_unit doc_settings cref_table nte_table path) b)
 
-let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (a : ts_txt_units) : string list =
+let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string list =
         let lines_of_string_function : int -> string -> string list = (
                 match path with
                 | [] -> lines_of_string doc_settings
@@ -200,7 +200,7 @@ let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_t
                         | _ -> lines_of_string doc_settings
         )
         in 
-        lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings cref_table ftn_table path a)
+        lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings cref_table nte_table path a)
 
 
 let lines_of_ts_author (doc_settings : t_doc_settings) (author : ts_author) : string list =
@@ -250,13 +250,13 @@ let make_string (n:int) (s:string) : string=
         in aux 0 ""
 
 
-let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (hdr : ts_hdr) : string list =
+let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (hdr : ts_hdr) : string list =
         match hdr with 
         Cs_hdr (txt_units : ts_txt_units) ->
                 match path with
                 |path_hd::path_tl -> (
                         let indent : string = String.make (doc_settings.left_margin) ' ' in
-                        let hdr_string : string = string_of_ts_txt_units doc_settings cref_table ftn_table path txt_units in
+                        let hdr_string : string = string_of_ts_txt_units doc_settings cref_table nte_table path txt_units in
                         let hdr_lines : string list = lines_of_string doc_settings doc_settings.left_margin hdr_string in
                         match path_hd with
                         |SEC_NODE _ | APP_NODE _ -> (
@@ -273,9 +273,9 @@ let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
                 )
                 |[] -> raise (Error "path to chapter or section cannot be empty")
 
-let lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (hdr_opt : ts_hdr option) : string list =
+let lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (hdr_opt : ts_hdr option) : string list =
         match hdr_opt with
-        | Some (hdr : ts_hdr) -> lines_of_ts_hdr doc_settings cref_table ftn_table path hdr
+        | Some (hdr : ts_hdr) -> lines_of_ts_hdr doc_settings cref_table nte_table path hdr
         | None ->
                 match path with
                 | hd::tl -> (
@@ -333,9 +333,9 @@ let lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
         |None -> []
         |Some (hdr,_) -> lines_of_string doc_settings 0 hdr
 
-let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
+let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
         match blk_txt with
-        |Cs_blk_txt (txt_units : ts_txt_units) -> List.concat [lines_of_ts_txt_units doc_settings cref_table ftn_table path txt_units]
+        |Cs_blk_txt (txt_units : ts_txt_units) -> List.concat [lines_of_ts_txt_units doc_settings cref_table nte_table path txt_units]
 
 
 let line_of_vrb_line (doc_settings : t_doc_settings) (path : t_path) (vrb_line : ts_vrb_line) : string =

@@ -70,7 +70,7 @@ and tu_blk =
   | Cu_blk_itm of tr_blk_itm
   | Cu_blk_dsp of ts_blk_dsp
   | Cu_blk_vrb of ts_blk_vrb
-  | Cu_blk_ftn of tr_blk_ftn
+  | Cu_blk_nte of tr_blk_nte
 
 and tu_secs_pars_or_blks =
   | Cu_secs_pars_or_blks_secs of ts_secs
@@ -106,8 +106,8 @@ and tu_txt_unit =
   | Cu_txt_unit_wysiwyg of ts_txt_unit_wysiwyg
   | Cu_txt_unit_emph of ts_txt_unit_emph
   | Cu_txt_unit_c_ref of ts_txt_unit_c_ref
-  | Cu_txt_unit_ftn_ref of ts_txt_unit_ftn_ref
-  | Cu_txt_unit_ftn_inline of ts_txt_unit_ftn_inline
+  | Cu_txt_unit_nte_ref of ts_txt_unit_nte_ref
+  | Cu_txt_unit_nte_inline of ts_txt_unit_nte_inline
 
 and ts_txt_unit_wysiwyg = Cs_txt_unit_wysiwyg of string
 
@@ -115,15 +115,15 @@ and ts_txt_unit_emph = Cs_txt_unit_emph of string
 
 and ts_txt_unit_c_ref = Cs_txt_unit_c_ref of ts_c_ref
 
-and ts_txt_unit_ftn_ref = Cs_txt_unit_ftn_ref of ts_ftn_ref
+and ts_txt_unit_nte_ref = Cs_txt_unit_nte_ref of ts_nte_ref
 
-and ts_txt_unit_ftn_inline = Cs_txt_unit_ftn_inline  of ts_ftn_inline
+and ts_txt_unit_nte_inline = Cs_txt_unit_nte_inline  of ts_nte_inline
 
 and ts_c_ref = Cs_c_ref of tr_id
 
-and ts_ftn_ref = Cs_ftn_ref of (tr_id * ts_int)
+and ts_nte_ref = Cs_nte_ref of (tr_id * ts_int)
 
-and ts_ftn_inline = Cs_ftn_inline of (ts_blks * ts_int)
+and ts_nte_inline = Cs_nte_inline of (ts_blks * ts_int)
 
 and ts_int = Cs_int of int
 
@@ -148,9 +148,9 @@ and ts_blk_blt = Cs_blk_blt of ts_blks
 
 and ts_blk_vrb = Cs_blk_vrb of ts_vrb_lines
 
-and tr_blk_ftn = {
-  fld_blk_ftn_id : tr_id;
-  fld_blk_ftn_main : ts_blks;
+and tr_blk_nte = {
+  fld_blk_nte_id : tr_id;
+  fld_blk_nte_main : ts_blks;
 }
 
 

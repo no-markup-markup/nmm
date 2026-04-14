@@ -25,6 +25,6 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_ts_blk_txt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_table : t_ftn_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
+<code class="code"><span class="keyword">let</span> lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
         <span class="keyword">match</span> blk_txt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_units : ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">List</span>.concat [lines_of_ts_txt_units doc_settings cref_table ftn_table path txt_units]</code></body></html>
+        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_units : ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">List</span>.concat [lines_of_ts_txt_units doc_settings cref_table nte_table path txt_units]</code></body></html>

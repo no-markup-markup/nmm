@@ -22,18 +22,18 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.reference_of_ts_ftn_ref</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.reference_of_ts_nte_ref</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> reference_of_ts_ftn_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ftn_path : t_path) (ftn_ref : <span class="constructor">Doc_types</span>.ts_ftn_ref) : tr_blk_ftn option =
-        <span class="keyword">match</span> ftn_ref <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_ftn_ref</span> (ftn_id,i) <span class="keywordsign">-&gt;</span>
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux (cref_table : t_cref_table) : tr_blk_ftn option =
+<code class="code"><span class="keyword">let</span> reference_of_ts_nte_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_path : t_path) (nte_ref : <span class="constructor">Doc_types</span>.ts_nte_ref) : tr_blk_nte option =
+        <span class="keyword">match</span> nte_ref <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_nte_ref</span> (nte_id,i) <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> <span class="keyword">rec</span> aux (cref_table : t_cref_table) : tr_blk_nte option =
                 <span class="keyword">match</span> cref_table <span class="keyword">with</span>
                 <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-                <span class="keywordsign">|</span>(table_id, table_path, <span class="constructor">Cref_element_blk_ftn</span> blk_ftn) :: tl <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> ids_match ftn_id ftn_path table_id table_path <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> blk_ftn
+                <span class="keywordsign">|</span>(table_id, table_path, <span class="constructor">Cref_element_blk_nte</span> blk_nte) :: tl <span class="keywordsign">-&gt;</span> (
+                        <span class="keyword">match</span> ids_match nte_id nte_path table_id table_path <span class="keyword">with</span>
+                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> blk_nte
                         <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> aux tl
                 )
                 <span class="keywordsign">|</span>_::tl <span class="keywordsign">-&gt;</span> aux tl

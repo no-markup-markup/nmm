@@ -13,10 +13,7 @@
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>irst chapter</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>First chapter</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_hdr>
@@ -97,10 +94,7 @@
 <cs_hdr>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>F</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>irst paragraph of second chapter</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>First paragraph of second chapter</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_hdr>

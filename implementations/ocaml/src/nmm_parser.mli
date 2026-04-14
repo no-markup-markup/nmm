@@ -11,7 +11,7 @@ type token =
         |PILCROW
         |SECTION
         |EOF
-        |F
+        |N
         |NL
         |TAB
         |NL_TAB
@@ -49,7 +49,7 @@ type token =
         |ITM_AUTO_TAB_ID of string
         |ITM_CUSTOM_TAB_ID of string
         |STAR_TAB_ID of string
-        |FTN_REF of (string * int)
-        |FTN_LBR of int
+        |NTE_REF of (string * int)
+        |NTE_LBR of int
 
 val main : (Stdlib.Lexing.lexbuf -> token) -> Stdlib.Lexing.lexbuf -> Doc_types.tr_doc
