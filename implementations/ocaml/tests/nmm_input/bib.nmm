@@ -1,0 +1,44 @@
+TITLE:
+	Bibliography entries
+
+§
+Section title
+
+This is an item with ID ‘BIB:JL’:
+
+[]	BIB:JL
+	Johannesson, Eric & Lundstedt, Anders (2026): Proof by weakened induction hypothesis.
+
+When referred to, it looks like this: [BIB:JL].
+
+We can also refer to the corresponding bibliography items in REFERENCES,
+with ID ‘BIB:JL_refs’. It looks like this: [BIB:JL_refs].
+
+A clever way of achieving nice citations is to use bibliography items with custom labels, like this one:
+
+[Johannesson & Lundstedt (2026)]	BIB:JL_custom
+	Johannesson, Eric & Lundstedt, Anders (2026): Proof by weakened induction hypothesis.
+
+Referring to it looks like this: [BIB:JL_custom].
+
+Referring to the corresponding bibliography item in REFERENCES looks like this: [BIB:JL_custom_refs].
+
+§
+Another section
+
+Referring from another section:
+
+[BIB:JL]
+
+[BIB:JL_refs]
+
+[BIB:JL_custom]
+
+§ REFS
+
+[]	BIB:JL_refs
+	Johannesson, Eric & Lundstedt, Anders (2026): Proof by weakened induction hypothesis.
+
+[Johannesson & Lundstedt (2026)]	BIB:JL_custom_refs
+	Johannesson, Eric & Lundstedt, Anders (2026): Proof by weakened induction hypothesis.
+

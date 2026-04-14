@@ -15,16 +15,17 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.attr_list_of_tu_tag_or_id</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.attr_list_of_tu_tag_or_id_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> attr_list_of_tu_tag_or_id (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
+<code class="code"><span class="keyword">let</span> attr_list_of_tu_tag_or_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
         <span class="keyword">match</span> a <span class="keyword">with</span>
         <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
                 <span class="keyword">match</span> classes <span class="keyword">with</span>
@@ -35,4 +36,4 @@
                 <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
                 <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag) <span class="keywordsign">-&gt;</span> attr_list_of_ts_tag classes tag
                 <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_id</span> (id : tr_id) <span class="keywordsign">-&gt;</span> 
-                        <span class="constructor">List</span>.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path (<span class="constructor">Some</span> id)]</code></body></html>
+                        <span class="constructor">List</span>.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]</code></body></html>

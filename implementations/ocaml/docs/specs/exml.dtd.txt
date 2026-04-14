@@ -48,6 +48,7 @@
 <!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)>
 <!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)>
 <!ATTLIST blk_itm 
+	class CDATA #REQUIRED
 	id CDATA #IMPLIED
 >
 
@@ -93,6 +94,7 @@
 
 <!ELEMENT dsp_line (dsp_line_lbl?, clear?, dsp_line_main)+>
 <!ATTLIST dsp_line 
+	class CDATA #REQUIRED
 	id CDATA #IMPLIED
 >
 

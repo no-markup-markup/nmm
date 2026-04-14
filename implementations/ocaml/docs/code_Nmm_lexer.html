@@ -15,6 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -24,7 +25,24 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Nmm_lexer</title>
 </head>
 <body>
-<code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">Nmm_parser</span><br>
+<code class="code"><span class="keyword">let</span>&nbsp;tag_shared&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;&nbsp;&nbsp;<span class="string">"ABBR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ABBRS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"ASM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ASMS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"CONJ"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CONJS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"CONV"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CONVS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"COR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CORS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"DEF"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"DEFS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"EX"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"EXS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"FCT"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"FCTS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"LMA"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"LMAS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"NTN"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"NTNS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"PRF"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRFS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"PRP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRPS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"QTN"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"QTNS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"RMK"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"RMKS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"THM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"THMS"</span>&nbsp;<span class="keywordsign">|</span><br>
+&nbsp;<span class="string">"TMY"</span>&nbsp;&nbsp;]<br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Nmm_parser</span><br>
 <br>
 <span class="keyword">exception</span>&nbsp;<span class="constructor">ERROR</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
@@ -60,12 +78,11 @@
 <span class="keyword">let</span>&nbsp;non_name_chars&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n\t:[]&nbsp;\\"</span>]<br>
 <span class="keyword">let</span>&nbsp;name&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Plus</span>&nbsp;(<span class="constructor">Compl</span>&nbsp;non_name_chars)]<br>
 <span class="keyword">let</span>&nbsp;tag_unique&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"CH"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SEC"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"APP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PAR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ITM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"DSP"</span>&nbsp;]<br>
-<span class="keyword">let</span>&nbsp;tag_shared&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"DEF"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"DEFS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"FCT"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"FCTS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRF"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRFS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"THM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"THMS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"LMA"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"LMAS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"RMK"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"RMKS"</span>]<br>
-<span class="keyword">let</span>&nbsp;tag&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tag_unique&nbsp;<span class="keywordsign">|</span>&nbsp;tag_shared]<br>
+<span class="keyword">let</span>&nbsp;tag&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tag_unique&nbsp;<span class="keywordsign">|</span>&nbsp;tag_shared&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"BIB"</span>]<br>
 <span class="keyword">let</span>&nbsp;ch_tag_or_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"CH"</span>,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;<span class="string">":GBL"</span>)]<br>
 <span class="keyword">let</span>&nbsp;sec_tag_or_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;(<span class="string">"SEC"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"APP"</span>),&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;(<span class="string">"GBL"</span><span class="keywordsign">|</span><span class="string">"CH"</span>)))]<br>
 <span class="keyword">let</span>&nbsp;par_tag_or_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;(<span class="string">"PAR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;tag_shared),&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;(<span class="string">"GBL"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CH"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SEC"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"APP"</span>)))]<br>
-<span class="keyword">let</span>&nbsp;itm_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;(<span class="string">"ITM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;tag_shared),&nbsp;<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;scope)]<br>
+<span class="keyword">let</span>&nbsp;itm_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;(<span class="string">"ITM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"BIB"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;tag_shared),&nbsp;<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;scope)]<br>
 <span class="keyword">let</span>&nbsp;dsp_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;(<span class="string">"DSP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;tag_shared),&nbsp;<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;scope)]<br>
 <span class="keyword">let</span>&nbsp;ftn_id&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"FTN"</span>,&nbsp;<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;scope)]<br>
 <span class="keyword">let</span>&nbsp;c_ref&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"["</span>,&nbsp;tag,&nbsp;<span class="string">":"</span>,&nbsp;name,&nbsp;<span class="constructor">Opt</span>&nbsp;(<span class="string">":"</span>,&nbsp;scope),&nbsp;<span class="string">"]"</span>]<br>

@@ -1,5 +1,5 @@
 (**
-Lexer used by {!module:Doc_of_nmm} together with {!module:Nmm_parser}. Relies on {{:https://github.com/ocaml-community/sedlex}Sedlex}.
+Lexer used by {!module:Doc_of_nmm} together with {!module:Nmm_parser}. Genereated from {{:specs/tags.tsv.txt}tags.tsv} and [nmm_lexer_template.ml] with [make-nmm_lexer.sh]. Relies on {{:https://github.com/ocaml-community/sedlex}Sedlex}.
 *)
 
 exception ERROR of string

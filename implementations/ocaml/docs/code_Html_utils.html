@@ -15,6 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -84,7 +85,7 @@
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_txt"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"p"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk&nbsp;txt"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"blk&nbsp;itm"</span>)::(attr_list),&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm_lbl"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"blk_itm_lbl"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm_main"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk_itm_main"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
@@ -93,7 +94,7 @@
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_blt_main"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk_blt_main"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_dsp"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk&nbsp;dsp"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
-<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"dsp_line"</span>)::attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line_lbl"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"dsp_line_lbl"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line_main"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"dsp_line_main"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
@@ -437,6 +438,14 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 .blk_ftn_main&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;3ch;<br>
 }<br>
+<br>
+/***************&nbsp;BIB&nbsp;********************/<br>
+<br>
+<br>
+.bib_custom&nbsp;.blk_itm_lbl&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;:&nbsp;none;<br>
+}<br>
+<br>
 <br>
 <br>
 /***************&nbsp;PRINTING&nbsp;***************/<br>

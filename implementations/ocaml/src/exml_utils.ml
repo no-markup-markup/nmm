@@ -110,13 +110,19 @@ let attr_list_of_ts_tag (classes : string list) (tag : ts_tag) : (string*string)
         |Cs_tag (s : string) -> [("class"), String.concat " " (s::classes)]
 
 
-let attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id_opt : tr_id option) : (string*string) list =
+
+let attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (string*string) list =
+	[("id", cdata_of_tr_id doc_settings path id)]
+
+
+let attr_list_of_tr_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (id_opt : tr_id option) : (string*string) list =
         match id_opt with
-        | None -> []
-        | Some id -> [("id", cdata_of_tr_id doc_settings path id)]
+        | None -> [("class"), String.concat " " classes]
+        | Some id -> List.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]
 
 
-let attr_list_of_tu_tag_or_id (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
+
+let attr_list_of_tu_tag_or_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
         match a with
         | None -> (
                 match classes with
@@ -127,7 +133,7 @@ let attr_list_of_tu_tag_or_id (doc_settings : t_doc_settings) (path : t_path) (c
                 match tag_or_id with
                 | Cu_tag_or_id_tag (tag : ts_tag) -> attr_list_of_ts_tag classes tag
                 | Cu_tag_or_id_id (id : tr_id) -> 
-                        List.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path (Some id)]
+                        List.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]
 
 
 let attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : ts_c_ref) : (string*string) list =

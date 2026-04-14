@@ -58,7 +58,7 @@ match element with
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", ("class", "blk itm")::(attr_list), List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_itm_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_itm_main")], List.map (html_of_exml doc_class) xml_list)
 
@@ -67,7 +67,7 @@ match element with
 |Xml.Element ("blk_blt_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_blt_main")], List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_dsp", _, xml_list) -> Xml.Element ("div", [("class", "blk dsp")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line", attr_list, xml_list) -> Xml.Element ("div", ("class", "dsp_line")::attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("dsp_line", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("dsp_line_lbl", _, xml_list) -> Xml.Element ("div",[("class","dsp_line_lbl")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("dsp_line_main", _, xml_list) -> Xml.Element ("div", [("class", "dsp_line_main")], List.map (html_of_exml doc_class) xml_list)
 
@@ -411,6 +411,14 @@ h2, h3, h4, h5 {
 .blk_ftn_main {
     margin-left : 3ch;
 }
+
+/*************** BIB ********************/
+
+
+.bib_custom .blk_itm_lbl {
+	float : none;
+}
+
 
 
 /*************** PRINTING ***************/

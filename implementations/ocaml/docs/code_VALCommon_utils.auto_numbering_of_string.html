@@ -15,6 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -28,68 +29,56 @@
         <span class="keyword">match</span> s <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="string">"a1i"</span> <span class="keywordsign">-&gt;</span>
                 <span class="keyword">let</span> auto_numbering (lvl : int) (n:int) =
-                        <span class="keyword">let</span> symbol : string =
                         <span class="keyword">match</span> lvl <span class="keyword">mod</span> 5 <span class="keyword">with</span>
                         <span class="keywordsign">|</span>0 <span class="keywordsign">-&gt;</span> lower_case_latin_letter n
                         <span class="keywordsign">|</span>1 <span class="keywordsign">-&gt;</span> string_of_int (n+1)
                         <span class="keywordsign">|</span>2 <span class="keywordsign">-&gt;</span> lower_case_roman_numeral n
                         <span class="keywordsign">|</span>3 <span class="keywordsign">-&gt;</span> upper_case_latin_letter n
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> upper_case_roman_numeral n
-                        <span class="keyword">in</span> <span class="constructor">String</span>.concat symbol [<span class="string">"("</span>;<span class="string">")"</span>]
                 <span class="keyword">in</span> auto_numbering
         <span class="keywordsign">|</span><span class="string">"ai1"</span> <span class="keywordsign">-&gt;</span>
                 <span class="keyword">let</span> auto_numbering (lvl : int) (n:int) =
-                        <span class="keyword">let</span> symbol : string =
                         <span class="keyword">match</span> lvl <span class="keyword">mod</span> 5 <span class="keyword">with</span>
                         <span class="keywordsign">|</span>0 <span class="keywordsign">-&gt;</span> lower_case_latin_letter n
                         <span class="keywordsign">|</span>1 <span class="keywordsign">-&gt;</span> lower_case_roman_numeral n
                         <span class="keywordsign">|</span>2 <span class="keywordsign">-&gt;</span> string_of_int (n+1)
                         <span class="keywordsign">|</span>3 <span class="keywordsign">-&gt;</span> upper_case_latin_letter n
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> upper_case_roman_numeral n
-                        <span class="keyword">in</span> <span class="constructor">String</span>.concat symbol [<span class="string">"("</span>;<span class="string">")"</span>]
                 <span class="keyword">in</span> auto_numbering
         <span class="keywordsign">|</span><span class="string">"1ai"</span> <span class="keywordsign">-&gt;</span>
                 <span class="keyword">let</span> auto_numbering (lvl : int) (n:int) =
-                        <span class="keyword">let</span> symbol : string =
                         <span class="keyword">match</span> lvl <span class="keyword">mod</span> 5 <span class="keyword">with</span>
                         <span class="keywordsign">|</span>0 <span class="keywordsign">-&gt;</span> string_of_int (n+1)
                         <span class="keywordsign">|</span>1 <span class="keywordsign">-&gt;</span> lower_case_latin_letter n
                         <span class="keywordsign">|</span>2 <span class="keywordsign">-&gt;</span> lower_case_roman_numeral n
                         <span class="keywordsign">|</span>3 <span class="keywordsign">-&gt;</span> upper_case_latin_letter n
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> upper_case_roman_numeral n
-                        <span class="keyword">in</span> <span class="constructor">String</span>.concat symbol [<span class="string">"("</span>;<span class="string">")"</span>]
                 <span class="keyword">in</span> auto_numbering
         <span class="keywordsign">|</span><span class="string">"1ia"</span><span class="keywordsign">-&gt;</span>
                 <span class="keyword">let</span> auto_numbering (lvl : int) (n:int) =
-                        <span class="keyword">let</span> symbol : string =
                         <span class="keyword">match</span> lvl <span class="keyword">mod</span> 5 <span class="keyword">with</span>
                         <span class="keywordsign">|</span>0 <span class="keywordsign">-&gt;</span> string_of_int (n+1)
                         <span class="keywordsign">|</span>1 <span class="keywordsign">-&gt;</span> lower_case_roman_numeral n
                         <span class="keywordsign">|</span>2 <span class="keywordsign">-&gt;</span> lower_case_latin_letter n
                         <span class="keywordsign">|</span>3 <span class="keywordsign">-&gt;</span> upper_case_roman_numeral n
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> upper_case_latin_letter n
-                        <span class="keyword">in</span> <span class="constructor">String</span>.concat symbol [<span class="string">"("</span>;<span class="string">")"</span>]
                 <span class="keyword">in</span> auto_numbering
         <span class="keywordsign">|</span><span class="string">"ia1"</span> <span class="keywordsign">-&gt;</span>
                 <span class="keyword">let</span> auto_numbering (lvl : int) (n:int) =
-                        <span class="keyword">let</span> symbol : string =
                         <span class="keyword">match</span> lvl <span class="keyword">mod</span> 5 <span class="keyword">with</span>
                         <span class="keywordsign">|</span>0 <span class="keywordsign">-&gt;</span> lower_case_roman_numeral n
                         <span class="keywordsign">|</span>1 <span class="keywordsign">-&gt;</span> lower_case_latin_letter n
                         <span class="keywordsign">|</span>2 <span class="keywordsign">-&gt;</span> string_of_int (n+1)
                         <span class="keywordsign">|</span>3 <span class="keywordsign">-&gt;</span> upper_case_roman_numeral n
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> upper_case_latin_letter n
-                        <span class="keyword">in</span> <span class="constructor">String</span>.concat symbol [<span class="string">"("</span>;<span class="string">")"</span>]
                 <span class="keyword">in</span> auto_numbering
         <span class="keywordsign">|</span><span class="string">"i1a"</span> <span class="keywordsign">-&gt;</span>
                 <span class="keyword">let</span> auto_numbering (lvl : int) (n:int) =
-                        <span class="keyword">let</span> symbol : string =
                         <span class="keyword">match</span> lvl <span class="keyword">mod</span> 5 <span class="keyword">with</span>
                         <span class="keywordsign">|</span>0 <span class="keywordsign">-&gt;</span> lower_case_roman_numeral n
                         <span class="keywordsign">|</span>1 <span class="keywordsign">-&gt;</span> string_of_int (n+1)
                         <span class="keywordsign">|</span>2 <span class="keywordsign">-&gt;</span> lower_case_latin_letter n
                         <span class="keywordsign">|</span>3 <span class="keywordsign">-&gt;</span> upper_case_roman_numeral n
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> upper_case_latin_letter n
-                        <span class="keyword">in</span> <span class="constructor">String</span>.concat symbol [<span class="string">"("</span>;<span class="string">")"</span>]
                 <span class="keyword">in</span> auto_numbering
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Invalid_argument</span> s)</code></body></html>

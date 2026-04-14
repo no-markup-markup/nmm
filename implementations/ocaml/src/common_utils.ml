@@ -47,20 +47,7 @@ type t_doc_settings = {
 
 
 let expand_tag_default (tag : Doc_types.ts_tag) : (string * string) option =
-        match tag with
-        |Cs_tag "DEF" -> Some ("DEFINITION", "Definition")
-        |Cs_tag "PRF" -> Some ("PROOF", "Proof")
-        |Cs_tag "FCT" -> Some ("FACT", "Fact")
-        |Cs_tag "LMA" -> Some ("LEMMA", "Lemma")
-        |Cs_tag "THM" -> Some ("THEOREM", "Theorem")
-        |Cs_tag "RMK" -> Some ("REMARK", "Remark")
-        |Cs_tag "DEFS" -> Some ("DEFINITIONS", "Definitions")
-        |Cs_tag "PRFS" -> Some ("PROOFS", "Proofs")
-        |Cs_tag "FCTS" -> Some ("FACTS", "Facts")
-        |Cs_tag "LMAS" -> Some ("LEMMAS", "Lemmas")
-        |Cs_tag "THMS" -> Some ("THEOREMS", "Theorems")
-        |Cs_tag "RMKS" -> Some ("REMARKS", "Remarks")
-        | _  -> None
+	Expand_tags.expand_tag tag
 
 let lower_case_latin_letters : string array =
         [|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]
@@ -112,69 +99,57 @@ let auto_numbering_of_string (s: string) : int -> int -> string =
         match s with
         |"a1i" ->
                 let auto_numbering (lvl : int) (n:int) =
-                        let symbol : string =
                         match lvl mod 5 with
                         |0 -> lower_case_latin_letter n
                         |1 -> string_of_int (n+1)
                         |2 -> lower_case_roman_numeral n
                         |3 -> upper_case_latin_letter n
                         |_ -> upper_case_roman_numeral n
-                        in String.concat symbol ["(";")"]
                 in auto_numbering
         |"ai1" ->
                 let auto_numbering (lvl : int) (n:int) =
-                        let symbol : string =
                         match lvl mod 5 with
                         |0 -> lower_case_latin_letter n
                         |1 -> lower_case_roman_numeral n
                         |2 -> string_of_int (n+1)
                         |3 -> upper_case_latin_letter n
                         |_ -> upper_case_roman_numeral n
-                        in String.concat symbol ["(";")"]
                 in auto_numbering
         |"1ai" ->
                 let auto_numbering (lvl : int) (n:int) =
-                        let symbol : string =
                         match lvl mod 5 with
                         |0 -> string_of_int (n+1)
                         |1 -> lower_case_latin_letter n
                         |2 -> lower_case_roman_numeral n
                         |3 -> upper_case_latin_letter n
                         |_ -> upper_case_roman_numeral n
-                        in String.concat symbol ["(";")"]
                 in auto_numbering
         |"1ia"->
                 let auto_numbering (lvl : int) (n:int) =
-                        let symbol : string =
                         match lvl mod 5 with
                         |0 -> string_of_int (n+1)
                         |1 -> lower_case_roman_numeral n
                         |2 -> lower_case_latin_letter n
                         |3 -> upper_case_roman_numeral n
                         |_ -> upper_case_latin_letter n
-                        in String.concat symbol ["(";")"]
                 in auto_numbering
         |"ia1" ->
                 let auto_numbering (lvl : int) (n:int) =
-                        let symbol : string =
                         match lvl mod 5 with
                         |0 -> lower_case_roman_numeral n
                         |1 -> lower_case_latin_letter n
                         |2 -> string_of_int (n+1)
                         |3 -> upper_case_roman_numeral n
                         |_ -> upper_case_latin_letter n
-                        in String.concat symbol ["(";")"]
                 in auto_numbering
         |"i1a" ->
                 let auto_numbering (lvl : int) (n:int) =
-                        let symbol : string =
                         match lvl mod 5 with
                         |0 -> lower_case_roman_numeral n
                         |1 -> string_of_int (n+1)
                         |2 -> lower_case_latin_letter n
                         |3 -> upper_case_roman_numeral n
                         |_ -> upper_case_latin_letter n
-                        in String.concat symbol ["(";")"]
                 in auto_numbering
         |_ -> raise (Invalid_argument s)
 
@@ -217,12 +192,12 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : 
                                         |"1" | "a" | "i" ->
                                                 let inc : int =
                                                         match s, doc_settings.auto_numbering 1 0, doc_settings.auto_numbering 2 0 with
-                                                        |"a","(a)",_  -> 1
-                                                        |"a",_,"(a)" -> 2
-                                                        |"1","(1)",_  -> 1
-                                                        |"1",_,"(1)" -> 2
-                                                        |"i","(i)",_  -> 1
-                                                        |"i",_,"(i)" -> 2
+                                                        |"a","a",_  -> 1
+                                                        |"a",_,"a" -> 2
+                                                        |"1","1",_  -> 1
+                                                        |"1",_,"1" -> 2
+                                                        |"i","i",_  -> 1
+                                                        |"i",_,"i" -> 2
                                                         |_,_,_ -> 0
                                                 in
                                                 let new_auto_numbering (l : int) (n : int) : string =
@@ -656,7 +631,13 @@ and t_node =
 
 and t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
-and t_itm_node = ITM_AUTO of string | ITM_CUSTOM of string | ITM_TAG_AUTO of (string * string) | ITM_TAG_CUSTOM of (string * string)
+and t_itm_node =
+	|ITM_AUTO of string
+	|ITM_CUSTOM of string
+	|ITM_TAG_AUTO of (string * string)
+	|ITM_TAG_CUSTOM of (string * string)
+	|ITM_BIB_AUTO of string
+	|ITM_BIB_CUSTOM of string
 
 and t_dsp_line_node =
         | DSP_AUTO of string
@@ -835,17 +816,23 @@ let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
         | DSP_LINE_NODE (a : t_dsp_line_node) -> (
                 match a with
                 | DSP_NONE -> None
-                | DSP_AUTO (s : string) -> Some s
+                | DSP_AUTO (s : string) -> Some (String.concat s ["(";")"])
                 | DSP_CUSTOM (s : string) -> Some (String.concat s ["(";")"])
-                | DSP_TAG_AUTO (_,s) -> Some s
+                | DSP_TAG_AUTO (_,s) -> Some (String.concat s ["(";")"])
                 | DSP_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
         )
         | ITM_NODE (a : t_itm_node) -> (
                 match a with
-                |ITM_AUTO s -> Some s
+                |ITM_AUTO s -> Some (String.concat s ["(";")"])
                 |ITM_CUSTOM s -> Some (String.concat s ["(";")"])
-                |ITM_TAG_AUTO (_,s) -> Some s
+                |ITM_TAG_AUTO (_,s) -> Some (String.concat s ["(";")"])
                 |ITM_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
+		|ITM_BIB_AUTO s -> (
+			match List.rev tail with
+			|REFS_NODE::_ -> Some (String.concat s ["[";"]"])
+			|_ -> Some (String.concat s ["(";")"])
+		)
+		|ITM_BIB_CUSTOM s -> Some s
         )
         | BLT_NODE ->
                 let l : int = lvl_of_path tail in
@@ -932,9 +919,9 @@ let rec string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path
                 match inner_path_hd with
                 |ITM_NODE itm_node -> (
                         match itm_node with
-                        |ITM_AUTO _ | ITM_CUSTOM _ -> (
+                        |ITM_AUTO _ | ITM_CUSTOM _ | ITM_BIB_AUTO _ | ITM_BIB_CUSTOM _ -> (
                                 match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> "NONE"
+                                |None -> raise (Error "shown path cannot be empty")
                                 |Some s -> s
                         )
                         |ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
@@ -947,7 +934,7 @@ let rec string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path
                         match dsp_line_node with
                         |DSP_AUTO _ | DSP_CUSTOM _ -> (
                                 match string_of_path_opt doc_settings full_path inner_path with
-                                |None -> "NONE"
+                                |None -> raise (Error "shown path cannot be empty")
                                 |Some s -> s
                         )
                         |DSP_TAG_AUTO (tag,_) | DSP_TAG_CUSTOM (tag,_) -> (
@@ -966,10 +953,15 @@ let rec string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path
                 match inner_path_hd with
                 |ITM_NODE itm_node -> (
                         match itm_node with
-                        |ITM_AUTO _ | ITM_CUSTOM _ -> (
+                        |ITM_AUTO _ | ITM_CUSTOM _ | ITM_BIB_AUTO _ -> (
                                 match string_of_path_opt doc_settings full_path inner_path with
                                 |None -> raise (Error "shown path cannot be empty")
                                 |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
+                        )
+			| ITM_BIB_CUSTOM _ -> (
+                                match string_of_path_opt doc_settings full_path inner_path with
+                                |None -> raise (Error "shown path cannot be empty")
+                                |Some s -> s
                         )
                         |ITM_TAG_AUTO (tag,_) | ITM_TAG_CUSTOM (tag,_) -> (
                                 match string_of_path_opt doc_settings full_path inner_path with
@@ -1010,8 +1002,8 @@ let string_of_tu_scope (scope : tu_scope) : string =
 
 let string_of_tr_id (id : Doc_types.tr_id) : string =
         match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
-        |Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag;name;string_of_tu_scope scope]
-        |Cs_tag tag, Cs_name name, None -> String.concat ":" [tag;name]
+        |Cs_tag tag, Cs_name name, Some scope -> String.concat ":" [tag; name; string_of_tu_scope scope]
+        |Cs_tag tag, Cs_name name, None -> String.concat ":" [tag; name]
 
 
 let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : Doc_types.ts_c_ref) : string =
@@ -1032,8 +1024,12 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_
                 match List.rev sub_path with
                 |hd::tl -> (
                         match hd with
-                        |ABSTRACT_NODE | REFS_NODE ->
-                                String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
+                        |ABSTRACT_NODE | REFS_NODE -> (
+				match id_loc with
+				|(ITM_NODE (ITM_BIB_AUTO _))::_ | (ITM_NODE (ITM_BIB_CUSTOM _))::_ ->
+					string_of_shown_path doc_settings id_loc (List.rev tl)
+				|_ -> String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
+			)
                         |_ -> string_of_shown_path doc_settings id_loc sub_path
                 )
                 |[] -> raise (Error "path to id cannot be empty")
@@ -1156,7 +1152,11 @@ let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : i
                         |None -> ITM_NODE (ITM_AUTO lbl)
                         |Some id -> (
                                 match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> ITM_NODE (ITM_AUTO lbl)
+                                |None -> (
+					match id.fld_id_tag with
+					|Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
+					|_ -> ITM_NODE (ITM_AUTO lbl)
+				)
                                 |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
                         )
                 )
@@ -1165,7 +1165,11 @@ let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : i
                         |None -> ITM_NODE (ITM_CUSTOM s)
                         |Some id -> (
                                 match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> ITM_NODE (ITM_CUSTOM s)
+                                |None -> (
+					match id.fld_id_tag with
+					|Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
+					|_ -> ITM_NODE (ITM_CUSTOM s)
+				)
                                 |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag,s))
                         )
 

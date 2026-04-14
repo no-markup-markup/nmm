@@ -15,6 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -57,11 +58,13 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_tr_doc&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_par_node&nbsp;=&nbsp;<span class="constructor">PAR_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAR_TAG</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;int)<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_itm_node&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t_itm_node&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">ITM_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_CUSTOM</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_TAG_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;string)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_TAG_CUSTOM</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;string)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_BIB_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_BIB_CUSTOM</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_dsp_line_node&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">DSP_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_CUSTOM</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>

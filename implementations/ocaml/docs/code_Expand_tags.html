@@ -1,0 +1,98 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right_parser" rel="Chapter" href="Xml_right_parser.html">
+<link title="Xml_right_lexer" rel="Chapter" href="Xml_right_lexer.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Expand_tags</title>
+</head>
+<body>
+<code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">Doc_types</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;expand_tag&nbsp;(tag&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag)&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
+<span class="keyword">match</span>&nbsp;tag&nbsp;<span class="keyword">with</span><br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ABBR"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"ABBREVIATION"</span>,<span class="string">"Abbreviation"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ASM"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"ASSUMPTION"</span>,<span class="string">"Assumption"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"CONJ"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"CONJECTURE"</span>,<span class="string">"Conjecture"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"CONV"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"CONVENTION"</span>,<span class="string">"Convention"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"COR"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"COROLLARY"</span>,<span class="string">"Corollary"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DEF"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"DEFINITION"</span>,<span class="string">"Definition"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"EX"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"EXAMPLE"</span>,<span class="string">"Example"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"FCT"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"FACT"</span>,<span class="string">"Fact"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"LMA"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"LEMMA"</span>,<span class="string">"Lemma"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"NTN"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"NOTATION"</span>,<span class="string">"Notation"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PRF"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"PROOF"</span>,<span class="string">"Proof"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PRP"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"PROPOSITION"</span>,<span class="string">"Proposition"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"QTN"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"QUOTATION"</span>,<span class="string">"Quotation"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"RMK"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"REMARK"</span>,<span class="string">"Remark"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"THM"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"THEOREM"</span>,<span class="string">"Theorem"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"TMY"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"TERMINOLOGY"</span>,<span class="string">"Terminology"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ABBRS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"ABBBREVIATIONS"</span>,<span class="string">"Abbbreviations"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ASMS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"ASSUMPTIONS"</span>,<span class="string">"Assumptions"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"CONJS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"CONJECTURES"</span>,<span class="string">"Conjectures"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"CONVS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"CONVENTIONS"</span>,<span class="string">"Conventions"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"CORS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"COROLLARIES"</span>,<span class="string">"Corollaries"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DEFS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"DEFINITIONS"</span>,<span class="string">"Definitions"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"EXS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"EXAMPLES"</span>,<span class="string">"Examples"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"FCTS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"FACTS"</span>,<span class="string">"Facts"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"LMAS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"LEMMAS"</span>,<span class="string">"Lemmas"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"NTNS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"NOTATIONS"</span>,<span class="string">"Notations"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PRFS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"PROOFS"</span>,<span class="string">"Proofs"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PRPS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"PROPOSITIONS"</span>,<span class="string">"Propositions"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"QTNS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"QUOTATIONS"</span>,<span class="string">"Quotations"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"RMKS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"REMARKS"</span>,<span class="string">"Remarks"</span>)<br>
+<br>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;<span class="string">"THMS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>(<span class="string">"THEOREMS"</span>,<span class="string">"Theorems"</span>)<br>
+<br>
+<br>
+<span class="keywordsign">|</span>_&nbsp;&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
+<br>
+</code></body></html>

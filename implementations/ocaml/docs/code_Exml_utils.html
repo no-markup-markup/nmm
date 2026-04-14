@@ -15,6 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -136,13 +137,19 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="string">"class"</span>),&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;(s::classes)]<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;attr_list_of_tr_id&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(id_opt&nbsp;:&nbsp;tr_id&nbsp;option)&nbsp;:&nbsp;(string*string)&nbsp;list&nbsp;=<br>
+<br>
+<span class="keyword">let</span>&nbsp;attr_list_of_tr_id&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(id&nbsp;:&nbsp;tr_id)&nbsp;:&nbsp;(string*string)&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[(<span class="string">"id"</span>,&nbsp;cdata_of_tr_id&nbsp;doc_settings&nbsp;path&nbsp;id)]<br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;attr_list_of_tr_id_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(classes&nbsp;:&nbsp;string&nbsp;list)&nbsp;(id_opt&nbsp;:&nbsp;tr_id&nbsp;option)&nbsp;:&nbsp;(string*string)&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;id_opt&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="string">"id"</span>,&nbsp;cdata_of_tr_id&nbsp;doc_settings&nbsp;path&nbsp;id)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="string">"class"</span>),&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;classes]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.concat&nbsp;[attr_list_of_ts_tag&nbsp;classes&nbsp;id.fld_id_tag;attr_list_of_tr_id&nbsp;doc_settings&nbsp;path&nbsp;id]<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;attr_list_of_tu_tag_or_id&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(classes&nbsp;:&nbsp;string&nbsp;list)&nbsp;(a&nbsp;:&nbsp;tu_tag_or_id&nbsp;option)&nbsp;:&nbsp;(string*string)&nbsp;list=<br>
+<br>
+<span class="keyword">let</span>&nbsp;attr_list_of_tu_tag_or_id_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(classes&nbsp;:&nbsp;string&nbsp;list)&nbsp;(a&nbsp;:&nbsp;tu_tag_or_id&nbsp;option)&nbsp;:&nbsp;(string*string)&nbsp;list=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;classes&nbsp;<span class="keyword">with</span><br>
@@ -153,7 +160,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag_or_id&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_tag</span>&nbsp;(tag&nbsp;:&nbsp;ts_tag)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;attr_list_of_ts_tag&nbsp;classes&nbsp;tag<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_id</span>&nbsp;(id&nbsp;:&nbsp;tr_id)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[attr_list_of_ts_tag&nbsp;classes&nbsp;id.fld_id_tag;attr_list_of_tr_id&nbsp;doc_settings&nbsp;path&nbsp;(<span class="constructor">Some</span>&nbsp;id)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[attr_list_of_ts_tag&nbsp;classes&nbsp;id.fld_id_tag;attr_list_of_tr_id&nbsp;doc_settings&nbsp;path&nbsp;id]<br>
 <br>
 <br>
 <span class="keyword">let</span>&nbsp;attr_list_of_ts_c_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;ts_c_ref)&nbsp;:&nbsp;(string*string)&nbsp;list&nbsp;=<br>

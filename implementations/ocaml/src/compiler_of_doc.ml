@@ -110,7 +110,7 @@ and xml_of_blk_ftn (doc_settings : t_doc_settings) (cref_table : t_cref_table) (
                 |Cs_ftn_ref (id, Cs_int i) -> string_of_int i
         in
         let attr_list : (string * string) list = 
-                match attr_list_of_tr_id doc_settings path (Some blk_ftn.fld_blk_ftn_id) with
+                match attr_list_of_tr_id doc_settings path blk_ftn.fld_blk_ftn_id with
                 |[("id",s)] -> [("id",s ^ addendum)]
                 |_ -> []
         in
@@ -202,7 +202,7 @@ and acc_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
                 let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
                 let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
-                let attr_list: (string*string) list = attr_list_of_tr_id doc_settings path a.fld_dsp_line_id in
+                let attr_list: (string*string) list = attr_list_of_tr_id_opt doc_settings path ["dsp_line"] a.fld_dsp_line_id in
                 match a.fld_dsp_line_lbl with
                 |None -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_main])]])
                 |Some _ -> EXML (List.concat [acc_list;[Xml.Element ("dsp_line", attr_list, [xml_lbl; xml_clear; xml_main])]])
@@ -335,7 +335,12 @@ and acc_of_tr_blk_itm (doc_settings : t_doc_settings) (cref_table : t_cref_table
                 let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
                 let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
                 let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
-                let attr_list = Exml_utils.attr_list_of_tr_id doc_settings path a.fld_blk_itm_id in
+		let classes : string list =
+			match path with
+			|(ITM_NODE (ITM_BIB_CUSTOM _))::_ -> ["bib_custom"]
+			|_ -> []
+		in
+                let attr_list = Exml_utils.attr_list_of_tr_id_opt doc_settings path ("blk"::("itm"::classes)) a.fld_blk_itm_id in
                 EXML (List.concat [acc_list;[Xml.Element ("blk_itm", attr_list, [xml_lbl;xml_clear;xml_main])]])
 
 
@@ -452,7 +457,7 @@ and acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 in
-                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["par"] a.fld_par_tag_or_id in
+                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["par"] a.fld_par_tag_or_id in
                 EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
         )
 
@@ -547,7 +552,7 @@ and acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (f
                 in
                 let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
-                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["sec"] a.fld_sec_tag_or_id in
+                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["sec"] a.fld_sec_tag_or_id in
                 match a.fld_sec_hdr with
                 |None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main])]])
                 |Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main])]])
@@ -625,7 +630,7 @@ and acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (ft
                 let xml_endnotes_opt : Xml.xml option = xml_of_ftn_table_opt doc_settings cref_table path ftn_table in
                 let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
-                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id doc_settings path ["ch"] a.fld_ch_tag_or_id in
+                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["ch"] a.fld_ch_tag_or_id in
                 let xml_list_ch = 
                         match a.fld_ch_hdr, xml_endnotes_opt with
                         |None,None -> [xml_hdr;xml_main]
