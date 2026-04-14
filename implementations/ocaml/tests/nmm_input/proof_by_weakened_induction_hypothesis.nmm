@@ -23,7 +23,7 @@ ABSTRACT:
 	*incomparable* or even *weaker* induction hypothesis succeeds.
 
 
-§ SEC:intro
+§	SEC:intro
 Introduction
 
 ¶
@@ -65,7 +65,7 @@ Straightforward induction yields the following:
 
 
 
-§ SEC:precise
+§	SEC:precise
 Making it precise
 
 ¶
@@ -105,7 +105,7 @@ theorems.
 Then, as we show in [SEC:model] below, a situation may indeed
 arise satisfying the following definition:
 
-¶ DEF:good
+¶	DEF:good
 Proof by non-straightforward induction
 
 We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
@@ -115,7 +115,7 @@ We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
 ()	T ⊢ ψ(0) ∧ ∀x(ψ(x) → ψ(x'))	DSP:good2
 ()	T ⊢ ∀xψ(x) → ∀xφ(x)		DSP:good3
 
-¶ FCT:good
+¶	FCT:good
 
 There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)
 exemplifying cases of proof by non-straightforward induction.
@@ -128,7 +128,7 @@ As we show in [SEC:weaker] below, there are cases of proof by
 non-straightforward induction where,
 relative to T, ψ(x) is actually *weaker* than φ(x).
 
-§ SEC:model
+§	SEC:model
 A non-standard model
 
 ¶
@@ -164,7 +164,7 @@ It can easily be verified that M is also a model of what we may call
 associativity and distribution laws for addition and multiplication to the
 axioms of Robinson arithmetic.
 
-¶ PRF
+¶	PRF
 of [FCT:good]
 
 To verify that cases of proof by non-straightforward induction are indeed
@@ -202,7 +202,7 @@ Clearly, ψ(x) characterizes the non-standard numbers of M in the sense that
 they and only they fail to satisfy it. But due to [DSP:m5],
 φ(x) is satisfied by M in the special case of a[0] being assigned to x.
 
-§ SEC:weaker
+§	SEC:weaker
 Proof by non-strengthened induction hypothesis
 
 ¶
@@ -218,7 +218,7 @@ No. As a matter of fact, there are cases of what we call
 *proof by weakened induction hypothesis*, respectively.
 
 
-¶ DEF:inc
+¶	DEF:inc
 Proof by incomparable induction hypothesis
 
 We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
@@ -229,7 +229,7 @@ a case of proof by non-straightforward induction and, in addition,
 ()	T ⊬ ∀x(ψ(x) → φ(x))	DSP:inc2
 ()	T ⊬ ∀x(φ(x) → ψ(x))	DSP:inc3
 
-¶ RMK
+¶	RMK
 
 By [DSP:inc1] and [DSP:good3], we have in effect
 
@@ -238,12 +238,12 @@ By [DSP:inc1] and [DSP:good3], we have in effect
 But because of [DSP:inc2] and [DSP:inc3], we may still say that φ(x) and 
 ψ(x) are *incomparable* relative to T.
 
-¶ FCT:inc
+¶	FCT:inc
 
 There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)
 exemplifying a case of proof by incomparable induction hypothesis.
 
-¶ PRF:inc
+¶	PRF:inc
 
 To show that proof by incomparable induction hypothesis is possible,
 it suffices to find true formulas
@@ -294,7 +294,7 @@ we need to consider the following two cases:
 
 By symmetry of reasoning, we see that ψ(x) also has the required profile.
 
-¶ DEF:weak
+¶	DEF:weak
 Proof by weakened induction hypothesis
 
 We say that a theory T and formulas φ(x) and ψ(x) exemplify a case of
@@ -306,7 +306,7 @@ a case of proof by non-straightforward induction and, in addition,
 ()	T ⊢ ∀x(φ(x) → ψ(x))	DSP:weak3
 
 
-¶ RMK
+¶	RMK
 
 By [DSP:weak1] and [DSP:good3], we have in effect
 
@@ -315,14 +315,14 @@ By [DSP:weak1] and [DSP:good3], we have in effect
 But because of [DSP:weak2] and [DSP:weak3], we may still say that ψ(x)
 is *weaker* than φ(x) relative to T.
 
-¶ FCT:weak
+¶	FCT:weak
 
 There are extensions T of Robinson arithmetic and formulas φ(x) and ψ(x)
 exemplifying a case of proof by weakened induction hypothesis.
 
 
 
-¶ PRF
+¶	PRF
 
 To show that proof by weakened induction hypothesis is possible,
 it suffices to find true 
@@ -376,7 +376,7 @@ Thus, let T be the theory you get by adding, to minimal arithmetic, the axioms
 ()	∀x∀y(x < y ∨ x = y ∨ y < x)
 ()	ψ(0) ∧ ∀x(ψ(x) → ψ(x'))
 
-¶ RMK
+¶	RMK
 
 We here have cases where, relative to a base theory T, one *must* use a
 different induction hypothesis, and *may* use one that is not stronger.
@@ -387,7 +387,7 @@ in [ITM:Hetzl&Wong], which we expand upon below.
 
 
 
-§ SEC:gen
+§	SEC:gen
 Proof by necessarily non-strengthened induction hypothesis
 
 ¶
@@ -397,13 +397,13 @@ induction axioms, it is provable in that theory using at most one induction axio
 This generalizes Corollary 2.10 reported by Hetzl and Wong.
 
 
-¶ DEF:indax
+¶	DEF:indax
 
 For each formula Θ(x,z̄), we define the corresponding induction axiom IΘ as the closed formula
 
 	∀z̄[θ(0,z̄) ∧ ∀y(θ(y,z̄) → θ(y',z̄)) → ∀xθ(x,z̄)]
 
-¶ LMA:lma
+¶	LMA:lma
 Generalizing Lemma 2.8 of Hetzl and Wong
 
 Let Θ(x,z̄) be a formula, and define φ(x) as
@@ -419,7 +419,7 @@ and
 ()	⊢ ∀xφ(x) ↔ Iθ			LMA:lma2
 
 
-¶ PRF
+¶	PRF
 
 First we show [LMA:lma1]. We have φ(0) by ∧-elimination, →-introduction and ∀-introduction. To show the
 second conjunct, assume φ(a), i.e.
@@ -481,7 +481,7 @@ By ∀-introduction, this yields ∀xΘ(x,b̄). Discharging [DSP:lma2ass3],
 →-introduction followed by ∀-introduction yields [DSP:lma2ass1].
 
 
-¶ FCT:fct1
+¶	FCT:fct1
 Generalizing Proposition 2.9 of Hetzl and Wong
 
 For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x) such
@@ -493,7 +493,7 @@ and
 
 ()	⊢ ∀xϕ(x) ↔ Iθ₁ ∧ ... ∧ Iθₙ	DSP:fct1.2
 
-¶ PRF:prf1
+¶	PRF:prf1
 
 By [LMA:lma], there is a formula φₖ(x) for each 1 ≤ k ≤ n such that
 
@@ -509,12 +509,12 @@ that
 
 	⊢ ∀xφ₁(x) ∧ ... ∧ ∀xφₙ(x) ↔ ∀x(φ₁(x) ∧ ... ∧ φₙ(x))
 
-¶ FCT:crl1
+¶	FCT:crl1
 
 For any formulas θ₁(x,z̄), ..., θₙ(x,z̄), there is a formula φ(x)
 such that ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ.
 
-¶ PRF
+¶	PRF
 
 By [FCT:fct1], there is a formula φ(x) such that
 
@@ -528,21 +528,21 @@ What remains is to observe that ⊢ ∀xφ(x) ↔ Iφ. Left to right follows ess
 by ∀-elimination. For right to left, assume Iφ. Then ∀xφ(x)
 follows by →-elimination.
 
-¶ FCT:crl2
+¶	FCT:crl2
 Generalizing Corollary 2.10 of Hetzl and Wong
 
 Let IND be the set of induction axioms, let T be a set of sentences,
 and let σ be a sentence. If T + IND ⊢ σ, then there is a formula φ(x) such
 that T + Iφ ⊢ σ.
 
-¶ PRF
+¶	PRF
 
 Assume that T + IND ⊢ σ. Then there is a finite set
 θ₁(x,z̄), ..., θₙ(x,z̄) of formulas such that T + Iθ₁ + ... + Iθₙ ⊢ σ.
 By [FCT:crl1], there is a formula φ(x) such that 
 ⊢ Iφ ↔ Iθ₁ ∧ ... ∧ Iθₙ. Hence, T + Iφ ⊢ σ.
 
-¶ FCT:fct2
+¶	FCT:fct2
 Generalizing Proposition 3.2 of Hetzl and Wong
 
 Assume that T + IND ⊢ σ but T ⊬ σ, and let φ(x) be x = 0 → σ.
@@ -559,7 +559,7 @@ Moreover, for any such ψ(x), we have
 
 ()	T ⊬ ∀x(ψ(x) → φ(x))	DSP:fct2.4
 
-¶ PRF
+¶	PRF
 
 The first part follows by [FCT:crl2]. For the last part, assume that ψ(x) is a
 formula of the required kind. Since T ⊬ σ, there is a model M of T such
@@ -567,7 +567,7 @@ that M ⊭ σ and thus M ⊭ ∀xφ(x). Hence, by [DSP:fct2.3], we have M ⊭ I�
 which means that M ⊨ ψ(0) but M ⊭ φ(0). Hence, M ⊭ ψ(0) → ϕ(0),
 so T ⊬ ∀x(ψ(x) → φ(x)).
 
-¶ RMK
+¶	RMK
 
 The authors are not aware of any “natural” cases of proof by incomparable
 or weakened induction hypothesis.

@@ -1,12 +1,12 @@
 §
 Some definitions
 
-¶ DEF:goodness
+¶	DEF:goodness
 Goodness
 
 A thing is good iff it is desirable.
 
-¶ DEF
+¶	DEF
 Stupidity
 
 To think that [DEF:goodness] is useful.
@@ -14,7 +14,7 @@ To think that [DEF:goodness] is useful.
 §
 Our main results
 
-¶ THMS:main
+¶	THMS:main
 Main
 
 []	ITM:1
@@ -46,7 +46,7 @@ Main
 '[ITM\:X]' -> [ITM:X]
 
 
-¶ PRF:main
+¶	PRF:main
 of [THMS:main]
 
 By straightforward induction on the complexity of nothing.
@@ -67,7 +67,7 @@ By straightforward induction on the complexity of nothing.
 
 '[ITM\:X]' -> [ITM:X]
 
-¶ PRF:1
+¶	PRF:1
 of [ITM:1]
 
 Obvious by [DEF:goodness].

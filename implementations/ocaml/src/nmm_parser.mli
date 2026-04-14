@@ -41,8 +41,8 @@ type token =
         |C_REF of string
         |DSP_ID of string
         |CH_TAG_OR_ID_NL of string
-        |SECTION_SPACES_TAG_OR_ID_NL of string
-        |PILCROW_SPACES_TAG_OR_ID_NL of string
+        |SECTION_TAB_TAG_OR_ID_NL of string
+        |PILCROW_TAB_TAG_OR_ID_NL of string
         |PILCROW_SPACES_RPT_SPACES_ID_NL of string
         |ITM_CUSTOM_TAB of string
         |DSP_CUSTOM_TAB of string

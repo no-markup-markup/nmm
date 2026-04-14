@@ -27,8 +27,8 @@ let string_of_token (t:Nmm_parser.token):string=
         |COLON -> "COLON"
         |EOF -> "EOF"
         |CH_TAG_OR_ID_NL s -> ("CH_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
-        |SECTION_SPACES_TAG_OR_ID_NL s -> ("SECTION_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
-        |PILCROW_SPACES_TAG_OR_ID_NL s -> ("PILCROW_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+        |SECTION_TAB_TAG_OR_ID_NL s -> ("SECTION_TAB_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+        |PILCROW_TAB_TAG_OR_ID_NL s -> ("PILCROW_TAB_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
         |PILCROW_SPACES_RPT_SPACES_ID_NL s -> ("PILCROW_SPACES_RPT_SPACES_ID_NL " ^ "\"" ^ s ^ "\"")
         |TXT s -> ("TXT " ^ "\"" ^ s ^ "\"")
         |DSP_CUSTOM_TAB s -> ("DSP_CUSTOM_TAB " ^ "\"" ^ s ^ "\"")

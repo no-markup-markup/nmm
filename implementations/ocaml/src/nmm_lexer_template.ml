@@ -51,10 +51,10 @@ let star_tab_id = [%sedlex.regexp? star_tab, ftn_id]
 let ch_tag_or_id_nl = [%sedlex.regexp? ch_tag_or_id, nl]
 
 let section_nl = [%sedlex.regexp? section, nl]
-let section_spaces_tag_or_id_nl = [%sedlex.regexp? section, Plus " ", sec_tag_or_id, nl]
+let section_tab_tag_or_id_nl = [%sedlex.regexp? section, tab, sec_tag_or_id, nl]
 
 let pilcrow_nl = [%sedlex.regexp? pilcrow, nl]
-let pilcrow_spaces_tag_or_id_nl = [%sedlex.regexp? pilcrow, Plus " ", par_tag_or_id, nl]
+let pilcrow_tab_tag_or_id_nl = [%sedlex.regexp? pilcrow, tab, par_tag_or_id, nl]
 let pilcrow_spaces_rpt_spaces_id_nl = [%sedlex.regexp? pilcrow, Plus " ", "rpt", Plus " ", par_id, nl]
 
 let preamble = [%sedlex.regexp? "PREAMBLE:"]
@@ -85,7 +85,7 @@ let get_label (s:string):string=
 
 let get_tag_or_id (s:string):string=
         let x=String.trim s in
-        let y=String.split_on_char ' ' x in
+        let y=String.split_on_char '\t' x in
         let z=List.tl y in
         String.concat "" z
 
@@ -138,9 +138,9 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |c_ref                          ->      C_REF (lexeme lexbuf)
                 |ftn_ref                        ->      FTN_REF (lexeme lexbuf, ftn_count ())
                 |section_nl                     ->      SECTION_NL
-                |section_spaces_tag_or_id_nl    ->      SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+                |section_tab_tag_or_id_nl       ->      SECTION_TAB_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
                 |pilcrow_nl                     ->      PILCROW_NL
-                |pilcrow_spaces_tag_or_id_nl    ->      PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+                |pilcrow_tab_tag_or_id_nl       ->      PILCROW_TAB_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
                 |pilcrow_spaces_rpt_spaces_id_nl ->     PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
                 |section_refs_nls               ->      SECTION_REFS_NLS
                 |pilcrow_refs_nls               ->      PILCROW_REFS_NLS

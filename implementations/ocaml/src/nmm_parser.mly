@@ -86,7 +86,7 @@ let date_of_string (s : string) : tu_date =
 %token <string>                 ESC_CHAR
 %token <string>                 TXT C_REF
 %token <string>                 DSP_ID
-%token <string>                 CH_TAG_OR_ID_NL SECTION_SPACES_TAG_OR_ID_NL PILCROW_SPACES_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
+%token <string>                 CH_TAG_OR_ID_NL SECTION_TAB_TAG_OR_ID_NL PILCROW_TAB_TAG_OR_ID_NL PILCROW_SPACES_RPT_SPACES_ID_NL
 %token <string>                 ITM_CUSTOM_TAB DSP_CUSTOM_TAB ITM_AUTO_TAB_ID ITM_CUSTOM_TAB_ID STAR_TAB_ID
 %token <string * int>           FTN_REF
 %token <int>                    FTN_LBR
@@ -256,9 +256,9 @@ ch_main:
 
 sec:
   |section_nl sec_main                            { {fld_sec_tag_or_id=None;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
-  |section_spaces_tag_or_id_nl sec_main           { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
+  |section_tab_tag_or_id_nl sec_main              { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
   |section_nl hdr sec_main                        { {fld_sec_tag_or_id=None;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
-  |section_spaces_tag_or_id_nl hdr sec_main       { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
+  |section_tab_tag_or_id_nl hdr sec_main          { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
 ;
 
 sec_main:
@@ -275,9 +275,9 @@ pars:
 
 par:
   |pilcrow_nl par_main                            { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$2}:tu_par }
-  |pilcrow_spaces_tag_or_id_nl par_main           { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tu_par }
+  |pilcrow_tab_tag_or_id_nl par_main              { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tu_par }
   |pilcrow_nl hdr par_main                        { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
-  |pilcrow_spaces_tag_or_id_nl hdr par_main       { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
+  |pilcrow_tab_tag_or_id_nl hdr par_main          { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
   |pilcrow_spaces_rpt_spaces_id_nl nls            { Cu_par_rpt $1 : tu_par }
 ;
 
@@ -907,16 +907,16 @@ section_nl:
   |SECTION_NL                                     { }
 ;
 
-section_spaces_tag_or_id_nl:
-  |SECTION_SPACES_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):tu_tag_or_id }
+section_tab_tag_or_id_nl:
+  |SECTION_TAB_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):tu_tag_or_id }
 ;
 
 pilcrow_nl:
   |PILCROW_NL                                     { }
 ;
 
-pilcrow_spaces_tag_or_id_nl:
-  |PILCROW_SPACES_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):tu_tag_or_id }
+pilcrow_tab_tag_or_id_nl:
+  |PILCROW_TAB_TAG_OR_ID_NL                    { (tag_or_id_of_string $1):tu_tag_or_id }
 ;
 
 pilcrow_spaces_rpt_spaces_id_nl:

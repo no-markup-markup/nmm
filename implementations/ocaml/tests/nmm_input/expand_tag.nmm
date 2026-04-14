@@ -1,6 +1,6 @@
 §
 
-¶ THM:main
+¶	THM:main
 Main
 
 []	ITM:1
@@ -24,7 +24,7 @@ Main
 '[ITM\:2b]' -> [ITM:2b]
 
 
-¶ PRF:proof
+¶	PRF:proof
 of [THM:main]
 
 By straightforward induction on the complexity of nothing.
@@ -41,7 +41,7 @@ By straightforward induction on the complexity of nothing.
 
 §
 
-¶ PRF
+¶	PRF
 of [THM:main]
 
 By straightforward induction on the complexity of nothing.
