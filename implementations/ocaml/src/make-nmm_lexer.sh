@@ -3,7 +3,7 @@ TAB='\t'
 
 SED_CMD_EXTRACT='s/'$COL$TAB$COL$TAB$COL$TAB$COL$TAB$COL$TAB$COL'/ "\1" | "\2" |/'
 
-MIDDLE="$(sed "$SED_CMD_EXTRACT" ../bin/tags.tsv | sed 's/| ""//')"
+MIDDLE=$(sed "$SED_CMD_EXTRACT" ../bin/tags.tsv | sed 's/| ""//')
 
 INTRO='let tag_shared = [%sedlex.regexp? '
 
