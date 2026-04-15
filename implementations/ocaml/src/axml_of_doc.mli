@@ -7,3 +7,8 @@ val axml_of_tr_doc : Doc_types.tr_doc -> Xml.xml
 Ideally, if [axml] is an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml] that is also an instance of {{:specs/axml.dtd.txt}axml.dtd}, then [axml_of_tr_doc (]{!val:Doc_of_axml.f_tr_doc_of_axml}[ axml)] should evaluate to [axml].
 
 *)
+
+val normalize : Xml.xml -> Xml.xml
+(**
+Unites adjacent elements with tag [cu_txt_unit_wysiwyg].
+*)

@@ -115,7 +115,7 @@ show_txt_diff(){
 	local expected_output_dir="expected_txt_output"
 	for file in $(ls $output_dir/*.txt)
 	do
-	diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
 		curr_code=$?
 		if [ $curr_code -gt 0 ]
 		then
@@ -134,7 +134,7 @@ show_html_diff(){
 	local expected_output_dir="expected_html_output"
 	for file in $(ls $output_dir/*.html)
 	do
-	diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
 		curr_code=$?
 		if [ $curr_code -gt 0 ]
 		then
@@ -152,7 +152,7 @@ show_xml_diff(){
 	local expected_output_dir="expected_xml_output"
 	for file in $(ls $output_dir/*.xml)
 	do
-	diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
 		curr_code=$?
 		if [ $curr_code -gt 0 ]
 		then
@@ -167,15 +167,58 @@ test_auto_date(){
 	local DATE
 	local LINE
 	local curr_code
-	DATE=$(date +'%Y-%m-%d %H:%M UTC%:::z')
-	LINE=$(../bin/nmm-ocaml txt-of-nmm nmm_input/date_auto/date_auto.nmm | head -n 1)
-	if [ "$LINE" = "$DATE" ]
+	SYS_DATE=$(date +'%Y-%m-%d %H:%M UTC%:::z')
+	DOC_DATE=$(../bin/nmm-ocaml txt-of-nmm nmm_input/date_auto/date_auto.nmm | head -n 1)
+	if [ "$DOC_DATE" = "$SYS_DATE" ]
 	then
 		return 0
 	else
-		echo "$DATE ≠ $LINE"
+		echo "test_auto_date FAILED: document date $DOC_DATE ≠ system date $SYS_DATE"
 		return 2
 	fi
+}
+
+test_normalize(){
+	local exit_code=0
+	local curr_code=0
+	local input_dir="nmm_input"
+	TEMP_DIR_XML_OF_NMM=$(mktemp -d)
+	TEMP_DIR_TXT_OF_XML=$(mktemp -d)
+	TEMP_DIR_TXT_OF_NMM=$(mktemp -d)
+
+	for file in $(ls $input_dir/*.nmm)
+	do
+		../bin/nmm-ocaml txt-of-nmm --quiet $file > $TEMP_DIR_TXT_OF_NMM/$(basename -s .nmm $file).txt
+		../bin/nmm-ocaml xml-of-nmm $@ $file > $TEMP_DIR_XML_OF_NMM/$(basename -s .nmm $file).xml
+	done
+
+
+	for file in $(ls $TEMP_DIR_XML_OF_NMM/*.xml)
+	do
+		../bin/nmm-ocaml txt-of-xml --quiet $file > $TEMP_DIR_TXT_OF_XML/$(basename -s .xml $file).txt
+	done
+
+	local exit_code=0
+	local curr_code=0
+	local output_dir=$TEMP_DIR_TXT_OF_XML
+	local expected_output_dir=$TEMP_DIR_TXT_OF_NMM
+	for file in $(ls $output_dir/*.txt)
+	do
+		diff $expected_output_dir/$(basename $file) $output_dir/$(basename $file) > /dev/null
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+			echo "output differs from expected output in $file"
+		fi
+	done
+
+	rm -rf $TEMP_DIR_TXT_OF_NMM
+	rm -rf $TEMP_DIR_XML_OF_NMM
+	rm -rf $TEMP_DIR_TXT_OF_XML
+
+	return $exit_code
+
 }
 
 
@@ -255,6 +298,13 @@ make_test(){
 
 
 	test_auto_date
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+	exit_code=$curr_code
+	fi
+
+	test_normalize
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then

@@ -37,43 +37,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Some facts about inductively defined structures seem not to admit</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>“straightforward” induction proofs. In such cases, a</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>“non-straightforward” induction proof seems “necessary”. A curious</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>one, or one fond of precision, or anyone with any other motivation,</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>might then wonder whether there is a way to precisely and sensibly</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>state, and prove, that this or that fact does not admit a</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>straightforward induction proof.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some facts about inductively defined structures seem not to admit “straightforward” induction proofs. In such cases, a “non-straightforward” induction proof seems “necessary”. A curious one, or one fond of precision, or anyone with any other motivation, might then wonder whether there is a way to precisely and sensibly state, and prove, that this or that fact does not admit a straightforward induction proof.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -97,13 +61,7 @@
 <cs_dsp_line_no_lbl>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>     b </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> ℕ → ℚ</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>     b : ℕ → ℚ</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_dsp_line_no_lbl>
@@ -243,10 +201,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>For each n</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>For each n:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -292,16 +247,7 @@
 <cs_txt_unit_emph>the Basel problem</cs_txt_unit_emph>
 </cu_txt_unit_emph>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>, which ask for</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>a closed-form expression of the infinite sum</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, which ask for a closed-form expression of the infinite sum:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

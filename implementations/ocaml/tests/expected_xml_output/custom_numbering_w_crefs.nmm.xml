@@ -28,13 +28,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Item with id ‘ITM</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>1’ with custom label indicating custom numbering of subsequent items in the same paragraph.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Item with id ‘ITM:1’ with custom label indicating custom numbering of subsequent items in the same paragraph.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -56,13 +50,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Item with id ‘ITM</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>2’.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Item with id ‘ITM:2’.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -156,13 +144,7 @@
 </cr_id>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Display line with id ‘DSP</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>1’.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Display line with id ‘DSP:1’.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cr_dsp_line_lbld>
@@ -351,10 +333,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>ext item.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Next item.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -415,13 +394,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Custom labeled item with id ‘ITM</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>i’ with effect on subsequent numbering.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Custom labeled item with id ‘ITM:i’ with effect on subsequent numbering.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -491,10 +464,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>ext item.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Next item.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

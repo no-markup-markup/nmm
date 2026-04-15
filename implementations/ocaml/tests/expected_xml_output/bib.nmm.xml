@@ -17,16 +17,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>This is an item with ID ‘BIB</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>JL’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This is an item with ID ‘BIB:JL’:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -45,13 +36,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026)</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -63,13 +48,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>When referred to, it looks like this</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>When referred to, it looks like this: </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -91,31 +70,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>We can also refer to the corresponding bibliography items in REFERE</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>CES,</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>with ID ‘BIB</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>JL_refs’. It looks like this</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>We can also refer to the corresponding bibliography items in REFERENCES, with ID ‘BIB:JL_refs’. It looks like this: </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -137,10 +92,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>A clever way of achieving nice citations is to use bibliography items with custom labels, like this one</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>A clever way of achieving nice citations is to use bibliography items with custom labels, like this one:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -159,13 +111,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026)</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -177,13 +123,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Referring to it looks like this</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Referring to it looks like this: </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -205,19 +145,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Referring to the corresponding bibliography item in REFERE</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>CES looks like this</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Referring to the corresponding bibliography item in REFERENCES looks like this: </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -252,10 +180,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Referring from another section</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Referring from another section:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -329,13 +254,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026)</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -357,13 +276,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026)</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

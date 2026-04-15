@@ -92,7 +92,7 @@ let doc_of_axml (path : string) : Doc_types.tr_doc =
 
 let axml_of_doc (doc : Doc_types.tr_doc) : string =
         "<?xml version=\"1.0\"?>\n" ^ 
-        (Xml_right.to_string_fmt (Axml_of_doc.axml_of_tr_doc doc))
+        (Xml_right.to_string_fmt (Axml_of_doc.normalize (Axml_of_doc.axml_of_tr_doc doc)))
 
 let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
         html_of_doc options (doc_of_nmm path)

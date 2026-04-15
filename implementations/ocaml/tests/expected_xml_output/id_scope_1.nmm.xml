@@ -25,19 +25,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>The ID (‘PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par_default_scope’) of this paragraph has default</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>(global) scope. It may be referred to from anywhere in the document.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The ID (‘PAR:par_default_scope’) of this paragraph has default (global) scope. It may be referred to from anywhere in the document.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -59,19 +47,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>The ID (‘PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>GBL’) of this paragraph has explicitly global scope.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The ID (‘PAR:par:GBL’) of this paragraph has explicitly global scope.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -106,25 +82,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>The ID (‘PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>SEC’) of this paragraph has section scope. We may</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>still refer to </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The ID (‘PAR:par:SEC’) of this paragraph has section scope. We may still refer to </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -138,31 +96,7 @@
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>, by using ‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>GBL</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, by using ‘[PAR:par:GBL]’.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -177,10 +111,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Some cross-references</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some cross-references:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -192,31 +123,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par_default_scope</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘[PAR:par_default_scope]’: </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -241,37 +148,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>GBL</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>           </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘[PAR:par:GBL]’:           </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -297,37 +174,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>SEC</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>           </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘[PAR:par:SEC]’:           </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -376,31 +223,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>The ID (‘PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>SEC’) of this paragraph has section scope. Since it</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>has section scope there is no problem that it has the same ID as a</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>paragraph in another section.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The ID (‘PAR:par:SEC’) of this paragraph has section scope. Since it has section scope there is no problem that it has the same ID as a paragraph in another section.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -415,10 +238,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Some cross-references</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some cross-references:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -430,31 +250,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par_default_scope</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘[PAR:par_default_scope]’: </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -479,37 +275,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>GBL</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>           </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘[PAR:par:GBL]’:           </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>
@@ -535,37 +301,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>‘</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>[</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>PAR</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>par</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>SEC</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>]</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>’</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>           </cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>‘[PAR:par:SEC]’:           </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_c_ref>
 <cs_txt_unit_c_ref>

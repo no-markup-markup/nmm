@@ -20,13 +20,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated.</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Suppose you have a file system such that, whenever you modify a file, the modification time of its immediate parent directory also gets updated. Furthermore, suppose you want to keep a directory in your file system synced with another directory in your file system.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -44,10 +38,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>N</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>ow, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -81,13 +72,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>you have n files partitioned equally over k subdirectories</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>(with n/k files in each),</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>you have n files partitioned equally over k subdirectories (with n/k files in each),</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -102,13 +87,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>each file is just as likely to have been modified as any other</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>(with probability p),</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>each file is just as likely to have been modified as any other (with probability p),</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -138,13 +117,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>the number of files are fixed, and the modification time of a</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the number of files are fixed, and the modification time of a directory only gets updated when its files are modified.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -183,10 +156,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>The expected number of comparisons that need to be performed is then given by the following sum</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>The expected number of comparisons that need to be performed is then given by the following sum:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -403,13 +373,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>you have n files partitioned equally over k subdirectories</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>(with n/k files in each), and that</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>you have n files partitioned equally over k subdirectories (with n/k files in each), and that</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -424,13 +388,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>the number of files are fixed, and the modification time of a</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>directory only gets updated when its files are modified.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the number of files are fixed, and the modification time of a directory only gets updated when its files are modified.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -567,10 +525,7 @@
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg> with respect to k, i.e. to solve the following equation for k</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg> with respect to k, i.e. to solve the following equation for k:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
