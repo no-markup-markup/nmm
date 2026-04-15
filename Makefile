@@ -40,3 +40,14 @@ test-nmm2xml: bin
 
 test-nmm2txt: bin
 	./test-nmm2txt.sh
+
+docs-ocaml:
+	cd implementations/ocaml
+	make docs
+	cd -
+
+clean-docs-ocaml:
+	cd implementations/ocaml
+	make clean-docs
+	cd -
+	rm -rf docs/docs-ocaml/*
