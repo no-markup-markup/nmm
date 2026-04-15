@@ -41,9 +41,9 @@
   cu_tag_type_par;
   cu_tag_type_itm;
   cu_tag_type_dsp;
-  cu_tag_type_ftn;
+  cu_tag_type_nte;
   cu_tag_type_c_ref;
-  cu_tag_type_ftn_ref;
+  cu_tag_type_nte_ref;
   cu_tag_type_par_rpt_ref.
 
 
@@ -287,7 +287,7 @@
   ;
   cu_blk_vrb(ts_blk_vrb)
   ;
-  cu_blk_ftn(tr_blk_ftn)
+  cu_blk_nte(tr_blk_nte)
   .
 
 :- instance term_to_xml.xmlable(tu_blk).
@@ -343,7 +343,7 @@
 
 :- type tu_txt_unit --->
   cu_txt_unit_c_ref(ts_txt_unit_c_ref);
-  cu_txt_unit_ftn_ref(ts_txt_unit_ftn_ref);
+  cu_txt_unit_nte_ref(ts_txt_unit_nte_ref);
   cu_txt_unit_emph(ts_txt_unit_emph);
   cu_txt_unit_wysiwyg(ts_txt_unit_wysiwyg).
 
@@ -390,14 +390,14 @@
 :- instance term_to_xml.xmlable(ts_txt_unit_c_ref).
 
 
-%% RULE R_TXT_UNIT_FTN_REF, SIMPLE TYPE TS_TXT_UNIT_FTN_REF, INSTANCE TS_TXT_UNIT_FTN_REF XMLABLE
+%% RULE R_TXT_UNIT_NTE_REF, SIMPLE TYPE TS_TXT_UNIT_NTE_REF, INSTANCE TS_TXT_UNIT_NTE_REF XMLABLE
 
-:- pred r_txt_unit_ftn_ref(ts_txt_unit_ftn_ref, ts_tkns, ts_tkns).
-:- mode r_txt_unit_ftn_ref(out,                 in,      out) is semidet.
+:- pred r_txt_unit_nte_ref(ts_txt_unit_nte_ref, ts_tkns, ts_tkns).
+:- mode r_txt_unit_nte_ref(out,                 in,      out) is semidet.
 
-:- type ts_txt_unit_ftn_ref ---> cs_txt_unit_ftn_ref(ts_ftn_ref).
+:- type ts_txt_unit_nte_ref ---> cs_txt_unit_nte_ref(ts_nte_ref).
 
-:- instance term_to_xml.xmlable(ts_txt_unit_ftn_ref).
+:- instance term_to_xml.xmlable(ts_txt_unit_nte_ref).
 
 
 %% RULE R_TXT_UNITS, SIMPLE TYPE TS_TXT_UNITS, INSTANCE TS_TXT_UNITS XMLABLE
@@ -512,14 +512,14 @@
 ) is semidet.
 
 
-%% RULE R_FTN_REF, SIMPLE TYPE TS_FTN_REF, INSTANCE TS_FTN_REF XMLABLE
+%% RULE R_NTE_REF, SIMPLE TYPE TS_NTE_REF, INSTANCE TS_NTE_REF XMLABLE
 
-:- type ts_ftn_ref ---> cs_ftn_ref(tr_id).
+:- type ts_nte_ref ---> cs_nte_ref(tr_id).
 
-:- instance term_to_xml.xmlable(ts_ftn_ref).
+:- instance term_to_xml.xmlable(ts_nte_ref).
 
-:- pred r_ftn_ref(ts_ftn_ref, ts_tkns, ts_tkns).
-:- mode r_ftn_ref(out,        in,      out) is semidet.
+:- pred r_nte_ref(ts_nte_ref, ts_tkns, ts_tkns).
+:- mode r_nte_ref(out,        in,      out) is semidet.
 
 
 %% RULE R_BLK_TXT, SIMPLE TYPE TS_BLK_TXT, INSTANCE TS_BLK_TXT XMLABLE
@@ -576,17 +576,17 @@
 :- mode r_blk_vrb(in,     out,        in,      out) is semidet.
 
 
-%% RULE R_BLK_FTN, RECORD TYPE TR_BLK_FTN, INSTANCE TR_BLK_FTN XMLABLE
+%% RULE R_BLK_NTE, RECORD TYPE TR_BLK_NTE, INSTANCE TR_BLK_NTE XMLABLE
 
-:- type tr_blk_ftn ---> cr_blk_ftn(
-  fld_blk_ftn_id   :: tr_id,
-  fld_blk_ftn_main :: ts_blks
+:- type tr_blk_nte ---> cr_blk_nte(
+  fld_blk_nte_id   :: tr_id,
+  fld_blk_nte_main :: ts_blks
 ).
 
-:- instance term_to_xml.xmlable(tr_blk_ftn).
+:- instance term_to_xml.xmlable(tr_blk_nte).
 
-:- pred r_blk_ftn(ts_allowed_tags, ta_lvl, tr_blk_ftn, ts_tkns, ts_tkns).
-:- mode r_blk_ftn(in,              in,     out,        in,      out) is semidet.
+:- pred r_blk_nte(ts_allowed_tags, ta_lvl, tr_blk_nte, ts_tkns, ts_tkns).
+:- mode r_blk_nte(in,              in,     out,        in,      out) is semidet.
 
 
 %% RULE R_DSP_LINES, SIMPLE TYPE TS_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
@@ -1392,7 +1392,7 @@ r_blk(ALLOWED_TAGS,LVL,BLK) -->
   r_blk_itm(ALLOWED_TAGS,LVL,BLK_ITM) -> {BLK = cu_blk_itm(BLK_ITM)};
   r_blk_dsp(ALLOWED_TAGS,LVL,BLK_DSP) -> {BLK = cu_blk_dsp(BLK_DSP)};
   r_blk_vrb(             LVL,BLK_VRB) -> {BLK = cu_blk_vrb(BLK_VRB)};
-  r_blk_ftn(ALLOWED_TAGS,LVL,BLK_FTN) -> {BLK = cu_blk_ftn(BLK_FTN)};
+  r_blk_nte(ALLOWED_TAGS,LVL,BLK_NTE) -> {BLK = cu_blk_nte(BLK_NTE)};
                                          {false}.
 
 %%% INSTANCE XMLABLE
@@ -1413,8 +1413,8 @@ f_blk_to_xml(cu_blk_dsp(BLK)) =
   term_to_xml.elem("cu_blk_dsp",[],[f_blk_dsp_to_xml(BLK)]).
 f_blk_to_xml(cu_blk_vrb(BLK)) =
   term_to_xml.elem("cu_blk_vrb",[],[f_blk_vrb_to_xml(BLK)]).
-f_blk_to_xml(cu_blk_ftn(BLK)) =
-  term_to_xml.elem("cu_blk_ftn",[],[f_blk_ftn_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_nte(BLK)) =
+  term_to_xml.elem("cu_blk_nte",[],[f_blk_nte_to_xml(BLK)]).
 
 
 %% R_HDR, INSTANCE TS_HDR XMLABLE
@@ -1522,7 +1522,7 @@ f_pars_or_blks_to_xml(PARS_OR_BLKS) = XML :- (
 
 r_txt_unit(ALLOWED_TAGS,LVL,U) --> (
   r_txt_unit_c_ref(  ALLOWED_TAGS,    U_) -> {U = cu_txt_unit_c_ref(U_)};
-  r_txt_unit_ftn_ref(                 U_) -> {U = cu_txt_unit_ftn_ref(U_)};
+  r_txt_unit_nte_ref(                 U_) -> {U = cu_txt_unit_nte_ref(U_)};
   r_txt_unit_emph(                LVL,U_) -> {U = cu_txt_unit_emph(U_)};
   r_txt_unit_wysiwyg(ALLOWED_TAGS,LVL,U_) -> {U = cu_txt_unit_wysiwyg(U_)};
                                              {false}
@@ -1540,8 +1540,8 @@ r_txt_unit(ALLOWED_TAGS,LVL,U) --> (
 ) is det.
 f_txt_unit_to_xml(cu_txt_unit_c_ref(REF))   =
   term_to_xml.elem("cu_txt_unit_c_ref",  [],[f_txt_unit_c_ref_to_xml(REF)]).
-f_txt_unit_to_xml(cu_txt_unit_ftn_ref(REF)) =
-  term_to_xml.elem("cu_txt_unit_ftn_ref",[],[f_txt_unit_ftn_ref_to_xml(REF)]).
+f_txt_unit_to_xml(cu_txt_unit_nte_ref(REF)) =
+  term_to_xml.elem("cu_txt_unit_nte_ref",[],[f_txt_unit_nte_ref_to_xml(REF)]).
 f_txt_unit_to_xml(cu_txt_unit_wysiwyg(U))   =
   term_to_xml.elem("cu_txt_unit_wysiwyg",[],[f_txt_unit_wysiwyg_to_xml(U)]).
 f_txt_unit_to_xml(cu_txt_unit_emph(U))      =
@@ -1594,7 +1594,7 @@ r_txt_unit_wysiwyg_chr(        ALLOWED_TAGS,    LVL,    C) --> (
   not r_tab,
   not r_lb,
   not r_c_ref(ALLOWED_TAGS,_),
-  not r_ftn_ref(_),
+  not r_nte_ref(_),
   not r_txt_unit_emph(LVL,_),
   r_c(cu_r_any,C)
 ).
@@ -1634,24 +1634,24 @@ f_txt_unit_c_ref_to_xml(cs_txt_unit_c_ref(C_REF)) =
   term_to_xml.elem("cs_txt_unit_c_ref",[],[f_c_ref_to_xml(C_REF)]).
 
 
-%% R_TXT_UNIT_FTN_REF, INSTANCE TS_TXT_UNIT_FTN_REF XMLABLE
+%% R_TXT_UNIT_NTE_REF, INSTANCE TS_TXT_UNIT_NTE_REF XMLABLE
 
-%%% R_TXT_UNIT_FTN_REF
+%%% R_TXT_UNIT_NTE_REF
 
-r_txt_unit_ftn_ref(cs_txt_unit_ftn_ref(FTN_REF)) --> r_ftn_ref(FTN_REF).
+r_txt_unit_nte_ref(cs_txt_unit_nte_ref(NTE_REF)) --> r_nte_ref(NTE_REF).
 
 %%% XMLABLE
 
-:- instance term_to_xml.xmlable(ts_txt_unit_ftn_ref) where [
-  func(to_xml/1) is f_txt_unit_ftn_ref_to_xml
+:- instance term_to_xml.xmlable(ts_txt_unit_nte_ref) where [
+  func(to_xml/1) is f_txt_unit_nte_ref_to_xml
 ].
 :- func (
-  f_txt_unit_ftn_ref_to_xml(ts_txt_unit_ftn_ref::in)
+  f_txt_unit_nte_ref_to_xml(ts_txt_unit_nte_ref::in)
   =
   (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_txt_unit_ftn_ref_to_xml(cs_txt_unit_ftn_ref(FTN_REF)) =
-  term_to_xml.elem("cs_txt_unit_ftn_ref",[],[f_ftn_ref_to_xml(FTN_REF)]).
+f_txt_unit_nte_ref_to_xml(cs_txt_unit_nte_ref(NTE_REF)) =
+  term_to_xml.elem("cs_txt_unit_nte_ref",[],[f_nte_ref_to_xml(NTE_REF)]).
 
 
 %% R_TXT_UNITS, TS_TXT_UNITS, TS_TXT_UNITS XMLABLE
@@ -1790,8 +1790,8 @@ f_valid_tag_str(        S,  cu_tag_type_dsp,         OK_TAGS) = IS_VALID :- (
   else
     IS_VALID = bool.no
 ).
-f_valid_tag_str(        S,  cu_tag_type_ftn,         _)       = IS_VALID :- (
-  if S = "FTN" then
+f_valid_tag_str(        S,  cu_tag_type_nte,         _)       = IS_VALID :- (
+  if S = "NTE" then
     IS_VALID = bool.yes
   else
     IS_VALID = bool.no
@@ -1806,8 +1806,8 @@ f_valid_tag_str(        S,  cu_tag_type_c_ref,       OK_TAGS) = IS_VALID :- (
   else
     IS_VALID = bool.no
 ).
-f_valid_tag_str(        S,  cu_tag_type_ftn_ref,     _)       = IS_VALID :- (
-  if S = "FTN" then
+f_valid_tag_str(        S,  cu_tag_type_nte_ref,     _)       = IS_VALID :- (
+  if S = "NTE" then
     IS_VALID = bool.yes
   else
     IS_VALID = bool.no
@@ -1920,19 +1920,19 @@ f_c_ref_to_xml(cs_c_ref(ID)) =
   term_to_xml.elem("cs_c_ref",[],[f_id_to_xml(ID)]).
 
 
-%% R_FTN_REF AND INSTANCE TS_FTN_REF XMLABLE
+%% R_NTE_REF AND INSTANCE TS_NTE_REF XMLABLE
 
-r_ftn_ref(cs_ftn_ref(ID)) -->
-  r_str("["), r_id(cs_allowed_tags([]),cu_tag_type_ftn_ref,ID), r_str("]").
+r_nte_ref(cs_nte_ref(ID)) -->
+  r_str("["), r_id(cs_allowed_tags([]),cu_tag_type_nte_ref,ID), r_str("]").
 
-:- instance term_to_xml.xmlable(ts_ftn_ref) where [
-  func(to_xml/1) is f_ftn_ref_to_xml
+:- instance term_to_xml.xmlable(ts_nte_ref) where [
+  func(to_xml/1) is f_nte_ref_to_xml
 ].
 :- func (
-  f_ftn_ref_to_xml(ts_ftn_ref::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  f_nte_ref_to_xml(ts_nte_ref::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_ftn_ref_to_xml(cs_ftn_ref(ID)) =
-  term_to_xml.elem("cs_ftn_ref",[],[f_id_to_xml(ID)]).
+f_nte_ref_to_xml(cs_nte_ref(ID)) =
+  term_to_xml.elem("cs_nte_ref",[],[f_id_to_xml(ID)]).
 
 
 %% R_BLK_TXT, INSTANCE TS_BLK_TXT XMLABLE
@@ -2087,21 +2087,21 @@ f_blk_vrb_to_xml(cs_blk_vrb(LINES)) =
   term_to_xml.elem("cs_blk_vrb",[],[f_vrb_lines_to_xml(LINES)]).
 
 
-%% R_BLK_FTN AND INSTANCE TR_BLK_FTN XMLABLE
+%% R_BLK_NTE AND INSTANCE TR_BLK_NTE XMLABLE
 
-r_blk_ftn(ALLOWED_TAGS,LVL,cr_blk_ftn(ID,BLKS)) -->
-  r_str("*"), r_tab, r_id(cs_allowed_tags([]),cu_tag_type_ftn,ID),
+r_blk_nte(ALLOWED_TAGS,LVL,cr_blk_nte(ID,BLKS)) -->
+  r_str("*"), r_tab, r_id(cs_allowed_tags([]),cu_tag_type_nte,ID),
   +([r_lb]),
   r_tabs(LVL+1u), r_blks(ALLOWED_TAGS,LVL+1u,BLKS).
 
-:- instance term_to_xml.xmlable(tr_blk_ftn) where [
-  func(to_xml/1) is f_blk_ftn_to_xml
+:- instance term_to_xml.xmlable(tr_blk_nte) where [
+  func(to_xml/1) is f_blk_nte_to_xml
 ].
 :- func (
-  f_blk_ftn_to_xml(tr_blk_ftn::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+  f_blk_nte_to_xml(tr_blk_nte::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
 ) is det.
-f_blk_ftn_to_xml(cr_blk_ftn(ID,BLKS)) =
-  term_to_xml.elem("cr_blk_ftn",[],[f_id_to_xml(ID),f_blks_to_xml(BLKS)]).
+f_blk_nte_to_xml(cr_blk_nte(ID,BLKS)) =
+  term_to_xml.elem("cr_blk_nte",[],[f_id_to_xml(ID),f_blks_to_xml(BLKS)]).
 
 
 %% R_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE

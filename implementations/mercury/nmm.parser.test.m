@@ -130,8 +130,8 @@ p_test_r_tag_3 :-
   TKNS_IN = f_str2tkns("DEF"),
   not r_tag(k_allowed_tags,cu_tag_type_ch,     TAG,TKNS_IN,_),
   not r_tag(k_allowed_tags,cu_tag_type_sec,    TAG,TKNS_IN,_),
-  not r_tag(k_allowed_tags,cu_tag_type_ftn,    TAG,TKNS_IN,_),
-  not r_tag(k_allowed_tags,cu_tag_type_ftn_ref,TAG,TKNS_IN,_).
+  not r_tag(k_allowed_tags,cu_tag_type_nte,    TAG,TKNS_IN,_),
+  not r_tag(k_allowed_tags,cu_tag_type_nte_ref,TAG,TKNS_IN,_).
 
 
 %%% P_TEST_R_TAG_4

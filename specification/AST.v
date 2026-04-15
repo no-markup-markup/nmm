@@ -70,7 +70,7 @@ Inductive tu_c_ref_type :=
 *)
 
 Inductive ts_c_ref   : Type := cs_c_ref   : tr_id -> ts_c_ref.
-Inductive ts_ftn_ref : Type := cs_ftn_ref : tr_id -> ts_ftn_ref.
+Inductive ts_nte_ref : Type := cs_nte_ref : tr_id -> ts_nte_ref.
 
 Inductive ts_lbl_auto   : Type := cs_lbl_auto   :          ts_lbl_auto.
 Inductive ts_lbl_custom : Type := cs_lbl_custom : t_str -> ts_lbl_custom.
@@ -89,7 +89,7 @@ with
   | cu_blk_itm             : tr_blk_itm             -> tu_blk
   | cu_blk_dsp             : ts_blk_dsp             -> tu_blk
   | cu_blk_vrb             : ts_blk_vrb             -> tu_blk
-  | cu_blk_ftn             : tr_blk_ftn             -> tu_blk
+  | cu_blk_nte             : tr_blk_nte             -> tu_blk
 with
   ts_blk_txt             : Type :=
   | cs_blk_txt             : ts_txt_units           -> ts_blk_txt
@@ -114,8 +114,8 @@ with
   ts_blk_vrb             : Type :=
   | cs_blk_vrb             : ts_vrb_lines           -> ts_blk_vrb
 with
-  tr_blk_ftn             : Type :=
-  | cr_blk_ftn             : tr_id -> ts_blks       -> tr_blk_ftn
+  tr_blk_nte             : Type :=
+  | cr_blk_nte             : tr_id -> ts_blks       -> tr_blk_nte
 with
   ts_txt_units           : Type :=
   | cs_txt_units           : list tu_txt_unit       -> ts_txt_units
@@ -124,8 +124,8 @@ with
   | cu_txt_unit_wysiwyg    : ts_txt_unit_wysiwyg    -> tu_txt_unit
   | cu_txt_unit_emph       : ts_txt_unit_emph       -> tu_txt_unit
   | cu_txt_unit_c_ref      : ts_txt_unit_c_ref      -> tu_txt_unit
-  | cu_txt_unit_ftn_ref    : ts_txt_unit_ftn_ref    -> tu_txt_unit
-  | cu_txt_unit_ftn_inline : ts_txt_unit_ftn_inline -> tu_txt_unit
+  | cu_txt_unit_nte_ref    : ts_txt_unit_nte_ref    -> tu_txt_unit
+  | cu_txt_unit_nte_inline : ts_txt_unit_nte_inline -> tu_txt_unit
 with
   ts_txt_unit_wysiwyg    : Type :=
   | cs_txt_unit_wysiwyg    : t_str                  -> ts_txt_unit_wysiwyg
@@ -136,11 +136,11 @@ with
   ts_txt_unit_c_ref      : Type :=
   | cs_txt_unit_c_ref      : ts_c_ref               -> ts_txt_unit_c_ref
 with
-  ts_txt_unit_ftn_ref    : Type :=
-  | cs_txt_unit_ftn_ref    : ts_ftn_ref             -> ts_txt_unit_ftn_ref
+  ts_txt_unit_nte_ref    : Type :=
+  | cs_txt_unit_nte_ref    : ts_nte_ref             -> ts_txt_unit_nte_ref
 with
-  ts_txt_unit_ftn_inline : Type :=
-  | cs_txt_unit_ftn_inline : ts_blks                -> ts_txt_unit_ftn_inline
+  ts_txt_unit_nte_inline : Type :=
+  | cs_txt_unit_nte_inline : ts_blks                -> ts_txt_unit_nte_inline
 with ts_dsp_lines        : Type :=
   | cs_dsp_lines           : list tu_dsp_line       -> ts_dsp_lines
 with
@@ -179,10 +179,10 @@ Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
 Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
   := match blk_itm with cr_blk_itm _   _  blks => blks end.
 
-Definition fld_blk_ftn_id   (blk_ftn : tr_blk_ftn) : tr_id
-  := match blk_ftn with cr_blk_ftn id _    => id   end.
-Definition fld_blk_ftn_main (blk_ftn : tr_blk_ftn) : ts_blks
-  := match blk_ftn with cr_blk_ftn  _ blks => blks end.
+Definition fld_blk_nte_id   (blk_nte : tr_blk_nte) : tr_id
+  := match blk_nte with cr_blk_nte id _    => id   end.
+Definition fld_blk_nte_main (blk_nte : tr_blk_nte) : ts_blks
+  := match blk_nte with cr_blk_nte  _ blks => blks end.
 
 Definition fld_dsp_line_lbld_lbl   (dsp_line_lbld : tr_dsp_line_lbld)
   : tu_lbl

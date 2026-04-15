@@ -8,16 +8,16 @@
 						<cu_txt_unit_wysiwyg>
 							<cs_txt_unit_wysiwyg>A text block.</cs_txt_unit_wysiwyg>
 						</cu_txt_unit_wysiwyg>
-						<cu_txt_unit_ftn_ref>
-							<cs_txt_unit_ftn_ref>
-								<cs_ftn_ref>
+						<cu_txt_unit_nte_ref>
+							<cs_txt_unit_nte_ref>
+								<cs_nte_ref>
 									<cr_id>
-										<cs_tag>FTN</cs_tag>
+										<cs_tag>NTE</cs_tag>
 										<cs_name>one</cs_name>
 									</cr_id>
-								</cs_ftn_ref>
-							</cs_txt_unit_ftn_ref>
-						</cu_txt_unit_ftn_ref>
+								</cs_nte_ref>
+							</cs_txt_unit_nte_ref>
+						</cu_txt_unit_nte_ref>
 					</cs_txt_units>
 				</cs_blk_txt>
 			</cu_blk_txt>
@@ -27,23 +27,23 @@
 						<cu_txt_unit_wysiwyg>
 							<cs_txt_unit_wysiwyg>Another text block.</cs_txt_unit_wysiwyg>
 						</cu_txt_unit_wysiwyg>
-						<cu_txt_unit_ftn_ref>
-							<cs_txt_unit_ftn_ref>
-								<cs_ftn_ref>
+						<cu_txt_unit_nte_ref>
+							<cs_txt_unit_nte_ref>
+								<cs_nte_ref>
 									<cr_id>
-										<cs_tag>FTN</cs_tag>
+										<cs_tag>NTE</cs_tag>
 										<cs_name>two</cs_name>
 									</cr_id>
-								</cs_ftn_ref>
-							</cs_txt_unit_ftn_ref>
-						</cu_txt_unit_ftn_ref>
+								</cs_nte_ref>
+							</cs_txt_unit_nte_ref>
+						</cu_txt_unit_nte_ref>
 					</cs_txt_units>
 				</cs_blk_txt>
 			</cu_blk_txt>
-			<cu_blk_ftn>
-				<cr_blk_ftn>
+			<cu_blk_nte>
+				<cr_blk_nte>
 					<cr_id>
-						<cs_tag>FTN</cs_tag>
+						<cs_tag>NTE</cs_tag>
 						<cs_name>one</cs_name>
 					</cr_id>
 					<cs_blks>
@@ -57,12 +57,12 @@
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
-				</cr_blk_ftn>
-			</cu_blk_ftn>
-			<cu_blk_ftn>
-				<cr_blk_ftn>
+				</cr_blk_nte>
+			</cu_blk_nte>
+			<cu_blk_nte>
+				<cr_blk_nte>
 					<cr_id>
-						<cs_tag>FTN</cs_tag>
+						<cs_tag>NTE</cs_tag>
 						<cs_name>two</cs_name>
 					</cr_id>
 					<cs_blks>
@@ -82,8 +82,8 @@
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
-				</cr_blk_ftn>
-			</cu_blk_ftn>
+				</cr_blk_nte>
+			</cu_blk_nte>
 		</cs_blks>
 	</cu_doc_main_blks>
 </cr_doc>
