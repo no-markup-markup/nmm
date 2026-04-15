@@ -1,13 +1,13 @@
 §
 Section 1
 
-¶ PAR:par_default_scope
+¶	PAR:par_default_scope
 
 The ID (‘PAR:par_default_scope’) of this paragraph has default
 (global) scope. It may be referred to from anywhere in the document.
 
 
-¶ PAR:par:GBL
+¶	PAR:par:GBL
 
 The ID (‘PAR:par:GBL’) of this paragraph has explicitly global scope.
 
@@ -16,7 +16,7 @@ The ID (‘PAR:par:GBL’) of this paragraph has explicitly global scope.
 §
 Section 2
 
-¶ PAR:par:SEC
+¶	PAR:par:SEC
 
 The ID (‘PAR:par:SEC’) of this paragraph has section scope. We may
 still refer to [PAR:par:GBL], by using ‘\[PAR:par:GBL]’.
@@ -35,7 +35,7 @@ Some cross-references:
 §
 Section 3
 
-¶ PAR:par:SEC
+¶	PAR:par:SEC
 
 The ID (‘PAR:par:SEC’) of this paragraph has section scope. Since it
 has section scope there is no problem that it has the same ID as a

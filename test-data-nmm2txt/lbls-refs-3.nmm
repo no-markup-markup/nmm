@@ -20,13 +20,13 @@ Example of local and global cross-references
 	[ITM:a_i].
 
 
-¶ PAR:itm_ref
+¶	PAR:itm_ref
 
 This is yet another reference to the item labeled ‘ITM:a_i’:
 [ITM:a_i].
 
 
-¶ FCTS
+¶	FCTS
 
 We have:
 
@@ -40,7 +40,7 @@ This is a reference to the fact labeled ‘FCT:something’:
 [FCT:something]. This one is local.
 
 
-¶ PAR:fct_ref
+¶	PAR:fct_ref
 
 This is another such reference: [FCT:something]. This one is global.
 

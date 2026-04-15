@@ -108,8 +108,9 @@ p_lex(        FILE_PATH, !IO) :-
 
 %%% HELPER P_PARSE_TAGS_FILE
 
-:- pred p_parse_tags_file(nmm.parser.ts_tags::out, io.io::di, io.io::uo) is det.
-p_parse_tags_file(        TAGS,                    !IO) :- (
+:- pred p_parse_tags_file(nmm.parser.ts_allowed_tags, io.io, io.io).
+:- mode p_parse_tags_file(out,                        di,    uo) is det.
+p_parse_tags_file(        TAGS,                       !IO) :- (
   io.progname(
     "DpsDpah9yYRgO5nAukY48e2l6ENJkURSLEZIfbukE0CYFc9ICT6rZQusFjXne",
     PROG_NAME,
@@ -150,10 +151,9 @@ p_parse_tags_file(        TAGS,                    !IO) :- (
         ),
         LINES
       ),
-      TAGS = nmm.parser.cs_tags(list.filter(
-        (pred(TAG::in) is semidet :- TAG \= ""),
-        list.condense(TAG_PAIRS)
-      ))
+      TAGS_ = list.condense(TAG_PAIRS),
+      list.filter((pred(TAG::in) is semidet :- TAG \= ""),TAGS_,TAGS__),
+      TAGS  = nmm.parser.cs_allowed_tags(TAGS__)
     )
   )
 ).
@@ -161,10 +161,10 @@ p_parse_tags_file(        TAGS,                    !IO) :- (
 %%% HELPER P_PARSE_AS_FAR_AS_POSSIBLE
 
 :- pred p_parse_as_far_as_possible(
-  nmm.parser.ts_tags, ts_tkns, nmm.lexer.ta_line_no, nmm.parser.tr_doc
+  nmm.parser.ts_allowed_tags, ts_tkns, nmm.lexer.ta_line_no, nmm.parser.tr_doc
 ).
 :- mode p_parse_as_far_as_possible(
-  in,                 in,      out,                  out
+  in,                         in,      out,                  out
 ) is semidet.
 p_parse_as_far_as_possible(
   TAGS,            TKNS,    LINE_NO_BEFORE_FAIL,  DOC
@@ -174,7 +174,7 @@ p_parse_as_far_as_possible(
   % a binary search for longest possible parsing ought to be performed instead
   list.last(TKNS,LAST_TKN),
   (
-    if nmm.parser.r_doc(DOC_,TAGS,TKNS++[nmm.lexer.cu_tkn_eof],[]) then (
+    if nmm.parser.r_doc(TAGS,DOC_,TKNS++[nmm.lexer.cu_tkn_eof],[]) then (
       DOC = DOC_,
       nmm.lexer.p_tkn_line_no(LAST_TKN,LINE_NO_BEFORE_FAIL)
     ) else (
@@ -186,9 +186,15 @@ p_parse_as_far_as_possible(
 
 %%% HELPER P_HANDLE_PARSE_FAILURE
 
-:- pred p_handle_parse_failure(ts_tkns, nmm.parser.ts_tags, io.io, io.io).
-:- mode p_handle_parse_failure(in,      in,                 di,    uo) is det.
-p_handle_parse_failure(        TKNS,    TAGS,               !IO) :-
+:- pred p_handle_parse_failure(
+  ts_tkns, nmm.parser.ts_allowed_tags, io.io, io.io
+).
+:- mode p_handle_parse_failure(
+  in,      in,                         di,    uo
+) is det.
+p_handle_parse_failure(
+  TKNS,    TAGS,                       !IO
+) :-
   io.set_exit_status(1,!IO),
   io.write_string(
     io.stderr_stream,
@@ -230,7 +236,7 @@ p_parse(        FILE_PATH, !IO) :-
     (
       RES = cu_lex_file_res_ok(TKNS),
       (
-        if nmm.parser.r_doc(DOC,TAGS,TKNS,[]) then
+        if nmm.parser.r_doc(TAGS,DOC,TKNS,[]) then
           term_to_xml.write_xml_doc(io.stdout_stream,DOC,!IO)
         else
           p_handle_parse_failure(TKNS,TAGS,!IO)
@@ -265,5 +271,10 @@ main(!IO) :-
     ARGS = ["help"]                     -> p_write_usage(!IO);
     ARGS = ["-h"]                       -> p_write_usage(!IO);
     ARGS = ["--help"]                   -> p_write_usage(!IO);
+    ARGS = ["test-read-tags.tsv"]       -> (
+      p_parse_tags_file(TAGS,!IO),
+      io.write(TAGS,!IO),
+      io.write_string("\n",!IO)
+    );
                                            p_write_usage(!IO)
   ).

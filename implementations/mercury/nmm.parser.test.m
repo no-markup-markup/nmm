@@ -30,6 +30,44 @@
   .
 
 
+%% CONSTANT K_TAGS
+
+:- func k_allowed_tags = nmm.parser.ts_allowed_tags.
+k_allowed_tags = cs_allowed_tags([
+  "ABBR",
+  "ABBRS",
+  "ASM",
+  "ASMS",
+  "CONJ",
+  "CONJS",
+  "CONV",
+  "CONVS",
+  "COR",
+  "CORS",
+  "DEF",
+  "DEFS",
+  "EX",
+  "EXS",
+  "FCT",
+  "FCTS",
+  "LMA",
+  "LMAS",
+  "NTN",
+  "NTNS",
+  "PRF",
+  "PRFS",
+  "PRP",
+  "PRPS",
+  "QTN",
+  "QTNS",
+  "RMK",
+  "RMKS",
+  "THM",
+  "THMS",
+  "TMY"
+]).
+
+
 %% FUNCTION F_STR2TKNS
 
 f_str2tkns(S) = TKNS :- (
@@ -74,22 +112,38 @@ p_tkns_eq_up_to_line_no(TKNS_1,TKNS_2) :-
 %%% P_TEST_R_TAG_1
 
 :- pred p_test_r_tag_1 is semidet.
-p_test_r_tag_1 :- r_tag(cs_tag("DSP"),f_str2tkns("DSP"),[]).
+p_test_r_tag_1 :-
+  r_tag(k_allowed_tags,cu_tag_type_dsp,cs_tag("DSP"),f_str2tkns("DSP"),[]).
 
 %%% P_TEST_R_TAG_2
 
 :- pred p_test_r_tag_2 is semidet.
-p_test_r_tag_2 :- r_tag(cs_tag("DEF"),f_str2tkns("DEF"),[]).
+p_test_r_tag_2 :-
+  r_tag(k_allowed_tags,cu_tag_type_itm,cs_tag("DEF"),f_str2tkns("DEF"),[]).
+
 
 %%% P_TEST_R_TAG_3
 
 :- pred p_test_r_tag_3 is semidet.
-p_test_r_tag_3 :- not r_tag(cs_tag("DEF"),f_str2tkns("DEFS"),_).
+p_test_r_tag_3 :-
+  TAG     = cs_tag("DEF"),
+  TKNS_IN = f_str2tkns("DEF"),
+  not r_tag(k_allowed_tags,cu_tag_type_ch,     TAG,TKNS_IN,_),
+  not r_tag(k_allowed_tags,cu_tag_type_sec,    TAG,TKNS_IN,_),
+  not r_tag(k_allowed_tags,cu_tag_type_ftn,    TAG,TKNS_IN,_),
+  not r_tag(k_allowed_tags,cu_tag_type_ftn_ref,TAG,TKNS_IN,_).
+
 
 %%% P_TEST_R_TAG_4
 
 :- pred p_test_r_tag_4 is semidet.
-p_test_r_tag_4 :- r_tag(cs_tag("DEF"),f_str2tkns("DEF:"),f_str2tkns(":")).
+p_test_r_tag_4 :- r_tag(
+  k_allowed_tags,
+  cu_tag_type_c_ref,
+  cs_tag("DEF"),
+  f_str2tkns("DEF:"),
+  f_str2tkns(":")
+).
 
 %%% P_TEST_R_NAME_1
 
@@ -125,6 +179,8 @@ p_test_r_name_5 :-
 :- pred p_test_r_id_1 is semidet.
 p_test_r_id_1 :-
   r_id(
+    k_allowed_tags,
+    cu_tag_type_par,
     cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no),
     f_str2tkns("PAR:a_name"),
     []
@@ -134,7 +190,7 @@ p_test_r_id_1 :-
 
 :- pred p_test_r_id_2 is semidet.
 p_test_r_id_2 :-
-  r_id(ID,f_str2tkns("PAR:a_name:SEC"),[]),
+  r_id(k_allowed_tags,cu_tag_type_par,ID,f_str2tkns("PAR:a_name:SEC"),[]),
   fld_id_tag(ID)   = cs_tag("PAR"),
   fld_id_name(ID)  = cs_name("a_name"),
   fld_id_scope(ID) = maybe.yes(cu_scope_sec).
@@ -143,6 +199,8 @@ p_test_r_id_2 :-
 
 :- pred p_test_r_id_3 is semidet.
 p_test_r_id_3 :- r_id(
+  k_allowed_tags,
+  cu_tag_type_par,
   cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no),
   f_str2tkns("PAR:a_name]"),
   f_str2tkns("]")
@@ -152,6 +210,8 @@ p_test_r_id_3 :- r_id(
 
 :- pred p_test_r_id_4 is semidet.
 p_test_r_id_4 :- r_id(
+  k_allowed_tags,
+  cu_tag_type_par,
   cr_id(cs_tag("PAR"),cs_name("a_"),maybe.no),
   f_str2tkns("PAR:a_,name]"),
   f_str2tkns(",name]")
@@ -161,6 +221,7 @@ p_test_r_id_4 :- r_id(
 
 :- pred p_test_r_c_ref_1 is semidet.
 p_test_r_c_ref_1 :- r_c_ref(
+  k_allowed_tags,
   cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no)),
   f_str2tkns("[PAR:a_name]"),
   []
@@ -170,6 +231,7 @@ p_test_r_c_ref_1 :- r_c_ref(
 
 :- pred p_test_r_c_ref_2 is semidet.
 p_test_r_c_ref_2 :- r_c_ref(
+  k_allowed_tags,
   cs_c_ref(cr_id(cs_tag("PAR"),cs_name("a_name"),maybe.no)),
   f_str2tkns("[PAR:a_name], gives"),
   f_str2tkns(", gives")
@@ -178,12 +240,13 @@ p_test_r_c_ref_2 :- r_c_ref(
 %%% P_TEST_R_C_REF_3
 
 :- pred p_test_r_c_ref_3 is semidet.
-p_test_r_c_ref_3 :- not r_c_ref(_,f_str2tkns("[PAR::a_name]"),_).
+p_test_r_c_ref_3 :- not r_c_ref(k_allowed_tags,_,f_str2tkns("[PAR::a_name]"),_).
 
 %%% P_TEST_R_TXT_UNIT_1
 
 :- pred p_test_r_txt_unit_1 is semidet.
 p_test_r_txt_unit_1 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
   f_str2tkns("HEJ!"),
@@ -194,6 +257,7 @@ p_test_r_txt_unit_1 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_2 is semidet.
 p_test_r_txt_unit_2 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
   f_str2tkns("HEJ!\t"),
@@ -204,6 +268,7 @@ p_test_r_txt_unit_2 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_3 is semidet.
 p_test_r_txt_unit_3 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![")),
   f_str2tkns("HEJ!["),
@@ -214,6 +279,7 @@ p_test_r_txt_unit_3 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_4 is semidet.
 p_test_r_txt_unit_4 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![¶§]")),
   f_str2tkns("HEJ![¶§]"),
@@ -224,6 +290,7 @@ p_test_r_txt_unit_4 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_5 is semidet.
 p_test_r_txt_unit_5 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![¶§]")),
   f_str2tkns("HEJ!\\[\\¶\\§]"),
@@ -234,6 +301,7 @@ p_test_r_txt_unit_5 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_6 is semidet.
 p_test_r_txt_unit_6 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![PAR:]")),
   f_str2tkns("HEJ![PAR:]"),
@@ -244,6 +312,7 @@ p_test_r_txt_unit_6 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_7 is semidet.
 p_test_r_txt_unit_7 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
   f_str2tkns("HEJ![PAR:name]"),
@@ -254,6 +323,7 @@ p_test_r_txt_unit_7 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_8 is semidet.
 p_test_r_txt_unit_8 :-r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![PAR:name]")),
   f_str2tkns("HEJ!\\[PAR:name]"),
@@ -264,6 +334,7 @@ p_test_r_txt_unit_8 :-r_txt_unit(
 
 :- pred p_test_r_txt_unit_9 is semidet.
 p_test_r_txt_unit_9 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ![INVALID:TAG:name]")),
   f_str2tkns("HEJ![INVALID:TAG:name]"),
@@ -274,6 +345,7 @@ p_test_r_txt_unit_9 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_10 is semidet.
 p_test_r_txt_unit_10 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
   f_str2tkns("HEJ!\n"),
@@ -284,6 +356,7 @@ p_test_r_txt_unit_10 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_11 is semidet.
 p_test_r_txt_unit_11 :- not r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("[PAR:name]HEJ!")),
   f_str2tkns("[PAR:name]HEJ!"),
@@ -294,6 +367,7 @@ p_test_r_txt_unit_11 :- not r_txt_unit(
 
 :- pred p_test_r_txt_unit_12 is semidet.
 p_test_r_txt_unit_12 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_c_ref(cs_txt_unit_c_ref(
     cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
@@ -306,6 +380,7 @@ p_test_r_txt_unit_12 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_13 is semidet.
 p_test_r_txt_unit_13 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_c_ref(cs_txt_unit_c_ref(
     cs_c_ref(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))
@@ -318,6 +393,7 @@ p_test_r_txt_unit_13 :- r_txt_unit(
 
 :- pred p_test_r_txt_unit_14 is semidet.
 p_test_r_txt_unit_14 :- r_txt_unit(
+  k_allowed_tags,
   0u,
   cu_txt_unit_emph(cs_txt_unit_emph("emphasized text")),
   f_str2tkns("*emphasized text*, and more"),
@@ -329,6 +405,7 @@ p_test_r_txt_unit_14 :- r_txt_unit(
 :- pred p_test_r_txt_unit_15 is semidet.
 p_test_r_txt_unit_15 :- (
   r_txt_unit(
+    k_allowed_tags,
     0u,
     cu_txt_unit_emph(cs_txt_unit_emph("emphasized text")),
     f_str2tkns("*emphasized\ntext*, and more"),
@@ -341,6 +418,7 @@ p_test_r_txt_unit_15 :- (
 
 :- pred p_test_r_txt_units_1 is semidet.
 p_test_r_txt_units_1 :- r_txt_units(
+  k_allowed_tags,
   0u,
   cs_txt_units([cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))]),
   f_str2tkns("HEJ!"),
@@ -351,6 +429,7 @@ p_test_r_txt_units_1 :- r_txt_units(
 
 :- pred p_test_r_txt_units_2 is semidet.
 p_test_r_txt_units_2 :- r_txt_units(
+  k_allowed_tags,
   0u,
   cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
@@ -367,6 +446,7 @@ p_test_r_txt_units_2 :- r_txt_units(
 :- pred p_test_r_txt_units_3 is semidet.
 p_test_r_txt_units_3 :- (
   r_txt_units(
+    k_allowed_tags,
     0u,
     cs_txt_units([
       cu_txt_unit_emph(cs_txt_unit_emph("HEJ! HAJ!")),
@@ -385,13 +465,14 @@ p_test_r_txt_units_3 :- (
 
 :- pred p_test_r_txt_units_4 is semidet.
 p_test_r_txt_units_4 :-
-  not r_txt_units(0u,_,f_str2tkns("\tHEJ![DSP:name]HAJ!\n"),_).
+  not r_txt_units(k_allowed_tags,0u,_,f_str2tkns("\tHEJ![DSP:name]HAJ!\n"),_).
 
 %%% P_TEST_R_TXT_UNITS_5
 
 :- pred p_test_r_txt_units_5 is semidet.
 p_test_r_txt_units_5 :- (
   r_txt_units(
+    k_allowed_tags,
     1u,
     cs_txt_units([
       cu_txt_unit_emph(cs_txt_unit_emph("HEJ!* HAJ!")),
@@ -410,6 +491,7 @@ p_test_r_txt_units_5 :- (
 
 :- pred p_test_r_txt_units_6 is semidet.
 p_test_r_txt_units_6 :- r_txt_units(
+  k_allowed_tags,
   0u,
   cs_txt_units([
     cu_txt_unit_emph(cs_txt_unit_emph("one")),
@@ -424,6 +506,7 @@ p_test_r_txt_units_6 :- r_txt_units(
 
 :- pred p_test_r_txt_units_7 is semidet.
 p_test_r_txt_units_7 :- r_txt_units(
+  k_allowed_tags,
   3u,
   cs_txt_units([
     cu_txt_unit_emph(cs_txt_unit_emph("one")),
@@ -438,16 +521,18 @@ p_test_r_txt_units_7 :- r_txt_units(
 
 :- pred p_test_r_blk_txt_1 is semidet.
 p_test_r_blk_txt_1 :- r_blk_txt(
-    0u,
-    cs_blk_txt(cs_txt_units([cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ"))])),
-    f_str2tkns("HEJ\n"),
-    []
+  k_allowed_tags,
+  0u,
+  cs_blk_txt(cs_txt_units([cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ"))])),
+  f_str2tkns("HEJ\n"),
+  []
 ).
 
 %%% P_TEST_R_BLK_TXT_2
 
 :- pred p_test_r_blk_txt_2 is semidet.
 p_test_r_blk_txt_2 :- r_blk_txt(
+  k_allowed_tags,
   100u,
   cs_blk_txt(cs_txt_units([cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))])),
   f_str2tkns("HEJ!\n"),
@@ -458,6 +543,7 @@ p_test_r_blk_txt_2 :- r_blk_txt(
 
 :- pred p_test_r_blk_txt_3 is semidet.
 p_test_r_blk_txt_3 :- r_blk_txt(
+  k_allowed_tags,
   2u,
   cs_blk_txt(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
@@ -472,6 +558,7 @@ p_test_r_blk_txt_3 :- r_blk_txt(
 
 :- pred p_test_r_blk_txt_4 is semidet.
 p_test_r_blk_txt_4 :- r_blk_txt(
+  k_allowed_tags,
   100u,
   cs_blk_txt(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ ")),
@@ -489,6 +576,7 @@ p_test_r_blk_txt_4 :- r_blk_txt(
 :- pred p_test_r_blk_txt_5 is semidet.
 p_test_r_blk_txt_5 :- (
   r_blk_txt(
+    k_allowed_tags,
     1u,
     cs_blk_txt(cs_txt_units([
       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ ")),
@@ -511,6 +599,7 @@ p_test_r_blk_txt_5 :- (
 
 :- pred p_test_r_blk_txt_6 is semidet.
 p_test_r_blk_txt_6 :- r_blk_txt(
+  k_allowed_tags,
   2u,
   cs_blk_txt(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
@@ -525,6 +614,7 @@ p_test_r_blk_txt_6 :- r_blk_txt(
 
 :- pred p_test_r_blk_txt_7 is semidet.
 p_test_r_blk_txt_7 :- r_blk_txt(
+  k_allowed_tags,
   0u,
   cs_blk_txt(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ")),
@@ -549,6 +639,7 @@ p_test_r_blk_txt_7 :- r_blk_txt(
 
 :- pred p_test_r_blk_1 is semidet.
 p_test_r_blk_1 :- r_blk(
+  k_allowed_tags,
   0u,
   cu_blk_txt(cs_blk_txt(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
@@ -563,6 +654,7 @@ p_test_r_blk_1 :- r_blk(
 
 :- pred p_test_r_blks_1 is semidet.
 p_test_r_blks_1 :- r_blks(
+  k_allowed_tags,
   0u,
   cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -577,6 +669,7 @@ p_test_r_blks_1 :- r_blks(
 
 :- pred p_test_r_blks_2 is semidet.
 p_test_r_blks_2 :- r_blks(
+  k_allowed_tags,
   0u,
   cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -597,6 +690,7 @@ p_test_r_blks_2 :- r_blks(
 
 :- pred p_test_r_blks_3 is semidet.
 p_test_r_blks_3 :- r_blks(
+  k_allowed_tags,
   2u,
   cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -617,6 +711,7 @@ p_test_r_blks_3 :- r_blks(
 
 :- pred p_test_r_blks_4 is semidet.
 p_test_r_blks_4 :- r_blks(
+  k_allowed_tags,
   2u,
   cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -637,6 +732,7 @@ p_test_r_blks_4 :- r_blks(
 
 :- pred p_test_r_blks_5 is semidet.
 p_test_r_blks_5 :- r_blks(
+  k_allowed_tags,
   1u,
   cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -657,6 +753,7 @@ p_test_r_blks_5 :- r_blks(
 
 :- pred p_test_r_blks_6 is semidet.
 p_test_r_blks_6 :- r_blks(
+  k_allowed_tags,
   1u,
   cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -695,6 +792,7 @@ p_test_r_blks_6 :- r_blks(
 
 :- pred p_test_r_blk_blt_1 is semidet.
 p_test_r_blk_blt_1 :- r_blk_blt(
+  k_allowed_tags,
   0u,
   cs_blk_blt(cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -709,6 +807,7 @@ p_test_r_blk_blt_1 :- r_blk_blt(
 
 :- pred p_test_r_blk_blt_2 is semidet.
 p_test_r_blk_blt_2 :- r_blk_blt(
+  k_allowed_tags,
   1u,
   cs_blk_blt(cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -725,6 +824,7 @@ p_test_r_blk_blt_2 :- r_blk_blt(
 
 :- pred p_test_r_blk_blt_3 is semidet.
 p_test_r_blk_blt_3 :- r_blk_blt(
+  k_allowed_tags,
   2u,
   cs_blk_blt(cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -741,6 +841,7 @@ p_test_r_blk_blt_3 :- r_blk_blt(
 
 :- pred p_test_r_blk_blt_4 is semidet.
 p_test_r_blk_blt_4 :- r_blk_blt(
+  k_allowed_tags,
   1u,
   cs_blk_blt(cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -763,6 +864,7 @@ p_test_r_blk_blt_4 :- r_blk_blt(
 
 :- pred p_test_r_blk_blt_5 is semidet.
 p_test_r_blk_blt_5 :- r_blk_blt(
+  k_allowed_tags,
   0u,
   cs_blk_blt(cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -788,6 +890,7 @@ p_test_r_blk_blt_5 :- r_blk_blt(
 
 :- pred p_test_r_blk_blt_6 is semidet.
 p_test_r_blk_blt_6 :- r_blk_blt(
+  k_allowed_tags,
   1u,
   cs_blk_blt(cs_blks([
     cu_blk_txt(cs_blk_txt(cs_txt_units([
@@ -816,26 +919,28 @@ p_test_r_blk_blt_6 :- r_blk_blt(
 
 :- pred p_test_r_doc_main_1 is semidet.
 p_test_r_doc_main_1 :- r_doc_main(
-    cu_doc_main_blks(cs_blks([
+  k_allowed_tags,
+  cu_doc_main_blks(cs_blks([
+    cu_blk_txt(cs_blk_txt(cs_txt_units([
+      cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
+      cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
+      cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+    ]))),
+    cu_blk_blt(cs_blk_blt(cs_blks([
       cu_blk_txt(cs_blk_txt(cs_txt_units([
-        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
-        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
-        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
-      ]))),
-      cu_blk_blt(cs_blk_blt(cs_blks([
-        cu_blk_txt(cs_blk_txt(cs_txt_units([
-          cu_txt_unit_emph(cs_txt_unit_emph("TJO TJO"))
-        ])))
+        cu_txt_unit_emph(cs_txt_unit_emph("TJO TJO"))
       ])))
-    ])),
-    f_str2tkns("HOJ!\nHAJ!\n\n-\t*TJO\n\tTJO*\n"),
-    []
+    ])))
+  ])),
+  f_str2tkns("HOJ!\nHAJ!\n\n-\t*TJO\n\tTJO*\n"),
+  []
 ).
 
 %%% P_TEST_R_HDR_1
 
 :- pred p_test_r_hdr_1 is semidet.
 p_test_r_hdr_1 :- r_hdr(
+  k_allowed_tags,
   cs_hdr(cs_txt_units([
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ")),
     cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
@@ -861,6 +966,8 @@ p_test_r_hdr_1 :- r_hdr(
 
 :- pred p_test_r_tag_or_id_1 is semidet.
 p_test_r_tag_or_id_1 :- r_tag_or_id(
+  k_allowed_tags,
+  cu_tag_type_par,
   cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no)),
   f_str2tkns("PAR:name !"),
   f_str2tkns(" !")
@@ -870,6 +977,8 @@ p_test_r_tag_or_id_1 :- r_tag_or_id(
 
 :- pred p_test_r_tag_or_id_2 is semidet.
 p_test_r_tag_or_id_2 :- r_tag_or_id(
+  k_allowed_tags,
+  cu_tag_type_par,
   cu_tag_or_id_tag(cs_tag("PAR")),
   f_str2tkns("PAR :name"),
   f_str2tkns(" :name")
@@ -879,6 +988,7 @@ p_test_r_tag_or_id_2 :- r_tag_or_id(
 
 :- pred p_test_r_par_std_1 is semidet.
 p_test_r_par_std_1 :- r_par_std(
+  k_allowed_tags,
   cr_par_std(
     maybe.no,
     maybe.no,
@@ -898,6 +1008,7 @@ p_test_r_par_std_1 :- r_par_std(
 
 :- pred p_test_r_par_std_2 is semidet.
 p_test_r_par_std_2 :- r_par_std(
+  k_allowed_tags,
   cr_par_std(
     maybe.no,
     maybe.no,
@@ -922,6 +1033,7 @@ p_test_r_par_std_2 :- r_par_std(
 
 :- pred p_test_r_par_std_3 is semidet.
 p_test_r_par_std_3 :- r_par_std(
+  k_allowed_tags,
   cr_par_std(
     maybe.yes(cu_tag_or_id_tag(cs_tag("PAR"))),
     maybe.no,
@@ -938,7 +1050,7 @@ p_test_r_par_std_3 :- r_par_std(
       ])))])))
     ])
   ),
-  f_str2tkns("¶ PAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  f_str2tkns("¶\tPAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
   []
 ).
 
@@ -946,6 +1058,7 @@ p_test_r_par_std_3 :- r_par_std(
 
 :- pred p_test_r_par_std_4 is semidet.
 p_test_r_par_std_4 :- r_par_std(
+  k_allowed_tags,
   cr_par_std(
     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
     maybe.no,
@@ -962,7 +1075,7 @@ p_test_r_par_std_4 :- r_par_std(
       ])))])))
     ])
   ),
-  f_str2tkns("¶ PAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  f_str2tkns("¶\tPAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
   []
 ).
 
@@ -970,6 +1083,7 @@ p_test_r_par_std_4 :- r_par_std(
 
 :- pred p_test_r_par_std_5 is semidet.
 p_test_r_par_std_5 :- r_par_std(
+  k_allowed_tags,
   cr_par_std(
     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
     maybe.yes(cs_hdr(cs_txt_units([
@@ -990,7 +1104,7 @@ p_test_r_par_std_5 :- r_par_std(
       ])))])))
     ])
   ),
-  f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  f_str2tkns("¶\tPAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
   []
 ).
 
@@ -998,6 +1112,7 @@ p_test_r_par_std_5 :- r_par_std(
 
 :- pred p_test_r_blk_itm_1 is semidet.
 p_test_r_blk_itm_1 :- r_blk_itm(
+  k_allowed_tags,
   0u,
   cr_blk_itm(
     cu_lbl_auto(cs_lbl_auto),
@@ -1016,6 +1131,7 @@ p_test_r_blk_itm_1 :- r_blk_itm(
 
 :- pred p_test_r_blk_itm_2 is semidet.
 p_test_r_blk_itm_2 :- r_blk_itm(
+  k_allowed_tags,
   0u,
   cr_blk_itm(
     cu_lbl_custom(cs_lbl_custom("hej")),
@@ -1037,6 +1153,7 @@ p_test_r_blk_itm_2 :- r_blk_itm(
 
 :- pred p_test_r_blk_itm_3 is semidet.
 p_test_r_blk_itm_3 :- r_blk_itm(
+  k_allowed_tags,
   0u,
   cr_blk_itm(
     cu_lbl_custom(cs_lbl_custom("hej")),
@@ -1060,6 +1177,7 @@ p_test_r_blk_itm_3 :- r_blk_itm(
 
 :- pred p_test_r_blk_itm_4 is semidet.
 p_test_r_blk_itm_4 :- r_blk_itm(
+  k_allowed_tags,
   0u,
   cr_blk_itm(
     cu_lbl_auto(cs_lbl_auto),
@@ -1082,17 +1200,17 @@ p_test_r_blk_itm_4 :- r_blk_itm(
 %%% P_TEST_R_REFS_START_MARKER_1
 
 :- pred p_test_r_refs_start_marker_1 is semidet.
-p_test_r_refs_start_marker_1 :- r_refs_start_marker(f_str2tkns("CH REFS\n"),[]).
+p_test_r_refs_start_marker_1 :- r_refs_start_marker(f_str2tkns("CH\tREFS\n"),[]).
 
 %%% P_TEST_R_REFS_START_MARKER_2
 
 :- pred p_test_r_refs_start_marker_2 is semidet.
-p_test_r_refs_start_marker_2 :- r_refs_start_marker(f_str2tkns("§ REFS\n"),[]).
+p_test_r_refs_start_marker_2 :- r_refs_start_marker(f_str2tkns("§\tREFS\n"),[]).
 
 %%% P_TEST_R_REFS_START_MARKER_3
 
 :- pred p_test_r_refs_start_marker_3 is semidet.
-p_test_r_refs_start_marker_3 :- r_refs_start_marker(f_str2tkns("¶ REFS\n"),[]).
+p_test_r_refs_start_marker_3 :- r_refs_start_marker(f_str2tkns("¶\tREFS\n"),[]).
 
 %%% THE PREDICATE
 

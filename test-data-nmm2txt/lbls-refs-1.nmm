@@ -1,8 +1,8 @@
-§ SEC:intro
+§	SEC:intro
 Introduction
 
 
-¶ PAR:intro
+¶	PAR:intro
 
 Some facts about inductively defined structures seem not to admit
 “straightforward” induction proofs. In such cases, a
@@ -13,14 +13,14 @@ state, and prove, that this or that fact does not admit a
 straightforward induction proof.
 
 
-¶ DEF:basel
+¶	DEF:basel
 
 	     b : ℕ → ℚ
 (B)	  b(0) ≔ 1			DEF:basel_base_case
 (R)	b(n+1) ≔ b(n)+(n+2)⁻²	DEF:basel_rec_case
 
 
-¶ RMK
+¶	RMK
 
 [DEF:basel] is by (successor) recursion on the natural numbers.
 
@@ -29,7 +29,7 @@ straightforward induction proof.
 []	[DEF:basel_rec_case] is the the recursive case.
 
 
-¶ FCT:basel
+¶	FCT:basel
 
 For each n:
 
