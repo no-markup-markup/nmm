@@ -42,7 +42,7 @@ val doc_of_axml : string -> Doc_types.tr_doc
 *)
 val axml_of_doc : Doc_types.tr_doc -> string
 (**
-[axml_of_doc doc] evaluates to ["<?xml version=\"1.0\"?>\n" ^ (]{!val:Xml_right.to_string_fmt}[ (]{!val:Axml_of_doc.axml_of_tr_doc}[ doc))].
+[axml_of_doc doc] evaluates to a normalized XML-representation of [doc] that is an instance of {{:specs/axml.dtd.txt}axml.dtd}.
 *)
 
 val html_of_nmm : Common_utils.t_html_options -> string -> string

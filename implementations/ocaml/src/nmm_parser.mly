@@ -847,19 +847,8 @@ txt_unit_nte:
 
 
 txt:
-  |TXT                                            { $1:string }
-  |COLON                                          { ":":string }
-  |LBR                                            { "[":string }
+  |txt_nte                                        { $1 : string }
   |RBR                                            { "]":string }
-  |PILCROW                                        { "¶":string }
-  |SECTION                                        { "§":string }
-  |PREAMBLE                                       { "PREAMBLE":string }
-  |TITLE                                          { "TITLE":string }
-  |AUTHOR                                         { "AUTHOR":string }
-  |DATE                                           { "DATE":string }
-  |ABSTRACT                                       { "ABSTRACT":string }
-  |ESC_CHAR                                       { $1:string }
-  |N                                              { "N":string }
 ;
 
 txt_nte:
