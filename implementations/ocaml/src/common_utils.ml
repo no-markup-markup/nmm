@@ -34,7 +34,7 @@ type t_doc_settings = {
         tab_length : int;
         abstract_hdr: (string * string) option;
         refs_hdr: (string * string) option;
-        endnotes_hdr : (string * string) option;
+        endnotes_hdr : string option;
         ch_prefix: (string * string) option;
         sec_prefix: (string * string) option;
         app_prefix: (string * string) option;
@@ -167,14 +167,14 @@ let doc_settings_default () : t_doc_settings = {
         tab_length = 6;
         abstract_hdr = Some ("ABSTRACT", "Abstract");
         refs_hdr = Some ("REFERENCES", "References");
-        endnotes_hdr = Some ("ENDNOTES", "Endnotes");
+        endnotes_hdr = None;
         ch_prefix = Some ("CHAPTER", "Chapter");
         sec_prefix = Some ("§","§");
         app_prefix = Some ("§","Appendix");
         par_prefix = Some ("¶","¶");
         expand_tag = expand_tag_default;
         auto_numbering = auto_numbering_default;
-        allow_custom_numbering = true;
+        allow_custom_numbering = false;
 }
 
 
@@ -251,8 +251,17 @@ let tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) 
 let prefix_value_of_string (v : string) : (string * string) option =
         match String.split_on_char ',' v with
         |[lbl; cref] -> Some (lbl, cref)
+	|[s] -> (
+		match s with
+		|"" -> None
+		|_ -> Some (s,s)
+	)
         |_ -> None
 
+let endnotes_hdr_of_string (v : string) : string option =
+	match v with
+	|"" -> None
+	|s -> Some s
 
 let key_value_pair_of_string_opt (s : string): (string*string) option=
         match String.split_on_char '=' s with
@@ -282,7 +291,7 @@ let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -308,7 +317,7 @@ let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -334,7 +343,7 @@ let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -360,7 +369,7 @@ let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -386,7 +395,7 @@ let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -412,7 +421,7 @@ let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 
@@ -439,7 +448,7 @@ let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value."])
         in doc_settings
 
 let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -475,6 +484,27 @@ let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
         abstract_hdr = doc_settings.abstract_hdr;
         refs_hdr = prefix_value_of_string v;
         endnotes_hdr = doc_settings.endnotes_hdr;
+        ch_prefix = doc_settings.ch_prefix;
+        sec_prefix = doc_settings.sec_prefix;
+        app_prefix = doc_settings.app_prefix;
+        par_prefix = doc_settings.par_prefix;
+        expand_tag = doc_settings.expand_tag;
+        auto_numbering = doc_settings.auto_numbering;
+        allow_custom_numbering = doc_settings.allow_custom_numbering;
+        }
+
+let set_endnotes_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
+        {
+        doc_width = doc_settings.doc_width;
+        left_margin = doc_settings.left_margin;
+        title_indent = doc_settings.title_indent;
+        author_indent = doc_settings.author_indent;
+        abstract_indent = doc_settings.abstract_indent;
+        refs_indent = doc_settings.refs_indent;
+        tab_length = doc_settings.tab_length;
+        abstract_hdr = doc_settings.abstract_hdr;
+        refs_hdr = doc_settings.refs_hdr;
+        endnotes_hdr = endnotes_hdr_of_string v;
         ch_prefix = doc_settings.ch_prefix;
         sec_prefix = doc_settings.sec_prefix;
         app_prefix = doc_settings.app_prefix;
@@ -570,7 +600,7 @@ let set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) optio
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"using default value"])
+        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"ignoring it."])
         in doc_settings
 
 let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
@@ -591,6 +621,7 @@ let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
                                 |Some ("par-prefix", v) -> set_par_prefix v settings
                                 |Some ("abstract-hdr", v) -> set_abstract_hdr v settings
                                 |Some ("refs-hdr", v) -> set_refs_hdr v settings
+                                |Some ("endnotes-hdr", v) -> set_endnotes_hdr v settings
                                 |Some ("tag", v) -> set_expand_tag settings.expand_tag v settings
                                 |_ -> let _ : unit = Debug_utils.print_warning 
                                         (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings

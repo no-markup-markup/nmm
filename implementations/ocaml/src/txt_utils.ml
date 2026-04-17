@@ -331,7 +331,7 @@ let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) 
 let lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
         match doc_settings.endnotes_hdr with
         |None -> []
-        |Some (hdr,_) -> lines_of_string doc_settings 0 hdr
+        |Some hdr -> lines_of_string doc_settings 0 hdr
 
 let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
         match blk_txt with

@@ -61,7 +61,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option;<br>
@@ -194,14 +194,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;6;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"ABSTRACT"</span>,&nbsp;<span class="string">"Abstract"</span>);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"REFERENCES"</span>,&nbsp;<span class="string">"References"</span>);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"ENDNOTES"</span>,&nbsp;<span class="string">"Endnotes"</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"CHAPTER"</span>,&nbsp;<span class="string">"Chapter"</span>);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"§"</span>,<span class="string">"§"</span>);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"§"</span>,<span class="string">"Appendix"</span>);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"¶"</span>,<span class="string">"¶"</span>);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;expand_tag_default;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering_default;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="keyword">true</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
 }<br>
 <br>
 <br>
@@ -278,8 +278,17 @@
 <span class="keyword">let</span>&nbsp;prefix_value_of_string&nbsp;(v&nbsp;:&nbsp;string)&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">','</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[lbl;&nbsp;cref]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(lbl,&nbsp;cref)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[s]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;s&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">""</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(s,s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 <br>
+<span class="keyword">let</span>&nbsp;endnotes_hdr_of_string&nbsp;(v&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;v&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">""</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;s<br>
 <br>
 <span class="keyword">let</span>&nbsp;key_value_pair_of_string_opt&nbsp;(s&nbsp;:&nbsp;string):&nbsp;(string*string)&nbsp;option=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'='</span>&nbsp;s&nbsp;<span class="keyword">with</span><br>
@@ -309,7 +318,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;doc_width&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;doc_width&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_left_margin&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -335,7 +344,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;left_margin&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;left_margin&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_title_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -361,7 +370,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;title_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;title_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_author_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -387,7 +396,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;author_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;author_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_abstract_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -413,7 +422,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;abstract_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;abstract_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_refs_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -439,7 +448,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;refs_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;refs_indent&nbsp;value:&nbsp;"</span>;v;<span class="string">"\n"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <br>
@@ -466,7 +475,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;tab_length&nbsp;value:&nbsp;"</span>;v;<span class="string">";&nbsp;"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;tab_length&nbsp;value:&nbsp;"</span>;v;<span class="string">";&nbsp;"</span>;<span class="string">"using&nbsp;default&nbsp;value."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_abstract_hdr&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -502,6 +511,27 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;prefix_value_of_string&nbsp;v;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+<span class="keyword">let</span>&nbsp;set_endnotes_hdr&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;endnotes_hdr_of_string&nbsp;v;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
@@ -597,7 +627,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;tag&nbsp;value:&nbsp;"</span>;v;<span class="string">";&nbsp;"</span>;<span class="string">"using&nbsp;default&nbsp;value"</span>])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;tag&nbsp;value:&nbsp;"</span>;v;<span class="string">";&nbsp;"</span>;<span class="string">"ignoring&nbsp;it."</span>])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;doc_settings<br>
 <br>
 <span class="keyword">let</span>&nbsp;doc_settings_of_ts_preamble&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(preamble&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_preamble)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
@@ -618,6 +648,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="string">"par-prefix"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_par_prefix&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="string">"abstract-hdr"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_abstract_hdr&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="string">"refs-hdr"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_refs_hdr&nbsp;v&nbsp;settings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="string">"endnotes-hdr"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_endnotes_hdr&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="string">"tag"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_expand_tag&nbsp;settings.expand_tag&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.print_warning&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"WARNING:&nbsp;invalid&nbsp;attribute:&nbsp;"</span>;hd;<span class="string">";&nbsp;"</span>;<span class="string">"ignoring&nbsp;it"</span>])&nbsp;<span class="keyword">in</span>&nbsp;settings<br>

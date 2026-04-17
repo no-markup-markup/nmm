@@ -64,8 +64,11 @@ and lines_of_nte_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
         let hdr_lines : string list = lines_of_endnotes_hdr doc_settings in
         match endnotes with
         |[] -> []
-        |_ -> let overline : string = make_string doc_settings.doc_width "─" in
-                ""::(overline::(List.concat [hdr_lines;[""];endnotes]))
+        |_ ->
+		let overline : string = make_string doc_settings.doc_width "─" in
+		match hdr_lines with
+		|[] -> List.concat [["";overline];endnotes]
+		|_::_ -> List.concat [["";overline];hdr_lines;[""];endnotes]
 
 
 
@@ -156,15 +159,17 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
         let xml_list : Xml.xml list = aux nte_table [] in
         let xml_hdr_opt : Xml.xml option = 
                 match List.rev path, doc_settings.endnotes_hdr with
-                |[], Some (hdr,_) -> Some (Xml.Element ("doc_endnotes_hdr",[],[xml_of_string hdr]))
-                |(CH_NODE _)::_, Some (hdr,_) -> Some (Xml.Element ("ch_endnotes_hdr",[], [xml_of_string hdr]))
+                |[], Some hdr -> Some (Xml.Element ("doc_endnotes_hdr",[],[xml_of_string hdr]))
+                |(CH_NODE _)::_, Some hdr -> Some (Xml.Element ("ch_endnotes_hdr",[], [xml_of_string hdr]))
                 |_, None -> None
-                |_,_ -> raise (Error "unexpected argument")
+                |_,_ -> raise (Error "unexpected arguments")
         in
         match xml_list, List.rev path, xml_hdr_opt with
         |[],_,_ -> None
         |_::_, [], Some xml_hdr -> Some (Xml.Element ("doc_endnotes",[],xml_hdr::xml_list))
+        |_::_, [], None -> Some (Xml.Element ("doc_endnotes",[],xml_list))
         |_::_, (CH_NODE _)::_, Some xml_hdr -> Some (Xml.Element ("ch_endnotes",[], xml_hdr::xml_list))
+        |_::_, (CH_NODE _)::_, None -> Some (Xml.Element ("ch_endnotes",[], xml_list))
         |_, _, _ -> raise (Error "unexpected arguments")
 
 (* blk *)

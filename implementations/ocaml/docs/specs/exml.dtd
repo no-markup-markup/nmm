@@ -101,8 +101,8 @@
 <!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
 <!ELEMENT clear EMPTY>
 
-<!ELEMENT doc_endnotes (doc_endnotes_hdr, blk_nte+)>
-<!ELEMENT ch_endnotes (ch_endnotes_hdr, blk_nte+)>
+<!ELEMENT doc_endnotes (doc_endnotes_hdr?, blk_nte+)>
+<!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)>
 <!ELEMENT doc_endnotes_hdr (#PCDATA)>
 <!ELEMENT ch_endnotes_hdr (#PCDATA)>
 
