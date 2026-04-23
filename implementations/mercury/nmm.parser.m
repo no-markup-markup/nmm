@@ -1939,6 +1939,7 @@ f_nte_ref_to_xml(cs_nte_ref(ID)) =
 
 %%% R_BLK_TXT
 
+:- pragma memo(r_blk_txt/5,[fast_loose]).
 r_blk_txt(ALLOWED_TAGS,LVL,cs_blk_txt(UNITS)) --> (
   (
     if {LVL = 0u} then
@@ -1995,6 +1996,7 @@ f_blk_txt_to_xml(cs_blk_txt(UNITS)) =
 
 %% R_BLK_BLT AND INSTANCE TS_BLK_BLT XMLABLE
 
+:- pragma memo(r_blk_blt/5,[fast_loose]).
 r_blk_blt(ALLOWED_TAGS,LVL,cs_blk_blt(BLKS)) -->
   r_str("-"), r_tab, r_blks(ALLOWED_TAGS,LVL+1u,BLKS).
 
@@ -2012,6 +2014,7 @@ f_blk_blt_to_xml(cs_blk_blt(BLKS)) =
 
 %%% R_BLK_ITM
 
+:- pragma memo(r_blk_itm/5,[fast_loose]).
 r_blk_itm(ALLOWED_TAGS,LVL,cr_blk_itm(LBL,MAYBE_ID,BLKS)) --> (
   r_str("["), r_lbl(LBL), r_str("]"),
   r_tab,
@@ -2051,6 +2054,7 @@ f_blk_itm_to_xml(BLK_ITM) = XML :- (
 
 %% R_BLK_DSP, INSTANCE TS_BLK_DSP XMLABLE
 
+:- pragma memo(r_blk_dsp/5,[fast_loose]).
 r_blk_dsp(ALLOWED_TAGS,LVL,cs_blk_dsp(DSP_LINES)) -->
   r_dsp_lines(ALLOWED_TAGS,LVL,DSP_LINES).
 
@@ -2068,6 +2072,7 @@ f_blk_dsp_to_xml(cs_blk_dsp(DSP_LINES)) =
 
 %%% R_BLK_VRB
 
+:- pragma memo(r_blk_vrb/4,[fast_loose]).
 r_blk_vrb(LVL,cs_blk_vrb(cs_vrb_lines(LINES))) --> (
   r_str("START"), r_tab, r_str("VERBATIM"), r_lb,
   +([],r_vrb_line,LVL,LINES,[]),
@@ -2089,6 +2094,7 @@ f_blk_vrb_to_xml(cs_blk_vrb(LINES)) =
 
 %% R_BLK_NTE AND INSTANCE TR_BLK_NTE XMLABLE
 
+:- pragma memo(r_blk_nte/5,[fast_loose]).
 r_blk_nte(ALLOWED_TAGS,LVL,cr_blk_nte(ID,BLKS)) -->
   r_str("*"), r_tab, r_id(cs_allowed_tags([]),cu_tag_type_nte,ID),
   +([r_lb]),

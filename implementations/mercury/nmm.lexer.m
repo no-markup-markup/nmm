@@ -73,6 +73,7 @@
 
 %% P_TKN_LINE_NO
 
+:- pragma memo(p_tkn_line_no/2,[fast_loose]).
 p_tkn_line_no(cu_tkn_nws(LINE_NO,_),LINE_NO).
 p_tkn_line_no(cu_tkn_sp( LINE_NO,_),LINE_NO).
 p_tkn_line_no(cu_tkn_esc(LINE_NO,_),LINE_NO).
@@ -156,6 +157,7 @@ p_tknize(        LINE_NO,    CHRS, TKNS_IN,  ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
 %%%% HELPER PREDICATE P_UNSUPPORTED
 
 % these characters have difficult semantics
+:- pragma memo(p_unsupported/3,[fast_loose]).
 :- pred p_unsupported(int::in, str::out, str::out) is semidet.
 p_unsupported(        0x000B,  "U+000B", "Vertical Tab").
 p_unsupported(        0x000C,  "U+000C", "Form Feed").
@@ -163,6 +165,7 @@ p_unsupported(        0x2029,  "U+2029", "Paragraph Separator").
 
 %%%% HELPER PREDICATE P_LEADING_ESC_CHR
 
+:- pragma memo(p_leading_esc_chr/3,[fast_loose]).
 :- pred p_leading_esc_chr(chrs::in, chr::out, chrs::out) is semidet.
 p_leading_esc_chr(        CHRS_IN,  ESC_CHR,  CHRS_OUT) :-
   CHRS_IN = ['\\'|CHRS_1],
@@ -192,6 +195,7 @@ k_cr = char.det_from_int(0x000D).
 k_nl = char.det_from_int(0x0085).
 k_ls = char.det_from_int(0x2028).
 
+:- pragma memo(p_leading_line_break/2,[fast_loose]).
 :- pred p_leading_line_break(chrs::in,chrs::out) is semidet.
 p_leading_line_break(        CHRS_IN, CHRS_OUT) :- (
   CHRS_IN = [k_cr,k_lf|CHRS] -> CHRS_OUT = CHRS;
@@ -207,6 +211,7 @@ p_leading_line_break(        CHRS_IN, CHRS_OUT) :- (
 % see
 % https://en.wikipedia.org/wiki/Whitespace_character#Unicode
 
+:- pragma memo(p_sp_but_not_tab/1,[fast_loose]).
 :- pred p_sp_but_not_tab(chr::in) is semidet.
 p_sp_but_not_tab(char.det_from_int(0x0020)). % space
 p_sp_but_not_tab(char.det_from_int(0x00A0)). % no break space
