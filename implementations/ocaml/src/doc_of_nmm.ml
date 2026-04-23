@@ -27,8 +27,8 @@ let string_of_token (t:Nmm_parser.token):string=
         |COLON -> "COLON"
         |EOF -> "EOF"
         |CH_TAG_OR_ID_NL s -> ("CH_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
-        |SECTION_TAB_TAG_OR_ID_NL s -> ("SECTION_TAB_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
-        |PILCROW_TAB_TAG_OR_ID_NL s -> ("PILCROW_TAB_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+        |SECTION_SPACES_TAG_OR_ID_NL s -> ("SECTION_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
+        |PILCROW_SPACES_TAG_OR_ID_NL s -> ("PILCROW_SPACES_TAG_OR_ID_NL " ^ "\"" ^ s ^ "\"")
         |PILCROW_SPACES_RPT_SPACES_ID_NL s -> ("PILCROW_SPACES_RPT_SPACES_ID_NL " ^ "\"" ^ s ^ "\"")
         |TXT s -> ("TXT " ^ "\"" ^ s ^ "\"")
         |DSP_CUSTOM_TAB s -> ("DSP_CUSTOM_TAB " ^ "\"" ^ s ^ "\"")
@@ -76,7 +76,7 @@ let reset_refs () : unit =
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
         let _ : unit = reset_refs () in
-        match Sys.file_exists filename with
+        match Sys.file_exists filename && not (Sys.is_directory filename) with
         |false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
         |true -> 
         let ic=open_in filename in

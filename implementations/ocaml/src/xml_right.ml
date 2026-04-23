@@ -15,7 +15,7 @@ let lexer (print_tokens:bool) (b:Lexing.lexbuf):Xml_right_parser.token=
         |false -> t
 
 let rec parse_file (print_tokens:bool) (s:string):Xml.xml =
-        match Sys.file_exists s with
+        match Sys.file_exists s && not (Sys.is_directory s) with
         |false -> raise (Error ("cannot read from " ^ s ^ ": No such file"))
         |true -> 
         try

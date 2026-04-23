@@ -3,11 +3,11 @@ Header 1
 
 Some text.
 
-¶	DEF
+¶ DEF
 
 Some text.
 
-¶	DEF
+¶ DEF
 
 -	bullet
 
@@ -16,12 +16,12 @@ Header 2
 
 -	bullet
 
-¶	THM
+¶ THM
 Header 3
 
 -	bullet
 
-¶	THM
+¶ THM
 Header 4
 
 Some theorem.

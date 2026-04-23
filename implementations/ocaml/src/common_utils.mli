@@ -98,12 +98,12 @@ v}
 type t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
 and t_itm_node =
-	|ITM_AUTO of string
-	|ITM_CUSTOM of string
-	|ITM_TAG_AUTO of (string * string)
-	|ITM_TAG_CUSTOM of (string * string)
-	|ITM_BIB_AUTO of string
-	|ITM_BIB_CUSTOM of string
+        |ITM_AUTO of string
+        |ITM_CUSTOM of string
+        |ITM_TAG_AUTO of (string * string)
+        |ITM_TAG_CUSTOM of (string * string)
+        |ITM_BIB_AUTO of string
+        |ITM_BIB_CUSTOM of string
 
 type t_dsp_line_node = 
         |DSP_AUTO of string

@@ -49,6 +49,7 @@
                 allow_custom_numbering = allow_custom_numbering;
         }
         <span class="keyword">in</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- options.quiet <span class="keyword">in</span>
         <span class="keyword">match</span> xml_list_of_tr_doc new_doc_settings doc <span class="keyword">with</span>
         <span class="keywordsign">|</span> hd::[] <span class="keywordsign">-&gt;</span> hd
         <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"expected an exml-list with exactly one element"</span>)</code></body></html>

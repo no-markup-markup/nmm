@@ -35,10 +35,10 @@
                         <span class="keywordsign">|</span><span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> (
                                 <span class="keyword">match</span> doc_settings.expand_tag id.fld_id_tag <span class="keyword">with</span>
                                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
-					<span class="keyword">match</span> id.fld_id_tag <span class="keyword">with</span>
-					<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"BIB"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_AUTO</span> lbl)
-					<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_AUTO</span> lbl)
-				)
+                                        <span class="keyword">match</span> id.fld_id_tag <span class="keyword">with</span>
+                                        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"BIB"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_AUTO</span> lbl)
+                                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_AUTO</span> lbl)
+                                )
                                 <span class="keywordsign">|</span><span class="constructor">Some</span> (_,tag) <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_TAG_AUTO</span> (tag, lbl))
                         )
                 )
@@ -48,9 +48,9 @@
                         <span class="keywordsign">|</span><span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> (
                                 <span class="keyword">match</span> doc_settings.expand_tag id.fld_id_tag <span class="keyword">with</span>
                                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
-					<span class="keyword">match</span> id.fld_id_tag <span class="keyword">with</span>
-					<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"BIB"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_CUSTOM</span> s)
-					<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_CUSTOM</span> s)
-				)
+                                        <span class="keyword">match</span> id.fld_id_tag <span class="keyword">with</span>
+                                        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"BIB"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_CUSTOM</span> s)
+                                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_CUSTOM</span> s)
+                                )
                                 <span class="keywordsign">|</span><span class="constructor">Some</span> (_,tag) <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_TAG_CUSTOM</span> (tag,s))
                         )</code></body></html>

@@ -1,7 +1,7 @@
-§	SEC:named_section
+§ SEC:named_section
 Introduction
 
-¶	PAR:named_paragraph
+¶ PAR:named_paragraph
 
 According to [DEF:provability] ...
 
@@ -69,20 +69,20 @@ Section headers are optional, but recommended. They may contain both *emphasized
 
 The same goes for paragraph headers. As we shall see in [PAR:named_paragraph_with_header] below, paragraphs with headers can also be named.
 
-¶	PAR:named_paragraph_with_header
+¶ PAR:named_paragraph_with_header
 This is a *paragraph header*, referencing [ITM:x] and [ITM:y] above. Again, these references will appear differently than when occurring in [PAR:named_paragraph].
 
 Putting references in a header does not look very nice.
 
-¶	DEF:semcons
+¶ DEF:semcons
 
 We say that Γ ⊨ φ just in case every model of Γ is a model of φ.
 
-¶	DEF:provability
+¶ DEF:provability
 Provability
 
 We say that Γ ⊢ φ just in case there is a proof from Γ to φ.
 
-¶	FCT:compl
+¶ FCT:compl
 
 For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.

@@ -882,6 +882,7 @@
 <span class="comment">(*&nbsp;margin&nbsp;labels&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;margin_labels_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;string&nbsp;list=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc_of_tr_doc&nbsp;doc_settings&nbsp;([]&nbsp;:&nbsp;t_cref_table)&nbsp;([]&nbsp;:&nbsp;t_nte_table)&nbsp;([]&nbsp;:&nbsp;t_path)&nbsp;(<span class="constructor">MARGIN_LABELS</span>&nbsp;[])&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">MARGIN_LABELS</span>&nbsp;string_list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;output&nbsp;type&nbsp;not&nbsp;identical&nbsp;to&nbsp;accumulator&nbsp;input&nbsp;type"</span>)<br>
@@ -889,6 +890,7 @@
 <span class="comment">(*&nbsp;cref&nbsp;table&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;cref_table_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;t_cref_table&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc_of_tr_doc&nbsp;doc_settings&nbsp;([]&nbsp;:&nbsp;t_cref_table)&nbsp;([]&nbsp;:&nbsp;t_nte_table)&nbsp;([]&nbsp;:&nbsp;t_path)&nbsp;(<span class="constructor">CREF_TABLE</span>&nbsp;[])&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CREF_TABLE</span>&nbsp;table&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;check_cref_table&nbsp;doc_settings&nbsp;(<span class="constructor">List</span>.rev&nbsp;table)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;output&nbsp;type&nbsp;not&nbsp;identical&nbsp;to&nbsp;accumulator&nbsp;input&nbsp;type"</span>)<br>
@@ -896,6 +898,7 @@
 <span class="comment">(*&nbsp;footnote&nbsp;table&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;nte_table_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;([]&nbsp;:&nbsp;t_nte_table)&nbsp;([]&nbsp;:&nbsp;t_path)&nbsp;(<span class="constructor">NTE_TABLE</span>&nbsp;[])&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_TABLE</span>&nbsp;table&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;table<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;output&nbsp;type&nbsp;not&nbsp;identical&nbsp;to&nbsp;accumulator&nbsp;input&nbsp;type"</span>)<br>
@@ -904,8 +907,10 @@
 <span class="comment">(*&nbsp;txt&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;quiet&nbsp;:&nbsp;bool&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;cref_table&nbsp;:&nbsp;t_cref_table&nbsp;=&nbsp;cref_table_of_tr_doc&nbsp;doc_settings&nbsp;doc&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nte_table&nbsp;:&nbsp;t_nte_table&nbsp;=&nbsp;nte_table_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;doc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;([]&nbsp;:&nbsp;t_path)&nbsp;(<span class="constructor">LINES</span>&nbsp;[])&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">LINES</span>&nbsp;lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;output&nbsp;type&nbsp;not&nbsp;identical&nbsp;to&nbsp;accumulator&nbsp;input&nbsp;type"</span>)<br>
@@ -947,13 +952,16 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;allow_custom_numbering;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;options.quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(lines_of_tr_doc&nbsp;new_doc_settings&nbsp;doc)<br>
 <br>
 <span class="comment">(*&nbsp;exml&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;xml_list_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;quiet&nbsp;:&nbsp;bool&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;cref_table&nbsp;:&nbsp;t_cref_table&nbsp;=&nbsp;cref_table_of_tr_doc&nbsp;doc_settings&nbsp;doc&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nte_table&nbsp;:&nbsp;t_nte_table&nbsp;=&nbsp;nte_table_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;doc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;([]&nbsp;:&nbsp;t_path)&nbsp;(<span class="constructor">EXML</span>&nbsp;[])&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EXML</span>&nbsp;xml_list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;xml_list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;output&nbsp;type&nbsp;not&nbsp;identical&nbsp;to&nbsp;accumulator&nbsp;input&nbsp;type"</span>)<br>
@@ -983,6 +991,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;allow_custom_numbering;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Debug_utils</span>.quiet.contents&nbsp;&lt;-&nbsp;options.quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_list_of_tr_doc&nbsp;new_doc_settings&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd::[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;hd<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"expected&nbsp;an&nbsp;exml-list&nbsp;with&nbsp;exactly&nbsp;one&nbsp;element"</span>)<br>

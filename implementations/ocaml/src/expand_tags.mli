@@ -1,4 +1,4 @@
-(** Generated from {{:specs/tags.tsv.txt}tags.tsv} with [make-expand_tags.sh]. *)
+(** Specifies default tags and their expansion *)
 
 val expand_tag : Doc_types.ts_tag -> (string * string) option
 

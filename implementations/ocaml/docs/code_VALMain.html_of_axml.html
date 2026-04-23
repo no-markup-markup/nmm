@@ -26,7 +26,4 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> html_of_axml (options : <span class="constructor">Common_utils</span>.t_html_options) (path : string) : string =
-        <span class="keyword">try</span> 
-        html_of_doc options (doc_of_axml path)
-        <span class="keyword">with</span>
-        <span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path;<span class="string">"-&gt;"</span>;<span class="string">"Compiler_of_doc.Error:"</span>;e]))</code></body></html>
+        html_of_doc options (doc_of_axml path)</code></body></html>

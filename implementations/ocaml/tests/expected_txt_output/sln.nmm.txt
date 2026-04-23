@@ -1,0 +1,15 @@
+¶ 1  SOLUTIONS
+
+     (a)   The solution is easy.
+
+     (b)   This one as well.
+
+
+¶ 2  Let us refer to Solution 1(a).
+
+
+¶ 3  Here, the semantics issues a warning about undefined tag.
+
+     (a)   Here as well.
+
+     But I can still refer to (a), and to ¶ 3!

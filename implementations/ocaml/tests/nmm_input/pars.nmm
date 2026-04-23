@@ -1,4 +1,4 @@
-¶	PAR:named_paragraph
+¶ PAR:named_paragraph
 
 This is a no-markup-markup document, sporting the following cool features:
 
@@ -48,7 +48,7 @@ that may contain *emph text* and a reference to [DSP:one].
 
 This is a paragraph with a header. As we shall se in [PAR:named_paragraph_with_header] below, paragraphs with headers can also be named.
 
-¶	PAR:named_paragraph_with_header
+¶ PAR:named_paragraph_with_header
 Header of the named paragraph
 
 Believe it or not, it actually works!

@@ -1,0 +1,25 @@
+PREAMBLE:
+	tag=SLN,SOLUTION,Solution
+	tag=SLNS,SOLUTIONS,Solutions
+
+
+¶ SLNS:easy
+
+[]	SLN:a
+	The solution is easy.
+
+[]	SLN:b
+	This one as well.
+
+¶
+
+Let us refer to [SLN:a].
+
+¶ SOLS:typo
+
+Here, the semantics issues a warning about undefined tag.
+
+[]	ITEM:one
+	Here as well.
+
+But I can still refer to [ITEM:one], and to [SOLS:typo]!

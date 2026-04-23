@@ -63,12 +63,9 @@
 <!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
 <!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
 <!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
-<!ELEMENT par_hdr_inline (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
 
 <!ELEMENT par_tag (#PCDATA)>
 <!ELEMENT par_tag_hdr (#PCDATA)>
-<!ELEMENT par_tag_hdr_inline (#PCDATA)>
-
 
 <!ELEMENT ch_lbl (#PCDATA)>
 <!ELEMENT ch_lbl_hdr (#PCDATA)>

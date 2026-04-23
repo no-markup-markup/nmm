@@ -44,11 +44,11 @@
                 <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> (
                         <span class="keyword">match</span> hd <span class="keyword">with</span>
                         <span class="keywordsign">|</span><span class="constructor">ABSTRACT_NODE</span> <span class="keywordsign">|</span> <span class="constructor">REFS_NODE</span> <span class="keywordsign">-&gt;</span> (
-				<span class="keyword">match</span> id_loc <span class="keyword">with</span>
-				<span class="keywordsign">|</span>(<span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_AUTO</span> _))::_ <span class="keywordsign">|</span> (<span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_CUSTOM</span> _))::_ <span class="keywordsign">-&gt;</span>
-					string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl)
-				<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">"\u{00A0}"</span> [string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl);<span class="string">"of"</span>; string_of_path doc_settings [hd]]
-			)
+                                <span class="keyword">match</span> id_loc <span class="keyword">with</span>
+                                <span class="keywordsign">|</span>(<span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_AUTO</span> _))::_ <span class="keywordsign">|</span> (<span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_CUSTOM</span> _))::_ <span class="keywordsign">-&gt;</span>
+                                        string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl)
+                                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">"\u{00A0}"</span> [string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl);<span class="string">"of"</span>; string_of_path doc_settings [hd]]
+                        )
                         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> string_of_shown_path doc_settings id_loc sub_path
                 )
                 <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"path to id cannot be empty"</span>)</code></body></html>

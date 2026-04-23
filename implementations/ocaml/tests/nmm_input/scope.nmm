@@ -1,9 +1,9 @@
 CH
 
-§	SEC:one
+§ SEC:one
 This section is called ‘SEC:one’
 
-¶	PAR:one
+¶ PAR:one
 
 This paragraph is called ‘PAR:one’
 
@@ -22,11 +22,11 @@ This paragraph is called ‘PAR:one’
 
 -	‘\[ITM:one:SEC]’ ↦ ‘[ITM:one:SEC]’
 
-¶	PAR:one:SEC
+¶ PAR:one:SEC
 
 This paragraph is called ‘PAR:one:SEC’
 
-¶	PAR:two:SEC
+¶ PAR:two:SEC
 
 This paragraph is called ‘PAR:two:SEC’
 
@@ -47,10 +47,10 @@ Some cross-references
 
 
 
-§	SEC:two:CH
+§ SEC:two:CH
 This section is called ‘SEC:two:CH’
 
-¶	PAR:one
+¶ PAR:one
 
 This paragraph is called ‘PAR:one’
 
@@ -69,11 +69,11 @@ This paragraph is called ‘PAR:one’
 
 -	‘\[ITM:one:SEC]’ ↦ ‘[ITM:one:SEC]’
 
-¶	PAR:one:SEC
+¶ PAR:one:SEC
 
 This paragraph is called ‘PAR:one:SEC’
 
-¶	PAR:two:SEC
+¶ PAR:two:SEC
 
 This paragraph is called ‘PAR:two:SEC’
 

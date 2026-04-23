@@ -1,18 +1,18 @@
-¶ 1  THEOREM (Main)  Nothing lasts forever.
+¶ 1  Theorem (Main)  Nothing lasts forever.
 
 
-¶ 2  PROOF (of Theorem 1)  By straightforward induction on the complexity
+¶ 2  Proof (of Theorem 1)  By straightforward induction on the complexity
      of nothing.
 
 
-¶ 3  THEOREMS
+¶ 3  Theorems
 
      (a)   This theorem states that ...
 
      (b)   This theoren states that ...
 
 
-¶ 4  PROOFS (of Theorems 3)
+¶ 4  Proofs (of Theorems 3)
 
      (a)   To prove (a) of Theorems 3, ...
 

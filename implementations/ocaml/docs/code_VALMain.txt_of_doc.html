@@ -26,7 +26,6 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> txt_of_doc (options : <span class="constructor">Common_utils</span>.t_txt_options) (doc : <span class="constructor">Doc_types</span>.tr_doc) : string =
-        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- options.quiet <span class="keyword">in</span>
         <span class="keyword">try</span>
         <span class="constructor">Compiler_of_doc</span>.txt_of_tr_doc options doc
         <span class="keyword">with</span>

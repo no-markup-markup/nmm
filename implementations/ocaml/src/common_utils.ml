@@ -47,7 +47,7 @@ type t_doc_settings = {
 
 
 let expand_tag_default (tag : Doc_types.ts_tag) : (string * string) option =
-	Expand_tags.expand_tag tag
+        Expand_tags.expand_tag tag
 
 let lower_case_latin_letters : string array =
         [|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]
@@ -246,22 +246,31 @@ let tag_value_of_string (expand_tag_old : Doc_types.ts_tag -> (string * string) 
                                 |false -> expand_tag_old tag
                 in expand_tag_new
         )
+        |[tag_string; lbl] -> (
+                let expand_tag_new ( tag : Doc_types.ts_tag) : (string * string) option = 
+                        match tag with
+                        |Cs_tag (s : string) ->
+                                match s = tag_string with
+                                |true -> Some (lbl, lbl)
+                                |false -> expand_tag_old tag
+                in expand_tag_new
+        )
         | _ -> raise (Error "invalid tag value")
 
 let prefix_value_of_string (v : string) : (string * string) option =
         match String.split_on_char ',' v with
         |[lbl; cref] -> Some (lbl, cref)
-	|[s] -> (
-		match s with
-		|"" -> None
-		|_ -> Some (s,s)
-	)
+        |[s] -> (
+                match s with
+                |"" -> None
+                |_ -> Some (s,s)
+        )
         |_ -> None
 
 let endnotes_hdr_of_string (v : string) : string option =
-	match v with
-	|"" -> None
-	|s -> Some s
+        match v with
+        |"" -> None
+        |s -> Some s
 
 let key_value_pair_of_string_opt (s : string): (string*string) option=
         match String.split_on_char '=' s with
@@ -663,12 +672,12 @@ and t_node =
 and t_par_node = PAR_AUTO of int | PAR_TAG of (string * string * int)
 
 and t_itm_node =
-	|ITM_AUTO of string
-	|ITM_CUSTOM of string
-	|ITM_TAG_AUTO of (string * string)
-	|ITM_TAG_CUSTOM of (string * string)
-	|ITM_BIB_AUTO of string
-	|ITM_BIB_CUSTOM of string
+        |ITM_AUTO of string
+        |ITM_CUSTOM of string
+        |ITM_TAG_AUTO of (string * string)
+        |ITM_TAG_CUSTOM of (string * string)
+        |ITM_BIB_AUTO of string
+        |ITM_BIB_CUSTOM of string
 
 and t_dsp_line_node =
         | DSP_AUTO of string
@@ -858,12 +867,12 @@ let string_of_node_opt (doc_settings : t_doc_settings) (tail : t_path) (head : t
                 |ITM_CUSTOM s -> Some (String.concat s ["(";")"])
                 |ITM_TAG_AUTO (_,s) -> Some (String.concat s ["(";")"])
                 |ITM_TAG_CUSTOM (_,s) -> Some (String.concat s ["(";")"])
-		|ITM_BIB_AUTO s -> (
-			match List.rev tail with
-			|REFS_NODE::_ -> Some (String.concat s ["[";"]"])
-			|_ -> Some (String.concat s ["(";")"])
-		)
-		|ITM_BIB_CUSTOM s -> Some s
+                |ITM_BIB_AUTO s -> (
+                        match List.rev tail with
+                        |REFS_NODE::_ -> Some (String.concat s ["[";"]"])
+                        |_ -> Some (String.concat s ["(";")"])
+                )
+                |ITM_BIB_CUSTOM s -> Some s
         )
         | BLT_NODE ->
                 let l : int = lvl_of_path tail in
@@ -989,7 +998,7 @@ let rec string_of_shown_path (doc_settings : t_doc_settings) (full_path : t_path
                                 |None -> raise (Error "shown path cannot be empty")
                                 |Some s -> String.concat "\u{00A0}" [s;"of";string_of_shown_path doc_settings full_outer_path full_outer_path]
                         )
-			| ITM_BIB_CUSTOM _ -> (
+                        | ITM_BIB_CUSTOM _ -> (
                                 match string_of_path_opt doc_settings full_path inner_path with
                                 |None -> raise (Error "shown path cannot be empty")
                                 |Some s -> s
@@ -1056,11 +1065,11 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_
                 |hd::tl -> (
                         match hd with
                         |ABSTRACT_NODE | REFS_NODE -> (
-				match id_loc with
-				|(ITM_NODE (ITM_BIB_AUTO _))::_ | (ITM_NODE (ITM_BIB_CUSTOM _))::_ ->
-					string_of_shown_path doc_settings id_loc (List.rev tl)
-				|_ -> String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
-			)
+                                match id_loc with
+                                |(ITM_NODE (ITM_BIB_AUTO _))::_ | (ITM_NODE (ITM_BIB_CUSTOM _))::_ ->
+                                        string_of_shown_path doc_settings id_loc (List.rev tl)
+                                |_ -> String.concat "\u{00A0}" [string_of_shown_path doc_settings id_loc (List.rev tl);"of"; string_of_path doc_settings [hd]]
+                        )
                         |_ -> string_of_shown_path doc_settings id_loc sub_path
                 )
                 |[] -> raise (Error "path to id cannot be empty")
@@ -1184,10 +1193,10 @@ let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : i
                         |Some id -> (
                                 match doc_settings.expand_tag id.fld_id_tag with
                                 |None -> (
-					match id.fld_id_tag with
-					|Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
-					|_ -> ITM_NODE (ITM_AUTO lbl)
-				)
+                                        match id.fld_id_tag with
+                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
+                                        |_ -> ITM_NODE (ITM_AUTO lbl)
+                                )
                                 |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
                         )
                 )
@@ -1197,10 +1206,10 @@ let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : i
                         |Some id -> (
                                 match doc_settings.expand_tag id.fld_id_tag with
                                 |None -> (
-					match id.fld_id_tag with
-					|Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
-					|_ -> ITM_NODE (ITM_CUSTOM s)
-				)
+                                        match id.fld_id_tag with
+                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
+                                        |_ -> ITM_NODE (ITM_CUSTOM s)
+                                )
                                 |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag,s))
                         )
 

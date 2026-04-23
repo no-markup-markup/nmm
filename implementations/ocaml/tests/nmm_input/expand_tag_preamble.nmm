@@ -4,17 +4,17 @@ PREAMBLE:
 	tag=THMS,Theorems
 	tag=PRFS,Proofs
 
-¶	THM:main
+¶ THM:main
 Main
 
 Nothing lasts forever.
 
-¶	PRF:proof
+¶ PRF:proof
 of [THM:main]
 
 By straightforward induction on the complexity of nothing.
 
-¶	THMS:aux
+¶ THMS:aux
 
 []	ITM:aux1
 	This theorem states that ...
@@ -22,7 +22,7 @@ By straightforward induction on the complexity of nothing.
 []	ITM:aux2
 	This theoren states that ...
 
-¶	PRFS:aux
+¶ PRFS:aux
 of [THMS:aux]
 
 []	To prove [ITM:aux1], ...

@@ -11,7 +11,6 @@ let doc_of_nmm (path : string) : Doc_types.tr_doc =
 
 
 let txt_of_doc (options : Common_utils.t_txt_options) (doc : Doc_types.tr_doc) : string =
-        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         try
         Compiler_of_doc.txt_of_tr_doc options doc
         with
@@ -20,7 +19,6 @@ let txt_of_doc (options : Common_utils.t_txt_options) (doc : Doc_types.tr_doc) :
 
 let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc) : string =
         try
-        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         let exml:Xml.xml = Compiler_of_doc.exml_of_tr_doc (Common_utils.exml_options_of_html_options options) doc in
         let doc_class : Common_utils.t_doc_class = Common_utils.class_of_tr_doc doc in
         let html:Xml.xml = Html_utils.html_of_exml doc_class exml in
@@ -71,6 +69,7 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
         in 
         (intro ^ html_string ^ outro)
         with
+        |Common_utils.Error e -> raise (Error (String.concat " " ["Common_utils.Error:"; e]))
         |Html_utils.Error e -> raise (Error (String.concat " " ["Html_utils.Error:"; e]))
         |Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:"; e]))
         |Xml_right.Error e -> raise (Error (String.concat " " ["Xml_right.Error:"; e]))
@@ -92,7 +91,7 @@ let doc_of_axml (path : string) : Doc_types.tr_doc =
 
 let axml_of_doc (doc : Doc_types.tr_doc) : string =
         "<?xml version=\"1.0\"?>\n" ^ 
-        (Xml_right.to_string_fmt (Axml_of_doc.normalize (Axml_of_doc.axml_of_tr_doc doc)))
+        (Xml_right.to_string_fmt (Axml_of_doc.normalize_axml (Axml_of_doc.axml_of_tr_doc doc)))
 
 let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
         html_of_doc options (doc_of_nmm path)
@@ -104,10 +103,7 @@ let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string 
         txt_of_doc options (doc_of_axml path) 
 
 let html_of_axml (options : Common_utils.t_html_options) (path : string) : string =
-        try 
         html_of_doc options (doc_of_axml path)
-        with
-        Compiler_of_doc.Error e -> raise (Error (String.concat " " [path;"->";"Compiler_of_doc.Error:";e]))
 
 let axml_of_nmm (path : string) : string =
         axml_of_doc (doc_of_nmm path)
@@ -117,8 +113,9 @@ let check_xml_schema (path : string) : string =
         let dtd:Dtd.dtd=Dtd.parse_file path in
         let _:Dtd.checked=Dtd.check dtd in
         String.concat " " [path;"is a well-defined xml-schema"]
-        with 
-        Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
+        with
+        |Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
+        |Xml_light_errors.Dtd_parse_error e -> raise (Error (String.concat " " [path;"->";"Xml_light_errors.Dtd_parse_error:";Dtd.parse_error e]))
 
 let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
         let print_tokens = false in 
@@ -140,14 +137,15 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
         |Xml_light_errors.Dtd_check_error e -> raise (Error (String.concat " " [path_to_dtd;"->";"Xml_light_errors.Dtd_check_error:";Dtd.check_error e]))
         |Xml_light_errors.Dtd_prove_error e -> raise (Error (String.concat " " [path_to_dtd;path_to_xml;"->";"Xml_light_errors.Dtd_prove_error:";Dtd.prove_error e]))
         |Xml_light_errors.Xml_error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_light_errors.Xml_error:";Xml.error e]))
+        |Xml_light_errors.File_not_found e -> raise (Error (String.concat " " ["Xml_light_errors.File_not_found:";e]))
+        |Xml_right.Error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_right.Error:";e]))
 
 let default_css () : string = Html_utils.internal_css "6ch" "0rem"
 
 
 let exml_of_doc (options : Common_utils.t_exml_options) (doc : Doc_types.tr_doc) : string =
-        let _ : unit = Debug_utils.quiet.contents <- options.quiet in
         "<?xml version=\"1.0\"?>\n" ^ 
-        (Xml_right.to_string_fmt (Compiler_of_doc.exml_of_tr_doc options doc))
+        (Xml_right.to_string_fmt (Exml_utils.normalize_exml (Compiler_of_doc.exml_of_tr_doc options doc)))
 
 let exml_of_nmm (options : Common_utils.t_exml_options) (path : string) : string =
         exml_of_doc options (doc_of_nmm path)
@@ -155,4 +153,12 @@ let exml_of_nmm (options : Common_utils.t_exml_options) (path : string) : string
 let exml_of_axml (options : Common_utils.t_exml_options) (path : string) : string =
         exml_of_doc options (doc_of_axml path)
 
+let normalize_axml_file (path : string) : string =
+        let axml:Xml.xml =
+                match path with
+                |"-" -> Xml_right.parse_stdin false
+                |_ -> Xml_right.parse_file false path 
+	in
+        "<?xml version=\"1.0\"?>\n" ^ 
+        (Xml_right.to_string_fmt (Axml_of_doc.normalize_axml axml))
 

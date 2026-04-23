@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cs_title>A dated document</cs_title>
+<cs_authors>
+<cs_author>Eric Johannesson</cs_author>
+</cs_authors>
+<cu_date_custom>
+<cs_date_custom>2026-03-17</cs_date_custom>
+</cu_date_custom>
+<cs_abstract>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This is an abstract.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_abstract>
+<cu_doc_main_secs>
+<cs_secs>
+<cr_sec>
+<cs_hdr>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Section header</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_hdr>
+<cu_pars_or_blks_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This is a document with a DATE.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_pars_or_blks_blks>
+</cr_sec>
+</cs_secs>
+</cu_doc_main_secs>
+</cr_doc>

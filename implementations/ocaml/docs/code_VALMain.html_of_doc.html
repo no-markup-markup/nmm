@@ -27,7 +27,6 @@
 <body>
 <code class="code"><span class="keyword">let</span> html_of_doc (options : <span class="constructor">Common_utils</span>.t_html_options) (doc : <span class="constructor">Doc_types</span>.tr_doc) : string =
         <span class="keyword">try</span>
-        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- options.quiet <span class="keyword">in</span>
         <span class="keyword">let</span> exml:<span class="constructor">Xml</span>.xml = <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc (<span class="constructor">Common_utils</span>.exml_options_of_html_options options) doc <span class="keyword">in</span>
         <span class="keyword">let</span> doc_class : <span class="constructor">Common_utils</span>.t_doc_class = <span class="constructor">Common_utils</span>.class_of_tr_doc doc <span class="keyword">in</span>
         <span class="keyword">let</span> html:<span class="constructor">Xml</span>.xml = <span class="constructor">Html_utils</span>.html_of_exml doc_class exml <span class="keyword">in</span>
@@ -78,6 +77,7 @@
         <span class="keyword">in</span> 
         (intro ^ html_string ^ outro)
         <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Common_utils</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Common_utils.Error:"</span>; e]))
         <span class="keywordsign">|</span><span class="constructor">Html_utils</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Html_utils.Error:"</span>; e]))
         <span class="keywordsign">|</span><span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Compiler_of_doc.Error:"</span>; e]))
         <span class="keywordsign">|</span><span class="constructor">Xml_right</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Xml_right.Error:"</span>; e]))</code></body></html>

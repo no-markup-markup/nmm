@@ -26,7 +26,7 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> parse_file (print_tokens:bool) (s:string):<span class="constructor">Xml</span>.xml =
-        <span class="keyword">match</span> <span class="constructor">Sys</span>.file_exists s <span class="keyword">with</span>
+        <span class="keyword">match</span> <span class="constructor">Sys</span>.file_exists s <span class="keywordsign">&amp;&amp;</span> not (<span class="constructor">Sys</span>.is_directory s) <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"cannot read from "</span> ^ s ^ <span class="string">": No such file"</span>))
         <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> 
         <span class="keyword">try</span>

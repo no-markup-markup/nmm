@@ -50,7 +50,7 @@ match element with
 |Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class,[("class","par_lbl hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag",[],xml_list) -> Xml.Element ("div", [("class", "par_tag")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_tag", _,xml_list) -> Xml.Element ("div", [("class", "par_tag")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class, [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class, [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
@@ -92,7 +92,7 @@ match element with
 
 |Xml.PCData s -> Xml.PCData s
 
-|Xml.Element ("clear",[],[]) -> Xml.Element ("div",[("class","clear")],[Xml.PCData ""])
+|Xml.Element ("clear", _, _) -> Xml.Element ("div",[("class","clear")],[Xml.PCData ""])
 
 |Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
@@ -416,7 +416,7 @@ h2, h3, h4, h5 {
 
 
 .bib_custom .blk_itm_lbl {
-	float : none;
+    float : none;
 }
 
 

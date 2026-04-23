@@ -36,12 +36,12 @@
                 <span class="keywordsign">|</span>date                           <span class="keywordsign">-&gt;</span>      <span class="constructor">DATE</span>
                 <span class="keywordsign">|</span>abstract                       <span class="keywordsign">-&gt;</span>      <span class="constructor">ABSTRACT</span>
                 <span class="keywordsign">|</span>ch_tag_or_id_nl                <span class="keywordsign">-&gt;</span>      <span class="constructor">CH_TAG_OR_ID_NL</span> (<span class="constructor">String</span>.trim (lexeme lexbuf))
-                <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>nte_ref                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_REF</span> (lexeme lexbuf, nte_count ())
+                <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>section_nl                     <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_NL</span>
-                <span class="keywordsign">|</span>section_tab_tag_or_id_nl       <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_TAB_TAG_OR_ID_NL</span> (get_tag_or_id (lexeme lexbuf))
+                <span class="keywordsign">|</span>section_spaces_tag_or_id_nl    <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_SPACES_TAG_OR_ID_NL</span> (get_tag_or_id (lexeme lexbuf))
                 <span class="keywordsign">|</span>pilcrow_nl                     <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_NL</span>
-                <span class="keywordsign">|</span>pilcrow_tab_tag_or_id_nl       <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_TAB_TAG_OR_ID_NL</span> (get_tag_or_id (lexeme lexbuf))
+                <span class="keywordsign">|</span>pilcrow_spaces_tag_or_id_nl    <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_SPACES_TAG_OR_ID_NL</span> (get_tag_or_id (lexeme lexbuf))
                 <span class="keywordsign">|</span>pilcrow_spaces_rpt_spaces_id_nl <span class="keywordsign">-&gt;</span>     <span class="constructor">PILCROW_SPACES_RPT_SPACES_ID_NL</span> (get_id (lexeme lexbuf))
                 <span class="keywordsign">|</span>section_refs_nls               <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION_REFS_NLS</span>
                 <span class="keywordsign">|</span>pilcrow_refs_nls               <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW_REFS_NLS</span>
@@ -93,10 +93,10 @@
                 <span class="keywordsign">|</span>colon                          <span class="keywordsign">-&gt;</span>      <span class="constructor">COLON</span>
                 <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
                 <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
+                <span class="keywordsign">|</span>nte_ref                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_REF</span> (lexeme lexbuf, nte_count ())
                 <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>nte_lbr                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_LBR</span> (nte_count ())
                 <span class="keywordsign">|</span>n                              <span class="keywordsign">-&gt;</span>      <span class="constructor">N</span>
-                <span class="keywordsign">|</span>nte_ref                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_REF</span> (lexeme lexbuf, nte_count ())
                 <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span> 
                 <span class="keywordsign">|</span>dsp_id                         <span class="keywordsign">-&gt;</span>      <span class="constructor">DSP_ID</span> (lexeme lexbuf)

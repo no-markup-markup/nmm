@@ -2,8 +2,6 @@
 A toolkit used by {!module:Compiler_of_doc} when compiling to XML, mostly for handling attributes and pcdata.
 *)
 
-exception Error of string
-
 val string_of_pcdata : string -> string
 
 val pcdata_of_string : string -> string
@@ -34,4 +32,4 @@ val attr_list_of_tr_id_opt : Common_utils.t_doc_settings -> Common_utils.t_path 
 
 val par_hdr_opt: Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.tu_tag_or_id option -> Doc_types.ts_hdr option -> (Xml.xml list) option
 
-
+val normalize_exml : Xml.xml -> Xml.xml

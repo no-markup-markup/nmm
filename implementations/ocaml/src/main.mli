@@ -83,3 +83,5 @@ val validate_xml : string -> string -> string
 val exml_of_nmm : Common_utils.t_exml_options -> string -> string
 
 val exml_of_axml : Common_utils.t_exml_options -> string -> string
+
+val normalize_axml_file : string -> string

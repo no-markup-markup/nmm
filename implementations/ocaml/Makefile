@@ -20,12 +20,10 @@ test: bin/nmm-ocaml
 	cd -
 
 bin/nmm-ocaml: native
-	mkdir -p build_bin
-	cp -f native/* build_bin/
-	cd build_bin
+	cd native
 	ocamlfind ocamlopt -o nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str -package unix nmm_ocaml.cmxa cli.ml
 	cd -
-	mv build_bin/nmm-ocaml bin/
+	mv native/nmm-ocaml bin/
 
 
 docs: byte
@@ -34,11 +32,9 @@ docs: byte
 	cp src/xml_right_lexer.mll docs/specs/xml_right_lexer.mll.txt
 	cp src/xml_right_parser.mly docs/specs/xml_right_parser.mly.txt
 	cp src/nmm_parser.mly docs/specs/nmm_parser.mly.txt
-	cp bin/tags.tsv docs/specs/tags.tsv.txt
 	cd byte
 	ocamlfind ocamldoc -t 'Nmm_ocaml' -keep-code -colorize-code -d ../docs -package sedlex.ppx -package uuseg -package xml-light -package str -package unix -html doc_types.ml xml_right_parser.mli xml_right_lexer.mli xml_right.mli xml_right.ml nmm_parser.mli nmm_lexer.mli nmm_lexer.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli expand_tags.mli expand_tags.ml common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml
 	cd -
-	cp -r docs/* ../../docs/docs-ocaml/
 
 clean-docs:
 	rm -f docs/*.html
@@ -46,6 +42,12 @@ clean-docs:
 
 install-bin: bin/nmm-ocaml
 	cp bin/nmm-ocaml ~/bin/
+	cp bin/txt-of-nmm.sh ~/bin/txt-of-nmm
+	chmod +x ~/bin/txt-of-nmm
+	cp bin/html-of-nmm.sh ~/bin/html-of-nmm
+	chmod +x ~/bin/html-of-nmm
+	cp bin/pdf-of-nmm.sh ~/bin/pdf-of-nmm
+	chmod +x ~/bin/pdf-of-nmm
 
 install-opam_package: opam_package src/cli.ml
 	ocamlfind install nmm-ocaml opam_package/*
@@ -58,12 +60,10 @@ opam_package: native opam byte
 	cp opam/nmm-ocaml.opam opam_package/opam
 	cp opam/META opam_package/
 
-native: src bin/tags.tsv
+native: src
 	mkdir -p native
 	cp -f src/* native/
 	cd native
-	bash make-nmm_lexer.sh
-	bash make-expand_tags.sh
 	ocamlopt -c -for-pack Nmm_ocaml doc_types.ml debug_utils.ml
 	# generate nmm_parser.ml, nmm_parser.mli:
 	ocamlyacc --strict nmm_parser.mly
@@ -87,12 +87,10 @@ native: src bin/tags.tsv
 	ocamlfind ocamlopt -a -o nmm_ocaml.cmxa nmm_ocaml.cmx
 	ocamlopt -shared -o nmm_ocaml.cmxs nmm_ocaml.cmxa
 
-byte: src bin/tags.tsv
+byte: src
 	mkdir -p byte
 	cp -f src/* byte/
 	cd byte
-	bash make-nmm_lexer.sh
-	bash make-expand_tags.sh
 	# generate doc_types.cmo, doc_types.cmi:
 	ocamlc -c -for-pack Nmm_ocaml doc_types.ml debug_utils.ml
 	# generate nmm_parser.ml, nmm_parser.mli:

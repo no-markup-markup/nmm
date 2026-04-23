@@ -8,7 +8,7 @@ Ideally, if [axml] is an object of the {{:https://github.com/ncannasse/xml-light
 
 *)
 
-val normalize : Xml.xml -> Xml.xml
+val normalize_axml : Xml.xml -> Xml.xml
 (**
 Unites adjacent elements with tag [cu_txt_unit_wysiwyg].
 *)

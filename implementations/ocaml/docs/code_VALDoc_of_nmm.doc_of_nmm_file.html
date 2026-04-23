@@ -27,7 +27,7 @@
 <body>
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> doc_of_nmm_file (print_tokens:bool) (filename:string):<span class="constructor">Doc_types</span>.tr_doc=
         <span class="keyword">let</span> _ : unit = reset_refs () <span class="keyword">in</span>
-        <span class="keyword">match</span> <span class="constructor">Sys</span>.file_exists filename <span class="keyword">with</span>
+        <span class="keyword">match</span> <span class="constructor">Sys</span>.file_exists filename <span class="keywordsign">&amp;&amp;</span> not (<span class="constructor">Sys</span>.is_directory filename) <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"cannot read from "</span> ^ filename ^ <span class="string">": No such file"</span>))
         <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> 
         <span class="keyword">let</span> ic=open_in filename <span class="keyword">in</span>

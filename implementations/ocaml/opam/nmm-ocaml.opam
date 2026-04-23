@@ -16,5 +16,5 @@ depends : [
 	"ocamlfind" { build }
 ]
 build: [ make "opam_package" ]
-install: [ make "install_opam_package" ]
+install: [ make "install-opam_package" ]
 

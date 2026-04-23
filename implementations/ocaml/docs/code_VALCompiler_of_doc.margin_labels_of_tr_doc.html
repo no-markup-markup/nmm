@@ -26,6 +26,7 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> margin_labels_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) : string list=
+        <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.quiet.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span>
         <span class="keyword">match</span> acc_of_tr_doc doc_settings ([] : t_cref_table) ([] : t_nte_table) ([] : t_path) (<span class="constructor">MARGIN_LABELS</span> []) doc <span class="keyword">with</span>
         <span class="keywordsign">|</span> <span class="constructor">MARGIN_LABELS</span> string_list <span class="keywordsign">-&gt;</span> string_list
         <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"accumulator output type not identical to accumulator input type"</span>)</code></body></html>

@@ -263,7 +263,7 @@ let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
                                 let underline = make_string (Int.min (utf_8_length hdr_string) (doc_settings.doc_width - doc_settings.left_margin)) "─" in
                                 match hdr_lines with
                                 | hd::tl -> List.concat [[insert_label doc_settings path hd];tl;[indent ^ underline;""]]
-                                | [] -> raise (Error "section header cannot be empty")
+                                | [] -> []
                         )
                         |CH_NODE _ ->
                                 let label : string = label_of_path doc_settings path in
@@ -271,7 +271,7 @@ let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
                                 List.concat [[indent ^ label]; hdr_lines; [indent ^ underline; ""]]
                         | _ -> []
                 )
-                |[] -> raise (Error "path to chapter or section cannot be empty")
+                |[] -> []
 
 let lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (hdr_opt : ts_hdr option) : string list =
         match hdr_opt with

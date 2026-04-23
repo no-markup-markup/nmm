@@ -91,4 +91,9 @@
 <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"THMS"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span>(<span class="string">"THEOREMS"</span>,<span class="string">"Theorems"</span>)
 
 
-<span class="keywordsign">|</span>_  <span class="keywordsign">-&gt;</span> <span class="constructor">None</span></code></body></html>
+
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"PAR"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"ITM"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"DSP"</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> <span class="string">"BIB"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+<span class="keywordsign">|</span><span class="constructor">Cs_tag</span> s <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">Debug_utils</span>.print_warning (<span class="string">"WARNING: undefined tag: "</span> ^ s) <span class="keyword">in</span> <span class="constructor">None</span></code></body></html>
