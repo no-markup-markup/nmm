@@ -144,7 +144,7 @@ def _nmm2xml(path:str, backend:t_backend_choices) -> str:
         cmd_name : F[str] = 'nmm2xml'     # pyright: ignore reportGeneralTypeIssues
       case 'OCaml'   :
         bin_name : F[str] = 'nmm-ocaml'   # pyright: ignore reportGeneralTypeIssues
-        cmd_name : F[str] = 'xml-of-nmm'  # pyright: ignore reportGeneralTypeIssues
+        cmd_name : F[str] = 'axml-of-nmm' # pyright: ignore reportGeneralTypeIssues
     completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
       [_get_bin_path(bin_name),cmd_name,_get_realpath_as_str(path)],
       stdout=f
@@ -190,7 +190,7 @@ def nmm2txt(args:ap.Namespace) -> None:
   margin_arg_list : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
   xml_path        : F[str]       = _nmm2xml(args.path,args.parser_backend)
   completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_bin_path('nmm-ocaml'),'txt-of-xml']+margin_arg_list+[xml_path],
+    [_get_bin_path('nmm-ocaml'),'txt-of-axml']+margin_arg_list+[xml_path],
   )
   os.remove(xml_path)
   if completed_proc.returncode != 0:

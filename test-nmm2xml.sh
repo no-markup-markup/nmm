@@ -44,11 +44,11 @@ for nmm_file in ./test-data-nmm2xml/*.nmm; do
         fi
     fi
     nmm_ocaml_output_file="$(mktemp)"
-    ./bin/nmm-ocaml xml-of-nmm "$nmm_file" > "$nmm_ocaml_output_file"
+    ./bin/nmm-ocaml axml-of-nmm "$nmm_file" > "$nmm_ocaml_output_file"
     ./bin/nmm-ocaml validate-xml ./specification/AST.dtd "$nmm_ocaml_output_file" > /dev/null 2>&1
     if [[ "$?" -ne 0 ]]; then
         >&2 echo "output from"
-        >&2 echo "  nmm-ocaml xml-of-nmm $nmm_file"
+        >&2 echo "  nmm-ocaml axml-of-nmm $nmm_file"
         >&2 echo "does not conform to schema"
         >&2 echo "  ./specification/AST.dtd"
         >&2 echo "run"
