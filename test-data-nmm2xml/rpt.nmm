@@ -1,4 +1,4 @@
-¶	PAR:one
+¶ PAR:one
 
 Block of text.
 
@@ -8,7 +8,7 @@ Another block of text.
 ¶ rpt PAR:one
 
 
-¶	PAR:two
+¶ PAR:two
 Header of paragraph
 
 Block of text.
@@ -19,7 +19,7 @@ Another block of text.
 ¶ rpt PAR:two
 
 
-¶	THM:one
+¶ THM:one
 
 Block of text.
 
@@ -29,7 +29,7 @@ Another block of text.
 ¶ rpt THM:one
 
 
-¶	THM:two
+¶ THM:two
 Header of paragraph
 
 Block of text.

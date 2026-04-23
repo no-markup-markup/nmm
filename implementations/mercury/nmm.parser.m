@@ -1006,10 +1006,10 @@ r_refs(ALLOWED_TAGS,cs_refs(BLKS)) -->
   r_refs_start_marker, +([r_lb]), r_blks(ALLOWED_TAGS,0u,BLKS).
 
 r_refs_start_marker --> (
-  r_str("CH"), r_tab, r_str("REFS"), r_lb -> {true};
-  r_str("§"),  r_tab, r_str("REFS"), r_lb -> {true};
-  r_str("¶"),  r_tab, r_str("REFS"), r_lb -> {true};
-                                             {false}
+  r_str("CH"), +([r_sp]), r_str("REFS"), r_lb -> {true};
+  r_str("§"),  +([r_sp]), r_str("REFS"), r_lb -> {true};
+  r_str("¶"),  +([r_sp]), r_str("REFS"), r_lb -> {true};
+                                                 {false}
 ).
 
 %%% XMLABLE
@@ -1229,7 +1229,7 @@ f_ch_to_xml(CH) = XML :- (
 r_sec(ALLOWED_TAGS,cr_sec(MAYBE_TAG_OR_ID,MAYBE_HDR,MAIN)) --> (
   r_str("§"),
   ?(
-    [r_tab],
+    [*([r_sp])],
     r_tag_or_id,cs_allowed_tags(["SEC","APP"]),cu_tag_type_sec,MAYBE_TAG_OR_ID,
     []
   ),
@@ -1313,7 +1313,7 @@ f_par_to_xml(cu_par_rpt(PAR)) =
 
 r_par_std(ALLOWED_TAGS,cr_par_std(MAYBE_TAG_OR_ID,MAYBE_HDR,BLKS)) -->
   r_str("¶"),
-  ?([r_tab],r_tag_or_id,ALLOWED_TAGS,cu_tag_type_par,MAYBE_TAG_OR_ID,[]),
+  ?([*([r_sp])],r_tag_or_id,ALLOWED_TAGS,cu_tag_type_par,MAYBE_TAG_OR_ID,[]),
   r_lb,
   ?([],r_hdr,ALLOWED_TAGS,MAYBE_HDR,[]),
   +([r_lb]),

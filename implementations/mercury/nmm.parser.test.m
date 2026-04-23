@@ -1050,7 +1050,7 @@ p_test_r_par_std_3 :- r_par_std(
       ])))])))
     ])
   ),
-  f_str2tkns("¶\tPAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  f_str2tkns("¶ PAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
   []
 ).
 
@@ -1075,7 +1075,7 @@ p_test_r_par_std_4 :- r_par_std(
       ])))])))
     ])
   ),
-  f_str2tkns("¶\tPAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  f_str2tkns("¶ PAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
   []
 ).
 
@@ -1104,7 +1104,7 @@ p_test_r_par_std_5 :- r_par_std(
       ])))])))
     ])
   ),
-  f_str2tkns("¶\tPAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
   []
 ).
 
@@ -1200,17 +1200,17 @@ p_test_r_blk_itm_4 :- r_blk_itm(
 %%% P_TEST_R_REFS_START_MARKER_1
 
 :- pred p_test_r_refs_start_marker_1 is semidet.
-p_test_r_refs_start_marker_1 :- r_refs_start_marker(f_str2tkns("CH\tREFS\n"),[]).
+p_test_r_refs_start_marker_1 :- r_refs_start_marker(f_str2tkns("CH REFS\n"),[]).
 
 %%% P_TEST_R_REFS_START_MARKER_2
 
 :- pred p_test_r_refs_start_marker_2 is semidet.
-p_test_r_refs_start_marker_2 :- r_refs_start_marker(f_str2tkns("§\tREFS\n"),[]).
+p_test_r_refs_start_marker_2 :- r_refs_start_marker(f_str2tkns("§ REFS\n"),[]).
 
 %%% P_TEST_R_REFS_START_MARKER_3
 
 :- pred p_test_r_refs_start_marker_3 is semidet.
-p_test_r_refs_start_marker_3 :- r_refs_start_marker(f_str2tkns("¶\tREFS\n"),[]).
+p_test_r_refs_start_marker_3 :- r_refs_start_marker(f_str2tkns("¶ REFS\n"),[]).
 
 %%% THE PREDICATE
 
