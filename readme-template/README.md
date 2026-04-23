@@ -853,14 +853,14 @@ want to state it again!
   <summary><b>nmm source:</b></summary>
 
 ```
-This is a sentence followed by a note reference.[FTN:f]
+This is a sentence followed by a note reference.[NTE:f]
 
-This is another sentence followed by a note reference.[FTN:f']
+This is another sentence followed by a note reference.[NTE:f']
 
-*	FTN:f
+*	NTE:f
 	A footnote/endnote.
 
-*	FTN:f'
+*	NTE:f'
 	A footnote/endnote.
 	It spans multiple lines in the source.
 
@@ -883,8 +883,6 @@ This is another sentence followed by a note reference.²
 
 
 ────────────────────────────────────────────────────────────────────
-ENDNOTES
-
 ¹  A footnote/endnote.
 
 ²  A footnote/endnote. It spans multiple lines in the source.
@@ -922,7 +920,7 @@ markup---character.
 One possible exception to the intended no need for escaping is the need for
 sometimes escaping the symbol ‘\*’ (by writing ‘\\\*’). The creators of
 No-Markup-Markup acknowledges that this is unfortunate. However, they think
-that in most scientific writing ‘\*’ should be reserved for footnotes*.
+that in most scientific writing ‘\*’ should be reserved for footnotes.
 
 -	Instead of using ‘*’ for multiplication one should use ‘×’. (One should
 	not use the abonimation ‘⋅’!)
@@ -933,8 +931,6 @@ that in most scientific writing ‘\*’ should be reserved for footnotes*.
 
 -	For including code snippets, which of course may unavoidably include ‘*’,
 	support for verbatim input of files is planned.
-
-* No-Markup-Markup support for footnotes is planned.
 
 ¶
 
@@ -955,7 +951,7 @@ than ‘\*’ is needed.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-¶ 1  ¶ ← this is the paragraph symbol.
+¶ 1  EXAMPLE  ¶ ← this is the paragraph symbol.
 
      While a line ‘¶’ (optional followed by tag or id, then optionally
      followed by a header and one or more empty lines) always marks the
@@ -970,7 +966,7 @@ than ‘\*’ is needed.
      need for sometimes escaping the symbol ‘*’ (by writing ‘\*’). The
      creators of No-Markup-Markup acknowledges that this is unfortunate.
      However, they think that in most scientific writing ‘*’ should be
-     reserved for footnotes*.
+     reserved for footnotes.
 
      ─     Instead of using ‘*’ for multiplication one should use ‘×’.
            (One should not use the abonimation ‘⋅’!)
@@ -982,14 +978,12 @@ than ‘\*’ is needed.
      ─     For including code snippets, which of course may unavoidably
            include ‘*’, support for verbatim input of files is planned.
 
-     * No-Markup-Markup support for footnotes is planned.
-
 
 ¶ 3  At least theoretically there are situations where escaping of
      something other than ‘*’ is needed.
 
-     ─     This is a reference to the first paragraph: ¶ 1. This is the
-           markup that was used to produce that reference:
+     ─     This is a reference to the first paragraph: Example 1. This is
+           the markup that was used to produce that reference:
            ‘[EX:no_escape]’. (This is the markup that was used to produce
            ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
 

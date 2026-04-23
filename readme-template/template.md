@@ -376,7 +376,7 @@ INCLUDE-FILE ./raw-text-semantics/restating_paragraphs.txt
   <summary><b>nmm source:</b></summary>
 
 ```
-INCLUDE-FILE ./nmm-sources/footnotes.nmm
+INCLUDE-FILE ./nmm-sources/notes.nmm
 ```
 </details>
 
@@ -384,7 +384,7 @@ INCLUDE-FILE ./nmm-sources/footnotes.nmm
   <summary><b>default raw text semantics</b></summary>
 
 ```
-INCLUDE-FILE ./raw-text-semantics/footnotes.txt
+INCLUDE-FILE ./raw-text-semantics/notes.txt
 ```
 </details>
 

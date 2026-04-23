@@ -1,4 +1,4 @@
-¶ 1  ¶ ← this is the paragraph symbol.
+¶ 1  EXAMPLE  ¶ ← this is the paragraph symbol.
 
      While a line ‘¶’ (optional followed by tag or id, then optionally
      followed by a header and one or more empty lines) always marks the
@@ -13,7 +13,7 @@
      need for sometimes escaping the symbol ‘*’ (by writing ‘\*’). The
      creators of No-Markup-Markup acknowledges that this is unfortunate.
      However, they think that in most scientific writing ‘*’ should be
-     reserved for footnotes*.
+     reserved for footnotes.
 
      ─     Instead of using ‘*’ for multiplication one should use ‘×’.
            (One should not use the abonimation ‘⋅’!)
@@ -25,14 +25,12 @@
      ─     For including code snippets, which of course may unavoidably
            include ‘*’, support for verbatim input of files is planned.
 
-     * No-Markup-Markup support for footnotes is planned.
-
 
 ¶ 3  At least theoretically there are situations where escaping of
      something other than ‘*’ is needed.
 
-     ─     This is a reference to the first paragraph: ¶ 1. This is the
-           markup that was used to produce that reference:
+     ─     This is a reference to the first paragraph: Example 1. This is
+           the markup that was used to produce that reference:
            ‘[EX:no_escape]’. (This is the markup that was used to produce
            ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
 

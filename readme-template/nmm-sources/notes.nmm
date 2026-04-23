@@ -1,11 +1,11 @@
-This is a sentence followed by a note reference.[FTN:f]
+This is a sentence followed by a note reference.[NTE:f]
 
-This is another sentence followed by a note reference.[FTN:f']
+This is another sentence followed by a note reference.[NTE:f']
 
-*	FTN:f
+*	NTE:f
 	A footnote/endnote.
 
-*	FTN:f'
+*	NTE:f'
 	A footnote/endnote.
 	It spans multiple lines in the source.
 
