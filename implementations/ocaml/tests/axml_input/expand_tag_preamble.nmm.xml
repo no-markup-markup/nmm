@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>singular-tag=PRF&gt;Proof;singular-tag=THM&gt;Theorem;plural-tag=THMS&gt;Theorem&gt;Theorems;plural-tag=PRFS&gt;Proof&gt;Proofs</cs_preamble>
+<cs_preamble>tag=PRF,Proof;tag=THM,Theorem;tag=THMS,Theorems;tag=PRFS,Proofs</cs_preamble>
 <cu_doc_main_pars>
 <cs_pars>
 <cu_par_std>
@@ -83,10 +83,12 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
+<cu_tag_or_id_id>
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>aux1</cs_name>
 </cr_id>
+</cu_tag_or_id_id>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
@@ -105,10 +107,12 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
+<cu_tag_or_id_id>
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>aux2</cs_name>
 </cr_id>
+</cu_tag_or_id_id>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>

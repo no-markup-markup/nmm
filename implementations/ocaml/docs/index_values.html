@@ -16,7 +16,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -54,6 +54,17 @@
 <code class="code">axml_of_tr_doc&nbsp;doc</code> evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>.
 </div>
 </td></tr>
+<tr><td><a href="Common_utils.html#VALaxml_options_default">axml_options_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Common_utils.html#VALaxml_options_of_exml_options">axml_options_of_exml_options</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Common_utils.html#VALaxml_options_of_html_options">axml_options_of_html_options</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Common_utils.html#VALaxml_options_of_txt_options">axml_options_of_txt_options</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>B</div></td></tr>
+<tr><td><a href="Nmm_parser.html#VALblk_itm_tagger_ref">blk_itm_tagger_ref</a> [<a href="Nmm_parser.html">Nmm_parser</a>]</td>
+<td></td></tr>
 <tr><td align="left"><div>C</div></td></tr>
 <tr><td><a href="Common_utils.html#VALcheck_cref_table">check_cref_table</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
@@ -93,16 +104,22 @@
 <code class="code">doc_of_nmm_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of type <code class="code"><span class="constructor">Doc_types</span>.tr_doc</code>.
 </div>
 </td></tr>
+<tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_file_with_tagger">doc_of_nmm_file_with_tagger</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
+<td></td></tr>
 <tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_stdin">doc_of_nmm_stdin</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
 <td><div class="info">
 Same as <code class="code">doc_of_nmm_file</code>, except that it reads from standard input.
 </div>
 </td></tr>
+<tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_stdin_with_tagger">doc_of_nmm_stdin_with_tagger</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
+<td></td></tr>
 <tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_string">doc_of_nmm_string</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
 <td><div class="info">
 Same as <code class="code">doc_of_nmm_file</code>, except that it reads from the provided string.
 </div>
 </td></tr>
+<tr><td><a href="Doc_of_nmm.html#VALdoc_of_nmm_string_with_tagger">doc_of_nmm_string_with_tagger</a> [<a href="Doc_of_nmm.html">Doc_of_nmm</a>]</td>
+<td></td></tr>
 <tr><td><a href="Common_utils.html#VALdoc_settings_default">doc_settings_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Common_utils.html#VALdoc_settings_of_tr_doc">doc_settings_of_tr_doc</a> [<a href="Common_utils.html">Common_utils</a>]</td>
@@ -126,9 +143,9 @@ Same as <code class="code">doc_of_nmm_file</code>, except that it reads from the
 <td></td></tr>
 <tr><td><a href="Common_utils.html#VALexml_options_of_html_options">exml_options_of_html_options</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Expand_tags.html#VALexpand_tag">expand_tag</a> [<a href="Expand_tags.html">Expand_tags</a>]</td>
+<tr><td><a href="Tags.html#VALexpand_tag_default">expand_tag_default</a> [<a href="Tags.html">Tags</a>]</td>
 <td></td></tr>
-<tr><td><a href="Common_utils.html#VALexpand_tag_default">expand_tag_default</a> [<a href="Common_utils.html">Common_utils</a>]</td>
+<tr><td><a href="Tags.html#VALexpander_of_path_opt">expander_of_path_opt</a> [<a href="Tags.html">Tags</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>F</div></td></tr>
 <tr><td><a href="Doc_of_axml.html#VALf_tr_doc_of_axml">f_tr_doc_of_axml</a> [<a href="Doc_of_axml.html">Doc_of_axml</a>]</td>
@@ -295,6 +312,10 @@ Same as <code class="code">parse_file</code>, except that it reads from the prov
 <tr><td><a href="Common_utils.html#VALstring_of_ts_nte_ref">string_of_ts_nte_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="Tags.html#VALtag_blk_itm_default">tag_blk_itm_default</a> [<a href="Tags.html">Tags</a>]</td>
+<td></td></tr>
+<tr><td><a href="Tags.html#VALtagger_of_path_opt">tagger_of_path_opt</a> [<a href="Tags.html">Tags</a>]</td>
+<td></td></tr>
 <tr><td><a href="Common_utils.html#VALtime_of_ts_date_auto">time_of_ts_date_auto</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Xml_right.html#VALto_string">to_string</a> [<a href="Xml_right.html">Xml_right</a>]</td>

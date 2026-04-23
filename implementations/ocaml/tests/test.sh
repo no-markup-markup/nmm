@@ -120,7 +120,7 @@ show_txt_diff(){
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo "$file differs from expected output"
+			echo "differs from expected output: $file"
 		fi
 	done
 	return $exit_code
@@ -139,7 +139,7 @@ show_html_diff(){
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo "$file differs from expected output"
+			echo "differs from expected output: $file"
 		fi
 	done
 	return $exit_code
@@ -157,7 +157,7 @@ show_xml_diff(){
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo "$file differs from expected output"
+			echo "differs from expected output: $file"
 		fi
 	done
 	return $exit_code
@@ -209,7 +209,7 @@ test_normalize_axml(){
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo "$file differs from expected output"
+			echo "differs from expected output: $file"
 		fi
 	done
 
@@ -268,7 +268,7 @@ make_tests(){
 	exit_code=$curr_code
 	fi
 
-	make_xml_output
+	make_xml_output --tags tags/tags.tsv
 	curr_code=$?
 	if [ $curr_code -gt 0 ]
 	then

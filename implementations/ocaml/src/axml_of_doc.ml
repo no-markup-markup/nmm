@@ -199,9 +199,9 @@ and xml_of_ts_blk_blt (blk_blt:ts_blk_blt):Xml.xml=
 and xml_of_tr_blk_itm (blk_itm:tr_blk_itm):Xml.xml=
         let a:Xml.xml list=[xml_of_tu_lbl blk_itm.fld_blk_itm_lbl] in
         let b:Xml.xml list=
-                match blk_itm.fld_blk_itm_id with
+                match blk_itm.fld_blk_itm_tag_or_id with
                 |None -> []
-                |Some (id:tr_id)-> [xml_of_tr_id id]
+                |Some (tag_or_id:tu_tag_or_id)-> [xml_of_tu_tag_or_id tag_or_id]
                 in
                 let c:Xml.xml list=[xml_of_ts_blks blk_itm.fld_blk_itm_main] in
                 Xml.Element ("cr_blk_itm",[],List.concat [a;b;c])

@@ -15,7 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -49,7 +49,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;}<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;expand_tag_default&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;auto_numbering_of_string&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_ts_blks&nbsp;:<br>
@@ -184,6 +183,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_html_options&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin&nbsp;:&nbsp;int&nbsp;option;<br>
@@ -192,15 +192,25 @@
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_exml_options&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_axml_options&nbsp;=&nbsp;{&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exml_options_of_html_options&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_html_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_exml_options<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;axml_options_of_html_options&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_html_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_axml_options<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;axml_options_of_txt_options&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_txt_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_axml_options<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;axml_options_of_exml_options&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_exml_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_axml_options<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;txt_options_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_txt_options<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;html_options_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_html_options<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exml_options_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_exml_options<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;axml_options_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_axml_options<br>
 <span class="keyword">end</span></code></body></html>

@@ -45,10 +45,6 @@ type t_doc_settings = {
 }
 
 
-
-let expand_tag_default (tag : Doc_types.ts_tag) : (string * string) option =
-        Expand_tags.expand_tag tag
-
 let lower_case_latin_letters : string array =
         [|"a";"b";"c";"d";"e";"f";"g";"h";"i";"j";"k";"l";"m";"n";"o";"p";"q";"r";"s";"t";"u";"v";"x";"y";"z";|]
 
@@ -172,7 +168,7 @@ let doc_settings_default () : t_doc_settings = {
         sec_prefix = Some ("§","§");
         app_prefix = Some ("§","Appendix");
         par_prefix = Some ("¶","¶");
-        expand_tag = expand_tag_default;
+        expand_tag = Tags.expand_tag_default;
         auto_numbering = auto_numbering_default;
         allow_custom_numbering = false;
 }
@@ -300,7 +296,7 @@ let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid doc_width value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -326,7 +322,7 @@ let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid left_margin value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -352,7 +348,7 @@ let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid title_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -378,7 +374,7 @@ let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid author_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -404,7 +400,7 @@ let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid abstract_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -430,7 +426,7 @@ let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid refs_indent value: ";v;"\n";"using default value."])
         in doc_settings
 
 
@@ -457,7 +453,7 @@ let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value."])
+        IO.print_warning (String.concat "" ["WARNING: invalid tab_length value: ";v;"; ";"using default value."])
         in doc_settings
 
 let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -609,7 +605,7 @@ let set_expand_tag (expand_tag_old : Doc_types.ts_tag -> (string * string) optio
         }
         with _ ->
         let _ : unit =
-        Debug_utils.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"ignoring it."])
+        IO.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"ignoring it."])
         in doc_settings
 
 let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
@@ -632,7 +628,7 @@ let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
                                 |Some ("refs-hdr", v) -> set_refs_hdr v settings
                                 |Some ("endnotes-hdr", v) -> set_endnotes_hdr v settings
                                 |Some ("tag", v) -> set_expand_tag settings.expand_tag v settings
-                                |_ -> let _ : unit = Debug_utils.print_warning 
+                                |_ -> let _ : unit = IO.print_warning 
                                         (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings
                         in aux tl new_doc_settings
                 )
@@ -772,15 +768,15 @@ let path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
                         | false -> List.rev rev_id_loc
                 )
                 | [], [] -> (
-(*                      let _ : unit = Debug_utils.print_warning ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
+(*                      let _ : unit = IO.print_warning ("WARNING: self-reference in " ^ (string_of_path c_ref_loc)) in *)
                         try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
                 )
                 | _ :: _, [] -> (
-(*                      let _ : unit = Debug_utils.print_warning ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
+(*                      let _ : unit = IO.print_warning ("WARNING: reference to parent node in " ^ (string_of_path c_ref_loc)) in *)
                         try [List.hd id_loc] with _ -> raise (Error "id_loc not expected to be an empty path")
                 )
                 | [], _ :: _ ->
-(*                      let _:unit=Debug_utils.print_warning ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
+(*                      let _:unit=IO.print_warning ("WARNING: reference to child node in " ^ (string_of_path c_ref_loc)) in *)
                         List.rev rev_id_loc
         )
         in 
@@ -1051,7 +1047,7 @@ let rec string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_
         |None -> (
                 match c_ref with
                 |Cs_c_ref id_c_ref ->
-                        let _ : unit = Debug_utils.print_warning (String.concat "" [
+                        let _ : unit = IO.print_warning (String.concat "" [
                                 "WARNING: id \'";
                                 string_of_tr_id id_c_ref;
                                 "\' referenced in ";
@@ -1094,7 +1090,7 @@ let check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_
                 |(id,path)::tl ->
                         match List.mem (id,path) tl with
                         |true ->
-                                let _ : unit = Debug_utils.print_warning (String.concat "" [
+                                let _ : unit = IO.print_warning (String.concat "" [
                                         "WARNING: id \'";
                                         string_of_tr_id id;"\'";
                                         " is defined more than once in ";
@@ -1188,30 +1184,54 @@ let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : i
                 | Cu_lbl_auto Cs_lbl_auto -> (
                         let lvl : int = lvl_of_path path in
                         let lbl : string = doc_settings.auto_numbering lvl auto_nr in
-                        match a.fld_blk_itm_id with
+                        match a.fld_blk_itm_tag_or_id with
                         |None -> ITM_NODE (ITM_AUTO lbl)
-                        |Some id -> (
-                                match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> (
-                                        match id.fld_id_tag with
-                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
-                                        |_ -> ITM_NODE (ITM_AUTO lbl)
-                                )
-                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
-                        )
-                )
+                        |Some tag_or_id -> (
+				match tag_or_id with
+		                |Cu_tag_or_id_tag (tag : ts_tag) -> (
+	                                match doc_settings.expand_tag tag with
+	                                |None -> (
+	                                        match tag with
+	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
+	                                        |_ -> ITM_NODE (ITM_AUTO lbl)
+	                                )
+	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
+                        	)
+		                |Cu_tag_or_id_id (id : tr_id) -> (
+	                                match doc_settings.expand_tag id.fld_id_tag with
+	                                |None -> (
+	                                        match id.fld_id_tag with
+	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
+	                                        |_ -> ITM_NODE (ITM_AUTO lbl)
+	                                )
+	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
+                        	)
+                	)
+		)
                 | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> 
-                        match a.fld_blk_itm_id with
+                        match a.fld_blk_itm_tag_or_id with
                         |None -> ITM_NODE (ITM_CUSTOM s)
-                        |Some id -> (
-                                match doc_settings.expand_tag id.fld_id_tag with
-                                |None -> (
-                                        match id.fld_id_tag with
-                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
-                                        |_ -> ITM_NODE (ITM_CUSTOM s)
-                                )
-                                |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag,s))
-                        )
+                        |Some tag_or_id -> (
+				match tag_or_id with
+		                |Cu_tag_or_id_tag (tag : ts_tag) -> (
+	                                match doc_settings.expand_tag tag with
+	                                |None -> (
+	                                        match tag with
+	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
+	                                        |_ -> ITM_NODE (ITM_AUTO s)
+	                                )
+	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, s))
+                        	)
+		                |Cu_tag_or_id_id (id : tr_id) -> (
+	                                match doc_settings.expand_tag id.fld_id_tag with
+	                                |None -> (
+	                                        match id.fld_id_tag with
+	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
+	                                        |_ -> ITM_NODE (ITM_CUSTOM s)
+	                                )
+	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag, s))
+                        	)
+                	)
 
 let node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
         match a.fld_dsp_line_lbl with
@@ -1270,7 +1290,7 @@ let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
 
 let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (id : tr_id) : (Doc_types.tr_par_std * t_path) option =
         match reference_of_ts_c_ref cref_table path (Cs_c_ref id) with
-        |None -> let _ : unit = Debug_utils.print_warning (String.concat "" [
+        |None -> let _ : unit = IO.print_warning (String.concat "" [
                         "WARNING: id \'";string_of_tr_id id;
                         "\' referenced in ";
                         string_of_path doc_settings path;
@@ -1278,7 +1298,7 @@ let par_restated_of_tr_id (doc_settings : t_doc_settings) (cref_table : t_cref_t
                 ]) in None
         |Some (table_id, table_path, Cref_element_par par) ->
                 Some (par_restated_of_tr_par par, table_path)
-        |_ -> let _ : unit = Debug_utils.print_warning (String.concat "" [
+        |_ -> let _ : unit = IO.print_warning (String.concat "" [
                                 "WARNING: id \'";
                                 string_of_tr_id id;
                                 "\' does not belong to a paragraph.";
@@ -1333,7 +1353,7 @@ let time_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto) :
                         timezone = (sign, diff_hour, diff_minute);
                 }
                 with
-                |_ -> let _ : unit = Debug_utils.print_warning "WARNING: cannot get system time and date." in None
+                |_ -> let _ : unit = IO.print_warning "WARNING: cannot get system time and date." in None
 
 (* footnotes *)
 
@@ -1412,7 +1432,7 @@ let string_of_ts_nte_ref (doc_settings : t_doc_settings) (nte_table : t_nte_tabl
         |Cs_nte_ref (id,i) ->
         let rec aux (table : t_nte_table) : string =
                 match table with
-                |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
+                |[] -> let _ : unit = IO.print_warning (String.concat "" [
                         "WARNING: id \'";string_of_tr_id id;
                         "\' referenced in ";
                         string_of_path doc_settings path;
@@ -1430,7 +1450,7 @@ let string_of_ts_nte_inline (doc_settings : t_doc_settings) (nte_table : t_nte_t
         |Cs_nte_inline (_,i) ->
         let rec aux (table : t_nte_table) : string =
                 match table with
-                |[] -> let _ : unit = Debug_utils.print_warning (String.concat "" [
+                |[] -> let _ : unit = IO.print_warning (String.concat "" [
                         "WARNING: footnote ";
                         string_of_path doc_settings path;
                         " contains a footnote; nested footnotes are not supported.";
@@ -1461,6 +1481,7 @@ type t_txt_options = {
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
+        tags : string option;
 }
 
 type t_html_options = {
@@ -1470,18 +1491,37 @@ type t_html_options = {
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
+        tags : string option;
 }
 
 type t_exml_options = {
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
+        tags : string option;
+}
+
+type t_axml_options = {
+        tags : string option;
 }
 
 let exml_options_of_html_options (html_options : t_html_options) : t_exml_options = {
         quiet = html_options.quiet;
         numbering = html_options.numbering;
         allow_custom_numbering = html_options.allow_custom_numbering;
+        tags = html_options.tags;
+}
+
+let axml_options_of_html_options (html_options : t_html_options) : t_axml_options = {
+        tags = html_options.tags;
+}
+
+let axml_options_of_txt_options (txt_options : t_txt_options) : t_axml_options = {
+        tags = txt_options.tags;
+}
+
+let axml_options_of_exml_options (exml_options : t_exml_options) : t_axml_options = {
+        tags = exml_options.tags;
 }
 
 let txt_options_default () : t_txt_options = {
@@ -1490,6 +1530,7 @@ let txt_options_default () : t_txt_options = {
         quiet = false;
         numbering = "a1i";
         allow_custom_numbering = false;
+        tags = None;
 }
 
 let html_options_default () : t_html_options = {
@@ -1499,11 +1540,17 @@ let html_options_default () : t_html_options = {
         quiet = false;
         numbering = "a1i";
         allow_custom_numbering = false;
+        tags = None;
 }
 
 let exml_options_default () : t_exml_options = {
         quiet = false;
         numbering = "a1i";
         allow_custom_numbering = false;
+        tags = None;
+}
+
+let axml_options_default () : t_axml_options = {
+        tags = None;
 }
 

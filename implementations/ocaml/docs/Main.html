@@ -19,7 +19,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -43,7 +43,7 @@
 
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALdoc_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.doc_of_nmm.html">doc_of_nmm</a></span> : <code class="type">string -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
+<pre><span id="VALdoc_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.doc_of_nmm.html">doc_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_axml_options">Common_utils.t_axml_options</a> -&gt; string -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">doc_of_nmm&nbsp;<span class="string">"path/to/file"</span></code> evaluates to <a href="Doc_of_nmm.html#VALdoc_of_nmm_file"><code class="code"><span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file</code></a><code class="code">&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span></code>.</p>
 
@@ -115,7 +115,7 @@
 </div>
 </div>
 
-<pre><span id="VALaxml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.axml_of_nmm.html">axml_of_nmm</a></span> : <code class="type">string -&gt; string</code></pre><div class="info ">
+<pre><span id="VALaxml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.axml_of_nmm.html">axml_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_axml_options">Common_utils.t_axml_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">axml_of_nmm&nbsp;path</code> evaluates to <code class="code">axml_of_doc&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
 </div>

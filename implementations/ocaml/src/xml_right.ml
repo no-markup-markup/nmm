@@ -11,7 +11,7 @@ let string_of_token (t:Xml_right_parser.token):string =
 let lexer (print_tokens:bool) (b:Lexing.lexbuf):Xml_right_parser.token=
         let t:Xml_right_parser.token=Xml_right_lexer.token b in
         match print_tokens with
-        |true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Xml_right_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in t
+        |true -> let _ = IO.print_to_stderr ("Line " ^ (Xml_right_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token t)) in t
         |false -> t
 
 let rec parse_file (print_tokens:bool) (s:string):Xml.xml =
@@ -28,7 +28,7 @@ let rec parse_file (print_tokens:bool) (s:string):Xml.xml =
         |_ ->
                 match print_tokens with
                 |false -> 
-                        let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from " ^ s ^ ":") in
+                        let _ = IO.print_to_stderr ("Xml_right failed, read the following tokens from " ^ s ^ ":") in
                         parse_file true s
                 |true -> raise (Error "parsing failed")
 
@@ -42,7 +42,7 @@ let rec parse_string (print_tokens:bool) (s:string):Xml.xml =
         |_ ->
                 match print_tokens with
                 |false -> 
-                        let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from string:") in
+                        let _ = IO.print_to_stderr ("Xml_right failed, read the following tokens from string:") in
                         parse_string true s
                 |true -> raise (Error "parsing failed")
 
@@ -55,7 +55,7 @@ let parse_stdin (print_tokens:bool):Xml.xml =
                 parse lexbuf
         with
         |_ ->
-                let _ = Debug_utils.print_to_stderr ("Xml_right failed, read the following tokens from standard input:") in
+                let _ = IO.print_to_stderr ("Xml_right failed, read the following tokens from standard input:") in
                 let print_tokens =  true in
                 let lexbuf = Lexing.from_string input in
                 let parse = Xml_right_parser.main (lexer print_tokens) in

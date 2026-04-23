@@ -3,7 +3,7 @@
 exception Error of string
 
 
-val doc_of_nmm : string -> Doc_types.tr_doc
+val doc_of_nmm : Common_utils.t_axml_options -> string -> Doc_types.tr_doc
 (**
 [doc_of_nmm "path/to/file"] evaluates to {!val:Doc_of_nmm.doc_of_nmm_file}[ false "path/to/file"].
 
@@ -65,7 +65,7 @@ val html_of_axml : Common_utils.t_html_options -> string -> string
 [html_of_axml options path] evaluates to [html_of_doc options (doc_of_axml path)].
 *)
 
-val axml_of_nmm : string -> string
+val axml_of_nmm : Common_utils.t_axml_options -> string -> string
 (**
 [axml_of_nmm path] evaluates to [axml_of_doc (doc_of_nmm path)].
 *)

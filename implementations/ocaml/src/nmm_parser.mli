@@ -53,3 +53,5 @@ type token =
         |NTE_LBR of int
 
 val main : (Stdlib.Lexing.lexbuf -> token) -> Stdlib.Lexing.lexbuf -> Doc_types.tr_doc
+
+val blk_itm_tagger_ref : (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) ref

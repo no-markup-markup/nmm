@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>untitled</title>
+
+<style>
+
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+em {
+    font-style      : normal;
+    text-decoration : underline;
+}
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight   : normal;
+    font-size     : x-large;
+    margin-bottom : 1rem;
+    line-height   : 130%;
+}
+
+.doc.pars .title {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .title {
+    margin-left : 1.20rem;
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size     : medium;
+    margin-top    : 2rem;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .authors {
+    margin-left : 1.20rem;
+}
+
+/************ DATE ******************/
+
+.date {
+    font-size : small;
+}
+
+.doc.pars .date {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .date {
+    margin-left : 1.20rem;
+}
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .abstract {
+    margin-left : 1.20rem;
+}
+
+.abstract_hdr {
+    font-weight   : normal;
+    font-size     : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : 1.20rem;
+}
+
+.doc.secs .refs {
+    margin-left : 1.20rem;
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size   : x-large;
+    line-height : 130%;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    float       : left;
+    font-size   : large;
+    font-weight : normal;
+    line-height : 130%;
+}
+
+.sec_hdr {
+    margin-left : 1.20rem;
+    font-size   : large;
+    line-height : 130%;
+}
+
+.sec_lbl.hdr {
+    float : none;
+}
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    float       : left;
+    font-weight : normal;
+    font-size   : inherit;
+}
+
+.par_tag, .par_hdr {
+    font-weight  : bold;
+    display      : inline;
+    font-size    : inherit;
+}
+
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content : ")";
+}
+
+.par_main {
+    margin-left : 1.20rem;
+}
+
+
+/************** BLK *********************/
+
+.par_hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_tag.hdr + p.blk.txt {
+    display : inline;
+}
+
+.par_hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+.par_tag.hdr + p.blk.txt::before {
+    content : "  ";
+}
+
+* + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : 1.20rem;
+}
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_lbl {
+    float : left;
+}
+
+.blk_blt_main {
+    margin-left : 6ch;
+}
+
+
+.blk_itm_lbl {
+    float : left;
+}
+
+.blk_itm_main {
+    margin-left : 6ch;
+}
+
+
+.dsp_line_lbl {
+    float : left;
+}
+
+.dsp_line_main {
+    margin-left : 6ch;
+    white-space : pre;
+}
+
+/******** ENDNOTES and FOOTNOTES **********/
+
+.doc_endnotes_hdr, .ch_endnotes_hdr {
+    font-weight : normal;
+}
+
+.doc_endnotes, .ch_endnotes {
+    margin-top  : 2rem;
+    border-top  : thin grey solid;
+    padding-top : 0.5rem;
+}
+
+.blk_nte_lbl {
+    float : left;
+}
+
+.blk_nte_main {
+    margin-left : 3ch;
+}
+
+/*************** BIB ********************/
+
+
+.bib_custom .blk_itm_lbl {
+    float : none;
+}
+
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div class="doc blks">
+<div class="doc_main">
+<div class="DEF blk itm">
+<div class="blk_itm_lbl">(a)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">Some definition</p>
+</div>
+</div>
+<div class="DEF blk itm">
+<div class="blk_itm_lbl">(b)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<div class="blk itm">
+<div class="blk_itm_lbl">(1)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">Some item</p>
+</div>
+</div>
+<div class="blk blt">
+<div class="blk_blt_lbl">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main">
+<p class="blk txt">Some bullet</p>
+</div>
+</div>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(c)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt">DFE Some typo</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

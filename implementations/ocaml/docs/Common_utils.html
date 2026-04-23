@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="Start" href="index.html">
 <link rel="previous" href="Doc_of_nmm.html">
-<link rel="next" href="Expand_tags.html">
+<link rel="next" href="Tags.html">
 <link rel="Up" href="index.html">
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
@@ -20,7 +20,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -43,7 +43,7 @@
 <body>
 <div class="navbar"><a class="pre" href="Doc_of_nmm.html" title="Doc_of_nmm">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Expand_tags.html" title="Expand_tags">Next</a>
+&nbsp;<a class="post" href="Tags.html" title="Tags">Next</a>
 </div>
 <h1>Module <a href="type_Common_utils.html">Common_utils</a> (<a href="code_Common_utils.html">.ml</a>)</h1>
 
@@ -214,7 +214,6 @@
 
 
 <h4 id="3_Defaultsettings">Default settings</h4>
-<pre><span id="VALexpand_tag_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.expand_tag_default.html">expand_tag_default</a></span> : <code class="type"><a href="Doc_types.html#TYPEts_tag">Doc_types.ts_tag</a> -&gt; (string * string) option</code></pre>
 <pre><span id="VALdoc_settings_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_default.html">doc_settings_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><h4 id="3_Userdefinedsettings">User-defined settings</h4>
 <pre><span id="VALauto_numbering_of_string"><span class="keyword">val</span> <a href="code_VALCommon_utils.auto_numbering_of_string.html">auto_numbering_of_string</a></span> : <code class="type">string -&gt; int -&gt; int -&gt; string</code></pre>
 <pre><span id="VALdoc_settings_of_ts_blks"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_ts_blks.html">doc_settings_of_ts_blks</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEts_blks">Doc_types.ts_blks</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre>
@@ -628,6 +627,13 @@ INT := ['0'-'9']+
 <td align="left" valign="top" >
 <code><span id="TYPEELTt_txt_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool</code>;</code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_txt_options.tags">tags</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
 </tr></table>
 <code>}</code>
 
@@ -675,6 +681,13 @@ INT := ['0'-'9']+
 <td align="left" valign="top" >
 <code><span id="TYPEELTt_html_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool</code>;</code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_html_options.tags">tags</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
 </tr></table>
 <code>}</code>
 
@@ -701,12 +714,35 @@ INT := ['0'-'9']+
 <td align="left" valign="top" >
 <code><span id="TYPEELTt_exml_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool</code>;</code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_exml_options.tags">tags</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><code><span id="TYPEt_axml_options"><span class="keyword">type</span> <code class="type"></code>t_axml_options</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_axml_options.tags">tags</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
 </tr></table>
 <code>}</code>
 
 
 
 <pre><span id="VALexml_options_of_html_options"><span class="keyword">val</span> <a href="code_VALCommon_utils.exml_options_of_html_options.html">exml_options_of_html_options</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">t_html_options</a> -&gt; <a href="Common_utils.html#TYPEt_exml_options">t_exml_options</a></code></pre>
+<pre><span id="VALaxml_options_of_html_options"><span class="keyword">val</span> <a href="code_VALCommon_utils.axml_options_of_html_options.html">axml_options_of_html_options</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">t_html_options</a> -&gt; <a href="Common_utils.html#TYPEt_axml_options">t_axml_options</a></code></pre>
+<pre><span id="VALaxml_options_of_txt_options"><span class="keyword">val</span> <a href="code_VALCommon_utils.axml_options_of_txt_options.html">axml_options_of_txt_options</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">t_txt_options</a> -&gt; <a href="Common_utils.html#TYPEt_axml_options">t_axml_options</a></code></pre>
+<pre><span id="VALaxml_options_of_exml_options"><span class="keyword">val</span> <a href="code_VALCommon_utils.axml_options_of_exml_options.html">axml_options_of_exml_options</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">t_exml_options</a> -&gt; <a href="Common_utils.html#TYPEt_axml_options">t_axml_options</a></code></pre>
 <pre><span id="VALtxt_options_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.txt_options_default.html">txt_options_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_txt_options">t_txt_options</a></code></pre>
 <pre><span id="VALhtml_options_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.html_options_default.html">html_options_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_html_options">t_html_options</a></code></pre>
-<pre><span id="VALexml_options_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.exml_options_default.html">exml_options_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_exml_options">t_exml_options</a></code></pre></body></html>
+<pre><span id="VALexml_options_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.exml_options_default.html">exml_options_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_exml_options">t_exml_options</a></code></pre>
+<pre><span id="VALaxml_options_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.axml_options_default.html">axml_options_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_axml_options">t_axml_options</a></code></pre></body></html>

@@ -15,7 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -25,5 +25,5 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.axml_of_nmm</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> axml_of_nmm (path : string) : string =
-        axml_of_doc (doc_of_nmm path)</code></body></html>
+<code class="code"><span class="keyword">let</span> axml_of_nmm (options : <span class="constructor">Common_utils</span>.t_axml_options) (path : string) : string =
+        axml_of_doc (doc_of_nmm options path)</code></body></html>

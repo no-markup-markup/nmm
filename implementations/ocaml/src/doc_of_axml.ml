@@ -420,11 +420,11 @@ and f_tr_blk_itm_of_xml (nte_count : int) (xml:Xml.xml):tr_blk_itm * int=
     match xml with
     |Xml.Element ("cr_blk_itm",[],xml_list) -> 
         let (lbl, lbl_tl) = f_itm_lbl_of_xml_list xml_list in
-        let (id_opt, id_tl) = f_itm_id_opt_of_xml_list lbl_tl in
-        let (main, nte_nr) = f_ts_blks_of_xml_list nte_count id_tl in
+        let (tag_or_id_opt, tag_or_id_tl) = f_itm_tag_or_id_opt_of_xml_list lbl_tl in
+        let (main, nte_nr) = f_ts_blks_of_xml_list nte_count tag_or_id_tl in
         {   
             fld_blk_itm_lbl         =   lbl;
-            fld_blk_itm_id          =   id_opt;
+            fld_blk_itm_tag_or_id          =   tag_or_id_opt;
             fld_blk_itm_main        =   main;
         }, nte_nr
     |_ -> raise (Error (String.concat "" ["expected cr_blk_itm; got: ";string_of_xml_list [xml]]))
@@ -601,6 +601,15 @@ and f_itm_id_opt_of_xml_list (xml_list:Xml.xml list): (tr_id option) * (Xml.xml 
     |hd::tl ->
         match hd with
         |Xml.Element ("cr_id",_,_) -> (Some (f_tr_id_of_xml hd), tl)
+        |_ -> (None, xml_list)
+
+and f_itm_tag_or_id_opt_of_xml_list (xml_list:Xml.xml list): (tu_tag_or_id option) * (Xml.xml list) =
+    match xml_list with
+    |[] -> (None, xml_list)
+    |hd::tl ->
+        match hd with
+        |Xml.Element ("cu_tag_or_id_id",_,_) -> (f_tu_tag_or_id_opt_of_xml_list [hd], tl)
+        |Xml.Element ("cu_tag_or_id_tag",_,_) -> (f_tu_tag_or_id_opt_of_xml_list [hd], tl)
         |_ -> (None, xml_list)
 
 and f_dsp_lbl_opt_of_xml_list (xml_list:Xml.xml list): (tu_lbl option) * (Xml.xml list) =

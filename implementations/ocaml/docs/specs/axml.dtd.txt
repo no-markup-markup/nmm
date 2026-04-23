@@ -42,7 +42,7 @@
 
 <!ELEMENT cs_blk_txt (cs_txt_units)>
 <!ELEMENT cs_blk_blt (cs_blks)>
-<!ELEMENT cr_blk_itm ((cu_lbl_auto | cu_lbl_custom), cr_id?, cs_blks)>
+<!ELEMENT cr_blk_itm ((cu_lbl_auto | cu_lbl_custom), (cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_blks)>
 <!ELEMENT cs_blk_dsp (cs_dsp_lines)>
 <!ELEMENT cs_blk_vrb (cs_vrb_lines)>
 <!ELEMENT cr_blk_nte (cr_id, cs_blks)>

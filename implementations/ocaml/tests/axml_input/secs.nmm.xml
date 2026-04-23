@@ -53,10 +53,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>This is a no-markup-markup document, sporting the following cool features</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This is a no-markup-markup document, sporting the following cool features:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -92,10 +89,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Bullet lists</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Bullet lists:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>
@@ -210,10 +204,12 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
+<cu_tag_or_id_id>
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>x</cs_name>
 </cr_id>
+</cu_tag_or_id_id>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
@@ -232,10 +228,12 @@
 <cu_lbl_auto>
 <cs_lbl_auto/>
 </cu_lbl_auto>
+<cu_tag_or_id_id>
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>y</cs_name>
 </cr_id>
+</cu_tag_or_id_id>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
@@ -280,10 +278,12 @@
 <cu_lbl_custom>
 <cs_lbl_custom>†</cs_lbl_custom>
 </cu_lbl_custom>
+<cu_tag_or_id_id>
 <cr_id>
 <cs_tag>ITM</cs_tag>
 <cs_name>z</cs_name>
 </cr_id>
+</cu_tag_or_id_id>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
@@ -426,10 +426,7 @@
 <cs_blk_txt>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Displayed lines can also be used for drawing tables and such</cs_txt_unit_wysiwyg>
-</cu_txt_unit_wysiwyg>
-<cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Displayed lines can also be used for drawing tables and such:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_blk_txt>

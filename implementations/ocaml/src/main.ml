@@ -1,11 +1,12 @@
+open Doc_types
+
 exception Error of string
 
-let doc_of_nmm (path : string) : Doc_types.tr_doc =
+let doc_of_nmm (options : Common_utils.t_axml_options) (path : string) : Doc_types.tr_doc =
         try
-        let print_tokens = false in
         match path with
-        |"-" -> Doc_of_nmm.doc_of_nmm_stdin print_tokens 
-        |_ -> Doc_of_nmm.doc_of_nmm_file print_tokens path
+        |"-" -> Doc_of_nmm.doc_of_nmm_stdin_with_tagger (Tags.tagger_of_path_opt options.tags)
+        |_ -> Doc_of_nmm.doc_of_nmm_file_with_tagger (Tags.tagger_of_path_opt options.tags) path
         with 
         |Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
@@ -94,10 +95,10 @@ let axml_of_doc (doc : Doc_types.tr_doc) : string =
         (Xml_right.to_string_fmt (Axml_of_doc.normalize_axml (Axml_of_doc.axml_of_tr_doc doc)))
 
 let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
-        html_of_doc options (doc_of_nmm path)
+        html_of_doc options (doc_of_nmm (Common_utils.axml_options_of_html_options options) path)
 
 let txt_of_nmm (options : Common_utils.t_txt_options) (path:string):string =
-        txt_of_doc options (doc_of_nmm path)
+        txt_of_doc options (doc_of_nmm (Common_utils.axml_options_of_txt_options options) path)
 
 let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string =
         txt_of_doc options (doc_of_axml path) 
@@ -105,8 +106,8 @@ let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string 
 let html_of_axml (options : Common_utils.t_html_options) (path : string) : string =
         html_of_doc options (doc_of_axml path)
 
-let axml_of_nmm (path : string) : string =
-        axml_of_doc (doc_of_nmm path)
+let axml_of_nmm (options : Common_utils.t_axml_options) (path : string) : string =
+        axml_of_doc (doc_of_nmm options path)
 
 let check_xml_schema (path : string) : string =
         try
@@ -148,7 +149,7 @@ let exml_of_doc (options : Common_utils.t_exml_options) (doc : Doc_types.tr_doc)
         (Xml_right.to_string_fmt (Exml_utils.normalize_exml (Compiler_of_doc.exml_of_tr_doc options doc)))
 
 let exml_of_nmm (options : Common_utils.t_exml_options) (path : string) : string =
-        exml_of_doc options (doc_of_nmm path)
+        exml_of_doc options (doc_of_nmm (Common_utils.axml_options_of_exml_options options) path)
 
 let exml_of_axml (options : Common_utils.t_exml_options) (path : string) : string =
         exml_of_doc options (doc_of_axml path)

@@ -139,8 +139,8 @@ and tr_dsp_line = {
 }
 
 and tr_blk_itm = { 
-  fld_blk_itm_lbl: tu_lbl; 
-  fld_blk_itm_id : tr_id option;
+  fld_blk_itm_lbl: tu_lbl;
+  fld_blk_itm_tag_or_id : tu_tag_or_id option;
   fld_blk_itm_main : ts_blks;
 }
 

@@ -43,10 +43,6 @@ type t_doc_settings = {
 
 (** {3 Default settings} *)
 
-
-val expand_tag_default : Doc_types.ts_tag -> (string * string) option
-
-
 val doc_settings_default : unit -> t_doc_settings
 
 (** {3 User-defined settings} *)
@@ -229,6 +225,7 @@ type t_txt_options = {
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
+        tags : string option;
 }
 
 type t_html_options = {
@@ -238,19 +235,29 @@ type t_html_options = {
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
+        tags : string option;
 }
 
 type t_exml_options = {
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
+        tags : string option;
+}
+
+type t_axml_options = {
+        tags : string option;
 }
 
 val exml_options_of_html_options : t_html_options -> t_exml_options
+val axml_options_of_html_options : t_html_options -> t_axml_options
+val axml_options_of_txt_options : t_txt_options -> t_axml_options
+val axml_options_of_exml_options : t_exml_options -> t_axml_options
 
 (* for debugging *)
 
 val txt_options_default : unit -> t_txt_options
 val html_options_default : unit -> t_html_options
 val exml_options_default : unit -> t_exml_options
+val axml_options_default : unit -> t_axml_options
 

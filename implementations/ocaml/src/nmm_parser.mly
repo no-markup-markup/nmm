@@ -3,6 +3,10 @@ open Doc_types
 
 exception ERROR of string
 
+let tagger_default (blk_itm : tr_blk_itm) : tr_blk_itm = blk_itm
+
+let blk_itm_tagger_ref : (tr_blk_itm -> tr_blk_itm) ref = ref tagger_default
+
 let scope_of_string (s : string) : tu_scope =
         match s with
         |"GBL" -> Cu_scope_gbl
@@ -313,7 +317,7 @@ special_blks0:
 blk0:
   |blk_txt0                                       { Cu_blk_txt $1:tu_blk }
   |blk_blt0                                       { Cu_blk_blt $1:tu_blk }
-  |blk_itm0                                       { Cu_blk_itm $1:tu_blk }
+  |blk_itm0                                       { Cu_blk_itm (blk_itm_tagger_ref.contents $1):tu_blk }
   |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
   |blk_vrb0                                       { Cu_blk_vrb $1:tu_blk }
   |blk_nte0                                       { Cu_blk_nte $1:tu_blk }
@@ -363,9 +367,9 @@ blk_nte0:
 
 
 blk_itm0:
-  |itm_lbl_tab blks1                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
-  |itm_lbl_tab lb1 blks1                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab_id lb1 blks1                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab blks1                              { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
+  |itm_lbl_tab lb1 blks1                          { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab_id lb1 blks1                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_tag_or_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
 ;
 
 blk_dsp0:
@@ -467,9 +471,9 @@ blk_blt(n):
 ;
 
 blk_itm(n):
-  |itm_lbl_tab blks(n+1)                                  { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
-  |itm_lbl_tab lb(n+1) blks(n+1)                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab itm_id lb(n+1) blks(n+1)                   { {fld_blk_itm_lbl=$1;fld_blk_itm_id=Some $2;fld_blk_itm_main=Cs_blks $4}:tr_blk_itm }
+  |itm_lbl_tab blks(n+1)                                  { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
+  |itm_lbl_tab lb(n+1) blks(n+1)                          { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab itm_id lb(n+1) blks(n+1)                   { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=Some $2;fld_blk_itm_main=Cs_blks $4}:tr_blk_itm }
 ;
 
 blk_dsp(n):
@@ -535,7 +539,7 @@ special_blks1:
 blk1:
   |blk_txt1                                       { (Cu_blk_txt $1):tu_blk }
   |blk_blt1                                       { (Cu_blk_blt $1):tu_blk }
-  |blk_itm1                                       { (Cu_blk_itm $1):tu_blk }
+  |blk_itm1                                       { (Cu_blk_itm (blk_itm_tagger_ref.contents $1)):tu_blk }
   |blk_dsp1                                       { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb1                                       { (Cu_blk_vrb $1):tu_blk }
   |NL blk1                                        { $2:tu_blk }
@@ -579,9 +583,9 @@ blk_blt1:
 ;
 
 blk_itm1:
-  |itm_lbl_tab blks2                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
-  |itm_lbl_tab lb2 blks2                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab_id lb2 blks2                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab blks2                              { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
+  |itm_lbl_tab lb2 blks2                          { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab_id lb2 blks2                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_tag_or_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
 ;
 
 blk_dsp1:
@@ -646,7 +650,7 @@ special_blks2:
 blk2:
   |blk_txt2                                       { (Cu_blk_txt $1):tu_blk }
   |blk_blt2                                       { (Cu_blk_blt $1):tu_blk }
-  |blk_itm2                                       { (Cu_blk_itm $1):tu_blk }
+  |blk_itm2                                       { (Cu_blk_itm (blk_itm_tagger_ref.contents $1)):tu_blk }
   |blk_dsp2                                       { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb2                                       { (Cu_blk_vrb $1):tu_blk }
   |NL blk2                                        { $2:tu_blk }
@@ -691,9 +695,9 @@ blk_blt2:
 ;
 
 blk_itm2:
-  |itm_lbl_tab blks3                              { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
-  |itm_lbl_tab lb3 blks3                          { {fld_blk_itm_lbl=$1;fld_blk_itm_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
-  |itm_lbl_tab_id lb3 blks3                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab blks3                              { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $2}:tr_blk_itm }
+  |itm_lbl_tab lb3 blks3                          { {fld_blk_itm_lbl=$1;fld_blk_itm_tag_or_id=None;fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
+  |itm_lbl_tab_id lb3 blks3                       { {fld_blk_itm_lbl=first $1;fld_blk_itm_tag_or_id=Some (second $1);fld_blk_itm_main=Cs_blks $3}:tr_blk_itm }
 ;
 
 blk_dsp2:
@@ -935,8 +939,8 @@ itm_lbl_tab:
 ;
 
 itm_lbl_tab_id:
-  |itm_auto_tab_id                                { (Cu_lbl_auto (first $1), second $1): tu_lbl * tr_id }
-  |itm_custom_tab_id                              { (Cu_lbl_custom (first $1), second $1): tu_lbl * tr_id }
+  |itm_auto_tab_id                                { (Cu_lbl_auto (first $1), second $1): tu_lbl * tu_tag_or_id }
+  |itm_custom_tab_id                              { (Cu_lbl_custom (first $1), second $1): tu_lbl * tu_tag_or_id }
 ;
 
 itm_auto_tab:
@@ -948,11 +952,11 @@ itm_custom_tab:
 ;
 
 itm_auto_tab_id:
-  |ITM_AUTO_TAB_ID                                { (Cs_lbl_auto, id_of_string (get_id_string $1)): ts_lbl_auto * tr_id }
+  |ITM_AUTO_TAB_ID                                { (Cs_lbl_auto, tag_or_id_of_string (get_id_string $1)): ts_lbl_auto * tu_tag_or_id }
 ;
 
 itm_custom_tab_id:
-  |ITM_CUSTOM_TAB_ID                              { (Cs_lbl_custom (get_custom_string $1), id_of_string (get_id_string $1)): ts_lbl_custom * tr_id }
+  |ITM_CUSTOM_TAB_ID                              { (Cs_lbl_custom (get_custom_string $1), tag_or_id_of_string (get_id_string $1)): ts_lbl_custom * tu_tag_or_id }
 ;
 
 dash_tab:

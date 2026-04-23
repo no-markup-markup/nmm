@@ -37,7 +37,7 @@ let string_of_token (t:Nmm_parser.token):string=
         |ITM_CUSTOM_TAB_ID s -> ("ITM_CUSTOM_TAB_ID " ^ "\"" ^ s ^ "\"")
         |DSP_ID s -> ("DSP_ID " ^ "\"" ^ s ^ "\"")
         |C_REF s -> ("C_REF " ^ "\"" ^ s ^ "\"")
-        |NTE_REF (s,i) -> ("NTE_REF " ^ "(\"" ^ s ^ "\"," ^ (string_of_int i )^ ")")
+        |NTE_REF (s,i) -> ("NTE_REF " ^ "(\"" ^ s ^ "\"," ^ (string_of_int i ) ^ ")")
         |TITLE -> "TITLE"
         |AUTHOR -> "AUTHOR"
         |DATE -> "DATE"
@@ -59,13 +59,15 @@ let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.p
         let token : Nmm_parser.token=Nmm_lexer.token b in
         let start_pos,end_pos=Sedlexing.lexing_positions b in
         match print_tokens with
-        |true -> let _ = Debug_utils.print_to_stderr ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token token)) in (token,start_pos,end_pos)
+        |true -> let _ = IO.print_to_stderr ("Line " ^ (Nmm_lexer.line_of_lexbuf b) ^ ": " ^ (string_of_token token)) in (token,start_pos,end_pos)
         |false -> (token,start_pos,end_pos)
 
 
 (* **************************************************************** *)
 
-let reset_refs () : unit =
+
+
+let set_refs () : unit =
         let _ : unit = Nmm_lexer.return_nl.contents <- true in
         let _ : unit = Nmm_lexer.verbatim.contents <- false in
         let _ : unit = Nmm_lexer.first_nl.contents <- true in
@@ -75,7 +77,7 @@ let reset_refs () : unit =
 
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
-        let _ : unit = reset_refs () in
+        let _ : unit = set_refs () in
         match Sys.file_exists filename && not (Sys.is_directory filename) with
         |false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
         |true -> 
@@ -96,7 +98,7 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
         | _ ->
                 match print_tokens with
                 |false -> 
-                        let _ : unit = Debug_utils.print_to_stderr (
+                        let _ : unit = IO.print_to_stderr (
                                 String.concat "\n" [
                                         "Read the the following tokens from " ^ filename ^ ":";
                                 ]
@@ -105,7 +107,7 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
                 |true -> raise (Error "Parsing failed")
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
-        let _ : unit = reset_refs () in
+        let _ : unit = set_refs () in
         let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_string s in
         let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in
         let lexer (lexbuf : Lexing.lexbuf) : Nmm_parser.token =
@@ -122,7 +124,7 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
         | _ ->
                 match print_tokens with
                 |false -> 
-                        let _ : unit = Debug_utils.print_to_stderr (
+                        let _ : unit = IO.print_to_stderr (
                                 String.concat "\n" [
                                         "Read the the following tokens from \'" ^ s ^ "\':";
                                 ]
@@ -131,7 +133,7 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
                 |true -> raise (Error "Parsing failed")
 
 let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
-        let _ : unit = reset_refs () in
+        let _ : unit = set_refs () in
         let input : string = In_channel.input_all stdin in
         let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_string input in
         let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in
@@ -149,11 +151,27 @@ let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
         | _ ->
                 match print_tokens with
                 |false -> 
-                        let _ : unit = Debug_utils.print_to_stderr (
+                        let _ : unit = IO.print_to_stderr (
                                 String.concat "\n" [
                                         "Read the the following tokens from \'" ^ input ^ "\':";
                                 ]
                         ) 
                         in doc_of_nmm_string true input
                 |true -> raise (Error "Parsing failed")
+
+
+(* tags *)
+
+
+let doc_of_nmm_file_with_tagger (tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) (path : string) : Doc_types.tr_doc =
+	let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
+	doc_of_nmm_file false path
+
+let doc_of_nmm_stdin_with_tagger (tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) : Doc_types.tr_doc =
+	let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
+	doc_of_nmm_stdin false
+
+let doc_of_nmm_string_with_tagger (tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) (s : string) : Doc_types.tr_doc =
+	let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
+	doc_of_nmm_string false s
 

@@ -1,0 +1,7 @@
+(a)   Some definition
+
+(b)   (1)   Some item
+
+      ─     Some bullet
+
+(c)   DFE Some typo

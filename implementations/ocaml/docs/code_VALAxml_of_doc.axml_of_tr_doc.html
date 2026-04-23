@@ -15,7 +15,7 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
@@ -218,9 +218,9 @@
 <span class="keyword">and</span> xml_of_tr_blk_itm (blk_itm:tr_blk_itm):<span class="constructor">Xml</span>.xml=
         <span class="keyword">let</span> a:<span class="constructor">Xml</span>.xml list=[xml_of_tu_lbl blk_itm.fld_blk_itm_lbl] <span class="keyword">in</span>
         <span class="keyword">let</span> b:<span class="constructor">Xml</span>.xml list=
-                <span class="keyword">match</span> blk_itm.fld_blk_itm_id <span class="keyword">with</span>
+                <span class="keyword">match</span> blk_itm.fld_blk_itm_tag_or_id <span class="keyword">with</span>
                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-                <span class="keywordsign">|</span><span class="constructor">Some</span> (id:tr_id)<span class="keywordsign">-&gt;</span> [xml_of_tr_id id]
+                <span class="keywordsign">|</span><span class="constructor">Some</span> (tag_or_id:tu_tag_or_id)<span class="keywordsign">-&gt;</span> [xml_of_tu_tag_or_id tag_or_id]
                 <span class="keyword">in</span>
                 <span class="keyword">let</span> c:<span class="constructor">Xml</span>.xml list=[xml_of_ts_blks blk_itm.fld_blk_itm_main] <span class="keyword">in</span>
                 <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cr_blk_itm"</span>,[],<span class="constructor">List</span>.concat [a;b;c])

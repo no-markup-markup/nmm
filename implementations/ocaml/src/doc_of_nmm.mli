@@ -19,3 +19,12 @@ val doc_of_nmm_stdin : bool -> Doc_types.tr_doc
 (**
 Same as [doc_of_nmm_file], except that it reads from standard input.
 *)
+
+(* with tagger *)
+
+val doc_of_nmm_file_with_tagger : (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> string -> Doc_types.tr_doc
+
+val doc_of_nmm_stdin_with_tagger : (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> Doc_types.tr_doc
+
+val doc_of_nmm_string_with_tagger : (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> string -> Doc_types.tr_doc
+

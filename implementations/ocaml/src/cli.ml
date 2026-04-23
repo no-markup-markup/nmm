@@ -5,11 +5,11 @@ exception Error of string
 let usage : string=
 "USAGE:
 nmm-ocaml [
-  | txt-of-nmm  [ <txt-options>  ] { <path-to-nmm-file> | - }
-  | html-of-nmm [ <html-options> ] { <path-to-nmm-file> | - }
-  | exml-of-nmm [ <exml-options> ] { <path-to-nmm-file> | - }
+  | txt-of-nmm   [ <txt-options>  ] { <path-to-nmm-file>  | - }
+  | html-of-nmm  [ <html-options> ] { <path-to-nmm-file>  | - }
+  | exml-of-nmm  [ <exml-options> ] { <path-to-nmm-file>  | - }
 
-  | axml-of-nmm { <path-to-nmm-file> | - }
+  | axml-of-nmm  [ <axml-options> ] { <path-to-nmm-file>  | - }
 
   | txt-of-axml  [ <txt-options>  ] { <path-to-axml-file> | - }
   | html-of-axml [ <html-options> ] { <path-to-axml-file> | - }
@@ -17,7 +17,6 @@ nmm-ocaml [
 
   | check-xml-schema <path-to-dtd-file>
   | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
-
   | show-default-css
   | normalize-axml { <path-to-axml-file> | - }
 ]
@@ -31,6 +30,7 @@ TXT-OPTIONS:
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
+  --tags <path-to-tsv-file>
 
 HTML-OPTIONS:
   --margin <numeral>
@@ -39,11 +39,16 @@ HTML-OPTIONS:
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
+  --tags <path-to-tsv-file>
 
 EXML-OPTIONS:
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
   --quiet
+  --tags <path-to-tsv-file>
+
+AXML-OPTIONS:
+  --tags <path-to-tsv-file>
 "
 
 type t_keyspecdoc = (Arg.key *  Arg.spec * Arg.doc)
@@ -73,6 +78,8 @@ let quiet : bool ref = ref false
 let numbering : string ref = ref "a1i"
 
 let allow_custom_numbering : bool ref = ref false
+
+let tags : (string option) ref = ref None
 
 let keyspecdoc_list : t_keyspecdoc list ref = ref []
 
@@ -110,6 +117,13 @@ let keyspecdoc_numbering : t_keyspecdoc =
 let keyspecdoc_allow_custom_numbering : t_keyspecdoc =
         ("--allow-custom-numbering", Arg.Set allow_custom_numbering, "")
 
+let add_tags (s : string) : unit =
+        tags.contents <- (Some s)
+
+let keyspecdoc_tags : t_keyspecdoc =
+        ("--tags", Arg.String add_tags, "")
+
+
 let keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
         keyspecdoc_margin;
         keyspecdoc_stdin;
@@ -117,6 +131,7 @@ let keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
         keyspecdoc_width;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
+        keyspecdoc_tags;
 ]
 
 let keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
@@ -126,11 +141,13 @@ let keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
         keyspecdoc_width;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
+        keyspecdoc_tags;
 ]
 
 
 let keyspecdoc_list_xml_of_nmm : t_keyspecdoc list = [
         keyspecdoc_stdin;
+        keyspecdoc_tags;
 ]
 
 let keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
@@ -141,6 +158,7 @@ let keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
         keyspecdoc_css;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
+        keyspecdoc_tags;
 ]
 
 let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
@@ -151,6 +169,7 @@ let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
         keyspecdoc_css;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
+        keyspecdoc_tags;
 ]
 
 let keyspecdoc_list_exml_of_nmm : t_keyspecdoc list = [
@@ -158,6 +177,7 @@ let keyspecdoc_list_exml_of_nmm : t_keyspecdoc list = [
         keyspecdoc_quiet;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
+        keyspecdoc_tags;
 ]
 
 let keyspecdoc_list_exml_of_axml : t_keyspecdoc list = [
@@ -165,6 +185,7 @@ let keyspecdoc_list_exml_of_axml : t_keyspecdoc list = [
         keyspecdoc_quiet;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
+        keyspecdoc_tags;
 ]
 
 let keyspecdoc_list_normalize_axml : t_keyspecdoc list = [
@@ -239,6 +260,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match read_from_stdin.contents with
@@ -256,6 +278,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match read_from_stdin.contents with
@@ -266,12 +289,16 @@ let _ : unit = try
                         |path ->print_endline (Main.html_of_axml options path)
         )
         |"axml-of-nmm" -> (
+                let options : Common_utils.t_axml_options = {
+                        tags = tags.contents;
+                }
+                in
                 match read_from_stdin.contents with
-                |true -> print_endline (Main.axml_of_nmm "-")
+                |true -> print_endline (Main.axml_of_nmm options "-")
                 |false ->
                         match path_to_nmm_file.contents with
                         |"" -> raise (Error "missing path-to-nmm-file")
-                        |path -> print_endline (Main.axml_of_nmm path)
+                        |path -> print_endline (Main.axml_of_nmm options path)
         )
         |"txt-of-nmm" -> (
                 let options : Common_utils.t_txt_options = {
@@ -280,6 +307,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match read_from_stdin.contents with
@@ -297,6 +325,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match read_from_stdin.contents with
@@ -321,6 +350,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match path_to_xml_file.contents with
@@ -335,6 +365,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match path_to_nmm_file.contents with
@@ -346,6 +377,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match read_from_stdin.contents with
@@ -360,6 +392,7 @@ let _ : unit = try
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
+                        tags = tags.contents;
                 }
                 in
                 match read_from_stdin.contents with
@@ -380,7 +413,7 @@ let _ : unit = try
         |_ -> print_endline usage
 with
 |Error e -> 
-        let _ : unit = Debug_utils.print_to_stderr e in
+        let _ : unit = IO.print_to_stderr e in
         print_endline usage
-|Main.Error e -> Debug_utils.print_to_stderr e
+|Main.Error e -> IO.print_to_stderr e
 |Test.Error e -> raise (Error (String.concat " " ["Test.Error:";e]))

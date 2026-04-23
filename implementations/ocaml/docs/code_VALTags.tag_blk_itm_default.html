@@ -15,15 +15,15 @@
 <link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
 <link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
 <link title="Common_utils" rel="Chapter" href="Common_utils.html">
-<link title="Expand_tags" rel="Chapter" href="Expand_tags.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
 <link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
 <link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
 <link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.expand_tag_default</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Tags.tag_blk_itm_default</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> expand_tag_default (tag : <span class="constructor">Doc_types</span>.ts_tag) : (string * string) option =
-        <span class="constructor">Expand_tags</span>.expand_tag tag</code></body></html>
+<code class="code"><span class="keyword">let</span> tag_blk_itm_default (blk_itm : tr_blk_itm) : tr_blk_itm =
+	tag_blk_itm_gen tag_of_string_default blk_itm</code></body></html>
