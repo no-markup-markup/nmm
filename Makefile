@@ -35,10 +35,10 @@ bin:
 	make
 	cd -
 
-test-nmm2xml: bin
+test-nmm2xml: bin test-data-nmm2xml
 	./test-nmm2xml.sh
 
-test-nmm2txt: bin
+test-nmm2txt: bin test-data-nmm2txt
 	./test-nmm2txt.sh
 
 docs-ocaml:
