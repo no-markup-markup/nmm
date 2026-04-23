@@ -1,10 +1,10 @@
-A text block.[FTN:one]
+A text block.[NTE:one]
 
-Another text block.[FTN:two]
+Another text block.[NTE:two]
 
-*	FTN:one
+*	NTE:one
 	A footnote.
 
-*	FTN:two
+*	NTE:two
 	Another footnote.
 	Multiple lines in the source for this footnote.

@@ -4,8 +4,6 @@ Another text block.²
 
 
 ────────────────────────────────────────────────────────────────────
-ENDNOTES
-
 ¹  A footnote.
 
 ²  Another footnote. Multiple lines in the source for this footnote.
