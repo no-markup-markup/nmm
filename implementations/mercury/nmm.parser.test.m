@@ -1157,7 +1157,7 @@ p_test_r_blk_itm_3 :- r_blk_itm(
   0u,
   cr_blk_itm(
     cu_lbl_custom(cs_lbl_custom("hej")),
-    maybe.no,
+    maybe.yes(cu_tag_or_id_tag(cs_tag("DEF"))),
     cs_blks([
       cu_blk_txt(cs_blk_txt(cs_txt_units([
         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej")),
@@ -1169,7 +1169,7 @@ p_test_r_blk_itm_3 :- r_blk_itm(
       ])))
     ])
   ),
-  f_str2tkns("[hej]\thej\n\thej\n\n\thej\n"),
+  f_str2tkns("[hej]\tDEF\n\thej\n\thej\n\n\thej\n"),
   []
 ).
 
@@ -1181,7 +1181,7 @@ p_test_r_blk_itm_4 :- r_blk_itm(
   0u,
   cr_blk_itm(
     cu_lbl_auto(cs_lbl_auto),
-    maybe.yes(cr_id(cs_tag("DEF"),cs_name("name"),maybe.no)),
+    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("DEF"),cs_name("name"),maybe.no))),
     cs_blks([
       cu_blk_txt(cs_blk_txt(cs_txt_units([
         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej")),

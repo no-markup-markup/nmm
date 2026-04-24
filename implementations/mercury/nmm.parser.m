@@ -544,9 +544,9 @@
 %% RULE R_BLK_ITM, RECORD TYPE TR_BLK_ITM, INSTANCE TR_BLK_ITM XMLABLE
 
 :- type tr_blk_itm ---> cr_blk_itm(
-  fld_blk_itm_lbl  :: tu_lbl,
-  fld_blk_itm_id   :: maybe(tr_id),
-  fld_blk_itm_main :: ts_blks
+  fld_blk_itm_lbl       :: tu_lbl,
+  fld_blk_itm_tag_or_id :: maybe(tu_tag_or_id),
+  fld_blk_itm_main      :: ts_blks
 ).
 
 :- instance term_to_xml.xmlable(tr_blk_itm).
@@ -2015,10 +2015,14 @@ f_blk_blt_to_xml(cs_blk_blt(BLKS)) =
 %%% R_BLK_ITM
 
 :- pragma memo(r_blk_itm/5,[fast_loose]).
-r_blk_itm(ALLOWED_TAGS,LVL,cr_blk_itm(LBL,MAYBE_ID,BLKS)) --> (
+r_blk_itm(ALLOWED_TAGS,LVL,cr_blk_itm(LBL,MAYBE_TAG_OR_ID,BLKS)) --> (
   r_str("["), r_lbl(LBL), r_str("]"),
   r_tab,
-  ?([],r_id,ALLOWED_TAGS,cu_tag_type_itm,MAYBE_ID,[r_lb,r_tabs(LVL+1u)]),
+  ?(
+    [],
+    r_tag_or_id,ALLOWED_TAGS,cu_tag_type_itm,MAYBE_TAG_OR_ID,
+    [r_lb,r_tabs(LVL+1u)]
+  ),
   r_blks(ALLOWED_TAGS,LVL+1u,BLKS)
 ).
 
@@ -2034,12 +2038,12 @@ r_blk_itm(ALLOWED_TAGS,LVL,cr_blk_itm(LBL,MAYBE_ID,BLKS)) --> (
 f_blk_itm_to_xml(BLK_ITM) = XML :- (
   (
     (
-      fld_blk_itm_id(BLK_ITM) = maybe.no,
-      ID_XML_LIST             = []
+      fld_blk_itm_tag_or_id(BLK_ITM) = maybe.no,
+      TAG_OR_ID_XML_LIST             = []
     );
     (
-      fld_blk_itm_id(BLK_ITM) = maybe.yes(ID),
-      ID_XML_LIST             = [f_id_to_xml(ID)]
+      fld_blk_itm_tag_or_id(BLK_ITM) = maybe.yes(TAG_OR_ID),
+      TAG_OR_ID_XML_LIST             = [f_tag_or_id_to_xml(TAG_OR_ID)]
     )
   ),
   LBL  = fld_blk_itm_lbl(BLK_ITM),
@@ -2047,7 +2051,7 @@ f_blk_itm_to_xml(BLK_ITM) = XML :- (
   XML  = term_to_xml.elem(
     "cr_blk_itm",
     [],
-    [f_lbl_to_xml(LBL)]++ID_XML_LIST++[f_blks_to_xml(BLKS)]
+    [f_lbl_to_xml(LBL)]++TAG_OR_ID_XML_LIST++[f_blks_to_xml(BLKS)]
   )
 ).
 
