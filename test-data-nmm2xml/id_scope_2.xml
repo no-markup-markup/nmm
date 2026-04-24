@@ -10,11 +10,13 @@
 								<cu_lbl_auto>
 									<cs_lbl_auto />
 								</cu_lbl_auto>
-								<cr_id>
-									<cs_tag>ITM</cs_tag>
-									<cs_name>itm</cs_name>
-									<cu_scope_par />
-								</cr_id>
+								<cu_tag_or_id_id>
+									<cr_id>
+										<cs_tag>ITM</cs_tag>
+										<cs_name>itm</cs_name>
+										<cu_scope_par />
+									</cr_id>
+								</cu_tag_or_id_id>
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
@@ -71,11 +73,13 @@
 								<cu_lbl_auto>
 									<cs_lbl_auto />
 								</cu_lbl_auto>
-								<cr_id>
-									<cs_tag>ITM</cs_tag>
-									<cs_name>itm</cs_name>
-									<cu_scope_par />
-								</cr_id>
+								<cu_tag_or_id_id>
+									<cr_id>
+										<cs_tag>ITM</cs_tag>
+										<cs_name>itm</cs_name>
+										<cu_scope_par />
+									</cr_id>
+								</cu_tag_or_id_id>
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
