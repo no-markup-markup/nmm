@@ -101,7 +101,7 @@ with
   | cr_blk_itm             :
     tu_lbl
     ->
-    option tr_id
+    option tu_tag_or_id
     ->
     ts_blks
     ->
@@ -172,12 +172,12 @@ with
 (* Cannot mix inductive definitions with record definitions so we have to define
    some field functions manually *)
 
-Definition fld_blk_itm_lbl  (blk_itm : tr_blk_itm) : tu_lbl
-  := match blk_itm with cr_blk_itm lbl _  _    => lbl  end.
-Definition fld_blk_itm_id   (blk_itm : tr_blk_itm) : option tr_id
-  := match blk_itm with cr_blk_itm _   id _    => id   end.
-Definition fld_blk_itm_main (blk_itm : tr_blk_itm) : ts_blks
-  := match blk_itm with cr_blk_itm _   _  blks => blks end.
+Definition fld_blk_itm_lbl       (blk_itm : tr_blk_itm) : tu_lbl
+  := match blk_itm with cr_blk_itm lbl _         _    => lbl       end.
+Definition fld_blk_itm_tag_or_id (blk_itm : tr_blk_itm) : option tu_tag_or_id
+  := match blk_itm with cr_blk_itm _   tag_or_id _    => tag_or_id end.
+Definition fld_blk_itm_main      (blk_itm : tr_blk_itm) : ts_blks
+  := match blk_itm with cr_blk_itm _   _         blks => blks      end.
 
 Definition fld_blk_nte_id   (blk_nte : tr_blk_nte) : tr_id
   := match blk_nte with cr_blk_nte id _    => id   end.
