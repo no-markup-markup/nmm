@@ -69,16 +69,44 @@
 <span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ITM"</span><br>
 <span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DSP"</span><br>
 <span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"BIB"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
-<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.print_warning&nbsp;(<span class="string">"WARNING:&nbsp;undefined&nbsp;tag:&nbsp;"</span>&nbsp;^&nbsp;s)&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">None</span><br>
+<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.print_warning&nbsp;(<span class="string">"WARNING:&nbsp;undefined&nbsp;tag:&nbsp;"</span>&nbsp;^&nbsp;tag_string)&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">None</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;standard_tags&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;list&nbsp;=&nbsp;[<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PAR"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ITM"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DSP"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"BIB"</span>]<br>
 <br>
 <span class="keyword">let</span>&nbsp;expander_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=&nbsp;<span class="comment">(*&nbsp;TODO&nbsp;*)</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag_default<br>
-<br>
-<br>
-<span class="keyword">let</span>&nbsp;expander_of_path_opt&nbsp;(path_opt&nbsp;:&nbsp;string&nbsp;option)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_opt&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;expand_tag_default<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;expander_of_file&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;file_string&nbsp;=&nbsp;<span class="constructor">IO</span>.string_of_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\n'</span>&nbsp;file_string&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;collect_tags_singular&nbsp;(line_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;(string*string*string)&nbsp;list)&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;line_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\t'</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">""</span>::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags_singular&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>singular::(_::(exp_ref::(exp_lbl::_)))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags_singular&nbsp;tl&nbsp;((singular,&nbsp;exp_lbl,&nbsp;exp_ref)::acc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags_singular&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list_singular&nbsp;:&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;string)&nbsp;list&nbsp;=&nbsp;collect_tags_singular&nbsp;lines&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;collect_tags_plural&nbsp;(line_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;(string*string*string)&nbsp;list)&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;line_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\t'</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_::(<span class="string">""</span>::_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags_plural&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_::(plural::(_::(_::(exp_ref::(exp_lbl::_)))))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags_plural&nbsp;tl&nbsp;((plural,&nbsp;exp_lbl,&nbsp;exp_ref)::acc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags_plural&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list&nbsp;:&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;string)&nbsp;list&nbsp;=&nbsp;collect_tags_plural&nbsp;lines&nbsp;tag_list_singular&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;match_tag_rec&nbsp;(tag_string&nbsp;:&nbsp;string)&nbsp;(lst&nbsp;:&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;string)&nbsp;list)&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;lst&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.print_warning&nbsp;(<span class="string">"WARNING:&nbsp;undefined&nbsp;tag:&nbsp;"</span>&nbsp;^&nbsp;tag_string)&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">None</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>(tag,exp_lbl,exp_ref)::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;tag=tag_string&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">Some</span>&nbsp;(exp_lbl,&nbsp;exp_ref)&nbsp;<span class="keyword">else</span>&nbsp;match_tag_rec&nbsp;tag_string&nbsp;tl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;expand_tag&nbsp;(tag&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag)&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;tag&nbsp;standard_tags&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;match_tag_rec&nbsp;tag_string&nbsp;tag_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;expand_tag<br>
 <br>
 <span class="comment">(*&nbsp;tagger&nbsp;*)</span><br>
 <br>
@@ -100,8 +128,10 @@
 <span class="keywordsign">|</span>&nbsp;<span class="string">"RMK"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"RMKS"</span>&nbsp;<br>
 <span class="keywordsign">|</span>&nbsp;<span class="string">"SLN"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SLNS"</span>&nbsp;<br>
 <span class="keywordsign">|</span>&nbsp;<span class="string">"THM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"THMS"</span>&nbsp;<br>
-<span class="keywordsign">|</span>&nbsp;<span class="string">"TMY"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;s)<br>
-<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
+<span class="keywordsign">|</span>&nbsp;<span class="string">"TMY"</span>&nbsp;<br>
+<span class="keywordsign">|</span>&nbsp;<span class="string">"ITM"</span><br>
+<span class="keywordsign">|</span>&nbsp;<span class="string">"BIB"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;s)<br>
+<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;tag_blk_itm_gen&nbsp;(tag_of_string&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ts_tag&nbsp;option)&nbsp;(blk_itm&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_itm.fld_blk_itm_tag_or_id&nbsp;<span class="keyword">with</span><br>
@@ -157,6 +187,8 @@
 <span class="keyword">let</span>&nbsp;tag_blk_itm_default&nbsp;(blk_itm&nbsp;:&nbsp;tr_blk_itm)&nbsp;:&nbsp;tr_blk_itm&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tag_blk_itm_gen&nbsp;tag_of_string_default&nbsp;blk_itm<br>
 <br>
+<span class="keyword">let</span>&nbsp;standard_blk_itm_tags&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;[<span class="string">"ITM"</span>;<span class="string">"BIB"</span>]<br>
+<br>
 <span class="keyword">let</span>&nbsp;tagger_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tr_blk_itm&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;file_string&nbsp;=&nbsp;<span class="constructor">IO</span>.string_of_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\n'</span>&nbsp;file_string&nbsp;<span class="keyword">in</span><br>
@@ -173,7 +205,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>singular::[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular::acc)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;collect_tags&nbsp;lines&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;collect_tags&nbsp;lines&nbsp;standard_blk_itm_tags&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_of_string&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;ts_tag&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;s&nbsp;tag_list&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;s)&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">None</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;tag_blk_itm_gen&nbsp;tag_of_string<br>

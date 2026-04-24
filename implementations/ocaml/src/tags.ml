@@ -42,16 +42,44 @@ match tag with
 | Cs_tag "ITM"
 | Cs_tag "DSP"
 | Cs_tag "BIB" -> None
-| Cs_tag s -> let _ : unit = IO.print_warning ("WARNING: undefined tag: " ^ s) in None
+| Cs_tag tag_string -> let _ : unit = IO.print_warning ("WARNING: undefined tag: " ^ tag_string) in None
+
+let standard_tags : Doc_types.ts_tag list = [Cs_tag "PAR"; Cs_tag "ITM"; Cs_tag "DSP"; Cs_tag "BIB"]
 
 let expander_of_file (path : string) : Doc_types.ts_tag -> (string * string) option = (* TODO *)
-	expand_tag_default
-
-
-let expander_of_path_opt (path_opt : string option) : Doc_types.ts_tag -> (string * string) option =
-	match path_opt with
-	|None -> expand_tag_default
-	|Some path -> expander_of_file path
+	let file_string = IO.string_of_file path in
+	let lines = String.split_on_char '\n' file_string in
+	let rec collect_tags_singular (line_list : string list) (acc : (string*string*string) list) =
+		match line_list with
+		|[] -> acc
+		|hd::tl -> 
+			match String.split_on_char '\t' hd with
+			|""::_ -> collect_tags_singular tl acc
+			|singular::(_::(exp_ref::(exp_lbl::_))) -> collect_tags_singular tl ((singular, exp_lbl, exp_ref)::acc)
+			|_ -> collect_tags_singular tl acc
+	in
+	let tag_list_singular : (string * string * string) list = collect_tags_singular lines [] in
+	let rec collect_tags_plural (line_list : string list) (acc : (string*string*string) list) =
+		match line_list with
+		|[] -> acc
+		|hd::tl -> 
+			match String.split_on_char '\t' hd with
+			|_::(""::_) -> collect_tags_plural tl acc
+			|_::(plural::(_::(_::(exp_ref::(exp_lbl::_))))) -> collect_tags_plural tl ((plural, exp_lbl, exp_ref)::acc)
+			|_ -> collect_tags_plural tl acc
+	in
+	let tag_list : (string * string * string) list = collect_tags_plural lines tag_list_singular in
+	let rec match_tag_rec (tag_string : string) (lst : (string * string * string) list) : (string * string) option =
+		match lst with
+		|[] -> let _ : unit = IO.print_warning ("WARNING: undefined tag: " ^ tag_string) in None
+		|(tag,exp_lbl,exp_ref)::tl ->
+			if tag=tag_string then Some (exp_lbl, exp_ref) else match_tag_rec tag_string tl
+	in
+	let expand_tag (tag : Doc_types.ts_tag) : (string * string) option =
+		if List.mem tag standard_tags then None else
+		match tag with
+		|Cs_tag tag_string -> match_tag_rec tag_string tag_list
+	in expand_tag
 
 (* tagger *)
 
@@ -73,8 +101,10 @@ match s with
 | "RMK" | "RMKS" 
 | "SLN" | "SLNS" 
 | "THM" | "THMS" 
-| "TMY" -> Some (Cs_tag s)
-|_ -> None
+| "TMY" 
+| "ITM"
+| "BIB" -> Some (Cs_tag s)
+| _ -> None
 
 let tag_blk_itm_gen (tag_of_string : string -> ts_tag option) (blk_itm : Doc_types.tr_blk_itm) : Doc_types.tr_blk_itm =
 	match blk_itm.fld_blk_itm_tag_or_id with
@@ -130,6 +160,8 @@ let tag_blk_itm_gen (tag_of_string : string -> ts_tag option) (blk_itm : Doc_typ
 let tag_blk_itm_default (blk_itm : tr_blk_itm) : tr_blk_itm =
 	tag_blk_itm_gen tag_of_string_default blk_itm
 
+let standard_blk_itm_tags : string list = ["ITM";"BIB"]
+
 let tagger_of_file (path : string) : tr_blk_itm -> tr_blk_itm =
 	let file_string = IO.string_of_file path in
 	let lines = String.split_on_char '\n' file_string in
@@ -146,7 +178,7 @@ let tagger_of_file (path : string) : tr_blk_itm -> tr_blk_itm =
 			|singular::[] -> collect_tags tl (singular::acc)
 			|[] -> collect_tags tl acc
 	in
-	let tag_list : string list = collect_tags lines [] in
+	let tag_list : string list = collect_tags lines standard_blk_itm_tags in
 	let tag_of_string (s : string) : ts_tag option =
 		if List.mem s tag_list then Some (Cs_tag s) else None
 	in tag_blk_itm_gen tag_of_string

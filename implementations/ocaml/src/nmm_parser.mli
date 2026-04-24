@@ -11,7 +11,6 @@ type token =
         |PILCROW
         |SECTION
         |EOF
-        |N
         |NL
         |TAB
         |NL_TAB

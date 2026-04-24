@@ -65,7 +65,6 @@
                 <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
                 <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
                 <span class="keywordsign">|</span>nte_lbr                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_LBR</span> (nte_count ())
-                <span class="keywordsign">|</span>n                              <span class="keywordsign">-&gt;</span>      <span class="constructor">N</span>
                 <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>start_vrb                      <span class="keywordsign">-&gt;</span>      <span class="keyword">let</span> _ : unit = verbatim.contents &lt;- <span class="keyword">true</span> <span class="keyword">in</span> <span class="constructor">START_VRB</span>
                 <span class="keywordsign">|</span>eof                            <span class="keywordsign">-&gt;</span>      end_of_file lexbuf
@@ -96,7 +95,6 @@
                 <span class="keywordsign">|</span>nte_ref                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_REF</span> (lexeme lexbuf, nte_count ())
                 <span class="keywordsign">|</span>c_ref                          <span class="keywordsign">-&gt;</span>      <span class="constructor">C_REF</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>nte_lbr                        <span class="keywordsign">-&gt;</span>      <span class="constructor">NTE_LBR</span> (nte_count ())
-                <span class="keywordsign">|</span>n                              <span class="keywordsign">-&gt;</span>      <span class="constructor">N</span>
                 <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span> 
                 <span class="keywordsign">|</span>dsp_id                         <span class="keywordsign">-&gt;</span>      <span class="constructor">DSP_ID</span> (lexeme lexbuf)

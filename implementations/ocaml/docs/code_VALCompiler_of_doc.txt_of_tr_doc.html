@@ -41,6 +41,11 @@
         <span class="keyword">in</span>
         <span class="keyword">let</span> auto_numbering : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string = auto_numbering_of_string options.numbering <span class="keyword">in</span>
         <span class="keyword">let</span> allow_custom_numbering : bool = options.allow_custom_numbering <span class="keyword">in</span>
+	<span class="keyword">let</span> expand_tag : ts_tag <span class="keywordsign">-&gt;</span> (string * string) option =
+		<span class="keyword">match</span> options.tags <span class="keyword">with</span>
+		<span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.expand_tag
+		<span class="keywordsign">|</span><span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Tags</span>.expander_of_file path
+	<span class="keyword">in</span>
         <span class="keyword">let</span> new_doc_settings : t_doc_settings = {
                 doc_width = doc_width;
                 left_margin = left_margin;
@@ -56,7 +61,7 @@
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;
                 par_prefix = doc_settings.par_prefix;
-                expand_tag = doc_settings.expand_tag;
+                expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
         }

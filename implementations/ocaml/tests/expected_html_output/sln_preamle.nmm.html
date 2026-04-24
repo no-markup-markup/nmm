@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bibliography entries</title>
+<title>untitled</title>
 
 <style>
 
@@ -378,74 +378,49 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div class="doc secs">
-<h1 class="title">Bibliography entries</h1>
+<div class="doc pars">
 <div class="doc_main">
-<div class="sec">
-<div class="sec_lbl">§ 1</div>
-<h2 class="sec_hdr">Section title</h2>
-<div class="sec_main">
-<p class="blk txt">This is an item with ID ‘BIB:JL’:</p>
-<div class="BIB blk itm" id="BIB_JL">
+<div class="SLNS par" id="SLNS_easy">
+<div class="par_lbl">¶ 1</div>
+<div class="clear"></div>
+<div class="par_main">
+<h2 class="par_tag hdr">SOLUTIONS</h2>
+<div class="SLN blk itm" id="SLN_a">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
 <div class="blk_itm_main">
-<p class="blk txt">Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</p>
+<p class="blk txt">The solution is easy.</p>
 </div>
 </div>
-<p class="blk txt">When referred to, it looks like this: <a class="txt_unit_c_ref" href="#BIB_JL">(a)</a>.</p>
-<p class="blk txt">We can also refer to the corresponding bibliography items in REFERENCES, with ID ‘BIB:JL_refs’. It looks like this: <a class="txt_unit_c_ref" href="#BIB_JL_refs">[a]</a>.</p>
-<p class="blk txt">A clever way of achieving nice citations is to use bibliography items with custom labels, like this one:</p>
-<div class="BIB blk itm bib_custom" id="BIB_JL_custom">
-<div class="blk_itm_lbl">Johannesson &amp; Lundstedt (2026)</div>
+<div class="SLN blk itm" id="SLN_b">
+<div class="blk_itm_lbl">(b)</div>
 <div class="clear"></div>
 <div class="blk_itm_main">
-<p class="blk txt">Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</p>
-</div>
-</div>
-<p class="blk txt">Referring to it looks like this: <a class="txt_unit_c_ref" href="#BIB_JL_custom">Johannesson &amp; Lundstedt (2026)</a>.</p>
-<p class="blk txt">Referring to the corresponding bibliography item in REFERENCES looks like this: <a class="txt_unit_c_ref" href="#BIB_JL_custom_refs">Johannesson &amp; Lundstedt (2026)</a>.</p>
-</div>
-</div>
-<div class="sec">
-<div class="sec_lbl">§ 2</div>
-<h2 class="sec_hdr">Another section</h2>
-<div class="sec_main">
-<p class="blk txt">Referring from another section:</p>
-<p class="blk txt"><a class="txt_unit_c_ref" href="#BIB_JL">(a) of § 1</a></p>
-<p class="blk txt"><a class="txt_unit_c_ref" href="#BIB_JL_refs">[a]</a></p>
-<p class="blk txt"><a class="txt_unit_c_ref" href="#BIB_JL_custom">Johannesson &amp; Lundstedt (2026)</a></p>
+<p class="blk txt">This one as well.</p>
 </div>
 </div>
 </div>
-<div class="refs">
-<h2 class="refs_hdr">REFERENCES</h2>
-<div class="BIB blk itm" id="BIB_JL_refs">
-<div class="blk_itm_lbl">[a]</div>
+</div>
+<div class="par">
+<h2 class="par_lbl hdr">¶ 2</h2>
+<div class="clear"></div>
+<div class="par_main">
+<p class="blk txt">Let us refer to <a class="txt_unit_c_ref" href="#SLN_a">Solution 1(a)</a>.</p>
+</div>
+</div>
+<div class="SOLS par" id="SOLS_typo">
+<h2 class="par_lbl hdr">¶ 3</h2>
+<div class="clear"></div>
+<div class="par_main">
+<p class="blk txt">Here, the semantics issues a warning about undefined tag.</p>
+<div class="ITEM blk itm" id="ITEM_one">
+<div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
 <div class="blk_itm_main">
-<p class="blk txt">Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</p>
+<p class="blk txt">Here as well.</p>
 </div>
 </div>
-<div class="BIB blk itm bib_custom" id="BIB_JL_custom_refs">
-<div class="blk_itm_lbl">Johannesson &amp; Lundstedt (2026)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</p>
-</div>
-</div>
-<div class="BIB blk itm bib_custom">
-<div class="blk_itm_lbl">Johannesson &amp; Lundstedt (2026)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</p>
-</div>
-</div>
-<div class="ITM blk itm">
-<div class="blk_itm_lbl">(Johannesson &amp; Lundstedt (2026))</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</p>
+<p class="blk txt">But I can still refer to <a class="txt_unit_c_ref" href="#ITEM_one">(a)</a>, and to <a class="txt_unit_c_ref" href="#SOLS_typo">¶ 3</a>!</p>
 </div>
 </div>
 </div>

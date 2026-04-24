@@ -909,6 +909,11 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
         in
         let auto_numbering : int -> int -> string = auto_numbering_of_string options.numbering in
         let allow_custom_numbering : bool = options.allow_custom_numbering in
+	let expand_tag : ts_tag -> (string * string) option =
+		match options.tags with
+		|None -> doc_settings.expand_tag
+		|Some path -> Tags.expander_of_file path
+	in
         let new_doc_settings : t_doc_settings = {
                 doc_width = doc_width;
                 left_margin = left_margin;
@@ -924,7 +929,7 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;
                 par_prefix = doc_settings.par_prefix;
-                expand_tag = doc_settings.expand_tag;
+                expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
         }
@@ -948,6 +953,11 @@ let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
         let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
         let auto_numbering = auto_numbering_of_string options.numbering in
         let allow_custom_numbering : bool = options.allow_custom_numbering in
+	let expand_tag : ts_tag -> (string * string) option =
+		match options.tags with
+		|None -> doc_settings.expand_tag
+		|Some path -> Tags.expander_of_file path
+	in
         let new_doc_settings : t_doc_settings = {
                 doc_width = doc_settings.doc_width;
                 left_margin = doc_settings.left_margin;
@@ -963,7 +973,7 @@ let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
                 sec_prefix = doc_settings.sec_prefix;
                 app_prefix = doc_settings.app_prefix;
                 par_prefix = doc_settings.par_prefix;
-                expand_tag = doc_settings.expand_tag;
+                expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
         }

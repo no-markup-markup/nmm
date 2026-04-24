@@ -51,3 +51,11 @@
      Johannesson & Lundstedt (2026)
            Johannesson, Eric & Lundstedt, Anders (2026): Proof by
            weakened induction hypothesis.
+
+     Johannesson & Lundstedt (2026)
+           Johannesson, Eric & Lundstedt, Anders (2026): Proof by
+           weakened induction hypothesis.
+
+     (Johannesson & Lundstedt (2026))
+           Johannesson, Eric & Lundstedt, Anders (2026): Proof by
+           weakened induction hypothesis.

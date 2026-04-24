@@ -23,10 +23,9 @@ let rbr = [%sedlex.regexp? "]"]
 let colon = [%sedlex.regexp? ":"]
 let section = [%sedlex.regexp? Utf8 "§"]
 let pilcrow = [%sedlex.regexp? Utf8 "¶"]
-let n = [%sedlex.regexp? "N"]
-let nte_lbr = [%sedlex.regexp? "NTE["]
+let nte_lbr = [%sedlex.regexp? "\\NTE["]
 
-let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section | n]
+let non_txt_chars = [%sedlex.regexp? Chars "\r\n\t*[]:\\"| pilcrow | section]
 let txt_chars = [%sedlex.regexp? Compl non_txt_chars]
 let txt = [%sedlex.regexp? Plus txt_chars]
 
@@ -164,7 +163,6 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
                 |nte_lbr                        ->      NTE_LBR (nte_count ())
-                |n                              ->      N
                 |txt                            ->      TXT (lexeme lexbuf)
                 |start_vrb                      ->      let _ : unit = verbatim.contents <- true in START_VRB
                 |eof                            ->      end_of_file lexbuf
@@ -195,7 +193,6 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |nte_ref                        ->      NTE_REF (lexeme lexbuf, nte_count ())
                 |c_ref                          ->      C_REF (lexeme lexbuf)
                 |nte_lbr                        ->      NTE_LBR (nte_count ())
-                |n                              ->      N
                 |txt                            ->      TXT (lexeme lexbuf)
                 |tab                            ->      TAB 
                 |dsp_id                         ->      DSP_ID (lexeme lexbuf)

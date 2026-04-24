@@ -81,7 +81,7 @@ let date_of_string (s : string) : tu_date =
 
 %}
 
-%token                          STAR LBR RBR COLON PILCROW SECTION EOF N
+%token                          STAR LBR RBR COLON PILCROW SECTION EOF
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
@@ -867,7 +867,6 @@ txt_nte:
   |DATE                                           { "DATE":string }
   |ABSTRACT                                       { "ABSTRACT":string }
   |ESC_CHAR                                       { $1:string }
-  |N                                              { "N":string }
 ;
 
 emph_txt:

@@ -4,7 +4,7 @@
 
 val expand_tag_default : Doc_types.ts_tag -> (string * string) option
 
-val expander_of_path_opt : string option -> Doc_types.ts_tag -> (string * string) option
+val expander_of_file : string -> Doc_types.ts_tag -> (string * string) option
 
 
 (* tagger *)

@@ -6,8 +6,7 @@ exception Error of string
 
 let string_of_token (t:Nmm_parser.token):string=
         match t with
-        |N -> "N"
-        |NTE_LBR n -> "NTE_LBR " ^ (string_of_int n)
+        |NTE_LBR n -> "\\NTE_LBR " ^ (string_of_int n)
         |SECTION -> "SECTION"
         |SECTION_NL -> "SECTION_NL"
         |PILCROW -> "PILCROW"

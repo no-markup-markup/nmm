@@ -292,6 +292,48 @@
 </cs_blks>
 </cr_blk_itm>
 </cu_blk_itm>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_custom>
+<cs_lbl_custom>Johannesson &amp; Lundstedt (2026)</cs_lbl_custom>
+</cu_lbl_custom>
+<cu_tag_or_id_tag>
+<cs_tag>BIB</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
+<cu_blk_itm>
+<cr_blk_itm>
+<cu_lbl_custom>
+<cs_lbl_custom>Johannesson &amp; Lundstedt (2026)</cs_lbl_custom>
+</cu_lbl_custom>
+<cu_tag_or_id_tag>
+<cs_tag>ITM</cs_tag>
+</cu_tag_or_id_tag>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Johannesson, Eric &amp; Lundstedt, Anders (2026): Proof by weakened induction hypothesis.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_blk_itm>
+</cu_blk_itm>
 </cs_blks>
 </cs_refs>
 </cr_doc>
