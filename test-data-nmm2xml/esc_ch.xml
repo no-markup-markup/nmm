@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<cr_doc>
+	<cu_doc_main_chs>
+		<cs_chs>
+			<cr_ch>
+				<cu_tag_or_id_tag>
+					<cs_tag>CH</cs_tag>
+				</cu_tag_or_id_tag>
+				<cu_secs_pars_or_blks_blks>
+					<cs_blks>
+						<cu_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>A line in a chapter. Two lines below:</cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</cu_blk_txt>
+						<cu_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>CH</cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</cu_blk_txt>
+						<cu_blk_txt>
+							<cs_blk_txt>
+								<cs_txt_units>
+									<cu_txt_unit_wysiwyg>
+										<cs_txt_unit_wysiwyg>A line</cs_txt_unit_wysiwyg>
+									</cu_txt_unit_wysiwyg>
+								</cs_txt_units>
+							</cs_blk_txt>
+						</cu_blk_txt>
+					</cs_blks>
+				</cu_secs_pars_or_blks_blks>
+			</cr_ch>
+		</cs_chs>
+	</cu_doc_main_chs>
+</cr_doc>
