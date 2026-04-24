@@ -446,11 +446,8 @@
 <span class="keyword">and</span> f_tr_blk_nte_of_xml (xml:<span class="constructor">Xml</span>.xml):tr_blk_nte =
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cr_blk_nte"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> (
-        <span class="keyword">let</span> (id_opt, id_tl) = f_itm_id_opt_of_xml_list xml_list <span class="keyword">in</span>
-        <span class="keyword">let</span> main = f_ts_blks_of_xml_list 0 id_tl <span class="keyword">in</span>
-        <span class="keyword">match</span> id_opt, main <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span>,_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"blk_nte needs an id"</span>)
-        <span class="keywordsign">|</span><span class="constructor">Some</span> id, (blks,_) <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> (id, id_tl) = f_nte_id_of_xml_list xml_list <span class="keyword">in</span>
+        <span class="keyword">let</span> blks, _ = f_ts_blks_of_xml_list 0 id_tl <span class="keyword">in</span>
         {   
             fld_blk_nte_id          =   id;
             fld_blk_nte_main        =   blks;
@@ -609,13 +606,10 @@
         }, nte_nr
     <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_dsp_line_no_lbl or cu_dsp_line_lbld; got: "</span>;string_of_xml_list [xml]]))
 
-<span class="keyword">and</span> f_itm_id_opt_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list): (tr_id option) * (<span class="constructor">Xml</span>.xml list) =
+<span class="keyword">and</span> f_nte_id_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list): tr_id * (<span class="constructor">Xml</span>.xml list) =
     <span class="keyword">match</span> xml_list <span class="keyword">with</span>
-    <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> (<span class="constructor">None</span>, xml_list)
-    <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
-        <span class="keyword">match</span> hd <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cr_id"</span>,_,_) <span class="keywordsign">-&gt;</span> (<span class="constructor">Some</span> (f_tr_id_of_xml hd), tl)
-        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> (<span class="constructor">None</span>, xml_list)
+    <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> f_tr_id_of_xml hd, tl
+    <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"blk_nte cannot be empty"</span>)
 
 <span class="keyword">and</span> f_itm_tag_or_id_opt_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list): (tu_tag_or_id option) * (<span class="constructor">Xml</span>.xml list) =
     <span class="keyword">match</span> xml_list <span class="keyword">with</span>
@@ -624,7 +618,8 @@
         <span class="keyword">match</span> hd <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_tag_or_id_id"</span>,_,_) <span class="keywordsign">-&gt;</span> (f_tu_tag_or_id_opt_of_xml_list [hd], tl)
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_tag_or_id_tag"</span>,_,_) <span class="keywordsign">-&gt;</span> (f_tu_tag_or_id_opt_of_xml_list [hd], tl)
-        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> (<span class="constructor">None</span>, xml_list)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blks"</span>,_,_) <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>, xml_list
+        <span class="keywordsign">|</span>xml <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_tag_or_id_id or cu_tag_or_id_tag; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_dsp_lbl_opt_of_xml_list (xml_list:<span class="constructor">Xml</span>.xml list): (tu_lbl option) * (<span class="constructor">Xml</span>.xml list) =
     <span class="keyword">match</span> xml_list <span class="keyword">with</span>

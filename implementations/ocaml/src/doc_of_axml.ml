@@ -432,11 +432,8 @@ and f_tr_blk_itm_of_xml (nte_count : int) (xml:Xml.xml):tr_blk_itm * int=
 and f_tr_blk_nte_of_xml (xml:Xml.xml):tr_blk_nte =
     match xml with
     |Xml.Element ("cr_blk_nte",[],xml_list) -> (
-        let (id_opt, id_tl) = f_itm_id_opt_of_xml_list xml_list in
-        let main = f_ts_blks_of_xml_list 0 id_tl in
-        match id_opt, main with
-        |None,_ -> raise (Error "blk_nte needs an id")
-        |Some id, (blks,_) ->
+        let (id, id_tl) = f_nte_id_of_xml_list xml_list in
+        let blks, _ = f_ts_blks_of_xml_list 0 id_tl in
         {   
             fld_blk_nte_id          =   id;
             fld_blk_nte_main        =   blks;
@@ -595,13 +592,10 @@ and f_tr_dsp_line_of_xml (nte_count : int) (xml:Xml.xml):tr_dsp_line * int =
         }, nte_nr
     |_ -> raise (Error (String.concat "" ["expected cu_dsp_line_no_lbl or cu_dsp_line_lbld; got: ";string_of_xml_list [xml]]))
 
-and f_itm_id_opt_of_xml_list (xml_list:Xml.xml list): (tr_id option) * (Xml.xml list) =
+and f_nte_id_of_xml_list (xml_list:Xml.xml list): tr_id * (Xml.xml list) =
     match xml_list with
-    |[] -> (None, xml_list)
-    |hd::tl ->
-        match hd with
-        |Xml.Element ("cr_id",_,_) -> (Some (f_tr_id_of_xml hd), tl)
-        |_ -> (None, xml_list)
+    |hd::tl -> f_tr_id_of_xml hd, tl
+    |_ -> raise (Error "blk_nte cannot be empty")
 
 and f_itm_tag_or_id_opt_of_xml_list (xml_list:Xml.xml list): (tu_tag_or_id option) * (Xml.xml list) =
     match xml_list with
@@ -610,7 +604,8 @@ and f_itm_tag_or_id_opt_of_xml_list (xml_list:Xml.xml list): (tu_tag_or_id optio
         match hd with
         |Xml.Element ("cu_tag_or_id_id",_,_) -> (f_tu_tag_or_id_opt_of_xml_list [hd], tl)
         |Xml.Element ("cu_tag_or_id_tag",_,_) -> (f_tu_tag_or_id_opt_of_xml_list [hd], tl)
-        |_ -> (None, xml_list)
+        |Xml.Element ("cs_blks",_,_) -> None, xml_list
+        |xml -> raise (Error (String.concat "" ["expected cu_tag_or_id_id or cu_tag_or_id_tag; got: ";string_of_xml_list [xml]]))
 
 and f_dsp_lbl_opt_of_xml_list (xml_list:Xml.xml list): (tu_lbl option) * (Xml.xml list) =
     match xml_list with
