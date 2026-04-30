@@ -107,9 +107,11 @@ let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
 let internal_css (tab_length : string) (margin_left : string) : string =
 "
 html {
-    font-family   : monospace;
-    font-size     : medium;
-    line-height   : 150%;
+    font-family : monospace;
+    font-size   : medium;
+    line-height : 150%;
+    max-width   : 80ch;
+    margin      : auto;
 }
 
 em {
