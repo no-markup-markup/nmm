@@ -18,7 +18,7 @@ let par_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
 
 let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xml.xml=
 match element with
-|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("main", attr_list, List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("title", _, xml_list) -> Xml.Element ("h1", [("class", "title")], List.map (html_of_exml doc_class) xml_list)
 
@@ -27,27 +27,27 @@ match element with
 
 |Xml.Element ("date", attr_list, [Xml.PCData s]) -> Xml.Element ("time", ("class", "date")::attr_list, [Xml.PCData s])
 
-|Xml.Element ("abstract", _, xml_list) -> Xml.Element ("div", [("class", "abstract")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("abstract", _, xml_list) -> Xml.Element ("section", [("class", "abstract")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("abstract_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("refs", _ , xml_list) -> Xml.Element ("div", [("class","refs")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("refs", _ , xml_list) -> Xml.Element ("section", [("class","refs")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("refs_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("doc_main", _, xml_list) -> Xml.Element ("div", [("class", "doc_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_lbl", _ , xml_list) -> Xml.Element ("div", [("class","ch_lbl")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_main", _ , xml_list) -> Xml.Element ("div", [("class","ch_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element (sec_hdr_of_doc_class doc_class, [("class", "sec_hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element (sec_hdr_of_doc_class doc_class, [("class", "sec_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class,[("class","par_lbl hdr")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("par_tag", _,xml_list) -> Xml.Element ("div", [("class", "par_tag")],List.map (html_of_exml doc_class) xml_list)
@@ -81,8 +81,8 @@ match element with
 |Xml.Element ("txt_unit_nte",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_nte")::attr_list,List.map (html_of_exml doc_class) xml_list)
 
 
-|Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("div",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("div",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("section",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("section",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("doc_endnotes_hdr",_,xml_list) -> Xml.Element ("h2",[("class","doc_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_endnotes_hdr",_,xml_list) -> Xml.Element ("h3",[("class","ch_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
 
