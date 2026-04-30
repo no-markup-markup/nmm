@@ -57,7 +57,7 @@
 <span class="keyword">let</span>&nbsp;txt&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Plus</span>&nbsp;txt_chars]<br>
 <br>
 <span class="keyword">let</span>&nbsp;scope&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"GBL"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CH"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SEC"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"APP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PAR"</span>]<br>
-<span class="keyword">let</span>&nbsp;non_name_chars&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n\t:[]&nbsp;\\"</span>]<br>
+<span class="keyword">let</span>&nbsp;non_name_chars&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n\t:[]&lt;&gt;()/,;=&nbsp;\\"</span>]<br>
 <span class="keyword">let</span>&nbsp;name&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Plus</span>&nbsp;(<span class="constructor">Compl</span>&nbsp;non_name_chars)]<br>
 <span class="keyword">let</span>&nbsp;tag_shared&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;name]<br>
 <span class="keyword">let</span>&nbsp;tag_unique&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"CH"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SEC"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"APP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PAR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ITM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"DSP"</span>&nbsp;]<br>
