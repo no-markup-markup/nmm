@@ -378,13 +378,13 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div class="doc secs">
+<main class="doc secs">
 <h1 class="title">OPTIMAL PARTITIONING</h1>
 <div class="authors">
 <p class="author">Eric Johannesson</p>
 </div>
 <div class="doc_main">
-<div class="sec">
+<section class="sec">
 <div class="sec_lbl">§ 1</div>
 <h2 class="sec_hdr">Introduction</h2>
 <div class="sec_main">
@@ -392,8 +392,8 @@ h2, h3, h4, h5 {
 <p class="blk txt">Due to the aforementioned property of your file system, you do not need to compare the modification time of every file in your source directory with that of its counterpart in the destination directory. It is sufficient to compare the modification time of files that reside in subdirectories whose modification times differ.</p>
 <p class="blk txt">Now, in order to optimize the syncing procedure, how many subdirectories should you have? It is obvious that having no subdirectories is equivalent to having one subdirectory for each file, in the sense that it will require equally many comparisons in each case (as many comparisons as there are files, to be precise). Presumably, there is an optimum somewhere in between.</p>
 </div>
-</div>
-<div class="sec">
+</section>
+<section class="sec">
 <div class="sec_lbl">§ 2</div>
 <h2 class="sec_hdr">A probabilistic approach</h2>
 <div class="sec_main">
@@ -486,8 +486,8 @@ h2, h3, h4, h5 {
 </div>
 <p class="blk txt">For a given p and n, we want to find a k that minimizes <a class="txt_unit_c_ref" href="#DSP_exp_sum">(b)</a>. Provided that n is sufficiently small, we can always do so using numerical brute force methods. There may also be a way of approximating <a class="txt_unit_c_ref" href="#DSP_exp_sum">(b)</a> that makes it amenable to analytical methods, but let us consider an alternative approach instead.</p>
 </div>
-</div>
-<div class="sec">
+</section>
+<section class="sec">
 <div class="sec_lbl">§ 3</div>
 <h2 class="sec_hdr">A non-probabilistic approach</h2>
 <div class="sec_main">
@@ -543,8 +543,8 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
+</section>
 </div>
-</div>
-</div>
+</main>
 </body>
 </html>

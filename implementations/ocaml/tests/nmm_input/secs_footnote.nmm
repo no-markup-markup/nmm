@@ -1,3 +1,5 @@
+§
+
 ¶
 
 This is a sentence with a reference to a footnote attached to it.[NTE:one]
@@ -20,6 +22,8 @@ This is some text with a longer footnote\NTE[
 	as we see in [ITM:a].
 ] in the middle of it.
 
+¶
+
 If a footnote is referenced multiple times[NTE:times], it will be displayed
 multiple times with the same content but different numbering.[NTE:one]
 
@@ -28,7 +32,7 @@ This is some text with a short footnote\NTE[The use of footnotes should be disco
 *	NTE:times
 	Any number of times.
 
-¶
+§
 
 This is a sentence with a reference to a footnote attached to it.[NTE:one]
 

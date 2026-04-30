@@ -9,9 +9,19 @@ This is a sentence with a reference to a footnote attached to it.[NTE:one]
 	This is a named footnote, which is only displayed in the compiled
 	document if referenced, and otherwise acts as a comment.
 
+This is some text with a longer footnote\NTE[
+	The use of footnotes should be discouraged,
+
+	[]	ITM:a
+		for obvious reasons.
+
+	as we see in [ITM:a].
+] in the middle of it.
+
 If a footnote is referenced multiple times[NTE:times], it will be displayed
 multiple times with the same content but different numbering.[NTE:one]
 
+This is some text with a short footnote\NTE[The use of footnotes should be discouraged!] in the middle of it.\NTE[Really!]
 
 *	NTE:times
 	Any number of times.

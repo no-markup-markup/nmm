@@ -1,0 +1,65 @@
+§ 1
+
+¶ 1.1  This is a sentence with a reference to a footnote attached to it.¹
+
+       This is some text with a longer footnote² in the middle of it.
+
+
+¶ 1.2  If a footnote is referenced multiple times³, it will be displayed
+       multiple times with the same content but different numbering.⁴
+
+       This is some text with a short footnote⁵ in the middle of it.⁶
+
+
+
+§ 2
+
+       This is a sentence with a reference to a footnote attached to it.⁷
+
+       This is some text with a longer footnote⁸ in the middle of it.
+
+       If a footnote is referenced multiple times⁹, it will be displayed
+       multiple times with the same content but different numbering.¹⁰
+
+       This is some text with a short footnote¹¹ in the middle of it.¹²
+
+───────────────────────────────────────────────────────────────────────────
+¹  Here is the content of that footnote, which should be displayed at the
+   bottom of the page on which it is referenced, but may occur anywhere in
+   the source document (modulo scope).
+
+²  The use of footnotes should be discouraged,
+
+   (a)   for obvious reasons.
+
+   as we see in (a).
+
+³  Any number of times.
+
+⁴  Here is the content of that footnote, which should be displayed at the
+   bottom of the page on which it is referenced, but may occur anywhere in
+   the source document (modulo scope).
+
+⁵  The use of footnotes should be discouraged!
+
+⁶  Really!
+
+⁷  Here is the content of that footnote, which should be displayed at the
+   bottom of the page on which it is referenced, but may occur anywhere in
+   the source document (modulo scope).
+
+⁸  The use of footnotes should be discouraged,
+
+   (a)   for obvious reasons.
+
+   as we see in (a).
+
+⁹  Any number of times.
+
+¹⁰ Here is the content of that footnote, which should be displayed at the
+   bottom of the page on which it is referenced, but may occur anywhere in
+   the source document (modulo scope).
+
+¹¹ The use of footnotes should be discouraged!
+
+¹² Really!

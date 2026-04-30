@@ -378,15 +378,15 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<div class="doc blks">
+<main class="doc blks">
 <h1 class="title">Referring to named items under REFERENCES</h1>
 <div class="authors">
 <p class="author">Eric Johannesson</p>
 </div>
-<div class="abstract">
+<section class="abstract">
 <h2 class="abstract_hdr">SUMMARY</h2>
 <p class="blk txt">Discussing the problem of referring to items in the bibliography, with a proposed solution.</p>
-</div>
+</section>
 <div class="doc_main">
 <p class="blk txt">Given a named item under REFERENCES, say with the the name ‘ITM:Euler’, what should the cross reference ‘[ITM:Euler]’ look like? Assuming it is the first item on the list, one could either go for</p>
 <div class="ITM blk itm" id="ITM_alt1">
@@ -406,7 +406,7 @@ h2, h3, h4, h5 {
 <p class="blk txt">Having implemented <a class="txt_unit_c_ref" href="#ITM_alt2">(b)</a>, I can refer to <a class="txt_unit_c_ref" href="#ITM_Euler">(a) of Cited works</a> and <a class="txt_unit_c_ref" href="#ITM_Tarski">(b) of Cited works</a> below, as just indicated. I think it looks quite nice. For good or bad, it is also familiar from the default in LaTex.</p>
 <p class="blk txt">In the future, one would perhaps like to implement som fancier bibliography system compatible with standard bibliography tools (e.g. zotero). But for now, I think this would suffice.</p>
 </div>
-<div class="refs">
+<section class="refs">
 <h2 class="refs_hdr">CITED WORKS</h2>
 <div class="ITM blk itm" id="ITM_Euler">
 <div class="blk_itm_lbl">(a)</div>
@@ -422,7 +422,7 @@ h2, h3, h4, h5 {
 <p class="blk txt">Tarski, Alfred, and Andrzej Mostowski, and Raphael M. Robinson (1953): Undecidable Theories; North-Holland Publishing Company; Amsterdam.</p>
 </div>
 </div>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>
