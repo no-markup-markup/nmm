@@ -114,7 +114,7 @@ and xml_of_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (
         in
         let attr_list : (string * string) list = 
                 match attr_list_of_tr_id doc_settings path blk_nte.fld_blk_nte_id with
-                |[("id",s)] -> [("id",s ^ addendum)]
+                |[("id",s)] -> [("id",s ^ "_" ^ addendum)]
                 |_ -> []
         in
         let xml_list_lbl:Xml.xml list = [xml_of_string (label_of_path doc_settings path)] in
@@ -426,9 +426,7 @@ and acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
         match acc with
         |NTE_TABLE acc_table -> (
                 let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path a.fld_par_hdr in
-                match acc_of_par_main doc_settings cref_table nte_table path (NTE_TABLE table_hdr) a.fld_par_main with
-                |NTE_TABLE table -> NTE_TABLE (List.concat [table;acc_table])
-                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
+                acc_of_par_main doc_settings cref_table nte_table path (NTE_TABLE (List.concat [table_hdr;acc_table])) a.fld_par_main
         )
         |MARGIN_LABELS string_list -> MARGIN_LABELS ((label_of_path doc_settings path)::string_list)
         |CREF_TABLE table -> (
@@ -518,9 +516,7 @@ and acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
         match acc with
         |NTE_TABLE acc_table -> (
                 let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path a.fld_sec_hdr in
-                match acc_of_sec_main doc_settings cref_table nte_table path (NTE_TABLE table_hdr) a.fld_sec_main with
-                |NTE_TABLE table -> NTE_TABLE (List.concat [table;acc_table])
-                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
+                acc_of_sec_main doc_settings cref_table nte_table path (NTE_TABLE (List.concat [table_hdr;acc_table])) a.fld_sec_main
         )
         |MARGIN_LABELS string_list -> acc_of_sec_main doc_settings cref_table nte_table path (MARGIN_LABELS ((label_of_path doc_settings path)::string_list)) a.fld_sec_main
         |CREF_TABLE table ->
