@@ -40,7 +40,8 @@ clean-docs:
 	rm -f docs/*.html
 	rm -f docs/specs/*.txt
 
-install-bin: bin/nmm-ocaml
+install-bin: bin/nmm-ocaml bin/txt-of-nmm.sh bin/html-of-nmm.sh bin/pdf-of-nmm.sh
+	mkdir -p ~/bin
 	cp bin/nmm-ocaml ~/bin/
 	cp bin/txt-of-nmm.sh ~/bin/txt-of-nmm
 	chmod +x ~/bin/txt-of-nmm
