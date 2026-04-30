@@ -138,14 +138,14 @@ let attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : t
 let attr_list_of_ts_nte_ref (doc_settings : t_doc_settings) (path : t_path) (a : ts_nte_ref) : (string*string) list =
         match a with Cs_nte_ref (id, Cs_int i) -> 
                 let addendum : string = string_of_int i in
-                let href_string : string = (cdata_of_tr_id doc_settings path id) ^ addendum in
+                let href_string : string = (cdata_of_tr_id doc_settings path id) ^ "_" ^ addendum in
                 let id_string : string = "ref_" ^ href_string in
                 [("href","#" ^ href_string);("id", id_string)]
 
 let attr_list_of_ts_nte_inline (doc_settings : t_doc_settings) (path : t_path) (a : ts_nte_inline) : (string*string) list =
         match a with Cs_nte_inline (_, Cs_int i) -> 
                 let addendum : string = string_of_int i in
-                let href_string : string = "FTN" ^ addendum in
+                let href_string : string = "NTE" ^ addendum in
                 let id_string : string = "ref_" ^ href_string in
                 [("href","#" ^ href_string);("id", id_string)]
 
