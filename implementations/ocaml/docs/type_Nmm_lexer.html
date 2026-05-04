@@ -28,10 +28,9 @@
 <code class="code"><span class="keyword">sig</span><br>
 &nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">ERROR</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;line_of_lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;return_nl&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;verbatim&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;first_nl&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;display&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;nte_counter&nbsp;:&nbsp;int&nbsp;<span class="constructor">Stdlib</span>.ref<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;end_of_file&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;token&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Nmm_parser</span>.token<br>
 <span class="keyword">end</span></code></body></html>

@@ -95,14 +95,14 @@ let date_of_string (s : string) : tu_date =
 %token <string * int>           NTE_REF
 %token <int>                    NTE_LBR
 
-%type <Doc_types.tr_doc>                  main doc
+%type <Doc_types.tr_doc>        main
 
 %start main
 
 %%
 main:
   | doc EOF                                       { $1 : tr_doc }
-  | nls doc EOF                                   { $2 : tr_doc }
+  | NL main                                       { $2 : tr_doc }
 ;
 
 doc:
@@ -300,18 +300,27 @@ special_blks:
   |lb1 special_blk_dsp0 NL blks0                 { (Cs_blks ((Cu_blk_dsp $2)::$4)):ts_blks }
 ;
 
+hdr:
+  |txt_units0                                     { (Cs_hdr (Cs_txt_units $1)):ts_hdr }
+;
+
+nls:
+  |NL                                             { }
+  |NL nls                                         { }
+;
+
 
 (* Level 0: *)
 
 blks0:
-  |blk0 lb0                                       { ($1::[]):tu_blk list }
+  |blk0                                           { ($1::[]):tu_blk list }
   |blk0 lb0 blks0                                 { ($1::$3):tu_blk list }
   |special_blks0                                  { $1:tu_blk list }
 ;
 
 special_blks0:
-  |blk_txt0 lb1 special_blk_dsp0  lb0             { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
-  |blk_txt0 lb1 special_blk_dsp0  lb0 blks0       { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
+  |blk_txt0 lb1 special_blk_dsp0                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
+  |blk_txt0 lb1 special_blk_dsp0 lb0 blks0        { (Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5):tu_blk list }
 ;
 
 blk0:
@@ -403,7 +412,7 @@ vrb_lines0:
 ;
 
 vrb_line0:
-  |VRB_LINE NL                                    { Cs_vrb_line $1 : ts_vrb_line }
+  |VRB_LINE                                       { Cs_vrb_line $1 : ts_vrb_line }
   |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
 ;
 
@@ -430,7 +439,6 @@ blk(n):
   |blk_itm(n)                                             { (Cu_blk_itm $1):tu_blk }
   |blk_dsp(n)                                             { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb(n)                                             { (Cu_blk_vrb $1):tu_blk }
-  |NL blk(n)                                              { $2:tu_blk }
 ;
 
 blk_txt(n):
@@ -533,7 +541,7 @@ blks1:
 
 special_blks1:
   |blk_txt1 lb2 special_blk_dsp1                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
-  |blk_txt1 lb2 special_blk_dsp1  lb1 blks1       { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
+  |blk_txt1 lb2 special_blk_dsp1 lb1 blks1        { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
 ;
 
 blk1:
@@ -542,7 +550,6 @@ blk1:
   |blk_itm1                                       { (Cu_blk_itm (blk_itm_tagger_ref.contents $1)):tu_blk }
   |blk_dsp1                                       { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb1                                       { (Cu_blk_vrb $1):tu_blk }
-  |NL blk1                                        { $2:tu_blk }
 ;
 
 blk_txt1:
@@ -618,7 +625,7 @@ vrb_lines1:
 ;
 
 vrb_line1:
-  |tab1 VRB_LINE NL                               { Cs_vrb_line $2 : ts_vrb_line }
+  |tab1 VRB_LINE                                  { Cs_vrb_line $2 : ts_vrb_line }
   |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
 ;
 
@@ -653,7 +660,6 @@ blk2:
   |blk_itm2                                       { (Cu_blk_itm (blk_itm_tagger_ref.contents $1)):tu_blk }
   |blk_dsp2                                       { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb2                                       { (Cu_blk_vrb $1):tu_blk }
-  |NL blk2                                        { $2:tu_blk }
 ;
 
 blk_txt2:
@@ -730,7 +736,7 @@ vrb_lines2:
 ;
 
 vrb_line2:
-  |tab2 VRB_LINE NL                               { Cs_vrb_line $2 : ts_vrb_line }
+  |tab2 VRB_LINE                                  { Cs_vrb_line $2 : ts_vrb_line }
   |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
 ;
 
@@ -757,7 +763,6 @@ blk3:
   |blk_txt3                                       { (Cu_blk_txt $1):tu_blk }
   |blk_vrb3                                       { (Cu_blk_vrb $1):tu_blk }
   (* et cetera *)
-  |NL blk3                                        { $2:tu_blk }
 ;
 
 blk_txt3:
@@ -792,7 +797,7 @@ vrb_lines3:
 ;
 
 vrb_line3:
-  |tab3 VRB_LINE NL                               { Cs_vrb_line $2 : ts_vrb_line }
+  |tab3 VRB_LINE                                  { Cs_vrb_line $2 : ts_vrb_line }
   |VRB_LINE_EMPTY                                 { Cs_vrb_line "" : ts_vrb_line }
 ;
 
@@ -915,9 +920,6 @@ pilcrow_spaces_rpt_spaces_id_nl:
   |PILCROW_SPACES_RPT_SPACES_ID_NL                { Cs_par_rpt (id_of_string $1):ts_par_rpt }
 ;
 
-hdr:
-  |txt_units0                                     { (Cs_hdr (Cs_txt_units $1)):ts_hdr }
-;
 
 dsp_lbl_tab:
   |dsp_auto_tab                                   { (Cu_lbl_auto $1):tu_lbl }
@@ -971,8 +973,4 @@ tabs:
   |tabs TAB                                       { }
 ;
 
-nls:
-  |NL                                             { }
-  |NL nls                                         { }
-;
 

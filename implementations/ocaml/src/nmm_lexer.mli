@@ -6,15 +6,13 @@ exception ERROR of string
 
 val line_of_lexbuf : Sedlexing.lexbuf -> string
 
-val return_nl : bool ref
-
 val verbatim : bool ref
-
-val first_nl : bool ref
 
 val display : bool ref
 
 val nte_counter : int ref
+
+val end_of_file : bool ref
 
 val token : Sedlexing.lexbuf -> Nmm_parser.token
 

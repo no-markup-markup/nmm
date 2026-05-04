@@ -67,11 +67,10 @@ let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.p
 
 
 let set_refs () : unit =
-        let _ : unit = Nmm_lexer.return_nl.contents <- true in
         let _ : unit = Nmm_lexer.verbatim.contents <- false in
-        let _ : unit = Nmm_lexer.first_nl.contents <- true in
         let _ : unit = Nmm_lexer.display.contents <- false in
         let _ : unit = Nmm_lexer.nte_counter.contents <- 0 in
+        let _ : unit = Nmm_lexer.end_of_file.contents <- false in
         ()
 
 
