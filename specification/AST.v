@@ -88,11 +88,12 @@ with
   | cu_blk_blt             : ts_blk_blt             -> tu_blk
   | cu_blk_itm             : tr_blk_itm             -> tu_blk
   | cu_blk_dsp             : ts_blk_dsp             -> tu_blk
+  | cu_blk_qtn             : ts_blk_qtn             -> tu_blk
   | cu_blk_vrb             : ts_blk_vrb             -> tu_blk
   | cu_blk_nte             : tr_blk_nte             -> tu_blk
 with
   ts_blk_txt             : Type :=
-  | cs_blk_txt             : ts_txt_units           -> ts_blk_txt
+  | cs_blk_txt             : ts_txt_lines           -> ts_blk_txt
 with
   ts_blk_blt             : Type :=
   | cs_blk_blt             : ts_blks                -> ts_blk_blt
@@ -141,6 +142,12 @@ with
 with
   ts_txt_unit_nte_inline : Type :=
   | cs_txt_unit_nte_inline : ts_blks                -> ts_txt_unit_nte_inline
+with
+  ts_txt_lines           : Type :=
+  | cs_txt_lines           : list ts_txt_line       -> ts_txt_lines
+with
+  ts_txt_line            : Type :=
+  | cs_txt_line            : ts_txt_units           -> ts_txt_line
 with ts_dsp_lines        : Type :=
   | cs_dsp_lines           : list tu_dsp_line       -> ts_dsp_lines
 with
@@ -153,13 +160,13 @@ with
 with
   tr_dsp_line_lbld       : Type :=
   | cr_dsp_line_lbld       :
-                          tu_lbl
-                          ->
-                          option tr_id
-                          ->
-                          ts_txt_units
-                          ->
-                          tr_dsp_line_lbld
+    tu_lbl
+    ->
+    option tr_id
+    ->
+    ts_txt_units
+    ->
+    tr_dsp_line_lbld
   (* field functions below *)
 with
   ts_vrb_lines           : Type :=
