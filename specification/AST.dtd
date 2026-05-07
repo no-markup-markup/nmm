@@ -79,7 +79,7 @@
 <!ELEMENT cr_id (cs_tag, cs_name, (cu_scope_gbl | cu_scope_ch | cu_scope_sec | cu_scope_app | cu_scope_par)?)>
 <!ELEMENT cu_tag_or_id_tag (cs_tag)>
 <!ELEMENT cu_tag_or_id_id (cr_id)>
-<!ELEMENT cs_hdr (cs_txt_units)>
+<!ELEMENT cs_hdr (cs_txt_lines)>
 <!ELEMENT cu_lbl_auto (cs_lbl_auto)>
 <!ELEMENT cs_lbl_auto EMPTY>
 <!ELEMENT cu_lbl_custom (cs_lbl_custom)>

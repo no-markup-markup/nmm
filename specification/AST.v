@@ -201,7 +201,7 @@ Definition fld_dsp_line_lbld_units (dsp_line_lbld : tr_dsp_line_lbld)
   : ts_txt_units
   := match dsp_line_lbld with cr_dsp_line_lbld _ _  blks => blks end.
 
-Inductive ts_hdr : Type := cs_hdr : ts_txt_units -> ts_hdr.
+Inductive ts_hdr : Type := cs_hdr : ts_txt_lines -> ts_hdr.
 
 Record tr_par_std : Type := cr_par_std {
   fld_par_tag_or_id : option tu_tag_or_id;

@@ -4,40 +4,48 @@
 		<cs_blks>
 			<cu_blk_txt>
 				<cs_blk_txt>
-					<cs_txt_units>
-						<cu_txt_unit_wysiwyg>
-							<cs_txt_unit_wysiwyg>A text block.</cs_txt_unit_wysiwyg>
-						</cu_txt_unit_wysiwyg>
-						<cu_txt_unit_nte_ref>
-							<cs_txt_unit_nte_ref>
-								<cs_nte_ref>
-									<cr_id>
-										<cs_tag>NTE</cs_tag>
-										<cs_name>one</cs_name>
-									</cr_id>
-								</cs_nte_ref>
-							</cs_txt_unit_nte_ref>
-						</cu_txt_unit_nte_ref>
-					</cs_txt_units>
+					<cs_txt_lines>
+						<cs_txt_line>
+							<cs_txt_units>
+								<cu_txt_unit_wysiwyg>
+									<cs_txt_unit_wysiwyg>A text block.</cs_txt_unit_wysiwyg>
+								</cu_txt_unit_wysiwyg>
+								<cu_txt_unit_nte_ref>
+									<cs_txt_unit_nte_ref>
+										<cs_nte_ref>
+											<cr_id>
+												<cs_tag>NTE</cs_tag>
+												<cs_name>one</cs_name>
+											</cr_id>
+										</cs_nte_ref>
+									</cs_txt_unit_nte_ref>
+								</cu_txt_unit_nte_ref>
+							</cs_txt_units>
+						</cs_txt_line>
+					</cs_txt_lines>
 				</cs_blk_txt>
 			</cu_blk_txt>
 			<cu_blk_txt>
 				<cs_blk_txt>
-					<cs_txt_units>
-						<cu_txt_unit_wysiwyg>
-							<cs_txt_unit_wysiwyg>Another text block.</cs_txt_unit_wysiwyg>
-						</cu_txt_unit_wysiwyg>
-						<cu_txt_unit_nte_ref>
-							<cs_txt_unit_nte_ref>
-								<cs_nte_ref>
-									<cr_id>
-										<cs_tag>NTE</cs_tag>
-										<cs_name>two</cs_name>
-									</cr_id>
-								</cs_nte_ref>
-							</cs_txt_unit_nte_ref>
-						</cu_txt_unit_nte_ref>
-					</cs_txt_units>
+					<cs_txt_lines>
+						<cs_txt_line>
+							<cs_txt_units>
+								<cu_txt_unit_wysiwyg>
+									<cs_txt_unit_wysiwyg>Another text block.</cs_txt_unit_wysiwyg>
+								</cu_txt_unit_wysiwyg>
+								<cu_txt_unit_nte_ref>
+									<cs_txt_unit_nte_ref>
+										<cs_nte_ref>
+											<cr_id>
+												<cs_tag>NTE</cs_tag>
+												<cs_name>two</cs_name>
+											</cr_id>
+										</cs_nte_ref>
+									</cs_txt_unit_nte_ref>
+								</cu_txt_unit_nte_ref>
+							</cs_txt_units>
+						</cs_txt_line>
+					</cs_txt_lines>
 				</cs_blk_txt>
 			</cu_blk_txt>
 			<cu_blk_nte>
@@ -49,11 +57,15 @@
 					<cs_blks>
 						<cu_blk_txt>
 							<cs_blk_txt>
-								<cs_txt_units>
-									<cu_txt_unit_wysiwyg>
-										<cs_txt_unit_wysiwyg>A footnote.</cs_txt_unit_wysiwyg>
-									</cu_txt_unit_wysiwyg>
-								</cs_txt_units>
+								<cs_txt_lines>
+									<cs_txt_line>
+										<cs_txt_units>
+											<cu_txt_unit_wysiwyg>
+												<cs_txt_unit_wysiwyg>A footnote.</cs_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+										</cs_txt_units>
+									</cs_txt_line>
+								</cs_txt_lines>
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>
@@ -68,17 +80,22 @@
 					<cs_blks>
 						<cu_blk_txt>
 							<cs_blk_txt>
-								<cs_txt_units>
-									<cu_txt_unit_wysiwyg>
-										<cs_txt_unit_wysiwyg>Another footnote.</cs_txt_unit_wysiwyg>
-									</cu_txt_unit_wysiwyg>
-									<cu_txt_unit_wysiwyg>
-										<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-									</cu_txt_unit_wysiwyg>
-									<cu_txt_unit_wysiwyg>
-										<cs_txt_unit_wysiwyg>Multiple lines in the source for this footnote.</cs_txt_unit_wysiwyg>
-									</cu_txt_unit_wysiwyg>
-								</cs_txt_units>
+								<cs_txt_lines>
+									<cs_txt_line>
+										<cs_txt_units>
+											<cu_txt_unit_wysiwyg>
+												<cs_txt_unit_wysiwyg>Another footnote.</cs_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+										</cs_txt_units>
+									</cs_txt_line>
+									<cs_txt_line>
+										<cs_txt_units>
+											<cu_txt_unit_wysiwyg>
+												<cs_txt_unit_wysiwyg>Multiple lines in the source for this footnote.</cs_txt_unit_wysiwyg>
+											</cu_txt_unit_wysiwyg>
+										</cs_txt_units>
+									</cs_txt_line>
+								</cs_txt_lines>
 							</cs_blk_txt>
 						</cu_blk_txt>
 					</cs_blks>

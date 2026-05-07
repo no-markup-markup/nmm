@@ -4,11 +4,15 @@
 		<cs_secs>
 			<cr_sec>
 				<cs_hdr>
-					<cs_txt_units>
-						<cu_txt_unit_wysiwyg>
-							<cs_txt_unit_wysiwyg>Section 1</cs_txt_unit_wysiwyg>
-						</cu_txt_unit_wysiwyg>
-					</cs_txt_units>
+					<cs_txt_lines>
+						<cs_txt_line>
+							<cs_txt_units>
+								<cu_txt_unit_wysiwyg>
+									<cs_txt_unit_wysiwyg>Section 1</cs_txt_unit_wysiwyg>
+								</cu_txt_unit_wysiwyg>
+							</cs_txt_units>
+						</cs_txt_line>
+					</cs_txt_lines>
 				</cs_hdr>
 				<cu_pars_or_blks_pars>
 					<cs_pars>
@@ -23,17 +27,22 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>The ID (‘PAR:par_default_scope’) of this paragraph has default</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>(global) scope. It may be referred to from anywhere in the document.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>The ID (‘PAR:par_default_scope’) of this paragraph has default</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>(global) scope. It may be referred to from anywhere in the document.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -51,11 +60,15 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>The ID (‘PAR:par:GBL’) of this paragraph has explicitly global scope.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>The ID (‘PAR:par:GBL’) of this paragraph has explicitly global scope.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -66,11 +79,15 @@
 			</cr_sec>
 			<cr_sec>
 				<cs_hdr>
-					<cs_txt_units>
-						<cu_txt_unit_wysiwyg>
-							<cs_txt_unit_wysiwyg>Section 2</cs_txt_unit_wysiwyg>
-						</cu_txt_unit_wysiwyg>
-					</cs_txt_units>
+					<cs_txt_lines>
+						<cs_txt_line>
+							<cs_txt_units>
+								<cu_txt_unit_wysiwyg>
+									<cs_txt_unit_wysiwyg>Section 2</cs_txt_unit_wysiwyg>
+								</cu_txt_unit_wysiwyg>
+							</cs_txt_units>
+						</cs_txt_line>
+					</cs_txt_lines>
 				</cs_hdr>
 				<cu_pars_or_blks_pars>
 					<cs_pars>
@@ -86,31 +103,36 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>The ID (‘PAR:par:SEC’) of this paragraph has section scope. We may</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>still refer to </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_c_ref>
-													<cs_txt_unit_c_ref>
-														<cs_c_ref>
-															<cr_id>
-																<cs_tag>PAR</cs_tag>
-																<cs_name>par</cs_name>
-																<cu_scope_gbl />
-															</cr_id>
-														</cs_c_ref>
-													</cs_txt_unit_c_ref>
-												</cu_txt_unit_c_ref>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>, by using ‘[PAR:par:GBL]’.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>The ID (‘PAR:par:SEC’) of this paragraph has section scope. We may</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>still refer to </cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+														<cu_txt_unit_c_ref>
+															<cs_txt_unit_c_ref>
+																<cs_c_ref>
+																	<cr_id>
+																		<cs_tag>PAR</cs_tag>
+																		<cs_name>par</cs_name>
+																		<cu_scope_gbl />
+																	</cr_id>
+																</cs_c_ref>
+															</cs_txt_unit_c_ref>
+														</cu_txt_unit_c_ref>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>, by using ‘[PAR:par:GBL]’.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -121,11 +143,15 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>Some cross-references:</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>Some cross-references:</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 									<cu_blk_blt>
@@ -133,21 +159,25 @@
 											<cs_blks>
 												<cu_blk_txt>
 													<cs_blk_txt>
-														<cs_txt_units>
-															<cu_txt_unit_wysiwyg>
-																<cs_txt_unit_wysiwyg>‘[PAR:par_default_scope]’: </cs_txt_unit_wysiwyg>
-															</cu_txt_unit_wysiwyg>
-															<cu_txt_unit_c_ref>
-																<cs_txt_unit_c_ref>
-																	<cs_c_ref>
-																		<cr_id>
-																			<cs_tag>PAR</cs_tag>
-																			<cs_name>par_default_scope</cs_name>
-																		</cr_id>
-																	</cs_c_ref>
-																</cs_txt_unit_c_ref>
-															</cu_txt_unit_c_ref>
-														</cs_txt_units>
+														<cs_txt_lines>
+															<cs_txt_line>
+																<cs_txt_units>
+																	<cu_txt_unit_wysiwyg>
+																		<cs_txt_unit_wysiwyg>‘[PAR:par_default_scope]’: </cs_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
+																	<cu_txt_unit_c_ref>
+																		<cs_txt_unit_c_ref>
+																			<cs_c_ref>
+																				<cr_id>
+																					<cs_tag>PAR</cs_tag>
+																					<cs_name>par_default_scope</cs_name>
+																				</cr_id>
+																			</cs_c_ref>
+																		</cs_txt_unit_c_ref>
+																	</cu_txt_unit_c_ref>
+																</cs_txt_units>
+															</cs_txt_line>
+														</cs_txt_lines>
 													</cs_blk_txt>
 												</cu_blk_txt>
 											</cs_blks>
@@ -158,22 +188,26 @@
 											<cs_blks>
 												<cu_blk_txt>
 													<cs_blk_txt>
-														<cs_txt_units>
-															<cu_txt_unit_wysiwyg>
-																<cs_txt_unit_wysiwyg>‘[PAR:par:GBL]’:           </cs_txt_unit_wysiwyg>
-															</cu_txt_unit_wysiwyg>
-															<cu_txt_unit_c_ref>
-																<cs_txt_unit_c_ref>
-																	<cs_c_ref>
-																		<cr_id>
-																			<cs_tag>PAR</cs_tag>
-																			<cs_name>par</cs_name>
-																			<cu_scope_gbl />
-																		</cr_id>
-																	</cs_c_ref>
-																</cs_txt_unit_c_ref>
-															</cu_txt_unit_c_ref>
-														</cs_txt_units>
+														<cs_txt_lines>
+															<cs_txt_line>
+																<cs_txt_units>
+																	<cu_txt_unit_wysiwyg>
+																		<cs_txt_unit_wysiwyg>‘[PAR:par:GBL]’:           </cs_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
+																	<cu_txt_unit_c_ref>
+																		<cs_txt_unit_c_ref>
+																			<cs_c_ref>
+																				<cr_id>
+																					<cs_tag>PAR</cs_tag>
+																					<cs_name>par</cs_name>
+																					<cu_scope_gbl />
+																				</cr_id>
+																			</cs_c_ref>
+																		</cs_txt_unit_c_ref>
+																	</cu_txt_unit_c_ref>
+																</cs_txt_units>
+															</cs_txt_line>
+														</cs_txt_lines>
 													</cs_blk_txt>
 												</cu_blk_txt>
 											</cs_blks>
@@ -184,22 +218,26 @@
 											<cs_blks>
 												<cu_blk_txt>
 													<cs_blk_txt>
-														<cs_txt_units>
-															<cu_txt_unit_wysiwyg>
-																<cs_txt_unit_wysiwyg>‘[PAR:par:SEC]’:           </cs_txt_unit_wysiwyg>
-															</cu_txt_unit_wysiwyg>
-															<cu_txt_unit_c_ref>
-																<cs_txt_unit_c_ref>
-																	<cs_c_ref>
-																		<cr_id>
-																			<cs_tag>PAR</cs_tag>
-																			<cs_name>par</cs_name>
-																			<cu_scope_sec />
-																		</cr_id>
-																	</cs_c_ref>
-																</cs_txt_unit_c_ref>
-															</cu_txt_unit_c_ref>
-														</cs_txt_units>
+														<cs_txt_lines>
+															<cs_txt_line>
+																<cs_txt_units>
+																	<cu_txt_unit_wysiwyg>
+																		<cs_txt_unit_wysiwyg>‘[PAR:par:SEC]’:           </cs_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
+																	<cu_txt_unit_c_ref>
+																		<cs_txt_unit_c_ref>
+																			<cs_c_ref>
+																				<cr_id>
+																					<cs_tag>PAR</cs_tag>
+																					<cs_name>par</cs_name>
+																					<cu_scope_sec />
+																				</cr_id>
+																			</cs_c_ref>
+																		</cs_txt_unit_c_ref>
+																	</cu_txt_unit_c_ref>
+																</cs_txt_units>
+															</cs_txt_line>
+														</cs_txt_lines>
 													</cs_blk_txt>
 												</cu_blk_txt>
 											</cs_blks>
@@ -213,11 +251,15 @@
 			</cr_sec>
 			<cr_sec>
 				<cs_hdr>
-					<cs_txt_units>
-						<cu_txt_unit_wysiwyg>
-							<cs_txt_unit_wysiwyg>Section 3</cs_txt_unit_wysiwyg>
-						</cu_txt_unit_wysiwyg>
-					</cs_txt_units>
+					<cs_txt_lines>
+						<cs_txt_line>
+							<cs_txt_units>
+								<cu_txt_unit_wysiwyg>
+									<cs_txt_unit_wysiwyg>Section 3</cs_txt_unit_wysiwyg>
+								</cu_txt_unit_wysiwyg>
+							</cs_txt_units>
+						</cs_txt_line>
+					</cs_txt_lines>
 				</cs_hdr>
 				<cu_pars_or_blks_pars>
 					<cs_pars>
@@ -233,23 +275,29 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>The ID (‘PAR:par:SEC’) of this paragraph has section scope. Since it</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>has section scope there is no problem that it has the same ID as a</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg> </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>paragraph in another section.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>The ID (‘PAR:par:SEC’) of this paragraph has section scope. Since it</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>has section scope there is no problem that it has the same ID as a</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>paragraph in another section.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -260,11 +308,15 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>Some cross-references:</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>Some cross-references:</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 									<cu_blk_blt>
@@ -272,21 +324,25 @@
 											<cs_blks>
 												<cu_blk_txt>
 													<cs_blk_txt>
-														<cs_txt_units>
-															<cu_txt_unit_wysiwyg>
-																<cs_txt_unit_wysiwyg>‘[PAR:par_default_scope]’: </cs_txt_unit_wysiwyg>
-															</cu_txt_unit_wysiwyg>
-															<cu_txt_unit_c_ref>
-																<cs_txt_unit_c_ref>
-																	<cs_c_ref>
-																		<cr_id>
-																			<cs_tag>PAR</cs_tag>
-																			<cs_name>par_default_scope</cs_name>
-																		</cr_id>
-																	</cs_c_ref>
-																</cs_txt_unit_c_ref>
-															</cu_txt_unit_c_ref>
-														</cs_txt_units>
+														<cs_txt_lines>
+															<cs_txt_line>
+																<cs_txt_units>
+																	<cu_txt_unit_wysiwyg>
+																		<cs_txt_unit_wysiwyg>‘[PAR:par_default_scope]’: </cs_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
+																	<cu_txt_unit_c_ref>
+																		<cs_txt_unit_c_ref>
+																			<cs_c_ref>
+																				<cr_id>
+																					<cs_tag>PAR</cs_tag>
+																					<cs_name>par_default_scope</cs_name>
+																				</cr_id>
+																			</cs_c_ref>
+																		</cs_txt_unit_c_ref>
+																	</cu_txt_unit_c_ref>
+																</cs_txt_units>
+															</cs_txt_line>
+														</cs_txt_lines>
 													</cs_blk_txt>
 												</cu_blk_txt>
 											</cs_blks>
@@ -297,22 +353,26 @@
 											<cs_blks>
 												<cu_blk_txt>
 													<cs_blk_txt>
-														<cs_txt_units>
-															<cu_txt_unit_wysiwyg>
-																<cs_txt_unit_wysiwyg>‘[PAR:par:GBL]’:           </cs_txt_unit_wysiwyg>
-															</cu_txt_unit_wysiwyg>
-															<cu_txt_unit_c_ref>
-																<cs_txt_unit_c_ref>
-																	<cs_c_ref>
-																		<cr_id>
-																			<cs_tag>PAR</cs_tag>
-																			<cs_name>par</cs_name>
-																			<cu_scope_gbl />
-																		</cr_id>
-																	</cs_c_ref>
-																</cs_txt_unit_c_ref>
-															</cu_txt_unit_c_ref>
-														</cs_txt_units>
+														<cs_txt_lines>
+															<cs_txt_line>
+																<cs_txt_units>
+																	<cu_txt_unit_wysiwyg>
+																		<cs_txt_unit_wysiwyg>‘[PAR:par:GBL]’:           </cs_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
+																	<cu_txt_unit_c_ref>
+																		<cs_txt_unit_c_ref>
+																			<cs_c_ref>
+																				<cr_id>
+																					<cs_tag>PAR</cs_tag>
+																					<cs_name>par</cs_name>
+																					<cu_scope_gbl />
+																				</cr_id>
+																			</cs_c_ref>
+																		</cs_txt_unit_c_ref>
+																	</cu_txt_unit_c_ref>
+																</cs_txt_units>
+															</cs_txt_line>
+														</cs_txt_lines>
 													</cs_blk_txt>
 												</cu_blk_txt>
 											</cs_blks>
@@ -323,22 +383,26 @@
 											<cs_blks>
 												<cu_blk_txt>
 													<cs_blk_txt>
-														<cs_txt_units>
-															<cu_txt_unit_wysiwyg>
-																<cs_txt_unit_wysiwyg>‘[PAR:par:SEC]’:           </cs_txt_unit_wysiwyg>
-															</cu_txt_unit_wysiwyg>
-															<cu_txt_unit_c_ref>
-																<cs_txt_unit_c_ref>
-																	<cs_c_ref>
-																		<cr_id>
-																			<cs_tag>PAR</cs_tag>
-																			<cs_name>par</cs_name>
-																			<cu_scope_sec />
-																		</cr_id>
-																	</cs_c_ref>
-																</cs_txt_unit_c_ref>
-															</cu_txt_unit_c_ref>
-														</cs_txt_units>
+														<cs_txt_lines>
+															<cs_txt_line>
+																<cs_txt_units>
+																	<cu_txt_unit_wysiwyg>
+																		<cs_txt_unit_wysiwyg>‘[PAR:par:SEC]’:           </cs_txt_unit_wysiwyg>
+																	</cu_txt_unit_wysiwyg>
+																	<cu_txt_unit_c_ref>
+																		<cs_txt_unit_c_ref>
+																			<cs_c_ref>
+																				<cr_id>
+																					<cs_tag>PAR</cs_tag>
+																					<cs_name>par</cs_name>
+																					<cu_scope_sec />
+																				</cr_id>
+																			</cs_c_ref>
+																		</cs_txt_unit_c_ref>
+																	</cu_txt_unit_c_ref>
+																</cs_txt_units>
+															</cs_txt_line>
+														</cs_txt_lines>
 													</cs_blk_txt>
 												</cu_blk_txt>
 											</cs_blks>

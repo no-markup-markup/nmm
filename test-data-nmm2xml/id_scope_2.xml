@@ -20,11 +20,15 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>An item.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>An item.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -38,25 +42,29 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>A reference to the above item: </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_c_ref>
-													<cs_txt_unit_c_ref>
-														<cs_c_ref>
-															<cr_id>
-																<cs_tag>ITM</cs_tag>
-																<cs_name>itm</cs_name>
-																<cu_scope_par />
-															</cr_id>
-														</cs_c_ref>
-													</cs_txt_unit_c_ref>
-												</cu_txt_unit_c_ref>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>A reference to the above item: </cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+														<cu_txt_unit_c_ref>
+															<cs_txt_unit_c_ref>
+																<cs_c_ref>
+																	<cr_id>
+																		<cs_tag>ITM</cs_tag>
+																		<cs_name>itm</cs_name>
+																		<cu_scope_par />
+																	</cr_id>
+																</cs_c_ref>
+															</cs_txt_unit_c_ref>
+														</cu_txt_unit_c_ref>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -83,11 +91,15 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>An item.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>An item.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
@@ -101,25 +113,29 @@
 								<cs_blks>
 									<cu_blk_txt>
 										<cs_blk_txt>
-											<cs_txt_units>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>A reference to the above item: </cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-												<cu_txt_unit_c_ref>
-													<cs_txt_unit_c_ref>
-														<cs_c_ref>
-															<cr_id>
-																<cs_tag>ITM</cs_tag>
-																<cs_name>itm</cs_name>
-																<cu_scope_par />
-															</cr_id>
-														</cs_c_ref>
-													</cs_txt_unit_c_ref>
-												</cu_txt_unit_c_ref>
-												<cu_txt_unit_wysiwyg>
-													<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
-												</cu_txt_unit_wysiwyg>
-											</cs_txt_units>
+											<cs_txt_lines>
+												<cs_txt_line>
+													<cs_txt_units>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>A reference to the above item: </cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+														<cu_txt_unit_c_ref>
+															<cs_txt_unit_c_ref>
+																<cs_c_ref>
+																	<cr_id>
+																		<cs_tag>ITM</cs_tag>
+																		<cs_name>itm</cs_name>
+																		<cu_scope_par />
+																	</cr_id>
+																</cs_c_ref>
+															</cs_txt_unit_c_ref>
+														</cu_txt_unit_c_ref>
+														<cu_txt_unit_wysiwyg>
+															<cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
+														</cu_txt_unit_wysiwyg>
+													</cs_txt_units>
+												</cs_txt_line>
+											</cs_txt_lines>
 										</cs_blk_txt>
 									</cu_blk_txt>
 								</cs_blks>
