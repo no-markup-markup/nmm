@@ -9,12 +9,22 @@
 
 %% SUBMODULES
 
-:- include_module parser.test, parser.helpers, parser.operators.
+:- include_module (
+  parser.test
+  ,
+  parser.helpers
+  ,
+  parser.operators
+  ,
+  parser.units
+).
 
 
 %% MODULE IMPORTS
 
 :- use_module term_to_xml, nmm.lexer.
+
+:- import_module nmm.parser.units.
 
 
 %% ALIAS TYPE TA_LVL (= UINT)
@@ -339,79 +349,6 @@
 ) is semidet.
 
 
-%% RULE R_TXT_UNIT, UNION TYPE TU_TXT_UNIT, INSTANCE TU_TXT_UNIT XMLABLE
-
-:- type tu_txt_unit --->
-  cu_txt_unit_c_ref(ts_txt_unit_c_ref);
-  cu_txt_unit_nte_ref(ts_txt_unit_nte_ref);
-  cu_txt_unit_emph(ts_txt_unit_emph);
-  cu_txt_unit_wysiwyg(ts_txt_unit_wysiwyg).
-
-:- instance term_to_xml.xmlable(tu_txt_unit).
-
-:- pred r_txt_unit(ts_allowed_tags, ta_lvl, tu_txt_unit, ts_tkns, ts_tkns).
-:- mode r_txt_unit(
-                   in,              in,     out,         in,      out
-) is semidet.
-
-
-%% RULE R_TXT_UNIT_EMPH, SIMPLE TYPE TS_TXT_UNIT_EMPH, INSTANCE TS_TXT_UNIT_EMPH XMLABLE
-
-:- type ts_txt_unit_emph ---> cs_txt_unit_emph(str).
-
-:- instance term_to_xml.xmlable(ts_txt_unit_emph).
-
-:- pred r_txt_unit_emph(ta_lvl, ts_txt_unit_emph, ts_tkns, ts_tkns).
-:- mode r_txt_unit_emph(in,     out,              in,      out) is semidet.
-
-%% RULE R_TXT_UNIT_WYSIWYG, SIMPLE TYPE TS_TXT_UNIT_WYSIWYG, INSTANCE TS_TXT_UNIT_WYSIWYG XMLABLE
-
-:- type ts_txt_unit_wysiwyg ---> cs_txt_unit_wysiwyg(str).
-
-:- instance term_to_xml.xmlable(ts_txt_unit_wysiwyg).
-
-:- pred r_txt_unit_wysiwyg(
-  ts_allowed_tags, ta_lvl, ts_txt_unit_wysiwyg, ts_tkns, ts_tkns
-).
-:- mode r_txt_unit_wysiwyg(
-  in,              in,     out,                 in,      out
-) is semidet.
-
-
-%% RULE R_TXT_UNIT_C_REF, SIMPLE TYPE TS_TXT_UNIT_C_REF, INSTANCE TS_TXT_UNIT_C_REF XMLABLE
-
-:- pred r_txt_unit_c_ref(ts_allowed_tags, ts_txt_unit_c_ref, ts_tkns, ts_tkns).
-:- mode r_txt_unit_c_ref(
-                         in,              out,               in,      out
-) is semidet.
-
-:- type ts_txt_unit_c_ref ---> cs_txt_unit_c_ref(ts_c_ref).
-
-:- instance term_to_xml.xmlable(ts_txt_unit_c_ref).
-
-
-%% RULE R_TXT_UNIT_NTE_REF, SIMPLE TYPE TS_TXT_UNIT_NTE_REF, INSTANCE TS_TXT_UNIT_NTE_REF XMLABLE
-
-:- pred r_txt_unit_nte_ref(ts_txt_unit_nte_ref, ts_tkns, ts_tkns).
-:- mode r_txt_unit_nte_ref(out,                 in,      out) is semidet.
-
-:- type ts_txt_unit_nte_ref ---> cs_txt_unit_nte_ref(ts_nte_ref).
-
-:- instance term_to_xml.xmlable(ts_txt_unit_nte_ref).
-
-
-%% RULE R_TXT_UNITS, SIMPLE TYPE TS_TXT_UNITS, INSTANCE TS_TXT_UNITS XMLABLE
-
-:- type ts_txt_units ---> cs_txt_units(list(tu_txt_unit)).
-
-:- instance term_to_xml.xmlable(ts_txt_units).
-
-:- pred r_txt_units(ts_allowed_tags, ta_lvl, ts_txt_units, ts_tkns, ts_tkns).
-:- mode r_txt_units(
-                    in,              in,     out,          in,      out
-) is semidet.
-
-
 %% RULE R_LBL_AUTO, SIMPLE TYPE TS_LBL_AUTO, INSTANCE TS_LBL_AUTO XMLABLE
 
 :- type ts_lbl_auto ---> cs_lbl_auto.
@@ -663,12 +600,6 @@
 :- mode r_dsp_line_no_lbl(
   in,              out,                in,      out
 ) is semidet.
-
-
-%% RULE R_DSP_UNIT
-
-:- pred r_dsp_unit(ts_allowed_tags, tu_txt_unit, ts_tkns, ts_tkns).
-:- mode r_dsp_unit(in,              out,         in,      out) is semidet.
 
 
 %% SIMPLE TYPE TS_VRB_LINES, INSTANCE TS_VRB_LINES XMLABLE
@@ -1540,164 +1471,6 @@ f_pars_or_blks_to_xml(PARS_OR_BLKS) = XML :- (
 
 
 
-%% R_TXT_UNIT, TU_TXT_UNIT XMLABLE
-
-%%% R_TXT_UNIT
-
-r_txt_unit(ALLOWED_TAGS,LVL,U) --> (
-  r_txt_unit_c_ref(  ALLOWED_TAGS,    U_) -> {U = cu_txt_unit_c_ref(U_)};
-  r_txt_unit_nte_ref(                 U_) -> {U = cu_txt_unit_nte_ref(U_)};
-  r_txt_unit_emph(                LVL,U_) -> {U = cu_txt_unit_emph(U_)};
-  r_txt_unit_wysiwyg(ALLOWED_TAGS,LVL,U_) -> {U = cu_txt_unit_wysiwyg(U_)};
-                                             {false}
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(tu_txt_unit) where [
-  func(to_xml/1) is f_txt_unit_to_xml
-].
-:- func (
-  f_txt_unit_to_xml(tu_txt_unit::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_unit_to_xml(cu_txt_unit_c_ref(REF))   =
-  term_to_xml.elem("cu_txt_unit_c_ref",  [],[f_txt_unit_c_ref_to_xml(REF)]).
-f_txt_unit_to_xml(cu_txt_unit_nte_ref(REF)) =
-  term_to_xml.elem("cu_txt_unit_nte_ref",[],[f_txt_unit_nte_ref_to_xml(REF)]).
-f_txt_unit_to_xml(cu_txt_unit_wysiwyg(U))   =
-  term_to_xml.elem("cu_txt_unit_wysiwyg",[],[f_txt_unit_wysiwyg_to_xml(U)]).
-f_txt_unit_to_xml(cu_txt_unit_emph(U))      =
-  term_to_xml.elem("cu_txt_unit_emph",   [],[f_txt_unit_emph_to_xml(U)]).
-
-
-%% R_TXT_UNIT_EMPH, INSTANCE TS_TXT_UNIT_EMPH XMLABLE
-
-%%% R_TXT_UNIT_EMPH
-
-r_txt_unit_emph(LVL,cs_txt_unit_emph(STR)) -->
-  r_str("*"), r_txt_unit_emph_str(LVL,STR), r_str("*").
-
-:- pred r_txt_unit_emph_str(uint, str, ts_tkns, ts_tkns).
-:- mode r_txt_unit_emph_str(in,   out, in,      out) is semidet.
-r_txt_unit_emph_str(        LVL,  S) --> (
-  r(cu_r_any,["*"],S_),
-  (
-    r_lb, r_tabs(LVL) -> r_txt_unit_emph_str(LVL,S__), {S = S_++" "++S__};
-                         {S = S_}
-  )
-).
-
-%%% INSTANCE XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_unit_emph) where [
-  func(to_xml/1) is f_txt_unit_emph_to_xml
-].
-:- func (
-  f_txt_unit_emph_to_xml(ts_txt_unit_emph::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_unit_emph_to_xml(cs_txt_unit_emph(STR)) =
-  term_to_xml.elem("cs_txt_unit_emph",[],[term_to_xml.data(STR)]).
-
-
-%% R_TXT_UNIT_WYSIWYG, INSTANCE TS_TXT_UNIT_WYSIWYG XMLABLE
-
-%%% R_TXT_UNIT_WYSIWYG
-
-r_txt_unit_wysiwyg(ALLOWED_TAGS,LVL,cs_txt_unit_wysiwyg(STR)) -->
-  +([],r_txt_unit_wysiwyg_chr,ALLOWED_TAGS,LVL,CHRS,[]),{STR = chrs2str(CHRS)}.
-
-:- pred r_txt_unit_wysiwyg_chr(ts_allowed_tags, ta_lvl, chr, ts_tkns, ts_tkns).
-:- mode r_txt_unit_wysiwyg_chr(
-                               in,              in,     out, in,      out
-) is semidet.
-r_txt_unit_wysiwyg_chr(        ALLOWED_TAGS,    LVL,    C) --> (
-  not r_tab,
-  not r_lb,
-  not r_c_ref(ALLOWED_TAGS,_),
-  not r_nte_ref(_),
-  not r_txt_unit_emph(LVL,_),
-  r_c(cu_r_any,C)
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_unit_wysiwyg) where [
-  func(to_xml/1) is f_txt_unit_wysiwyg_to_xml
-].
-:- func (
-  f_txt_unit_wysiwyg_to_xml(ts_txt_unit_wysiwyg::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_unit_wysiwyg_to_xml(cs_txt_unit_wysiwyg(STR)) =
-  term_to_xml.elem("cs_txt_unit_wysiwyg",[],[term_to_xml.data(STR)]).
-
-
-%% R_TXT_UNIT_C_REF, INSTANCE TS_TXT_UNIT_C_REF XMLABLE
-
-%%% R_TXT_UNIT_C_REF
-
-r_txt_unit_c_ref(ALLOWED_TAGS,cs_txt_unit_c_ref(C_REF)) -->
-  r_c_ref(ALLOWED_TAGS,C_REF).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_unit_c_ref) where [
-  func(to_xml/1) is f_txt_unit_c_ref_to_xml
-].
-:- func (
-  f_txt_unit_c_ref_to_xml(ts_txt_unit_c_ref::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_unit_c_ref_to_xml(cs_txt_unit_c_ref(C_REF)) =
-  term_to_xml.elem("cs_txt_unit_c_ref",[],[f_c_ref_to_xml(C_REF)]).
-
-
-%% R_TXT_UNIT_NTE_REF, INSTANCE TS_TXT_UNIT_NTE_REF XMLABLE
-
-%%% R_TXT_UNIT_NTE_REF
-
-r_txt_unit_nte_ref(cs_txt_unit_nte_ref(NTE_REF)) --> r_nte_ref(NTE_REF).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_unit_nte_ref) where [
-  func(to_xml/1) is f_txt_unit_nte_ref_to_xml
-].
-:- func (
-  f_txt_unit_nte_ref_to_xml(ts_txt_unit_nte_ref::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_unit_nte_ref_to_xml(cs_txt_unit_nte_ref(NTE_REF)) =
-  term_to_xml.elem("cs_txt_unit_nte_ref",[],[f_nte_ref_to_xml(NTE_REF)]).
-
-
-%% R_TXT_UNITS, TS_TXT_UNITS, TS_TXT_UNITS XMLABLE
-
-%%% R_TXT_UNITS
-
-r_txt_units(ALLOWED_TAGS,LVL,cs_txt_units(US)) -->
-  +([],r_txt_unit,ALLOWED_TAGS,LVL,US,[]).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_units) where [
-  func(to_xml/1) is f_txt_units_to_xml
-].
-:- func (
-  f_txt_units_to_xml(ts_txt_units::in) =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_units_to_xml(cs_txt_units(US)) =
-  term_to_xml.elem("cs_txt_units",[],list.map(f_txt_unit_to_xml,US)).
-
-
 %% R_LBL_AUTO, TS_LBL_AUTO XMLABLE
 
 r_lbl_auto(cs_lbl_auto) --> {true}.
@@ -2284,36 +2057,6 @@ r_dsp_line_no_lbl(ALLOWED_TAGS,cs_dsp_line_no_lbl(cs_txt_units(US))) --> (
 f_dsp_line_no_lbl_to_xml(cs_dsp_line_no_lbl(TXT_UNITS)) = term_to_xml.elem(
   "cs_dsp_line_no_lbl",[],[f_txt_units_to_xml(TXT_UNITS)]
 ).
-
-
-%% R_DSP_UNIT
-
-%%% R_DSP_UNIT
-
-r_dsp_unit(ALLOWED_TAGS,U) --> (
-  r_c_ref(           ALLOWED_TAGS,CR) ->
-    {U = cu_txt_unit_c_ref(cs_txt_unit_c_ref(CR))};
-  r_dsp_unit_emph(                U_) ->
-    {U = U_};
-  r_dsp_unit_wysiwyg(ALLOWED_TAGS,U_) ->
-    {U = U_};
-  {false}
-).
-
-%%% R_DSP_UNIT_EMPH
-
-:- pred r_dsp_unit_emph(tu_txt_unit::out, ts_tkns::in, ts_tkns::out) is semidet.
-r_dsp_unit_emph(        cu_txt_unit_emph(U)) -->
-  r_str("*"), r(cu_r_any,["*"],S), r_str("*"), {U = cs_txt_unit_emph(S)}.
-
-%%% R_DSP_UNIT_WYSIWYG
-
-:- pred r_dsp_unit_wysiwyg(ts_allowed_tags, tu_txt_unit, ts_tkns, ts_tkns).
-:- mode r_dsp_unit_wysiwyg(
-                           in,              out,         in,      out
-) is semidet.
-r_dsp_unit_wysiwyg(        ALLOWED_TAGS,    cu_txt_unit_wysiwyg(U)) -->
-  r_txt_unit_wysiwyg(ALLOWED_TAGS,0u,U).
 
 
 %% TS_VRB_LINES XMLABLE

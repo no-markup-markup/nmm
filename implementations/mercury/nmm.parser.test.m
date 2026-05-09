@@ -1111,176 +1111,208 @@ p_test_r_par_std_2 :- r_par_std(
 
 %%% P_TEST_R_PAR_STD_3
 
- %%% :- pred p_test_r_par_std_3 is semidet.
- %%% p_test_r_par_std_3 :- r_par_std(
- %%%   k_allowed_tags,
- %%%   cr_par_std(
- %%%     maybe.yes(cu_tag_or_id_tag(cs_tag("PAR"))),
- %%%     maybe.no,
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
- %%%       ]))),
- %%%       cu_blk_blt(cs_blk_blt(cs_blks([cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
- %%%       ])))])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("¶ PAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_par_std_3 is semidet.
+p_test_r_par_std_3 :- r_par_std(
+  k_allowed_tags,
+  cr_par_std(
+    maybe.yes(cu_tag_or_id_tag(cs_tag("PAR"))),
+    maybe.no,
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))
+        ])),
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+        ]))
+      ]))),
+      cu_blk_blt(cs_blk_blt(cs_blks([
+        cu_blk_txt(cs_blk_txt(cs_txt_lines([
+          cs_txt_line(cs_txt_units([
+            cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!"))
+          ])),
+          cs_txt_line(cs_txt_units([
+            cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+          ]))
+        ])))
+      ])))
+    ])
+  ),
+  f_str2tkns("¶ PAR\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
 
 %%% P_TEST_R_PAR_STD_4
 
- %%% :- pred p_test_r_par_std_4 is semidet.
- %%% p_test_r_par_std_4 :- r_par_std(
- %%%   k_allowed_tags,
- %%%   cr_par_std(
- %%%     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
- %%%     maybe.no,
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
- %%%       ]))),
- %%%       cu_blk_blt(cs_blk_blt(cs_blks([cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
- %%%       ])))])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("¶ PAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_par_std_4 is semidet.
+p_test_r_par_std_4 :- r_par_std(
+  k_allowed_tags,
+  cr_par_std(
+    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
+    maybe.no,
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))
+        ])),
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+        ]))
+      ]))),
+      cu_blk_blt(cs_blk_blt(cs_blks([
+        cu_blk_txt(cs_blk_txt(cs_txt_lines([
+          cs_txt_line(cs_txt_units([
+            cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!"))
+          ])),
+          cs_txt_line(cs_txt_units([
+            cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+          ]))
+        ])))
+      ])))
+    ])
+  ),
+  f_str2tkns("¶ PAR:name\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
 
 %%% P_TEST_R_PAR_STD_5
 
- %%% :- pred p_test_r_par_std_5 is semidet.
- %%% p_test_r_par_std_5 :- r_par_std(
- %%%   k_allowed_tags,
- %%%   cr_par_std(
- %%%     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
- %%%     maybe.yes(cs_hdr(cs_txt_units([
- %%%       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
- %%%       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%       cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
- %%%     ]))),
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
- %%%       ]))),
- %%%       cu_blk_blt(cs_blk_blt(cs_blks([cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
- %%%       ])))])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_par_std_5 is semidet.
+p_test_r_par_std_5 :- r_par_std(
+  k_allowed_tags,
+  cr_par_std(
+    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("PAR"),cs_name("name"),maybe.no))),
+    maybe.yes(cs_hdr(cs_txt_lines([
+      cs_txt_line(cs_txt_units([
+        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))
+      ])),
+      cs_txt_line(cs_txt_units([
+        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+      ]))
+    ]))),
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HEJ!"))
+        ])),
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HAJ!"))
+        ]))
+      ]))),
+      cu_blk_blt(cs_blk_blt(cs_blks([cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HOJ!"))
+        ])),
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("HÖJ!"))
+        ]))
+      ])))])))
+    ])
+  ),
+  f_str2tkns("¶ PAR:name\nHEJ!\nHAJ!\n\nHEJ!\nHAJ!\n\n-\tHOJ!\n\tHÖJ!\n"),
+  []
+).
 
 %%% P_TEST_R_BLK_ITM_1
 
- %%% :- pred p_test_r_blk_itm_1 is semidet.
- %%% p_test_r_blk_itm_1 :- r_blk_itm(
- %%%   k_allowed_tags,
- %%%   0u,
- %%%   cr_blk_itm(
- %%%     cu_lbl_auto(cs_lbl_auto),
- %%%     maybe.no,
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%       ])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("[]\thej\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_blk_itm_1 is semidet.
+p_test_r_blk_itm_1 :- r_blk_itm(
+  k_allowed_tags,
+  0u,
+  cr_blk_itm(
+    cu_lbl_auto(cs_lbl_auto),
+    maybe.no,
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([cs_txt_line(cs_txt_units([
+        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ]))])))
+    ])
+  ),
+  f_str2tkns("[]\thej\n"),
+  []
+).
 
 %%% P_TEST_R_BLK_ITM_2
 
- %%% :- pred p_test_r_blk_itm_2 is semidet.
- %%% p_test_r_blk_itm_2 :- r_blk_itm(
- %%%   k_allowed_tags,
- %%%   0u,
- %%%   cr_blk_itm(
- %%%     cu_lbl_custom(cs_lbl_custom("hej")),
- %%%     maybe.no,
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%       ]))),
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%       ])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("[hej]\thej\n\n\thej\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_blk_itm_2 is semidet.
+p_test_r_blk_itm_2 :- r_blk_itm(
+  k_allowed_tags,
+  0u,
+  cr_blk_itm(
+    cu_lbl_custom(cs_lbl_custom("hej")),
+    maybe.no,
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ]))
+      ]))),
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ]))
+      ])))
+    ])
+  ),
+  f_str2tkns("[hej]\thej\n\n\thej\n"),
+  []
+).
 
 %%% P_TEST_R_BLK_ITM_3
 
- %%% :- pred p_test_r_blk_itm_3 is semidet.
- %%% p_test_r_blk_itm_3 :- r_blk_itm(
- %%%   k_allowed_tags,
- %%%   0u,
- %%%   cr_blk_itm(
- %%%     cu_lbl_custom(cs_lbl_custom("hej")),
- %%%     maybe.yes(cu_tag_or_id_tag(cs_tag("DEF"))),
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg(" ")),
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%       ]))),
- %%%       cu_blk_txt(cs_blk_txt(cs_txt_units([
- %%%         cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%       ])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("[hej]\tDEF\n\thej\n\thej\n\n\thej\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_blk_itm_3 is semidet.
+p_test_r_blk_itm_3 :- r_blk_itm(
+  k_allowed_tags,
+  0u,
+  cr_blk_itm(
+    cu_lbl_custom(cs_lbl_custom("hej")),
+    maybe.yes(cu_tag_or_id_tag(cs_tag("DEF"))),
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ])),
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ]))
+      ]))),
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([cs_txt_line(cs_txt_units([
+        cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+      ]))])))
+    ])
+  ),
+  f_str2tkns("[hej]\tDEF\n\thej\n\thej\n\n\thej\n"),
+  []
+).
 
 %%% P_TEST_R_BLK_ITM_4
 
- %%% :- pred p_test_r_blk_itm_4 is semidet.
- %%% p_test_r_blk_itm_4 :- r_blk_itm(
- %%%   k_allowed_tags,
- %%%   0u,
- %%%   cr_blk_itm(
- %%%     cu_lbl_auto(cs_lbl_auto),
- %%%     maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("DEF"),cs_name("name"),maybe.no))),
- %%%     cs_blks([
- %%%       cu_blk_txt(cs_blk_txt(cs_blk_txt_lines([
- %%%         cs_txt_line(cs_txt_units([
- %%%           cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%         ])),
- %%%         cs_txt_line(cs_txt_units([
- %%%           cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%         ]))
- %%%       ]))),
- %%%       cu_blk_txt(cs_blk_txt(cs_blk_txt_lines([
- %%%         cs_txt_line(cs_txt_units([
- %%%           cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
- %%%         ]))
- %%%       ])))
- %%%     ])
- %%%   ),
- %%%   f_str2tkns("[]\tDEF:name\n\thej\n\thej\n\n\thej\n"),
- %%%   []
- %%% ).
+:- pred p_test_r_blk_itm_4 is semidet.
+p_test_r_blk_itm_4 :- r_blk_itm(
+  k_allowed_tags,
+  0u,
+  cr_blk_itm(
+    cu_lbl_auto(cs_lbl_auto),
+    maybe.yes(cu_tag_or_id_id(cr_id(cs_tag("DEF"),cs_name("name"),maybe.no))),
+    cs_blks([
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ])),
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ]))
+      ]))),
+      cu_blk_txt(cs_blk_txt(cs_txt_lines([
+        cs_txt_line(cs_txt_units([
+          cu_txt_unit_wysiwyg(cs_txt_unit_wysiwyg("hej"))
+        ]))
+      ])))
+    ])
+  ),
+  f_str2tkns("[]\tDEF:name\n\thej\n\thej\n\n\thej\n"),
+  []
+).
 
 %%% P_TEST_R_REFS_START_MARKER_1
 
@@ -1758,55 +1790,55 @@ p_test(!IO) :- (
     else
       true
   ),
- %%%  (
- %%%    if not p_test_r_par_std_3 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_par_std_3 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
- %%%  (
- %%%    if not p_test_r_par_std_4 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_par_std_4 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
- %%%  (
- %%%    if not p_test_r_par_std_5 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_par_std_5 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
- %%%  (
- %%%    if not p_test_r_blk_itm_1 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_blk_itm_1 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
- %%%  (
- %%%    if not p_test_r_blk_itm_2 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_blk_itm_2 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
- %%%  (
- %%%    if not p_test_r_blk_itm_3 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_blk_itm_3 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
- %%%  (
- %%%    if not p_test_r_blk_itm_4 then
- %%%      io.set_exit_status(1,!IO),
- %%%      io.write_string("p_test_r_blk_itm_4 failed\n",!IO)
- %%%    else
- %%%      true
- %%%  ),
+  (
+    if not p_test_r_par_std_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_std_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_std_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_std_4 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_par_std_5 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_par_std_5 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_1 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_1 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_2 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_2 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_3 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_3 failed\n",!IO)
+    else
+      true
+  ),
+  (
+    if not p_test_r_blk_itm_4 then
+      io.set_exit_status(1,!IO),
+      io.write_string("p_test_r_blk_itm_4 failed\n",!IO)
+    else
+      true
+  ),
   (
     if not p_test_r_refs_start_marker_1 then
       io.set_exit_status(1,!IO),
