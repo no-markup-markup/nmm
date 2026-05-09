@@ -27,7 +27,13 @@
 
 %% MODULE IMPORTS
 
-:- use_module dir, exception, term_to_xml, nmm.lexer, nmm.parser, nmm.test.
+:- use_module dir.
+:- use_module exception.
+:- use_module term_to_xml.
+:- use_module nmm.lexer.
+:- use_module nmm.parser.
+:- use_module nmm.parser.main.
+:- use_module nmm.test.
 
 
 %% TYPE ABBREVIATIONS TU_TKN AND TS_TKNS
@@ -161,14 +167,12 @@ p_parse_tags_file(        TAGS,                       !IO) :- (
 %%% HELPER P_PARSE_AS_FAR_AS_POSSIBLE
 
 :- pred p_parse_as_far_as_possible(
-  nmm.parser.ts_allowed_tags, ts_tkns, nmm.lexer.ta_line_no, nmm.parser.tr_doc
-).
-:- mode p_parse_as_far_as_possible(
-  in,                         in,      out,                  out
+  nmm.parser.ts_allowed_tags :: in,
+  ts_tkns                    :: in,
+  nmm.lexer.ta_line_no       :: out,
+  nmm.parser.main.tr_doc     :: out
 ) is semidet.
-p_parse_as_far_as_possible(
-  TAGS,            TKNS,    LINE_NO_BEFORE_FAIL,  DOC
-) :- (
+p_parse_as_far_as_possible(TAGS,TKNS,LINE_NO_BEFORE_FAIL,DOC) :- (
   % remove one token at a time from end of source, until parsing succeeds
   % this is very inefficient
   % a binary search for longest possible parsing ought to be performed instead

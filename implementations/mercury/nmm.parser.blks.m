@@ -85,8 +85,10 @@
 %% R_BLK_ITM, TR_BLK_ITM, F_BLK_ITM_TO_XML, TR_BLK_ITM XMLABLE
 
 :- type tr_blk_itm ---> cr_blk_itm(
-  fld_blk_itm_lbl       :: tu_lbl,
-  fld_blk_itm_tag_or_id :: maybe(tu_tag_or_id),
+  fld_blk_itm_lbl       :: tu_lbl
+  ,
+  fld_blk_itm_tag_or_id :: maybe(tu_tag_or_id)
+  ,
   fld_blk_itm_main      :: ts_blks
 ).
 
@@ -133,7 +135,8 @@
 %% R_BLK_NTE, F_BLK_NTE_TO_XML, TR_BLK_NTE, TR_BLK_NTE XMLABLE
 
 :- type tr_blk_nte ---> cr_blk_nte(
-  fld_blk_nte_id   :: tr_id,
+  fld_blk_nte_id   :: tr_id
+  ,
   fld_blk_nte_main :: ts_blks
 ).
 

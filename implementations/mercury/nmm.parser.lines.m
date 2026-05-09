@@ -80,9 +80,11 @@
 
 %% R_DSP_LINE, TU_DSP_LINE, F_DSP_LINE_TO_XML, TU_DSP_LINE XMLABLE
 
-:- type tu_dsp_line --->
-  cu_dsp_line_lbld(tr_dsp_line_lbld);
-  cu_dsp_line_no_lbl(ts_dsp_line_no_lbl).
+:- type tu_dsp_line ---> (
+  cu_dsp_line_lbld(tr_dsp_line_lbld)
+  ;
+  cu_dsp_line_no_lbl(ts_dsp_line_no_lbl)
+).
 
 :- pred r_dsp_line(ts_allowed_tags, tu_dsp_line, ts_tkns, ts_tkns).
 :- mode r_dsp_line(in,              out,         in,      out) is semidet.
@@ -114,8 +116,10 @@
 %% R_DSP_LINE_LBLD, TR_DSP_LINE_LBLD, F_DSP_LINE_LBLD_TO_XML, TR_DSP_LINE_LBLD XMLABLE
 
 :- type tr_dsp_line_lbld ---> cr_dsp_line_lbld(
-  fld_dsp_line_lbld_lbl   :: tu_lbl,
-  fld_dsp_line_lbld_id    :: maybe(tr_id),
+  fld_dsp_line_lbld_lbl   :: tu_lbl
+  ,
+  fld_dsp_line_lbld_id    :: maybe(tr_id)
+  ,
   fld_dsp_line_lbld_units :: ts_txt_units
 ).
 
@@ -156,6 +160,7 @@
 %% IMPLEMENTATION DECLARATION
 
 :- implementation.
+
 
 %% R_TXT_LINES, F_TXT_LINES_TO_XML, TS_TXT_LINES XMLABLE
 

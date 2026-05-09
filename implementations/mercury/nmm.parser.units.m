@@ -35,11 +35,15 @@
 
 %% R_TXT_UNIT, TU_TXT_UNIT, F_TXT_UNIT_TO_XML, TU_TXT_UNIT XMLABLE
 
-:- type tu_txt_unit --->
-  cu_txt_unit_c_ref(ts_txt_unit_c_ref);
-  cu_txt_unit_nte_ref(ts_txt_unit_nte_ref);
-  cu_txt_unit_emph(ts_txt_unit_emph);
-  cu_txt_unit_wysiwyg(ts_txt_unit_wysiwyg).
+:- type tu_txt_unit ---> (
+  cu_txt_unit_c_ref(ts_txt_unit_c_ref)
+  ;
+  cu_txt_unit_nte_ref(ts_txt_unit_nte_ref)
+  ;
+  cu_txt_unit_emph(ts_txt_unit_emph)
+  ;
+  cu_txt_unit_wysiwyg(ts_txt_unit_wysiwyg)
+).
 
 :- pred r_txt_unit(ts_allowed_tags, ta_lvl, tu_txt_unit, ts_tkns, ts_tkns).
 :- mode r_txt_unit(
