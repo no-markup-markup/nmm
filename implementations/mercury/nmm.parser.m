@@ -16,6 +16,8 @@
   ,
   parser.operators
   ,
+  parser.lines
+  ,
   parser.units
 ).
 
@@ -24,7 +26,7 @@
 
 :- use_module term_to_xml, nmm.lexer.
 
-:- import_module nmm.parser.units.
+:- import_module nmm.parser.lines, nmm.parser.units.
 
 
 %% ALIAS TYPE TA_LVL (= UINT)
@@ -524,99 +526,6 @@
 
 :- pred r_blk_nte(ts_allowed_tags, ta_lvl, tr_blk_nte, ts_tkns, ts_tkns).
 :- mode r_blk_nte(in,              in,     out,        in,      out) is semidet.
-
-
-%% RULE R_TXT_LINES, SIMPLE TYPE TS_TXT_LINES, INSTANCE TS_TXT_LINES XMLABLE
-
-:- type ts_txt_lines ---> cs_txt_lines(list(ts_txt_line)).
-
-:- instance term_to_xml.xmlable(ts_txt_lines).
-
-:- pred r_txt_lines(ts_allowed_tags, ta_lvl, ts_txt_lines, ts_tkns, ts_tkns).
-:- mode r_txt_lines(
-                    in,              in,     out,          in,      out
-) is semidet.
-
-
-%% RULE R_TXT_LINE, SIMPLE TYPE TS_TXT_LINE, INSTANCE TS_TXT_LINE XMLABLE
-
-:- type ts_txt_line ---> cs_txt_line(ts_txt_units).
-
-:- instance term_to_xml.xmlable(ts_txt_line).
-
-:- pred r_txt_line(ts_allowed_tags, ta_lvl, ts_txt_line, ts_tkns, ts_tkns).
-:- mode r_txt_line(
-                   in,              in,     out,         in,      out
-) is semidet.
-
-%% RULE R_DSP_LINES, SIMPLE TYPE TS_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
-
-:- type ts_dsp_lines ---> cs_dsp_lines(list(tu_dsp_line)).
-
-:- instance term_to_xml.xmlable(ts_dsp_lines).
-
-:- pred r_dsp_lines(ts_allowed_tags, ta_lvl, ts_dsp_lines, ts_tkns, ts_tkns).
-:- mode r_dsp_lines(
-                    in,              in,     out,          in,      out
-) is semidet.
-
-
-%% RULE R_DSP_LINE, UNION TYPE TU_DSP_LINE, INSTANCE TU_DSP_LINE XMLABLE
-
-:- type tu_dsp_line --->
-  cu_dsp_line_lbld(tr_dsp_line_lbld);
-  cu_dsp_line_no_lbl(ts_dsp_line_no_lbl).
-
-:- instance term_to_xml.xmlable(tu_dsp_line).
-
-:- pred r_dsp_line(ts_allowed_tags, tu_dsp_line, ts_tkns, ts_tkns).
-:- mode r_dsp_line(in,              out,         in,      out) is semidet.
-
-%% RULE R_DSP_LINE_LBLD, RECORD TYPE TR_DSP_LINE_LBLD, INSTANCE TR_DSP_LINE_LBLD XMLABLE
-
-:- type tr_dsp_line_lbld ---> cr_dsp_line_lbld(
-  fld_dsp_line_lbld_lbl   :: tu_lbl,
-  fld_dsp_line_lbld_id    :: maybe(tr_id),
-  fld_dsp_line_lbld_units :: ts_txt_units
-).
-
-:- instance term_to_xml.xmlable(tr_dsp_line_lbld).
-
-:- pred r_dsp_line_lbld(ts_allowed_tags, tr_dsp_line_lbld, ts_tkns, ts_tkns).
-:- mode r_dsp_line_lbld(
-                        in,              out,              in,      out
-) is semidet.
-
-
-%% RULE R_DSP_LINE_NO_LBL, SIMPLE TYPE TS_DSP_LINE_NO_LBL, INSTANCE TS_DSP_LINE_NO_LBL XMLABLE
-
-:- type ts_dsp_line_no_lbl ---> cs_dsp_line_no_lbl(ts_txt_units).
-
-:- instance term_to_xml.xmlable(ts_dsp_line_no_lbl).
-
-:- pred r_dsp_line_no_lbl(
-  ts_allowed_tags, ts_dsp_line_no_lbl, ts_tkns, ts_tkns
-).
-:- mode r_dsp_line_no_lbl(
-  in,              out,                in,      out
-) is semidet.
-
-
-%% SIMPLE TYPE TS_VRB_LINES, INSTANCE TS_VRB_LINES XMLABLE
-
-:- type ts_vrb_lines ---> cs_vrb_lines(list(ts_vrb_line)).
-
-:- instance term_to_xml.xmlable(ts_vrb_lines).
-
-
-%% RULE R_VRB_LINE, SIMPLE TYPE TS_VRB_LINE, INSTANCE TS_VRB_LINE XMLABLE
-
-:- type ts_vrb_line ---> cs_vrb_line(str).
-
-:- instance term_to_xml.xmlable(ts_vrb_line).
-
-:- pred r_vrb_line(ta_lvl, ts_vrb_line, ts_tkns, ts_tkns).
-:- mode r_vrb_line(in,     out,         in,      out) is semidet.
 
 
 
@@ -1884,233 +1793,6 @@ f_blk_nte_to_xml(cr_blk_nte(ID,BLKS)) =
   term_to_xml.elem("cr_blk_nte",[],[f_id_to_xml(ID),f_blks_to_xml(BLKS)]).
 
 
-%% R_TXT_LINES, INSTANCE TS_TXT_LINES XMLABLE
-
-%%% R_TXT_LINES
-
-r_txt_lines(ALLOWED_TAGS,LVL,cs_txt_lines(LINES)) --> (
-  r_txt_line(ALLOWED_TAGS,LVL,LINE_),
-  (
-    r_tabs(LVL), r_txt_lines(ALLOWED_TAGS,LVL,cs_txt_lines(LINES_)) -> (
-      {LINES = [LINE_] ++ LINES_}
-    );
-    {LINES = [LINE_]}
-  )
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_lines) where [
-  func(to_xml/1) is f_txt_lines_to_xml
-].
-:- func (
-  f_txt_lines_to_xml(ts_txt_lines::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_lines_to_xml(cs_txt_lines(LINES)) =
-  term_to_xml.elem("cs_txt_lines",[],list.map(f_txt_line_to_xml,LINES)).
-
-
-%% R_TXT_LINE, TR_TXT_LINE XMLABLE
-
-%%% R_TXT_LINE
-
-r_txt_line(ALLOWED_TAGS,LVL,cs_txt_line(UNITS)) -->
-  r_txt_units(ALLOWED_TAGS,LVL,UNITS), r_lb.
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_txt_line) where [
-  func(to_xml/1) is f_txt_line_to_xml
-].
-:- func (
-  f_txt_line_to_xml(ts_txt_line::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_txt_line_to_xml(cs_txt_line(UNITS)) =
-  term_to_xml.elem("cs_txt_line",[],[f_txt_units_to_xml(UNITS)]).
-
-
-%% R_DSP_LINES, INSTANCE TS_DSP_LINES XMLABLE
-
-%%% R_DSP_LINES
-
-r_dsp_lines(ALLOWED_TAGS,LVL,cs_dsp_lines(LS)) --> (
-  r_dsp_line(ALLOWED_TAGS,L),
-  (
-    r_tabs(LVL),r_dsp_lines(ALLOWED_TAGS,LVL,cs_dsp_lines(LS_)) ->
-      {LS = [L]++LS_};
-    {LS = [L]}
-  )
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_dsp_lines) where [
-  func(to_xml/1) is f_dsp_lines_to_xml
-].
-:- func (
-  f_dsp_lines_to_xml(ts_dsp_lines::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_dsp_lines_to_xml(cs_dsp_lines(LINES)) =
-  term_to_xml.elem("cs_dsp_lines",[],list.map(f_dsp_line_to_xml,LINES)).
-
-
-%% R_DSP_LINE, TR_DSP_LINE XMLABLE
-
-%%% R_DSP_LINE
-
-r_dsp_line(ALLOWED_TAGS,LINE) --> (
-  r_dsp_line_no_lbl(ALLOWED_TAGS,LINE_) -> {LINE = cu_dsp_line_no_lbl(LINE_)};
-  r_dsp_line_lbld(  ALLOWED_TAGS,LINE_) -> {LINE = cu_dsp_line_lbld(  LINE_)};
-                                           {false}
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(tu_dsp_line) where [
-  func(to_xml/1) is f_dsp_line_to_xml
-].
-:- func (
-  f_dsp_line_to_xml(tu_dsp_line::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_dsp_line_to_xml(cu_dsp_line_no_lbl(L)) =
-  term_to_xml.elem("cu_dsp_line_no_lbl",[],[f_dsp_line_no_lbl_to_xml(L)]).
-f_dsp_line_to_xml(cu_dsp_line_lbld(  L)) =
-  term_to_xml.elem("cu_dsp_line_lbld",  [],[f_dsp_line_lbld_to_xml(  L)]).
-
-
-%% R_DSP_LINE_LBLD, TR_DSP_LINE_LBLD XMLABLE
-
-%%% R_DSP_LINE_LBLD
-
-r_dsp_line_lbld(
-  ALLOWED_TAGS,cr_dsp_line_lbld(LBL,MAYBE_ID,cs_txt_units(US))
-) --> (
-  r_str("("),
-  r_lbl(LBL),
-  r_str(")"),
-  r_tab,
-  +([],r_dsp_unit,ALLOWED_TAGS,US,[]),
-  ?([+([r_tab])],r_id,ALLOWED_TAGS,cu_tag_type_dsp,MAYBE_ID,[]),
-  r_lb
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(tr_dsp_line_lbld) where [
-  func(to_xml/1) is f_dsp_line_lbld_to_xml
-].
-:- func (
-  f_dsp_line_lbld_to_xml(tr_dsp_line_lbld::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_dsp_line_lbld_to_xml(LINE) = XML :- (
-  (
-    (
-      fld_dsp_line_lbld_id(LINE) = maybe.yes(ID),
-      ID_XML_LIST                = [f_id_to_xml(ID)]
-    );
-    (
-      fld_dsp_line_lbld_id(LINE) = maybe.no,
-      ID_XML_LIST                = []
-    )
-  ),
-  LBL   = fld_dsp_line_lbld_lbl(  LINE),
-  UNITS = fld_dsp_line_lbld_units(LINE),
-  XML = term_to_xml.elem(
-    "cr_dsp_line_lbld",
-    [],
-    [f_lbl_to_xml(LBL)]++ID_XML_LIST++[f_txt_units_to_xml(UNITS)]
-  )
-).
-
-
-%% R_DSP_LINE_NO_LBL, TS_DSP_LINE_NO_LBL XMLABLE
-
-%%% R_DSP_LINE_NO_LBL
-
-r_dsp_line_no_lbl(ALLOWED_TAGS,cs_dsp_line_no_lbl(cs_txt_units(US))) --> (
-  r_tab,
-  +([],r_dsp_unit,ALLOWED_TAGS,US,[]),
-  ?([+([r_tab]),r_str("DSP")]),
-  r_lb
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_dsp_line_no_lbl) where [
-  func(to_xml/1) is f_dsp_line_no_lbl_to_xml
-].
-:- func (
-  f_dsp_line_no_lbl_to_xml(ts_dsp_line_no_lbl::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_dsp_line_no_lbl_to_xml(cs_dsp_line_no_lbl(TXT_UNITS)) = term_to_xml.elem(
-  "cs_dsp_line_no_lbl",[],[f_txt_units_to_xml(TXT_UNITS)]
-).
-
-
-%% TS_VRB_LINES XMLABLE
-
-:- instance term_to_xml.xmlable(ts_vrb_lines) where [
-  func(to_xml/1) is f_vrb_lines_to_xml
-].
-:- func (
-  f_vrb_lines_to_xml(ts_vrb_lines::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_vrb_lines_to_xml(cs_vrb_lines(LINES)) =
-  term_to_xml.elem("cs_vrb_lines",[],list.map(f_vrb_line_to_xml,LINES)).
-
-
-%% R_VRB_LINE, TS_VRB_LINE XMLABLE
-
-%%% R_VRB_LINE
-
-r_vrb_line(LVL,LINE) --> (
-  r_tabs(LVL), +([],r_vrb_line_tkn,TKNS,[]), r_lb -> (
-    {LINE = cs_vrb_line(nmm.lexer.f_detknize(TKNS))}
-  );
-  r_lb                                            -> (
-    {LINE = cs_vrb_line("")}
-  );
-  {false}
-).
-
-:- pred r_vrb_line_tkn(tu_tkn::out,ts_tkns::in,ts_tkns::out) is semidet.
-r_vrb_line_tkn(TKN) --> (
-  [TKN],
-  {
-    TKN \= nmm.lexer.cu_tkn_tab(_),
-    TKN \= nmm.lexer.cu_tkn_lb(_),
-    TKN \= nmm.lexer.cu_tkn_eof
-  }
-).
-
-%%% XMLABLE
-
-:- instance term_to_xml.xmlable(ts_vrb_line) where [
-  func(to_xml/1) is f_vrb_line_to_xml
-].
-:- func (
-  f_vrb_line_to_xml(ts_vrb_line::in)
-  =
-  (term_to_xml.xml::out(term_to_xml.xml_doc))
-) is det.
-f_vrb_line_to_xml(cs_vrb_line(STR)) = term_to_xml.elem(
-  "cs_vrb_line",[],[term_to_xml.data(STR)]
-).
-
 %% TS_QTN_UNITS XMLABLE
 
  %% :- instance term_to_xml.xmlable(ts_qtn_units) where [
@@ -2165,3 +1847,23 @@ f_vrb_line_to_xml(cs_vrb_line(STR)) = term_to_xml.elem(
  %%% f_qtn_unit_to_xml(cu_qtn_unit_lb)           = term_to_xml.elem(
  %%%   "cu_qtn_unit_lb",     [],[]
  %%% ).
+
+
+%% R_QTN_UNITS, TS_QTN_UNITS, TS_QTN_UNITS XMLABLE
+
+ %% %%% R_QTN_UNITS
+ %% 
+ %% r_qtn_units(ALLOWED_TAGS,LVL,cs_qtn_units(US)) -->
+ %%   +([],r_qtn_unit,ALLOWED_TAGS,LVL,US,[]).
+ %% 
+ %% %%% XMLABLE
+ %% 
+ %% :- instance term_to_xml.xmlable(ts_qtn_units) where [
+ %%   func(to_xml/1) is f_qtn_units_to_xml
+ %% ].
+ %% :- func (
+ %%   f_qtn_units_to_xml(ts_qtn_units::in) =
+ %%   (term_to_xml.xml::out(term_to_xml.xml_doc))
+ %% ) is det.
+ %% f_qtn_units_to_xml(cs_qtn_units(US)) =
+ %%   term_to_xml.elem("cs_qtn_units",[],list.map(f_qtn_unit_to_xml,US)).
