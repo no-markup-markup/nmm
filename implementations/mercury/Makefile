@@ -15,7 +15,18 @@ clean:
 	git clean -fdX
 
 nmm.cli:
-	mmc --make --warn-inconsistent-pred-order-clauses --warn-dead-preds --warn-dead-procs --inform-ite-instead-of-switch nmm.cli
+	mmc --make \
+	  --warn-unused-imports \
+	  --warn-insts-with-functors-without-type \
+	  --warn-interface-imports-in-parents \
+	  --warn-inconsistent-pred-order-clauses \
+	  --warn-suspicious-recursion \
+	  --warn-obvious-non-tail-recursion \
+	  --warn-dead-preds \
+	  --warn-dead-procs \
+	  --warn-unknown-format-calls \
+	  --inform-ite-instead-of-switch \
+	  nmm.cli
 
 test: nmm.cli
 	./nmm.cli test
