@@ -1,8 +1,9 @@
 :- module nmm.parser.units.
 
- % when new units are added:
- % make sure r_txt_unit_wysiwyg_chr and r_dsp_unit_wysiwyg_chr are updated
- % accordingly
+ % when new units are added, make sure to accordingly update:
+ % - r_txt_unit_wysiwyg_chr
+ % - r_dsp_unit_wysiwyg_chr
+ % - r_qtn_unit_wysiwyg_chr
 
 % INTERFACE
 
@@ -35,6 +36,21 @@
 :- instance term_to_xml.xmlable(ts_txt_units).
 
 
+%% R_QTN_UNITS, TS_QTN_UNITS, F_QTN_UNITS_TO_XML, TS_QTN_UNITS XMLABLE
+
+:- pred r_qtn_units(ta_lvl, ts_qtn_units, ts_tkns, ts_tkns).
+:- mode r_qtn_units(in,     out,          in,      out) is semidet.
+
+:- type ts_qtn_units ---> cs_qtn_units(list(tu_qtn_unit)).
+
+:- func (
+  f_qtn_units_to_xml(ts_qtn_units::in) =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_qtn_units).
+
+
 %% R_TXT_UNIT, TU_TXT_UNIT, F_TXT_UNIT_TO_XML, TU_TXT_UNIT XMLABLE
 
 :- type tu_txt_unit ---> (
@@ -59,6 +75,26 @@
 ) is det.
 
 :- instance term_to_xml.xmlable(tu_txt_unit).
+
+
+%% R_QTN_UNIT, TU_QTN_UNIT, F_QTN_UNIT_TO_XML, TU_QTN_UNIT XMLABLE
+
+:- type tu_qtn_unit ---> (
+  cu_qtn_unit_wysiwyg(ts_qtn_unit_wysiwyg)
+  ;
+  cu_qtn_unit_emph(ts_qtn_unit_emph)
+).
+
+:- pred r_qtn_unit(ta_lvl, tu_qtn_unit, ts_tkns, ts_tkns).
+:- mode r_qtn_unit(in,     out,         in,      out ) is semidet.
+
+:- func (
+  f_qtn_unit_to_xml(tu_qtn_unit::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(tu_qtn_unit).
 
 
 %% R_DSP_UNIT
@@ -138,6 +174,40 @@
 
 
 
+%% R_QTN_UNIT_WYSIWYG, TS_QTN_UNIT_WYSIWYG, F_QTN_UNIT_WYSIWYG_TO_XML, TS_QTN_UNIT_WYSIWYG XMLABLE
+
+:- type ts_qtn_unit_wysiwyg ---> cs_qtn_unit_wysiwyg(str).
+
+:- pred r_qtn_unit_wysiwyg(ta_lvl, ts_qtn_unit_wysiwyg, ts_tkns, ts_tkns).
+:- mode r_qtn_unit_wysiwyg(
+                           in,             out,         in,      out
+) is semidet.
+
+:- func (
+  f_qtn_unit_wysiwyg_to_xml(ts_qtn_unit_wysiwyg::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_qtn_unit_wysiwyg).
+
+
+%% R_QTN_UNIT_EMPH, TS_QTN_UNIT_EMPH, F_QTN_UNIT_EMPH_TO_XML, TS_QTN_UNIT_EMPH XMLABLE
+
+:- type ts_qtn_unit_emph ---> cs_qtn_unit_emph(str).
+
+:- pred r_qtn_unit_emph(ta_lvl, ts_qtn_unit_emph, ts_tkns, ts_tkns).
+:- mode r_qtn_unit_emph(in,     out,              in,      out) is semidet.
+
+:- func (
+  f_qtn_unit_emph_to_xml(ts_qtn_unit_emph::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_qtn_unit_emph).
+
+
 % IMPLEMENTATION
 
 %% IMPLEMENTATION DECLARATION
@@ -173,6 +243,18 @@ f_txt_units_to_xml(cs_txt_units(US)) =
 ].
 
 
+%% R_QTN_UNITS, F_QTN_UNITS_TO_XML, TS_QTN_UNITS XMLABLE
+
+r_qtn_units(LVL,cs_qtn_units(US)) --> +([],r_qtn_unit,LVL,US,[]).
+
+f_qtn_units_to_xml(cs_qtn_units(UNITS)) =
+  term_to_xml.elem("cs_qtn_units",[],list.map(f_qtn_unit_to_xml,UNITS)).
+
+:- instance term_to_xml.xmlable(ts_qtn_units) where [
+  func(to_xml/1) is f_qtn_units_to_xml
+].
+
+
 %% R_TXT_UNIT, F_TXT_UNIT_TO_XML, TU_TXT_UNIT XMLABLE
 
 %%% R_TXT_UNIT
@@ -200,6 +282,32 @@ f_txt_unit_to_xml(cu_txt_unit_emph(U))      =
 
 :- instance term_to_xml.xmlable(tu_txt_unit) where [
   func(to_xml/1) is f_txt_unit_to_xml
+].
+
+
+%% R_QTN_UNIT, F_QTN_UNIT_TO_XML, TU_QTN_UNIT XMLABLE
+
+%%% R_QTN_UNIT
+
+r_qtn_unit(LVL,U) --> (
+  r_qtn_unit_emph(   LVL,U_) -> {U = cu_qtn_unit_emph(   U_)};
+  r_qtn_unit_wysiwyg(LVL,U_) -> {U = cu_qtn_unit_wysiwyg(U_)};
+                                {false}
+).
+
+%%% F_QTN_UNIT_TO_XML
+
+f_qtn_unit_to_xml(cu_qtn_unit_wysiwyg(UNIT)) = term_to_xml.elem(
+  "cu_qtn_unit_wysiwyg",[],[f_qtn_unit_wysiwyg_to_xml(UNIT)]
+).
+f_qtn_unit_to_xml(cu_qtn_unit_emph(UNIT))    = term_to_xml.elem(
+  "cu_qtn_unit_emph",   [],[f_qtn_unit_emph_to_xml(UNIT)]
+).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(tu_qtn_unit) where [
+  func(to_xml/1) is f_qtn_unit_to_xml
 ].
 
 
@@ -285,27 +393,12 @@ f_txt_unit_wysiwyg_to_xml(cs_txt_unit_wysiwyg(STR)) =
 
 %% R_TXT_UNIT_EMPH, F_TXT_UNIT_EMPH_TO_XML, TS_TXT_UNIT_EMPH XMLABLE
 
-%%% R_TXT_UNIT_EMPH
-
-r_txt_unit_emph(LVL,cs_txt_unit_emph(STR)) -->
-  r_str("*"), r_txt_unit_emph_str(LVL,STR), r_str("*").
-
-:- pred r_txt_unit_emph_str(uint, str, ts_tkns, ts_tkns).
-:- mode r_txt_unit_emph_str(in,   out, in,      out) is semidet.
-r_txt_unit_emph_str(        LVL,  S) --> (
-  r(cu_r_any,["*"],S_),
-  (
-    r_lb, r_tabs(LVL) -> r_txt_unit_emph_str(LVL,S__), {S = S_++" "++S__};
-                         {S = S_}
-  )
+r_txt_unit_emph(LVL,cs_txt_unit_emph(STR)) --> (
+  r_str("*"), r_unit_emph_str(LVL,STR), r_str("*")
 ).
-
-%%% F_TXT_UNIT_EMPH_TO_XML
 
 f_txt_unit_emph_to_xml(cs_txt_unit_emph(STR)) =
   term_to_xml.elem("cs_txt_unit_emph",[],[term_to_xml.data(STR)]).
-
-%%% XMLABLE
 
 :- instance term_to_xml.xmlable(ts_txt_unit_emph) where [
   func(to_xml/1) is f_txt_unit_emph_to_xml
@@ -347,3 +440,63 @@ f_txt_unit_nte_ref_to_xml(cs_txt_unit_nte_ref(NTE_REF)) =
 :- instance term_to_xml.xmlable(ts_txt_unit_nte_ref) where [
   func(to_xml/1) is f_txt_unit_nte_ref_to_xml
 ].
+
+
+%% R_QTN_UNIT_WYSIWYG, F_QTN_UNIT_WYSIWYG_TO_XML, TS_QTN_UNIT_WYSIWYG XMLABLE
+
+%%% R_QTN_UNIT_WYSIWYG
+
+r_qtn_unit_wysiwyg(LVL,cs_qtn_unit_wysiwyg(STR)) -->
+  +([],r_qtn_unit_wysiwyg_chr,LVL,CHRS,[]),{STR = chrs2str(CHRS)}.
+
+%%% HELPER R_QTN_UNIT_WYSIWYG_CHR
+
+:- pred r_qtn_unit_wysiwyg_chr(ta_lvl, chr, ts_tkns, ts_tkns).
+:- mode r_qtn_unit_wysiwyg_chr(in,     out, in,      out) is semidet.
+r_qtn_unit_wysiwyg_chr(        LVL,    C) --> (
+  not r_tab,
+  not r_lb,
+  not r_qtn_unit_emph(LVL,_),
+  r_c(cu_r_any,C)
+).
+
+%%% F_QTN_UNIT_WYSIWYG_TO_XML
+
+f_qtn_unit_wysiwyg_to_xml(cs_qtn_unit_wysiwyg(STR)) =
+  term_to_xml.elem("cs_qtn_unit_wysiwyg",[],[term_to_xml.data(STR)]).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_qtn_unit_wysiwyg) where [
+  func(to_xml/1) is f_qtn_unit_wysiwyg_to_xml
+].
+
+
+%% R_QTN_UNIT_EMPH, F_QTN_UNIT_EMPH_TO_XML, TS_QTN_UNIT_EMPH XMLABLE
+
+r_qtn_unit_emph(LVL,cs_qtn_unit_emph(STR)) --> (
+  r_str("*"), r_unit_emph_str(LVL,STR), r_str("*")
+).
+
+f_qtn_unit_emph_to_xml(cs_qtn_unit_emph(STR)) =
+  term_to_xml.elem("cs_qtn_unit_emph",[],[term_to_xml.data(STR)]).
+
+:- instance term_to_xml.xmlable(ts_qtn_unit_emph) where [
+  func(to_xml/1) is f_qtn_unit_emph_to_xml
+].
+
+
+%% HELPER R_UNIT_EMPH_STR
+
+:- pred r_unit_emph_str(ta_lvl, str, ts_tkns, ts_tkns).
+:- mode r_unit_emph_str(in,     out, in,      out) is semidet.
+r_unit_emph_str(        LVL,    S) --> (
+  r(cu_r_any,["*"],S_),
+  (
+    r_lb, r_tabs(LVL) -> (
+      r_unit_emph_str(LVL,S__),
+      {S = S_++" "++S__}
+    );
+    {S = S_}
+  )
+).

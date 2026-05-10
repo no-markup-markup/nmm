@@ -44,6 +44,8 @@
   cu_blk_vrb(ts_blk_vrb)
   ;
   cu_blk_nte(tr_blk_nte)
+  ;
+  cu_blk_qtn(ts_blk_qtn)
 ).
 
 :- pred r_blk(ts_allowed_tags, ta_lvl, tu_blk, ts_tkns, ts_tkns).
@@ -136,6 +138,20 @@
 :- instance term_to_xml.xmlable(ts_blk_vrb).
 
 
+%% R_BLK_QTN, TS_BLK_QTN, F_BLK_QTN_TO_XML, TS_BLK_QTN XMLABLE
+
+:- type ts_blk_qtn ---> cs_blk_qtn(ts_qtn_lines).
+
+:- pred r_blk_qtn(ta_lvl, ts_blk_qtn, ts_tkns, ts_tkns).
+:- mode r_blk_qtn(in,     out,        in,      out) is semidet.
+
+:- func (
+  f_blk_qtn_to_xml(ts_blk_qtn::in) = (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_blk_qtn).
+
+
 %% R_BLK_NTE, F_BLK_NTE_TO_XML, TR_BLK_NTE, TR_BLK_NTE XMLABLE
 
 :- type tr_blk_nte ---> cr_blk_nte(
@@ -209,6 +225,7 @@ r_blk(ALLOWED_TAGS,LVL,BLK) --> (
   r_blk_dsp(ALLOWED_TAGS,LVL,BLK_DSP) -> {BLK = cu_blk_dsp(BLK_DSP)};
   r_blk_vrb(             LVL,BLK_VRB) -> {BLK = cu_blk_vrb(BLK_VRB)};
   r_blk_nte(ALLOWED_TAGS,LVL,BLK_NTE) -> {BLK = cu_blk_nte(BLK_NTE)};
+  r_blk_qtn(             LVL,BLK_QTN) -> {BLK = cu_blk_qtn(BLK_QTN)};
                                          {false}
 ).
 
@@ -226,6 +243,8 @@ f_blk_to_xml(cu_blk_vrb(BLK)) =
   term_to_xml.elem("cu_blk_vrb",[],[f_blk_vrb_to_xml(BLK)]).
 f_blk_to_xml(cu_blk_nte(BLK)) =
   term_to_xml.elem("cu_blk_nte",[],[f_blk_nte_to_xml(BLK)]).
+f_blk_to_xml(cu_blk_qtn(BLK)) =
+  term_to_xml.elem("cu_blk_qtn",[],[f_blk_qtn_to_xml(BLK)]).
 
 %%% XMLABLE
 
@@ -358,6 +377,31 @@ f_blk_vrb_to_xml(cs_blk_vrb(LINES)) =
 
 :- instance term_to_xml.xmlable(ts_blk_vrb) where [
   func(to_xml/1) is f_blk_vrb_to_xml
+].
+
+
+%% R_BLK_QTN, F_BLK_QTN_TO_XML, TS_BLK_QTN XMLABLE
+
+%%% R_BLK_QTN
+
+:- pragma memo(r_blk_qtn/4,[fast_loose]).
+r_blk_qtn(LVL,cs_blk_qtn(LINES)) --> (
+  r_str("START"), r_tab, r_str("QUOTATION"), r_lb,
+  r_tabs(LVL),
+  r_qtn_lines(LVL,LINES),
+  r_tabs(LVL),
+  r_str("END"),   r_tab, r_str("QUOTATION"), r_lb
+).
+
+%%% F_BLK_QTN_TO_XML
+
+f_blk_qtn_to_xml(cs_blk_qtn(UNITS)) =
+  term_to_xml.elem("cs_blk_qtn",[],[f_qtn_lines_to_xml(UNITS)]).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_blk_qtn) where [
+  func(to_xml/1) is f_blk_qtn_to_xml
 ].
 
 

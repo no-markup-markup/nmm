@@ -51,6 +51,22 @@
 :- instance term_to_xml.xmlable(ts_dsp_lines).
 
 
+%% R_QTN_LINES, TS_QTN_LINES, F_QTN_LINES_TO_XML, TS_QTN_LINES XMLABLE
+
+:- type ts_qtn_lines ---> cs_qtn_lines(list(tu_qtn_line)).
+
+:- pred r_qtn_lines(ta_lvl, ts_qtn_lines, ts_tkns, ts_tkns).
+:- mode r_qtn_lines(in,     out,          in,      out) is semidet.
+
+:- func (
+  f_qtn_lines_to_xml(ts_qtn_lines::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_qtn_lines).
+
+
 %% TS_VRB_LINES, F_VRB_LINES_TO_XML, TS_VRB_LINES XMLABLE
 
 :- type ts_vrb_lines ---> cs_vrb_lines(list(ts_vrb_line)).
@@ -116,6 +132,28 @@
 :- instance term_to_xml.xmlable(ts_vrb_line).
 
 
+%% R_QTN_LINE, TU_QTN_LINE, F_QTN_LINE_TO_XML, TU_QTN_LINE XMLABLE
+
+:- type tu_qtn_line ---> (
+  cu_qtn_line_std(ts_qtn_line_std)
+  ;
+  cu_qtn_line_br(ts_qtn_line_br)
+%%  ;
+%%  cu_qtn_line_ref(ts_qtn_line_ref)
+).
+
+:- pred r_qtn_line(ta_lvl, tu_qtn_line, ts_tkns, ts_tkns).
+:- mode r_qtn_line(in,     out,         in,      out) is semidet.
+
+:- func (
+  f_qtn_line_to_xml(tu_qtn_line::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(tu_qtn_line).
+
+
 %% R_DSP_LINE_LBLD, TR_DSP_LINE_LBLD, F_DSP_LINE_LBLD_TO_XML, TR_DSP_LINE_LBLD XMLABLE
 
 :- type tr_dsp_line_lbld ---> cr_dsp_line_lbld(
@@ -157,6 +195,49 @@
 :- instance term_to_xml.xmlable(ts_dsp_line_no_lbl).
 
 
+%% TS_QTN_LINE_STD, F_QTN_LINE_STD_TO_XML, TS_QTN_LINE_STD XMLABLE
+
+:- type ts_qtn_line_std ---> cs_qtn_line_std(ts_qtn_units).
+
+:- func (
+  f_qtn_line_std_to_xml(ts_qtn_line_std::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_qtn_line_std).
+
+
+%% TS_QTN_LINE_BR, F_QTN_LINE_BR_TO_XML, TS_QTN_LINE_BR XMLABLE
+
+:- type ts_qtn_line_br ---> cs_qtn_line_br(ts_qtn_units).
+
+:- func (
+  f_qtn_line_br_to_xml(ts_qtn_line_br::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_qtn_line_br).
+
+
+%% TODO: R_QTN_LINE_REF, TS_QTN_LINE_REF, F_QTN_LINE_REF_TO_XML, TS_QTN_LINE_REF XMLABLE
+
+ %% :- type ts_qtn_line_ref ---> cs_qtn_line_ref(ts_txt_units).
+ %% 
+ %% :- pred r_qtn_line_ref(
+ %%   ts_allowed_tags::in, ts_qtn_line_ref::out, ts_tkns::in, ts_tkns::out
+ %% ) is semidet.
+ %% 
+ %% :- func (
+ %%   f_qtn_line_ref_to_xml(ts_qtn_line_ref::in)
+ %%   =
+ %%   (term_to_xml.xml::out(term_to_xml.xml_doc))
+ %% ) is det.
+ %% 
+ %% :- instance term_to_xml.xmlable(ts_qtn_line_ref).
+
+
 
 % IMPLEMENTATION
 
@@ -166,6 +247,8 @@
 
 
 %% MODULE IMPORTS
+
+:- import_module uint.
 
 :- use_module nmm.parser.operators.
 
@@ -222,6 +305,32 @@ f_dsp_lines_to_xml(cs_dsp_lines(LINES)) =
 
 :- instance term_to_xml.xmlable(ts_dsp_lines) where [
   func(to_xml/1) is f_dsp_lines_to_xml
+].
+
+
+%% R_QTN_LINES, F_QTN_LINES_TO_XML, TS_QTN_LINES XMLABLE
+
+%%% R_QTN_LINES
+
+r_qtn_lines(LVL,cs_qtn_lines(LINES)) --> (
+  r_qtn_line(LVL,LINE_),
+  (
+    r_tabs(LVL), r_qtn_lines(LVL,cs_qtn_lines(LINES_)) -> (
+      {LINES = [LINE_] ++ LINES_}
+    );
+    {LINES = [LINE_]}
+  )
+).
+
+%%% F_QTN_LINES_TO_XML
+
+f_qtn_lines_to_xml(cs_qtn_lines(LINES)) =
+  term_to_xml.elem("cs_qtn_lines",[],list.map(f_qtn_line_to_xml,LINES)).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(ts_qtn_lines) where [
+  func(to_xml/1) is f_qtn_lines_to_xml
 ].
 
 
@@ -318,6 +427,37 @@ f_vrb_line_to_xml(cs_vrb_line(STR)) = term_to_xml.elem(
 ].
 
 
+%% R_QTN_LINE, F_QTN_LINE_TO_XML, TR_QTN_LINE XMLABLE
+
+%%% R_QTN_LINE
+
+r_qtn_line(LVL,LINE) --> (
+  r_str("BR"), r_tab,                            r_lb -> (
+    {LINE = cu_qtn_line_br(cs_qtn_line_br(cs_qtn_units([])))}
+  );
+  r_str("BR"), r_tab, r_qtn_units(LVL+1u,UNITS), r_lb -> (
+    {LINE = cu_qtn_line_br(cs_qtn_line_br(UNITS))}
+  );
+  r_tab,              r_qtn_units(LVL+1u,UNITS), r_lb -> (
+    {LINE = cu_qtn_line_std(cs_qtn_line_std(UNITS))}
+  );
+  {false}
+).
+
+%%% F_QTN_LINE_TO_XML
+
+f_qtn_line_to_xml(cu_qtn_line_std(LINE)) =
+  term_to_xml.elem("cu_qtn_line_std",[],[f_qtn_line_std_to_xml(LINE)]).
+f_qtn_line_to_xml(cu_qtn_line_br(LINE)) =
+  term_to_xml.elem("cu_qtn_line_br",[],[f_qtn_line_br_to_xml(LINE)]).
+
+%%% XMLABLE
+
+:- instance term_to_xml.xmlable(tu_qtn_line) where [
+  func(to_xml/1) is f_qtn_line_to_xml
+].
+
+
 %% R_DSP_LINE_LBLD, F_DSP_LINE_LBLD_TO_XML, TR_DSP_LINE_LBLD XMLABLE
 
 %%% R_DSP_LINE_LBLD
@@ -383,4 +523,25 @@ f_dsp_line_no_lbl_to_xml(cs_dsp_line_no_lbl(TXT_UNITS)) = term_to_xml.elem(
 
 :- instance term_to_xml.xmlable(ts_dsp_line_no_lbl) where [
   func(to_xml/1) is f_dsp_line_no_lbl_to_xml
+].
+
+
+%% F_QTN_LINE_STD_TO_XML, TS_QTN_LINE_STD XMLABLE
+
+f_qtn_line_std_to_xml(cs_qtn_line_std(QTN_UNITS)) = term_to_xml.elem(
+  "cs_qtn_line_std",[],[f_qtn_units_to_xml(QTN_UNITS)]
+).
+
+:- instance term_to_xml.xmlable(ts_qtn_line_std) where [
+  func(to_xml/1) is f_qtn_line_std_to_xml
+].
+
+%% F_QTN_LINE_BR_TO_XML, TS_QTN_LINE_BR XMLABLE
+
+f_qtn_line_br_to_xml(cs_qtn_line_br(QTN_UNITS)) = term_to_xml.elem(
+  "cs_qtn_line_br",[],[f_qtn_units_to_xml(QTN_UNITS)]
+).
+
+:- instance term_to_xml.xmlable(ts_qtn_line_br) where [
+  func(to_xml/1) is f_qtn_line_br_to_xml
 ].

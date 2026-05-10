@@ -115,6 +115,9 @@ with
   ts_blk_vrb             : Type :=
   | cs_blk_vrb             : ts_vrb_lines           -> ts_blk_vrb
 with
+  ts_blk_qtn             : Type :=
+  | cs_blk_qtn             : ts_qtn_lines           -> ts_blk_qtn
+with
   tr_blk_nte             : Type :=
   | cr_blk_nte             : tr_id -> ts_blks       -> tr_blk_nte
 with
@@ -168,6 +171,32 @@ with
     ->
     tr_dsp_line_lbld
   (* field functions below *)
+with
+  ts_qtn_lines           : Type :=
+  | cs_qtn_lines           : list tu_qtn_line       -> ts_qtn_lines
+with
+  tu_qtn_line            : Type :=
+  | cu_qtn_line_std        : ts_qtn_line            -> tu_qtn_line
+  | cu_qtn_line_br         : ts_qtn_line_br         -> tu_qtn_line
+with
+  ts_qtn_line            : Type :=
+  | cs_qtn_line            : ts_qtn_units           -> ts_qtn_line
+with
+  ts_qtn_line_br         : Type :=
+  | cs_qtn_line_br         : ts_qtn_units           -> ts_qtn_line_br
+with
+  ts_qtn_units           : Type :=
+  | cs_qtn_units           : list tu_qtn_unit       -> ts_qtn_units
+with
+  tu_qtn_unit            : Type :=
+  | cu_qtn_unit_wysiwyg    : ts_qtn_unit_wysiwyg    -> tu_qtn_unit
+  | cu_qtn_unit_emph       : ts_qtn_unit_emph       -> tu_qtn_unit
+with
+  ts_qtn_unit_wysiwyg    : Type :=
+  | cs_qtn_unit_wysiwyg    : t_str                  -> ts_qtn_unit_wysiwyg
+with
+  ts_qtn_unit_emph       : Type :=
+  | cs_qtn_unit_emph       : t_str                  -> ts_qtn_unit_emph
 with
   ts_vrb_lines           : Type :=
   | cs_vrb_lines           : list ts_vrb_line       -> ts_vrb_lines
