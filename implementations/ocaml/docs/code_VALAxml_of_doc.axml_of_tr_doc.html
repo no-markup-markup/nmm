@@ -209,7 +209,7 @@
 
 <span class="keyword">and</span> xml_of_ts_blk_txt (blk_txt:ts_blk_txt):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> blk_txt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_units:ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_txt"</span>,[],[xml_of_ts_txt_units txt_units])
+        <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_lines:ts_txt_lines) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_txt"</span>,[],[xml_of_ts_txt_lines txt_lines])
 
 <span class="keyword">and</span> xml_of_ts_blk_blt (blk_blt:ts_blk_blt):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> blk_blt <span class="keyword">with</span>
@@ -246,6 +246,15 @@
                 <span class="keyword">match</span> s <span class="keyword">with</span>
                 <span class="keywordsign">|</span><span class="string">""</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_vrb_line"</span>,[],[]) 
                 <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_vrb_line"</span>,[],[xml_of_string s])
+
+<span class="keyword">and</span> xml_of_ts_txt_lines (txt_lines : ts_txt_lines) : <span class="constructor">Xml</span>.xml =
+	<span class="keyword">match</span> txt_lines <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_txt_lines</span> txt_line_list <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_lines"</span>,[],<span class="constructor">List</span>.map xml_of_ts_txt_line txt_line_list)
+
+
+<span class="keyword">and</span> xml_of_ts_txt_line (txt_line : ts_txt_line) : <span class="constructor">Xml</span>.xml =
+	<span class="keyword">match</span> txt_line <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_txt_line</span> txt_units <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_line"</span>,[],[xml_of_ts_txt_units txt_units])
 
 <span class="keyword">and</span> xml_of_ts_txt_units (txt_units:ts_txt_units):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> txt_units <span class="keyword">with</span>
@@ -314,7 +323,7 @@
 
 <span class="keyword">and</span> xml_of_ts_hdr (hdr:ts_hdr):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> hdr <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_hdr</span> (txt_units:ts_txt_units) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_hdr"</span>,[],[xml_of_ts_txt_units txt_units])
+        <span class="keywordsign">|</span><span class="constructor">Cs_hdr</span> (txt_lines:ts_txt_lines) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_hdr"</span>,[],[xml_of_ts_txt_lines txt_lines])
 
 
 <span class="keyword">and</span> xml_of_tu_lbl (a:tu_lbl):<span class="constructor">Xml</span>.xml=

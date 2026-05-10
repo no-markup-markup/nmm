@@ -4,6 +4,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is some text with a longer footnote</cs_txt_unit_wysiwyg>
@@ -13,11 +15,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>The use of footnotes should be discouraged,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_itm>
@@ -34,11 +40,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>for obvious reasons.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -46,6 +56,8 @@
 </cu_blk_itm>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>as we see in </cs_txt_unit_wysiwyg>
@@ -64,6 +76,8 @@
 <cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -73,6 +87,8 @@
 <cs_txt_unit_wysiwyg> in the middle of it.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>

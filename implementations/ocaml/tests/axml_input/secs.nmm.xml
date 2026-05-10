@@ -10,11 +10,15 @@
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Introduction</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
@@ -29,6 +33,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>According to </cs_txt_unit_wysiwyg>
@@ -47,15 +53,21 @@
 <cs_txt_unit_wysiwyg> ...</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is a no-markup-markup document, sporting the following cool features:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_itm>
@@ -66,6 +78,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_emph>
 <cs_txt_unit_emph>Emphasized text spanning multiple lines in the source code without breaking a sweat</cs_txt_unit_emph>
@@ -74,6 +88,8 @@
 <cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -87,11 +103,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Bullet lists:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_blt>
@@ -99,11 +119,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Here is one bullet item.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -114,11 +138,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Here is another one.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -135,11 +163,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Numbered lists with labels that are either</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_itm>
@@ -150,11 +182,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>automatic, or</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -168,11 +204,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>custom.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -180,6 +220,8 @@
 </cu_blk_itm>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Furthermore, each item can be </cs_txt_unit_wysiwyg>
@@ -197,6 +239,8 @@
 <cs_txt_unit_wysiwyg>:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_itm>
@@ -213,11 +257,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>The named item can be referred to anywhere in the document.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -237,6 +285,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>When referring to </cs_txt_unit_wysiwyg>
@@ -268,6 +318,8 @@
 <cs_txt_unit_wysiwyg> below.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -287,11 +339,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Of course, items with custom labels can also be named!</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -302,6 +358,8 @@
 </cu_blk_itm>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Due to the feature mentioned in </cs_txt_unit_wysiwyg>
@@ -346,6 +404,8 @@
 <cs_txt_unit_wysiwyg> occurring elsewhere may appear differently.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_itm>
@@ -356,11 +416,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Displayed lines of text suitable for mathematical equations, which are either</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_dsp>
@@ -424,11 +488,15 @@
 </cu_blk_itm>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Displayed lines can also be used for drawing tables and such:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_dsp>
@@ -511,6 +579,8 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is what a reference to </cs_txt_unit_wysiwyg>
@@ -529,6 +599,8 @@
 <cs_txt_unit_wysiwyg> looks like.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -539,6 +611,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>We may also refer to </cs_txt_unit_wysiwyg>
@@ -583,10 +657,14 @@
 <cs_txt_unit_wysiwyg> above.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is what a reference to </cs_txt_unit_wysiwyg>
@@ -605,6 +683,8 @@
 <cs_txt_unit_wysiwyg> looks like.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -615,6 +695,8 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Section headers are optional, but recommended. They may contain both </cs_txt_unit_wysiwyg>
@@ -626,6 +708,8 @@
 <cs_txt_unit_wysiwyg> and references, neither of which are recommended.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
@@ -634,6 +718,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>The same goes for paragraph headers. As we shall see in </cs_txt_unit_wysiwyg>
@@ -652,6 +738,8 @@
 <cs_txt_unit_wysiwyg> below, paragraphs with headers can also be named.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -666,6 +754,8 @@
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is a </cs_txt_unit_wysiwyg>
@@ -716,15 +806,21 @@
 <cs_txt_unit_wysiwyg>.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Putting references in a header does not look very nice.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -741,11 +837,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -760,20 +860,28 @@
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Provability</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -790,11 +898,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>

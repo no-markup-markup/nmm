@@ -11,11 +11,15 @@
 <cs_tag>CH</cs_tag>
 </cu_tag_or_id_tag>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Chapter starting with unlabeled display lines</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_secs_pars_or_blks_blks>
 <cs_blks>
@@ -60,11 +64,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -75,22 +83,30 @@
 <cs_tag>CH</cs_tag>
 </cu_tag_or_id_tag>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Paragraphs starting with unlabeled display lines</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_secs_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Paragraph with a header</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_dsp>
@@ -134,11 +150,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -197,11 +217,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -215,21 +239,29 @@
 <cs_tag>CH</cs_tag>
 </cu_tag_or_id_tag>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Sections starting with unlabeled display lines</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_secs_pars_or_blks_secs>
 <cs_secs>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>First section</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_blks>
 <cs_blks>
@@ -283,11 +315,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -295,11 +331,15 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Second section</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_blks>
 <cs_blks>
@@ -353,11 +393,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -371,32 +415,44 @@
 <cs_tag>CH</cs_tag>
 </cu_tag_or_id_tag>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Sections with paragraphs starting with unlabeled display lines</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_secs_pars_or_blks_secs>
 <cs_secs>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>First section</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Paragraph with a header</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_dsp>
@@ -440,11 +496,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -503,11 +563,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -518,11 +582,15 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Second section</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
@@ -582,11 +650,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -595,11 +667,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Paragraph with a header</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_dsp>
@@ -643,11 +719,15 @@
 </cu_blk_dsp>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Block of text.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>

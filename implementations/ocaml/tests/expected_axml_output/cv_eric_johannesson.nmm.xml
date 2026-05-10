@@ -8,47 +8,81 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>I&apos;m a philosopher with a PhD from Stockholm University. My research interests include the philosophy of science, logic, language, and probability.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>I&apos;m a philosopher with a PhD from Stockholm University. My research</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>interests include the philosophy of science, logic, language, and</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>probability.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Email: eric@ericjohannesson.com</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Website: &lt;https://ericjohannesson.com&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>ORCID: &lt;https://orcid.org/0000-0001-9128-2565&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>GitHub: &lt;https://github.com/ericjohannesson&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -57,40 +91,56 @@
 <cs_secs>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Employment</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Lecturer (100%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Uppsala University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Aug. 2024-Jun. 2025.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -99,29 +149,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Lecturer (60%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Stockholm University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Jan. 2024-Apr. 2024.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -130,29 +192,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Visiting assistant professor (100%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Ashoka University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Aug. 2022-May 2023.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -161,29 +235,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Lecturer (40%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Linguistics and Theory of Science, University of Gothenburg.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Apr. 2022-Jul. 2022.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -192,29 +278,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Project manager (20%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Stockholm University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Feb. 2021-Feb. 2022.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -223,29 +321,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Lecturer (100%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Stockholm University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Jul. 2018-Jun. 2020.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -254,29 +364,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Postdoc (100%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Stockholm University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Nov. 2017-Jun. 2018.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -285,29 +407,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Lecturer (100%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Stockholm University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Feb. 2017-Oct. 2017.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -316,29 +450,41 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>PhD student (100%)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Department of Philosophy, Stockholms University.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Jan. 2012-Dec. 2016.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -349,35 +495,49 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Education</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>PhD in Theoretical philosophy</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Stockholm University, Stockholm, June 2017.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Thesis title: </cs_txt_unit_wysiwyg>
@@ -389,33 +549,47 @@
 <cs_txt_unit_wysiwyg>. </cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Supervisors: Professors Peter Pagin and Dag Westerståhl.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>External examinator: Professor Graeme Forbes, University of Colorado Boulder.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Date of thesis defense: 2017-05-27.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -424,6 +598,8 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Master (</cs_txt_unit_wysiwyg>
@@ -435,15 +611,21 @@
 <cs_txt_unit_wysiwyg>) in Theoretical philosophy</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Stockholm University, Stockholm, Nov. 2011.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -452,20 +634,28 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Military service</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Tolkskolan (Interpreter/interrogator at the Armed Forces Intelligence and Security Center), Uppsala, Jun. 2001--Jun. 2002.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -474,6 +664,8 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>High school diploma (</cs_txt_unit_wysiwyg>
@@ -485,15 +677,21 @@
 <cs_txt_unit_wysiwyg>)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Natural science program, Sunnerboskolan, Ljungby, 2001.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -504,22 +702,30 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Publications</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>In peer-reviewed international journals</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_itm>
@@ -530,20 +736,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Eric Johannesson. Quine’s underdetermination thesis. Erkenntnis, 89(5):1903–1920, 2024.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1007/s10670-022-00609-8&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -557,20 +771,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. The statistical riddle of induction. Australasian Journal of Philosophy, 101(2):313–326, 2023.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. The statistical riddle of induction. Australasian Journal of Philosophy,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>101(2):313–326, 2023.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1080/00048402.2021.2013909&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -584,20 +813,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. Completeness also solves carnap’s problem. Thought: A Journal of Philosophy, 11(4):192–198, December 2022.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. Completeness also solves carnap’s problem. Thought: A Journal of Philosophy,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>11(4):192–198, December 2022.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.5840/tht202432226&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -611,20 +855,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. On the indispensability of theoretical terms and entities. Synthese, 200(136), 2022.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. On the indispensability of theoretical terms and entities. Synthese, 200(136),</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>2022.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1007/s11229-022-03683-1&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -638,20 +897,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. A posteriori necessities in one dimension. Linguistics and Philosophy, 44(1):141–151, 2021.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. A posteriori necessities in one dimension. Linguistics and Philosophy,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>44(1):141–151, 2021.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1007/s10988-019-09291-6&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -665,20 +939,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Eric Johannesson. Classical versus Bayesian statistics. Philosophy of Science, 87(2):302–318, 2020.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1086/707588&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -692,20 +974,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. Realism and empirical equivalence. Journal of Philosophical Logic, 49(3):475–495, 2020.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. Realism and empirical equivalence. Journal of Philosophical Logic,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>49(3):475–495, 2020.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1007/s10992-019-09526-8&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -719,20 +1016,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. Partial semantics for quantified modal logic. Journal of Philosophical Logic, 47(6):1049–1060, 2018.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. Partial semantics for quantified modal logic. Journal of Philosophical Logic,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>47(6):1049–1060, 2018.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1007/s10992-018-9461-6&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -746,20 +1058,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson and Sara Packalen. The a priori-operator and the nesting problem. Thought: A Journal of Philosophy, 5(3):169–176, 2016.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson and Sara Packalen. The a priori-operator and the nesting problem. Thought: A</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Journal of Philosophy, 5(3):169–176, 2016.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://doi.org/10.1002/tht3.207&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -771,11 +1098,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Monographs</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_itm>
@@ -786,20 +1117,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Eric Johannesson. Analyticity, Necessity and Belief : Aspects of two-dimensional semantics. PhD thesis, Stockholm University, Department of Philosophy, 2017.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Eric Johannesson. Analyticity, Necessity and Belief : Aspects of two-dimensional semantics. PhD</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>thesis, Stockholm University, Department of Philosophy, 2017.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://su.diva-portal.org/smash/record.jsf?pid=diva2:1087481&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -811,11 +1157,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Other</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_itm>
@@ -826,20 +1176,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Eric Johannesson. Monty Hall-problemet. Filosofisk Tidskrift, 38(2):21–24, 2017.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://su.diva-portal.org/smash/record.jsf?pid=diva2:1088900&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -853,20 +1211,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Eric Johannesson. Finns det objektiva sannolikheter? Filosofisk Tidskrift, 36(2):3–12, 2015.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://su.diva-portal.org/smash/record.jsf?pid=diva2:1088899&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -880,20 +1246,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Eric Johannesson. Goodmans induktionsproblem. Filosofisk Tidskrift, 35(4):18–22, 2014.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>&lt;https://su.diva-portal.org/smash/record.jsf?pid=diva2:1088898&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -907,22 +1281,30 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Teaching</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Uppsala University (2024–2025)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -930,20 +1312,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Teknik- och vetenskapsstudier - filosofi (Sciene and Technology Studies - Philosophy), 5 ECTS.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Teknik- och vetenskapsstudier - filosofi (Sciene and Technology Studies - Philosophy), 5</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>ECTS.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2024</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -954,20 +1351,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Kunskapsteori (Epistemology), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2024, Spring 2025</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -978,20 +1383,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Medvetandefilosofi (Philosophy of Mind ), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2024, Spring 2025</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1002,20 +1415,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>C-uppsats i teoretisk filosofi (Bachelor’s Thesis in Theoretical Philosophy), 15 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2024, Spring 2025</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1027,11 +1448,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Stockholm University (2024)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1039,20 +1464,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophy of Language I, 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2024</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1063,20 +1496,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophy of Mind, 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2024 (with Sören Häggqvist)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1088,11 +1529,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Ashoka University (2022–2023)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1100,20 +1545,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophy of Computability</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2023</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1124,20 +1577,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophy of Probability and Statistics</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2023</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1148,20 +1609,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philsophy of Science</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2022</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1172,20 +1641,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Metaethics</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2022</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1197,11 +1674,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>University of Gothenburg (2022)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1209,20 +1690,28 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Tema: Medvetande (Philosophy of mind ), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2022</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1234,11 +1723,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Stockholm University (2013–2020)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1246,6 +1739,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Logik I (</cs_txt_unit_wysiwyg>
@@ -1257,15 +1752,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2019, Spring 2020</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1276,6 +1777,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Inledning till logik (</cs_txt_unit_wysiwyg>
@@ -1287,15 +1790,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2015, Spring 2018, Fall 2018</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1306,6 +1815,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Introduktion till logik (</cs_txt_unit_wysiwyg>
@@ -1317,15 +1828,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2018</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1336,6 +1853,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Logik II (</cs_txt_unit_wysiwyg>
@@ -1347,15 +1866,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2019</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1366,6 +1891,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Logisk följd (</cs_txt_unit_wysiwyg>
@@ -1377,15 +1904,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2016, Fall 2017, Fall 2018</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1396,6 +1929,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Metalogik 1: fullständighet (</cs_txt_unit_wysiwyg>
@@ -1407,15 +1942,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2018, Spring 2019, Spring 2020</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1426,20 +1967,35 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Metalogik 2: ofullständighet och oavgörbarhet (Metalogic 2: incompleteness and undecidability), 7.5 ECTS.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Metalogik 2: ofullständighet och oavgörbarhet (Metalogic 2: incompleteness and</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>undecidability), 7.5 ECTS.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2017, Spring 2018, Spring 2019, Spring 2020</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1450,11 +2006,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Reading courses for PhD students:</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_blt>
@@ -1462,6 +2022,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Statistikens filosofi (</cs_txt_unit_wysiwyg>
@@ -1473,15 +2035,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2020</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1492,6 +2060,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Logik (</cs_txt_unit_wysiwyg>
@@ -1503,15 +2073,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2020</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1525,6 +2101,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Metod: argumentation, semantik och formell logik (</cs_txt_unit_wysiwyg>
@@ -1536,15 +2114,21 @@
 <cs_txt_unit_wysiwyg>), 6 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2019 (with Sara Packalén), Fall 2019</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1555,6 +2139,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Matematikens filosofi (</cs_txt_unit_wysiwyg>
@@ -1566,15 +2152,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2018 (with Sama Agahi)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1585,6 +2177,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Språkfilosofi (</cs_txt_unit_wysiwyg>
@@ -1596,15 +2190,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Fall 2017</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1615,6 +2215,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Context sensitivity: avancerad kurs i språkfilosofi (</cs_txt_unit_wysiwyg>
@@ -1626,15 +2228,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2017 (with Sara Packalén)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1645,6 +2253,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Formella metoder inom filosofin: en översikt (</cs_txt_unit_wysiwyg>
@@ -1656,15 +2266,21 @@
 <cs_txt_unit_wysiwyg>), 7.5 ECTS.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Spring 2014 (with Sama Agahi)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1676,11 +2292,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Thesis supervising</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1688,11 +2308,22 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Leo Marklund, Kripkes lösning på problemet med framtida kontingens och varför den förbisetts, Bachelor thesis (kandidatuppsats) in theoretical philosophy, Stockholm University, 2020.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Leo Marklund, Kripkes lösning på problemet med framtida kontingens och varför den förbisetts,</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Bachelor thesis (kandidatuppsats) in theoretical philosophy, Stockholm University, 2020.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1703,11 +2334,22 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Henrik Lundvall, Inconsistency Theories and the Self-refutable Argument, Master thesis (magisteruppsats) in theoretical philosophy, Stockholm University, 2019.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Henrik Lundvall, Inconsistency Theories and the Self-refutable Argument, Master thesis</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>(magisteruppsats) in theoretical philosophy, Stockholm University, 2019.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1718,11 +2360,22 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Nemi Pelgrom, Can every real proof be represented by a formal proof? The Hilbert-Gentzen thesis, Master thesis (magisteruppsats) in theoretical philosophy, Stockholm University, 2018.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Nemi Pelgrom, Can every real proof be represented by a formal proof? The Hilbert-Gentzen</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>thesis, Master thesis (magisteruppsats) in theoretical philosophy, Stockholm University, 2018.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1736,22 +2389,30 @@
 </cr_sec>
 <cr_sec>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Refereeing</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cu_pars_or_blks_pars>
 <cs_pars>
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>For funding agencies</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1759,11 +2420,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Austrian Science Fund (FWF) (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1775,11 +2440,15 @@
 <cu_par_std>
 <cr_par_std>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>For journals</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_blt>
@@ -1787,11 +2456,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Erkenntnis (5)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1802,11 +2475,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>The Philosophical Quarterly (3)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1817,11 +2494,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophy of Science (2)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1832,11 +2513,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophical Studies (2)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1847,11 +2532,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Theoria (2)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1862,11 +2551,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Australasian Journal of Philosophy (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1877,11 +2570,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>British Journal for the Philosophy of Science (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1892,11 +2589,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Linguistics and Philosophy (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1907,11 +2608,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Dialectica (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1922,11 +2627,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Acta Analytica (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1937,11 +2646,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Logic Journal of the IGPL (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1952,11 +2665,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Journal of Philosophical Logic (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1967,11 +2684,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Notre Dame Journal of Formal Logic (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1982,11 +2703,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Logique et Analyse (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -1997,11 +2722,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Philosophia (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -2012,11 +2741,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Studies in History and Philosophy of Science (1)</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>

@@ -1260,6 +1260,22 @@ let node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : 
 
 (* Repeat *)
 
+
+let txt_units_of_txt_line (txt_line : ts_txt_line) : tu_txt_unit list =
+	match txt_line with
+	|Cs_txt_line (Cs_txt_units txt_unit_list) -> txt_unit_list
+
+let txt_units_of_txt_lines (txt_lines : ts_txt_lines) : tu_txt_unit list =
+        let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
+	match txt_lines with
+	|Cs_txt_lines txt_line_list ->
+		let rec aux (lines : ts_txt_line list) (acc : tu_txt_unit list) =
+			match lines, acc with
+			|[], _ -> acc
+			|hd::tl, [] -> aux tl (txt_units_of_txt_line hd)
+			|hd::tl, _ -> aux tl (List.concat [acc;[space];txt_units_of_txt_line hd])
+		in aux txt_line_list []
+
 let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
         let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
         let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
@@ -1276,9 +1292,9 @@ let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
                                 let txt_unit_c_ref = Cs_txt_unit_c_ref c_ref in
                                 let txt_unit = Cu_txt_unit_c_ref txt_unit_c_ref in
                                 match hdr_opt with
-                                |None -> Some (Cs_hdr (Cs_txt_units [txt_unit; space; restated]))
-                                |Some (Cs_hdr (Cs_txt_units txt_unit_list)) -> 
-                                        Some (Cs_hdr (Cs_txt_units (List.concat [[txt_unit; space; lpar]; txt_unit_list; [rpar; space; restated]])))
+                                |None -> Some (Cs_hdr (Cs_txt_lines [Cs_txt_line (Cs_txt_units [txt_unit; space; restated])]))
+                                |Some (Cs_hdr txt_lines) -> 
+                                        Some (Cs_hdr (Cs_txt_lines [Cs_txt_line (Cs_txt_units (List.concat [[txt_unit; space; lpar]; txt_units_of_txt_lines txt_lines; [rpar; space; restated]]))]))
         in
         {       
                 fld_par_hdr = par_hdr_opt;
@@ -1416,9 +1432,13 @@ let nte_table_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cr
         |Cs_txt_units txt_unit_list ->
                 nte_table_of_tu_txt_unit_list doc_settings cref_table path nte_table txt_unit_list
 
+
+let nte_table_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (txt_lines : ts_txt_lines) : t_nte_table =
+	nte_table_of_ts_txt_units doc_settings cref_table path nte_table (Cs_txt_units (txt_units_of_txt_lines txt_lines))
+
 let nte_table_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (blk_txt : ts_blk_txt) : t_nte_table =
         match blk_txt with
-        |Cs_blk_txt txt_units -> nte_table_of_ts_txt_units doc_settings cref_table path nte_table txt_units
+        |Cs_blk_txt txt_lines -> nte_table_of_ts_txt_lines doc_settings cref_table path nte_table txt_lines
 
 
 
@@ -1465,7 +1485,7 @@ let string_of_ts_nte_inline (doc_settings : t_doc_settings) (nte_table : t_nte_t
 
 let nte_table_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr : ts_hdr) =
         match hdr with
-        |Cs_hdr txt_units -> nte_table_of_ts_txt_units doc_settings cref_table path ([] : t_nte_table) txt_units
+        |Cs_hdr txt_lines -> nte_table_of_ts_txt_lines doc_settings cref_table path ([] : t_nte_table) txt_lines
 
 let nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr_opt : ts_hdr option) =
         match hdr_opt with
@@ -1553,4 +1573,6 @@ let exml_options_default () : t_exml_options = {
 let axml_options_default () : t_axml_options = {
         tags = None;
 }
+
+
 

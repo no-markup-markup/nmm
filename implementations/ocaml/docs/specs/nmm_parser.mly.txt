@@ -85,7 +85,7 @@ let date_of_string (s : string) : tu_date =
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
-%token                          PREAMBLE TITLE AUTHOR DATE ABSTRACT
+%token                          PREAMBLE_COLON TITLE_COLON AUTHOR_COLON DATE_COLON ABSTRACT_COLON
 %token <string>                 VRB_LINE
 %token <string>                 ESC_CHAR
 %token <string>                 TXT C_REF
@@ -187,28 +187,28 @@ doc:
 
 
 doc_preamble:
-  | PREAMBLE TAB preamble_lines                   { (Cs_preamble $3) : ts_preamble }
-  | PREAMBLE NL_TAB preamble_lines                { (Cs_preamble $3) : ts_preamble }
+  | PREAMBLE_COLON TAB preamble_lines            { (Cs_preamble $3) : ts_preamble }
+  | PREAMBLE_COLON NL_TAB preamble_lines         { (Cs_preamble $3) : ts_preamble }
 ;
 
 doc_title:
-  | TITLE TAB lines                               { (Cs_title $3) : ts_title }
-  | TITLE NL_TAB lines                            { (Cs_title $3) : ts_title }
+  | TITLE_COLON TAB lines                        { (Cs_title $3) : ts_title }
+  | TITLE_COLON NL_TAB lines                     { (Cs_title $3) : ts_title }
 ;
 
 doc_author:
-  | AUTHOR TAB lines                              { (Cs_author $3) : ts_author }
-  | AUTHOR NL_TAB lines                           { (Cs_author $3) : ts_author }
+  | AUTHOR_COLON TAB lines                       { (Cs_author $3) : ts_author }
+  | AUTHOR_COLON NL_TAB lines                    { (Cs_author $3) : ts_author }
 ;
 
 doc_date:
-  | DATE TAB lines                              { (date_of_string $3) : tu_date }
-  | DATE NL_TAB lines                           { (date_of_string $3) : tu_date }
+  | DATE_COLON TAB lines                         { (date_of_string $3) : tu_date }
+  | DATE_COLON NL_TAB lines                      { (date_of_string $3) : tu_date }
 ;
 
 doc_abstract:
-  | ABSTRACT TAB blks1                            { (Cs_abstract (Cs_blks $3)) : ts_abstract }
-  | ABSTRACT lb1 blks1                            { (Cs_abstract (Cs_blks $3)) : ts_abstract }
+  | ABSTRACT_COLON TAB blks1                     { (Cs_abstract (Cs_blks $3)) : ts_abstract }
+  | ABSTRACT_COLON lb1 blks1                     { (Cs_abstract (Cs_blks $3)) : ts_abstract }
 ;
 
 doc_refs:
@@ -301,7 +301,7 @@ special_blks:
 ;
 
 hdr:
-  |txt_units0                                     { (Cs_hdr (Cs_txt_units $1)):ts_hdr }
+  |txt_lines0                                     { (Cs_hdr (Cs_txt_lines $1)):ts_hdr }
 ;
 
 nls:
@@ -334,13 +334,21 @@ blk0:
 ;
 
 blk_txt0:
-  |txt_units0                                     { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+  |txt_lines0                                     { (Cs_blk_txt (Cs_txt_lines $1)):ts_blk_txt }
+;
+
+txt_lines0:
+  |txt_line0 lb0				{ $1 :: [] : ts_txt_line list }
+  |txt_line0 lb0 txt_lines0			{ $1 :: $3 : ts_txt_line list }
+;
+
+txt_line0:
+  |txt_units0					{ Cs_txt_line (Cs_txt_units $1) : ts_txt_line }
 ;
 
 txt_units0:
-  |txt_unit0 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit0                                      { ($1::[]):tu_txt_unit list }
   |txt_unit0 txt_units0                           { ($1::$2):tu_txt_unit list }
-  |txt_unit0 lb0 txt_units0                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit0:
@@ -553,13 +561,21 @@ blk1:
 ;
 
 blk_txt1:
-  |txt_units1                                     { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+  |txt_lines1                                     { (Cs_blk_txt (Cs_txt_lines $1)):ts_blk_txt }
+;
+
+txt_lines1:
+  |txt_line1 lb0				{ $1 :: [] : ts_txt_line list }
+  |txt_line1 lb1 txt_lines1			{ $1 :: $3 : ts_txt_line list }
+;
+
+txt_line1:
+  |txt_units1					{ Cs_txt_line (Cs_txt_units $1) : ts_txt_line }
 ;
 
 txt_units1:
-  |txt_unit1 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit1                                      { ($1::[]):tu_txt_unit list }
   |txt_unit1 txt_units1                           { ($1::$2):tu_txt_unit list }
-  |txt_unit1 lb1 txt_units1                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 
@@ -663,13 +679,21 @@ blk2:
 ;
 
 blk_txt2:
-  |txt_units2                                     { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+  |txt_lines2                                     { (Cs_blk_txt (Cs_txt_lines $1)):ts_blk_txt }
+;
+
+txt_lines2:
+  |txt_line2 lb0				{ $1 :: [] : ts_txt_line list }
+  |txt_line2 lb2 txt_lines2			{ $1 :: $3 : ts_txt_line list }
+;
+
+txt_line2:
+  |txt_units2					{ Cs_txt_line (Cs_txt_units $1) : ts_txt_line }
 ;
 
 txt_units2:
-  |txt_unit2 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit2                                      { ($1::[]):tu_txt_unit list }
   |txt_unit2 txt_units2                           { ($1::$2):tu_txt_unit list }
-  |txt_unit2 lb2 txt_units2                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 
@@ -766,13 +790,21 @@ blk3:
 ;
 
 blk_txt3:
-  |txt_units3                                     { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+  |txt_lines3                                     { (Cs_blk_txt (Cs_txt_lines $1)):ts_blk_txt }
+;
+
+txt_lines3:
+  |txt_line3 lb0				{ $1 :: [] : ts_txt_line list }
+  |txt_line3 lb3 txt_lines3			{ $1 :: $3 : ts_txt_line list }
+;
+
+txt_line3:
+  |txt_units3					{ Cs_txt_line (Cs_txt_units $1) : ts_txt_line }
 ;
 
 txt_units3:
-  |txt_unit3 lb0                                  { ($1::[]):tu_txt_unit list }
+  |txt_unit3                                      { ($1::[]):tu_txt_unit list }
   |txt_unit3 txt_units3                           { ($1::$2):tu_txt_unit list }
-  |txt_unit3 lb3 txt_units3                       { ($1::((Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " "))::$3)):tu_txt_unit list }
 ;
 
 txt_unit3:
@@ -840,12 +872,21 @@ nte_inline_short:
 ;
 
 blk_txt_nte:
-  |txt_units_nte                                  { (Cs_blk_txt (Cs_txt_units $1)):ts_blk_txt }
+  |txt_lines_nte                                  { (Cs_blk_txt (Cs_txt_lines $1)):ts_blk_txt }
 ;
 
+txt_lines_nte:
+  |txt_line_nte                                   { ($1::[]):ts_txt_line list }
+;
+
+txt_line_nte:
+  |txt_units_nte					{ Cs_txt_line (Cs_txt_units $1) : ts_txt_line }
+;
+
+
 txt_units_nte:
-  |txt_unit_nte                                   { ($1::[]):tu_txt_unit list }
-  |txt_unit_nte txt_units_nte                     { ($1::$2):tu_txt_unit list }
+  |txt_unit_nte					{ $1 :: [] : tu_txt_unit list }
+  |txt_unit_nte txt_units_nte			{ $1 :: $2 : tu_txt_unit list }
 ;
 
 txt_unit_nte:
@@ -866,11 +907,11 @@ txt_nte:
   |LBR                                            { "[":string }
   |PILCROW                                        { "¶":string }
   |SECTION                                        { "§":string }
-  |PREAMBLE                                       { "PREAMBLE":string }
-  |TITLE                                          { "TITLE":string }
-  |AUTHOR                                         { "AUTHOR":string }
-  |DATE                                           { "DATE":string }
-  |ABSTRACT                                       { "ABSTRACT":string }
+  |PREAMBLE_COLON                                 { "PREAMBLE:":string }
+  |TITLE_COLON                                    { "TITLE:":string }
+  |AUTHOR_COLON                                   { "AUTHOR:":string }
+  |DATE_COLON                                     { "DATE:":string }
+  |ABSTRACT_COLON                                 { "ABSTRACT:":string }
   |ESC_CHAR                                       { $1:string }
 ;
 

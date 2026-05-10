@@ -12,20 +12,28 @@
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Main</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Nothing lasts forever.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -40,6 +48,8 @@
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>of </cs_txt_unit_wysiwyg>
@@ -55,15 +65,21 @@
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>By straightforward induction on the complexity of nothing.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -92,11 +108,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This theorem states that ...</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -116,11 +136,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This theoren states that ...</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -138,6 +162,8 @@
 </cr_id>
 </cu_tag_or_id_id>
 <cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>of </cs_txt_unit_wysiwyg>
@@ -153,6 +179,8 @@
 </cs_txt_unit_c_ref>
 </cu_txt_unit_c_ref>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_hdr>
 <cs_blks>
 <cu_blk_itm>
@@ -163,6 +191,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>To prove </cs_txt_unit_wysiwyg>
@@ -181,6 +211,8 @@
 <cs_txt_unit_wysiwyg>, ...</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -194,6 +226,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>To prove </cs_txt_unit_wysiwyg>
@@ -212,6 +246,8 @@
 <cs_txt_unit_wysiwyg>, ...</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>

@@ -261,3 +261,7 @@ val html_options_default : unit -> t_html_options
 val exml_options_default : unit -> t_exml_options
 val axml_options_default : unit -> t_axml_options
 
+
+(* txt_lines *)
+
+val txt_units_of_txt_lines : Doc_types.ts_txt_lines -> Doc_types.tu_txt_unit list

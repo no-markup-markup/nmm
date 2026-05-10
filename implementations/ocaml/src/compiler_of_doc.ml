@@ -552,7 +552,7 @@ and acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                                 Xml.Element ("sec_lbl_hdr",[],xml_list_lbl)
                         |Some (hdr : ts_hdr) -> 
                                 match hdr with
-                                |Cs_hdr (t:ts_txt_units) -> Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_units doc_settings cref_table nte_table path t)
+                                |Cs_hdr (t:ts_txt_lines) -> Xml.Element ("sec_hdr",[],xml_list_of_ts_txt_lines doc_settings cref_table nte_table path t)
                 )
                 in
                 let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
@@ -629,7 +629,7 @@ and acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nt
                         |None -> Xml.Element ("ch_lbl_hdr", [], xml_list_lbl)
                         |Some (hdr : ts_hdr) ->
                                 match hdr with
-                                |Cs_hdr (t : ts_txt_units) -> Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_units doc_settings cref_table nte_table path t)
+                                |Cs_hdr (t : ts_txt_lines) -> Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_lines doc_settings cref_table nte_table path t)
                 )
                 in
                 let xml_endnotes_opt : Xml.xml option = xml_of_nte_table_opt doc_settings cref_table path nte_table in

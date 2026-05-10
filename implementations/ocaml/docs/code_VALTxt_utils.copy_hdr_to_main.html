@@ -26,23 +26,23 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_std = 
-        <span class="keyword">let</span> space : tu_txt_unit =  <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">" "</span>) <span class="keyword">in</span>
+        <span class="keyword">let</span> space : tu_txt_unit = <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">" "</span>) <span class="keyword">in</span>
         <span class="keyword">let</span> lpar : tu_txt_unit = <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">"("</span>) <span class="keyword">in</span>
         <span class="keyword">let</span> rpar : tu_txt_unit = <span class="constructor">Cu_txt_unit_wysiwyg</span> (<span class="constructor">Cs_txt_unit_wysiwyg</span> <span class="string">")"</span>) <span class="keyword">in</span>
         <span class="keyword">match</span> special_tag doc_settings par.fld_par_tag_or_id, par.fld_par_hdr, par.fld_par_main <span class="keyword">with</span>
         <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
-          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
-          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> (t : tu_txt_unit list)))::tl) <span class="keywordsign">-&gt;</span> {
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (h : ts_txt_lines)), 
+          <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> txt_lines)))::tl) <span class="keywordsign">-&gt;</span> {
                 fld_par_tag_or_id = par.fld_par_tag_or_id;
                 fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [[s;space;lpar];h;[rpar;space;space];t])))::tl)
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> ((<span class="constructor">Cs_txt_line</span> (<span class="constructor">Cs_txt_units</span> (<span class="constructor">List</span>.concat [[s;space;lpar];<span class="constructor">Common_utils</span>.txt_units_of_txt_lines h;[rpar;space]])))::txt_lines))))::tl)
           }
         <span class="keywordsign">|</span> <span class="constructor">None</span>,
-          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
-          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> (t : tu_txt_unit list)))::tl) <span class="keywordsign">-&gt;</span> {
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (h : ts_txt_lines)), 
+          <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> txt_lines)))::tl) <span class="keywordsign">-&gt;</span> {
                 fld_par_tag_or_id = par.fld_par_tag_or_id;
                 fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [h;[space;space];t])))::tl)
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> ((<span class="constructor">Cs_txt_line</span> (<span class="constructor">Cs_txt_units</span> (<span class="constructor">List</span>.concat [<span class="constructor">Common_utils</span>.txt_units_of_txt_lines h;[space;]])))::txt_lines))))::tl)
           }
         <span class="keywordsign">|</span> <span class="constructor">None</span>,
           <span class="constructor">None</span>,
@@ -53,29 +53,29 @@
           }
         <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
           <span class="constructor">None</span>,
-          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> (t : tu_txt_unit list)))::tl) <span class="keywordsign">-&gt;</span> {
+          <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> txt_lines))::tl) <span class="keywordsign">-&gt;</span> {
                 fld_par_tag_or_id = par.fld_par_tag_or_id;
                 fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = <span class="constructor">Cs_blks</span> (<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [[s;space;space];t])))::tl)
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> ((<span class="constructor">Cs_txt_line</span> (<span class="constructor">Cs_txt_units</span> [s;space;]))::txt_lines))))::tl)
           }
         <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
-          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (h : ts_txt_lines)), 
           <span class="constructor">Cs_blks</span> (blks : tu_blk list) <span class="keywordsign">-&gt;</span> {
                 fld_par_tag_or_id = par.fld_par_tag_or_id;
                 fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> ( <span class="constructor">List</span>.concat [[s;space;lpar];h;[rpar]]))))::blks)
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> [<span class="constructor">Cs_txt_line</span> (<span class="constructor">Cs_txt_units</span> (<span class="constructor">List</span>.concat [[s;space;lpar];<span class="constructor">Common_utils</span>.txt_units_of_txt_lines h;[rpar]]))])))::blks)
           }
         <span class="keywordsign">|</span> <span class="constructor">None</span>,
-          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_units</span> (h : tu_txt_unit list))), 
+          <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (<span class="constructor">Cs_txt_lines</span> (h : ts_txt_line list))), 
           <span class="constructor">Cs_blks</span> (blks : tu_blk list) <span class="keywordsign">-&gt;</span> {
                 fld_par_tag_or_id = par.fld_par_tag_or_id;
                 fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> h)))::blks)
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> h)))::blks)
           }
         <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : tu_txt_unit),
           <span class="constructor">None</span>,
           <span class="constructor">Cs_blks</span> (blks : tu_blk list) <span class="keywordsign">-&gt;</span> {
                 fld_par_tag_or_id = par.fld_par_tag_or_id;
                 fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_units</span> [s])))::blks)
+                fld_par_main = <span class="constructor">Cs_blks</span> ((<span class="constructor">Cu_blk_txt</span> (<span class="constructor">Cs_blk_txt</span> (<span class="constructor">Cs_txt_lines</span> [<span class="constructor">Cs_txt_line</span> (<span class="constructor">Cs_txt_units</span> [s])])))::blks)
           }</code></body></html>

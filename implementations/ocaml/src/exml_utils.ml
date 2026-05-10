@@ -198,10 +198,12 @@ let xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cre
         match a with
         | Cs_txt_units (b : tu_txt_unit list) -> List.rev (aux b [])
 
+let xml_list_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (txt_lines : ts_txt_lines) : Xml.xml list =
+	xml_list_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
 
 let xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : Xml.xml =
         match blk_txt with
-        |Cs_blk_txt (txt_units : ts_txt_units) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings cref_table nte_table path txt_units)
+        |Cs_blk_txt (txt_lines : ts_txt_lines) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines)))
 
 let xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
         match vrb_line with
@@ -236,8 +238,8 @@ let par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte
         let hdr_content_opt : (Xml.xml list) option = 
                 match hdr_opt with
                 |None -> None
-                |Some (Cs_hdr (txt_units : ts_txt_units)) ->
-                        Some (xml_list_of_ts_txt_units doc_settings cref_table nte_table path txt_units)
+                |Some (Cs_hdr (txt_lines : ts_txt_lines)) ->
+                        Some (xml_list_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines)))
         in
         match tag_content_opt, hdr_content_opt with
                 |Some tag_content, Some hdr_content ->

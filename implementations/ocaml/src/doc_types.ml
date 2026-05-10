@@ -96,11 +96,15 @@ and ts_name = Cs_name of string
 
 and tu_scope = Cu_scope_gbl | Cu_scope_ch | Cu_scope_sec | Cu_scope_app | Cu_scope_par
 
-and ts_hdr = Cs_hdr of ts_txt_units
+and ts_hdr = Cs_hdr of ts_txt_lines
 
-and ts_blk_txt = Cs_blk_txt of ts_txt_units
+and ts_blk_txt = Cs_blk_txt of ts_txt_lines
 
-and ts_txt_units = Cs_txt_units of tu_txt_unit list
+and ts_txt_lines = Cs_txt_lines of (ts_txt_line list)
+
+and ts_txt_line = Cs_txt_line of ts_txt_units
+
+and ts_txt_units = Cs_txt_units of (tu_txt_unit list)
 
 and tu_txt_unit =
   | Cu_txt_unit_wysiwyg of ts_txt_unit_wysiwyg

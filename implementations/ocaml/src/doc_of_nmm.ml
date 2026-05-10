@@ -37,12 +37,12 @@ let string_of_token (t:Nmm_parser.token):string=
         |DSP_ID s -> ("DSP_ID " ^ "\"" ^ s ^ "\"")
         |C_REF s -> ("C_REF " ^ "\"" ^ s ^ "\"")
         |NTE_REF (s,i) -> ("NTE_REF " ^ "(\"" ^ s ^ "\"," ^ (string_of_int i ) ^ ")")
-        |TITLE -> "TITLE"
-        |AUTHOR -> "AUTHOR"
-        |DATE -> "DATE"
-        |PREAMBLE -> "PREAMBLE"
+        |TITLE_COLON -> "TITLE_COLON"
+        |AUTHOR_COLON -> "AUTHOR_COLON"
+        |DATE_COLON -> "DATE_COLON"
+        |PREAMBLE_COLON -> "PREAMBLE_COLON"
         |ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
-        |ABSTRACT -> "ABSTRACT"
+        |ABSTRACT_COLON -> "ABSTRACT_COLON"
         |SECTION_REFS_NLS -> "SECTION_REFS_NLS"
         |PILCROW_REFS_NLS -> "PICLROW_REFS_NLS"
         |VRB_LINE s -> ("VRB_LINE " ^ "\"" ^ s ^ "\"")

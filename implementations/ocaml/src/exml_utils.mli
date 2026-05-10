@@ -24,6 +24,9 @@ val xml_of_ts_blk_vrb : Doc_types.ts_blk_vrb -> Xml.xml
 
 val xml_list_of_ts_txt_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.ts_txt_units -> Xml.xml list
 
+val xml_list_of_ts_txt_lines : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.ts_txt_lines -> Xml.xml list
+
+
 val attr_list_of_tu_tag_or_id_opt : Common_utils.t_doc_settings -> Common_utils.t_path -> string list -> Doc_types.tu_tag_or_id option -> (string * string) list
 
 val attr_list_of_tr_id : Common_utils.t_doc_settings -> Common_utils.t_path -> Doc_types.tr_id -> (string * string) list

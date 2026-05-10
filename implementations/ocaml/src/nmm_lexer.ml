@@ -56,11 +56,11 @@ let pilcrow_nl = [%sedlex.regexp? pilcrow, nl]
 let pilcrow_spaces_tag_or_id_nl = [%sedlex.regexp? pilcrow, spaces, par_tag_or_id, nl]
 let pilcrow_spaces_rpt_spaces_id_nl = [%sedlex.regexp? pilcrow, spaces, "rpt", spaces, par_id, nl]
 
-let preamble = [%sedlex.regexp? "PREAMBLE:"]
-let title = [%sedlex.regexp? "TITLE:"]
-let author = [%sedlex.regexp? "AUTHOR:"]
-let date = [%sedlex.regexp? "DATE:"]
-let abstract = [%sedlex.regexp? "ABSTRACT:"]
+let preamble_colon = [%sedlex.regexp? "PREAMBLE:"]
+let title_colon = [%sedlex.regexp? "TITLE:"]
+let author_colon = [%sedlex.regexp? "AUTHOR:"]
+let date_colon = [%sedlex.regexp? "DATE:"]
+let abstract_colon = [%sedlex.regexp? "ABSTRACT:"]
 let section_refs_nls = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
 let pilcrow_refs_nls = [%sedlex.regexp? Utf8 "¶", Plus " ", "REFS", Plus nl]
 
@@ -141,45 +141,45 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
         match verbatim.contents, display.contents with
         |false, false -> (
                 match%sedlex lexbuf with
-                |esc_char                       ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
-                |preamble                       ->      PREAMBLE
-                |title                          ->      TITLE
-                |author                         ->      AUTHOR
-                |date                           ->      DATE
-                |abstract                       ->      ABSTRACT
-                |ch_tag_or_id_nl                ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
-                |nte_ref                        ->      NTE_REF (lexeme lexbuf, nte_count ())
-                |c_ref                          ->      C_REF (lexeme lexbuf)
-                |section_nl                     ->      SECTION_NL
-                |section_spaces_tag_or_id_nl    ->      SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
-                |pilcrow_nl                     ->      PILCROW_NL
-                |pilcrow_spaces_tag_or_id_nl    ->      PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+                |esc_char                        ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
+                |preamble_colon                  ->      PREAMBLE_COLON
+                |title_colon                     ->      TITLE_COLON
+                |author_colon                    ->      AUTHOR_COLON
+                |date_colon                      ->      DATE_COLON
+                |abstract_colon                  ->      ABSTRACT_COLON
+                |ch_tag_or_id_nl                 ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
+                |nte_ref                         ->      NTE_REF (lexeme lexbuf, nte_count ())
+                |c_ref                           ->      C_REF (lexeme lexbuf)
+                |section_nl                      ->      SECTION_NL
+                |section_spaces_tag_or_id_nl     ->      SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
+                |pilcrow_nl                      ->      PILCROW_NL
+                |pilcrow_spaces_tag_or_id_nl     ->      PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
                 |pilcrow_spaces_rpt_spaces_id_nl ->     PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
-                |section_refs_nls               ->      SECTION_REFS_NLS
-                |pilcrow_refs_nls               ->      PILCROW_REFS_NLS
-                |tab                            ->      TAB 
-                |dash_tab                       ->      DASH_TAB
-                |star_tab_id                    ->      STAR_TAB_ID (lexeme lexbuf)
-                |dsp_auto_tab                   ->      set_display_and_return_token DSP_AUTO_TAB 
-                |dsp_custom_tab                 ->      set_display_and_return_token (DSP_CUSTOM_TAB (get_label (lexeme lexbuf)))
-                |itm_auto_tab                   ->      ITM_AUTO_TAB
-                |itm_custom_tab                 ->      ITM_CUSTOM_TAB (get_label (lexeme lexbuf))
-                |itm_auto_tab_id                ->      ITM_AUTO_TAB_ID (lexeme lexbuf)
-                |itm_custom_tab_id              ->      ITM_CUSTOM_TAB_ID (lexeme lexbuf)
-                |nl                             ->      let _ : unit = skip_newlines lexbuf in NL
-                |nl_tab                         ->      NL_TAB
-                |nl_tab_tab                     ->      NL_TAB_TAB
-                |nl_tab_tab_tab                 ->      NL_TAB_TAB_TAB
-                |star                           ->      STAR
-                |lbr                            ->      LBR
-                |rbr                            ->      RBR
-                |colon                          ->      COLON
-                |section                        ->      SECTION
-                |pilcrow                        ->      PILCROW
-                |nte_lbr                        ->      NTE_LBR (nte_count ())
-                |txt                            ->      TXT (lexeme lexbuf)
-                |start_vrb                      ->      set_verbatim_and_return_token START_VRB
-                |eof                            ->      if end_of_file.contents then EOF else set_end_of_file_and_return_token NL
+                |section_refs_nls                ->      SECTION_REFS_NLS
+                |pilcrow_refs_nls                ->      PILCROW_REFS_NLS
+                |tab                             ->      TAB 
+                |dash_tab                        ->      DASH_TAB
+                |star_tab_id                     ->      STAR_TAB_ID (lexeme lexbuf)
+                |dsp_auto_tab                    ->      set_display_and_return_token DSP_AUTO_TAB 
+                |dsp_custom_tab                  ->      set_display_and_return_token (DSP_CUSTOM_TAB (get_label (lexeme lexbuf)))
+                |itm_auto_tab                    ->      ITM_AUTO_TAB
+                |itm_custom_tab                  ->      ITM_CUSTOM_TAB (get_label (lexeme lexbuf))
+                |itm_auto_tab_id                 ->      ITM_AUTO_TAB_ID (lexeme lexbuf)
+                |itm_custom_tab_id               ->      ITM_CUSTOM_TAB_ID (lexeme lexbuf)
+                |nl                              ->      let _ : unit = skip_newlines lexbuf in NL
+                |nl_tab                          ->      NL_TAB
+                |nl_tab_tab                      ->      NL_TAB_TAB
+                |nl_tab_tab_tab                  ->      NL_TAB_TAB_TAB
+                |star                            ->      STAR
+                |lbr                             ->      LBR
+                |rbr                             ->      RBR
+                |colon                           ->      COLON
+                |section                         ->      SECTION
+                |pilcrow                         ->      PILCROW
+                |nte_lbr                         ->      NTE_LBR (nte_count ())
+                |txt                             ->      TXT (lexeme lexbuf)
+                |start_vrb                       ->      set_verbatim_and_return_token START_VRB
+                |eof                             ->      if end_of_file.contents then EOF else set_end_of_file_and_return_token NL
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 

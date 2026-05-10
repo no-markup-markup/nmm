@@ -29,11 +29,11 @@ type token =
         |TAB_END_VRB
         |TAB_TAB_END_VRB
         |TAB_TAB_TAB_END_VRB
-        |PREAMBLE
-        |TITLE
-        |AUTHOR
-        |DATE
-        |ABSTRACT
+        |PREAMBLE_COLON
+        |TITLE_COLON
+        |AUTHOR_COLON
+        |DATE_COLON
+        |ABSTRACT_COLON
         |VRB_LINE of string
         |ESC_CHAR of string
         |TXT of string

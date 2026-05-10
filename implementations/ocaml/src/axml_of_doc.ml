@@ -190,7 +190,7 @@ and xml_of_tu_pars_or_blks (pars_or_blks:tu_pars_or_blks):Xml.xml=
 
 and xml_of_ts_blk_txt (blk_txt:ts_blk_txt):Xml.xml=
         match blk_txt with
-        |Cs_blk_txt (txt_units:ts_txt_units) -> Xml.Element ("cs_blk_txt",[],[xml_of_ts_txt_units txt_units])
+        |Cs_blk_txt (txt_lines:ts_txt_lines) -> Xml.Element ("cs_blk_txt",[],[xml_of_ts_txt_lines txt_lines])
 
 and xml_of_ts_blk_blt (blk_blt:ts_blk_blt):Xml.xml=
         match blk_blt with
@@ -227,6 +227,15 @@ and xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
                 match s with
                 |"" -> Xml.Element ("cs_vrb_line",[],[]) 
                 |_ -> Xml.Element ("cs_vrb_line",[],[xml_of_string s])
+
+and xml_of_ts_txt_lines (txt_lines : ts_txt_lines) : Xml.xml =
+	match txt_lines with
+	|Cs_txt_lines txt_line_list -> Xml.Element ("cs_txt_lines",[],List.map xml_of_ts_txt_line txt_line_list)
+
+
+and xml_of_ts_txt_line (txt_line : ts_txt_line) : Xml.xml =
+	match txt_line with
+	|Cs_txt_line txt_units -> Xml.Element ("cs_txt_line",[],[xml_of_ts_txt_units txt_units])
 
 and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
         match txt_units with
@@ -295,7 +304,7 @@ and xml_of_tu_tag_or_id (tag_or_id:tu_tag_or_id):Xml.xml=
 
 and xml_of_ts_hdr (hdr:ts_hdr):Xml.xml=
         match hdr with
-        |Cs_hdr (txt_units:ts_txt_units) -> Xml.Element ("cs_hdr",[],[xml_of_ts_txt_units txt_units])
+        |Cs_hdr (txt_lines:ts_txt_lines) -> Xml.Element ("cs_hdr",[],[xml_of_ts_txt_lines txt_lines])
 
 
 and xml_of_tu_lbl (a:tu_lbl):Xml.xml=

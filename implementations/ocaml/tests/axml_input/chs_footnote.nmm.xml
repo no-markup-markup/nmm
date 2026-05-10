@@ -13,6 +13,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is a sentence with a reference to a footnote attached to it.</cs_txt_unit_wysiwyg>
@@ -28,6 +30,8 @@
 </cs_txt_unit_nte_ref>
 </cu_txt_unit_nte_ref>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_nte>
@@ -39,11 +43,29 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Here is the content of that footnote, which should be displayed at</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>the bottom of the page on which it is referenced, but may occur</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>anywhere in the source document (modulo scope).</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -58,11 +80,22 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>This is a named footnote, which is only displayed in the compiled document if referenced, and otherwise acts as a comment.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>This is a named footnote, which is only displayed in the compiled</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>document if referenced, and otherwise acts as a comment.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -70,6 +103,8 @@
 </cu_blk_nte>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>If a footnote is referenced multiple times</cs_txt_unit_wysiwyg>
@@ -85,7 +120,14 @@
 </cs_txt_unit_nte_ref>
 </cu_txt_unit_nte_ref>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>, it will be displayed multiple times with the same content but different numbering.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, it will be displayed</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>multiple times with the same content but different numbering.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_nte_ref>
 <cs_txt_unit_nte_ref>
@@ -98,6 +140,8 @@
 </cs_txt_unit_nte_ref>
 </cu_txt_unit_nte_ref>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_nte>
@@ -109,11 +153,15 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>Any number of times.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>
@@ -133,6 +181,8 @@
 <cs_blks>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>This is a sentence with a reference to a footnote attached to it.</cs_txt_unit_wysiwyg>
@@ -148,10 +198,14 @@
 </cs_txt_unit_nte_ref>
 </cu_txt_unit_nte_ref>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 <cu_blk_txt>
 <cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
 <cs_txt_unit_wysiwyg>If a footnote is referenced multiple times</cs_txt_unit_wysiwyg>
@@ -167,7 +221,14 @@
 </cs_txt_unit_nte_ref>
 </cu_txt_unit_nte_ref>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>, it will be displayed multiple times with the same content but different numbering.</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>, it will be displayed</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>multiple times with the same content but different numbering.</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 <cu_txt_unit_nte_ref>
 <cs_txt_unit_nte_ref>
@@ -180,6 +241,8 @@
 </cs_txt_unit_nte_ref>
 </cu_txt_unit_nte_ref>
 </cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
 </cs_blk_txt>
 </cu_blk_txt>
 </cs_blks>

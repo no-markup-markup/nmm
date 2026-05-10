@@ -25,15 +25,15 @@ In cases where '-' can be given instead of a path, the program
 reads from standard input.
 
 TXT-OPTIONS:
-  --margin <numeral>
-  --width <numeral>
+  --margin <non-negative-integer>
+  --width <non-negative-integer>
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
   --tags <path-to-tsv-file>
 
 HTML-OPTIONS:
-  --margin <numeral>
+  --margin <non-negative-integer>
   --lang <language-code>
   --css <uri>
   --quiet
@@ -84,17 +84,20 @@ let tags : (string option) ref = ref None
 let keyspecdoc_list : t_keyspecdoc list ref = ref []
 
 let set_margin (s : string) : unit =
-        margin.contents <- Some (int_of_string s)
+	try
+	        margin.contents <- Some (int_of_string s)
+	with _ -> raise (Error ("invalid --margin argument: " ^ s))
 
 let keyspecdoc_margin : t_keyspecdoc =
         ("--margin", Arg.String set_margin, "")
 
 let set_width (s : string) : unit =
-        width.contents <- Some (int_of_string s)
+	try
+	        width.contents <- Some (int_of_string s)
+	with _ -> raise (Error ("invalid --width argument: " ^ s))
 
 let keyspecdoc_width : t_keyspecdoc =
         ("--width", Arg.String set_width, "")
-
 
 let keyspecdoc_lang : t_keyspecdoc =
         ("--lang", Arg.Set_string lang, "")
@@ -250,7 +253,7 @@ let anon_arg_fun arg : unit =
         |_ -> raise (Error (String.concat " " ["one too many arguments:";arg]))
 
 
-let _ : unit = try
+let _ : unit =
         let _ : unit = Arg.parse_dynamic keyspecdoc_list anon_arg_fun usage in
         match cmd_name.contents with
         |"txt-of-axml" -> (
@@ -410,10 +413,6 @@ let _ : unit = try
                         |"" -> raise (Error "missing path-to-axml-file")
                         |path -> print_endline (Main.normalize_axml_file path)
         )
-        |_ -> print_endline usage
-with
-|Error e -> 
-        let _ : unit = IO.print_to_stderr e in
-        print_endline usage
-|Main.Error e -> IO.print_to_stderr e
-|Test.Error e -> raise (Error (String.concat " " ["Test.Error:";e]))
+        |"" -> print_endline usage
+        |unknown -> raise (Error ("unknown command: " ^ unknown))
+

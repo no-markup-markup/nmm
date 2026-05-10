@@ -118,31 +118,13 @@ let tag_blk_itm_gen (tag_of_string : string -> ts_tag option) (blk_itm : Doc_typ
 				match blk_list_hd with
 				|Cu_blk_txt blk_txt -> (
 					match blk_txt with
-					|Cs_blk_txt txt_units ->
-						match txt_units with
-						|Cs_txt_units txt_unit_list ->
-							match txt_unit_list with
-							|tag_unit::(space_unit::(txt_unit_list_tl)) -> (
-								match tag_unit, space_unit with
-								|Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg tag_string),
-								 Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") -> (
-									match tag_of_string tag_string with
-									|None -> blk_itm
-									|Some tag -> {
-										fld_blk_itm_lbl = blk_itm.fld_blk_itm_lbl;
-										fld_blk_itm_tag_or_id = Some (Cu_tag_or_id_tag tag);
-										fld_blk_itm_main = Cs_blks (
-											(Cu_blk_txt (
-												Cs_blk_txt (
-													Cs_txt_units txt_unit_list_tl)))::blk_list_tl
-										)
-									}
-								)
-								|_,_ -> blk_itm
-							)
-							|tag::[] -> (
-								match tag, blk_list_tl with
-								|Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg tag_string), _::_ -> (
+					|Cs_blk_txt txt_lines ->
+						match txt_lines with
+						|Cs_txt_lines txt_line_list ->
+							match txt_line_list with
+							|first_line::[] -> (
+								match first_line, blk_list_tl with
+								|Cs_txt_line (Cs_txt_units [Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg tag_string)]), _::_ -> (
 									match tag_of_string tag_string with
 									|None -> blk_itm
 									|Some tag -> {
@@ -152,6 +134,23 @@ let tag_blk_itm_gen (tag_of_string : string -> ts_tag option) (blk_itm : Doc_typ
 									}
 								)
 								|_,_ -> blk_itm
+							)
+							|first_line::(txt_line_list_tl) -> (
+								match first_line with
+								|Cs_txt_line (Cs_txt_units [Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg tag_string)]) -> (
+									match tag_of_string tag_string with
+									|None -> blk_itm
+									|Some tag -> {
+										fld_blk_itm_lbl = blk_itm.fld_blk_itm_lbl;
+										fld_blk_itm_tag_or_id = Some (Cu_tag_or_id_tag tag);
+										fld_blk_itm_main = Cs_blks (
+											(Cu_blk_txt (
+												Cs_blk_txt (
+													Cs_txt_lines txt_line_list_tl)))::blk_list_tl
+										)
+									}
+								)
+								|_ -> blk_itm
 							)
 							|_ -> blk_itm
 				)
