@@ -298,6 +298,24 @@ INCLUDE-FILE ./raw-text-semantics/nested-blocks.txt
 ```
 </details>
 
+### Chapters, sections, appendices and paragraphs
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+INCLUDE-FILE ./nmm-sources/chapters-sections-appendices-paragraphs.nmm
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+INCLUDE-FILE ./raw-text-semantics/chapters-sections-appendices-paragraphs.txt
+```
+</details>
+
 ### Tags, names, IDs and cross-references
 
 <details>
@@ -316,13 +334,13 @@ INCLUDE-FILE ./raw-text-semantics/tags-names-c-refs.txt
 ```
 </details>
 
-### Chapters, sections, appendices and paragraphs
+### IDs with scope
 
 <details>
   <summary><b>nmm source:</b></summary>
 
 ```
-INCLUDE-FILE ./nmm-sources/chapters-sections-appendices-paragraphs.nmm
+INCLUDE-FILE ./nmm-sources/id_scope.nmm
 ```
 </details>
 
@@ -330,7 +348,7 @@ INCLUDE-FILE ./nmm-sources/chapters-sections-appendices-paragraphs.nmm
   <summary><b>default raw text semantics</b></summary>
 
 ```
-INCLUDE-FILE ./raw-text-semantics/chapters-sections-appendices-paragraphs.txt
+INCLUDE-FILE ./raw-text-semantics/id_scope.txt
 ```
 </details>
 
