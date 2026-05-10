@@ -385,7 +385,7 @@ subparser_nmm2html.set_defaults(func=nmm2html)
 
 subparser_validate_xml : F[ap.ArgumentParser] = subparsers.add_parser(
   name            = 'validate-xml',
-  description     = description_by_command['nmm2xml'],
+  description     = description_by_command['validate-xml'],
 )
 subparser_validate_xml.add_argument('path',help='path to nmm source file')
 
