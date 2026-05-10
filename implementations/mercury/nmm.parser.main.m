@@ -1,5 +1,5 @@
 :- module nmm.parser.main.
-%
+
 % INTERFACE
 
 %% INTERFACE DECLARATION
@@ -9,7 +9,11 @@
 
 %% MODULE IMPORTS
 
-:- use_module nmm.
+:- use_module term_to_xml.
+
+:- import_module nmm.parser.blks.
+:- import_module nmm.parser.lines.
+:- import_module nmm.parser.misc.
 
 
 %% R_DOC, TR_DOC, F_DOC_TO_XML, TR_DOC XMLABLE
@@ -398,6 +402,16 @@
 %% IMPLEMENTATION DECLARATION
 
 :- implementation.
+
+
+%% MODULE IMPORTS
+
+:- use_module nmm.parser.operators.
+
+:- import_module nmm.parser.helpers.
+:- import_module nmm.parser.operators.plus.
+:- import_module nmm.parser.operators.q_mark.
+:- import_module nmm.parser.operators.star.
 
 
 %% R_DOC, F_DOC_TO_XML, TR_DOC XMLABLE

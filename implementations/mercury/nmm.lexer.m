@@ -66,9 +66,10 @@
 
 %% MODULE IMPORTS
 
-:- import_module uint.
+:- use_module exception.
+:- use_module string.
 
-:- use_module exception, string.
+:- import_module uint.
 
 
 %% P_TKN_LINE_NO

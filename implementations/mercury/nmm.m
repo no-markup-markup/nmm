@@ -9,22 +9,18 @@
 
 %% SUBMODULES
 
-:- include_module nmm.cli, nmm.lexer, nmm.parser, nmm.test.
+:- include_module nmm.cli.
+:- include_module nmm.lexer.
+:- include_module nmm.parser.
+:- include_module nmm.test.
 
 
 %% MODULE IMPORTS
 
-:- use_module
-  char
-  ,
-  maybe
-  .
+:- use_module char.
+:- use_module maybe.
 
-:- import_module
-  list
-  ,
-  string
-  .
+:- import_module list.
 
 
 %% TYPE ABBREVIATIONS AND FUNCTION ABBREVIATIONS
@@ -47,6 +43,8 @@
 % IMPLEMENTATION
 
 :- implementation.
+
+:- import_module string.
 
 :- use_module uint.
 

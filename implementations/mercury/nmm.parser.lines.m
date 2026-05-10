@@ -9,7 +9,10 @@
 
 %% MODULE IMPORTS
 
-:- use_module nmm.
+:- use_module term_to_xml.
+
+:- import_module nmm.parser.units.
+:- import_module nmm.parser.misc.
 
 
 %% R_TXT_LINES, TS_TXT_LINES, F_TXT_LINES_TO_XML, TS_TXT_LINES XMLABLE
@@ -160,6 +163,15 @@
 %% IMPLEMENTATION DECLARATION
 
 :- implementation.
+
+
+%% MODULE IMPORTS
+
+:- use_module nmm.parser.operators.
+
+:- import_module nmm.parser.helpers.
+:- import_module nmm.parser.operators.plus.
+:- import_module nmm.parser.operators.q_mark.
 
 
 %% R_TXT_LINES, F_TXT_LINES_TO_XML, TS_TXT_LINES XMLABLE

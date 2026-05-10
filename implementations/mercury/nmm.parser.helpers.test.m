@@ -19,7 +19,8 @@
 
 %% MODULE IMPORTS
 
-:- import_module nmm.parser.test, nmm.parser.helpers.
+:- import_module nmm.parser.test.
+:- import_module nmm.parser.helpers.
 
 
 %% P_TEST_R_1

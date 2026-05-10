@@ -16,17 +16,15 @@
 
 %% MODULE IMPORTS
 
-:- import_module
-  list
-  ,
-  nmm.parser.operators.plus
-  ,
-  nmm.parser.operators.q_mark
-  ,
-  nmm.parser.operators.star
-  .
+:- use_module char.
+:- use_module string.
 
-:- use_module char, string.
+:- import_module list.
+
+:- import_module nmm.parser.operators.plus.
+:- import_module nmm.parser.operators.q_mark.
+:- import_module nmm.parser.operators.star.
+
 
 
 %% DCG RULES R_A AND R_B

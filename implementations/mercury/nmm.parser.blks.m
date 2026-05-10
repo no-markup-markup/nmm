@@ -9,7 +9,11 @@
 
 %% MODULE IMPORTS
 
-:- use_module nmm.
+:- use_module term_to_xml.
+
+:- import_module nmm.parser.main.
+:- import_module nmm.parser.lines.
+:- import_module nmm.parser.misc.
 
 
 %% R_BLKS, TS_BLKS, F_BLKS_TO_XML, TS_BLKS_XMLABLE
@@ -156,6 +160,16 @@
 %% IMPLEMENTATION DECLARATION
 
 :- implementation.
+
+%% MODULE IMPORTS
+
+:- import_module uint.
+
+:- use_module nmm.parser.operators.
+
+:- import_module nmm.parser.helpers.
+:- import_module nmm.parser.operators.plus.
+:- import_module nmm.parser.operators.q_mark.
 
 
 %% R_BLKS, F_BLKS_TO_XML, TS_BLKS_XMLABLE

@@ -7,9 +7,9 @@
 
 %% MODULE IMPORTS
 
-:- import_module list.
-
 :- use_module io.
+
+:- import_module list.
 
 
 %% GENERALIZED KLEENE STAR

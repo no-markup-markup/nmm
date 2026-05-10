@@ -30,6 +30,7 @@
 :- use_module dir.
 :- use_module exception.
 :- use_module term_to_xml.
+
 :- use_module nmm.lexer.
 :- use_module nmm.parser.
 :- use_module nmm.parser.main.

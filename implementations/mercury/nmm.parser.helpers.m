@@ -11,11 +11,6 @@
 
 :- include_module nmm.parser.helpers.test.
 
-%% MODULE IMPORTS
-
-:- use_module nmm.
-
-
 %% UNION TYPE TU_R FOR WHAT PARTS OF A LINE TO READ
 
 :- type tu_r --->
@@ -99,6 +94,8 @@
 %% MOUDULE IMPORTS
 
 :- use_module nmm.lexer.
+
+:- import_module uint.
 
 
 %% R_C

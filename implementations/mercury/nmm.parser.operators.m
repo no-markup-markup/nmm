@@ -2,11 +2,10 @@
 
 :- interface.
 
-:- include_module
-  operators.plus,
-  operators.q_mark,
-  operators.star,
-  operators.test.
+:- include_module operators.plus.
+:- include_module operators.q_mark.
+:- include_module operators.star.
+:- include_module operators.test.
 
 :- type ta_rule(TKNS) ==  pred(TKNS, TKNS).
 :- inst ta_rule       == (pred(in,   out) is semidet).

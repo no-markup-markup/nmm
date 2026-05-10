@@ -21,14 +21,18 @@
 
 %% MODULE IMPORTS
 
-:- use_module
-  exception
-  ,
-  nmm.parser.operators, nmm.parser.operators.test
-  ,
-  nmm.parser.helpers, nmm.parser.helpers.test
-  .
+:- use_module exception.
 
+:- use_module nmm.parser.operators.
+:- use_module nmm.parser.operators.test.
+:- use_module nmm.parser.helpers.
+:- use_module nmm.parser.helpers.test.
+
+:- import_module nmm.parser.main.
+:- import_module nmm.parser.blks.
+:- import_module nmm.parser.lines.
+:- import_module nmm.parser.units.
+:- import_module nmm.parser.misc.
 
 %% CONSTANT K_TAGS
 

@@ -6,7 +6,7 @@
 
 :- interface.
 
-%% USE MODULES
+%% MODULE IMPORTS
 
 :- use_module io.
 
@@ -22,11 +22,6 @@
 %% IMPLEMENTATION DECLARATION 
 
 :- implementation.
-
-
-%% USE MODULES
-
-:- use_module nmm.lexer.
 
 
 %% P
