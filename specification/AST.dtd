@@ -17,7 +17,7 @@
 <!ELEMENT cs_chs (cr_ch+)>
 <!ELEMENT cs_secs (cr_sec+)>
 <!ELEMENT cs_pars ((cu_par_std | cu_par_rpt)+)>
-<!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp | cu_blk_vrb | cu_blk_nte)+>
+<!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp | cu_blk_vrb | cu_blk_nte | cu_blk_qtn)+>
 
 <!ELEMENT cr_ch ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_secs_pars_or_blks_secs | cu_secs_pars_or_blks_pars | cu_secs_pars_or_blks_blks))>
 <!ELEMENT cr_sec ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_pars_or_blks_pars | cu_pars_or_blks_blks))>
