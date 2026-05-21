@@ -16,6 +16,7 @@ val lines_of_ts_hdr_opt : Common_utils.t_doc_settings -> Common_utils.t_cref_tab
 val lines_of_ts_txt_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.ts_txt_units -> string list
 val insert_label : Common_utils.t_doc_settings -> Common_utils.t_path -> string -> string
 val lines_of_ts_blk_vrb : Common_utils.t_doc_settings -> Common_utils.t_path -> Doc_types.ts_blk_vrb -> string list
+val lines_of_ts_blk_qtn : Common_utils.t_doc_settings -> Common_utils.t_path -> Doc_types.ts_blk_qtn -> string list
 
 val max_length_of_margin_labels : string list -> int
 val left_margin_of_margin_labels : string list -> int

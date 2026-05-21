@@ -52,7 +52,10 @@ let string_of_token (t:Nmm_parser.token):string=
         |TAB_END_VRB -> "TAB_END_VRB"
         |TAB_TAB_END_VRB -> "TAB_TAB_END_VRB"
         |TAB_TAB_TAB_END_VRB -> "TAB_TAB_TAB_END_VRB"
-
+	|START_QTN -> "START_QTN"
+	|END_QTN -> "END_QTN"
+	|BR -> "BR"
+	|TAB_END_QTN -> "TAB_END_QTN"
 
 let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
         let token : Nmm_parser.token=Nmm_lexer.token b in
@@ -67,6 +70,7 @@ let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.p
 
 
 let set_refs () : unit =
+        let _ : unit = Nmm_lexer.quotation.contents <- false in
         let _ : unit = Nmm_lexer.verbatim.contents <- false in
         let _ : unit = Nmm_lexer.display.contents <- false in
         let _ : unit = Nmm_lexer.nte_counter.contents <- 0 in
@@ -162,14 +166,14 @@ let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
 
 
 let doc_of_nmm_file_with_tagger (tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) (path : string) : Doc_types.tr_doc =
-	let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
-	doc_of_nmm_file false path
+        let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
+        doc_of_nmm_file false path
 
 let doc_of_nmm_stdin_with_tagger (tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) : Doc_types.tr_doc =
-	let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
-	doc_of_nmm_stdin false
+        let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
+        doc_of_nmm_stdin false
 
 let doc_of_nmm_string_with_tagger (tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) (s : string) : Doc_types.tr_doc =
-	let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
-	doc_of_nmm_string false s
+        let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- tagger in
+        doc_of_nmm_string false s
 

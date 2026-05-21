@@ -85,6 +85,9 @@
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_txt"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"p"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk&nbsp;txt"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_qtn"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"p"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk&nbsp;qtn"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"br"</span>,&nbsp;_,_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"br"</span>,&nbsp;[],&nbsp;[])<br>
+<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm_lbl"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,[(<span class="string">"class"</span>,<span class="string">"blk_itm_lbl"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm_main"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[(<span class="string">"class"</span>,&nbsp;<span class="string">"blk_itm_main"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
@@ -419,6 +422,12 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 .dsp_line_main&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>^&nbsp;tab_length&nbsp;^<span class="string">";<br>
 &nbsp;&nbsp;&nbsp;&nbsp;white-space&nbsp;:&nbsp;pre;<br>
+}<br>
+<br>
+.blk.qtn&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hyphens&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;auto;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;white-space&nbsp;:&nbsp;pre-wrap;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>^&nbsp;tab_length&nbsp;^<span class="string">";<br>
 }<br>
 <br>
 /********&nbsp;ENDNOTES&nbsp;and&nbsp;FOOTNOTES&nbsp;**********/<br>

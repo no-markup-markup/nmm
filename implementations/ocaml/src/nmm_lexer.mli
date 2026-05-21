@@ -6,6 +6,8 @@ exception ERROR of string
 
 val line_of_lexbuf : Sedlexing.lexbuf -> string
 
+val quotation : bool ref
+
 val verbatim : bool ref
 
 val display : bool ref

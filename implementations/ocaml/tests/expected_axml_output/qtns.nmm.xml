@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cu_doc_main_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Here is what someone had to say:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_qtn>
+<cs_blk_qtn>
+<cs_qtn_lines>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>In the 1920s, thanks largely to David Hilbert, formalistic rigor</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>came increasingly to be prized in some circles. </cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+<cu_qtn_unit_emph>
+<cs_qtn_unit_emph>In 1931 it proved instrumental to the philosophico-mathematical sensation of the age: GÖDEL&apos;S THEOREM.</cs_qtn_unit_emph>
+</cu_qtn_unit_emph>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg> Gödel&apos;s proof hinged on modeling</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>the formalism of logic and arithmetic in arithmetic. The theorem</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>could not even be conceived and conjectured, in its latter-day</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>generality, without the clarification of the idea of a proof</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>procedure that formalism affords.</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_br>
+<cs_qtn_line_br>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>[Quine (1987) pp. 66–67]</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_br>
+</cu_qtn_line_br>
+<cu_qtn_line_br>
+<cs_qtn_line_br>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>(emphasis mine)</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_br>
+</cu_qtn_line_br>
+</cs_qtn_lines>
+</cs_blk_qtn>
+</cu_blk_qtn>
+<cu_blk_blt>
+<cs_blk_blt>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Testing the same quotation but on level &gt; 0:</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+<cu_blk_qtn>
+<cs_blk_qtn>
+<cs_qtn_lines>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>In the 1920s, thanks largely to David Hilbert, formalistic</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>rigor came increasingly to be prized in some circles. In</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>1931 it proved instrumental to the</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>philosophico-mathematical sensation of the age: GÖDEL&apos;S</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>THEOREM. Gödel&apos;s proof hinged on modeling the formalism of</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>logic and arithmetic in arithmetic. The theorem could not</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>even be conceived and conjectured, in its latter-day</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>generality, without the clarification of the idea of a</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_std>
+<cs_qtn_line_std>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>proof procedure that formalism affords.</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_std>
+</cu_qtn_line_std>
+<cu_qtn_line_br>
+<cs_qtn_line_br>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>[Quine (1987) pp. 66–67]</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_br>
+</cu_qtn_line_br>
+<cu_qtn_line_br>
+<cs_qtn_line_br>
+<cs_qtn_units>
+<cu_qtn_unit_wysiwyg>
+<cs_qtn_unit_wysiwyg>(emphasis mine)</cs_qtn_unit_wysiwyg>
+</cu_qtn_unit_wysiwyg>
+</cs_qtn_units>
+</cs_qtn_line_br>
+</cu_qtn_line_br>
+</cs_qtn_lines>
+</cs_blk_qtn>
+</cu_blk_qtn>
+</cs_blks>
+</cs_blk_blt>
+</cu_blk_blt>
+</cs_blks>
+</cu_doc_main_blks>
+</cr_doc>

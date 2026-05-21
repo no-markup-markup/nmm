@@ -194,6 +194,7 @@
         <span class="keywordsign">|</span><span class="constructor">Cu_blk_dsp</span> (blk_dsp:ts_blk_dsp) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_dsp"</span>,[],[xml_of_ts_blk_dsp blk_dsp])
         <span class="keywordsign">|</span><span class="constructor">Cu_blk_vrb</span> (blk_vrb:ts_blk_vrb) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_vrb"</span>,[],[xml_of_ts_blk_vrb blk_vrb])
         <span class="keywordsign">|</span><span class="constructor">Cu_blk_nte</span> (blk_nte:tr_blk_nte) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_nte"</span>,[],[xml_of_tr_blk_nte blk_nte])
+        <span class="keywordsign">|</span><span class="constructor">Cu_blk_qtn</span> (blk_qtn:ts_blk_qtn) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_blk_qtn"</span>,[],[xml_of_ts_blk_qtn blk_qtn])
 
 <span class="keyword">and</span> xml_of_tu_secs_pars_or_blks (secs_pars_or_blks:tu_secs_pars_or_blks):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> secs_pars_or_blks <span class="keyword">with</span>
@@ -210,6 +211,11 @@
 <span class="keyword">and</span> xml_of_ts_blk_txt (blk_txt:ts_blk_txt):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> blk_txt <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span> (txt_lines:ts_txt_lines) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_txt"</span>,[],[xml_of_ts_txt_lines txt_lines])
+
+<span class="keyword">and</span> xml_of_ts_blk_qtn (blk_qtn:ts_blk_qtn):<span class="constructor">Xml</span>.xml=
+        <span class="keyword">match</span> blk_qtn <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_blk_qtn</span> (qtn_lines:ts_qtn_lines) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_blk_qtn"</span>,[],[xml_of_ts_qtn_lines qtn_lines])
+
 
 <span class="keyword">and</span> xml_of_ts_blk_blt (blk_blt:ts_blk_blt):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> blk_blt <span class="keyword">with</span>
@@ -248,17 +254,40 @@
                 <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_vrb_line"</span>,[],[xml_of_string s])
 
 <span class="keyword">and</span> xml_of_ts_txt_lines (txt_lines : ts_txt_lines) : <span class="constructor">Xml</span>.xml =
-	<span class="keyword">match</span> txt_lines <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Cs_txt_lines</span> txt_line_list <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_lines"</span>,[],<span class="constructor">List</span>.map xml_of_ts_txt_line txt_line_list)
+        <span class="keyword">match</span> txt_lines <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_txt_lines</span> txt_line_list <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_lines"</span>,[],<span class="constructor">List</span>.map xml_of_ts_txt_line txt_line_list)
+
+
+<span class="keyword">and</span> xml_of_ts_qtn_lines (qtn_lines : ts_qtn_lines) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> qtn_lines <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_qtn_lines</span> qtn_line_list <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_lines"</span>,[],<span class="constructor">List</span>.map xml_of_tu_qtn_line qtn_line_list)
 
 
 <span class="keyword">and</span> xml_of_ts_txt_line (txt_line : ts_txt_line) : <span class="constructor">Xml</span>.xml =
-	<span class="keyword">match</span> txt_line <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Cs_txt_line</span> txt_units <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_line"</span>,[],[xml_of_ts_txt_units txt_units])
+        <span class="keyword">match</span> txt_line <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_txt_line</span> txt_units <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_line"</span>,[],[xml_of_ts_txt_units txt_units])
+
+<span class="keyword">and</span> xml_of_tu_qtn_line (qtn_line : tu_qtn_line) : <span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> qtn_line <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cu_qtn_line_std</span> qtn_line_std <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_line_std"</span>,[],[xml_of_ts_qtn_line_std qtn_line_std])
+        <span class="keywordsign">|</span><span class="constructor">Cu_qtn_line_br</span> qtn_line_br <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_line_br"</span>,[],[xml_of_ts_qtn_line_br qtn_line_br])
+
+<span class="keyword">and</span> xml_of_ts_qtn_line_std (qtn_line_std : ts_qtn_line_std) : <span class="constructor">Xml</span>.xml =
+	<span class="keyword">match</span> qtn_line_std <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_qtn_line_std</span> qtn_units <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_line_std"</span>, [], [xml_of_ts_qtn_units qtn_units])
+
+<span class="keyword">and</span> xml_of_ts_qtn_line_br (qtn_line_br : ts_qtn_line_br) : <span class="constructor">Xml</span>.xml =
+	<span class="keyword">match</span> qtn_line_br <span class="keyword">with</span>
+	<span class="keywordsign">|</span><span class="constructor">Cs_qtn_line_br</span> qtn_units <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_line_br"</span>, [], [xml_of_ts_qtn_units qtn_units])
+
 
 <span class="keyword">and</span> xml_of_ts_txt_units (txt_units:ts_txt_units):<span class="constructor">Xml</span>.xml=
         <span class="keyword">match</span> txt_units <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Cs_txt_units</span> (txt_unit_list:tu_txt_unit list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_units"</span>,[],<span class="constructor">List</span>.map xml_of_tu_txt_unit txt_unit_list)
+
+<span class="keyword">and</span> xml_of_ts_qtn_units (qtn_units:ts_qtn_units):<span class="constructor">Xml</span>.xml=
+        <span class="keyword">match</span> qtn_units <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cs_qtn_units</span> (qtn_unit_list:tu_qtn_unit list) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_units"</span>,[],<span class="constructor">List</span>.map xml_of_tu_qtn_unit qtn_unit_list)
 
 
 <span class="keyword">and</span> xml_of_ts_dsp_lines (dsp_lines:ts_dsp_lines):<span class="constructor">Xml</span>.xml=
@@ -287,11 +316,23 @@
         <span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_nte_ref</span> (b:ts_txt_unit_nte_ref) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_nte_ref"</span>,[],[xml_of_ts_txt_unit_nte_ref b])
         <span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_nte_inline</span> (b:ts_txt_unit_nte_inline) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_txt_unit_nte_inline"</span>,[],[xml_of_ts_txt_unit_nte_inline b])
 
+<span class="keyword">and</span> xml_of_tu_qtn_unit (a:tu_qtn_unit):<span class="constructor">Xml</span>.xml=
+        <span class="keyword">match</span> a <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Cu_qtn_unit_wysiwyg</span> (b:ts_qtn_unit_wysiwyg) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_unit_wysiwyg"</span>,[],[xml_of_ts_qtn_unit_wysiwyg b]) 
+        <span class="keywordsign">|</span><span class="constructor">Cu_qtn_unit_emph</span> (b:ts_qtn_unit_emph) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_unit_emph"</span>,[],[xml_of_ts_qtn_unit_emph b])
+
+
 <span class="keyword">and</span> xml_of_ts_txt_unit_wysiwyg (a:ts_txt_unit_wysiwyg):<span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_wysiwyg</span> (b:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_wysiwyg"</span>,[],[xml_of_string b]) 
 
+<span class="keyword">and</span> xml_of_ts_qtn_unit_wysiwyg (a:ts_qtn_unit_wysiwyg):<span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_qtn_unit_wysiwyg</span> (b:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_unit_wysiwyg"</span>,[],[xml_of_string b]) 
+
 <span class="keyword">and</span> xml_of_ts_txt_unit_emph (a:ts_txt_unit_emph):<span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_emph</span> (b:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_emph"</span>,[],[xml_of_string b]) 
+
+<span class="keyword">and</span> xml_of_ts_qtn_unit_emph (a:ts_qtn_unit_emph):<span class="constructor">Xml</span>.xml =
+        <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_qtn_unit_emph</span> (b:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_unit_emph"</span>,[],[xml_of_string b]) 
 
 <span class="keyword">and</span> xml_of_ts_txt_unit_c_ref (a:ts_txt_unit_c_ref):<span class="constructor">Xml</span>.xml =
         <span class="keyword">match</span> a <span class="keyword">with</span> <span class="constructor">Cs_txt_unit_c_ref</span> (b:ts_c_ref) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_txt_unit_c_ref"</span>,[],[xml_of_ts_c_ref b])

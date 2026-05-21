@@ -71,6 +71,7 @@ and tu_blk =
   | Cu_blk_dsp of ts_blk_dsp
   | Cu_blk_vrb of ts_blk_vrb
   | Cu_blk_nte of tr_blk_nte
+  | Cu_blk_qtn of ts_blk_qtn
 
 and tu_secs_pars_or_blks =
   | Cu_secs_pars_or_blks_secs of ts_secs
@@ -157,6 +158,16 @@ and tr_blk_nte = {
   fld_blk_nte_main : ts_blks;
 }
 
+
+and ts_blk_qtn = Cs_blk_qtn of ts_qtn_lines
+and ts_qtn_lines = Cs_qtn_lines of (tu_qtn_line list)
+and tu_qtn_line = Cu_qtn_line_std of ts_qtn_line_std | Cu_qtn_line_br of ts_qtn_line_br
+and ts_qtn_line_std = Cs_qtn_line_std of ts_qtn_units
+and ts_qtn_line_br = Cs_qtn_line_br of ts_qtn_units
+and ts_qtn_units = Cs_qtn_units of (tu_qtn_unit list)
+and tu_qtn_unit = Cu_qtn_unit_wysiwyg of ts_qtn_unit_wysiwyg | Cu_qtn_unit_emph of ts_qtn_unit_emph
+and ts_qtn_unit_wysiwyg = Cs_qtn_unit_wysiwyg of string
+and ts_qtn_unit_emph = Cs_qtn_unit_emph of string
 
 and ts_vrb_lines = Cs_vrb_lines of (ts_vrb_line list)
 

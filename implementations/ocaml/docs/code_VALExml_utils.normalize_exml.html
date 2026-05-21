@@ -29,6 +29,7 @@
         <span class="keyword">match</span> xml <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, xml_list) <span class="keywordsign">-&gt;</span> (
                 <span class="keyword">match</span> tag <span class="keyword">with</span>
+		<span class="keywordsign">|</span><span class="string">"blk_qtn"</span>
                 <span class="keywordsign">|</span><span class="string">"blk_txt"</span>
                 <span class="keywordsign">|</span><span class="string">"dsp_line_main"</span>
                 <span class="keywordsign">|</span><span class="string">"par_hdr_inline"</span>

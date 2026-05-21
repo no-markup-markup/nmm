@@ -84,17 +84,17 @@ let tags : (string option) ref = ref None
 let keyspecdoc_list : t_keyspecdoc list ref = ref []
 
 let set_margin (s : string) : unit =
-	try
-	        margin.contents <- Some (int_of_string s)
-	with _ -> raise (Error ("invalid --margin argument: " ^ s))
+        try
+                margin.contents <- Some (int_of_string s)
+        with _ -> raise (Error ("invalid --margin argument: " ^ s))
 
 let keyspecdoc_margin : t_keyspecdoc =
         ("--margin", Arg.String set_margin, "")
 
 let set_width (s : string) : unit =
-	try
-	        width.contents <- Some (int_of_string s)
-	with _ -> raise (Error ("invalid --width argument: " ^ s))
+        try
+                width.contents <- Some (int_of_string s)
+        with _ -> raise (Error ("invalid --width argument: " ^ s))
 
 let keyspecdoc_width : t_keyspecdoc =
         ("--width", Arg.String set_width, "")

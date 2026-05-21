@@ -251,7 +251,7 @@ let make_string (n:int) (s:string) : string=
 
 
 let string_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (txt_lines : ts_txt_lines) : string =
-	string_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
+        string_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
 
 let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (hdr : ts_hdr) : string list =
         match hdr with 
@@ -260,7 +260,7 @@ let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
                 |path_hd::path_tl -> (
                         let indent : string = String.make (doc_settings.left_margin) ' ' in
                         let hdr_string : string = string_of_ts_txt_lines doc_settings cref_table nte_table path txt_lines
-			in
+                        in
                         let hdr_lines : string list = lines_of_string doc_settings doc_settings.left_margin hdr_string in
                         match path_hd with
                         |SEC_NODE _ | APP_NODE _ -> (
@@ -344,6 +344,63 @@ let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_tab
         |Cs_blk_txt (txt_lines : ts_txt_lines) -> lines_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
 
 
+(* quotation *)
+
+
+let string_of_ts_qtn_unit_emph (qtn_unit_emph : ts_qtn_unit_emph) : string =
+	match qtn_unit_emph with
+	|Cs_qtn_unit_emph s -> emph s
+
+
+let string_of_ts_qtn_unit_wysiwyg (qtn_unit_wysiwyg : ts_qtn_unit_wysiwyg) : string =
+	match qtn_unit_wysiwyg with
+	|Cs_qtn_unit_wysiwyg s -> s
+
+let string_of_tu_qtn_unit (qtn_unit : tu_qtn_unit) : string =
+	match qtn_unit with
+	|Cu_qtn_unit_wysiwyg qtn_unit_wysiwyg -> string_of_ts_qtn_unit_wysiwyg qtn_unit_wysiwyg
+	|Cu_qtn_unit_emph qtn_unit_emph -> string_of_ts_qtn_unit_emph qtn_unit_emph
+
+let string_of_tu_qtn_unit_list (qtn_unit_list : tu_qtn_unit list) : string =
+	String.concat "" (List.map string_of_tu_qtn_unit qtn_unit_list)
+
+
+let string_of_ts_qtn_units (qtn_units : ts_qtn_units) : string =
+	match qtn_units with
+	|Cs_qtn_units qtn_unit_list -> string_of_tu_qtn_unit_list qtn_unit_list
+
+
+let string_of_qtn_line_std (qtn_line_std : ts_qtn_line_std) : string =
+	match qtn_line_std with
+	|Cs_qtn_line_std qtn_units -> string_of_ts_qtn_units qtn_units
+
+let string_of_qtn_line_br (qtn_line_br : ts_qtn_line_br) : string =
+	match qtn_line_br with
+	|Cs_qtn_line_br qtn_units -> string_of_ts_qtn_units qtn_units
+
+
+let lines_of_tu_qtn_line_list (doc_settings : t_doc_settings) (path : t_path) (qtn_line_list : tu_qtn_line list) : string list =
+	let rec aux (lst : tu_qtn_line list) (acc : string list) =
+		match lst with
+		|[] -> List.rev acc
+		|lst_hd::lst_tl ->
+			match lst_hd, acc with
+			|Cu_qtn_line_std qtn_line_std, acc_hd::acc_tl -> aux lst_tl ((acc_hd ^ " " ^ (string_of_qtn_line_std qtn_line_std))::acc_tl)
+			|Cu_qtn_line_std qtn_line_std, _ -> aux lst_tl ((string_of_qtn_line_std qtn_line_std)::acc)
+			|Cu_qtn_line_br qtn_line_br, _ -> aux lst_tl ((string_of_qtn_line_br qtn_line_br)::acc)
+	in
+	let string_list : string list = aux qtn_line_list [] in
+	let lvl : int = lvl_of_path path + 1 in
+	let indent : int = doc_settings.tab_length * lvl + doc_settings.left_margin in
+	List.concat (List.map (lines_of_string doc_settings indent) string_list)
+
+let lines_of_ts_qtn_lines (doc_settings : t_doc_settings) (path : t_path) (qtn_lines : ts_qtn_lines) : string list =
+	match qtn_lines with
+	|Cs_qtn_lines qtn_line_list -> lines_of_tu_qtn_line_list doc_settings path qtn_line_list
+
+let lines_of_ts_blk_qtn (doc_settings : t_doc_settings) (path : t_path) (blk_qtn : ts_blk_qtn) : string list =
+	match blk_qtn with
+	|Cs_blk_qtn qtn_lines -> lines_of_ts_qtn_lines doc_settings path qtn_lines
 
 let line_of_vrb_line (doc_settings : t_doc_settings) (path : t_path) (vrb_line : ts_vrb_line) : string =
         match vrb_line with

@@ -202,6 +202,7 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_blk_dsp</span>&nbsp;(blk_dsp:ts_blk_dsp)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_blk_dsp"</span>,[],[xml_of_ts_blk_dsp&nbsp;blk_dsp])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_blk_vrb</span>&nbsp;(blk_vrb:ts_blk_vrb)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_blk_vrb"</span>,[],[xml_of_ts_blk_vrb&nbsp;blk_vrb])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_blk_nte</span>&nbsp;(blk_nte:tr_blk_nte)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_blk_nte"</span>,[],[xml_of_tr_blk_nte&nbsp;blk_nte])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_blk_qtn</span>&nbsp;(blk_qtn:ts_blk_qtn)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_blk_qtn"</span>,[],[xml_of_ts_blk_qtn&nbsp;blk_qtn])<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_tu_secs_pars_or_blks&nbsp;(secs_pars_or_blks:tu_secs_pars_or_blks):<span class="constructor">Xml</span>.xml=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;secs_pars_or_blks&nbsp;<span class="keyword">with</span><br>
@@ -218,6 +219,11 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_blk_txt&nbsp;(blk_txt:ts_blk_txt):<span class="constructor">Xml</span>.xml=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_txt&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span>&nbsp;(txt_lines:ts_txt_lines)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_blk_txt"</span>,[],[xml_of_ts_txt_lines&nbsp;txt_lines])<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_blk_qtn&nbsp;(blk_qtn:ts_blk_qtn):<span class="constructor">Xml</span>.xml=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_qtn&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_qtn</span>&nbsp;(qtn_lines:ts_qtn_lines)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_blk_qtn"</span>,[],[xml_of_ts_qtn_lines&nbsp;qtn_lines])<br>
+<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_blk_blt&nbsp;(blk_blt:ts_blk_blt):<span class="constructor">Xml</span>.xml=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_blt&nbsp;<span class="keyword">with</span><br>
@@ -260,13 +266,36 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_lines</span>&nbsp;txt_line_list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_lines"</span>,[],<span class="constructor">List</span>.map&nbsp;xml_of_ts_txt_line&nbsp;txt_line_list)<br>
 <br>
 <br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_qtn_lines&nbsp;(qtn_lines&nbsp;:&nbsp;ts_qtn_lines)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;qtn_lines&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_qtn_lines</span>&nbsp;qtn_line_list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_lines"</span>,[],<span class="constructor">List</span>.map&nbsp;xml_of_tu_qtn_line&nbsp;qtn_line_list)<br>
+<br>
+<br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_txt_line&nbsp;(txt_line&nbsp;:&nbsp;ts_txt_line)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_line&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_line</span>&nbsp;txt_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_line"</span>,[],[xml_of_ts_txt_units&nbsp;txt_units])<br>
 <br>
+<span class="keyword">and</span>&nbsp;xml_of_tu_qtn_line&nbsp;(qtn_line&nbsp;:&nbsp;tu_qtn_line)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;qtn_line&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_qtn_line_std</span>&nbsp;qtn_line_std&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_qtn_line_std"</span>,[],[xml_of_ts_qtn_line_std&nbsp;qtn_line_std])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_qtn_line_br</span>&nbsp;qtn_line_br&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_qtn_line_br"</span>,[],[xml_of_ts_qtn_line_br&nbsp;qtn_line_br])<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_qtn_line_std&nbsp;(qtn_line_std&nbsp;:&nbsp;ts_qtn_line_std)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;qtn_line_std&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_qtn_line_std</span>&nbsp;qtn_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_line_std"</span>,&nbsp;[],&nbsp;[xml_of_ts_qtn_units&nbsp;qtn_units])<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_qtn_line_br&nbsp;(qtn_line_br&nbsp;:&nbsp;ts_qtn_line_br)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;qtn_line_br&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_qtn_line_br</span>&nbsp;qtn_units&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_line_br"</span>,&nbsp;[],&nbsp;[xml_of_ts_qtn_units&nbsp;qtn_units])<br>
+<br>
+<br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_txt_units&nbsp;(txt_units:ts_txt_units):<span class="constructor">Xml</span>.xml=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_units&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_txt_units</span>&nbsp;(txt_unit_list:tu_txt_unit&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_units"</span>,[],<span class="constructor">List</span>.map&nbsp;xml_of_tu_txt_unit&nbsp;txt_unit_list)<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_qtn_units&nbsp;(qtn_units:ts_qtn_units):<span class="constructor">Xml</span>.xml=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;qtn_units&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_qtn_units</span>&nbsp;(qtn_unit_list:tu_qtn_unit&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_units"</span>,[],<span class="constructor">List</span>.map&nbsp;xml_of_tu_qtn_unit&nbsp;qtn_unit_list)<br>
 <br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_dsp_lines&nbsp;(dsp_lines:ts_dsp_lines):<span class="constructor">Xml</span>.xml=<br>
@@ -295,11 +324,23 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_nte_ref</span>&nbsp;(b:ts_txt_unit_nte_ref)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_txt_unit_nte_ref"</span>,[],[xml_of_ts_txt_unit_nte_ref&nbsp;b])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_txt_unit_nte_inline</span>&nbsp;(b:ts_txt_unit_nte_inline)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_txt_unit_nte_inline"</span>,[],[xml_of_ts_txt_unit_nte_inline&nbsp;b])<br>
 <br>
+<span class="keyword">and</span>&nbsp;xml_of_tu_qtn_unit&nbsp;(a:tu_qtn_unit):<span class="constructor">Xml</span>.xml=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_qtn_unit_wysiwyg</span>&nbsp;(b:ts_qtn_unit_wysiwyg)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_qtn_unit_wysiwyg"</span>,[],[xml_of_ts_qtn_unit_wysiwyg&nbsp;b])&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_qtn_unit_emph</span>&nbsp;(b:ts_qtn_unit_emph)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_qtn_unit_emph"</span>,[],[xml_of_ts_qtn_unit_emph&nbsp;b])<br>
+<br>
+<br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_txt_unit_wysiwyg&nbsp;(a:ts_txt_unit_wysiwyg):<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;(b:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_unit_wysiwyg"</span>,[],[xml_of_string&nbsp;b])&nbsp;<br>
 <br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_qtn_unit_wysiwyg&nbsp;(a:ts_qtn_unit_wysiwyg):<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_qtn_unit_wysiwyg</span>&nbsp;(b:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_unit_wysiwyg"</span>,[],[xml_of_string&nbsp;b])&nbsp;<br>
+<br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_txt_unit_emph&nbsp;(a:ts_txt_unit_emph):<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_txt_unit_emph</span>&nbsp;(b:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_unit_emph"</span>,[],[xml_of_string&nbsp;b])&nbsp;<br>
+<br>
+<span class="keyword">and</span>&nbsp;xml_of_ts_qtn_unit_emph&nbsp;(a:ts_qtn_unit_emph):<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_qtn_unit_emph</span>&nbsp;(b:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_unit_emph"</span>,[],[xml_of_string&nbsp;b])&nbsp;<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_ts_txt_unit_c_ref&nbsp;(a:ts_txt_unit_c_ref):<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_txt_unit_c_ref</span>&nbsp;(b:ts_c_ref)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_unit_c_ref"</span>,[],[xml_of_ts_c_ref&nbsp;b])<br>
@@ -390,6 +431,19 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_txt_unit_wysiwyg"</span>,[],&nbsp;[<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_unit_wysiwyg"</span>,[],[<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(aux&nbsp;xml_list&nbsp;<span class="string">""</span>)])])<br>
 <br>
+<span class="keyword">let</span>&nbsp;unite_axml_qtn_units_wysiwyg&nbsp;(xml_list&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(lst&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;lst&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_unit_wysiwyg"</span>,[],[<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s])&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;tl&nbsp;(acc&nbsp;^&nbsp;s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_qtn_unit_wysiwyg"</span>,[],&nbsp;[<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_unit_wysiwyg"</span>,[],[<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(aux&nbsp;xml_list&nbsp;<span class="string">""</span>)])])<br>
+<br>
+<br>
 <span class="keyword">let</span>&nbsp;normalize_axml_txt_units&nbsp;(xml_list&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(lst&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;(acc_list&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;(acc_wysiwyg&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;lst&nbsp;<span class="keyword">with</span><br>
@@ -406,9 +460,26 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">List</span>.rev&nbsp;(aux&nbsp;xml_list&nbsp;[]&nbsp;[])<br>
 <br>
 <br>
+<span class="keyword">let</span>&nbsp;normalize_axml_qtn_units&nbsp;(xml_list&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(lst&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;(acc_list&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;(acc_wysiwyg&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;lst&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc_wysiwyg&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(unite_axml_qtn_units_wysiwyg&nbsp;(<span class="constructor">List</span>.rev&nbsp;acc_wysiwyg))::acc_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd,&nbsp;acc_wysiwyg&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cu_qtn_unit_wysiwyg"</span>,&nbsp;_,&nbsp;[xml]),&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl&nbsp;acc_list&nbsp;(xml::acc_wysiwyg)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;_::_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl&nbsp;(hd::((unite_axml_qtn_units_wysiwyg&nbsp;(<span class="constructor">List</span>.rev&nbsp;acc_wysiwyg))::acc_list))&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl&nbsp;(hd::acc_list)&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">List</span>.rev&nbsp;(aux&nbsp;xml_list&nbsp;[]&nbsp;[])<br>
+<br>
+<br>
 <span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;normalize_axml&nbsp;(xml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_units"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_txt_units"</span>,&nbsp;attr_list,&nbsp;normalize_axml_txt_units&nbsp;xml_list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_units"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_qtn_units"</span>,&nbsp;attr_list,&nbsp;normalize_axml_qtn_units&nbsp;xml_list)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(tag,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(tag,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;normalize_axml&nbsp;xml_list)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s<br>
 </code></body></html>

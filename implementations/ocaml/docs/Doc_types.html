@@ -426,6 +426,13 @@
 <td align="left" valign="top" >
 <code><span id="TYPEELTtu_blk.Cu_blk_nte"><span class="constructor">Cu_blk_nte</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_blk_nte">tr_blk_nte</a></code></code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_blk.Cu_blk_qtn"><span class="constructor">Cu_blk_qtn</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_blk_qtn">ts_blk_qtn</a></code></code></td>
+
 </tr></table>
 
 
@@ -883,6 +890,119 @@
 
 </tr></table>
 <code>}</code>
+
+
+
+<pre><code><span id="TYPEts_blk_qtn"><span class="keyword">type</span> <code class="type"></code>ts_blk_qtn</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_blk_qtn.Cs_blk_qtn"><span class="constructor">Cs_blk_qtn</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_lines">ts_qtn_lines</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_qtn_lines"><span class="keyword">type</span> <code class="type"></code>ts_qtn_lines</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_qtn_lines.Cs_qtn_lines"><span class="constructor">Cs_qtn_lines</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_qtn_line">tu_qtn_line</a> list</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEtu_qtn_line"><span class="keyword">type</span> <code class="type"></code>tu_qtn_line</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_qtn_line.Cu_qtn_line_std"><span class="constructor">Cu_qtn_line_std</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_line_std">ts_qtn_line_std</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_qtn_line.Cu_qtn_line_br"><span class="constructor">Cu_qtn_line_br</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_line_br">ts_qtn_line_br</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_qtn_line_std"><span class="keyword">type</span> <code class="type"></code>ts_qtn_line_std</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_qtn_line_std.Cs_qtn_line_std"><span class="constructor">Cs_qtn_line_std</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_units">ts_qtn_units</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_qtn_line_br"><span class="keyword">type</span> <code class="type"></code>ts_qtn_line_br</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_qtn_line_br.Cs_qtn_line_br"><span class="constructor">Cs_qtn_line_br</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_units">ts_qtn_units</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_qtn_units"><span class="keyword">type</span> <code class="type"></code>ts_qtn_units</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_qtn_units.Cs_qtn_units"><span class="constructor">Cs_qtn_units</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_qtn_unit">tu_qtn_unit</a> list</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEtu_qtn_unit"><span class="keyword">type</span> <code class="type"></code>tu_qtn_unit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_qtn_unit.Cu_qtn_unit_wysiwyg"><span class="constructor">Cu_qtn_unit_wysiwyg</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_unit_wysiwyg">ts_qtn_unit_wysiwyg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_qtn_unit.Cu_qtn_unit_emph"><span class="constructor">Cu_qtn_unit_emph</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_qtn_unit_emph">ts_qtn_unit_emph</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_qtn_unit_wysiwyg"><span class="keyword">type</span> <code class="type"></code>ts_qtn_unit_wysiwyg</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_qtn_unit_wysiwyg.Cs_qtn_unit_wysiwyg"><span class="constructor">Cs_qtn_unit_wysiwyg</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_qtn_unit_emph"><span class="keyword">type</span> <code class="type"></code>ts_qtn_unit_emph</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_qtn_unit_emph.Cs_qtn_unit_emph"><span class="constructor">Cs_qtn_unit_emph</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
 
 
 

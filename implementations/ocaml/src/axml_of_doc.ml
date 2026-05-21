@@ -175,6 +175,7 @@ and xml_of_tu_blk (blk:tu_blk):Xml.xml=
         |Cu_blk_dsp (blk_dsp:ts_blk_dsp) -> Xml.Element ("cu_blk_dsp",[],[xml_of_ts_blk_dsp blk_dsp])
         |Cu_blk_vrb (blk_vrb:ts_blk_vrb) -> Xml.Element ("cu_blk_vrb",[],[xml_of_ts_blk_vrb blk_vrb])
         |Cu_blk_nte (blk_nte:tr_blk_nte) -> Xml.Element ("cu_blk_nte",[],[xml_of_tr_blk_nte blk_nte])
+        |Cu_blk_qtn (blk_qtn:ts_blk_qtn) -> Xml.Element ("cu_blk_qtn",[],[xml_of_ts_blk_qtn blk_qtn])
 
 and xml_of_tu_secs_pars_or_blks (secs_pars_or_blks:tu_secs_pars_or_blks):Xml.xml=
         match secs_pars_or_blks with
@@ -191,6 +192,11 @@ and xml_of_tu_pars_or_blks (pars_or_blks:tu_pars_or_blks):Xml.xml=
 and xml_of_ts_blk_txt (blk_txt:ts_blk_txt):Xml.xml=
         match blk_txt with
         |Cs_blk_txt (txt_lines:ts_txt_lines) -> Xml.Element ("cs_blk_txt",[],[xml_of_ts_txt_lines txt_lines])
+
+and xml_of_ts_blk_qtn (blk_qtn:ts_blk_qtn):Xml.xml=
+        match blk_qtn with
+        |Cs_blk_qtn (qtn_lines:ts_qtn_lines) -> Xml.Element ("cs_blk_qtn",[],[xml_of_ts_qtn_lines qtn_lines])
+
 
 and xml_of_ts_blk_blt (blk_blt:ts_blk_blt):Xml.xml=
         match blk_blt with
@@ -229,17 +235,40 @@ and xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
                 |_ -> Xml.Element ("cs_vrb_line",[],[xml_of_string s])
 
 and xml_of_ts_txt_lines (txt_lines : ts_txt_lines) : Xml.xml =
-	match txt_lines with
-	|Cs_txt_lines txt_line_list -> Xml.Element ("cs_txt_lines",[],List.map xml_of_ts_txt_line txt_line_list)
+        match txt_lines with
+        |Cs_txt_lines txt_line_list -> Xml.Element ("cs_txt_lines",[],List.map xml_of_ts_txt_line txt_line_list)
+
+
+and xml_of_ts_qtn_lines (qtn_lines : ts_qtn_lines) : Xml.xml =
+        match qtn_lines with
+        |Cs_qtn_lines qtn_line_list -> Xml.Element ("cs_qtn_lines",[],List.map xml_of_tu_qtn_line qtn_line_list)
 
 
 and xml_of_ts_txt_line (txt_line : ts_txt_line) : Xml.xml =
-	match txt_line with
-	|Cs_txt_line txt_units -> Xml.Element ("cs_txt_line",[],[xml_of_ts_txt_units txt_units])
+        match txt_line with
+        |Cs_txt_line txt_units -> Xml.Element ("cs_txt_line",[],[xml_of_ts_txt_units txt_units])
+
+and xml_of_tu_qtn_line (qtn_line : tu_qtn_line) : Xml.xml =
+        match qtn_line with
+        |Cu_qtn_line_std qtn_line_std -> Xml.Element ("cu_qtn_line_std",[],[xml_of_ts_qtn_line_std qtn_line_std])
+        |Cu_qtn_line_br qtn_line_br -> Xml.Element ("cu_qtn_line_br",[],[xml_of_ts_qtn_line_br qtn_line_br])
+
+and xml_of_ts_qtn_line_std (qtn_line_std : ts_qtn_line_std) : Xml.xml =
+	match qtn_line_std with
+	|Cs_qtn_line_std qtn_units -> Xml.Element ("cs_qtn_line_std", [], [xml_of_ts_qtn_units qtn_units])
+
+and xml_of_ts_qtn_line_br (qtn_line_br : ts_qtn_line_br) : Xml.xml =
+	match qtn_line_br with
+	|Cs_qtn_line_br qtn_units -> Xml.Element ("cs_qtn_line_br", [], [xml_of_ts_qtn_units qtn_units])
+
 
 and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
         match txt_units with
         |Cs_txt_units (txt_unit_list:tu_txt_unit list) -> Xml.Element ("cs_txt_units",[],List.map xml_of_tu_txt_unit txt_unit_list)
+
+and xml_of_ts_qtn_units (qtn_units:ts_qtn_units):Xml.xml=
+        match qtn_units with
+        |Cs_qtn_units (qtn_unit_list:tu_qtn_unit list) -> Xml.Element ("cs_qtn_units",[],List.map xml_of_tu_qtn_unit qtn_unit_list)
 
 
 and xml_of_ts_dsp_lines (dsp_lines:ts_dsp_lines):Xml.xml=
@@ -268,11 +297,23 @@ and xml_of_tu_txt_unit (a:tu_txt_unit):Xml.xml=
         |Cu_txt_unit_nte_ref (b:ts_txt_unit_nte_ref) -> Xml.Element ("cu_txt_unit_nte_ref",[],[xml_of_ts_txt_unit_nte_ref b])
         |Cu_txt_unit_nte_inline (b:ts_txt_unit_nte_inline) -> Xml.Element ("cu_txt_unit_nte_inline",[],[xml_of_ts_txt_unit_nte_inline b])
 
+and xml_of_tu_qtn_unit (a:tu_qtn_unit):Xml.xml=
+        match a with
+        |Cu_qtn_unit_wysiwyg (b:ts_qtn_unit_wysiwyg) -> Xml.Element ("cu_qtn_unit_wysiwyg",[],[xml_of_ts_qtn_unit_wysiwyg b]) 
+        |Cu_qtn_unit_emph (b:ts_qtn_unit_emph) -> Xml.Element ("cu_qtn_unit_emph",[],[xml_of_ts_qtn_unit_emph b])
+
+
 and xml_of_ts_txt_unit_wysiwyg (a:ts_txt_unit_wysiwyg):Xml.xml =
         match a with Cs_txt_unit_wysiwyg (b:string) -> Xml.Element ("cs_txt_unit_wysiwyg",[],[xml_of_string b]) 
 
+and xml_of_ts_qtn_unit_wysiwyg (a:ts_qtn_unit_wysiwyg):Xml.xml =
+        match a with Cs_qtn_unit_wysiwyg (b:string) -> Xml.Element ("cs_qtn_unit_wysiwyg",[],[xml_of_string b]) 
+
 and xml_of_ts_txt_unit_emph (a:ts_txt_unit_emph):Xml.xml =
         match a with Cs_txt_unit_emph (b:string) -> Xml.Element ("cs_txt_unit_emph",[],[xml_of_string b]) 
+
+and xml_of_ts_qtn_unit_emph (a:ts_qtn_unit_emph):Xml.xml =
+        match a with Cs_qtn_unit_emph (b:string) -> Xml.Element ("cs_qtn_unit_emph",[],[xml_of_string b]) 
 
 and xml_of_ts_txt_unit_c_ref (a:ts_txt_unit_c_ref):Xml.xml =
         match a with Cs_txt_unit_c_ref (b:ts_c_ref) -> Xml.Element ("cs_txt_unit_c_ref",[],[xml_of_ts_c_ref b])
@@ -363,6 +404,19 @@ let unite_axml_txt_units_wysiwyg (xml_list : Xml.xml list) : Xml.xml =
         in
         Xml.Element ("cu_txt_unit_wysiwyg",[], [Xml.Element ("cs_txt_unit_wysiwyg",[],[Xml.PCData (aux xml_list "")])])
 
+let unite_axml_qtn_units_wysiwyg (xml_list : Xml.xml list) : Xml.xml =
+        let rec aux (lst : Xml.xml list) (acc : string) : string =
+                match lst with
+                |[] -> acc
+                |hd::tl ->
+                        match hd with
+                        |Xml.Element ("cs_qtn_unit_wysiwyg",[],[Xml.PCData s]) ->
+                                aux tl (acc ^ s)
+                        |_ -> aux tl acc
+        in
+        Xml.Element ("cu_qtn_unit_wysiwyg",[], [Xml.Element ("cs_qtn_unit_wysiwyg",[],[Xml.PCData (aux xml_list "")])])
+
+
 let normalize_axml_txt_units (xml_list : Xml.xml list) : Xml.xml list =
         let rec aux (lst : Xml.xml list) (acc_list : Xml.xml list) (acc_wysiwyg : Xml.xml list) =
                 match lst with
@@ -379,8 +433,25 @@ let normalize_axml_txt_units (xml_list : Xml.xml list) : Xml.xml list =
         in List.rev (aux xml_list [] [])
 
 
+let normalize_axml_qtn_units (xml_list : Xml.xml list) : Xml.xml list =
+        let rec aux (lst : Xml.xml list) (acc_list : Xml.xml list) (acc_wysiwyg : Xml.xml list) =
+                match lst with
+                |[] -> (
+                        match acc_wysiwyg with
+                        |[] -> acc_list
+                        |_::_ -> (unite_axml_qtn_units_wysiwyg (List.rev acc_wysiwyg))::acc_list
+                )
+                |hd::tl ->
+                        match hd, acc_wysiwyg with
+                        |Xml.Element ("cu_qtn_unit_wysiwyg", _, [xml]), _ -> aux tl acc_list (xml::acc_wysiwyg)
+                        |_, _::_ -> aux tl (hd::((unite_axml_qtn_units_wysiwyg (List.rev acc_wysiwyg))::acc_list)) []
+                        |_, [] -> aux tl (hd::acc_list) []
+        in List.rev (aux xml_list [] [])
+
+
 let rec normalize_axml (xml : Xml.xml) : Xml.xml =
         match xml with
         |Xml.Element ("cs_txt_units", attr_list, xml_list) -> Xml.Element ("cs_txt_units", attr_list, normalize_axml_txt_units xml_list)
+	|Xml.Element ("cs_qtn_units", attr_list, xml_list) -> Xml.Element ("cs_qtn_units", attr_list, normalize_axml_qtn_units xml_list)
         |Xml.Element (tag, attr_list, xml_list) -> Xml.Element (tag, attr_list, List.map normalize_axml xml_list)
         |Xml.PCData s -> Xml.PCData s

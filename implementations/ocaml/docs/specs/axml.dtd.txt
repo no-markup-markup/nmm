@@ -17,7 +17,7 @@
 <!ELEMENT cs_chs (cr_ch+)>
 <!ELEMENT cs_secs (cr_sec+)>
 <!ELEMENT cs_pars ((cu_par_std | cu_par_rpt)+)>
-<!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp | cu_blk_vrb | cu_blk_nte)+>
+<!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp | cu_blk_vrb | cu_blk_nte | cu_blk_qtn)+>
 
 <!ELEMENT cr_ch ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_secs_pars_or_blks_secs | cu_secs_pars_or_blks_pars | cu_secs_pars_or_blks_blks))>
 <!ELEMENT cr_sec ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_pars_or_blks_pars | cu_pars_or_blks_blks))>
@@ -39,6 +39,7 @@
 <!ELEMENT cu_blk_dsp (cs_blk_dsp)>
 <!ELEMENT cu_blk_vrb (cs_blk_vrb)>
 <!ELEMENT cu_blk_nte (cr_blk_nte)>
+<!ELEMENT cu_blk_qtn (cs_blk_qtn)>
 
 <!ELEMENT cs_blk_txt (cs_txt_lines)>
 <!ELEMENT cs_blk_blt (cs_blks)>
@@ -46,6 +47,7 @@
 <!ELEMENT cs_blk_dsp (cs_dsp_lines)>
 <!ELEMENT cs_blk_vrb (cs_vrb_lines)>
 <!ELEMENT cr_blk_nte (cr_id, cs_blks)>
+<!ELEMENT cs_blk_qtn (cs_qtn_lines)>
 
 <!ELEMENT cs_txt_lines (cs_txt_line+)>
 <!ELEMENT cs_txt_line (cs_txt_units)>
@@ -53,7 +55,14 @@
 <!ELEMENT cs_vrb_lines (cs_vrb_line+)>
 <!ELEMENT cs_vrb_line (#PCDATA)>
 
+<!ELEMENT cs_qtn_lines (cu_qtn_line_std | cu_qtn_line_br)+>
+<!ELEMENT cu_qtn_line_std (cs_qtn_line_std)>
+<!ELEMENT cu_qtn_line_br (cs_qtn_line_br)>
+<!ELEMENT cs_qtn_line_std (cs_qtn_units)>
+<!ELEMENT cs_qtn_line_br (cs_qtn_units)>
+
 <!ELEMENT cs_txt_units (cu_txt_unit_wysiwyg | cu_txt_unit_emph | cu_txt_unit_c_ref | cu_txt_unit_nte_ref | cu_txt_unit_nte_inline)+>
+<!ELEMENT cs_qtn_units (cu_qtn_unit_wysiwyg | cu_qtn_unit_emph)+>
 <!ELEMENT cs_dsp_lines (cu_dsp_line_no_lbl | cu_dsp_line_lbld)+>
 
 <!ELEMENT cu_dsp_line_no_lbl (cs_dsp_line_no_lbl)>
@@ -72,6 +81,11 @@
 <!ELEMENT cs_txt_unit_c_ref (cs_c_ref)>
 <!ELEMENT cs_txt_unit_nte_ref (cs_nte_ref)>
 <!ELEMENT cs_txt_unit_nte_inline (cs_blks)>
+
+<!ELEMENT cu_qtn_unit_wysiwyg (cs_qtn_unit_wysiwyg)>
+<!ELEMENT cu_qtn_unit_emph (cs_qtn_unit_emph)>
+<!ELEMENT cs_qtn_unit_wysiwyg (#PCDATA)>
+<!ELEMENT cs_qtn_unit_emph (#PCDATA)>
 
 <!ELEMENT cs_c_ref (cr_id)>
 <!ELEMENT cs_nte_ref (cr_id)>

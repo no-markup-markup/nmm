@@ -1187,51 +1187,51 @@ let node_of_blk_itm (doc_settings : t_doc_settings) (path : t_path) (auto_nr : i
                         match a.fld_blk_itm_tag_or_id with
                         |None -> ITM_NODE (ITM_AUTO lbl)
                         |Some tag_or_id -> (
-				match tag_or_id with
-		                |Cu_tag_or_id_tag (tag : ts_tag) -> (
-	                                match doc_settings.expand_tag tag with
-	                                |None -> (
-	                                        match tag with
-	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
-	                                        |_ -> ITM_NODE (ITM_AUTO lbl)
-	                                )
-	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
-                        	)
-		                |Cu_tag_or_id_id (id : tr_id) -> (
-	                                match doc_settings.expand_tag id.fld_id_tag with
-	                                |None -> (
-	                                        match id.fld_id_tag with
-	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
-	                                        |_ -> ITM_NODE (ITM_AUTO lbl)
-	                                )
-	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
-                        	)
-                	)
-		)
+                                match tag_or_id with
+                                |Cu_tag_or_id_tag (tag : ts_tag) -> (
+                                        match doc_settings.expand_tag tag with
+                                        |None -> (
+                                                match tag with
+                                                |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
+                                                |_ -> ITM_NODE (ITM_AUTO lbl)
+                                        )
+                                        |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
+                                )
+                                |Cu_tag_or_id_id (id : tr_id) -> (
+                                        match doc_settings.expand_tag id.fld_id_tag with
+                                        |None -> (
+                                                match id.fld_id_tag with
+                                                |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_AUTO lbl)
+                                                |_ -> ITM_NODE (ITM_AUTO lbl)
+                                        )
+                                        |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, lbl))
+                                )
+                        )
+                )
                 | Cu_lbl_custom (Cs_lbl_custom (s : string)) -> 
                         match a.fld_blk_itm_tag_or_id with
                         |None -> ITM_NODE (ITM_CUSTOM s)
                         |Some tag_or_id -> (
-				match tag_or_id with
-		                |Cu_tag_or_id_tag (tag : ts_tag) -> (
-	                                match doc_settings.expand_tag tag with
-	                                |None -> (
-	                                        match tag with
-	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
-	                                        |_ -> ITM_NODE (ITM_AUTO s)
-	                                )
-	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, s))
-                        	)
-		                |Cu_tag_or_id_id (id : tr_id) -> (
-	                                match doc_settings.expand_tag id.fld_id_tag with
-	                                |None -> (
-	                                        match id.fld_id_tag with
-	                                        |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
-	                                        |_ -> ITM_NODE (ITM_CUSTOM s)
-	                                )
-	                                |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag, s))
-                        	)
-                	)
+                                match tag_or_id with
+                                |Cu_tag_or_id_tag (tag : ts_tag) -> (
+                                        match doc_settings.expand_tag tag with
+                                        |None -> (
+                                                match tag with
+                                                |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
+                                                |_ -> ITM_NODE (ITM_AUTO s)
+                                        )
+                                        |Some (_,tag) -> ITM_NODE (ITM_TAG_AUTO (tag, s))
+                                )
+                                |Cu_tag_or_id_id (id : tr_id) -> (
+                                        match doc_settings.expand_tag id.fld_id_tag with
+                                        |None -> (
+                                                match id.fld_id_tag with
+                                                |Cs_tag "BIB" -> ITM_NODE (ITM_BIB_CUSTOM s)
+                                                |_ -> ITM_NODE (ITM_CUSTOM s)
+                                        )
+                                        |Some (_,tag) -> ITM_NODE (ITM_TAG_CUSTOM (tag, s))
+                                )
+                        )
 
 let node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : Doc_types.tr_dsp_line) : t_node =
         match a.fld_dsp_line_lbl with
@@ -1262,19 +1262,19 @@ let node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : 
 
 
 let txt_units_of_txt_line (txt_line : ts_txt_line) : tu_txt_unit list =
-	match txt_line with
-	|Cs_txt_line (Cs_txt_units txt_unit_list) -> txt_unit_list
+        match txt_line with
+        |Cs_txt_line (Cs_txt_units txt_unit_list) -> txt_unit_list
 
 let txt_units_of_txt_lines (txt_lines : ts_txt_lines) : tu_txt_unit list =
         let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
-	match txt_lines with
-	|Cs_txt_lines txt_line_list ->
-		let rec aux (lines : ts_txt_line list) (acc : tu_txt_unit list) =
-			match lines, acc with
-			|[], _ -> acc
-			|hd::tl, [] -> aux tl (txt_units_of_txt_line hd)
-			|hd::tl, _ -> aux tl (List.concat [acc;[space];txt_units_of_txt_line hd])
-		in aux txt_line_list []
+        match txt_lines with
+        |Cs_txt_lines txt_line_list ->
+                let rec aux (lines : ts_txt_line list) (acc : tu_txt_unit list) =
+                        match lines, acc with
+                        |[], _ -> acc
+                        |hd::tl, [] -> aux tl (txt_units_of_txt_line hd)
+                        |hd::tl, _ -> aux tl (List.concat [acc;[space];txt_units_of_txt_line hd])
+                in aux txt_line_list []
 
 let par_restated_of_tr_par (par : Doc_types.tr_par_std) : Doc_types.tr_par_std =
         let space : tu_txt_unit =  Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
@@ -1434,7 +1434,7 @@ let nte_table_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cr
 
 
 let nte_table_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (txt_lines : ts_txt_lines) : t_nte_table =
-	nte_table_of_ts_txt_units doc_settings cref_table path nte_table (Cs_txt_units (txt_units_of_txt_lines txt_lines))
+        nte_table_of_ts_txt_units doc_settings cref_table path nte_table (Cs_txt_units (txt_units_of_txt_lines txt_lines))
 
 let nte_table_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (blk_txt : ts_blk_txt) : t_nte_table =
         match blk_txt with

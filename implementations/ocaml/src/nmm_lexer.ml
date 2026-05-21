@@ -73,6 +73,11 @@ let tab_end_vrb = [%sedlex.regexp? tab, end_vrb]
 let tab_tab_end_vrb = [%sedlex.regexp? tab, tab_end_vrb]
 let tab_tab_tab_end_vrb = [%sedlex.regexp? tab, tab_tab_end_vrb]
 
+let start_qtn = [%sedlex.regexp? "START", tab, "QUOTATION", nl]
+let end_qtn = [%sedlex.regexp? "END", tab, "QUOTATION", nl]
+let br = [%sedlex.regexp? "BR"]
+let tab_end_qtn = [%sedlex.regexp? tab, end_qtn]
+
 let nl_not_nl = [%sedlex.regexp? nl, Compl (Chars "\n\r")]
 
 (* helper functions *)
@@ -103,44 +108,45 @@ let line_of_lexbuf (lexbuf:Sedlexing.lexbuf):string=
         (start_pos,end_pos) -> string_of_int (start_pos.pos_lnum)
 
 let remove_nls (s : string) : string =
-	String.concat "" (String.split_on_char '\n' s)
+        String.concat "" (String.split_on_char '\n' s)
 
 (* refs *)
 
+let quotation : bool ref = ref false
+let set_quotation_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
+        let _ : unit = quotation.contents <- true in tkn
+let reset_quotation_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
+        let _ : unit = quotation.contents <- false in tkn
+
 let verbatim : bool ref = ref false
-
 let set_verbatim_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-	let _ : unit = verbatim.contents <- true in tkn
-
+        let _ : unit = verbatim.contents <- true in tkn
 let reset_verbatim_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-	let _ : unit = verbatim.contents <- false in tkn
+        let _ : unit = verbatim.contents <- false in tkn
 
 let display : bool ref = ref false
-
 let set_display_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-	let _ : unit = display.contents <- true in tkn
-
+        let _ : unit = display.contents <- true in tkn
 let reset_display_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-	let _ : unit = display.contents <- false in tkn
+        let _ : unit = display.contents <- false in tkn
 
 let nte_counter : int ref = ref 0
-
 let nte_count () : int =
         let n = nte_counter.contents in
         let _ : unit = nte_counter.contents <- n + 1 in
         n
 
 let end_of_file : bool ref = ref false
-
 let set_end_of_file_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-	let _ : unit = end_of_file.contents <- true in tkn
+        let _ : unit = end_of_file.contents <- true in tkn
 
 (* the lexer *)
 
 let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
-        match verbatim.contents, display.contents with
-        |false, false -> (
+        match verbatim.contents, display.contents, quotation.contents with
+        |false, false, false -> (
                 match%sedlex lexbuf with
+		|start_qtn			->	set_quotation_and_return_token START_QTN
                 |esc_char                        ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
                 |preamble_colon                  ->      PREAMBLE_COLON
                 |title_colon                     ->      TITLE_COLON
@@ -183,7 +189,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 
-        |true, _ -> (
+        |true, _, _ -> (
                 match%sedlex lexbuf with
                 |end_vrb                        ->      reset_verbatim_and_return_token END_VRB
                 |tab_end_vrb                    ->      reset_verbatim_and_return_token TAB_END_VRB
@@ -195,7 +201,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 
-        |_, true -> (
+        |_, true, _ -> (
                 match%sedlex lexbuf with
                 |esc_char                       ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
                 |star                           ->      STAR
@@ -216,10 +222,26 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |nl_tab_tab_tab                 ->      reset_display_and_return_token NL_TAB_TAB_TAB
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
+	|_,_,true -> (
+                match%sedlex lexbuf with
+		|end_qtn			->	reset_quotation_and_return_token END_QTN
+		|tab_end_qtn			->	reset_quotation_and_return_token TAB_END_QTN
+		|nl				->	NL
+		|br				->	BR
+		|tab				->	TAB
+		|star				->	STAR
+                |lbr                            ->      LBR
+                |rbr                            ->      RBR
+                |colon                          ->      COLON
+                |section                        ->      SECTION
+                |pilcrow                        ->      PILCROW
+		|txt				->	TXT (lexeme lexbuf)
+                |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+	)
 
 
 and skip_newlines (lexbuf : Sedlexing.lexbuf) : unit =
-	match%sedlex lexbuf with
-	|nl_not_nl -> Sedlexing.rollback lexbuf
-	|nl -> skip_newlines lexbuf
-	|_ -> ()
+        match%sedlex lexbuf with
+        |nl_not_nl -> Sedlexing.rollback lexbuf
+        |nl -> skip_newlines lexbuf
+        |_ -> ()

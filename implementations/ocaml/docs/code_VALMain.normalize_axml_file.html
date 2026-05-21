@@ -30,6 +30,6 @@
                 <span class="keyword">match</span> path <span class="keyword">with</span>
                 <span class="keywordsign">|</span><span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin <span class="keyword">false</span>
                 <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file <span class="keyword">false</span> path 
-	<span class="keyword">in</span>
+        <span class="keyword">in</span>
         <span class="string">"&lt;?xml version=\"1.0\"?&gt;\n"</span> ^ 
         (<span class="constructor">Xml_right</span>.to_string_fmt (<span class="constructor">Axml_of_doc</span>.normalize_axml axml))</code></body></html>
