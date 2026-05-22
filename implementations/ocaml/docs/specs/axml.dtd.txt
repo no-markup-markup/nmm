@@ -62,7 +62,7 @@
 <!ELEMENT cs_qtn_line_br (cs_qtn_units)>
 
 <!ELEMENT cs_txt_units (cu_txt_unit_wysiwyg | cu_txt_unit_emph | cu_txt_unit_c_ref | cu_txt_unit_nte_ref | cu_txt_unit_nte_inline)+>
-<!ELEMENT cs_qtn_units (cu_qtn_unit_wysiwyg | cu_qtn_unit_emph)+>
+<!ELEMENT cs_qtn_units (cu_qtn_unit_wysiwyg | cu_qtn_unit_emph)*>
 <!ELEMENT cs_dsp_lines (cu_dsp_line_no_lbl | cu_dsp_line_lbld)+>
 
 <!ELEMENT cu_dsp_line_no_lbl (cs_dsp_line_no_lbl)>

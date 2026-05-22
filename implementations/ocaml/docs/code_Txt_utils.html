@@ -186,6 +186,9 @@
 <br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_string&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(indent&nbsp;:&nbsp;int)&nbsp;(s:&nbsp;string)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;s&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">""</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[<span class="string">""</span>]<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;line_width&nbsp;:&nbsp;int&nbsp;=&nbsp;doc_settings.doc_width&nbsp;-&nbsp;indent&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;line_break&nbsp;line_width&nbsp;s&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ind&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">String</span>.make&nbsp;indent&nbsp;<span class="string">'&nbsp;'</span>&nbsp;<span class="keyword">in</span><br>

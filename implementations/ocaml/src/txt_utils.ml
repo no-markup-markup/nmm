@@ -159,6 +159,9 @@ let line_break (line_width : int) (s : string) : string list =
 
 
 let lines_of_string (doc_settings : t_doc_settings) (indent : int) (s: string) : string list =
+  match s with
+  |"" -> [""]
+  |_ ->
         let line_width : int = doc_settings.doc_width - indent in
         let lines : string list = line_break line_width s in
         let ind : string = String.make indent ' ' in
