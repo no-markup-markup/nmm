@@ -29,7 +29,7 @@
         <span class="keyword">match</span> verbatim.contents, display.contents, quotation.contents <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> (
                 <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
-		<span class="keywordsign">|</span>start_qtn			<span class="keywordsign">-&gt;</span>	set_quotation_and_return_token <span class="constructor">START_QTN</span>
+                <span class="keywordsign">|</span>start_qtn                      <span class="keywordsign">-&gt;</span>      set_quotation_and_return_token <span class="constructor">START_QTN</span>
                 <span class="keywordsign">|</span>esc_char                        <span class="keywordsign">-&gt;</span>      <span class="constructor">ESC_CHAR</span> (get_esc_char (lexeme lexbuf))
                 <span class="keywordsign">|</span>preamble_colon                  <span class="keywordsign">-&gt;</span>      <span class="constructor">PREAMBLE_COLON</span>
                 <span class="keywordsign">|</span>title_colon                     <span class="keywordsign">-&gt;</span>      <span class="constructor">TITLE_COLON</span>
@@ -105,22 +105,22 @@
                 <span class="keywordsign">|</span>nl_tab_tab_tab                 <span class="keywordsign">-&gt;</span>      reset_display_and_return_token <span class="constructor">NL_TAB_TAB_TAB</span>
                 <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">ERROR</span> (<span class="string">"unexpected string on line "</span> ^ (line_of_lexbuf lexbuf) ^ <span class="string">": \""</span> ^ (lexeme lexbuf) ^ <span class="string">"\""</span>))
         )
-	<span class="keywordsign">|</span>_,_,<span class="keyword">true</span> <span class="keywordsign">-&gt;</span> (
+        <span class="keywordsign">|</span>_,_,<span class="keyword">true</span> <span class="keywordsign">-&gt;</span> (
                 <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
-		<span class="keywordsign">|</span>end_qtn			<span class="keywordsign">-&gt;</span>	reset_quotation_and_return_token <span class="constructor">END_QTN</span>
-		<span class="keywordsign">|</span>tab_end_qtn			<span class="keywordsign">-&gt;</span>	reset_quotation_and_return_token <span class="constructor">TAB_END_QTN</span>
-		<span class="keywordsign">|</span>nl				<span class="keywordsign">-&gt;</span>	<span class="constructor">NL</span>
-		<span class="keywordsign">|</span>br				<span class="keywordsign">-&gt;</span>	<span class="constructor">BR</span>
-		<span class="keywordsign">|</span>tab				<span class="keywordsign">-&gt;</span>	<span class="constructor">TAB</span>
-		<span class="keywordsign">|</span>star				<span class="keywordsign">-&gt;</span>	<span class="constructor">STAR</span>
+                <span class="keywordsign">|</span>end_qtn                        <span class="keywordsign">-&gt;</span>      reset_quotation_and_return_token <span class="constructor">END_QTN</span>
+                <span class="keywordsign">|</span>tab_end_qtn                    <span class="keywordsign">-&gt;</span>      reset_quotation_and_return_token <span class="constructor">TAB_END_QTN</span>
+                <span class="keywordsign">|</span>nl                             <span class="keywordsign">-&gt;</span>      <span class="constructor">NL</span>
+                <span class="keywordsign">|</span>br                             <span class="keywordsign">-&gt;</span>      <span class="constructor">BR</span>
+                <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span>
+                <span class="keywordsign">|</span>star                           <span class="keywordsign">-&gt;</span>      <span class="constructor">STAR</span>
                 <span class="keywordsign">|</span>lbr                            <span class="keywordsign">-&gt;</span>      <span class="constructor">LBR</span>
                 <span class="keywordsign">|</span>rbr                            <span class="keywordsign">-&gt;</span>      <span class="constructor">RBR</span>
                 <span class="keywordsign">|</span>colon                          <span class="keywordsign">-&gt;</span>      <span class="constructor">COLON</span>
                 <span class="keywordsign">|</span>section                        <span class="keywordsign">-&gt;</span>      <span class="constructor">SECTION</span>
                 <span class="keywordsign">|</span>pilcrow                        <span class="keywordsign">-&gt;</span>      <span class="constructor">PILCROW</span>
-		<span class="keywordsign">|</span>txt				<span class="keywordsign">-&gt;</span>	<span class="constructor">TXT</span> (lexeme lexbuf)
+                <span class="keywordsign">|</span>txt                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TXT</span> (lexeme lexbuf)
                 <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">ERROR</span> (<span class="string">"unexpected string on line "</span> ^ (line_of_lexbuf lexbuf) ^ <span class="string">": \""</span> ^ (lexeme lexbuf) ^ <span class="string">"\""</span>))
-	)
+        )
 
 
 <span class="keyword">and</span> skip_newlines (lexbuf : <span class="constructor">Sedlexing</span>.lexbuf) : unit =

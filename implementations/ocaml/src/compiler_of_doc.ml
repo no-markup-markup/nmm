@@ -213,7 +213,7 @@ and acc_of_ts_blk_qtn (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
         match acc with
                 | MARGIN_LABELS _
                 | CREF_TABLE _ 
-		| NTE_TABLE _ -> acc
+                | NTE_TABLE _ -> acc
                 | LINES acc_lines -> LINES (List.concat [acc_lines; Txt_utils.lines_of_ts_blk_qtn doc_settings path a])
                 | EXML acc_list -> EXML (List.concat [acc_list; [Exml_utils.xml_of_ts_blk_qtn a]])
 

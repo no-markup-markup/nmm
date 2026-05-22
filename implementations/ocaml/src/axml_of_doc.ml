@@ -254,12 +254,12 @@ and xml_of_tu_qtn_line (qtn_line : tu_qtn_line) : Xml.xml =
         |Cu_qtn_line_br qtn_line_br -> Xml.Element ("cu_qtn_line_br",[],[xml_of_ts_qtn_line_br qtn_line_br])
 
 and xml_of_ts_qtn_line_std (qtn_line_std : ts_qtn_line_std) : Xml.xml =
-	match qtn_line_std with
-	|Cs_qtn_line_std qtn_units -> Xml.Element ("cs_qtn_line_std", [], [xml_of_ts_qtn_units qtn_units])
+        match qtn_line_std with
+        |Cs_qtn_line_std qtn_units -> Xml.Element ("cs_qtn_line_std", [], [xml_of_ts_qtn_units qtn_units])
 
 and xml_of_ts_qtn_line_br (qtn_line_br : ts_qtn_line_br) : Xml.xml =
-	match qtn_line_br with
-	|Cs_qtn_line_br qtn_units -> Xml.Element ("cs_qtn_line_br", [], [xml_of_ts_qtn_units qtn_units])
+        match qtn_line_br with
+        |Cs_qtn_line_br qtn_units -> Xml.Element ("cs_qtn_line_br", [], [xml_of_ts_qtn_units qtn_units])
 
 
 and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
@@ -452,6 +452,6 @@ let normalize_axml_qtn_units (xml_list : Xml.xml list) : Xml.xml list =
 let rec normalize_axml (xml : Xml.xml) : Xml.xml =
         match xml with
         |Xml.Element ("cs_txt_units", attr_list, xml_list) -> Xml.Element ("cs_txt_units", attr_list, normalize_axml_txt_units xml_list)
-	|Xml.Element ("cs_qtn_units", attr_list, xml_list) -> Xml.Element ("cs_qtn_units", attr_list, normalize_axml_qtn_units xml_list)
+        |Xml.Element ("cs_qtn_units", attr_list, xml_list) -> Xml.Element ("cs_qtn_units", attr_list, normalize_axml_qtn_units xml_list)
         |Xml.Element (tag, attr_list, xml_list) -> Xml.Element (tag, attr_list, List.map normalize_axml xml_list)
         |Xml.PCData s -> Xml.PCData s

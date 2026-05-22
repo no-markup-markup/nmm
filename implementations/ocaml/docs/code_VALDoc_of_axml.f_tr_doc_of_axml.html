@@ -439,8 +439,8 @@
 
 
 <span class="keyword">and</span> f_ts_qtn_lines_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_qtn_lines =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_lines"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_lines</span> (f_tu_qtn_line_list_of_xml_list xml_list)
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_lines"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_lines</span> (f_tu_qtn_line_list_of_xml_list xml_list)
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_lines; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_txt_line_list_of_xml_list (nte_count : int) (xml_list : <span class="constructor">Xml</span>.xml list) : (ts_txt_line list) * int =
@@ -453,46 +453,46 @@
         <span class="keyword">in</span> aux nte_count xml_list []
 
 <span class="keyword">and</span> f_tu_qtn_line_list_of_xml_list (xml_list : <span class="constructor">Xml</span>.xml list) : tu_qtn_line list =
-	<span class="constructor">List</span>.map f_tu_qtn_line_of_xml xml_list
+        <span class="constructor">List</span>.map f_tu_qtn_line_of_xml xml_list
 
 <span class="keyword">and</span> f_tu_qtn_line_of_xml (xml : <span class="constructor">Xml</span>.xml) : tu_qtn_line =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_line_std"</span>,[],[x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_line_std</span> (f_ts_qtn_line_std_of_xml x)
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_line_br"</span>,[],[x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_line_br</span> (f_ts_qtn_line_br_of_xml x)
-	<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_qtn_line_std or cu_qtn_line_br; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_line_std"</span>,[],[x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_line_std</span> (f_ts_qtn_line_std_of_xml x)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_line_br"</span>,[],[x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_line_br</span> (f_ts_qtn_line_br_of_xml x)
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_qtn_line_std or cu_qtn_line_br; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_qtn_line_std_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_qtn_line_std =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_line_std"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_line_std</span> (f_ts_qtn_units_of_xml x)
-	<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_line_std; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_line_std"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_line_std</span> (f_ts_qtn_units_of_xml x)
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_line_std; got: "</span>;string_of_xml_list [xml]]))
 
 
 <span class="keyword">and</span> f_ts_qtn_line_br_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_qtn_line_br =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_line_br"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_line_br</span> (f_ts_qtn_units_of_xml x)
-	<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_line_br; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_line_br"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_line_br</span> (f_ts_qtn_units_of_xml x)
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_line_br; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_qtn_units_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_qtn_units =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_units"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_units</span> (f_tu_qtn_unit_list_of_xml_list xml_list)
-	<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_units; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_units"</span>,[],xml_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_units</span> (f_tu_qtn_unit_list_of_xml_list xml_list)
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_units; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_tu_qtn_unit_list_of_xml_list (xml_list : <span class="constructor">Xml</span>.xml list) : tu_qtn_unit list =
-	<span class="constructor">List</span>.map f_tu_qtn_unit_of_xml xml_list
+        <span class="constructor">List</span>.map f_tu_qtn_unit_of_xml xml_list
 
 <span class="keyword">and</span> f_tu_qtn_unit_of_xml (xml : <span class="constructor">Xml</span>.xml) : tu_qtn_unit =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_unit_wysiwyg"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_unit_wysiwyg</span> (f_ts_qtn_unit_wysiwyg_of_xml x)
-	<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_unit_emph"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_unit_emph</span> (f_ts_qtn_unit_emph_of_xml x)
-	<span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_qtn_unit_wysiwyg or cu_qtn_unit_emph; got: "</span>;string_of_xml_list [xml]]))
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_unit_wysiwyg"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_unit_wysiwyg</span> (f_ts_qtn_unit_wysiwyg_of_xml x)
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_qtn_unit_emph"</span>, [], [x]) <span class="keywordsign">-&gt;</span> <span class="constructor">Cu_qtn_unit_emph</span> (f_ts_qtn_unit_emph_of_xml x)
+        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cu_qtn_unit_wysiwyg or cu_qtn_unit_emph; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_qtn_unit_wysiwyg_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_qtn_unit_wysiwyg =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_unit_wysiwyg"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_unit_wysiwyg</span> (f_string_of_pcdata_list pcdata_list)
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_unit_wysiwyg; got: "</span>;string_of_xml_list [xml]]))
 
 <span class="keyword">and</span> f_ts_qtn_unit_emph_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_qtn_unit_emph =
-	<span class="keyword">match</span> xml <span class="keyword">with</span>
+        <span class="keyword">match</span> xml <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_qtn_unit_emph"</span>,[],pcdata_list) <span class="keywordsign">-&gt;</span> <span class="constructor">Cs_qtn_unit_emph</span> (f_string_of_pcdata_list pcdata_list)
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected cs_qtn_unit_emph; got: "</span>;string_of_xml_list [xml]]))
 

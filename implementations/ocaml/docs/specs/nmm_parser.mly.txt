@@ -85,7 +85,7 @@ let date_of_string (s : string) : tu_date =
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
-%token				START_QTN END_QTN BR TAB_END_QTN
+%token                          START_QTN END_QTN BR TAB_END_QTN
 %token                          PREAMBLE_COLON TITLE_COLON AUTHOR_COLON DATE_COLON ABSTRACT_COLON
 %token <string>                 VRB_LINE
 %token <string>                 ESC_CHAR
@@ -161,8 +161,8 @@ doc:
                                                       fld_doc_main = $3.fld_doc_main;
                                                       fld_doc_refs = $3.fld_doc_refs;
                                                     } : tr_doc 
-                                                   }
-  | doc_abstract nls doc                             {
+                                                  }
+  | doc_abstract nls doc                          {
                                                     {
                                                       fld_doc_preamble = $3.fld_doc_preamble;
                                                       fld_doc_title = $3.fld_doc_title;
@@ -172,8 +172,8 @@ doc:
                                                       fld_doc_main = $3.fld_doc_main;
                                                       fld_doc_refs = $3.fld_doc_refs;
                                                     } : tr_doc 
-                                                   }
-  | doc_main doc_refs                              {
+                                                  }
+  | doc_main doc_refs                             {
                                                     {
                                                       fld_doc_preamble = None;
                                                       fld_doc_title = None;
@@ -183,7 +183,7 @@ doc:
                                                       fld_doc_main = $1;
                                                       fld_doc_refs = Some $2;
                                                     } : tr_doc 
-                                                   }
+                                                  }
 ;
 
 
@@ -261,9 +261,9 @@ ch_main:
 
 sec:
   |section_nl sec_main                            { {fld_sec_tag_or_id=None;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
-  |section_spaces_tag_or_id_nl sec_main              { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
+  |section_spaces_tag_or_id_nl sec_main           { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=None;fld_sec_main=$2}:tr_sec }
   |section_nl hdr sec_main                        { {fld_sec_tag_or_id=None;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
-  |section_spaces_tag_or_id_nl hdr sec_main          { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
+  |section_spaces_tag_or_id_nl hdr sec_main       { {fld_sec_tag_or_id=Some $1;fld_sec_hdr=Some $2;fld_sec_main=$3}:tr_sec }
 ;
 
 sec_main:
@@ -280,9 +280,9 @@ pars:
 
 par:
   |pilcrow_nl par_main                            { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=None;fld_par_main=$2}:tu_par }
-  |pilcrow_spaces_tag_or_id_nl par_main              { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tu_par }
+  |pilcrow_spaces_tag_or_id_nl par_main           { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=None;fld_par_main=$2}:tu_par }
   |pilcrow_nl hdr par_main                        { Cu_par_std {fld_par_tag_or_id=None;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
-  |pilcrow_spaces_tag_or_id_nl hdr par_main          { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
+  |pilcrow_spaces_tag_or_id_nl hdr par_main       { Cu_par_std {fld_par_tag_or_id=Some $1;fld_par_hdr=Some $2;fld_par_main=$3}:tu_par }
   |pilcrow_spaces_rpt_spaces_id_nl nls            { Cu_par_rpt $1 : tu_par }
 ;
 
@@ -354,11 +354,19 @@ txt_units0:
 ;
 
 txt_unit0:
-  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt0 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
-  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
-  |nte_inline0                                    { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
+  |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
+  |txt_unit_emph0                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
+  |txt_unit_nte_inline0                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
+;
+
+txt_unit_emph0:
+  |STAR emph_txt0 STAR                            { Cs_txt_unit_emph $2 : ts_txt_unit_emph }
+;
+
+txt_unit_nte_inline0:
+  |nte_inline0                                    { Cs_txt_unit_nte_inline $1 : ts_txt_unit_nte_inline }
 ;
 
 nte_inline0:
@@ -427,25 +435,25 @@ vrb_line0:
 ;
 
 blk_qtn0:
-  |START_QTN qtn_lines0 END_QTN			{ (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
+  |START_QTN qtn_lines0 END_QTN                   { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
 ;
 
 qtn_lines0:
-  |qtn_line0 nls					{ $1::[] : tu_qtn_line list }
-  |qtn_line0 nls qtn_lines0			{ $1::$3 : tu_qtn_line list }
+  |qtn_line0 nls                                  { $1::[] : tu_qtn_line list }
+  |qtn_line0 nls qtn_lines0                       { $1::$3 : tu_qtn_line list }
 ;
 
 qtn_line0:
-  |qtn_line_std0				{ Cu_qtn_line_std $1 : tu_qtn_line }
-  |qtn_line_br0					{ Cu_qtn_line_br $1 : tu_qtn_line }
+  |qtn_line_std0                                  { Cu_qtn_line_std $1 : tu_qtn_line }
+  |qtn_line_br0                                   { Cu_qtn_line_br $1 : tu_qtn_line }
 ;
 
 qtn_line_std0:
-  |TAB qtn_units0                                     { Cs_qtn_line_std (Cs_qtn_units $2) : ts_qtn_line_std }
+  |TAB qtn_units0                                 { Cs_qtn_line_std (Cs_qtn_units $2) : ts_qtn_line_std }
 ;
 
 qtn_line_br0:
-  |BR TAB qtn_units0                                     { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
+  |BR TAB qtn_units0                              { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
 ;
 
 qtn_units0:
@@ -454,8 +462,8 @@ qtn_units0:
 ;
 
 qtn_unit0:
-  |qtn_unit_wysiwyg0				{ Cu_qtn_unit_wysiwyg $1 : tu_qtn_unit }
-  |qtn_unit_emph0				{ Cu_qtn_unit_emph $1 : tu_qtn_unit }
+  |qtn_unit_wysiwyg0                              { Cu_qtn_unit_wysiwyg $1 : tu_qtn_unit }
+  |qtn_unit_emph0                                 { Cu_qtn_unit_emph $1 : tu_qtn_unit }
 ;
 
 qtn_unit_wysiwyg0:
@@ -463,12 +471,12 @@ qtn_unit_wysiwyg0:
 ;
 
 qtn_unit_emph0:
-  |STAR qtn_emph_txt0 STAR                            { Cs_qtn_unit_emph $2:ts_qtn_unit_emph }
+  |STAR qtn_emph_txt0 STAR                        { Cs_qtn_unit_emph $2:ts_qtn_unit_emph }
 ;
 
 qtn_emph_txt0:
-  |emph_txt					{ $1 : string }
-  |emph_txt NL TAB qtn_emph_txt0		{ $1 ^ " " ^ $4 : string }
+  |emph_txt                                       { $1 : string }
+  |emph_txt NL TAB qtn_emph_txt0                  { $1 ^ " " ^ $4 : string }
 ;
 
 lb0:
@@ -515,11 +523,15 @@ txt_units(n):
 ;
 
 txt_unit(n):
-  |txt                                                    { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt(n) STAR                                  { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
-  |cref                                                   { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |nte_ref                                                { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
-  |nte_inline(n)                                          { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
+  |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
+  |txt_unit_emph(n)                               { Cu_txt_unit_emph $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
+  |txt_unit_nte_inline(n)                         { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
+;
+
+txt_unit_emph(n):
+  |STAR emph_txt1 STAR                            { Cs_txt_unit_emph $2 : ts_txt_unit_emph }
 ;
 
 nte_inline(n):
@@ -529,7 +541,6 @@ nte_inline(n):
 
 nte_inline_long(n):
   |NTE_LBR lb(n+1) blks(n+1) RBR                          { Cs_nte_inline (Cs_blks $3, Cs_int $1) : ts_nte_inline}
-;
 ;
 
 emph_txt(n):
@@ -634,13 +645,20 @@ txt_units1:
   |txt_unit1 txt_units1                           { ($1::$2):tu_txt_unit list }
 ;
 
-
 txt_unit1:
-  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt1 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }
-  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
-  |nte_inline1                                    { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
+  |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
+  |txt_unit_emph1                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
+  |txt_unit_nte_inline1                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
+;
+
+txt_unit_emph1:
+  |STAR emph_txt1 STAR                            { Cs_txt_unit_emph $2 : ts_txt_unit_emph }
+;
+
+txt_unit_nte_inline1:
+  |nte_inline1                                    { Cs_txt_unit_nte_inline $1 : ts_txt_unit_nte_inline }
 ;
 
 nte_inline1:
@@ -706,25 +724,25 @@ end_vrb1:
 ;
 
 blk_qtn1:
-  |START_QTN qtn_lines1 TAB_END_QTN		{ (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
+  |START_QTN qtn_lines1 TAB_END_QTN               { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
 ;
 
 qtn_lines1:
-  |qtn_line1 nls					{ $1::[] : tu_qtn_line list }
-  |qtn_line1 nls qtn_lines1			{ $1::$3 : tu_qtn_line list }
+  |qtn_line1 nls                                  { $1::[] : tu_qtn_line list }
+  |qtn_line1 nls qtn_lines1                       { $1::$3 : tu_qtn_line list }
 ;
 
 qtn_line1:
-  |qtn_line_std1				{ Cu_qtn_line_std $1 : tu_qtn_line }
-  |qtn_line_br1					{ Cu_qtn_line_br $1 : tu_qtn_line }
+  |qtn_line_std1                                  { Cu_qtn_line_std $1 : tu_qtn_line }
+  |qtn_line_br1                                   { Cu_qtn_line_br $1 : tu_qtn_line }
 ;
 
 qtn_line_std1:
-  |TAB TAB qtn_units1                                     { Cs_qtn_line_std (Cs_qtn_units $3) : ts_qtn_line_std }
+  |TAB TAB qtn_units1                             { Cs_qtn_line_std (Cs_qtn_units $3) : ts_qtn_line_std }
 ;
 
 qtn_line_br1:
-  |TAB BR TAB qtn_units1                                     { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
+  |TAB BR TAB qtn_units1                          { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
 ;
 
 qtn_units1:
@@ -733,8 +751,8 @@ qtn_units1:
 ;
 
 qtn_unit1:
-  |qtn_unit_wysiwyg1				{ Cu_qtn_unit_wysiwyg $1 : tu_qtn_unit }
-  |qtn_unit_emph1				{ Cu_qtn_unit_emph $1 : tu_qtn_unit }
+  |qtn_unit_wysiwyg1                              { Cu_qtn_unit_wysiwyg $1 : tu_qtn_unit }
+  |qtn_unit_emph1                                 { Cu_qtn_unit_emph $1 : tu_qtn_unit }
 ;
 
 qtn_unit_wysiwyg1:
@@ -742,12 +760,12 @@ qtn_unit_wysiwyg1:
 ;
 
 qtn_unit_emph1:
-  |STAR qtn_emph_txt1 STAR                            { Cs_qtn_unit_emph $2:ts_qtn_unit_emph }
+  |STAR qtn_emph_txt1 STAR                        { Cs_qtn_unit_emph $2:ts_qtn_unit_emph }
 ;
 
 qtn_emph_txt1:
-  |emph_txt					{ $1 : string }
-  |emph_txt NL TAB TAB qtn_emph_txt1		{ $1 ^ " " ^ $5 : string }
+  |emph_txt                                       { $1 : string }
+  |emph_txt NL TAB TAB qtn_emph_txt1              { $1 ^ " " ^ $5 : string }
 ;
 
 
@@ -800,11 +818,19 @@ txt_units2:
 
 
 txt_unit2:
-  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt2 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
-  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
-  |nte_inline2                                    { (Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline $1)):tu_txt_unit }
+  |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
+  |txt_unit_emph2                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
+  |txt_unit_nte_inline2                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
+;
+
+txt_unit_emph2:
+  |STAR emph_txt2 STAR                            { Cs_txt_unit_emph $2 : ts_txt_unit_emph }
+;
+
+txt_unit_nte_inline2:
+  |nte_inline2                                    { Cs_txt_unit_nte_inline $1 : ts_txt_unit_nte_inline }
 ;
 
 nte_inline2:
@@ -815,7 +841,6 @@ nte_inline2:
 nte_inline_long2:
   |NTE_LBR lb3 blks3 RBR                          { Cs_nte_inline (Cs_blks $3, Cs_int $1) : ts_nte_inline}
 ;
-
 
 emph_txt2:
   |emph_txt                                       { $1:string }
@@ -840,6 +865,7 @@ special_blk_dsp2:
   |special_dsp_lines2                             { (Cs_blk_dsp (Cs_dsp_lines $1)):ts_blk_dsp }
 
 ;
+
 dsp_lines2:
   |dsp_line lb0                                   { ($1::[]):tr_dsp_line list }
   |dsp_line lb2 dsp_lines2                        { ($1::$3):tr_dsp_line list }
@@ -910,10 +936,14 @@ txt_units3:
 ;
 
 txt_unit3:
-  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt3 STAR                            { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
-  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
-  |nte_ref                                        { (Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref $1)):tu_txt_unit }
+  |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
+  |txt_unit_emph3                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
+;
+
+txt_unit_emph3:
+  |STAR emph_txt3 STAR                            { Cs_txt_unit_emph $2 : ts_txt_unit_emph }
 ;
 
 emph_txt3:
@@ -964,10 +994,28 @@ dsp_units:
 ;
 
 dsp_unit:
-  |txt                                            { (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg $1)):tu_txt_unit }
-  |STAR emph_txt STAR                             { (Cu_txt_unit_emph (Cs_txt_unit_emph $2)):tu_txt_unit }   
-  |c_ref                                          { (Cu_txt_unit_c_ref (Cs_txt_unit_c_ref $1)):tu_txt_unit }
+  |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
+  |txt_unit_emph                                  { Cu_txt_unit_emph $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
 ;
+
+txt_unit_wysiwyg:
+  |txt                                            { Cs_txt_unit_wysiwyg $1 : ts_txt_unit_wysiwyg }
+;
+
+txt_unit_emph:
+  |STAR emph_txt STAR                             { Cs_txt_unit_emph $2 : ts_txt_unit_emph }
+;
+
+txt_unit_c_ref:
+  |c_ref                                          { Cs_txt_unit_c_ref $1 : ts_txt_unit_c_ref }
+;
+
+txt_unit_nte_ref:
+  |nte_ref                                        { Cs_txt_unit_nte_ref $1 : ts_txt_unit_nte_ref }
+;
+
 
 nte_inline_short:
   |NTE_LBR blk_txt_nte RBR                        { Cs_nte_inline (Cs_blks [Cu_blk_txt $2], Cs_int $1) : ts_nte_inline}
@@ -1015,7 +1063,7 @@ txt_nte:
   |DATE_COLON                                     { "DATE:":string }
   |ABSTRACT_COLON                                 { "ABSTRACT:":string }
   |ESC_CHAR                                       { $1:string }
-  |BR						{ "BR" : string }
+  |BR                                             { "BR" : string }
 ;
 
 emph_txt:

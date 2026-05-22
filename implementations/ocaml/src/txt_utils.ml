@@ -348,59 +348,59 @@ let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_tab
 
 
 let string_of_ts_qtn_unit_emph (qtn_unit_emph : ts_qtn_unit_emph) : string =
-	match qtn_unit_emph with
-	|Cs_qtn_unit_emph s -> emph s
+        match qtn_unit_emph with
+        |Cs_qtn_unit_emph s -> emph s
 
 
 let string_of_ts_qtn_unit_wysiwyg (qtn_unit_wysiwyg : ts_qtn_unit_wysiwyg) : string =
-	match qtn_unit_wysiwyg with
-	|Cs_qtn_unit_wysiwyg s -> s
+        match qtn_unit_wysiwyg with
+        |Cs_qtn_unit_wysiwyg s -> s
 
 let string_of_tu_qtn_unit (qtn_unit : tu_qtn_unit) : string =
-	match qtn_unit with
-	|Cu_qtn_unit_wysiwyg qtn_unit_wysiwyg -> string_of_ts_qtn_unit_wysiwyg qtn_unit_wysiwyg
-	|Cu_qtn_unit_emph qtn_unit_emph -> string_of_ts_qtn_unit_emph qtn_unit_emph
+        match qtn_unit with
+        |Cu_qtn_unit_wysiwyg qtn_unit_wysiwyg -> string_of_ts_qtn_unit_wysiwyg qtn_unit_wysiwyg
+        |Cu_qtn_unit_emph qtn_unit_emph -> string_of_ts_qtn_unit_emph qtn_unit_emph
 
 let string_of_tu_qtn_unit_list (qtn_unit_list : tu_qtn_unit list) : string =
-	String.concat "" (List.map string_of_tu_qtn_unit qtn_unit_list)
+        String.concat "" (List.map string_of_tu_qtn_unit qtn_unit_list)
 
 
 let string_of_ts_qtn_units (qtn_units : ts_qtn_units) : string =
-	match qtn_units with
-	|Cs_qtn_units qtn_unit_list -> string_of_tu_qtn_unit_list qtn_unit_list
+        match qtn_units with
+        |Cs_qtn_units qtn_unit_list -> string_of_tu_qtn_unit_list qtn_unit_list
 
 
 let string_of_qtn_line_std (qtn_line_std : ts_qtn_line_std) : string =
-	match qtn_line_std with
-	|Cs_qtn_line_std qtn_units -> string_of_ts_qtn_units qtn_units
+        match qtn_line_std with
+        |Cs_qtn_line_std qtn_units -> string_of_ts_qtn_units qtn_units
 
 let string_of_qtn_line_br (qtn_line_br : ts_qtn_line_br) : string =
-	match qtn_line_br with
-	|Cs_qtn_line_br qtn_units -> string_of_ts_qtn_units qtn_units
+        match qtn_line_br with
+        |Cs_qtn_line_br qtn_units -> string_of_ts_qtn_units qtn_units
 
 
 let lines_of_tu_qtn_line_list (doc_settings : t_doc_settings) (path : t_path) (qtn_line_list : tu_qtn_line list) : string list =
-	let rec aux (lst : tu_qtn_line list) (acc : string list) =
-		match lst with
-		|[] -> List.rev acc
-		|lst_hd::lst_tl ->
-			match lst_hd, acc with
-			|Cu_qtn_line_std qtn_line_std, acc_hd::acc_tl -> aux lst_tl ((acc_hd ^ " " ^ (string_of_qtn_line_std qtn_line_std))::acc_tl)
-			|Cu_qtn_line_std qtn_line_std, _ -> aux lst_tl ((string_of_qtn_line_std qtn_line_std)::acc)
-			|Cu_qtn_line_br qtn_line_br, _ -> aux lst_tl ((string_of_qtn_line_br qtn_line_br)::acc)
-	in
-	let string_list : string list = aux qtn_line_list [] in
-	let lvl : int = lvl_of_path path + 1 in
-	let indent : int = doc_settings.tab_length * lvl + doc_settings.left_margin in
-	List.concat (List.map (lines_of_string doc_settings indent) string_list)
+        let rec aux (lst : tu_qtn_line list) (acc : string list) =
+                match lst with
+                |[] -> List.rev acc
+                |lst_hd::lst_tl ->
+                        match lst_hd, acc with
+                        |Cu_qtn_line_std qtn_line_std, acc_hd::acc_tl -> aux lst_tl ((acc_hd ^ " " ^ (string_of_qtn_line_std qtn_line_std))::acc_tl)
+                        |Cu_qtn_line_std qtn_line_std, _ -> aux lst_tl ((string_of_qtn_line_std qtn_line_std)::acc)
+                        |Cu_qtn_line_br qtn_line_br, _ -> aux lst_tl ((string_of_qtn_line_br qtn_line_br)::acc)
+        in
+        let string_list : string list = aux qtn_line_list [] in
+        let lvl : int = lvl_of_path path + 1 in
+        let indent : int = doc_settings.tab_length * lvl + doc_settings.left_margin in
+        List.concat (List.map (lines_of_string doc_settings indent) string_list)
 
 let lines_of_ts_qtn_lines (doc_settings : t_doc_settings) (path : t_path) (qtn_lines : ts_qtn_lines) : string list =
-	match qtn_lines with
-	|Cs_qtn_lines qtn_line_list -> lines_of_tu_qtn_line_list doc_settings path qtn_line_list
+        match qtn_lines with
+        |Cs_qtn_lines qtn_line_list -> lines_of_tu_qtn_line_list doc_settings path qtn_line_list
 
 let lines_of_ts_blk_qtn (doc_settings : t_doc_settings) (path : t_path) (blk_qtn : ts_blk_qtn) : string list =
-	match blk_qtn with
-	|Cs_blk_qtn qtn_lines -> lines_of_ts_qtn_lines doc_settings path qtn_lines
+        match blk_qtn with
+        |Cs_blk_qtn qtn_lines -> lines_of_ts_qtn_lines doc_settings path qtn_lines
 
 let line_of_vrb_line (doc_settings : t_doc_settings) (path : t_path) (vrb_line : ts_vrb_line) : string =
         match vrb_line with

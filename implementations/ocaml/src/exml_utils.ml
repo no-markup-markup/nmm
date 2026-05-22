@@ -224,52 +224,52 @@ let xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : Xml.xml =
 
 
 let xml_of_ts_qtn_unit_emph (qtn_unit_emph : ts_qtn_unit_emph) : Xml.xml =
-	match qtn_unit_emph with
-	|Cs_qtn_unit_emph s -> Xml.Element ("txt_unit_emph", [], [xml_of_string s])
+        match qtn_unit_emph with
+        |Cs_qtn_unit_emph s -> Xml.Element ("txt_unit_emph", [], [xml_of_string s])
 
 
 let xml_of_ts_qtn_unit_wysiwyg (qtn_unit_wysiwyg : ts_qtn_unit_wysiwyg) : Xml.xml =
-	match qtn_unit_wysiwyg with
-	|Cs_qtn_unit_wysiwyg s -> Xml.Element ("txt_unit_wysiwyg", [], [xml_of_string s])
+        match qtn_unit_wysiwyg with
+        |Cs_qtn_unit_wysiwyg s -> Xml.Element ("txt_unit_wysiwyg", [], [xml_of_string s])
 
 let xml_of_tu_qtn_unit (qtn_unit : tu_qtn_unit) : Xml.xml =
-	match qtn_unit with
-	|Cu_qtn_unit_wysiwyg qtn_unit_wysiwyg -> xml_of_ts_qtn_unit_wysiwyg qtn_unit_wysiwyg
-	|Cu_qtn_unit_emph qtn_unit_emph -> xml_of_ts_qtn_unit_emph qtn_unit_emph
+        match qtn_unit with
+        |Cu_qtn_unit_wysiwyg qtn_unit_wysiwyg -> xml_of_ts_qtn_unit_wysiwyg qtn_unit_wysiwyg
+        |Cu_qtn_unit_emph qtn_unit_emph -> xml_of_ts_qtn_unit_emph qtn_unit_emph
 
 let xml_list_of_tu_qtn_unit_list (qtn_unit_list : tu_qtn_unit list) : Xml.xml list =
-	List.map xml_of_tu_qtn_unit qtn_unit_list
+        List.map xml_of_tu_qtn_unit qtn_unit_list
 
 
 let xml_list_of_ts_qtn_units (qtn_units : ts_qtn_units) : Xml.xml list =
-	match qtn_units with
-	|Cs_qtn_units qtn_unit_list -> xml_list_of_tu_qtn_unit_list qtn_unit_list
+        match qtn_units with
+        |Cs_qtn_units qtn_unit_list -> xml_list_of_tu_qtn_unit_list qtn_unit_list
 
 
 let xml_list_of_ts_qtn_line_std (qtn_line_std : ts_qtn_line_std) : Xml.xml list =
-	match qtn_line_std with
-	|Cs_qtn_line_std qtn_units -> xml_list_of_ts_qtn_units qtn_units
+        match qtn_line_std with
+        |Cs_qtn_line_std qtn_units -> xml_list_of_ts_qtn_units qtn_units
 
 let xml_list_of_ts_qtn_line_br (qtn_line_br : ts_qtn_line_br) : Xml.xml list =
-	match qtn_line_br with
-	|Cs_qtn_line_br qtn_units -> xml_list_of_ts_qtn_units qtn_units
+        match qtn_line_br with
+        |Cs_qtn_line_br qtn_units -> xml_list_of_ts_qtn_units qtn_units
 
 
 let xml_list_of_tu_qtn_line_list (qtn_line_list : tu_qtn_line list) : Xml.xml list =
-	let br : Xml.xml list = [Xml.Element ("br",[],[])] in
-	let rec aux (lst : tu_qtn_line list) (acc : Xml.xml list) =
-		match lst with
-		|[] -> acc
-		|lst_hd::lst_tl ->
-			match lst_hd with
-			|Cu_qtn_line_std qtn_line_std -> aux lst_tl (List.concat [acc;xml_list_of_ts_qtn_line_std qtn_line_std])
-			|Cu_qtn_line_br qtn_line_br -> aux lst_tl (List.concat [acc;br;xml_list_of_ts_qtn_line_br qtn_line_br])
-	in
-	aux qtn_line_list []
+        let br : Xml.xml list = [Xml.Element ("br",[],[])] in
+        let rec aux (lst : tu_qtn_line list) (acc : Xml.xml list) =
+                match lst with
+                |[] -> acc
+                |lst_hd::lst_tl ->
+                        match lst_hd with
+                        |Cu_qtn_line_std qtn_line_std -> aux lst_tl (List.concat [acc;xml_list_of_ts_qtn_line_std qtn_line_std])
+                        |Cu_qtn_line_br qtn_line_br -> aux lst_tl (List.concat [acc;br;xml_list_of_ts_qtn_line_br qtn_line_br])
+        in
+        aux qtn_line_list []
 
 let xml_list_of_ts_qtn_lines (qtn_lines : ts_qtn_lines) : Xml.xml list =
-	match qtn_lines with
-	|Cs_qtn_lines qtn_line_list -> xml_list_of_tu_qtn_line_list qtn_line_list
+        match qtn_lines with
+        |Cs_qtn_lines qtn_line_list -> xml_list_of_tu_qtn_line_list qtn_line_list
 
 let xml_of_ts_blk_qtn (blk_qtn : ts_blk_qtn) : Xml.xml =
         match blk_qtn with
@@ -341,7 +341,7 @@ let rec normalize_exml (xml : Xml.xml) : Xml.xml =
         match xml with
         |Xml.Element (tag, attr_list, xml_list) -> (
                 match tag with
-		|"blk_qtn"
+                |"blk_qtn"
                 |"blk_txt"
                 |"dsp_line_main"
                 |"par_hdr_inline"

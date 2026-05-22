@@ -146,7 +146,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
         match verbatim.contents, display.contents, quotation.contents with
         |false, false, false -> (
                 match%sedlex lexbuf with
-		|start_qtn			->	set_quotation_and_return_token START_QTN
+                |start_qtn                      ->      set_quotation_and_return_token START_QTN
                 |esc_char                        ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
                 |preamble_colon                  ->      PREAMBLE_COLON
                 |title_colon                     ->      TITLE_COLON
@@ -222,22 +222,22 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |nl_tab_tab_tab                 ->      reset_display_and_return_token NL_TAB_TAB_TAB
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
-	|_,_,true -> (
+        |_,_,true -> (
                 match%sedlex lexbuf with
-		|end_qtn			->	reset_quotation_and_return_token END_QTN
-		|tab_end_qtn			->	reset_quotation_and_return_token TAB_END_QTN
-		|nl				->	NL
-		|br				->	BR
-		|tab				->	TAB
-		|star				->	STAR
+                |end_qtn                        ->      reset_quotation_and_return_token END_QTN
+                |tab_end_qtn                    ->      reset_quotation_and_return_token TAB_END_QTN
+                |nl                             ->      NL
+                |br                             ->      BR
+                |tab                            ->      TAB
+                |star                           ->      STAR
                 |lbr                            ->      LBR
                 |rbr                            ->      RBR
                 |colon                          ->      COLON
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
-		|txt				->	TXT (lexeme lexbuf)
+                |txt                            ->      TXT (lexeme lexbuf)
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
-	)
+        )
 
 
 and skip_newlines (lexbuf : Sedlexing.lexbuf) : unit =
