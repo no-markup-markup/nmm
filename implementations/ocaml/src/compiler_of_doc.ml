@@ -304,11 +304,16 @@ and acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
 
 
 and add_empty_lines_after_blk (hd : tu_blk) (tl:tu_blk list) (acc : t_acc) : t_acc =
-        match hd, contains_non_blk_nte tl, acc with
-        |Cu_blk_nte _, _, _ -> acc
-        |_, false, _ -> acc
-        |_, true, LINES lines -> LINES (List.concat [lines;[""]])
-        |_, _, _ -> acc
+        match acc with
+	|LINES lines -> (
+		match hd with
+		|Cu_blk_nte _ -> acc
+		|_ ->
+			match contains_non_blk_nte tl with
+			|true -> LINES (List.concat [lines;[""]])
+			|false -> acc
+	)
+        |_ -> acc
 
 and contains_non_blk_nte (lst : tu_blk list) : bool =
 	match lst with
