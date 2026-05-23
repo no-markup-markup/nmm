@@ -7,12 +7,29 @@ MAKEFLAGS += --no-builtin-rules
 
 .PHONY: clean
 
-README.md: template.md nmm-sources/*.nmm raw-text-semantics/*.txt ../bin/* ../implementations/mercury/*.m ../implementations/ocaml/src/*
+README.md:                       \
+  ../bin/nmm-mercury             \
+  ../bin/nmm-ocaml               \
+  ../bin/*                       \
+  template.md                    \
+  nmm-sources/*.nmm              \
+  raw-text-semantics/*.txt       \
+  ../implementations/mercury/*.m \
+  ../implementations/ocaml/src/*
+	#
+	./generate-raw-text.sh
+	./generate-readme > README.md
+
+../bin/nmm-mercury:
 	cd ..
 	make bin
 	cd -
-	./generate-raw-text.sh
-	./generate-readme > README.md
+
+../bin/nmm-ocaml:
+	cd ..
+	make bin
+	cd -
+
 
 clean:
 	# remove anything in .gitignore, including directories
