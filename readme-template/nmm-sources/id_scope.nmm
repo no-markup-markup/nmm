@@ -4,7 +4,7 @@ In LaTeX, for example, one may want to refer to something
 “locally”---the label (LaTeX's incorrectly named version of ID) is
 used for cross-references only in close proximity to where it is
 defined. This typically leads to the introduction of
-keysmashes[NTE:keysmashes].
+keysmashes[NTE:keysmashes:PAR].
 
 *	NTE:keysmashes:PAR
 	https://en.wikipedia.org/wiki/Keysmash
@@ -13,30 +13,28 @@ keysmashes[NTE:keysmashes].
 
 The ID of the note in the previous paragraph has the suffix ‘:PAR’.
 This means that the ID has *paragraph scope*: one may only
-“refer”[NTE:refer] to that note in the paragraph where it is defined.
+“refer”[NTE:refer:PAR] to that note in the paragraph where it is
+defined.
 
 The ID of [PAR:intro] is ‘\[PAR:intro]’ and thus has no scope-defining
 suffix. This means that [PAR:intro] has *global scope*: it may be
-referred to (by using ‘[PAR:intro]’).[NTE:gbl_scope]
+referred to (by using ‘[PAR:intro]’ anywhere in the nmm
+source).
 
 *	NTE:refer:PAR
-
 	Scare quotes because ‘referring to a footnote/endnote’ sounds a
 	bit weird to me.
 
-* NTE:gbl_scope:PAR
-
+*	NTE:gbl_scope:PAR
 	One may explicitly indicate global scope by the ‘:GBL’ suffix.
 	Thus in this example we could equivalently have used
-	‘PAR:intro:GBL’. When referring to [PAR:intro] we would still
-	have used ‘\[PAR:intro]’---cross-references never includes scope
-	suffix, and there would be no good reason for that (I think).
+	‘PAR:intro:GBL’.
 
 ¶
 
 The scopes are:
 
-[]	*global scope*---the default[NTE:gbl_scope];
+[]	*global scope*---the default[NTE:gbl_scope:PAR];
 
 []	*chapter scope*---suffix ‘:CH’;
 
@@ -46,12 +44,7 @@ The scopes are:
 []	*paragraph scope*---suffix ‘:PAR’.
 
 *	NTE:gbl_scope:PAR
-
-	One may explicitly indicate global scope by the suffix
-	‘:GBL’.[NTE:scope_example]
-
-*	NTE:scope_example:PAR
-	The preceding note has the ID ‘NTE:gbl_scope’ and paragraph
-	scope---just as the note in [PAR:workings] has. The duplication
-	of this ID is unproblematic since the “instances” have disjoint
-	scopes.
+	One may explicitly indicate global scope by the suffix ‘:GBL’.
+	(This note has ID ‘NTE:gbl_scope:PAR’, just as the note in
+	[PAR:workings] has. The duplication this ID is unproblematic
+	since they occur in different scopes.

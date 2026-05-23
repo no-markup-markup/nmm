@@ -441,62 +441,6 @@ Here nothing needs escaping and nothing can be escaped. For each expression E:
 ```
 </details>
 
-### Tags, names, IDs and cross-references
-
-<details>
-  <summary><b>nmm source:</b></summary>
-
-```
-[]	ITM:name
-	This item block has the tag ‘ITM’ and the name ‘name’ and the ID
-	‘ITM:name’.
-
-[]	DEF:name
-	This item block has the tag ‘DEF’ and the name ‘name’ and ID
-	‘DEF:name’.
-
-[]	Names need not be unique but IDs must be.
-
-[]	Neither tags nor names may include whitespace, which together
-	with where they must be placed removes virtually any practical
-	need for escaping valid tags or IDs.
-
-[]	Tags allow the semantics to have special treatment of blocks
-	with certain tags.
-
-This is a reference to the item block with ID ‘ITM:name’: [ITM:name].
-The following displayed block has the ID ‘DSP:Q5’.
-
-()	x+Sy = S(x+y)	DSP:Q5
-```
-</details>
-
-<details>
-  <summary><b>default raw text semantics</b></summary>
-
-```
-(a)   This item block has the tag ‘ITM’ and the name ‘name’ and the
-      ID ‘ITM:name’.
-
-(b)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
-      ‘DEF:name’.
-
-(c)   Names need not be unique but IDs must be.
-
-(d)   Neither tags nor names may include whitespace, which together
-      with where they must be placed removes virtually any practical
-      need for escaping valid tags or IDs.
-
-(e)   Tags allow the semantics to have special treatment of blocks
-      with certain tags.
-
-This is a reference to the item block with ID ‘ITM:name’: (a). The
-following displayed block has the ID ‘DSP:Q5’.
-
-(f)   x+Sy = S(x+y)
-```
-</details>
-
 ### Chapters, sections, appendices and paragraphs
 
 <details>
@@ -666,6 +610,164 @@ This chapter's header is omitted.
          ═════════
 
 ¶ 2.1    This chapter's header is omitted.
+```
+</details>
+
+### Tags, names, IDs and cross-references
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+[]	ITM:name
+	This item block has the tag ‘ITM’ and the name ‘name’ and the ID
+	‘ITM:name’.
+
+[]	DEF:name
+	This item block has the tag ‘DEF’ and the name ‘name’ and ID
+	‘DEF:name’.
+
+[]	Names need not be unique but IDs must be.
+
+[]	Neither tags nor names may include whitespace, which together
+	with where they must be placed removes virtually any practical
+	need for escaping valid tags or IDs.
+
+[]	Tags allow the semantics to have special treatment of blocks
+	with certain tags.
+
+This is a reference to the item block with ID ‘ITM:name’: [ITM:name].
+The following displayed block has the ID ‘DSP:Q5’.
+
+()	x+Sy = S(x+y)	DSP:Q5
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+(a)   This item block has the tag ‘ITM’ and the name ‘name’ and the
+      ID ‘ITM:name’.
+
+(b)   This item block has the tag ‘DEF’ and the name ‘name’ and ID
+      ‘DEF:name’.
+
+(c)   Names need not be unique but IDs must be.
+
+(d)   Neither tags nor names may include whitespace, which together
+      with where they must be placed removes virtually any practical
+      need for escaping valid tags or IDs.
+
+(e)   Tags allow the semantics to have special treatment of blocks
+      with certain tags.
+
+This is a reference to the item block with ID ‘ITM:name’: (a). The
+following displayed block has the ID ‘DSP:Q5’.
+
+(f)   x+Sy = S(x+y)
+```
+</details>
+
+### IDs with scope
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+¶ PAR:intro
+
+In LaTeX, for example, one may want to refer to something
+“locally”---the label (LaTeX's incorrectly named version of ID) is
+used for cross-references only in close proximity to where it is
+defined. This typically leads to the introduction of
+keysmashes[NTE:keysmashes:PAR].
+
+*	NTE:keysmashes:PAR
+	https://en.wikipedia.org/wiki/Keysmash
+
+¶ PAR:workings
+
+The ID of the note in the previous paragraph has the suffix ‘:PAR’.
+This means that the ID has *paragraph scope*: one may only
+“refer”[NTE:refer:PAR] to that note in the paragraph where it is
+defined.
+
+The ID of [PAR:intro] is ‘\[PAR:intro]’ and thus has no scope-defining
+suffix. This means that [PAR:intro] has *global scope*: it may be
+referred to (by using ‘[PAR:intro]’ anywhere in the nmm
+source).
+
+*	NTE:refer:PAR
+	Scare quotes because ‘referring to a footnote/endnote’ sounds a
+	bit weird to me.
+
+*	NTE:gbl_scope:PAR
+	One may explicitly indicate global scope by the ‘:GBL’ suffix.
+	Thus in this example we could equivalently have used
+	‘PAR:intro:GBL’.
+
+¶
+
+The scopes are:
+
+[]	*global scope*---the default[NTE:gbl_scope:PAR];
+
+[]	*chapter scope*---suffix ‘:CH’;
+
+[]	*section scope*---suffix ‘:SEC’; equivalently *appendix
+	scope*---suffix ‘:APP’;
+
+[]	*paragraph scope*---suffix ‘:PAR’.
+
+*	NTE:gbl_scope:PAR
+	One may explicitly indicate global scope by the suffix ‘:GBL’.
+	(This note has ID ‘NTE:gbl_scope:PAR’, just as the note in
+	[PAR:workings] has. The duplication this ID is unproblematic
+	since they occur in different scopes.
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+¶ 1  In LaTeX, for example, one may want to refer to something
+     “locally”---the label (LaTeX's incorrectly named version of ID) is
+     used for cross-references only in close proximity to where it is
+     defined. This typically leads to the introduction of keysmashes¹.
+
+
+¶ 2  The ID of the note in the previous paragraph has the suffix ‘:PAR’.
+     This means that the ID has p̲a̲r̲a̲g̲r̲a̲p̲h̲ s̲c̲o̲p̲e̲: one may only “refer”² to
+     that note in the paragraph where it is defined.
+
+     The ID of ¶ 1 is ‘[PAR:intro]’ and thus has no scope-defining
+     suffix. This means that ¶ 1 has g̲l̲o̲b̲a̲l̲ s̲c̲o̲p̲e̲: it may be referred to
+     (by using ‘¶ 1’ anywhere in the nmm source).
+
+
+¶ 3  The scopes are:
+
+     (a)   g̲l̲o̲b̲a̲l̲ s̲c̲o̲p̲e̲---the default³;
+
+     (b)   c̲h̲a̲p̲t̲e̲r̲ s̲c̲o̲p̲e̲---suffix ‘:CH’;
+
+     (c)   s̲e̲c̲t̲i̲o̲n̲ s̲c̲o̲p̲e̲---suffix ‘:SEC’; equivalently a̲p̲p̲e̲n̲d̲i̲x̲
+           s̲c̲o̲p̲e̲---suffix ‘:APP’;
+
+     (d)   p̲a̲r̲a̲g̲r̲a̲p̲h̲ s̲c̲o̲p̲e̲---suffix ‘:PAR’.
+
+─────────────────────────────────────────────────────────────────────────
+¹  https://en.wikipedia.org/wiki/Keysmash
+
+²  Scare quotes because ‘referring to a footnote/endnote’ sounds a bit
+   weird to me.
+
+³  One may explicitly indicate global scope by the suffix ‘:GBL’. (This
+   note has ID ‘NTE:gbl_scope:PAR’, just as the note in ¶ 2 has. The
+   duplication this ID is unproblematic since they occur in different
+   scopes.
 ```
 </details>
 
@@ -880,7 +982,6 @@ This is another sentence followed by a note reference.[NTE:f']
 This is a sentence followed by a note reference.¹
 
 This is another sentence followed by a note reference.²
-
 
 ────────────────────────────────────────────────────────────────────
 ¹  A footnote/endnote.

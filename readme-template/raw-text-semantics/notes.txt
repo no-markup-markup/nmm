@@ -2,7 +2,6 @@ This is a sentence followed by a note reference.¹
 
 This is another sentence followed by a note reference.²
 
-
 ────────────────────────────────────────────────────────────────────
 ¹  A footnote/endnote.
 
