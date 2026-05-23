@@ -375,6 +375,67 @@ By Pythagoras we have:
 ```
 </details>
 
+### Quotation blocks
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+-	A nice quip:[NTE:quip]
+
+	START	QUOTATION
+		It adds neither to the rigor of the argument nor the
+		clarity of the exposition to say that a man M crossed the
+		street S.
+	END	QUOTATION
+
+	*	NTE:quip
+		The origin of this nice quip is quite unclear---see:
+
+		https://github.com/anderslundstedt/check-unicode-coverage/commit/
+		45155b205021d1181a762d8648a83ab92826f1ec
+
+-	A profound insight:
+
+	START	QUOTATION
+		The subtle point is that any progression will serve as a
+		version of number so long and only so long as we stick to
+		one and the same progression. Arithmetic is, in this
+		sense, all there is to number: there is no saying
+		absolutely what the numbers are; there is only arithmetic.
+	BR	[Quine, W.V (1968, page 198)]
+	END	QUOTATION
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+─     A nice quip:¹
+
+            It adds neither to the rigor of the argument nor the
+            clarity of the exposition to say that a man M crossed
+            the street S.
+
+─     A profound insight:
+
+            The subtle point is that any progression will serve as a
+            version of number so long and only so long as we stick
+            to one and the same progression. Arithmetic is, in this
+            sense, all there is to number: there is no saying
+            absolutely what the numbers are; there is only
+            arithmetic.
+            [Quine, W.V (1968, page 198)]
+
+────────────────────────────────────────────────────────────────────
+¹  The origin of this nice quip is quite unclear---see:
+
+   https://github.com/anderslundstedt/check-unicode-coverage/commit/
+   45155b205021d1181a762d8648a83ab92826f1ec
+```
+</details>
+
 ### Verbatim blocks
 
 <details>

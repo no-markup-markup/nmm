@@ -262,6 +262,24 @@ INCLUDE-FILE ./raw-text-semantics/displayed-blocks-multple-lines.txt
 ```
 </details>
 
+### Quotation blocks
+
+<details>
+  <summary><b>nmm source:</b></summary>
+
+```
+INCLUDE-FILE ./nmm-sources/qtn_blocks.nmm
+```
+</details>
+
+<details>
+  <summary><b>default raw text semantics</b></summary>
+
+```
+INCLUDE-FILE ./raw-text-semantics/qtn_blocks.txt
+```
+</details>
+
 ### Verbatim blocks
 
 <details>
