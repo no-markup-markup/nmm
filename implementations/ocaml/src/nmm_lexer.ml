@@ -77,6 +77,8 @@ let start_qtn = [%sedlex.regexp? "START", tab, "QUOTATION", nl]
 let end_qtn = [%sedlex.regexp? "END", tab, "QUOTATION", nl]
 let br = [%sedlex.regexp? "BR"]
 let tab_end_qtn = [%sedlex.regexp? tab, end_qtn]
+let tab_tab_end_qtn = [%sedlex.regexp? tab, tab_end_qtn]
+let tab_tab_tab_end_qtn = [%sedlex.regexp? tab, tab_tab_end_qtn]
 
 let nl_not_nl = [%sedlex.regexp? nl, Compl (Chars "\n\r")]
 
@@ -226,6 +228,8 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 match%sedlex lexbuf with
                 |end_qtn                        ->      reset_quotation_and_return_token END_QTN
                 |tab_end_qtn                    ->      reset_quotation_and_return_token TAB_END_QTN
+                |tab_tab_end_qtn                ->      reset_quotation_and_return_token TAB_TAB_END_QTN
+                |tab_tab_tab_end_qtn            ->      reset_quotation_and_return_token TAB_TAB_TAB_END_QTN
                 |nl                             ->      NL
                 |br                             ->      BR
                 |tab                            ->      TAB

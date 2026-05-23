@@ -56,6 +56,8 @@ let string_of_token (t:Nmm_parser.token):string=
         |END_QTN -> "END_QTN"
         |BR -> "BR"
         |TAB_END_QTN -> "TAB_END_QTN"
+        |TAB_TAB_END_QTN -> "TAB_TAB_END_QTN"
+        |TAB_TAB_TAB_END_QTN -> "TAB_TAB_TAB_END_QTN"
 
 let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
         let token : Nmm_parser.token=Nmm_lexer.token b in

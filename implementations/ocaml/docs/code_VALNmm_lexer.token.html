@@ -109,6 +109,8 @@
                 <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
                 <span class="keywordsign">|</span>end_qtn                        <span class="keywordsign">-&gt;</span>      reset_quotation_and_return_token <span class="constructor">END_QTN</span>
                 <span class="keywordsign">|</span>tab_end_qtn                    <span class="keywordsign">-&gt;</span>      reset_quotation_and_return_token <span class="constructor">TAB_END_QTN</span>
+                <span class="keywordsign">|</span>tab_tab_end_qtn                <span class="keywordsign">-&gt;</span>      reset_quotation_and_return_token <span class="constructor">TAB_TAB_END_QTN</span>
+                <span class="keywordsign">|</span>tab_tab_tab_end_qtn            <span class="keywordsign">-&gt;</span>      reset_quotation_and_return_token <span class="constructor">TAB_TAB_TAB_END_QTN</span>
                 <span class="keywordsign">|</span>nl                             <span class="keywordsign">-&gt;</span>      <span class="constructor">NL</span>
                 <span class="keywordsign">|</span>br                             <span class="keywordsign">-&gt;</span>      <span class="constructor">BR</span>
                 <span class="keywordsign">|</span>tab                            <span class="keywordsign">-&gt;</span>      <span class="constructor">TAB</span>

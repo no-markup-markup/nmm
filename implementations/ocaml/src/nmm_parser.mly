@@ -85,7 +85,7 @@ let date_of_string (s : string) : tu_date =
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
-%token                          START_QTN END_QTN BR TAB_END_QTN
+%token                          START_QTN END_QTN BR TAB_END_QTN TAB_TAB_END_QTN TAB_TAB_TAB_END_QTN
 %token                          PREAMBLE_COLON TITLE_COLON AUTHOR_COLON DATE_COLON ABSTRACT_COLON
 %token <string>                 VRB_LINE
 %token <string>                 ESC_CHAR
@@ -595,7 +595,7 @@ end_vrb(n):
 ;
 
 blk_qtn(n):
-  |START_QTN qtn_lines(n) TAB_END_QTN             { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
+  |START_QTN qtn_lines(n) end_qtn(n)             { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
 ;
 
 qtn_lines(n):
@@ -638,6 +638,10 @@ qtn_emph_txt(n):
 
 tab(n):
   |tab(n-1) TAB                                   { }
+;
+
+end_qtn(n):
+  |TAB_end_qtn(n-1)                               { }
 ;
 
 lb(n):
@@ -764,7 +768,7 @@ end_vrb1:
 ;
 
 blk_qtn1:
-  |START_QTN qtn_lines1 TAB_END_QTN               { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
+  |START_QTN qtn_lines1 end_qtn1                  { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
 ;
 
 qtn_lines1:
@@ -807,6 +811,10 @@ qtn_emph_txt1:
 
 tab1:
   |TAB                                            { }
+;
+
+end_qtn1:
+  |TAB_END_QTN                                    { }
 ;
 
 lb1:
@@ -932,7 +940,7 @@ end_vrb2:
 ;
 
 blk_qtn2:
-  |START_QTN qtn_lines2 TAB_END_QTN               { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
+  |START_QTN qtn_lines2 end_qtn2                  { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
 ;
 
 qtn_lines2:
@@ -975,6 +983,10 @@ qtn_emph_txt2:
 
 tab2:
   |tab1 TAB                                       { }
+;
+
+end_qtn2:
+  |TAB_TAB_END_QTN                                { }
 ;
 
 lb2:
@@ -1048,7 +1060,7 @@ end_vrb3:
 ;
 
 blk_qtn3:
-  |START_QTN qtn_lines3 TAB_END_QTN               { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
+  |START_QTN qtn_lines3 end_qtn3                  { (Cs_blk_qtn (Cs_qtn_lines $2)):ts_blk_qtn }
 ;
 
 qtn_lines3:
@@ -1091,6 +1103,10 @@ qtn_emph_txt3:
 
 tab3:
   |tab2 TAB                                       { }
+;
+
+end_qtn3:
+  |TAB_TAB_TAB_END_QTN                            { }
 ;
 
 lb3:
