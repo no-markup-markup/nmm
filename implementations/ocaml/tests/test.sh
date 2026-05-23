@@ -320,9 +320,9 @@ make_tests
 curr_code=$?
 if [ $curr_code -gt 0 ]
 then
-	echo "nmm-ocaml: some tests FAILED."
+	printf '\e[1;31m%-6s\e[m\n' "*** nmm-ocaml: some tests FAILED ***"
 else
-	echo "nmm-ocaml: all tests PASSED."
+	printf '\e[1;32m%-6s\e[m\n' "*** nmm-ocaml: all tests PASSED ***"
 fi
 
 exit $curr_code

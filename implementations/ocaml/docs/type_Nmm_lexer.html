@@ -28,10 +28,13 @@
 <code class="code"><span class="keyword">sig</span><br>
 &nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">ERROR</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;line_of_lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;quotation&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;verbatim&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;display&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;nte_counter&nbsp;:&nbsp;int&nbsp;<span class="constructor">Stdlib</span>.ref<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;end_of_file&nbsp;:&nbsp;bool&nbsp;<span class="constructor">Stdlib</span>.ref<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_lexer_env&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;quotation&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;verbatim&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;display&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;nte_counter&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;end_of_file&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lexer_env&nbsp;:&nbsp;<span class="constructor">Nmm_lexer</span>.t_lexer_env<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;token&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Nmm_parser</span>.token<br>
 <span class="keyword">end</span></code></body></html>

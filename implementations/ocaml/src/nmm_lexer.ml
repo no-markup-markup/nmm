@@ -112,43 +112,57 @@ let line_of_lexbuf (lexbuf:Sedlexing.lexbuf):string=
 let remove_nls (s : string) : string =
         String.concat "" (String.split_on_char '\n' s)
 
-(* refs *)
+(* lexer_env *)
 
-let quotation : bool ref = ref false
+type t_lexer_env = {
+        mutable quotation : bool;
+        mutable verbatim : bool;
+        mutable display : bool;
+        mutable nte_counter : int;
+        mutable end_of_file : bool;
+}
+
+let lexer_env : t_lexer_env = {
+        quotation = false;
+        verbatim = false;
+        display = false;
+        nte_counter = 0;
+        end_of_file = false;
+}
+
 let set_quotation_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = quotation.contents <- true in tkn
+        let _ : unit = lexer_env.quotation <- true in tkn
+
 let reset_quotation_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = quotation.contents <- false in tkn
+        let _ : unit = lexer_env.quotation <- false in tkn
 
-let verbatim : bool ref = ref false
 let set_verbatim_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = verbatim.contents <- true in tkn
+        let _ : unit = lexer_env.verbatim <- true in tkn
+
 let reset_verbatim_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = verbatim.contents <- false in tkn
+        let _ : unit = lexer_env.verbatim <- false in tkn
 
-let display : bool ref = ref false
 let set_display_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = display.contents <- true in tkn
-let reset_display_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = display.contents <- false in tkn
+        let _ : unit = lexer_env.display <- true in tkn
 
-let nte_counter : int ref = ref 0
-let nte_count () : int =
-        let n = nte_counter.contents in
-        let _ : unit = nte_counter.contents <- n + 1 in
+let reset_display_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
+        let _ : unit = lexer_env.display <- false in tkn
+
+let increase_nte_count_and_return_previous () : int =
+        let n = lexer_env.nte_counter in
+        let _ : unit = lexer_env.nte_counter <- n + 1 in
         n
 
-let end_of_file : bool ref = ref false
 let set_end_of_file_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
-        let _ : unit = end_of_file.contents <- true in tkn
+        let _ : unit = lexer_env.end_of_file <- true in tkn
 
 (* the lexer *)
 
 let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
-        match verbatim.contents, display.contents, quotation.contents with
+        match lexer_env.verbatim, lexer_env.display, lexer_env.quotation with
         |false, false, false -> (
                 match%sedlex lexbuf with
-                |start_qtn                      ->      set_quotation_and_return_token START_QTN
+                |start_qtn                       ->      set_quotation_and_return_token START_QTN
                 |esc_char                        ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
                 |preamble_colon                  ->      PREAMBLE_COLON
                 |title_colon                     ->      TITLE_COLON
@@ -156,13 +170,13 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |date_colon                      ->      DATE_COLON
                 |abstract_colon                  ->      ABSTRACT_COLON
                 |ch_tag_or_id_nl                 ->      CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
-                |nte_ref                         ->      NTE_REF (lexeme lexbuf, nte_count ())
+                |nte_ref                         ->      NTE_REF (lexeme lexbuf, increase_nte_count_and_return_previous ())
                 |c_ref                           ->      C_REF (lexeme lexbuf)
                 |section_nl                      ->      SECTION_NL
                 |section_spaces_tag_or_id_nl     ->      SECTION_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
                 |pilcrow_nl                      ->      PILCROW_NL
                 |pilcrow_spaces_tag_or_id_nl     ->      PILCROW_SPACES_TAG_OR_ID_NL (get_tag_or_id (lexeme lexbuf))
-                |pilcrow_spaces_rpt_spaces_id_nl ->     PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
+                |pilcrow_spaces_rpt_spaces_id_nl ->      PILCROW_SPACES_RPT_SPACES_ID_NL (get_id (lexeme lexbuf))
                 |section_refs_nls                ->      SECTION_REFS_NLS
                 |pilcrow_refs_nls                ->      PILCROW_REFS_NLS
                 |tab                             ->      TAB 
@@ -184,10 +198,10 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |colon                           ->      COLON
                 |section                         ->      SECTION
                 |pilcrow                         ->      PILCROW
-                |nte_lbr                         ->      NTE_LBR (nte_count ())
+                |nte_lbr                         ->      NTE_LBR (increase_nte_count_and_return_previous ())
                 |txt                             ->      TXT (lexeme lexbuf)
                 |start_vrb                       ->      set_verbatim_and_return_token START_VRB
-                |eof                             ->      if end_of_file.contents then EOF else set_end_of_file_and_return_token NL
+                |eof                             ->      if lexer_env.end_of_file then EOF else set_end_of_file_and_return_token NL
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 
@@ -212,9 +226,9 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |colon                          ->      COLON
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
-                |nte_ref                        ->      NTE_REF (lexeme lexbuf, nte_count ())
+                |nte_ref                        ->      NTE_REF (lexeme lexbuf, increase_nte_count_and_return_previous ())
                 |c_ref                          ->      C_REF (lexeme lexbuf)
-                |nte_lbr                        ->      NTE_LBR (nte_count ())
+                |nte_lbr                        ->      NTE_LBR (increase_nte_count_and_return_previous ())
                 |txt                            ->      TXT (lexeme lexbuf)
                 |tab                            ->      TAB 
                 |dsp_id                         ->      DSP_ID (lexeme lexbuf)
@@ -224,7 +238,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |nl_tab_tab_tab                 ->      reset_display_and_return_token NL_TAB_TAB_TAB
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
-        |_,_,true -> (
+        |_, _, true -> (
                 match%sedlex lexbuf with
                 |end_qtn                        ->      reset_quotation_and_return_token END_QTN
                 |tab_end_qtn                    ->      reset_quotation_and_return_token TAB_END_QTN

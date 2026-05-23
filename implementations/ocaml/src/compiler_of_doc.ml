@@ -7,7 +7,7 @@ exception Error of string
 
 type t_acc = CREF_TABLE of t_cref_table | LINES of (string list) | EXML of (Xml.xml list) | MARGIN_LABELS of (string list) | NTE_TABLE of t_nte_table
 
-(* footnotes *)
+(* notes *)
 
 let rec lines_of_nte_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (blks : ts_blks) : string list =
         let new_cref_table =
@@ -304,13 +304,19 @@ and acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
 
 
 and add_empty_lines_after_blk (hd : tu_blk) (tl:tu_blk list) (acc : t_acc) : t_acc =
-        match hd, tl, acc with
+        match hd, contains_non_blk_nte tl, acc with
         |Cu_blk_nte _, _, _ -> acc
-        |_, (Cu_blk_nte _)::[], _ -> acc
-        |_, _::_, LINES lines -> LINES (List.concat [lines;[""]])
+        |_, false, _ -> acc
+        |_, true, LINES lines -> LINES (List.concat [lines;[""]])
         |_, _, _ -> acc
 
-
+and contains_non_blk_nte (lst : tu_blk list) : bool =
+	match lst with
+	|[] -> false
+	|hd::tl ->
+		match hd with
+		|Cu_blk_nte _ -> contains_non_blk_nte tl
+		|_ -> true
 
 and acc_of_tr_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (acc : t_acc) (a : tr_blk_nte) : t_acc =
         match acc with

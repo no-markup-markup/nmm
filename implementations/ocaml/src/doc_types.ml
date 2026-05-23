@@ -1,5 +1,7 @@
 (** An abstract syntax tree specification for parsed nmm source-code. *)
 
+(* doc *)
+
 type tr_doc = {
   fld_doc_preamble : ts_preamble option;
   fld_doc_title : ts_title option;
@@ -10,13 +12,21 @@ type tr_doc = {
   fld_doc_refs : ts_refs option;
 }
 
+(* preamble *)
+
 and ts_preamble = Cs_preamble of string
 
+(* title *)
+
 and ts_title = Cs_title of string
+
+(* authors *)
 
 and ts_authors = Cs_authors of (ts_author list)
 
 and ts_author = Cs_author of string
+
+(* date *)
 
 and tu_date = Cu_date_auto of ts_date_auto | Cu_date_custom of ts_date_custom
 
@@ -24,7 +34,11 @@ and ts_date_auto = Cs_date_auto
 
 and ts_date_custom = Cs_date_custom of string
 
+(* abstract *)
+
 and ts_abstract = Cs_abstract of ts_blks
+
+(* doc_main *)
 
 and tu_doc_main =
   | Cu_doc_main_chs of ts_chs
@@ -32,15 +46,13 @@ and tu_doc_main =
   | Cu_doc_main_pars of ts_pars
   | Cu_doc_main_blks of ts_blks
 
+(* refs *)
+
 and ts_refs = Cs_refs of ts_blks
 
+(* chs *)
+
 and ts_chs = Cs_chs of tr_ch list
-
-and ts_secs = Cs_secs of tr_sec list
-
-and ts_pars = Cs_pars of tu_par list
-
-and ts_blks = Cs_blks of tu_blk list
 
 and tr_ch = {
   fld_ch_tag_or_id : tu_tag_or_id option;
@@ -48,11 +60,30 @@ and tr_ch = {
   fld_ch_main : tu_secs_pars_or_blks;
 }
 
+and tu_secs_pars_or_blks =
+  | Cu_secs_pars_or_blks_secs of ts_secs
+  | Cu_secs_pars_or_blks_pars of ts_pars
+  | Cu_secs_pars_or_blks_blks of ts_blks
+
+
+(* secs *)
+
+and ts_secs = Cs_secs of tr_sec list
+
 and tr_sec = {
   fld_sec_tag_or_id : tu_tag_or_id option;
   fld_sec_hdr : ts_hdr option;
   fld_sec_main : tu_pars_or_blks;
 }
+
+and tu_pars_or_blks =
+  | Cu_pars_or_blks_pars of ts_pars
+  | Cu_pars_or_blks_blks of ts_blks
+
+
+(* pars *)
+
+and ts_pars = Cs_pars of tu_par list
 
 and tu_par = Cu_par_std of tr_par_std | Cu_par_rpt of ts_par_rpt
 
@@ -64,6 +95,10 @@ and tr_par_std = {
   fld_par_main : ts_blks;
 }
 
+(* blks *)
+
+and ts_blks = Cs_blks of tu_blk list
+
 and tu_blk =
   | Cu_blk_txt of ts_blk_txt
   | Cu_blk_blt of ts_blk_blt
@@ -73,31 +108,8 @@ and tu_blk =
   | Cu_blk_nte of tr_blk_nte
   | Cu_blk_qtn of ts_blk_qtn
 
-and tu_secs_pars_or_blks =
-  | Cu_secs_pars_or_blks_secs of ts_secs
-  | Cu_secs_pars_or_blks_pars of ts_pars
-  | Cu_secs_pars_or_blks_blks of ts_blks
 
-and tu_pars_or_blks =
-  | Cu_pars_or_blks_pars of ts_pars
-  | Cu_pars_or_blks_blks of ts_blks
-
-and tu_tag_or_id = Cu_tag_or_id_tag of ts_tag | Cu_tag_or_id_id of tr_id
-
-and tr_id = {
-  fld_id_tag : ts_tag;
-  fld_id_name: ts_name;
-  fld_id_scope : tu_scope option;
-}
-
-and ts_tag = Cs_tag of string
-
-and ts_name = Cs_name of string
-
-
-and tu_scope = Cu_scope_gbl | Cu_scope_ch | Cu_scope_sec | Cu_scope_app | Cu_scope_par
-
-and ts_hdr = Cs_hdr of ts_txt_lines
+(* blk_txt *)
 
 and ts_blk_txt = Cs_blk_txt of ts_txt_lines
 
@@ -124,14 +136,8 @@ and ts_txt_unit_nte_ref = Cs_txt_unit_nte_ref of ts_nte_ref
 
 and ts_txt_unit_nte_inline = Cs_txt_unit_nte_inline  of ts_nte_inline
 
-and ts_c_ref = Cs_c_ref of tr_id
 
-and ts_nte_ref = Cs_nte_ref of (tr_id * ts_int)
-
-and ts_nte_inline = Cs_nte_inline of (ts_blks * ts_int)
-
-and ts_int = Cs_int of int
-
+(* blk_dsp *)
 
 and ts_blk_dsp = Cs_blk_dsp of ts_dsp_lines
 
@@ -143,35 +149,74 @@ and tr_dsp_line = {
   fld_dsp_line_units : ts_txt_units;
 }
 
+(* blk_itm *)
+
 and tr_blk_itm = { 
   fld_blk_itm_lbl: tu_lbl;
   fld_blk_itm_tag_or_id : tu_tag_or_id option;
   fld_blk_itm_main : ts_blks;
 }
 
+(* blk_blt *)
+
 and ts_blk_blt = Cs_blk_blt of ts_blks
 
+(* blk_vrb *)
+
 and ts_blk_vrb = Cs_blk_vrb of ts_vrb_lines
+
+and ts_vrb_lines = Cs_vrb_lines of (ts_vrb_line list)
+
+and ts_vrb_line = Cs_vrb_line of string
+
+(* blk_nte *)
 
 and tr_blk_nte = {
   fld_blk_nte_id : tr_id;
   fld_blk_nte_main : ts_blks;
 }
 
+(* blk_qtn *)
 
 and ts_blk_qtn = Cs_blk_qtn of ts_qtn_lines
+
 and ts_qtn_lines = Cs_qtn_lines of (tu_qtn_line list)
+
 and tu_qtn_line = Cu_qtn_line_std of ts_qtn_line_std | Cu_qtn_line_br of ts_qtn_line_br
+
 and ts_qtn_line_std = Cs_qtn_line_std of ts_qtn_units
+
 and ts_qtn_line_br = Cs_qtn_line_br of ts_qtn_units
+
 and ts_qtn_units = Cs_qtn_units of (tu_qtn_unit list)
+
 and tu_qtn_unit = Cu_qtn_unit_wysiwyg of ts_qtn_unit_wysiwyg | Cu_qtn_unit_emph of ts_qtn_unit_emph
+
 and ts_qtn_unit_wysiwyg = Cs_qtn_unit_wysiwyg of string
+
 and ts_qtn_unit_emph = Cs_qtn_unit_emph of string
 
-and ts_vrb_lines = Cs_vrb_lines of (ts_vrb_line list)
+(* tag_or_id *)
 
-and ts_vrb_line = Cs_vrb_line of string
+and tu_tag_or_id = Cu_tag_or_id_tag of ts_tag | Cu_tag_or_id_id of tr_id
+
+and tr_id = {
+  fld_id_tag : ts_tag;
+  fld_id_name: ts_name;
+  fld_id_scope : tu_scope option;
+}
+
+and ts_tag = Cs_tag of string
+
+and ts_name = Cs_name of string
+
+and tu_scope = Cu_scope_gbl | Cu_scope_ch | Cu_scope_sec | Cu_scope_app | Cu_scope_par
+
+(* hdr *)
+
+and ts_hdr = Cs_hdr of ts_txt_lines
+
+(* lbl *)
 
 and tu_lbl = Cu_lbl_auto of ts_lbl_auto | Cu_lbl_custom of ts_lbl_custom
 
@@ -179,4 +224,19 @@ and ts_lbl_auto = Cs_lbl_auto
 
 and ts_lbl_custom = Cs_lbl_custom of string
 
+(* c_ref *)
+
+and ts_c_ref = Cs_c_ref of tr_id
+
+(* nte_ref *)
+
+and ts_nte_ref = Cs_nte_ref of (tr_id * ts_int)
+
+(* nte_inline *)
+
+and ts_nte_inline = Cs_nte_inline of (ts_blks * ts_int)
+
+(* int *)
+
+and ts_int = Cs_int of int
 

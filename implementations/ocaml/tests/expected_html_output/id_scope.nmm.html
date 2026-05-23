@@ -45,11 +45,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .title {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.chs .title {
@@ -71,11 +71,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .authors {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 /************ DATE ******************/
@@ -85,11 +85,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .date {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .date {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 /************ ABSTRACT ******************/
@@ -103,11 +103,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .abstract_hdr {
@@ -124,11 +124,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .refs {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .doc.chs .refs {
@@ -195,7 +195,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
     font-size   : large;
     line-height : 130%;
 }
@@ -232,7 +232,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 
@@ -259,7 +259,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 1.20rem;
+    margin-left : 3.00rem;
 }
 
 .blk.txt {
@@ -386,35 +386,70 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<main class="doc blks">
+<main class="doc pars">
 <div class="doc_main">
-<p class="blk txt">Here is what someone had to say:</p>
-<p class="blk qtn">In the 1920s, thanks largely to David Hilbert, formalistic rigorcame increasingly to be prized in some circles. <em class="txt_unit_emph">In 1931 it proved instrumental to the philosophico-mathematical sensation of the age: GÖDEL&apos;S THEOREM.</em> Gödel&apos;s proof hinged on modelingthe formalism of logic and arithmetic in arithmetic. The theoremcould not even be conceived and conjectured, in its latter-daygenerality, without the clarification of the idea of a proofprocedure that formalism affords.<br/>[Quine (1987) pp. 66–67]<br/>(emphasis mine)</p>
-<div class="blk blt">
-<div class="blk_blt_lbl">─</div>
+<section class="PAR par" id="PAR_intro">
+<h2 class="par_lbl hdr">¶ 1</h2>
 <div class="clear"></div>
-<div class="blk_blt_main">
-<p class="blk txt">Quotation on level 1:</p>
-<p class="blk qtn">In the 1920s, thanks largely to David Hilbert, formalisticrigor came increasingly to be prized in some circles. In1931 it proved instrumental to thephilosophico-mathematical sensation of the age: GÖDEL&apos;STHEOREM. Gödel&apos;s proof hinged on modeling the formalism oflogic and arithmetic in arithmetic. The theorem could noteven be conceived and conjectured, in its latter-daygenerality, without the clarification of the idea of aproof procedure that formalism affords.<br/><br/>[Quine (1987) pp. 66–67]</p>
-<div class="blk blt">
-<div class="blk_blt_lbl">─</div>
+<div class="par_main">
+<p class="blk txt">In LaTeX, for example, one may want to refer to something “locally”---the label (LaTeX&apos;s incorrectly named version of ID) is used for cross-references only in close proximity to where it is defined. This typically leads to the introduction of keysmashes<a class="txt_unit_nte" href="#NTE_keysmashes_PAR_1_0" id="ref_NTE_keysmashes_PAR_1_0">¹</a>.</p>
+</div>
+</section>
+<section class="PAR par" id="PAR_workings">
+<h2 class="par_lbl hdr">¶ 2</h2>
 <div class="clear"></div>
-<div class="blk_blt_main">
-<p class="blk txt">Quotation on level 2:</p>
-<p class="blk qtn">In the 1920s, thanks largely to David Hilbert, formalisticrigor came increasingly to be prized in some circles. In1931 it proved instrumental to thephilosophico-mathematical sensation of the age: GÖDEL&apos;STHEOREM. Gödel&apos;s proof hinged on modeling the formalism oflogic and arithmetic in arithmetic. The theorem could noteven be conceived and conjectured, in its latter-daygenerality, without the clarification of the idea of aproof procedure that formalism affords.<br/><br/>[Quine (1987) pp. 66–67]</p>
-<div class="blk blt">
-<div class="blk_blt_lbl">─</div>
+<div class="par_main">
+<p class="blk txt">The ID of the note in the previous paragraph has the suffix ‘:PAR’. This means that the ID has <em class="txt_unit_emph">paragraph scope</em>: one may only “refer”<a class="txt_unit_nte" href="#NTE_refer_PAR_2_1" id="ref_NTE_refer_PAR_2_1">²</a> to that note in the paragraph where it is defined.</p>
+<p class="blk txt">The ID of <a class="txt_unit_c_ref" href="#PAR_intro">¶ 1</a> is ‘[PAR:intro]’ and thus has no scope-defining suffix. This means that <a class="txt_unit_c_ref" href="#PAR_intro">¶ 1</a> has <em class="txt_unit_emph">global scope</em>: it may be referred to (by using ‘<a class="txt_unit_c_ref" href="#PAR_intro">¶ 1</a>’ anywhere in the nmm source).</p>
+</div>
+</section>
+<section class="par">
+<h2 class="par_lbl hdr">¶ 3</h2>
 <div class="clear"></div>
-<div class="blk_blt_main">
-<p class="blk txt">Quotation on level 3:</p>
-<p class="blk qtn">In the 1920s, thanks largely to David Hilbert, formalisticrigor came increasingly to be prized in some circles. <em class="txt_unit_emph">In 1931 it proved instrumental to the philosophico-mathematical sensation of the age: GÖDEL&apos;S THEOREM.</em> Gödel&apos;s proof hinged on modeling the formalism oflogic and arithmetic in arithmetic. The theorem could noteven be conceived and conjectured, in its latter-daygenerality, without the clarification of the idea of aproof procedure that formalism affords.<br/><br/>[Quine (1987) pp. 66–67]<br/>(emphasis mine)</p>
+<div class="par_main">
+<p class="blk txt">The scopes are:</p>
+<div class="blk itm">
+<div class="blk_itm_lbl">(a)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt"><em class="txt_unit_emph">global scope</em>---the default<a class="txt_unit_nte" href="#NTE_gbl_scope_PAR_3_2" id="ref_NTE_gbl_scope_PAR_3_2">³</a>;</p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(b)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt"><em class="txt_unit_emph">chapter scope</em>---suffix ‘:CH’;</p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(c)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt"><em class="txt_unit_emph">section scope</em>---suffix ‘:SEC’; equivalently <em class="txt_unit_emph">appendix scope</em>---suffix ‘:APP’;</p>
+</div>
+</div>
+<div class="blk itm">
+<div class="blk_itm_lbl">(d)</div>
+<div class="clear"></div>
+<div class="blk_itm_main">
+<p class="blk txt"><em class="txt_unit_emph">paragraph scope</em>---suffix ‘:PAR’.</p>
 </div>
 </div>
 </div>
+</section>
 </div>
-</div>
-</div>
-</div>
+<section class="doc_endnotes">
+<div class="blk nte" id="NTE_keysmashes_PAR_¹_0"><a class="blk_nte_lbl" href="#ref_NTE_keysmashes_PAR_¹_0">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">https://en.wikipedia.org/wiki/Keysmash</p>
+</div></div>
+<div class="blk nte" id="NTE_refer_PAR_²_1"><a class="blk_nte_lbl" href="#ref_NTE_refer_PAR_²_1">²</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Scare quotes because ‘referring to a footnote/endnote’ sounds a bit weird to me.</p>
+</div></div>
+<div class="blk nte" id="NTE_gbl_scope_PAR_³_2"><a class="blk_nte_lbl" href="#ref_NTE_gbl_scope_PAR_³_2">³</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">One may explicitly indicate global scope by the suffix ‘:GBL’. (This note has ID ‘NTE:gbl_scope:PAR’, just as the note in <a class="txt_unit_c_ref" href="#PAR_workings">¶ 2</a> has. The duplication this ID is unproblematic since they occur in different scopes.</p>
+</div></div>
+</section>
 </main>
 </body>
 </html>

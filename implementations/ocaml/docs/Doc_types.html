@@ -244,39 +244,6 @@
 
 
 
-<pre><code><span id="TYPEts_secs"><span class="keyword">type</span> <code class="type"></code>ts_secs</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_secs.Cs_secs"><span class="constructor">Cs_secs</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_sec">tr_sec</a> list</code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_pars"><span class="keyword">type</span> <code class="type"></code>ts_pars</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_pars.Cs_pars"><span class="constructor">Cs_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_par">tu_par</a> list</code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_blks"><span class="keyword">type</span> <code class="type"></code>ts_blks</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_blks.Cs_blks"><span class="constructor">Cs_blks</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_blk">tu_blk</a> list</code></code></td>
-
-</tr></table>
-
-
-
 <pre><code><span id="TYPEtr_ch"><span class="keyword">type</span> <code class="type"></code>tr_ch</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -303,6 +270,42 @@
 
 
 
+<pre><code><span id="TYPEtu_secs_pars_or_blks"><span class="keyword">type</span> <code class="type"></code>tu_secs_pars_or_blks</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_secs_pars_or_blks.Cu_secs_pars_or_blks_secs"><span class="constructor">Cu_secs_pars_or_blks_secs</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_secs">ts_secs</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_secs_pars_or_blks.Cu_secs_pars_or_blks_pars"><span class="constructor">Cu_secs_pars_or_blks_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_pars">ts_pars</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_secs_pars_or_blks.Cu_secs_pars_or_blks_blks"><span class="constructor">Cu_secs_pars_or_blks_blks</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_blks">ts_blks</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_secs"><span class="keyword">type</span> <code class="type"></code>ts_secs</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_secs.Cs_secs"><span class="constructor">Cs_secs</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_sec">tr_sec</a> list</code></code></td>
+
+</tr></table>
+
+
+
 <pre><code><span id="TYPEtr_sec"><span class="keyword">type</span> <code class="type"></code>tr_sec</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -326,6 +329,35 @@
 
 </tr></table>
 <code>}</code>
+
+
+
+<pre><code><span id="TYPEtu_pars_or_blks"><span class="keyword">type</span> <code class="type"></code>tu_pars_or_blks</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_pars_or_blks.Cu_pars_or_blks_pars"><span class="constructor">Cu_pars_or_blks_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_pars">ts_pars</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_pars_or_blks.Cu_pars_or_blks_blks"><span class="constructor">Cu_pars_or_blks_blks</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_blks">ts_blks</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_pars"><span class="keyword">type</span> <code class="type"></code>ts_pars</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_pars.Cs_pars"><span class="constructor">Cs_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_par">tu_par</a> list</code></code></td>
+
+</tr></table>
 
 
 
@@ -384,6 +416,17 @@
 
 
 
+<pre><code><span id="TYPEts_blks"><span class="keyword">type</span> <code class="type"></code>ts_blks</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_blks.Cs_blks"><span class="constructor">Cs_blks</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtu_blk">tu_blk</a> list</code></code></td>
+
+</tr></table>
+
+
+
 <pre><code><span id="TYPEtu_blk"><span class="keyword">type</span> <code class="type"></code>tu_blk</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -432,165 +475,6 @@
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTtu_blk.Cu_blk_qtn"><span class="constructor">Cu_blk_qtn</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_blk_qtn">ts_blk_qtn</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEtu_secs_pars_or_blks"><span class="keyword">type</span> <code class="type"></code>tu_secs_pars_or_blks</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_secs_pars_or_blks.Cu_secs_pars_or_blks_secs"><span class="constructor">Cu_secs_pars_or_blks_secs</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_secs">ts_secs</a></code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_secs_pars_or_blks.Cu_secs_pars_or_blks_pars"><span class="constructor">Cu_secs_pars_or_blks_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_pars">ts_pars</a></code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_secs_pars_or_blks.Cu_secs_pars_or_blks_blks"><span class="constructor">Cu_secs_pars_or_blks_blks</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_blks">ts_blks</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEtu_pars_or_blks"><span class="keyword">type</span> <code class="type"></code>tu_pars_or_blks</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_pars_or_blks.Cu_pars_or_blks_pars"><span class="constructor">Cu_pars_or_blks_pars</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_pars">ts_pars</a></code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_pars_or_blks.Cu_pars_or_blks_blks"><span class="constructor">Cu_pars_or_blks_blks</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_blks">ts_blks</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEtu_tag_or_id"><span class="keyword">type</span> <code class="type"></code>tu_tag_or_id</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_tag_or_id.Cu_tag_or_id_tag"><span class="constructor">Cu_tag_or_id_tag</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_tag">ts_tag</a></code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_tag_or_id.Cu_tag_or_id_id"><span class="constructor">Cu_tag_or_id_id</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_id">tr_id</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEtr_id"><span class="keyword">type</span> <code class="type"></code>tr_id</span> = {</code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtr_id.fld_id_tag">fld_id_tag</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">ts_tag</a></code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtr_id.fld_id_name">fld_id_name</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_name">ts_name</a></code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtr_id.fld_id_scope">fld_id_scope</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEtu_scope">tu_scope</a> option</code>;</code></td>
-
-</tr></table>
-<code>}</code>
-
-
-
-<pre><code><span id="TYPEts_tag"><span class="keyword">type</span> <code class="type"></code>ts_tag</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_tag.Cs_tag"><span class="constructor">Cs_tag</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_name"><span class="keyword">type</span> <code class="type"></code>ts_name</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_name.Cs_name"><span class="constructor">Cs_name</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEtu_scope"><span class="keyword">type</span> <code class="type"></code>tu_scope</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_scope.Cu_scope_gbl"><span class="constructor">Cu_scope_gbl</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_scope.Cu_scope_ch"><span class="constructor">Cu_scope_ch</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_scope.Cu_scope_sec"><span class="constructor">Cu_scope_sec</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_scope.Cu_scope_app"><span class="constructor">Cu_scope_app</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtu_scope.Cu_scope_par"><span class="constructor">Cu_scope_par</span></span></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_hdr"><span class="keyword">type</span> <code class="type"></code>ts_hdr</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_hdr.Cs_hdr"><span class="constructor">Cs_hdr</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_txt_lines">ts_txt_lines</a></code></code></td>
 
 </tr></table>
 
@@ -734,50 +618,6 @@
 
 
 
-<pre><code><span id="TYPEts_c_ref"><span class="keyword">type</span> <code class="type"></code>ts_c_ref</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_c_ref.Cs_c_ref"><span class="constructor">Cs_c_ref</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_id">tr_id</a></code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_nte_ref"><span class="keyword">type</span> <code class="type"></code>ts_nte_ref</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_nte_ref.Cs_nte_ref"><span class="constructor">Cs_nte_ref</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEtr_id">tr_id</a> * <a href="Doc_types.html#TYPEts_int">ts_int</a>)</code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_nte_inline"><span class="keyword">type</span> <code class="type"></code>ts_nte_inline</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_nte_inline.Cs_nte_inline"><span class="constructor">Cs_nte_inline</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEts_blks">ts_blks</a> * <a href="Doc_types.html#TYPEts_int">ts_int</a>)</code></code></td>
-
-</tr></table>
-
-
-
-<pre><code><span id="TYPEts_int"><span class="keyword">type</span> <code class="type"></code>ts_int</span> = </code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTts_int.Cs_int"><span class="constructor">Cs_int</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
-
-</tr></table>
-
-
-
 <pre><code><span id="TYPEts_blk_dsp"><span class="keyword">type</span> <code class="type"></code>ts_blk_dsp</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -869,6 +709,28 @@
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTts_blk_vrb.Cs_blk_vrb"><span class="constructor">Cs_blk_vrb</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_vrb_lines">ts_vrb_lines</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_vrb_lines"><span class="keyword">type</span> <code class="type"></code>ts_vrb_lines</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_vrb_lines.Cs_vrb_lines"><span class="constructor">Cs_vrb_lines</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_vrb_line">ts_vrb_line</a> list</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_vrb_line"><span class="keyword">type</span> <code class="type"></code>ts_vrb_line</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_vrb_line.Cs_vrb_line"><span class="constructor">Cs_vrb_line</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr></table>
 
@@ -1006,23 +868,117 @@
 
 
 
-<pre><code><span id="TYPEts_vrb_lines"><span class="keyword">type</span> <code class="type"></code>ts_vrb_lines</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEtu_tag_or_id"><span class="keyword">type</span> <code class="type"></code>tu_tag_or_id</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTts_vrb_lines.Cs_vrb_lines"><span class="constructor">Cs_vrb_lines</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_vrb_line">ts_vrb_line</a> list</code></code></td>
+<code><span id="TYPEELTtu_tag_or_id.Cu_tag_or_id_tag"><span class="constructor">Cu_tag_or_id_tag</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_tag">ts_tag</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_tag_or_id.Cu_tag_or_id_id"><span class="constructor">Cu_tag_or_id_id</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_id">tr_id</a></code></code></td>
 
 </tr></table>
 
 
 
-<pre><code><span id="TYPEts_vrb_line"><span class="keyword">type</span> <code class="type"></code>ts_vrb_line</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEtr_id"><span class="keyword">type</span> <code class="type"></code>tr_id</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtr_id.fld_id_tag">fld_id_tag</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_tag">ts_tag</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtr_id.fld_id_name">fld_id_name</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEts_name">ts_name</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtr_id.fld_id_scope">fld_id_scope</span>&nbsp;: <code class="type"><a href="Doc_types.html#TYPEtu_scope">tu_scope</a> option</code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><code><span id="TYPEts_tag"><span class="keyword">type</span> <code class="type"></code>ts_tag</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTts_vrb_line.Cs_vrb_line"><span class="constructor">Cs_vrb_line</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<code><span id="TYPEELTts_tag.Cs_tag"><span class="constructor">Cs_tag</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_name"><span class="keyword">type</span> <code class="type"></code>ts_name</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_name.Cs_name"><span class="constructor">Cs_name</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEtu_scope"><span class="keyword">type</span> <code class="type"></code>tu_scope</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_scope.Cu_scope_gbl"><span class="constructor">Cu_scope_gbl</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_scope.Cu_scope_ch"><span class="constructor">Cu_scope_ch</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_scope.Cu_scope_sec"><span class="constructor">Cu_scope_sec</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_scope.Cu_scope_app"><span class="constructor">Cu_scope_app</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtu_scope.Cu_scope_par"><span class="constructor">Cu_scope_par</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_hdr"><span class="keyword">type</span> <code class="type"></code>ts_hdr</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_hdr.Cs_hdr"><span class="constructor">Cs_hdr</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEts_txt_lines">ts_txt_lines</a></code></code></td>
 
 </tr></table>
 
@@ -1063,6 +1019,50 @@
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTts_lbl_custom.Cs_lbl_custom"><span class="constructor">Cs_lbl_custom</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_c_ref"><span class="keyword">type</span> <code class="type"></code>ts_c_ref</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_c_ref.Cs_c_ref"><span class="constructor">Cs_c_ref</span></span> <span class="keyword">of</span> <code class="type"><a href="Doc_types.html#TYPEtr_id">tr_id</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_nte_ref"><span class="keyword">type</span> <code class="type"></code>ts_nte_ref</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_nte_ref.Cs_nte_ref"><span class="constructor">Cs_nte_ref</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEtr_id">tr_id</a> * <a href="Doc_types.html#TYPEts_int">ts_int</a>)</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_nte_inline"><span class="keyword">type</span> <code class="type"></code>ts_nte_inline</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_nte_inline.Cs_nte_inline"><span class="constructor">Cs_nte_inline</span></span> <span class="keyword">of</span> <code class="type">(<a href="Doc_types.html#TYPEts_blks">ts_blks</a> * <a href="Doc_types.html#TYPEts_int">ts_int</a>)</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEts_int"><span class="keyword">type</span> <code class="type"></code>ts_int</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTts_int.Cs_int"><span class="constructor">Cs_int</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
 
 </tr></table>
 

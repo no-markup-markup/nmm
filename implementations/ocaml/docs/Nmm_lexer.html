@@ -46,9 +46,45 @@
 <pre><span id="EXCEPTIONERROR"><span class="keyword">exception</span> ERROR</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
 <pre><span id="VALline_of_lexbuf"><span class="keyword">val</span> <a href="code_VALNmm_lexer.line_of_lexbuf.html">line_of_lexbuf</a></span> : <code class="type">Sedlexing.lexbuf -&gt; string</code></pre>
-<pre><span id="VALquotation"><span class="keyword">val</span> <a href="code_VALNmm_lexer.quotation.html">quotation</a></span> : <code class="type">bool Stdlib.ref</code></pre>
-<pre><span id="VALverbatim"><span class="keyword">val</span> <a href="code_VALNmm_lexer.verbatim.html">verbatim</a></span> : <code class="type">bool Stdlib.ref</code></pre>
-<pre><span id="VALdisplay"><span class="keyword">val</span> <a href="code_VALNmm_lexer.display.html">display</a></span> : <code class="type">bool Stdlib.ref</code></pre>
-<pre><span id="VALnte_counter"><span class="keyword">val</span> <a href="code_VALNmm_lexer.nte_counter.html">nte_counter</a></span> : <code class="type">int Stdlib.ref</code></pre>
-<pre><span id="VALend_of_file"><span class="keyword">val</span> <a href="code_VALNmm_lexer.end_of_file.html">end_of_file</a></span> : <code class="type">bool Stdlib.ref</code></pre>
+<pre><code><span id="TYPEt_lexer_env"><span class="keyword">type</span> <code class="type"></code>t_lexer_env</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_lexer_env.quotation">quotation</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_lexer_env.verbatim">verbatim</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_lexer_env.display">display</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_lexer_env.nte_counter">nte_counter</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTt_lexer_env.end_of_file">end_of_file</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><span id="VALlexer_env"><span class="keyword">val</span> <a href="code_VALNmm_lexer.lexer_env.html">lexer_env</a></span> : <code class="type"><a href="Nmm_lexer.html#TYPEt_lexer_env">t_lexer_env</a></code></pre>
 <pre><span id="VALtoken"><span class="keyword">val</span> <a href="code_VALNmm_lexer.token.html">token</a></span> : <code class="type">Sedlexing.lexbuf -&gt; <a href="Nmm_parser.html#TYPEtoken">Nmm_parser.token</a></code></pre></body></html>

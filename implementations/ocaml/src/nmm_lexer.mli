@@ -6,15 +6,15 @@ exception ERROR of string
 
 val line_of_lexbuf : Sedlexing.lexbuf -> string
 
-val quotation : bool ref
+type t_lexer_env = {
+        mutable quotation : bool;
+        mutable verbatim : bool;
+        mutable display : bool;
+        mutable nte_counter : int;
+        mutable end_of_file : bool;
+}
 
-val verbatim : bool ref
-
-val display : bool ref
-
-val nte_counter : int ref
-
-val end_of_file : bool ref
+val lexer_env : t_lexer_env
 
 val token : Sedlexing.lexbuf -> Nmm_parser.token
 

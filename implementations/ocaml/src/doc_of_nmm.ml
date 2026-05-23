@@ -71,17 +71,17 @@ let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.p
 
 
 
-let set_refs () : unit =
-        let _ : unit = Nmm_lexer.quotation.contents <- false in
-        let _ : unit = Nmm_lexer.verbatim.contents <- false in
-        let _ : unit = Nmm_lexer.display.contents <- false in
-        let _ : unit = Nmm_lexer.nte_counter.contents <- 0 in
-        let _ : unit = Nmm_lexer.end_of_file.contents <- false in
+let reset_lexer_env () : unit =
+        let _ : unit = Nmm_lexer.lexer_env.quotation <- false in
+        let _ : unit = Nmm_lexer.lexer_env.verbatim <- false in
+        let _ : unit = Nmm_lexer.lexer_env.display <- false in
+        let _ : unit = Nmm_lexer.lexer_env.nte_counter <- 0 in
+        let _ : unit = Nmm_lexer.lexer_env.end_of_file <- false in
         ()
 
 
 let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
-        let _ : unit = set_refs () in
+        let _ : unit = reset_lexer_env () in
         match Sys.file_exists filename && not (Sys.is_directory filename) with
         |false -> raise (Error ("cannot read from " ^ filename ^ ": No such file"))
         |true -> 
@@ -111,7 +111,7 @@ let rec doc_of_nmm_file (print_tokens:bool) (filename:string):Doc_types.tr_doc=
                 |true -> raise (Error "Parsing failed")
 
 let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
-        let _ : unit = set_refs () in
+        let _ : unit = reset_lexer_env () in
         let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_string s in
         let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in
         let lexer (lexbuf : Lexing.lexbuf) : Nmm_parser.token =
@@ -137,7 +137,7 @@ let rec doc_of_nmm_string (print_tokens:bool) (s:string):Doc_types.tr_doc=
                 |true -> raise (Error "Parsing failed")
 
 let rec doc_of_nmm_stdin (print_tokens:bool) : Doc_types.tr_doc=
-        let _ : unit = set_refs () in
+        let _ : unit = reset_lexer_env () in
         let input : string = In_channel.input_all stdin in
         let sedlexbuf : Sedlexing.lexbuf = Sedlexing.Utf8.from_string input in
         let dummy_lexbuf : Lexing.lexbuf = Lexing.from_string "" in

@@ -13,7 +13,7 @@ BR	[Quine (1987) pp. 66–67]
 BR	(emphasis mine)
 END	QUOTATION
 
--	Testing the same quotation but on level > 0:
+-	Quotation on level 1:
 
 	START	QUOTATION
 		In the 1920s, thanks largely to David Hilbert, formalistic
@@ -25,6 +25,40 @@ END	QUOTATION
 		even be conceived and conjectured, in its latter-day
 		generality, without the clarification of the idea of a
 		proof procedure that formalism affords.
+	BR	
 	BR	[Quine (1987) pp. 66–67]
-	BR	(emphasis mine)
 	END	QUOTATION
+
+	-	Quotation on level 2:
+
+		START	QUOTATION
+			In the 1920s, thanks largely to David Hilbert, formalistic
+			rigor came increasingly to be prized in some circles. In
+			1931 it proved instrumental to the
+			philosophico-mathematical sensation of the age: GÖDEL'S
+			THEOREM. Gödel's proof hinged on modeling the formalism of
+			logic and arithmetic in arithmetic. The theorem could not
+			even be conceived and conjectured, in its latter-day
+			generality, without the clarification of the idea of a
+			proof procedure that formalism affords.
+		BR	
+		BR	[Quine (1987) pp. 66–67]
+		END	QUOTATION
+
+		-	Quotation on level 3:
+
+			START	QUOTATION
+				In the 1920s, thanks largely to David Hilbert, formalistic
+				rigor came increasingly to be prized in some circles. *In
+				1931 it proved instrumental to the
+				philosophico-mathematical sensation of the age: GÖDEL'S
+				THEOREM.* Gödel's proof hinged on modeling the formalism of
+				logic and arithmetic in arithmetic. The theorem could not
+				even be conceived and conjectured, in its latter-day
+				generality, without the clarification of the idea of a
+				proof procedure that formalism affords.
+			BR	
+			BR	[Quine (1987) pp. 66–67]
+			BR	(emphasis mine)
+			END	QUOTATION
+

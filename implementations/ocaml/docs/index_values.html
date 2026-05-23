@@ -87,8 +87,6 @@
 </td></tr>
 <tr><td><a href="Xml_right.html#VALdiff_of_xmls">diff_of_xmls</a> [<a href="Xml_right.html">Xml_right</a>]</td>
 <td></td></tr>
-<tr><td><a href="Nmm_lexer.html#VALdisplay">display</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
-<td></td></tr>
 <tr><td><a href="Main.html#VALdoc_of_axml">doc_of_axml</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
 <code class="code">doc_of_axml&nbsp;<span class="string">"path/to/file"</span></code> evaluates to <a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a><code class="code">&nbsp;(</code><a href="Xml_right.html#VALparse_file"><code class="code"><span class="constructor">Xml_right</span>.parse_file</code></a><code class="code">&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span>)</code>.
@@ -130,8 +128,6 @@ Same as <code class="code">doc_of_nmm_file</code>, except that it reads from the
 <tr><td><a href="Common_utils.html#VALdoc_settings_of_ts_blks">doc_settings_of_ts_blks</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>E</div></td></tr>
-<tr><td><a href="Nmm_lexer.html#VALend_of_file">end_of_file</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
-<td></td></tr>
 <tr><td><a href="Main.html#VALexml_of_axml">exml_of_axml</a> [<a href="Main.html">Main</a>]</td>
 <td></td></tr>
 <tr><td><a href="Main.html#VALexml_of_nmm">exml_of_nmm</a> [<a href="Main.html">Main</a>]</td>
@@ -189,6 +185,8 @@ If <code class="code">axml</code> is an object of the <a href="https://github.co
 <tr><td><a href="Common_utils.html#VALlabel_of_path_opt">label_of_path_opt</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Txt_utils.html#VALleft_margin_of_margin_labels">left_margin_of_margin_labels</a> [<a href="Txt_utils.html">Txt_utils</a>]</td>
+<td></td></tr>
+<tr><td><a href="Nmm_lexer.html#VALlexer_env">lexer_env</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
 <td></td></tr>
 <tr><td><a href="Nmm_lexer.html#VALline_of_lexbuf">line_of_lexbuf</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
 <td></td></tr>
@@ -250,8 +248,6 @@ Unites adjacent elements with tag <code class="code">cu_txt_unit_wysiwyg</code>.
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALnormalize_exml">normalize_exml</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Nmm_lexer.html#VALnte_counter">nte_counter</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
-<td></td></tr>
 <tr><td><a href="Compiler_of_doc.html#VALnte_table_of_tr_doc">nte_table_of_tr_doc</a> [<a href="Compiler_of_doc.html">Compiler_of_doc</a>]</td>
 <td></td></tr>
 <tr><td><a href="Common_utils.html#VALnte_table_of_tr_dsp_line">nte_table_of_tr_dsp_line</a> [<a href="Common_utils.html">Common_utils</a>]</td>
@@ -289,9 +285,6 @@ Same as <code class="code">parse_file</code>, except that it reads from the prov
 <tr><td><a href="Common_utils.html#VALpath_to_sec_node">path_to_sec_node</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Exml_utils.html#VALpcdata_of_string">pcdata_of_string</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
-<td></td></tr>
-<tr><td align="left"><div>Q</div></td></tr>
-<tr><td><a href="Nmm_lexer.html#VALquotation">quotation</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>R</div></td></tr>
 <tr><td><a href="Common_utils.html#VALreference_of_ts_nte_ref">reference_of_ts_nte_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
@@ -368,8 +361,6 @@ Implements the raw text semantics for no-markup-markup.
 <code class="code">validate_xml&nbsp;<span class="string">"path/to/xml-schema.dtd"</span>&nbsp;<span class="string">"path/to/xml-file.xml"</span></code> first calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is well-defined.
 </div>
 </td></tr>
-<tr><td><a href="Nmm_lexer.html#VALverbatim">verbatim</a> [<a href="Nmm_lexer.html">Nmm_lexer</a>]</td>
-<td></td></tr>
 <tr><td align="left"><div>X</div></td></tr>
 <tr><td><a href="Xml_right.html#VALxml_diff">xml_diff</a> [<a href="Xml_right.html">Xml_right</a>]</td>
 <td></td></tr>

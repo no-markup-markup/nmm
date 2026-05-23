@@ -34,7 +34,7 @@
 <br>
 <span class="keyword">type</span>&nbsp;t_acc&nbsp;=&nbsp;<span class="constructor">CREF_TABLE</span>&nbsp;<span class="keyword">of</span>&nbsp;t_cref_table&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">LINES</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;list)&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EXML</span>&nbsp;<span class="keyword">of</span>&nbsp;(<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">MARGIN_LABELS</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;list)&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_TABLE</span>&nbsp;<span class="keyword">of</span>&nbsp;t_nte_table<br>
 <br>
-<span class="comment">(*&nbsp;footnotes&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;notes&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;lines_of_nte_blks&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(blks&nbsp;:&nbsp;ts_blks)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_cref_table&nbsp;=<br>
@@ -331,13 +331,19 @@
 <br>
 <br>
 <span class="keyword">and</span>&nbsp;add_empty_lines_after_blk&nbsp;(hd&nbsp;:&nbsp;tu_blk)&nbsp;(tl:tu_blk&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;t_acc)&nbsp;:&nbsp;t_acc&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd,&nbsp;tl,&nbsp;acc&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd,&nbsp;contains_non_blk_nte&nbsp;tl,&nbsp;acc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_blk_nte</span>&nbsp;_,&nbsp;_,&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;(<span class="constructor">Cu_blk_nte</span>&nbsp;_)::[],&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;_::_,&nbsp;<span class="constructor">LINES</span>&nbsp;lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">LINES</span>&nbsp;(<span class="constructor">List</span>.concat&nbsp;[lines;[<span class="string">""</span>]])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;<span class="keyword">false</span>,&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;<span class="keyword">true</span>,&nbsp;<span class="constructor">LINES</span>&nbsp;lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">LINES</span>&nbsp;(<span class="constructor">List</span>.concat&nbsp;[lines;[<span class="string">""</span>]])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,&nbsp;_,&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
 <br>
-<br>
+<span class="keyword">and</span>&nbsp;contains_non_blk_nte&nbsp;(lst&nbsp;:&nbsp;tu_blk&nbsp;list)&nbsp;:&nbsp;bool&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;lst&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>hd::tl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cu_blk_nte</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;contains_non_blk_nte&nbsp;tl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">true</span><br>
 <br>
 <span class="keyword">and</span>&nbsp;acc_of_tr_blk_nte&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(acc&nbsp;:&nbsp;t_acc)&nbsp;(a&nbsp;:&nbsp;tr_blk_nte)&nbsp;:&nbsp;t_acc&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;acc&nbsp;<span class="keyword">with</span><br>
