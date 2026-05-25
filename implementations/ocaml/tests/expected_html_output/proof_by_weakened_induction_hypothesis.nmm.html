@@ -135,7 +135,7 @@ h2, h3, h4, h5 {
 .doc.chs .refs {
     margin-top  : 0;
     padding-top : 3rem;
-    border-top  : thin solid gray;
+    border-top  : thin solid;
 }
 
 .refs_hdr {
@@ -160,7 +160,7 @@ h2, h3, h4, h5 {
 .ch {
     padding-top    : 3rem;
     padding-bottom : 3rem;
-    border-top     : thin solid gray;
+    border-top     : solid;
 }
 
 .ch_lbl {
@@ -201,7 +201,7 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
-.sec_lbl.hdr {
+.sec.pars > .sec_lbl.hdr {
     float : none;
 }
 
@@ -310,7 +310,7 @@ h2, h3, h4, h5 {
 
 .doc_endnotes, .ch_endnotes {
     margin-top  : 2rem;
-    border-top  : thin grey solid;
+    border-top  : thin solid;
     padding-top : 0.5rem;
 }
 
@@ -398,7 +398,7 @@ h2, h3, h4, h5 {
 <p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”. We show that this is an instance of a more general phenomenon which we call <em class="txt_unit_emph">proof by non-straightforward induction</em>. Cruacially, we show that there are cases where straightforward induction fails, but where proof by <em class="txt_unit_emph">incomparable</em> or even <em class="txt_unit_emph">weaker</em> induction hypothesis succeeds.</p>
 </section>
 <div class="doc_main">
-<section class="SEC sec" id="SEC_intro">
+<section class="SEC sec pars" id="SEC_intro">
 <div class="sec_lbl">§ 1</div>
 <h2 class="sec_hdr">Introduction</h2>
 <div class="sec_main">
@@ -459,7 +459,7 @@ h2, h3, h4, h5 {
 </section>
 </div>
 </section>
-<section class="SEC sec" id="SEC_precise">
+<section class="SEC sec pars" id="SEC_precise">
 <div class="sec_lbl">§ 2</div>
 <h2 class="sec_hdr">Making it precise</h2>
 <div class="sec_main">
@@ -557,7 +557,7 @@ h2, h3, h4, h5 {
 </section>
 </div>
 </section>
-<section class="SEC sec" id="SEC_model">
+<section class="SEC sec pars" id="SEC_model">
 <div class="sec_lbl">§ 3</div>
 <h2 class="sec_hdr">A non-standard model</h2>
 <div class="sec_main">
@@ -675,7 +675,7 @@ h2, h3, h4, h5 {
 </section>
 </div>
 </section>
-<section class="SEC sec" id="SEC_weaker">
+<section class="SEC sec pars" id="SEC_weaker">
 <div class="sec_lbl">§ 4</div>
 <h2 class="sec_hdr">Proof by non-strengthened induction hypothesis</h2>
 <div class="sec_main">
@@ -943,7 +943,7 @@ h2, h3, h4, h5 {
 </section>
 </div>
 </section>
-<section class="SEC sec" id="SEC_gen">
+<section class="SEC sec pars" id="SEC_gen">
 <div class="sec_lbl">§ 5</div>
 <h2 class="sec_hdr">Proof by necessarily non-strengthened induction hypothesis</h2>
 <div class="sec_main">

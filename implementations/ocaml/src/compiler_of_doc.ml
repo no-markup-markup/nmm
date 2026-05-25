@@ -511,15 +511,24 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                 in 
                 acc_of_sec_main doc_settings cref_table nte_table path newacc a.fld_sec_main
         |LINES acc_lines -> (
-                let lines_hdr : string list = 
-                        Txt_utils.lines_of_ts_hdr_opt doc_settings cref_table nte_table path a.fld_sec_hdr
+                let lines : string list =
+                        match a.fld_sec_hdr, a.fld_sec_main with
+                        |None, Cu_pars_or_blks_blks _ -> (
+                                match acc_of_sec_main doc_settings cref_table nte_table path (LINES []) a.fld_sec_main with
+                                |LINES (hd::tl) -> (insert_label doc_settings path hd)::tl
+                                |LINES [] -> raise (Error "section cannot be empty")
+                                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
+                        )
+                        |_, _ -> (
+                                let lines_hdr : string list = 
+                                        Txt_utils.lines_of_ts_hdr_opt doc_settings cref_table nte_table path a.fld_sec_hdr
+                                in
+                                match acc_of_sec_main doc_settings cref_table nte_table path (LINES []) a.fld_sec_main with
+                                |LINES lines_main -> List.concat [lines_hdr;lines_main]
+                                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
+                        )
                 in
-                let lines_main : string list = 
-                        match acc_of_sec_main doc_settings cref_table nte_table path (LINES []) a.fld_sec_main with
-                        |LINES lines -> lines
-                        | _ -> raise (Error "accumulator output type not identical to accumulator input type")
-                in
-                LINES (List.concat [acc_lines;lines_hdr;lines_main])
+                LINES (List.concat [acc_lines;lines])
         )
         |EXML acc_list -> 
                 let xml_list_main:Xml.xml list= (
@@ -540,7 +549,12 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                 in
                 let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
-                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["sec"] a.fld_sec_tag_or_id in
+                let sec_class : string = 
+                        match a.fld_sec_main with
+                        |Cu_pars_or_blks_blks _ -> "blks"
+                        |Cu_pars_or_blks_pars _ -> "pars"
+                in
+                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["sec";sec_class] a.fld_sec_tag_or_id in
                 match a.fld_sec_hdr with
                 |None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main])]])
                 |Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main])]])

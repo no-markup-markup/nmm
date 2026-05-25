@@ -134,7 +134,7 @@ h2, h3, h4, h5 {
 .doc.chs .refs {
     margin-top  : 0;
     padding-top : 3rem;
-    border-top  : thin solid gray;
+    border-top  : thin solid;
 }
 
 .refs_hdr {
@@ -159,7 +159,7 @@ h2, h3, h4, h5 {
 .ch {
     padding-top    : 3rem;
     padding-bottom : 3rem;
-    border-top     : thin solid gray;
+    border-top     : solid;
 }
 
 .ch_lbl {
@@ -200,7 +200,7 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
-.sec_lbl.hdr {
+.sec.pars > .sec_lbl.hdr {
     float : none;
 }
 
@@ -309,7 +309,7 @@ h2, h3, h4, h5 {
 
 .doc_endnotes, .ch_endnotes {
     margin-top  : 2rem;
-    border-top  : thin grey solid;
+    border-top  : thin solid;
     padding-top : 0.5rem;
 }
 
@@ -391,7 +391,7 @@ h2, h3, h4, h5 {
 <section class="CH ch">
 <h2 class="ch_lbl hdr">CHAPTER 1</h2>
 <div class="ch_main">
-<section class="SEC sec" id="SEC_one">
+<section class="SEC sec pars" id="SEC_one">
 <div class="sec_lbl">§ 1.1</div>
 <h3 class="sec_hdr">This section is called ‘SEC:one’</h3>
 <div class="sec_main">
@@ -509,7 +509,7 @@ h2, h3, h4, h5 {
 </section>
 </div>
 </section>
-<section class="SEC sec" id="SEC_two_CH_1">
+<section class="SEC sec pars" id="SEC_two_CH_1">
 <div class="sec_lbl">§ 1.2</div>
 <h3 class="sec_hdr">This section is called ‘SEC:two:CH’</h3>
 <div class="sec_main">

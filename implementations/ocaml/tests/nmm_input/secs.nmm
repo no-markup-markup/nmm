@@ -86,3 +86,9 @@ We say that Γ ⊢ φ just in case there is a proof from Γ to φ.
 ¶ FCT:compl
 
 For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.
+
+§
+
+¶
+
+Paragraph in a section with not header.

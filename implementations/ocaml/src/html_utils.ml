@@ -84,8 +84,8 @@ match element with
 |Xml.Element ("txt_unit_nte",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_nte")::attr_list,List.map (html_of_exml doc_class) xml_list)
 
 
-|Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("section",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("section",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("doc_endnotes_hdr",_,xml_list) -> Xml.Element ("h2",[("class","doc_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_endnotes_hdr",_,xml_list) -> Xml.Element ("h3",[("class","ch_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
 
@@ -236,7 +236,7 @@ h2, h3, h4, h5 {
 .doc.chs .refs {
     margin-top  : 0;
     padding-top : 3rem;
-    border-top  : thin solid gray;
+    border-top  : thin solid;
 }
 
 .refs_hdr {
@@ -261,7 +261,7 @@ h2, h3, h4, h5 {
 .ch {
     padding-top    : 3rem;
     padding-bottom : 3rem;
-    border-top     : thin solid gray;
+    border-top     : solid;
 }
 
 .ch_lbl {
@@ -302,7 +302,7 @@ h2, h3, h4, h5 {
     line-height : 130%;
 }
 
-.sec_lbl.hdr {
+.sec.pars > .sec_lbl.hdr {
     float : none;
 }
 
@@ -411,7 +411,7 @@ h2, h3, h4, h5 {
 
 .doc_endnotes, .ch_endnotes {
     margin-top  : 2rem;
-    border-top  : thin grey solid;
+    border-top  : thin solid;
     padding-top : 0.5rem;
 }
 

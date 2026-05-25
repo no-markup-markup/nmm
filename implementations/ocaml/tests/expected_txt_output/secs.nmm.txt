@@ -90,3 +90,9 @@
 
 ¶ 2.5  FACT  For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢
        φ.
+
+
+
+§ 3
+
+¶ 3.1  Paragraph in a section with not header.
