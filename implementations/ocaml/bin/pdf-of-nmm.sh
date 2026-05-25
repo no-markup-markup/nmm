@@ -17,7 +17,9 @@ _nmm_ocaml_make_pdf () {
 
 	case $exit_code in
 		0)
-			mv $temp $(basename -s .nmm ${@: -1}).pdf
+			local filename="$(basename -s .nmm ${@: -1}).pdf"
+			mv $temp $filename
+			chmod 664 $filename
 			;;
 		*)
 			rm $temp

@@ -17,7 +17,9 @@ _nmm_ocaml_make_html () {
 
 	case $exit_code in
 		0)
-			mv $temp $(basename -s .nmm ${@: -1}).html
+			local filename="$(basename -s .nmm ${@: -1}).html"
+			mv $temp $filename
+			chmod 664 $filename
 			;;
 		*)
 			rm $temp

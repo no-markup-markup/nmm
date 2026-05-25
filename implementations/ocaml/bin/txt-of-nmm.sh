@@ -9,7 +9,9 @@ _nmm_ocaml_make_txt () {
 
 	case $exit_code in
 		0)
-			mv $temp $(basename -s .nmm ${@: -1}).txt
+			local filename="$(basename -s .nmm ${@: -1}).txt"
+			mv $temp $filename
+			chmod 664 $filename
 			;;
 		*)
 			rm $temp
