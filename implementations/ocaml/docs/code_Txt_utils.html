@@ -196,6 +196,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;add_ind&nbsp;lines<br>
 <br>
 <br>
+<span class="comment">(*&nbsp;txt_units&nbsp;*)</span><br>
+<br>
 <span class="keyword">let</span>&nbsp;underline&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lst&nbsp;=&nbsp;utf_8_grapheme_clusters&nbsp;s&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(el&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=&nbsp;<br>
@@ -232,6 +234,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string_function&nbsp;(indent_of_path&nbsp;doc_settings&nbsp;path)&nbsp;(string_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;path&nbsp;a)<br>
 <br>
+<span class="comment">(*&nbsp;authors&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_author&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(author&nbsp;:&nbsp;ts_author)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
@@ -247,6 +250,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;authors&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_authors&nbsp;doc_settings&nbsp;authors<br>
 <br>
+<span class="comment">(*&nbsp;date&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_date_custom&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;ts_date_custom)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date&nbsp;<span class="keyword">with</span><br>
@@ -272,7 +276,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;date&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_tu_date&nbsp;doc_settings&nbsp;date<br>
 <br>
-<br>
+<span class="comment">(*&nbsp;hdr&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;make_string&nbsp;(n:int)&nbsp;(s:string)&nbsp;:&nbsp;string=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(i:int)&nbsp;(acc:string)&nbsp;=&nbsp;<br>
@@ -325,6 +329,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 <br>
 <br>
+<span class="comment">(*&nbsp;title&nbsp;*)</span><br>
+<br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_title&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(title&nbsp;:&nbsp;ts_title)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;title&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_title</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
@@ -340,13 +346,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;title&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_title&nbsp;doc_settings&nbsp;title<br>
 <br>
 <br>
-<br>
+<span class="comment">(*&nbsp;abstract&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_abstract_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc_class&nbsp;:&nbsp;t_doc_class)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.abstract_hdr&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(hdr,_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.abstract_indent&nbsp;hdr<br>
+<br>
+<span class="comment">(*&nbsp;refs&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_refs_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc_class&nbsp;:&nbsp;t_doc_class)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.refs_hdr&nbsp;<span class="keyword">with</span><br>
@@ -362,20 +370,30 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hdr_lines&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.refs_indent&nbsp;hdr&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[hdr_lines;[indent&nbsp;^&nbsp;underline;<span class="string">""</span>]]<br>
 <br>
+<span class="comment">(*&nbsp;endnotes&nbsp;*)</span><br>
+<br>
 <span class="keyword">let</span>&nbsp;lines_of_endnotes_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.endnotes_hdr&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings&nbsp;0&nbsp;hdr<br>
 <br>
 <br>
+<span class="comment">(*&nbsp;blk_txt&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_blk_txt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(blk_txt&nbsp;:&nbsp;ts_blk_txt)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_txt&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_txt</span>&nbsp;(txt_lines&nbsp;:&nbsp;ts_txt_lines)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;path&nbsp;(<span class="constructor">Cs_txt_units</span>&nbsp;(<span class="constructor">Common_utils</span>.txt_units_of_txt_lines&nbsp;txt_lines))<br>
 <br>
+<span class="comment">(*&nbsp;dsp_line&nbsp;*)</span><br>
 <br>
-<span class="comment">(*&nbsp;quotation&nbsp;*)</span><br>
+<span class="keyword">let</span>&nbsp;lines_of_tr_dsp_line&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;tr_dsp_line)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a.fld_dsp_line_lbl,&nbsp;lines_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;path&nbsp;a.fld_dsp_line_units&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;_,&nbsp;hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(insert_label&nbsp;doc_settings&nbsp;path&nbsp;hd)::tl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>,&nbsp;lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"dps_line&nbsp;cannot&nbsp;be&nbsp;empty"</span>)<br>
 <br>
+<br>
+<span class="comment">(*&nbsp;blk_qtn&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;string_of_ts_qtn_unit_emph&nbsp;(qtn_unit_emph&nbsp;:&nbsp;ts_qtn_unit_emph)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;qtn_unit_emph&nbsp;<span class="keyword">with</span><br>
@@ -432,6 +450,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_qtn&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_qtn</span>&nbsp;qtn_lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_qtn_lines&nbsp;doc_settings&nbsp;path&nbsp;qtn_lines<br>
 <br>
+<span class="comment">(*&nbsp;blk_vrb&nbsp;*)</span><br>
+<br>
 <span class="keyword">let</span>&nbsp;line_of_vrb_line&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(vrb_line&nbsp;:&nbsp;ts_vrb_line)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;vrb_line&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_vrb_line</span>&nbsp;(line:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
@@ -451,7 +471,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_vrb&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_blk_vrb</span>&nbsp;(vrb_lines&nbsp;:&nbsp;ts_vrb_lines)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_ts_vrb_lines&nbsp;doc_settings&nbsp;path&nbsp;vrb_lines<br>
 <br>
-<br>
+<span class="comment">(*&nbsp;margin&nbsp;labels&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;max_length_of_margin_labels&nbsp;(margin_labels&nbsp;:&nbsp;string&nbsp;list)&nbsp;:&nbsp;int&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(i&nbsp;:&nbsp;int)&nbsp;(labels&nbsp;:&nbsp;string&nbsp;list)&nbsp;:&nbsp;int&nbsp;=<br>
@@ -465,6 +485,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;max_length&nbsp;:&nbsp;int&nbsp;=&nbsp;max_length_of_margin_labels&nbsp;margin_labels&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;max_length&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;0&nbsp;<span class="keyword">else</span>&nbsp;max_length&nbsp;+&nbsp;2<br>
 <br>
+<span class="comment">(*&nbsp;par_hdr&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;special_tag&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(a&nbsp;:&nbsp;tu_tag_or_id&nbsp;option)&nbsp;:&nbsp;tu_txt_unit&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span><br>

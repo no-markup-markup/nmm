@@ -20,6 +20,8 @@ val xml_list_of_refs_hdr : Common_utils.t_doc_settings -> Xml.xml list
 
 val xml_of_ts_blk_txt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.ts_blk_txt -> Xml.xml
 
+val xml_of_tr_dsp_line : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.tr_dsp_line -> Xml.xml
+
 val xml_of_ts_blk_vrb : Doc_types.ts_blk_vrb -> Xml.xml
 
 val xml_of_ts_blk_qtn : Doc_types.ts_blk_qtn -> Xml.xml

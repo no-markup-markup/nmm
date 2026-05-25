@@ -169,6 +169,8 @@ let lines_of_string (doc_settings : t_doc_settings) (indent : int) (s: string) :
         List.map add_ind lines
 
 
+(* txt_units *)
+
 let underline (s : string) : string =
         let lst = utf_8_grapheme_clusters s in
         let map (el : string) : string = 
@@ -205,6 +207,7 @@ let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_t
         in 
         lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings cref_table nte_table path a)
 
+(* authors *)
 
 let lines_of_ts_author (doc_settings : t_doc_settings) (author : ts_author) : string list =
         match author with
@@ -220,6 +223,7 @@ let lines_of_ts_authors_opt (doc_settings : t_doc_settings) (authors_opt : ts_au
         |None -> []
         |Some authors -> lines_of_ts_authors doc_settings authors
 
+(* date *)
 
 let lines_of_ts_date_custom (doc_settings : t_doc_settings) (date : ts_date_custom) : string list =
         match date with
@@ -245,7 +249,7 @@ let lines_of_tu_date_opt (doc_settings : t_doc_settings) (date_opt : tu_date opt
         |None -> []
         |Some date -> lines_of_tu_date doc_settings date
 
-
+(* hdr *)
 
 let make_string (n:int) (s:string) : string=
         let rec aux (i:int) (acc:string) = 
@@ -298,6 +302,8 @@ let lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_tab
                 | [] -> []
 
 
+(* title *)
+
 let lines_of_ts_title (doc_settings : t_doc_settings) (title : ts_title) : string list =
         match title with
         |Cs_title (s : string) -> 
@@ -313,13 +319,15 @@ let lines_of_ts_title_opt (doc_settings : t_doc_settings) (title_opt : ts_title 
         |Some title -> lines_of_ts_title doc_settings title
 
 
-
+(* abstract *)
 
 let lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
         match doc_settings.abstract_hdr with
         |None -> []
         |Some (hdr,_) -> 
                 lines_of_string doc_settings doc_settings.abstract_indent hdr
+
+(* refs *)
 
 let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
         match doc_settings.refs_hdr with
@@ -335,20 +343,30 @@ let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) 
         let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent hdr in
         List.concat [hdr_lines;[indent ^ underline;""]]
 
+(* endnotes *)
+
 let lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
         match doc_settings.endnotes_hdr with
         |None -> []
         |Some hdr -> lines_of_string doc_settings 0 hdr
 
 
+(* blk_txt *)
 
 let lines_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : string list =
         match blk_txt with
         |Cs_blk_txt (txt_lines : ts_txt_lines) -> lines_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
 
+(* dsp_line *)
 
-(* quotation *)
+let lines_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : tr_dsp_line) : string list =
+        match a.fld_dsp_line_lbl, lines_of_ts_txt_units doc_settings cref_table nte_table path a.fld_dsp_line_units with
+        |Some _, hd::tl -> (insert_label doc_settings path hd)::tl
+        |None, lines -> lines
+        |_,[] -> raise (Error "dps_line cannot be empty")
 
+
+(* blk_qtn *)
 
 let string_of_ts_qtn_unit_emph (qtn_unit_emph : ts_qtn_unit_emph) : string =
         match qtn_unit_emph with
@@ -405,6 +423,8 @@ let lines_of_ts_blk_qtn (doc_settings : t_doc_settings) (path : t_path) (blk_qtn
         match blk_qtn with
         |Cs_blk_qtn qtn_lines -> lines_of_ts_qtn_lines doc_settings path qtn_lines
 
+(* blk_vrb *)
+
 let line_of_vrb_line (doc_settings : t_doc_settings) (path : t_path) (vrb_line : ts_vrb_line) : string =
         match vrb_line with
         |Cs_vrb_line (line:string) -> 
@@ -424,7 +444,7 @@ let lines_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (blk_vrb
         match blk_vrb with
         |Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> lines_of_ts_vrb_lines doc_settings path vrb_lines
 
-
+(* margin labels *)
 
 let max_length_of_margin_labels (margin_labels : string list) : int =
         let rec aux (i : int) (labels : string list) : int =
@@ -438,6 +458,7 @@ let left_margin_of_margin_labels (margin_labels : string list) : int =
         let max_length : int = max_length_of_margin_labels margin_labels in
         if max_length = 0 then 0 else max_length + 2
 
+(* par_hdr *)
 
 let special_tag (doc_settings : t_doc_settings) (a : tu_tag_or_id option) : tu_txt_unit option =
         match a with

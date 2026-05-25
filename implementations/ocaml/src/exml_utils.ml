@@ -1,6 +1,8 @@
 open Doc_types
 open Common_utils
 
+(* string *)
+
 let pcdata_of_string (s: string): string = 
         let s_amp = Str.global_replace (Str.regexp "&") "&amp;" s in
         let s_lt = Str.global_replace (Str.regexp "<") "&lt;" s_amp in
@@ -20,6 +22,8 @@ let string_of_pcdata (s : string): string =
 let xml_of_string (s : string) : Xml.xml =
         Xml.PCData (pcdata_of_string s)
 
+(* title *)
+
 let xml_of_ts_title (title : ts_title) : Xml.xml =
         match title with Cs_title (s : string) -> 
         let content : Xml.xml list = [xml_of_string s] in 
@@ -30,6 +34,8 @@ let xml_list_of_ts_title_opt (title_opt : ts_title option) : Xml.xml list =
         |None -> []
         |Some title -> [xml_of_ts_title title]
 
+(* authors *)
+
 let xml_of_ts_author (author : ts_author) : Xml.xml =
         match author with
         | Cs_author (s : string) -> Xml.Element ("author", [], [xml_of_string s])
@@ -39,6 +45,8 @@ let xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : Xml.xml list 
         |None -> []
         |Some (Cs_authors (author_list : ts_author list)) -> 
                 [Xml.Element ("authors",[],List.map xml_of_ts_author author_list)]
+
+(* date *)
 
 let string_of_timezone (timezone : string * int * int) : string =
         match timezone with
@@ -73,11 +81,14 @@ let xml_list_of_tu_date_opt (doc_settings : t_doc_settings) (date_opt : tu_date 
                 |Some xml -> [xml]
                 |None -> []
 
+(* abstract *)
 
 let xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : Xml.xml list =
         match doc_settings.abstract_hdr with
         |None -> []
         |Some (abstract_hdr,_) -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
+
+(* refs *)
 
 let xml_list_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml list =
         match doc_settings.refs_hdr with
@@ -86,6 +97,7 @@ let xml_list_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml list =
                 let content : Xml.xml list = [xml_of_string hdr] in
                 [Xml.Element ("refs_hdr",[],content)]
 
+(* tag_or_id *)
 
 let string_of_scope (doc_settings : t_doc_settings) (path : t_path) (scope : tu_scope) : string =
         match scope with
@@ -100,22 +112,19 @@ let cdata_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) 
         |Cs_tag (tag_string : string), Cs_name (name_string : string), None -> (tag_string ^ "_" ^ name_string)
         |Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
 
+let attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (string*string) list =
+        [("id", cdata_of_tr_id doc_settings path id)]
+
 
 let attr_list_of_ts_tag (classes : string list) (tag : ts_tag) : (string*string) list =
         match tag with
         |Cs_tag (s : string) -> [("class"), String.concat " " (s::classes)]
 
 
-
-let attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (string*string) list =
-        [("id", cdata_of_tr_id doc_settings path id)]
-
-
 let attr_list_of_tr_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (id_opt : tr_id option) : (string*string) list =
         match id_opt with
         | None -> [("class"), String.concat " " classes]
         | Some id -> List.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]
-
 
 
 let attr_list_of_tu_tag_or_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
@@ -131,9 +140,15 @@ let attr_list_of_tu_tag_or_id_opt (doc_settings : t_doc_settings) (path : t_path
                 | Cu_tag_or_id_id (id : tr_id) -> 
                         List.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]
 
+(* c_ref *)
 
 let attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : ts_c_ref) : (string*string) list =
         match a with Cs_c_ref (id : tr_id) -> [("href","#" ^ (cdata_of_tr_id doc_settings path id))]
+
+let xml_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_c_ref) : Xml.xml =
+        Xml.PCData (pcdata_of_string (string_of_ts_c_ref doc_settings cref_table path a))
+
+(* nte_ref *)
 
 let attr_list_of_ts_nte_ref (doc_settings : t_doc_settings) (path : t_path) (a : ts_nte_ref) : (string*string) list =
         match a with Cs_nte_ref (id, Cs_int i) -> 
@@ -142,6 +157,11 @@ let attr_list_of_ts_nte_ref (doc_settings : t_doc_settings) (path : t_path) (a :
                 let id_string : string = "ref_" ^ href_string in
                 [("href","#" ^ href_string);("id", id_string)]
 
+let xml_of_ts_nte_ref (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (a : ts_nte_ref) : Xml.xml =
+        Xml.PCData (pcdata_of_string (string_of_ts_nte_ref doc_settings nte_table path a))
+
+(* nte_inline *)
+
 let attr_list_of_ts_nte_inline (doc_settings : t_doc_settings) (path : t_path) (a : ts_nte_inline) : (string*string) list =
         match a with Cs_nte_inline (_, Cs_int i) -> 
                 let addendum : string = string_of_int i in
@@ -149,15 +169,10 @@ let attr_list_of_ts_nte_inline (doc_settings : t_doc_settings) (path : t_path) (
                 let id_string : string = "ref_" ^ href_string in
                 [("href","#" ^ href_string);("id", id_string)]
 
-
-let xml_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_c_ref) : Xml.xml =
-        Xml.PCData (pcdata_of_string (string_of_ts_c_ref doc_settings cref_table path a))
-
-let xml_of_ts_nte_ref (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (a : ts_nte_ref) : Xml.xml =
-        Xml.PCData (pcdata_of_string (string_of_ts_nte_ref doc_settings nte_table path a))
-
 let xml_of_ts_nte_inline (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (a : ts_nte_inline) : Xml.xml =
         Xml.PCData (pcdata_of_string (string_of_ts_nte_inline doc_settings nte_table path a))
+
+(* blk_txt *)
 
 let xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
         match a with Cs_txt_unit_wysiwyg (b : string) -> Xml.Element ("txt_unit_wysiwyg", [], [xml_of_string b])
@@ -186,7 +201,6 @@ let xml_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
         | Cu_txt_unit_nte_inline (b : ts_txt_unit_nte_inline) -> xml_of_ts_txt_unit_nte_inline doc_settings nte_table path b
 
 
-
 let xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : Xml.xml list =
         let rec aux (lst : tu_txt_unit list) (acc : Xml.xml list) =
                 match lst with
@@ -204,6 +218,26 @@ let xml_list_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cre
 let xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : Xml.xml =
         match blk_txt with
         |Cs_blk_txt (txt_lines : ts_txt_lines) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines)))
+
+(* dsp_line *)
+
+let xml_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : tr_dsp_line) : Xml.xml =
+	let xml_list_main:Xml.xml list = xml_list_of_ts_txt_units doc_settings cref_table nte_table path a.fld_dsp_line_units in 
+        let xml_list_lbl:Xml.xml list = 
+		match label_of_path_opt doc_settings path with
+			|None -> []
+			|Some (s:string) -> [xml_of_string s]
+	in
+	let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
+	let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
+	let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
+	let attr_list: (string*string) list = attr_list_of_tr_id_opt doc_settings path ["dsp_line"] a.fld_dsp_line_id in
+        match a.fld_dsp_line_lbl with
+		|None -> Xml.Element ("dsp_line", attr_list, [xml_main])
+                |Some _ -> Xml.Element ("dsp_line", attr_list, [xml_lbl; xml_clear; xml_main])
+
+
+(* blk_vrb *)
 
 let xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
         match vrb_line with
