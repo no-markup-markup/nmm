@@ -177,16 +177,25 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
 and acc_of_ts_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (acc : t_acc) (a : ts_blks) : t_acc =
         let new_doc_settings = doc_settings_of_ts_blks doc_settings (lvl_of_path path) a in
         match a with Cs_blks (b : tu_blk list) ->
-        let rec aux (auto_nr : int) (acc : t_acc) (b : tu_blk list) : t_acc = (
-                match b with
-                | [] -> acc
-                | hd :: tl -> (
-                        match acc_of_tu_blk new_doc_settings cref_table nte_table auto_nr path acc hd with
-                        (acc : t_acc), (auto_nr : int) -> aux auto_nr (add_empty_lines_after_blk hd tl acc) tl
+                let rec aux (auto_nr : int) (accu : t_acc) (c : tu_blk list) : t_acc = (
+                        match c with
+                        | [] -> accu
+                        | hd :: tl -> (
+                                match acc_of_tu_blk new_doc_settings cref_table nte_table auto_nr path accu hd with
+                                (accum : t_acc), (auto_nr : int) -> aux auto_nr (add_empty_lines_after_blk hd tl accum) tl
+                        )
                 )
-        )
-        in 
-        aux 0 acc b
+                in 
+                match acc with
+                |LINES _ ->
+                        let filter (blk : tu_blk) : tu_blk option =
+                                match blk with
+                                |Cu_blk_nte _ -> None
+                                |_ -> Some blk
+                        in
+                        let c : tu_blk list = List.filter_map filter b in
+                        aux 0 acc c
+                |_ -> aux 0 acc b
 
 and acc_of_tu_blk (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (auto_nr : int) (path : t_path) (acc : t_acc) (a : tu_blk) : t_acc * int =
         match a with
@@ -305,23 +314,13 @@ and acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
 
 and add_empty_lines_after_blk (hd : tu_blk) (tl:tu_blk list) (acc : t_acc) : t_acc =
         match acc with
-	|LINES lines -> (
-		match hd with
-		|Cu_blk_nte _ -> acc
-		|_ ->
-			match contains_non_blk_nte tl with
-			|true -> LINES (List.concat [lines;[""]])
-			|false -> acc
-	)
+        |LINES lines -> (
+                match hd, tl with
+                |_,_::_ -> LINES (List.concat [lines;[""]])
+                |_ -> acc
+        )
         |_ -> acc
 
-and contains_non_blk_nte (lst : tu_blk list) : bool =
-	match lst with
-	|[] -> false
-	|hd::tl ->
-		match hd with
-		|Cu_blk_nte _ -> contains_non_blk_nte tl
-		|_ -> true
 
 and acc_of_tr_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (acc : t_acc) (a : tr_blk_nte) : t_acc =
         match acc with
