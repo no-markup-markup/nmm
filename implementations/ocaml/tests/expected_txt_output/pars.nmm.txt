@@ -13,7 +13,7 @@
 
            (*)   custom.
 
-           Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ t̲o̲:
+           Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
 
            (2)   The named item can be referred to anywhere in the
                  document.
@@ -41,7 +41,7 @@
      occurring in ¶ 1.
 
 
-¶ 3  Paragraph header, which is a text block that may contain e̲m̲p̲h̲ t̲e̲x̲t̲
+¶ 3  Paragraph header, which is a text block that may contain e̲m̲ph̲ ̲t̲e̲x̲t̲
      and a reference to (c)(1) of ¶ 1.  This is a paragraph with a
      header. As we shall se in ¶ 4 below, paragraphs with headers can
      also be named.

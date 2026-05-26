@@ -40,7 +40,7 @@ In fact, here are some more unlabled display lines:
 
       (*)   custom.
 
-      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ t̲o̲:
+      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
 
       (2)   The named item can be referred to anywhere in the
             document.

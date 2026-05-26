@@ -33,7 +33,7 @@
                b(n) < 2.
 
 
-¶ 1.A.5  Fact 1.A.4 is a simplification of t̲h̲e̲ B̲a̲s̲e̲l̲ p̲r̲o̲b̲l̲e̲m̲, which ask for a
+¶ 1.A.5  Fact 1.A.4 is a simplification of t̲h̲e̲ ̲B̲a̲s̲e̲l̲ ̲pr̲o̲b̲l̲e̲m̲, which ask for a
          closed-form expression of the infinite sum:
 
                 1     1     1     1

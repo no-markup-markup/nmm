@@ -78,8 +78,8 @@
 ¶ 2.1  PhD in Theoretical philosophy  Stockholm University, Stockholm, June
        2017.
 
-       Thesis title: A̲n̲a̲l̲y̲t̲i̲c̲i̲t̲y̲,̲ N̲e̲c̲e̲s̲s̲i̲t̲y̲ a̲n̲d̲ B̲e̲l̲i̲e̲f̲:̲ A̲s̲p̲e̲c̲t̲s̲ o̲f̲
-       T̲w̲o̲-̲D̲i̲m̲e̲n̲s̲i̲o̲n̲a̲l̲ S̲e̲m̲a̲n̲t̲i̲c̲s̲. 
+       Thesis title: A̲n̲a̲l̲yt̲i̲c̲i̲t̲y,̲ ̲N̲e̲c̲e̲s̲s̲i̲t̲y ̲a̲n̲d̲ ̲B̲e̲l̲i̲e̲f̲:̲ ̲A̲s̲pe̲c̲t̲s̲ ̲o̲f̲
+       T̲w̲o̲-̲D̲i̲m̲e̲n̲s̲i̲o̲n̲a̲l̲ ̲S̲e̲m̲a̲n̲t̲i̲c̲s̲. 
 
        Supervisors: Professors Peter Pagin and Dag Westerståhl.
 
@@ -89,7 +89,7 @@
        Date of thesis defense: 2017-05-27.
 
 
-¶ 2.2  Master (M̲a̲g̲i̲s̲t̲e̲r̲) in Theoretical philosophy  Stockholm University,
+¶ 2.2  Master (M̲a̲gi̲s̲t̲e̲r̲) in Theoretical philosophy  Stockholm University,
        Stockholm, Nov. 2011.
 
 
@@ -98,7 +98,7 @@
        2002.
 
 
-¶ 2.4  High school diploma (g̲y̲m̲n̲a̲s̲i̲e̲e̲x̲a̲m̲e̲n̲)  Natural science program,
+¶ 2.4  High school diploma (gym̲n̲a̲s̲i̲e̲e̲x̲a̲m̲e̲n̲)  Natural science program,
        Sunnerboskolan, Ljungby, 2001.
 
 
@@ -247,27 +247,27 @@
 
 ¶ 4.5  Stockholm University (2013–2020)
 
-       ─     Logik I (L̲o̲g̲i̲c̲ I̲), 7.5 ECTS.
+       ─     Logik I (L̲o̲gi̲c̲ ̲I̲), 7.5 ECTS.
 
              Fall 2019, Spring 2020
 
-       ─     Inledning till logik (I̲n̲t̲r̲o̲d̲u̲c̲t̲i̲o̲n̲ t̲o̲ l̲o̲g̲i̲c̲), 7.5 ECTS.
+       ─     Inledning till logik (I̲n̲t̲r̲o̲d̲u̲c̲t̲i̲o̲n̲ ̲t̲o̲ ̲l̲o̲gi̲c̲), 7.5 ECTS.
 
              Spring 2015, Spring 2018, Fall 2018
 
-       ─     Introduktion till logik (I̲n̲t̲r̲o̲d̲u̲c̲t̲i̲o̲n̲ t̲o̲ l̲o̲g̲i̲c̲), 7.5 ECTS.
+       ─     Introduktion till logik (I̲n̲t̲r̲o̲d̲u̲c̲t̲i̲o̲n̲ ̲t̲o̲ ̲l̲o̲gi̲c̲), 7.5 ECTS.
 
              Fall 2018
 
-       ─     Logik II (L̲o̲g̲i̲c̲ I̲I̲), 7.5 ECTS.
+       ─     Logik II (L̲o̲gi̲c̲ ̲I̲I̲), 7.5 ECTS.
 
              Fall 2019
 
-       ─     Logisk följd (L̲o̲g̲i̲c̲a̲l̲ c̲o̲n̲s̲e̲q̲u̲e̲n̲c̲e̲), 7.5 ECTS.
+       ─     Logisk följd (L̲o̲gi̲c̲a̲l̲ ̲c̲o̲n̲s̲e̲qu̲e̲n̲c̲e̲), 7.5 ECTS.
 
              Fall 2016, Fall 2017, Fall 2018
 
-       ─     Metalogik 1: fullständighet (M̲e̲t̲a̲l̲o̲g̲i̲c̲ 1̲:̲ c̲o̲m̲p̲l̲e̲t̲e̲n̲e̲s̲s̲), 7.5
+       ─     Metalogik 1: fullständighet (M̲e̲t̲a̲l̲o̲gi̲c̲ ̲1̲:̲ ̲c̲o̲m̲pl̲e̲t̲e̲n̲e̲s̲s̲), 7.5
              ECTS.
 
              Spring 2018, Spring 2019, Spring 2020
@@ -279,36 +279,36 @@
 
        ─     Reading courses for PhD students:
 
-             ─     Statistikens filosofi (T̲h̲e̲ p̲h̲i̲l̲o̲s̲o̲p̲h̲y̲ o̲f̲ s̲t̲a̲t̲i̲s̲t̲i̲c̲s̲),
+             ─     Statistikens filosofi (T̲h̲e̲ ̲ph̲i̲l̲o̲s̲o̲ph̲y ̲o̲f̲ ̲s̲t̲a̲t̲i̲s̲t̲i̲c̲s̲),
                    7.5 ECTS.
 
                    Fall 2020
 
-             ─     Logik (L̲o̲g̲i̲c̲), 7.5 ECTS.
+             ─     Logik (L̲o̲gi̲c̲), 7.5 ECTS.
 
                    Spring 2020
 
        ─     Metod: argumentation, semantik och formell logik (M̲e̲t̲h̲o̲d̲:̲
-             a̲r̲g̲u̲m̲e̲n̲t̲a̲t̲i̲o̲n̲,̲ s̲e̲m̲a̲n̲t̲i̲c̲s̲ a̲n̲d̲ f̲o̲r̲m̲a̲l̲ l̲o̲g̲i̲c̲), 6 ECTS.
+             a̲r̲gu̲m̲e̲n̲t̲a̲t̲i̲o̲n̲,̲ ̲s̲e̲m̲a̲n̲t̲i̲c̲s̲ ̲a̲n̲d̲ ̲f̲o̲r̲m̲a̲l̲ ̲l̲o̲gi̲c̲), 6 ECTS.
 
              Spring 2019 (with Sara Packalén), Fall 2019
 
-       ─     Matematikens filosofi (P̲h̲i̲l̲o̲s̲o̲p̲h̲y̲ o̲f̲ m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲s̲), 7.5 ECTS.
+       ─     Matematikens filosofi (P̲h̲i̲l̲o̲s̲o̲ph̲y ̲o̲f̲ ̲m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲s̲), 7.5 ECTS.
 
              Fall 2018 (with Sama Agahi)
 
-       ─     Språkfilosofi (P̲h̲i̲l̲o̲s̲o̲p̲h̲y̲ o̲f̲ l̲a̲n̲g̲u̲a̲g̲e̲), 7.5 ECTS.
+       ─     Språkfilosofi (P̲h̲i̲l̲o̲s̲o̲ph̲y ̲o̲f̲ ̲l̲a̲n̲gu̲a̲ge̲), 7.5 ECTS.
 
              Fall 2017
 
        ─     Context sensitivity: avancerad kurs i språkfilosofi (C̲o̲n̲t̲e̲x̲t̲
-             s̲e̲n̲s̲i̲t̲i̲v̲i̲t̲y̲:̲ g̲r̲a̲d̲u̲a̲t̲e̲ c̲o̲u̲r̲s̲e̲ i̲n̲ t̲h̲e̲ p̲h̲i̲l̲o̲s̲o̲p̲h̲y̲ o̲f̲ l̲a̲n̲g̲u̲a̲g̲e̲),
+             s̲e̲n̲s̲i̲t̲i̲v̲i̲t̲y:̲ ̲gr̲a̲d̲u̲a̲t̲e̲ ̲c̲o̲u̲r̲s̲e̲ ̲i̲n̲ ̲t̲h̲e̲ ̲ph̲i̲l̲o̲s̲o̲ph̲y ̲o̲f̲ ̲l̲a̲n̲gu̲a̲ge̲),
              7.5 ECTS.
 
              Spring 2017 (with Sara Packalén)
 
-       ─     Formella metoder inom filosofin: en översikt (F̲o̲r̲m̲a̲l̲ m̲e̲t̲h̲o̲d̲s̲
-             i̲n̲ p̲h̲i̲l̲o̲s̲o̲p̲h̲y̲:̲ a̲n̲ o̲v̲e̲r̲v̲i̲e̲w̲), 7.5 ECTS.
+       ─     Formella metoder inom filosofin: en översikt (F̲o̲r̲m̲a̲l̲ ̲m̲e̲t̲h̲o̲d̲s̲
+             i̲n̲ ̲ph̲i̲l̲o̲s̲o̲ph̲y:̲ ̲a̲n̲ ̲o̲v̲e̲r̲v̲i̲e̲w̲), 7.5 ECTS.
 
              Spring 2014 (with Sama Agahi)
 

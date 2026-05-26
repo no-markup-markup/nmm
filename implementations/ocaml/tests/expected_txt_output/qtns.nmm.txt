@@ -1,9 +1,9 @@
 Here is what someone had to say:
 
       In the 1920s, thanks largely to David Hilbert, formalistic
-      rigor came increasingly to be prized in some circles. I̲n̲ 1̲9̲3̲1̲
-      i̲t̲ p̲r̲o̲v̲e̲d̲ i̲n̲s̲t̲r̲u̲m̲e̲n̲t̲a̲l̲ t̲o̲ t̲h̲e̲ p̲h̲i̲l̲o̲s̲o̲p̲h̲i̲c̲o̲-̲m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲a̲l̲
-      s̲e̲n̲s̲a̲t̲i̲o̲n̲ o̲f̲ t̲h̲e̲ a̲g̲e̲:̲ G̲Ö̲D̲E̲L̲'̲S̲ T̲H̲E̲O̲R̲E̲M̲.̲ Gödel's proof hinged on
+      rigor came increasingly to be prized in some circles. I̲n̲ ̲1̲9̲3̲1̲
+      i̲t̲ ̲pr̲o̲v̲e̲d̲ ̲i̲n̲s̲t̲r̲u̲m̲e̲n̲t̲a̲l̲ ̲t̲o̲ ̲t̲h̲e̲ ̲ph̲i̲l̲o̲s̲o̲ph̲i̲c̲o̲-̲m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲a̲l̲
+      s̲e̲n̲s̲a̲t̲i̲o̲n̲ ̲o̲f̲ ̲t̲h̲e̲ ̲a̲ge̲:̲ ̲G̲Ö̲D̲E̲L̲'̲S̲ ̲T̲H̲E̲O̲R̲E̲M̲.̲ Gödel's proof hinged on
       modeling the formalism of logic and arithmetic in arithmetic.
       The theorem could not even be conceived and conjectured, in
       its latter-day generality, without the clarification of the
@@ -44,10 +44,10 @@ Here is what someone had to say:
 
                         In the 1920s, thanks largely to David
                         Hilbert, formalistic rigor came increasingly
-                        to be prized in some circles. I̲n̲ 1̲9̲3̲1̲ i̲t̲
-                        p̲r̲o̲v̲e̲d̲ i̲n̲s̲t̲r̲u̲m̲e̲n̲t̲a̲l̲ t̲o̲ t̲h̲e̲
-                        p̲h̲i̲l̲o̲s̲o̲p̲h̲i̲c̲o̲-̲m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲a̲l̲ s̲e̲n̲s̲a̲t̲i̲o̲n̲ o̲f̲ t̲h̲e̲
-                        a̲g̲e̲:̲ G̲Ö̲D̲E̲L̲'̲S̲ T̲H̲E̲O̲R̲E̲M̲.̲ Gödel's proof hinged
+                        to be prized in some circles. I̲n̲ ̲1̲9̲3̲1̲ ̲i̲t̲
+                        pr̲o̲v̲e̲d̲ ̲i̲n̲s̲t̲r̲u̲m̲e̲n̲t̲a̲l̲ ̲t̲o̲ ̲t̲h̲e̲
+                        ph̲i̲l̲o̲s̲o̲ph̲i̲c̲o̲-̲m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲a̲l̲ ̲s̲e̲n̲s̲a̲t̲i̲o̲n̲ ̲o̲f̲ ̲t̲h̲e̲
+                        a̲ge̲:̲ ̲G̲Ö̲D̲E̲L̲'̲S̲ ̲T̲H̲E̲O̲R̲E̲M̲.̲ Gödel's proof hinged
                         on modeling the formalism of logic and
                         arithmetic in arithmetic. The theorem could
                         not even be conceived and conjectured, in

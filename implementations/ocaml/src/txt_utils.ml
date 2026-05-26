@@ -113,19 +113,19 @@ let line_break (line_width : int) (s : string) : string list =
                         match acc_line, acc_word with
                         |None, None -> (
                                 match hd with
-                                |" " -> aux tl (Some ("", " ", 0)) None acc
+                                |" " | " \u{0332}" -> aux tl (Some ("", hd, 0)) None acc
                                 |_ -> aux tl acc_line (Some (hd, 1)) acc
                         )
                         |None, Some (w,n) -> (
                                 match n < line_width with
                                 |true -> (
                                         match hd with
-                                        |" " -> aux tl (Some (w, " ", n)) None acc
+                                        |" " | " \u{0332}" -> aux tl (Some (w, hd, n)) None acc
                                         |_ -> aux tl acc_line (Some (w ^ hd, n + 1)) acc
                                 )
                                 |false -> (
                                         match hd with
-                                        |" " -> aux tl (Some (w," ", n)) None acc
+                                        |" " | " \u{0332}" -> aux tl (Some (w, hd, n)) None acc
                                         |_ -> aux tl acc_line (Some (w ^ hd, n + 1)) acc
                                 )
                         )
@@ -133,12 +133,12 @@ let line_break (line_width : int) (s : string) : string list =
                                 match n < line_width with
                                 |true -> (
                                         match hd with
-                                        |" " -> aux tl (Some (l ^ s," ", n + 1)) acc_word acc
+                                        |" " | " \u{0332}" -> aux tl (Some (l ^ s, hd, n + 1)) acc_word acc
                                         |_ -> aux tl acc_line (Some (hd, 1)) acc
                                 )
                                 |false -> (
                                         match hd with
-                                        |" " -> aux tl None acc_word (l::acc)
+                                        |" " | " \u{0332}" -> aux tl None acc_word (l::acc)
                                         |_ -> aux tl None (Some (hd,1)) (l::acc)
                                 )
                         )
@@ -146,12 +146,12 @@ let line_break (line_width : int) (s : string) : string list =
                                 match i+j < line_width with
                                 |true -> (
                                         match hd with
-                                        |" " -> aux tl (Some (l ^ s ^ w, " ", i + j + 1)) None acc
+                                        |" " | " \u{0332}" -> aux tl (Some (l ^ s ^ w, hd, i + j + 1)) None acc
                                         |_ -> aux tl acc_line (Some (w ^ hd, j + 1)) acc
                                 )
                                 |false -> (
                                         match hd with
-                                        |" " -> aux tl (Some (w, " ", j)) None (l::acc)
+                                        |" " | " \u{0332}" -> aux tl (Some (w, hd, j)) None (l::acc)
                                         |_ -> aux tl None (Some (w ^ hd, j + 1)) (l::acc)
                                 )
                         )
@@ -175,7 +175,7 @@ let underline (s : string) : string =
         let lst = utf_8_grapheme_clusters s in
         let map (el : string) : string = 
                 match el with
-                |" " -> " "
+		| "g" | "j" | "p" | "q" | "y" -> el
                 |_ -> el ^ "\u{0332}"
         in
         String.concat "" (List.map map lst)
