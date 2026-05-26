@@ -115,7 +115,7 @@ features:
 
       (!)   custom.
 
-      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ t̲o̲:
+      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
 
       (2)   The named item can be referred to anywhere in the
             document.
@@ -213,8 +213,22 @@ pariatur.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-L̲o̲r̲e̲m̲ i̲p̲s̲u̲m̲ d̲o̲l̲o̲r̲ s̲i̲t̲ a̲m̲e̲t̲.̲
+L̲o̲r̲e̲m̲ ̲i̲ps̲u̲m̲ ̲d̲o̲l̲o̲r̲ ̲s̲i̲t̲ ̲a̲m̲e̲t̲.̲
 ```
+</details>
+
+<details>
+  <summary>
+    <b>raw text semantics viewed with the Iosevka font (image)</b>
+  </summary>
+
+<img
+  src="readme-template/iosevka_underlining.png"
+  width=340
+  height=67
+  alt="raw text semantics viewed with font Iosevka"
+/>
+<a href="https://typeof.net/Iosevka/">The Iosevka font</a>
 </details>
 
 ### Bullet blocks
@@ -611,9 +625,7 @@ This chapter's header is omitted.
 
 
 
-§ 1.2
-
-         This is a section without a header.
+§ 1.2    This is a section without a header.
 
 
 
@@ -625,17 +637,17 @@ This chapter's header is omitted.
 
          An nmm source is made up of the following, in that order:
 
-         ─     an optional p̲r̲e̲a̲m̲b̲l̲e̲ p̲a̲r̲t̲,
+         ─     an optional pr̲e̲a̲m̲b̲l̲e̲ ̲pa̲r̲t̲,
 
-         ─     an optional t̲i̲t̲l̲e̲ p̲a̲r̲t̲,
+         ─     an optional t̲i̲t̲l̲e̲ ̲pa̲r̲t̲,
 
-         ─     an optional a̲u̲t̲h̲o̲r̲ p̲a̲r̲t̲,
+         ─     an optional a̲u̲t̲h̲o̲r̲ ̲pa̲r̲t̲,
 
-         ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ p̲a̲r̲t̲,
+         ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲pa̲r̲t̲,
 
-         ─     a non-optional m̲a̲i̲n̲ p̲a̲r̲t̲, and
+         ─     a non-optional m̲a̲i̲n̲ ̲pa̲r̲t̲, and
 
-         ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ p̲a̲r̲t̲.
+         ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲pa̲r̲t̲.
 
          ─     The main part must consist of either of:
 
@@ -647,7 +659,7 @@ This chapter's header is omitted.
 
                ─     blocks.
 
-         ─     T̲h̲e̲ m̲a̲i̲n̲ p̲a̲r̲t̲ o̲f̲ a̲ c̲h̲a̲p̲t̲e̲r̲ must consist of either of:
+         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲pt̲e̲r̲ must consist of either of:
 
                ─     sections (appendices count as sections);
 
@@ -655,14 +667,14 @@ This chapter's header is omitted.
 
                ─     blocks.
 
-         ─     T̲h̲e̲ m̲a̲i̲n̲ p̲a̲r̲t̲ o̲f̲ a̲ s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ a̲n̲ a̲p̲p̲e̲n̲d̲i̲x̲, must consist of
+         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲ppe̲n̲d̲i̲x̲, must consist of
                either of:
 
                ─     paragraphs;
 
                ─     blocks.
 
-         ─     T̲h̲e̲ m̲a̲i̲n̲ p̲a̲r̲t̲ o̲f̲ a̲ p̲a̲r̲a̲g̲r̲a̲p̲h̲ must consist of blocks.
+         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲pa̲r̲a̲gr̲a̲ph̲ must consist of blocks.
 
 
 
@@ -800,24 +812,24 @@ The scopes are:
 
 
 ¶ 2  The ID of the note in the previous paragraph has the suffix ‘:PAR’.
-     This means that the ID has p̲a̲r̲a̲g̲r̲a̲p̲h̲ s̲c̲o̲p̲e̲: one may only “refer”² to
+     This means that the ID has pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲: one may only “refer”² to
      that note in the paragraph where it is defined.
 
      The ID of ¶ 1 is ‘[PAR:intro]’ and thus has no scope-defining
-     suffix. This means that ¶ 1 has g̲l̲o̲b̲a̲l̲ s̲c̲o̲p̲e̲: it may be referred to
+     suffix. This means that ¶ 1 has gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲: it may be referred to
      (by using ‘¶ 1’ anywhere in the nmm source).
 
 
 ¶ 3  The scopes are:
 
-     (a)   g̲l̲o̲b̲a̲l̲ s̲c̲o̲p̲e̲---the default³;
+     (a)   gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲---the default³;
 
-     (b)   c̲h̲a̲p̲t̲e̲r̲ s̲c̲o̲p̲e̲---suffix ‘:CH’;
+     (b)   c̲h̲a̲pt̲e̲r̲ ̲s̲c̲o̲pe̲---suffix ‘:CH’;
 
-     (c)   s̲e̲c̲t̲i̲o̲n̲ s̲c̲o̲p̲e̲---suffix ‘:SEC’; equivalently a̲p̲p̲e̲n̲d̲i̲x̲
-           s̲c̲o̲p̲e̲---suffix ‘:APP’;
+     (c)   s̲e̲c̲t̲i̲o̲n̲ ̲s̲c̲o̲pe̲---suffix ‘:SEC’; equivalently a̲ppe̲n̲d̲i̲x̲
+           s̲c̲o̲pe̲---suffix ‘:APP’;
 
-     (d)   p̲a̲r̲a̲g̲r̲a̲p̲h̲ s̲c̲o̲p̲e̲---suffix ‘:PAR’.
+     (d)   pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲---suffix ‘:PAR’.
 
 ─────────────────────────────────────────────────────────────────────────
 ¹  https://en.wikipedia.org/wiki/Keysmash
@@ -1133,7 +1145,7 @@ than ‘\*’ is needed.
      ─     Instead of using ‘*’ for multiplication one should use ‘×’.
            (One should not use the abonimation ‘⋅’!)
 
-     ─     For denoting t̲h̲e̲ K̲l̲e̲e̲n̲e̲ s̲t̲a̲r̲ o̲p̲e̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
+     ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲pe̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
            resort to escaping. As the No-Markup-Markup grammar uses ‘*’
            as the notation for this operator, this is somewhat ironic.
 

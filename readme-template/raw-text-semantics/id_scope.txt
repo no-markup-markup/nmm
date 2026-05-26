@@ -5,24 +5,24 @@
 
 
 ¶ 2  The ID of the note in the previous paragraph has the suffix ‘:PAR’.
-     This means that the ID has p̲a̲r̲a̲g̲r̲a̲p̲h̲ s̲c̲o̲p̲e̲: one may only “refer”² to
+     This means that the ID has pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲: one may only “refer”² to
      that note in the paragraph where it is defined.
 
      The ID of ¶ 1 is ‘[PAR:intro]’ and thus has no scope-defining
-     suffix. This means that ¶ 1 has g̲l̲o̲b̲a̲l̲ s̲c̲o̲p̲e̲: it may be referred to
+     suffix. This means that ¶ 1 has gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲: it may be referred to
      (by using ‘¶ 1’ anywhere in the nmm source).
 
 
 ¶ 3  The scopes are:
 
-     (a)   g̲l̲o̲b̲a̲l̲ s̲c̲o̲p̲e̲---the default³;
+     (a)   gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲---the default³;
 
-     (b)   c̲h̲a̲p̲t̲e̲r̲ s̲c̲o̲p̲e̲---suffix ‘:CH’;
+     (b)   c̲h̲a̲pt̲e̲r̲ ̲s̲c̲o̲pe̲---suffix ‘:CH’;
 
-     (c)   s̲e̲c̲t̲i̲o̲n̲ s̲c̲o̲p̲e̲---suffix ‘:SEC’; equivalently a̲p̲p̲e̲n̲d̲i̲x̲
-           s̲c̲o̲p̲e̲---suffix ‘:APP’;
+     (c)   s̲e̲c̲t̲i̲o̲n̲ ̲s̲c̲o̲pe̲---suffix ‘:SEC’; equivalently a̲ppe̲n̲d̲i̲x̲
+           s̲c̲o̲pe̲---suffix ‘:APP’;
 
-     (d)   p̲a̲r̲a̲g̲r̲a̲p̲h̲ s̲c̲o̲p̲e̲---suffix ‘:PAR’.
+     (d)   pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲---suffix ‘:PAR’.
 
 ─────────────────────────────────────────────────────────────────────────
 ¹  https://en.wikipedia.org/wiki/Keysmash
