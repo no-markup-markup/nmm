@@ -40,7 +40,6 @@ let string_of_token (t:Nmm_parser.token):string=
         |TITLE_COLON -> "TITLE_COLON"
         |AUTHOR_COLON -> "AUTHOR_COLON"
         |DATE_COLON -> "DATE_COLON"
-        |PREAMBLE_COLON -> "PREAMBLE_COLON"
         |ESC_CHAR s -> ("ESC_CHAR " ^ "\"" ^ s ^ "\"")
         |ABSTRACT_COLON -> "ABSTRACT_COLON"
         |SECTION_REFS_NLS -> "SECTION_REFS_NLS"
@@ -58,6 +57,9 @@ let string_of_token (t:Nmm_parser.token):string=
         |TAB_END_QTN -> "TAB_END_QTN"
         |TAB_TAB_END_QTN -> "TAB_TAB_END_QTN"
         |TAB_TAB_TAB_END_QTN -> "TAB_TAB_TAB_END_QTN"
+        |START_PREAMBLE -> "START_PREAMBLE"
+        |END_PREAMBLE -> "END_PREAMBLE"
+        |PREAMBLE_LINE s -> ("PREAMBLE_LINE " ^ "\"" ^ s ^ "\"")
 
 let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.position*Lexing.position)=
         let token : Nmm_parser.token=Nmm_lexer.token b in
@@ -72,6 +74,7 @@ let sedlexer (print_tokens:bool) (b:Sedlexing.lexbuf):(Nmm_parser.token*Lexing.p
 
 
 let reset_lexer_env () : unit =
+        let _ : unit = Nmm_lexer.lexer_env.preamble <- false in
         let _ : unit = Nmm_lexer.lexer_env.quotation <- false in
         let _ : unit = Nmm_lexer.lexer_env.verbatim <- false in
         let _ : unit = Nmm_lexer.lexer_env.display <- false in

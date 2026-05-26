@@ -1,6 +1,7 @@
-PREAMBLE:
-	abstract-hdr=SUMMARY,Summary
-	refs-hdr=CITED WORKS,Cited works
+START	PREAMBLE
+abstract-hdr=SUMMARY,Summary
+refs-hdr=CITED WORKS,Cited works
+END	PREAMBLE
 
 TITLE:
 	Referring to named items under REFERENCES

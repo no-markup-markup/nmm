@@ -67,7 +67,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TITLE_COLON</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TITLE_COLON"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">AUTHOR_COLON</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"AUTHOR_COLON"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">DATE_COLON</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"DATE_COLON"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PREAMBLE_COLON</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"PREAMBLE_COLON"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ESC_CHAR</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"ESC_CHAR&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">ABSTRACT_COLON</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"ABSTRACT_COLON"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">SECTION_REFS_NLS</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"SECTION_REFS_NLS"</span><br>
@@ -85,6 +84,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB_END_QTN</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB_END_QTN"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB_TAB_END_QTN</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB_TAB_END_QTN"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">TAB_TAB_TAB_END_QTN</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"TAB_TAB_TAB_END_QTN"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">START_PREAMBLE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"START_PREAMBLE"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">END_PREAMBLE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"END_PREAMBLE"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">PREAMBLE_LINE</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="string">"PREAMBLE_LINE&nbsp;"</span>&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;^&nbsp;s&nbsp;^&nbsp;<span class="string">"\""</span>)<br>
 <br>
 <span class="keyword">let</span>&nbsp;sedlexer&nbsp;(print_tokens:bool)&nbsp;(b:<span class="constructor">Sedlexing</span>.lexbuf):(<span class="constructor">Nmm_parser</span>.token*<span class="constructor">Lexing</span>.position*<span class="constructor">Lexing</span>.position)=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;token&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token=<span class="constructor">Nmm_lexer</span>.token&nbsp;b&nbsp;<span class="keyword">in</span><br>
@@ -99,6 +101,7 @@
 <br>
 <br>
 <span class="keyword">let</span>&nbsp;reset_lexer_env&nbsp;()&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.lexer_env.preamble&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.lexer_env.quotation&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.lexer_env.verbatim&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_lexer</span>.lexer_env.display&nbsp;&lt;-&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>

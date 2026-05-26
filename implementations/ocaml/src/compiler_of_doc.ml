@@ -970,6 +970,7 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
+		nte_numbering = doc_settings.nte_numbering;
         }
         in
         let _ : unit = IO.quiet.contents <- options.quiet in
@@ -1014,6 +1015,7 @@ let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
                 expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
+		nte_numbering = doc_settings.nte_numbering;
         }
         in
         let _ : unit = IO.quiet.contents <- options.quiet in

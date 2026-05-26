@@ -1,7 +1,7 @@
-PREAMBLE:
-	tag=SLN,SOLUTION,Solution
-	tag=SLNS,SOLUTIONS,Solutions
-
+START	PREAMBLE
+tag=SLN,SOLUTION,Solution
+tag=SLNS,SOLUTIONS,Solutions
+END	PREAMBLE
 
 ¶ SLNS:easy
 

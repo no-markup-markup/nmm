@@ -7,6 +7,7 @@ exception ERROR of string
 val line_of_lexbuf : Sedlexing.lexbuf -> string
 
 type t_lexer_env = {
+        mutable preamble : bool;
         mutable quotation : bool;
         mutable verbatim : bool;
         mutable display : bool;

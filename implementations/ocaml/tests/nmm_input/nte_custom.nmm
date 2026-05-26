@@ -1,0 +1,27 @@
+START	PREAMBLE
+nte-numbering=*,†,‡,⹋,**,††,‡‡,⹋⹋
+END	PREAMBLE
+
+Custom numbering of notes[NTE:one] could look[NTE:two] like[NTE:three] this[NTE:four]
+and[NTE:five] so[NTE:six] on[NTE:seven].
+
+*	NTE:one
+	First note
+
+*	NTE:two
+	Second note
+
+*	NTE:three
+	Third note
+
+*	NTE:four
+	Fourth note
+
+*	NTE:five
+	Fifth note
+
+*	NTE:six
+	Sixth note
+
+*	NTE:seven
+	Seventh note

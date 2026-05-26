@@ -35,12 +35,14 @@ type token =
         |TAB_END_QTN
         |TAB_TAB_END_QTN
         |TAB_TAB_TAB_END_QTN
-        |PREAMBLE_COLON
+        |START_PREAMBLE
+        |END_PREAMBLE
         |TITLE_COLON
         |AUTHOR_COLON
         |DATE_COLON
         |ABSTRACT_COLON
         |VRB_LINE of string
+        |PREAMBLE_LINE of string
         |ESC_CHAR of string
         |TXT of string
         |C_REF of string

@@ -56,7 +56,6 @@ let pilcrow_nl = [%sedlex.regexp? pilcrow, nl]
 let pilcrow_spaces_tag_or_id_nl = [%sedlex.regexp? pilcrow, spaces, par_tag_or_id, nl]
 let pilcrow_spaces_rpt_spaces_id_nl = [%sedlex.regexp? pilcrow, spaces, "rpt", spaces, par_id, nl]
 
-let preamble_colon = [%sedlex.regexp? "PREAMBLE:"]
 let title_colon = [%sedlex.regexp? "TITLE:"]
 let author_colon = [%sedlex.regexp? "AUTHOR:"]
 let date_colon = [%sedlex.regexp? "DATE:"]
@@ -79,6 +78,10 @@ let br = [%sedlex.regexp? "BR"]
 let tab_end_qtn = [%sedlex.regexp? tab, end_qtn]
 let tab_tab_end_qtn = [%sedlex.regexp? tab, tab_end_qtn]
 let tab_tab_tab_end_qtn = [%sedlex.regexp? tab, tab_tab_end_qtn]
+
+let start_preamble = [%sedlex.regexp? "START", tab, "PREAMBLE", nl]
+let end_preamble = [%sedlex.regexp? "END", tab, "PREAMBLE", nl]
+let preamble_line = [%sedlex.regexp? Plus (Compl (Chars "\r\n\t"))]
 
 let nl_not_nl = [%sedlex.regexp? nl, Compl (Chars "\n\r")]
 
@@ -115,6 +118,7 @@ let remove_nls (s : string) : string =
 (* lexer_env *)
 
 type t_lexer_env = {
+        mutable preamble : bool;
         mutable quotation : bool;
         mutable verbatim : bool;
         mutable display : bool;
@@ -123,12 +127,19 @@ type t_lexer_env = {
 }
 
 let lexer_env : t_lexer_env = {
+        preamble = false;
         quotation = false;
         verbatim = false;
         display = false;
         nte_counter = 0;
         end_of_file = false;
 }
+
+let set_preamble_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
+        let _ : unit = lexer_env.preamble <- true in tkn
+
+let reset_preamble_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
+        let _ : unit = lexer_env.preamble <- false in tkn
 
 let set_quotation_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token =
         let _ : unit = lexer_env.quotation <- true in tkn
@@ -159,12 +170,12 @@ let set_end_of_file_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token
 (* the lexer *)
 
 let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
-        match lexer_env.verbatim, lexer_env.display, lexer_env.quotation with
-        |false, false, false -> (
+        match lexer_env.verbatim, lexer_env.display, lexer_env.quotation, lexer_env.preamble with
+        |false, false, false, false -> (
                 match%sedlex lexbuf with
+                |start_preamble                  ->      set_preamble_and_return_token START_PREAMBLE
                 |start_qtn                       ->      set_quotation_and_return_token START_QTN
                 |esc_char                        ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
-                |preamble_colon                  ->      PREAMBLE_COLON
                 |title_colon                     ->      TITLE_COLON
                 |author_colon                    ->      AUTHOR_COLON
                 |date_colon                      ->      DATE_COLON
@@ -205,7 +216,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 
-        |true, _, _ -> (
+        |true, _, _, _ -> (
                 match%sedlex lexbuf with
                 |end_vrb                        ->      reset_verbatim_and_return_token END_VRB
                 |tab_end_vrb                    ->      reset_verbatim_and_return_token TAB_END_VRB
@@ -217,7 +228,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 
-        |_, true, _ -> (
+        |_, true, _, _ -> (
                 match%sedlex lexbuf with
                 |esc_char                       ->      ESC_CHAR (get_esc_char (lexeme lexbuf))
                 |star                           ->      STAR
@@ -238,7 +249,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |nl_tab_tab_tab                 ->      reset_display_and_return_token NL_TAB_TAB_TAB
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
-        |_, _, true -> (
+        |_, _, true, _ -> (
                 match%sedlex lexbuf with
                 |end_qtn                        ->      reset_quotation_and_return_token END_QTN
                 |tab_end_qtn                    ->      reset_quotation_and_return_token TAB_END_QTN
@@ -254,6 +265,14 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token=
                 |section                        ->      SECTION
                 |pilcrow                        ->      PILCROW
                 |txt                            ->      TXT (lexeme lexbuf)
+                |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
+        )
+        |_, _, _, true -> (
+                match%sedlex lexbuf with
+                |end_preamble                   ->      reset_preamble_and_return_token END_PREAMBLE
+                |preamble_line                  ->      PREAMBLE_LINE (lexeme lexbuf)
+                |nl                             ->      token lexbuf
+                |tab                            ->      token lexbuf
                 |_ -> raise (ERROR ("unexpected string on line " ^ (line_of_lexbuf lexbuf) ^ ": \"" ^ (lexeme lexbuf) ^ "\""))
         )
 

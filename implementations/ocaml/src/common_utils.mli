@@ -37,7 +37,7 @@ type t_doc_settings = {
   expand_tag: Doc_types.ts_tag -> (string * string) option;
   auto_numbering : int -> int -> string;
   allow_custom_numbering : bool;
-
+  nte_numbering : int -> string;
 }
 
 

@@ -29,6 +29,7 @@
 &nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">ERROR</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;line_of_lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_lexer_env&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;preamble&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;quotation&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;verbatim&nbsp;:&nbsp;bool;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;display&nbsp;:&nbsp;bool;<br>

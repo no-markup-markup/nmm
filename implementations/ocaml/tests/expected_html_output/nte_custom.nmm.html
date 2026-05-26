@@ -45,11 +45,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .title {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.chs .title {
@@ -71,11 +71,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .authors {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 /************ DATE ******************/
@@ -85,11 +85,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .date {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .date {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 /************ ABSTRACT ******************/
@@ -103,11 +103,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .abstract_hdr {
@@ -124,11 +124,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .refs {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .doc.chs .refs {
@@ -195,7 +195,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
     font-size   : large;
     line-height : 130%;
 }
@@ -232,7 +232,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 
@@ -259,7 +259,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 3.00rem;
+    margin-left : 1.20rem;
 }
 
 .blk.txt {
@@ -386,70 +386,33 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<main class="doc pars">
+<main class="doc blks">
 <div class="doc_main">
-<section class="THM par" id="THM_main">
-<div class="par_lbl">¶ 1</div>
-<div class="clear"></div>
-<div class="par_main">
-<div class="par_tag">Teoremet</div>
-<h2 class="par_hdr">Main</h2>
-<p class="blk txt">Nothing lasts forever.</p>
+<p class="blk txt">Custom numbering of notes<a class="txt_unit_nte" href="#NTE_one_0" id="ref_NTE_one_0">*</a> could look<a class="txt_unit_nte" href="#NTE_two_1" id="ref_NTE_two_1">†</a> like<a class="txt_unit_nte" href="#NTE_three_2" id="ref_NTE_three_2">‡</a> this<a class="txt_unit_nte" href="#NTE_four_3" id="ref_NTE_four_3">⹋</a> and<a class="txt_unit_nte" href="#NTE_five_4" id="ref_NTE_five_4">**</a> so<a class="txt_unit_nte" href="#NTE_six_5" id="ref_NTE_six_5">††</a> on<a class="txt_unit_nte" href="#NTE_seven_6" id="ref_NTE_seven_6">‡‡</a>.</p>
 </div>
-</section>
-<section class="PRF par" id="PRF_proof">
-<div class="par_lbl">¶ 2</div>
-<div class="clear"></div>
-<div class="par_main">
-<div class="par_tag">Beviset</div>
-<h2 class="par_hdr">of <a class="txt_unit_c_ref" href="#THM_main">Teoremet 1</a></h2>
-<p class="blk txt">By straightforward induction on the complexity of nothing.</p>
-</div>
-</section>
-<section class="THMS par" id="THMS_aux">
-<div class="par_lbl">¶ 3</div>
-<div class="clear"></div>
-<div class="par_main">
-<h2 class="par_tag hdr">Teoremen</h2>
-<div class="ITM blk itm" id="ITM_aux1">
-<div class="blk_itm_lbl">(a)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">This theorem states that ...</p>
-</div>
-</div>
-<div class="ITM blk itm" id="ITM_aux2">
-<div class="blk_itm_lbl">(b)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">This theoren states that ...</p>
-</div>
-</div>
-</div>
-</section>
-<section class="PRFS par" id="PRFS_aux">
-<div class="par_lbl">¶ 4</div>
-<div class="clear"></div>
-<div class="par_main">
-<div class="par_tag">Bevisen</div>
-<h2 class="par_hdr">of <a class="txt_unit_c_ref" href="#THMS_aux">Teoremen 3</a></h2>
-<div class="blk itm">
-<div class="blk_itm_lbl">(a)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">To prove <a class="txt_unit_c_ref" href="#ITM_aux1">(a) of Teoremen 3</a>, ...</p>
-</div>
-</div>
-<div class="blk itm">
-<div class="blk_itm_lbl">(b)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">To prove <a class="txt_unit_c_ref" href="#ITM_aux2">(b) of Teoremen 3</a>, ...</p>
-</div>
-</div>
-</div>
-</section>
-</div>
+<footer class="doc_endnotes">
+<div class="blk nte" id="NTE_one_0"><a class="blk_nte_lbl" href="#ref_NTE_one_0">*</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">First note</p>
+</div></div>
+<div class="blk nte" id="NTE_two_1"><a class="blk_nte_lbl" href="#ref_NTE_two_1">†</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Second note</p>
+</div></div>
+<div class="blk nte" id="NTE_three_2"><a class="blk_nte_lbl" href="#ref_NTE_three_2">‡</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Third note</p>
+</div></div>
+<div class="blk nte" id="NTE_four_3"><a class="blk_nte_lbl" href="#ref_NTE_four_3">⹋</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Fourth note</p>
+</div></div>
+<div class="blk nte" id="NTE_five_4"><a class="blk_nte_lbl" href="#ref_NTE_five_4">**</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Fifth note</p>
+</div></div>
+<div class="blk nte" id="NTE_six_5"><a class="blk_nte_lbl" href="#ref_NTE_six_5">††</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Sixth note</p>
+</div></div>
+<div class="blk nte" id="NTE_seven_6"><a class="blk_nte_lbl" href="#ref_NTE_seven_6">‡‡</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Seventh note</p>
+</div></div>
+</footer>
 </main>
 </body>
 </html>

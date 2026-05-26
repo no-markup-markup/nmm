@@ -86,8 +86,9 @@ let date_of_string (s : string) : tu_date =
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
 %token                          START_QTN END_QTN BR TAB_END_QTN TAB_TAB_END_QTN TAB_TAB_TAB_END_QTN
-%token                          PREAMBLE_COLON TITLE_COLON AUTHOR_COLON DATE_COLON ABSTRACT_COLON
-%token <string>                 VRB_LINE
+%token                          START_PREAMBLE END_PREAMBLE
+%token                          TITLE_COLON AUTHOR_COLON DATE_COLON ABSTRACT_COLON
+%token <string>                 VRB_LINE PREAMBLE_LINE
 %token <string>                 ESC_CHAR
 %token <string>                 TXT C_REF
 %token <string>                 DSP_ID
@@ -188,8 +189,12 @@ doc:
 
 
 doc_preamble:
-  | PREAMBLE_COLON TAB preamble_lines             { (Cs_preamble $3) : ts_preamble }
-  | PREAMBLE_COLON NL_TAB preamble_lines          { (Cs_preamble $3) : ts_preamble }
+  | START_PREAMBLE preamble_lines END_PREAMBLE    { (Cs_preamble $2) : ts_preamble }
+;
+
+preamble_lines:
+  | PREAMBLE_LINE                                 { $1 : string }
+  | PREAMBLE_LINE preamble_lines                  { $1 ^ ";" ^ $2 : string }
 ;
 
 doc_title:
@@ -221,12 +226,6 @@ lines:
   | txt                                           { $1 : string }
   | txt lines                                     { ($1 ^ $2) : string }
   | txt NL_TAB lines                              { ($1 ^ " " ^ $3) : string }
-;
-
-preamble_lines:
-  | txt                                           { $1 : string }
-  | txt preamble_lines                            { ($1 ^ $2) : string }
-  | txt NL_TAB preamble_lines                     { ($1 ^ ";" ^ $3) : string }
 ;
 
 doc_main:
@@ -1200,7 +1199,6 @@ txt_nte:
   |LBR                                            { "[":string }
   |PILCROW                                        { "¶":string }
   |SECTION                                        { "§":string }
-  |PREAMBLE_COLON                                 { "PREAMBLE:":string }
   |TITLE_COLON                                    { "TITLE:":string }
   |AUTHOR_COLON                                   { "AUTHOR:":string }
   |DATE_COLON                                     { "DATE:":string }
