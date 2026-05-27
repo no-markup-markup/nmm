@@ -94,10 +94,13 @@
             src          = ./.;
             buildPhase   = ''
               make bin
+              make share
             '';
             installPhase = ''
               mkdir -p $out/bin
               cp bin/* $out/bin/
+              mkdir -p $out/share
+              cp -r share/* $out/share/
             '';
           };
           apps.default = {

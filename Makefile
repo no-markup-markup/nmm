@@ -41,13 +41,9 @@ test-nmm2xml: bin test-data-nmm2xml
 test-nmm2txt: bin test-data-nmm2txt
 	./test-nmm2txt.sh
 
-docs-ocaml:
-	cd implementations/ocaml
-	make docs
-	cd -
+share: share/bash-completion/completions/nmm-ocaml
 
-clean-docs-ocaml:
-	cd implementations/ocaml
-	make clean-docs
-	cd -
-	rm -rf docs/docs-ocaml/*
+share/bash-completion/completions/nmm-ocaml: implementations/ocaml/bin/nmm-ocaml-bash-completion.sh
+	mkdir -p share/bash-completion/completions
+	cp implementations/ocaml/bin/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
+
