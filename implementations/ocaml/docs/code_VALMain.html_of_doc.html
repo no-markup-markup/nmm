@@ -51,7 +51,11 @@
                 <span class="keywordsign">|</span><span class="constructor">Some</span> m <span class="keywordsign">-&gt;</span> (string_of_int m) ^ <span class="string">"rem"</span>
                 <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Html_utils</span>.margin_left_of_tr_doc doc
         <span class="keyword">in</span>
-        <span class="keyword">let</span> internal_css: string = (<span class="string">"&lt;style&gt;\n"</span> ^ (<span class="constructor">Html_utils</span>.internal_css <span class="string">"6ch"</span> margin_left) ^ <span class="string">"\n&lt;/style&gt;"</span>) <span class="keyword">in</span>
+        <span class="keyword">let</span> font_css : string =
+		<span class="keyword">match</span> options.font <span class="keyword">with</span>
+		<span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">""</span>
+		<span class="keywordsign">|</span><span class="constructor">Some</span> (font_family, font_path) <span class="keywordsign">-&gt;</span> <span class="constructor">Html_utils</span>.font_css_of_family_path font_family font_path <span class="keyword">in</span>
+        <span class="keyword">let</span> internal_css: string = (<span class="string">"&lt;style&gt;\n"</span> ^ (<span class="constructor">Html_utils</span>.internal_css <span class="string">"6ch"</span> margin_left) ^ font_css ^ <span class="string">"\n&lt;/style&gt;"</span>) <span class="keyword">in</span>
         <span class="keyword">let</span> external_css: string =
                 <span class="keyword">let</span> map (uri : string) : string = (<span class="string">"&lt;link rel=\"stylesheet\" href=\""</span> ^ uri ^ <span class="string">"\"&gt;\n"</span>) <span class="keyword">in</span>
                 <span class="constructor">String</span>.concat <span class="string">""</span> (<span class="constructor">List</span>.map map options.css)

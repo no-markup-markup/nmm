@@ -40,6 +40,7 @@ HTML-OPTIONS:
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
   --tags <path-to-tsv-file>
+  --font { JuliaMono | Iosevka } <path-to-font>
 
 EXML-OPTIONS:
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
@@ -80,6 +81,10 @@ let numbering : string ref = ref "a1i"
 let allow_custom_numbering : bool ref = ref false
 
 let tags : (string option) ref = ref None
+
+let font_family : string ref = ref ""
+
+let font_path : string ref = ref ""
 
 let keyspecdoc_list : t_keyspecdoc list ref = ref []
 
@@ -126,6 +131,8 @@ let add_tags (s : string) : unit =
 let keyspecdoc_tags : t_keyspecdoc =
         ("--tags", Arg.String add_tags, "")
 
+let keyspecdoc_font : t_keyspecdoc =
+        ("--font", Arg.Tuple [Arg.Set_string font_family; Arg.Set_string font_path], "")
 
 let keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
         keyspecdoc_margin;
@@ -162,6 +169,7 @@ let keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
         keyspecdoc_tags;
+        keyspecdoc_font;
 ]
 
 let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
@@ -173,6 +181,7 @@ let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
         keyspecdoc_tags;
+        keyspecdoc_font;
 ]
 
 let keyspecdoc_list_exml_of_nmm : t_keyspecdoc list = [
@@ -255,6 +264,12 @@ let anon_arg_fun arg : unit =
 
 let _ : unit =
         let _ : unit = Arg.parse_dynamic keyspecdoc_list anon_arg_fun usage in
+        let font : (string * string) option =
+		match font_family.contents, font_path.contents with
+		|"",_
+		|_,"" -> None
+		|ff,fp -> Some (ff,fp)
+	in
         match cmd_name.contents with
         |"txt-of-axml" -> (
                 let options : Common_utils.t_txt_options = {
@@ -282,6 +297,7 @@ let _ : unit =
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
+                        font = font;
                 }
                 in
                 match read_from_stdin.contents with
@@ -329,6 +345,7 @@ let _ : unit =
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
+                        font = font;
                 }
                 in
                 match read_from_stdin.contents with
@@ -354,6 +371,7 @@ let _ : unit =
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
+                        font = font;
                 }
                 in
                 match path_to_xml_file.contents with
@@ -369,6 +387,7 @@ let _ : unit =
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
+                        font = font;
                 }
                 in
                 match path_to_nmm_file.contents with

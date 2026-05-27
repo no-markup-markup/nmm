@@ -11,3 +11,6 @@ val internal_css : string -> string -> string
 (**
 [internal_css tab_length left_margin] evaluates to a string representing an internal css style-sheet.
 *)
+
+val font_css_of_family_path : string -> string -> string
+

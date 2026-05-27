@@ -513,4 +513,74 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 &nbsp;&nbsp;}<br>
 }"</span><br>
 <br>
+<span class="keyword">let</span>&nbsp;font_css_of_family_path&nbsp;(font_family&nbsp;:&nbsp;string)&nbsp;(font_path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+<span class="keyword">match</span>&nbsp;font_family&nbsp;<span class="keyword">with</span><br>
+<span class="keywordsign">|</span><span class="string">"JuliaMono"</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+<span class="string">"@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/JuliaMono-Regular.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;normal;<br>
+}<br>
+<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/JuliaMono-Bold.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;bold;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;normal;<br>
+}<br>
+<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/JuliaMono-RegularItalic.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;italic;<br>
+}<br>
+<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/JuliaMono-BoldItalic.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;bold;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;italic;<br>
+}<br>
+<br>
+html&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+}<br>
+"</span><br>
+<span class="keywordsign">|</span><span class="string">"Iosevka"</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+<span class="string">"<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/IosevkaCustom-Fixed-Slab-ExtraExtended-Regular.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;normal;<br>
+}<br>
+<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/IosevkaCustom-Fixed-Slab-ExtraExtended-Bold.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;bold;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;normal;<br>
+}<br>
+<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/IosevkaCustom-Fixed-Slab-ExtraExtended-Italic.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;italic;<br>
+}<br>
+<br>
+@font-face&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;src&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;url("</span>&nbsp;^&nbsp;font_path&nbsp;^&nbsp;<span class="string">"/IosevkaCustom-Fixed-Slab-ExtraExtended-BoldItalic.ttf);<br>
+&nbsp;&nbsp;font-weight&nbsp;:&nbsp;bold;<br>
+&nbsp;&nbsp;font-style&nbsp;&nbsp;:&nbsp;italic;<br>
+}<br>
+<br>
+html&nbsp;{<br>
+&nbsp;&nbsp;font-family&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;font_family&nbsp;^&nbsp;<span class="string">";<br>
+}<br>
+"</span><br>
+<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="string">"unknown&nbsp;font-family:&nbsp;\'"</span>&nbsp;^&nbsp;font_family&nbsp;^<span class="string">"\'"</span>))<br>
 </code></body></html>

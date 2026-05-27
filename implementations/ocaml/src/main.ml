@@ -44,7 +44,11 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
                 |Some m -> (string_of_int m) ^ "rem"
                 |None -> Html_utils.margin_left_of_tr_doc doc
         in
-        let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css "6ch" margin_left) ^ "\n</style>") in
+        let font_css : string =
+		match options.font with
+		|None -> ""
+		|Some (font_family, font_path) -> Html_utils.font_css_of_family_path font_family font_path in
+        let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css "6ch" margin_left) ^ font_css ^ "\n</style>") in
         let external_css: string =
                 let map (uri : string) : string = ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n") in
                 String.concat "" (List.map map options.css)

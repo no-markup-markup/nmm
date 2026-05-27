@@ -236,6 +236,7 @@ type t_html_options = {
         numbering : string;
         allow_custom_numbering : bool;
         tags : string option;
+        font : (string * string) option;
 }
 
 type t_exml_options = {
