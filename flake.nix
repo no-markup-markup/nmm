@@ -2,8 +2,8 @@
   description = "no-markup-markup";
 
   inputs = {
-    nixpkgs-linux.url    = "nixpkgs/nixos-25.05";
-    nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-linux.url    = "nixpkgs/nixos-25.11";
+    nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url      = "github:numtide/flake-utils";
   };
@@ -41,7 +41,7 @@
             pkgs.bash
             pkgs.gnumake
             pkgs.python313
-            pkgs-unstable.python313Packages.weasyprint
+            pkgs.python312Packages.weasyprint
             pkgs.xmldiff
           ];
           pkgs_mercury  = [pkgs.mercury];
