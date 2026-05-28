@@ -5,7 +5,10 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test
+.PHONY: default clean test utop clean-docs install-opam_package
+
+version = 0
+export version
 
 default:
 	@echo 'no default target'
@@ -19,11 +22,40 @@ test: bin/nmm-ocaml
 	bash test.sh
 	cd -
 
+clean-docs:
+	rm -f docs/*.html
+	rm -f docs/specs/*.txt
+
+install-opam_package: opam/package src/cli.ml
+	ocamlfind install nmm-ocaml opam/package/*
+	ocamlfind ocamlopt -o ~/.opam/default/bin/nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str -package unix -package nmm-ocaml src/cli.ml
+
+utop: opam/package
+	utop -require sedlex -require uuseg -require xml-light -require str -I $(realpath opam/package) $(realpath opam/package/nmm_ocaml.cma)
+
+bin: bin/nmm-ocaml bin/txt-of-nmm bin/html-of-nmm bin/pdf-of-nmm
+
 bin/nmm-ocaml: native
+	mkdir -p bin
 	cd native
 	ocamlfind ocamlopt -o nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str -package unix nmm_ocaml.cmxa cli.ml
 	cd -
 	mv native/nmm-ocaml bin/
+
+bin/txt-of-nmm: scripts/txt-of-nmm.sh
+	mkdir -p bin
+	cp scripts/txt-of-nmm.sh bin/txt-of-nmm
+	chmod +x bin/txt-of-nmm
+
+bin/html-of-nmm: scripts/html-of-nmm.sh
+	mkdir -p bin
+	cp scripts/html-of-nmm.sh bin/html-of-nmm
+	chmod +x bin/html-of-nmm
+
+bin/pdf-of-nmm: scripts/pdf-of-nmm.sh
+	mkdir -p bin
+	cp scripts/pdf-of-nmm.sh bin/pdf-of-nmm
+	chmod +x bin/pdf-of-nmm
 
 
 docs: byte
@@ -36,30 +68,6 @@ docs: byte
 	ocamlfind ocamldoc -t 'Nmm_ocaml' -keep-code -colorize-code -d ../docs -package sedlex.ppx -package uuseg -package xml-light -package str -package unix -html doc_types.ml xml_right_parser.mli xml_right_lexer.mli xml_right.mli xml_right.ml nmm_parser.mli nmm_lexer.mli nmm_lexer.ml doc_of_nmm.mli doc_of_nmm.ml common_utils.mli tags.mli tags.ml common_utils.ml txt_utils.mli txt_utils.ml exml_utils.mli exml_utils.ml compiler_of_doc.mli compiler_of_doc.ml axml_of_doc.mli axml_of_doc.ml doc_of_axml.mli doc_of_axml.ml html_utils.mli html_utils.ml main.mli main.ml
 	cd -
 
-clean-docs:
-	rm -f docs/*.html
-	rm -f docs/specs/*.txt
-
-install-bin: bin/nmm-ocaml bin/txt-of-nmm.sh bin/html-of-nmm.sh bin/pdf-of-nmm.sh
-	mkdir -p ~/bin
-	cp bin/nmm-ocaml ~/bin/
-	cp bin/txt-of-nmm.sh ~/bin/txt-of-nmm
-	chmod +x ~/bin/txt-of-nmm
-	cp bin/html-of-nmm.sh ~/bin/html-of-nmm
-	chmod +x ~/bin/html-of-nmm
-	cp bin/pdf-of-nmm.sh ~/bin/pdf-of-nmm
-	chmod +x ~/bin/pdf-of-nmm
-
-install-opam_package: opam_package src/cli.ml
-	ocamlfind install nmm-ocaml opam_package/*
-	ocamlfind ocamlopt -o ~/.opam/default/bin/nmm-ocaml -linkpkg -package sedlex.ppx -package uuseg -package xml-light -package str -package unix -package nmm-ocaml src/cli.ml
-
-opam_package: native opam byte
-	mkdir -p opam_package
-	cp byte/nmm_ocaml.cma opam_package/
-	cp native/nmm_ocaml.* opam_package/
-	cp opam/nmm-ocaml.opam opam_package/opam
-	cp opam/META opam_package/
 
 native: src
 	mkdir -p native
@@ -67,7 +75,7 @@ native: src
 	cd native
 	ocamlopt -c -for-pack Nmm_ocaml doc_types.ml IO.ml
 	# generate nmm_parser.ml, nmm_parser.mli:
-	ocamlyacc --strict nmm_parser.mly
+	ocamlyacc -v nmm_parser.mly
 	# replace generated mli-file:
 	cp ../src/nmm_parser.mli nmm_parser.mli
 	# generate nmm_parser.cmx, nmm_parser.cmxi:
@@ -95,7 +103,7 @@ byte: src
 	# generate doc_types.cmo, doc_types.cmi:
 	ocamlc -c -for-pack Nmm_ocaml doc_types.ml IO.ml
 	# generate nmm_parser.ml, nmm_parser.mli:
-	ocamlyacc --strict nmm_parser.mly
+	ocamlyacc -v nmm_parser.mly
 	# replace generated mli-file:
 	cp ../src/nmm_parser.mli nmm_parser.mli
 	# generate nmm_parser.cmo, nmm_parser.cmi:
@@ -116,6 +124,12 @@ byte: src
 	ocamlc -a -o nmm_ocaml.cma nmm_ocaml.cmo
 	cd -
 
-utop: opam_package
-	utop -require sedlex -require uuseg -require xml-light -require str -I $(realpath opam_package) $(realpath opam_package/nmm_ocaml.cma)
+debian/packages: debian bin test
+	cd debian
+	make
+	cd -
 
+opam/package: opam native byte test
+	cd opam
+	make
+	cd -

@@ -10,7 +10,7 @@ _nmm_ocaml_get_options () {
 	local axml_options='--tags'
 	local exml_options="$axml_options --quiet --numbering --allow-custom-numbering"
 	local txt_options="$exml_options --margin --width"
-	local html_options="$exml_options --margin --css --lang"
+	local html_options="$exml_options --margin --internal-css --external-css --lang"
 	local numbering_options='a1i ai1 1ai 1ia ia1 i1a'
 	local lang_options='en sv fr de es' #etc
 
@@ -70,7 +70,7 @@ _nmm_ocaml () {
 		--numbering | --margin | --width | --lang )
 			COMPREPLY=( $(compgen -W "${options}" -- ${cur}) )
 			;;
-		--tags | --css )
+		--tags | --internal-css | --external-css )
 			COMPREPLY=( $(compgen -f -- ${cur}) )
 			;;
 		- )

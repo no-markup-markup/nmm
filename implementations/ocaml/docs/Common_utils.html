@@ -241,12 +241,12 @@ KEY_VALUE := | 'doc-width=' INT
              | 'abstract-indent=' INT
              | 'refs-indent=' INT
              | 'tab-length=' INT
-             | 'abstract-hdr=' LABEL_FORM ',' CREF_FORM
-             | 'refs-hdr=' LABEL_FORM ',' CREF_FORM
-             | 'ch-prefix=' LABEL_FORM ',' CREF_FORM
-             | 'sec-prefix=' LABEL_FORM ',' CREF_FORM
-             | 'par-prefix=' LABEL_FORM ',' CREF_FORM
-             | 'tag=' TAG '&gt;' LABEL_FORM ',' CREF_FORM
+             | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'tag=' TAG ',' LABEL_FORM [',' CREF_FORM]
 
 LABEL_FORM := TAG
 
@@ -665,7 +665,14 @@ INT := ['0'-'9']+
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_html_options.css">css</span>&nbsp;: <code class="type">string list</code>;</code></td>
+<code><span id="TYPEELTt_html_options.internal_css">internal_css</span>&nbsp;: <code class="type">string list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_html_options.external_css">external_css</span>&nbsp;: <code class="type">string list</code>;</code></td>
 
 </tr>
 <tr>
@@ -694,13 +701,6 @@ INT := ['0'-'9']+
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTt_html_options.tags">tags</span>&nbsp;: <code class="type">string option</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTt_html_options.font">font</span>&nbsp;: <code class="type">(string * string) option</code>;</code></td>
 
 </tr></table>
 <code>}</code>

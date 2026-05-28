@@ -59,7 +59,7 @@
 
 <pre><span id="VALdefault_css"><span class="keyword">val</span> <a href="code_VALMain.default_css.html">default_css</a></span> : <code class="type">unit -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">default_css&nbsp;()</code> evaluates to <a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a><code class="code">&nbsp;<span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code>.</p>
+<p><code class="code">default_css&nbsp;()</code> evaluates to <a href="Html_utils.html#VALdefault_css"><code class="code"><span class="constructor">Html_utils</span>.default_css</code></a><code class="code">&nbsp;<span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code>.</p>
 </div>
 </div>
 
@@ -67,7 +67,7 @@
 <div class="info-desc">
 <p><code class="code">html_of_doc&nbsp;options&nbsp;doc</code> evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
 
-<p><code class="code"><span class="string">"&lt;style&gt;\n"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALinternal_css"><code class="code"><span class="constructor">Html_utils</span>.internal_css</code></a><code class="code">&nbsp;default_tab_length&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n&lt;/style&gt;"</span></code></p>
+<p><code class="code"><span class="string">"&lt;style&gt;\n"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALdefault_css"><code class="code"><span class="constructor">Html_utils</span>.default_css</code></a><code class="code">&nbsp;default_tab_length&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n&lt;/style&gt;"</span></code></p>
 
 <p>where <code class="code">default_tab_length</code> is <code class="code"><span class="string">"6ch"</span></code> and <code class="code">margin_left</code> is a string determined by <code class="code">options</code> and <code class="code">doc</code>.</p>
 
