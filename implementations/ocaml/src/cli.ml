@@ -35,12 +35,12 @@ TXT-OPTIONS:
 HTML-OPTIONS:
   --margin <non-negative-integer>
   --lang <language-code>
-  --css <uri>
+  --internal-css <path-to-css-file>
+  --external-css <uri>
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
   --tags <path-to-tsv-file>
-  --font { JuliaMono | Iosevka } <path-to-font>
 
 EXML-OPTIONS:
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
@@ -70,7 +70,9 @@ let width : (int option) ref = ref None
 
 let lang : string ref = ref "en"
 
-let css : (string list) ref = ref []
+let internal_css : (string list) ref = ref []
+
+let external_css : (string list) ref = ref []
 
 let read_from_stdin : bool ref = ref false
 
@@ -81,10 +83,6 @@ let numbering : string ref = ref "a1i"
 let allow_custom_numbering : bool ref = ref false
 
 let tags : (string option) ref = ref None
-
-let font_family : string ref = ref ""
-
-let font_path : string ref = ref ""
 
 let keyspecdoc_list : t_keyspecdoc list ref = ref []
 
@@ -107,11 +105,17 @@ let keyspecdoc_width : t_keyspecdoc =
 let keyspecdoc_lang : t_keyspecdoc =
         ("--lang", Arg.Set_string lang, "")
 
-let add_css (s : string) : unit =
-        css.contents <- (s::css.contents)
+let add_internal_css (s : string) : unit =
+        internal_css.contents <- (s::internal_css.contents)
 
-let keyspecdoc_css : t_keyspecdoc =
-        ("--css", Arg.String add_css, "")
+let add_external_css (s : string) : unit =
+        external_css.contents <- (s::external_css.contents)
+
+let keyspecdoc_internal_css : t_keyspecdoc =
+        ("--internal-css", Arg.String add_internal_css, "")
+
+let keyspecdoc_external_css : t_keyspecdoc =
+        ("--external-css", Arg.String add_external_css, "")
 
 let keyspecdoc_stdin : t_keyspecdoc =
         ("-", Arg.Set read_from_stdin, "")
@@ -131,8 +135,6 @@ let add_tags (s : string) : unit =
 let keyspecdoc_tags : t_keyspecdoc =
         ("--tags", Arg.String add_tags, "")
 
-let keyspecdoc_font : t_keyspecdoc =
-        ("--font", Arg.Tuple [Arg.Set_string font_family; Arg.Set_string font_path], "")
 
 let keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
         keyspecdoc_margin;
@@ -165,11 +167,11 @@ let keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
         keyspecdoc_stdin;
         keyspecdoc_quiet;
         keyspecdoc_lang;
-        keyspecdoc_css;
+        keyspecdoc_internal_css;
+        keyspecdoc_external_css;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
         keyspecdoc_tags;
-        keyspecdoc_font;
 ]
 
 let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
@@ -177,11 +179,11 @@ let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
         keyspecdoc_stdin;
         keyspecdoc_quiet;
         keyspecdoc_lang;
-        keyspecdoc_css;
+        keyspecdoc_internal_css;
+        keyspecdoc_external_css;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
         keyspecdoc_tags;
-        keyspecdoc_font;
 ]
 
 let keyspecdoc_list_exml_of_nmm : t_keyspecdoc list = [
@@ -264,12 +266,6 @@ let anon_arg_fun arg : unit =
 
 let _ : unit =
         let _ : unit = Arg.parse_dynamic keyspecdoc_list anon_arg_fun usage in
-        let font : (string * string) option =
-		match font_family.contents, font_path.contents with
-		|"",_
-		|_,"" -> None
-		|ff,fp -> Some (ff,fp)
-	in
         match cmd_name.contents with
         |"txt-of-axml" -> (
                 let options : Common_utils.t_txt_options = {
@@ -292,12 +288,12 @@ let _ : unit =
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
                         lang = lang.contents;
-                        css = css.contents;
+                        internal_css = List.rev internal_css.contents;
+                        external_css = List.rev external_css.contents;
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
-                        font = font;
                 }
                 in
                 match read_from_stdin.contents with
@@ -340,12 +336,12 @@ let _ : unit =
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
                         lang = lang.contents;
-                        css = css.contents;
+                        internal_css = List.rev internal_css.contents;
+                        external_css = List.rev external_css.contents;
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
-                        font = font;
                 }
                 in
                 match read_from_stdin.contents with
@@ -366,12 +362,12 @@ let _ : unit =
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
                         lang = lang.contents;
-                        css = css.contents;
+                        internal_css = List.rev internal_css.contents;
+                        external_css = List.rev external_css.contents;
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
-                        font = font;
                 }
                 in
                 match path_to_xml_file.contents with
@@ -382,12 +378,12 @@ let _ : unit =
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
                         lang = lang.contents;
-                        css = css.contents;
+                        internal_css = List.rev internal_css.contents;
+                        external_css = List.rev external_css.contents;
                         quiet = quiet.contents;
                         numbering = numbering.contents;
                         allow_custom_numbering = allow_custom_numbering.contents;
                         tags = tags.contents;
-                        font = font;
                 }
                 in
                 match path_to_nmm_file.contents with

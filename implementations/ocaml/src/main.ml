@@ -44,14 +44,16 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
                 |Some m -> (string_of_int m) ^ "rem"
                 |None -> Html_utils.margin_left_of_tr_doc doc
         in
-        let font_css : string =
-		match options.font with
-		|None -> ""
-		|Some (font_family, font_path) -> Html_utils.font_css_of_family_path font_family font_path in
-        let internal_css: string = ("<style>\n" ^ (Html_utils.internal_css "6ch" margin_left) ^ font_css ^ "\n</style>") in
+        let internal_css: string = (
+		"<style>\n" ^ 
+		(Html_utils.default_css "6ch" margin_left) ^ "\n" ^
+		(String.concat "\n" (List.map IO.string_of_file options.internal_css)) ^ 
+		"\n</style>"
+	) 
+	in
         let external_css: string =
                 let map (uri : string) : string = ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n") in
-                String.concat "" (List.map map options.css)
+                String.concat "" (List.map map options.external_css)
         in
         let intro : string = (
                 "<!DOCTYPE html>\n" ^
@@ -145,7 +147,7 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
         |Xml_light_errors.File_not_found e -> raise (Error (String.concat " " ["Xml_light_errors.File_not_found:";e]))
         |Xml_right.Error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_right.Error:";e]))
 
-let default_css () : string = Html_utils.internal_css "6ch" "0rem"
+let default_css () : string = Html_utils.default_css "6ch" "0rem"
 
 
 let exml_of_doc (options : Common_utils.t_exml_options) (doc : Doc_types.tr_doc) : string =

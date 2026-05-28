@@ -69,12 +69,12 @@ KEY_VALUE := | 'doc-width=' INT
              | 'abstract-indent=' INT
              | 'refs-indent=' INT
              | 'tab-length=' INT
-             | 'abstract-hdr=' LABEL_FORM ',' CREF_FORM
-             | 'refs-hdr=' LABEL_FORM ',' CREF_FORM
-             | 'ch-prefix=' LABEL_FORM ',' CREF_FORM
-             | 'sec-prefix=' LABEL_FORM ',' CREF_FORM
-             | 'par-prefix=' LABEL_FORM ',' CREF_FORM
-             | 'tag=' TAG '>' LABEL_FORM ',' CREF_FORM
+             | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'tag=' TAG ',' LABEL_FORM [',' CREF_FORM]
 
 LABEL_FORM := TAG
 
@@ -231,12 +231,12 @@ type t_txt_options = {
 type t_html_options = {
         margin : int option;
         lang : string;
-        css : string list;
+        internal_css : string list;
+        external_css : string list;
         quiet : bool;
         numbering : string;
         allow_custom_numbering : bool;
         tags : string option;
-        font : (string * string) option;
 }
 
 type t_exml_options = {

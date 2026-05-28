@@ -39,12 +39,12 @@ TXT-OPTIONS:
 HTML-OPTIONS:
   --margin <numeral>
   --lang <language-code>
-  --css <uri>
+  --internal-css <path-to-css-file>
+  --external-css <uri>
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
   --tags <path-to-tsv-file>
-  --font { JuliaMono | Iosevka } <path-to-font>
 
 EXML-OPTIONS:
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }

@@ -107,7 +107,7 @@ let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
         let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in
         String.concat "" [Printf.sprintf "%.2f" margin; "rem"]
 
-let internal_css (tab_length : string) (margin_left : string) : string =
+let default_css (tab_length : string) (margin_left : string) : string =
 "
 html {
     font-family : monospace;
@@ -486,73 +486,3 @@ h2, h3, h4, h5 {
   }
 }"
 
-let font_css_of_family_path (font_family : string) (font_path : string) : string =
-match font_family with
-|"JuliaMono" ->
-"@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/JuliaMono-Regular.ttf);
-  font-weight : normal;
-  font-style  : normal;
-}
-
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/JuliaMono-Bold.ttf);
-  font-weight : bold;
-  font-style  : normal;
-}
-
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/JuliaMono-RegularItalic.ttf);
-  font-weight : normal;
-  font-style  : italic;
-}
-
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/JuliaMono-BoldItalic.ttf);
-  font-weight : bold;
-  font-style  : italic;
-}
-
-html {
-  font-family : " ^ font_family ^ ";
-}
-"
-|"Iosevka" ->
-"
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/IosevkaCustom-Fixed-Slab-ExtraExtended-Regular.ttf);
-  font-weight : normal;
-  font-style  : normal;
-}
-
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/IosevkaCustom-Fixed-Slab-ExtraExtended-Bold.ttf);
-  font-weight : bold;
-  font-style  : normal;
-}
-
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/IosevkaCustom-Fixed-Slab-ExtraExtended-Italic.ttf);
-  font-weight : normal;
-  font-style  : italic;
-}
-
-@font-face {
-  font-family : " ^ font_family ^ ";
-  src         : url(" ^ font_path ^ "/IosevkaCustom-Fixed-Slab-ExtraExtended-BoldItalic.ttf);
-  font-weight : bold;
-  font-style  : italic;
-}
-
-html {
-  font-family : " ^ font_family ^ ";
-}
-"
-|_ -> raise (Error ("unknown font-family: \'" ^ font_family ^"\'"))

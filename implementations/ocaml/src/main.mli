@@ -18,14 +18,14 @@ val txt_of_doc : Common_utils.t_txt_options -> Doc_types.tr_doc -> string
 
 val default_css : unit -> string
 (**
-[default_css ()] evaluates to {!val:Html_utils.internal_css}[ "6ch" "0"].
+[default_css ()] evaluates to {!val:Html_utils.default_css}[ "6ch" "0"].
 *)
 
 val html_of_doc : Common_utils.t_html_options -> Doc_types.tr_doc -> string
 (**
 [html_of_doc options doc] evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of
 
-["<style>\n" ^ (]{!val:Html_utils.internal_css}[ default_tab_length margin_left) ^ "\n</style>"]
+["<style>\n" ^ (]{!val:Html_utils.default_css}[ default_tab_length margin_left) ^ "\n</style>"]
 
 where [default_tab_length] is ["6ch"] and [margin_left] is a string determined by [options] and [doc].
 
