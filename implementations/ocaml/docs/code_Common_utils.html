@@ -1562,14 +1562,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;nte_table<br>
 <br>
 <br>
-<span class="keyword">let</span>&nbsp;nte_table_of_ts_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(hdr&nbsp;:&nbsp;ts_hdr)&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(hdr&nbsp;:&nbsp;ts_hdr)&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hdr&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_hdr</span>&nbsp;txt_lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_txt_lines&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;([]&nbsp;:&nbsp;t_nte_table)&nbsp;txt_lines<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_hdr</span>&nbsp;txt_lines&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_txt_lines&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;txt_lines<br>
 <br>
-<span class="keyword">let</span>&nbsp;nte_table_of_ts_hdr_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(hdr_opt&nbsp;:&nbsp;ts_hdr&nbsp;option)&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;nte_table_of_ts_hdr_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(hdr_opt&nbsp;:&nbsp;ts_hdr&nbsp;option)&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hdr_opt&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_hdr&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;nte_table_of_ts_hdr&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;hdr<br>
 <br>
 <br>
 <span class="comment">(*&nbsp;options&nbsp;*)</span><br>

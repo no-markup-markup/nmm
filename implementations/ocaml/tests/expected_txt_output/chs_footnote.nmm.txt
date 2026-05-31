@@ -10,16 +10,16 @@
        If a footnote is referenced multiple times², it will be displayed
        multiple times with the same content but different numbering.³
 
-───────────────────────────────────────────────────────────────────────────
-¹  Here is the content of that footnote, which should be displayed at the
-   bottom of the page on which it is referenced, but may occur anywhere in
-   the source document (modulo scope).
+       ────────────────────────────────────────────────────────────────────
+       ¹     Here is the content of that footnote, which should be
+             displayed at the bottom of the page on which it is referenced,
+             but may occur anywhere in the source document (modulo scope).
 
-²  Any number of times.
+       ²     Any number of times.
 
-³  Here is the content of that footnote, which should be displayed at the
-   bottom of the page on which it is referenced, but may occur anywhere in
-   the source document (modulo scope).
+       ³     Here is the content of that footnote, which should be
+             displayed at the bottom of the page on which it is referenced,
+             but may occur anywhere in the source document (modulo scope).
 
 
 
@@ -32,13 +32,13 @@
        If a footnote is referenced multiple times², it will be displayed
        multiple times with the same content but different numbering.³
 
-───────────────────────────────────────────────────────────────────────────
-¹  Here is the content of that footnote, which should be displayed at the
-   bottom of the page on which it is referenced, but may occur anywhere in
-   the source document (modulo scope).
+       ────────────────────────────────────────────────────────────────────
+       ¹     Here is the content of that footnote, which should be
+             displayed at the bottom of the page on which it is referenced,
+             but may occur anywhere in the source document (modulo scope).
 
-²  Any number of times.
+       ²     Any number of times.
 
-³  Here is the content of that footnote, which should be displayed at the
-   bottom of the page on which it is referenced, but may occur anywhere in
-   the source document (modulo scope).
+       ³     Here is the content of that footnote, which should be
+             displayed at the bottom of the page on which it is referenced,
+             but may occur anywhere in the source document (modulo scope).

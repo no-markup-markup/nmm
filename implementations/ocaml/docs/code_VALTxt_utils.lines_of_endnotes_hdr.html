@@ -25,7 +25,7 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_endnotes_hdr</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
+<code class="code"><span class="keyword">let</span> lines_of_endnotes_hdr (doc_settings : t_doc_settings) (path : t_path) : string list =
         <span class="keyword">match</span> doc_settings.endnotes_hdr <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> hdr <span class="keywordsign">-&gt;</span> lines_of_string doc_settings 0 hdr</code></body></html>
+        <span class="keywordsign">|</span><span class="constructor">Some</span> hdr <span class="keywordsign">-&gt;</span> lines_of_string doc_settings (indent_of_path doc_settings path) hdr</code></body></html>

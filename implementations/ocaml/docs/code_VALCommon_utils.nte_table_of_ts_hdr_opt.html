@@ -25,7 +25,7 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.nte_table_of_ts_hdr_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr_opt : ts_hdr option) =
+<code class="code"><span class="keyword">let</span> nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (hdr_opt : ts_hdr option) =
         <span class="keyword">match</span> hdr_opt <span class="keyword">with</span>
         <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> hdr <span class="keywordsign">-&gt;</span> nte_table_of_ts_hdr doc_settings cref_table path hdr</code></body></html>
+        <span class="keywordsign">|</span><span class="constructor">Some</span> hdr <span class="keywordsign">-&gt;</span> nte_table_of_ts_hdr doc_settings cref_table path nte_table hdr</code></body></html>

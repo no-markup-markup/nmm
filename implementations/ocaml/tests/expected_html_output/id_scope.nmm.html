@@ -301,16 +301,20 @@ h2, h3, h4, h5 {
     margin-left : 6ch;
 }
 
-/******** ENDNOTES and FOOTNOTES **********/
+/******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
+}
+
+.sec_endnotes, .par_endnotes {
+    margin-left : 3.00rem;
 }
 
 .blk_nte_lbl {
@@ -318,7 +322,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : 3ch;
+    margin-left : 6ch;
 }
 
 /*************** BIB ********************/
@@ -395,14 +399,24 @@ h2, h3, h4, h5 {
 <div class="par_main">
 <p class="blk txt">In LaTeX, for example, one may want to refer to something “locally”---the label (LaTeX&apos;s incorrectly named version of ID) is used for cross-references only in close proximity to where it is defined. This typically leads to the introduction of keysmashes<a class="txt_unit_nte" href="#NTE_keysmashes_PAR_1_0" id="ref_NTE_keysmashes_PAR_1_0">¹</a>.</p>
 </div>
+<footer class="par_endnotes">
+<div class="blk nte" id="NTE_keysmashes_PAR_1_0"><a class="blk_nte_lbl" href="#ref_NTE_keysmashes_PAR_1_0">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">https://en.wikipedia.org/wiki/Keysmash</p>
+</div></div>
+</footer>
 </section>
 <section class="PAR par" id="PAR_workings">
 <h2 class="par_lbl hdr">¶ 2</h2>
 <div class="clear"></div>
 <div class="par_main">
-<p class="blk txt">The ID of the note in the previous paragraph has the suffix ‘:PAR’. This means that the ID has <em class="txt_unit_emph">paragraph scope</em>: one may only “refer”<a class="txt_unit_nte" href="#NTE_refer_PAR_2_1" id="ref_NTE_refer_PAR_2_1">²</a> to that note in the paragraph where it is defined.</p>
+<p class="blk txt">The ID of the note in the previous paragraph has the suffix ‘:PAR’. This means that the ID has <em class="txt_unit_emph">paragraph scope</em>: one may only “refer”<a class="txt_unit_nte" href="#NTE_refer_PAR_2_1" id="ref_NTE_refer_PAR_2_1">¹</a> to that note in the paragraph where it is defined.</p>
 <p class="blk txt">The ID of <a class="txt_unit_c_ref" href="#PAR_intro">¶ 1</a> is ‘[PAR:intro]’ and thus has no scope-defining suffix. This means that <a class="txt_unit_c_ref" href="#PAR_intro">¶ 1</a> has <em class="txt_unit_emph">global scope</em>: it may be referred to (by using ‘<a class="txt_unit_c_ref" href="#PAR_intro">¶ 1</a>’ anywhere in the nmm source).</p>
 </div>
+<footer class="par_endnotes">
+<div class="blk nte" id="NTE_refer_PAR_2_1"><a class="blk_nte_lbl" href="#ref_NTE_refer_PAR_2_1">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Scare quotes because ‘referring to a footnote/endnote’ sounds a bit weird to me.</p>
+</div></div>
+</footer>
 </section>
 <section class="par">
 <h2 class="par_lbl hdr">¶ 3</h2>
@@ -413,7 +427,7 @@ h2, h3, h4, h5 {
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
 <div class="blk_itm_main">
-<p class="blk txt"><em class="txt_unit_emph">global scope</em>---the default<a class="txt_unit_nte" href="#NTE_gbl_scope_PAR_3_2" id="ref_NTE_gbl_scope_PAR_3_2">³</a>;</p>
+<p class="blk txt"><em class="txt_unit_emph">global scope</em>---the default<a class="txt_unit_nte" href="#NTE_gbl_scope_PAR_3_2" id="ref_NTE_gbl_scope_PAR_3_2">¹</a>;</p>
 </div>
 </div>
 <div class="blk itm">
@@ -438,19 +452,13 @@ h2, h3, h4, h5 {
 </div>
 </div>
 </div>
-</section>
-</div>
-<footer class="doc_endnotes">
-<div class="blk nte" id="NTE_keysmashes_PAR_¹_0"><a class="blk_nte_lbl" href="#ref_NTE_keysmashes_PAR_¹_0">¹</a><div class="clear"></div><div class="blk_nte_main">
-<p class="blk txt">https://en.wikipedia.org/wiki/Keysmash</p>
-</div></div>
-<div class="blk nte" id="NTE_refer_PAR_²_1"><a class="blk_nte_lbl" href="#ref_NTE_refer_PAR_²_1">²</a><div class="clear"></div><div class="blk_nte_main">
-<p class="blk txt">Scare quotes because ‘referring to a footnote/endnote’ sounds a bit weird to me.</p>
-</div></div>
-<div class="blk nte" id="NTE_gbl_scope_PAR_³_2"><a class="blk_nte_lbl" href="#ref_NTE_gbl_scope_PAR_³_2">³</a><div class="clear"></div><div class="blk_nte_main">
+<footer class="par_endnotes">
+<div class="blk nte" id="NTE_gbl_scope_PAR_3_2"><a class="blk_nte_lbl" href="#ref_NTE_gbl_scope_PAR_3_2">¹</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">One may explicitly indicate global scope by the suffix ‘:GBL’. (This note has ID ‘NTE:gbl_scope:PAR’, just as the note in <a class="txt_unit_c_ref" href="#PAR_workings">¶ 2</a> has. The duplication this ID is unproblematic since they occur in different scopes.</p>
 </div></div>
 </footer>
+</section>
+</div>
 </main>
 </body>
 </html>

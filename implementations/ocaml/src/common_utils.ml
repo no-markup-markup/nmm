@@ -1535,14 +1535,14 @@ let string_of_ts_nte_inline (doc_settings : t_doc_settings) (nte_table : t_nte_t
         aux nte_table
 
 
-let nte_table_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr : ts_hdr) =
+let nte_table_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (hdr : ts_hdr) =
         match hdr with
-        |Cs_hdr txt_lines -> nte_table_of_ts_txt_lines doc_settings cref_table path ([] : t_nte_table) txt_lines
+        |Cs_hdr txt_lines -> nte_table_of_ts_txt_lines doc_settings cref_table path nte_table txt_lines
 
-let nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (hdr_opt : ts_hdr option) =
+let nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) (hdr_opt : ts_hdr option) =
         match hdr_opt with
         |None -> []
-        |Some hdr -> nte_table_of_ts_hdr doc_settings cref_table path hdr
+        |Some hdr -> nte_table_of_ts_hdr doc_settings cref_table path nte_table hdr
 
 
 (* options *)

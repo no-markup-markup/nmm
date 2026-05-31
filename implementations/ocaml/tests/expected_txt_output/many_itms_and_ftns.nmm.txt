@@ -111,114 +111,114 @@
 (bf)  An item⁵⁶
 
 ────────────────────────────────────────────────────────────────────
-¹  A footnote
+¹     A footnote
 
-²  A footnote
+²     A footnote
 
-³  A footnote
+³     A footnote
 
-⁴  A footnote
+⁴     A footnote
 
-⁵  A footnote
+⁵     A footnote
 
-⁶  A footnote
+⁶     A footnote
 
-⁷  A footnote
+⁷     A footnote
 
-⁸  A footnote
+⁸     A footnote
 
-⁹  A footnote
+⁹     A footnote
 
-¹⁰ A footnote
+¹⁰    A footnote
 
-¹¹ A footnote
+¹¹    A footnote
 
-¹² A footnote
+¹²    A footnote
 
-¹³ A footnote
+¹³    A footnote
 
-¹⁴ A footnote
+¹⁴    A footnote
 
-¹⁵ A footnote
+¹⁵    A footnote
 
-¹⁶ A footnote
+¹⁶    A footnote
 
-¹⁷ A footnote
+¹⁷    A footnote
 
-¹⁸ A footnote
+¹⁸    A footnote
 
-¹⁹ A footnote
+¹⁹    A footnote
 
-²⁰ A footnote
+²⁰    A footnote
 
-²¹ A footnote
+²¹    A footnote
 
-²² A footnote
+²²    A footnote
 
-²³ A footnote
+²³    A footnote
 
-²⁴ A footnote
+²⁴    A footnote
 
-²⁵ A footnote
+²⁵    A footnote
 
-²⁶ A footnote
+²⁶    A footnote
 
-²⁷ A footnote
+²⁷    A footnote
 
-²⁸ A footnote
+²⁸    A footnote
 
-²⁹ A footnote
+²⁹    A footnote
 
-³⁰ A footnote
+³⁰    A footnote
 
-³¹ A footnote
+³¹    A footnote
 
-³² A footnote
+³²    A footnote
 
-³³ A footnote
+³³    A footnote
 
-³⁴ A footnote
+³⁴    A footnote
 
-³⁵ A footnote
+³⁵    A footnote
 
-³⁶ A footnote
+³⁶    A footnote
 
-³⁷ A footnote
+³⁷    A footnote
 
-³⁸ A footnote
+³⁸    A footnote
 
-³⁹ A footnote
+³⁹    A footnote
 
-⁴⁰ A footnote
+⁴⁰    A footnote
 
-⁴¹ A footnote
+⁴¹    A footnote
 
-⁴² A footnote
+⁴²    A footnote
 
-⁴³ A footnote
+⁴³    A footnote
 
-⁴⁴ A footnote
+⁴⁴    A footnote
 
-⁴⁵ A footnote
+⁴⁵    A footnote
 
-⁴⁶ A footnote
+⁴⁶    A footnote
 
-⁴⁷ A footnote
+⁴⁷    A footnote
 
-⁴⁸ A footnote
+⁴⁸    A footnote
 
-⁴⁹ A footnote
+⁴⁹    A footnote
 
-⁵⁰ A footnote
+⁵⁰    A footnote
 
-⁵¹ A footnote
+⁵¹    A footnote
 
-⁵² A footnote
+⁵²    A footnote
 
-⁵³ A footnote
+⁵³    A footnote
 
-⁵⁴ A footnote
+⁵⁴    A footnote
 
-⁵⁵ A footnote
+⁵⁵    A footnote
 
-⁵⁶ A footnote
+⁵⁶    A footnote

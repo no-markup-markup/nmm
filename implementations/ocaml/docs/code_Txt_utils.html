@@ -76,7 +76,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BLT_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl<br>
 <br>
 <br>
@@ -105,7 +105,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BLT_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_LINE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
 <br>
 <br>
@@ -372,10 +372,10 @@
 <br>
 <span class="comment">(*&nbsp;endnotes&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;lines_of_endnotes_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;lines_of_endnotes_hdr&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.endnotes_hdr&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings&nbsp;0&nbsp;hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings&nbsp;(indent_of_path&nbsp;doc_settings&nbsp;path)&nbsp;hdr<br>
 <br>
 <br>
 <span class="comment">(*&nbsp;blk_txt&nbsp;*)</span><br>

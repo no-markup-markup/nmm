@@ -205,15 +205,15 @@ type t_nte_entry = Ftn_entry_ref of (Doc_types.ts_nte_ref * t_path * int * Doc_t
 
 type t_nte_table = t_nte_entry list
 
-val nte_table_of_ts_blk_txt : t_doc_settings -> t_cref_table -> t_path -> t_nte_table  -> Doc_types.ts_blk_txt -> t_nte_table
+val nte_table_of_ts_blk_txt : t_doc_settings -> t_cref_table -> t_path -> t_nte_table -> Doc_types.ts_blk_txt -> t_nte_table
 
-val nte_table_of_tr_dsp_line : t_doc_settings -> t_cref_table -> t_path -> t_nte_table  -> Doc_types.tr_dsp_line -> t_nte_table
+val nte_table_of_tr_dsp_line : t_doc_settings -> t_cref_table -> t_path -> t_nte_table -> Doc_types.tr_dsp_line -> t_nte_table
 
 val string_of_ts_nte_ref : t_doc_settings -> t_nte_table -> t_path -> Doc_types.ts_nte_ref -> string
 
 val string_of_ts_nte_inline : t_doc_settings -> t_nte_table -> t_path -> Doc_types.ts_nte_inline -> string
 
-val nte_table_of_ts_hdr_opt : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_hdr option -> t_nte_table
+val nte_table_of_ts_hdr_opt : t_doc_settings -> t_cref_table -> t_path -> t_nte_table -> Doc_types.ts_hdr option -> t_nte_table
 
 val reference_of_ts_nte_ref : t_doc_settings -> t_cref_table -> t_path -> Doc_types.ts_nte_ref -> Doc_types.tr_blk_nte option
 

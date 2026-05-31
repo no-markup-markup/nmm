@@ -301,16 +301,20 @@ h2, h3, h4, h5 {
     margin-left : 6ch;
 }
 
-/******** ENDNOTES and FOOTNOTES **********/
+/******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
+}
+
+.sec_endnotes, .par_endnotes {
+    margin-left : 4.20rem;
 }
 
 .blk_nte_lbl {
@@ -318,7 +322,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : 3ch;
+    margin-left : 6ch;
 }
 
 /*************** BIB ********************/
@@ -399,28 +403,7 @@ h2, h3, h4, h5 {
 <p class="blk txt">This is a sentence with a reference to a footnote attached to it.<a class="txt_unit_nte" href="#NTE_one_0" id="ref_NTE_one_0">¹</a></p>
 <p class="blk txt">This is some text with a longer footnote<a class="txt_unit_nte" href="#NTE1" id="ref_NTE1">²</a> in the middle of it.</p>
 </div>
-</section>
-<section class="par">
-<h3 class="par_lbl hdr">¶ 1.2</h3>
-<div class="clear"></div>
-<div class="par_main">
-<p class="blk txt">If a footnote is referenced multiple times<a class="txt_unit_nte" href="#NTE_times_2" id="ref_NTE_times_2">³</a>, it will be displayed multiple times with the same content but different numbering.<a class="txt_unit_nte" href="#NTE_one_3" id="ref_NTE_one_3">⁴</a></p>
-<p class="blk txt">This is some text with a short footnote<a class="txt_unit_nte" href="#NTE4" id="ref_NTE4">⁵</a> in the middle of it.<a class="txt_unit_nte" href="#NTE5" id="ref_NTE5">⁶</a></p>
-</div>
-</section>
-</div>
-</section>
-<section class="sec blks">
-<h2 class="sec_lbl hdr">§ 2</h2>
-<div class="sec_main">
-<p class="blk txt">This is a sentence with a reference to a footnote attached to it.<a class="txt_unit_nte" href="#NTE_one_6" id="ref_NTE_one_6">⁷</a></p>
-<p class="blk txt">This is some text with a longer footnote<a class="txt_unit_nte" href="#NTE7" id="ref_NTE7">⁸</a> in the middle of it.</p>
-<p class="blk txt">If a footnote is referenced multiple times<a class="txt_unit_nte" href="#NTE_times_8" id="ref_NTE_times_8">⁹</a>, it will be displayed multiple times with the same content but different numbering.<a class="txt_unit_nte" href="#NTE_one_9" id="ref_NTE_one_9">¹⁰</a></p>
-<p class="blk txt">This is some text with a short footnote<a class="txt_unit_nte" href="#NTE10" id="ref_NTE10">¹¹</a> in the middle of it.<a class="txt_unit_nte" href="#NTE11" id="ref_NTE11">¹²</a></p>
-</div>
-</section>
-</div>
-<footer class="doc_endnotes">
+<footer class="par_endnotes">
 <div class="blk nte" id="NTE_one_0"><a class="blk_nte_lbl" href="#ref_NTE_one_0">¹</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</p>
 </div></div>
@@ -435,22 +418,45 @@ h2, h3, h4, h5 {
 </div>
 <p class="blk txt">as we see in <a class="txt_unit_c_ref" href="#ITM_a">(a)</a>.</p>
 </div></div>
-<div class="blk nte" id="NTE_times_2"><a class="blk_nte_lbl" href="#ref_NTE_times_2">³</a><div class="clear"></div><div class="blk_nte_main">
+</footer>
+</section>
+<section class="par">
+<h3 class="par_lbl hdr">¶ 1.2</h3>
+<div class="clear"></div>
+<div class="par_main">
+<p class="blk txt">If a footnote is referenced multiple times<a class="txt_unit_nte" href="#NTE_times_2" id="ref_NTE_times_2">¹</a>, it will be displayed multiple times with the same content but different numbering.<a class="txt_unit_nte" href="#NTE_one_3" id="ref_NTE_one_3">²</a></p>
+<p class="blk txt">This is some text with a short footnote<a class="txt_unit_nte" href="#NTE4" id="ref_NTE4">³</a> in the middle of it.<a class="txt_unit_nte" href="#NTE5" id="ref_NTE5">⁴</a></p>
+</div>
+<footer class="par_endnotes">
+<div class="blk nte" id="NTE_times_2"><a class="blk_nte_lbl" href="#ref_NTE_times_2">¹</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Any number of times.</p>
 </div></div>
-<div class="blk nte" id="NTE_one_3"><a class="blk_nte_lbl" href="#ref_NTE_one_3">⁴</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE_one_3"><a class="blk_nte_lbl" href="#ref_NTE_one_3">²</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</p>
 </div></div>
-<div class="blk nte" id="NTE4"><a class="blk_nte_lbl" href="#ref_NTE4">⁵</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE4"><a class="blk_nte_lbl" href="#ref_NTE4">³</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">The use of footnotes should be discouraged!</p>
 </div></div>
-<div class="blk nte" id="NTE5"><a class="blk_nte_lbl" href="#ref_NTE5">⁶</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE5"><a class="blk_nte_lbl" href="#ref_NTE5">⁴</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Really!</p>
 </div></div>
-<div class="blk nte" id="NTE_one_6"><a class="blk_nte_lbl" href="#ref_NTE_one_6">⁷</a><div class="clear"></div><div class="blk_nte_main">
+</footer>
+</section>
+</div>
+</section>
+<section class="sec blks">
+<h2 class="sec_lbl hdr">§ 2</h2>
+<div class="sec_main">
+<p class="blk txt">This is a sentence with a reference to a footnote attached to it.<a class="txt_unit_nte" href="#NTE_one_6" id="ref_NTE_one_6">¹</a></p>
+<p class="blk txt">This is some text with a longer footnote<a class="txt_unit_nte" href="#NTE7" id="ref_NTE7">²</a> in the middle of it.</p>
+<p class="blk txt">If a footnote is referenced multiple times<a class="txt_unit_nte" href="#NTE_times_8" id="ref_NTE_times_8">³</a>, it will be displayed multiple times with the same content but different numbering.<a class="txt_unit_nte" href="#NTE_one_9" id="ref_NTE_one_9">⁴</a></p>
+<p class="blk txt">This is some text with a short footnote<a class="txt_unit_nte" href="#NTE10" id="ref_NTE10">⁵</a> in the middle of it.<a class="txt_unit_nte" href="#NTE11" id="ref_NTE11">⁶</a></p>
+</div>
+<footer class="sec_endnotes">
+<div class="blk nte" id="NTE_one_6"><a class="blk_nte_lbl" href="#ref_NTE_one_6">¹</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</p>
 </div></div>
-<div class="blk nte" id="NTE7"><a class="blk_nte_lbl" href="#ref_NTE7">⁸</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE7"><a class="blk_nte_lbl" href="#ref_NTE7">²</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">The use of footnotes should be discouraged,</p>
 <div class="ITM blk itm" id="ITM_a">
 <div class="blk_itm_lbl">(a)</div>
@@ -461,19 +467,21 @@ h2, h3, h4, h5 {
 </div>
 <p class="blk txt">as we see in <a class="txt_unit_c_ref" href="#ITM_a">(a)</a>.</p>
 </div></div>
-<div class="blk nte" id="NTE_times_8"><a class="blk_nte_lbl" href="#ref_NTE_times_8">⁹</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE_times_8"><a class="blk_nte_lbl" href="#ref_NTE_times_8">³</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Any number of times.</p>
 </div></div>
-<div class="blk nte" id="NTE_one_9"><a class="blk_nte_lbl" href="#ref_NTE_one_9">¹⁰</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE_one_9"><a class="blk_nte_lbl" href="#ref_NTE_one_9">⁴</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</p>
 </div></div>
-<div class="blk nte" id="NTE10"><a class="blk_nte_lbl" href="#ref_NTE10">¹¹</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE10"><a class="blk_nte_lbl" href="#ref_NTE10">⁵</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">The use of footnotes should be discouraged!</p>
 </div></div>
-<div class="blk nte" id="NTE11"><a class="blk_nte_lbl" href="#ref_NTE11">¹²</a><div class="clear"></div><div class="blk_nte_main">
+<div class="blk nte" id="NTE11"><a class="blk_nte_lbl" href="#ref_NTE11">⁶</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Really!</p>
 </div></div>
 </footer>
+</section>
+</div>
 </main>
 </body>
 </html>

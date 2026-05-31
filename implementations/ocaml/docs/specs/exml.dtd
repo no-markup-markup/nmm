@@ -24,13 +24,13 @@
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT sec (((sec_lbl, sec_hdr) | sec_lbl_hdr), sec_main)>
+<!ELEMENT sec (((sec_lbl, sec_hdr) | sec_lbl_hdr), sec_main, sec_endnotes?)>
 <!ATTLIST sec 
 	class CDATA #REQUIRED
 	id CDATA #IMPLIED
 >
 
-<!ELEMENT par ((par_lbl, clear, par_main_w_hdr) | (par_lbl_hdr, clear, par_main))>
+<!ELEMENT par ((par_lbl, clear, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, clear, par_main, par_endnotes?))>
 <!ATTLIST par
 	class CDATA #REQUIRED
 	id CDATA #IMPLIED
@@ -103,9 +103,13 @@
 
 <!ELEMENT doc_endnotes (doc_endnotes_hdr?, blk_nte+)>
 <!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)>
+<!ELEMENT sec_endnotes (sec_endnotes_hdr?, blk_nte+)>
+<!ELEMENT par_endnotes (par_endnotes_hdr?, blk_nte+)>
+
 <!ELEMENT doc_endnotes_hdr (#PCDATA)>
 <!ELEMENT ch_endnotes_hdr (#PCDATA)>
-
+<!ELEMENT sec_endnotes_hdr (#PCDATA)>
+<!ELEMENT par_endnotes_hdr (#PCDATA)>
 
 <!ELEMENT blk_nte (blk_nte_lbl, clear, blk_nte_main)>
 <!ATTLIST blk_nte

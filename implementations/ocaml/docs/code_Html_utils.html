@@ -113,8 +113,13 @@
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"doc_endnotes"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"footer"</span>,[(<span class="string">"class"</span>,<span class="string">"doc_endnotes"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"ch_endnotes"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"footer"</span>,[(<span class="string">"class"</span>,<span class="string">"ch_endnotes"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec_endnotes"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"footer"</span>,[(<span class="string">"class"</span>,<span class="string">"sec_endnotes"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_endnotes"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"footer"</span>,[(<span class="string">"class"</span>,<span class="string">"par_endnotes"</span>)],&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"doc_endnotes_hdr"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h2"</span>,[(<span class="string">"class"</span>,<span class="string">"doc_endnotes_hdr"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"ch_endnotes_hdr"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h3"</span>,[(<span class="string">"class"</span>,<span class="string">"ch_endnotes_hdr"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec_endnotes_hdr"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h4"</span>,[(<span class="string">"class"</span>,<span class="string">"sec_endnotes_hdr"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_endnotes_hdr"</span>,_,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"h5"</span>,[(<span class="string">"class"</span>,<span class="string">"sec_endnotes_hdr"</span>)],<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte"</span>,attr_list,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,(<span class="string">"class"</span>,<span class="string">"blk&nbsp;nte"</span>)::attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte_lbl"</span>,attr_list,xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"a"</span>,(<span class="string">"class"</span>,<span class="string">"blk_nte_lbl"</span>)::attr_list,<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
@@ -430,16 +435,20 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>^&nbsp;tab_length&nbsp;^<span class="string">";<br>
 }<br>
 <br>
-/********&nbsp;ENDNOTES&nbsp;and&nbsp;FOOTNOTES&nbsp;**********/<br>
+/********&nbsp;ENDNOTES/FOOTNOTES&nbsp;************/<br>
 <br>
-.doc_endnotes_hdr,&nbsp;.ch_endnotes_hdr&nbsp;{<br>
+.doc_endnotes_hdr,&nbsp;.ch_endnotes_hdr,&nbsp;.sec_endnotes_hdr,&nbsp;.par_endnotes_hdr&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
 }<br>
 <br>
-.doc_endnotes,&nbsp;.ch_endnotes&nbsp;{<br>
+.doc_endnotes,&nbsp;.ch_endnotes,&nbsp;.sec_endnotes,&nbsp;.par_endnotes&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;:&nbsp;2rem;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;border-top&nbsp;&nbsp;:&nbsp;thin&nbsp;solid;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;padding-top&nbsp;:&nbsp;0.5rem;<br>
+}<br>
+<br>
+.sec_endnotes,&nbsp;.par_endnotes&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .blk_nte_lbl&nbsp;{<br>
@@ -447,7 +456,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .blk_nte_main&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;3ch;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>^&nbsp;tab_length&nbsp;^<span class="string">";<br>
 }<br>
 <br>
 /***************&nbsp;BIB&nbsp;********************/<br>

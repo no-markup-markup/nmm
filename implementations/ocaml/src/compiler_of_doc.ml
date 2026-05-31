@@ -145,6 +145,32 @@ and acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
 
 (* blk_nte *)
 
+
+and paths_match (path : t_path) (table_path : t_path) : bool =
+	match List.rev path, List.rev table_path with
+	|[],_ -> true
+	|(CH_NODE path_ch)::[], (CH_NODE table_ch)::_ -> path_ch = table_ch
+	|(SEC_NODE path_sec)::[], (SEC_NODE table_sec)::_ -> path_sec = table_sec
+	|(APP_NODE path_app)::[], (APP_NODE table_app)::_ -> path_app = table_app 
+	|(PAR_NODE path_par)::[], (PAR_NODE table_par)::_ -> path_par = table_par
+	|(CH_NODE path_ch)::((SEC_NODE path_sec)::[]), (CH_NODE table_ch)::((SEC_NODE table_sec)::_) -> 
+		path_ch = table_ch && path_sec = table_sec
+	|(CH_NODE path_ch)::((APP_NODE path_app)::[]), (CH_NODE table_ch)::((APP_NODE table_app)::_) -> 
+		path_ch = table_ch && path_app = table_app
+	|(CH_NODE path_ch)::((PAR_NODE path_par)::[]), (CH_NODE table_ch)::((PAR_NODE table_par)::_) -> 
+		path_ch = table_ch && path_par = table_par
+	|(CH_NODE path_ch)::((SEC_NODE path_sec)::(PAR_NODE path_par::[])), (CH_NODE table_ch)::((SEC_NODE table_sec)::(PAR_NODE table_par::_)) -> 
+		path_ch = table_ch && path_sec = table_sec && path_par = table_par
+	|(CH_NODE path_ch)::((APP_NODE path_app)::(PAR_NODE path_par::[])), (CH_NODE table_ch)::((APP_NODE table_app)::(PAR_NODE table_par::_)) -> 
+		path_ch = table_ch && path_app = table_app && path_par = table_par
+	|((SEC_NODE path_sec)::(PAR_NODE path_par::[])), ((SEC_NODE table_sec)::(PAR_NODE table_par::_)) -> 
+		path_sec = table_sec && path_par = table_par
+	|((APP_NODE path_app)::(PAR_NODE path_par::[])), ((APP_NODE table_app)::(PAR_NODE table_par::_)) -> 
+		path_app = table_app && path_par = table_par
+	|REFS_NODE::_, REFS_NODE::_ -> true
+	|ABSTRACT_NODE::_, ABSTRACT_NODE::_ -> true
+	|_,_ -> false
+
 and acc_of_tr_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (acc : t_acc) (a : tr_blk_nte) : t_acc =
         match acc with
         |CREF_TABLE table -> CREF_TABLE ((a.fld_blk_nte_id, path, Cref_element_blk_nte a) :: table)
@@ -170,20 +196,14 @@ and lines_of_nte_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
         let map (nte_entry : t_nte_entry) : (string list) option =
                 match nte_entry with
                 |Ftn_entry_ref (_, table_path, n, blk_nte) -> (
-                        match List.rev path, List.rev table_path with
-                        |[],_ -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blk_nte.fld_blk_nte_main)
-                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
-                                if i=j then Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blk_nte.fld_blk_nte_main)
-                                else None
-                        |_,_ -> None
-                )
+			match paths_match path table_path with
+			|true -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blk_nte.fld_blk_nte_main)
+			|false -> None
+		)
                 |Ftn_entry_inline (Cs_nte_inline (blks,_), table_path, n) -> (
-                        match List.rev path, List.rev table_path with
-                        |[],_ -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blks)
-                        |(CH_NODE i)::_, (CH_NODE j)::_ ->
-                                if i=j then Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blks)
-                                else None
-                        |_,_ -> None
+                        match paths_match path table_path with
+                        |true -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blks)
+                        |false -> None
                 )
         in
         let rec aux (table : t_nte_table) (acc : string list list) : string list list=
@@ -202,11 +222,12 @@ and lines_of_nte_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
                 |hd::tl -> aux tl (List.concat [[""];hd;acc])
         in
         let endnotes : string list = aux endnote_list [] in
-        let hdr_lines : string list = lines_of_endnotes_hdr doc_settings in
+        let hdr_lines : string list = lines_of_endnotes_hdr doc_settings path in
         match endnotes with
         |[] -> []
         |_ ->
-                let overline : string = make_string doc_settings.doc_width "─" in
+		let indent : int = indent_of_path doc_settings path in
+                let overline : string = String.concat "" [make_string indent " ";make_string (doc_settings.doc_width - indent) "─"] in
                 match hdr_lines with
                 |[] -> List.concat [["";overline];endnotes]
                 |_::_ -> List.concat [["";overline];hdr_lines;[""];endnotes]
@@ -274,20 +295,14 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
         let map (nte_entry : t_nte_entry) : Xml.xml option =
                 match nte_entry with
                 |Ftn_entry_ref (nte_ref, table_path, n, blk_nte) -> (
-                        match List.rev path, List.rev table_path with
-                        |[],_ -> Some (xml_of_blk_nte doc_settings cref_table ((NTE_NODE n)::path) nte_ref blk_nte)
-                        |(CH_NODE x)::_, (CH_NODE y)::_ ->
-                                if x=y then Some (xml_of_blk_nte doc_settings cref_table ((NTE_NODE n)::path) nte_ref blk_nte)
-                                else None
-                        |_,_ -> None
+                        match paths_match path table_path with
+                        |true -> Some (xml_of_blk_nte doc_settings cref_table ((NTE_NODE n)::path) nte_ref blk_nte)
+                        |false -> None
                 )
                 |Ftn_entry_inline (Cs_nte_inline (blks,Cs_int i), table_path, n) -> (
-                        match List.rev path, List.rev table_path with
-                        |[],_ -> Some (xml_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) i blks)
-                        |(CH_NODE x)::_, (CH_NODE y)::_ ->
-                                if x=y then Some (xml_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) i blks)
-                                else None
-                        |_,_ -> None
+                        match paths_match path table_path with
+                        |true -> Some (xml_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) i blks)
+                        |false -> None
                 )
         in
         let rec aux (table : t_nte_table) (acc : Xml.xml list) : Xml.xml list = 
@@ -299,19 +314,26 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
         in
         let xml_list : Xml.xml list = aux nte_table [] in
         let xml_hdr_opt : Xml.xml option = 
-                match List.rev path, doc_settings.endnotes_hdr with
-                |[], Some hdr -> Some (Xml.Element ("doc_endnotes_hdr",[],[xml_of_string hdr]))
-                |(CH_NODE _)::_, Some hdr -> Some (Xml.Element ("ch_endnotes_hdr",[], [xml_of_string hdr]))
-                |_, None -> None
-                |_,_ -> raise (Error "unexpected arguments")
+                match doc_settings.endnotes_hdr, path with
+                |Some hdr, [] -> Some (Xml.Element ("doc_endnotes_hdr",[],[xml_of_string hdr]))
+                |Some hdr, (CH_NODE _)::_ -> Some (Xml.Element ("ch_endnotes_hdr",[],[xml_of_string hdr]))
+                |Some hdr, (SEC_NODE _)::_ -> Some (Xml.Element ("sec_endnotes_hdr",[],[xml_of_string hdr]))
+                |Some hdr, (APP_NODE _)::_ -> Some (Xml.Element ("app_endnotes_hdr",[],[xml_of_string hdr]))
+                |Some hdr, (PAR_NODE _)::_ -> Some (Xml.Element ("par_endnotes_hdr",[],[xml_of_string hdr]))
+                |_, _ -> None
         in
-        match xml_list, List.rev path, xml_hdr_opt with
-        |[],_,_ -> None
-        |_::_, [], Some xml_hdr -> Some (Xml.Element ("doc_endnotes",[],xml_hdr::xml_list))
-        |_::_, [], None -> Some (Xml.Element ("doc_endnotes",[],xml_list))
-        |_::_, (CH_NODE _)::_, Some xml_hdr -> Some (Xml.Element ("ch_endnotes",[], xml_hdr::xml_list))
-        |_::_, (CH_NODE _)::_, None -> Some (Xml.Element ("ch_endnotes",[], xml_list))
-        |_, _, _ -> raise (Error "unexpected arguments")
+        match xml_hdr_opt, xml_list, path with
+        |Some hdr, _::_, [] -> Some (Xml.Element ("doc_endnotes", [], hdr::xml_list))
+        |None, _::_, [] -> Some (Xml.Element ("doc_endnotes", [], xml_list))
+        |Some hdr, _::_, (CH_NODE _)::_ -> Some (Xml.Element ("ch_endnotes", [], hdr::xml_list))
+        |None, _::_, (CH_NODE _)::_ -> Some (Xml.Element ("ch_endnotes", [], xml_list))
+        |Some hdr, _::_, (SEC_NODE _)::_ -> Some (Xml.Element ("sec_endnotes", [], hdr::xml_list))
+        |None, _::_, (SEC_NODE _)::_ -> Some (Xml.Element ("sec_endnotes", [], xml_list))
+        |None, _::_, (APP_NODE _)::_ -> Some (Xml.Element ("app_endnotes", [], xml_list))
+        |Some hdr, _::_, (APP_NODE _)::_ -> Some (Xml.Element ("app_endnotes", [], hdr::xml_list))
+        |None, _::_, (PAR_NODE _)::_ -> Some (Xml.Element ("par_endnotes", [], xml_list))
+        |Some hdr, _::_, (PAR_NODE _)::_ -> Some (Xml.Element ("par_endnotes", [], hdr::xml_list))
+        |_,_,_ -> None
 
 
 (* blk_itm *)
@@ -349,8 +371,7 @@ and acc_of_tr_blk_itm (doc_settings : t_doc_settings) (cref_table : t_cref_table
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 in 
-                let xml_list_lbl:Xml.xml list = [Exml_utils.xml_of_string (label_of_path doc_settings path)]
-                in
+                let xml_list_lbl:Xml.xml list = [Exml_utils.xml_of_string (label_of_path doc_settings path)] in
                 let xml_main : Xml.xml = Xml.Element ("blk_itm_main",[],xml_list_main) in
                 let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl",[],xml_list_lbl) in
                 let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
@@ -406,8 +427,10 @@ let acc_of_par_main (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
 let acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (path_origin : t_path) (acc : t_acc) (a : tr_par_std) : t_acc =
         match acc with
         |NTE_TABLE acc_table -> (
-                let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path a.fld_par_hdr in
-                acc_of_par_main doc_settings cref_table nte_table path (NTE_TABLE (List.concat [table_hdr;acc_table])) a.fld_par_main
+                let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path [] a.fld_par_hdr in
+                match acc_of_par_main doc_settings cref_table nte_table path (NTE_TABLE table_hdr) a.fld_par_main with
+                |NTE_TABLE table -> NTE_TABLE (List.concat [table;acc_table])
+                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
         )
         |MARGIN_LABELS string_list -> MARGIN_LABELS ((label_of_path doc_settings path)::string_list)
         |CREF_TABLE table -> (
@@ -420,8 +443,10 @@ let acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
         )
         |LINES acc_lines -> (
                 let new_par = Txt_utils.copy_hdr_to_main doc_settings a in
+                let lines_endnotes : string list = lines_of_nte_table doc_settings cref_table path nte_table in
+
                 match acc_of_ts_blks doc_settings cref_table nte_table path_origin (LINES []) new_par.fld_par_main with
-                |LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label doc_settings path hd];tl])
+                |LINES (hd::tl) -> LINES (List.concat [acc_lines;[Txt_utils.insert_label doc_settings path hd];tl;lines_endnotes])
                 |_ -> raise (Error "par_main cannot be empty")
         )
         |EXML acc_list -> (
@@ -445,8 +470,11 @@ let acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 in
-                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["par"] a.fld_par_tag_or_id in
-                EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
+                let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["par"] a.fld_par_tag_or_id 
+		in
+                match xml_of_nte_table_opt doc_settings cref_table path nte_table with
+		|None -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
+		|Some endnotes -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main;endnotes])]])
         )
 
 let acc_of_tu_par (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (acc : t_acc) (a : tu_par) : t_acc =
@@ -498,8 +526,10 @@ let acc_of_sec_main (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
 let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (acc : t_acc) (a : tr_sec) : t_acc =
         match acc with
         |NTE_TABLE acc_table -> (
-                let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path a.fld_sec_hdr in
-                acc_of_sec_main doc_settings cref_table nte_table path (NTE_TABLE (List.concat [table_hdr;acc_table])) a.fld_sec_main
+                let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path [] a.fld_sec_hdr in
+                match acc_of_sec_main doc_settings cref_table nte_table path (NTE_TABLE table_hdr) a.fld_sec_main with
+                |NTE_TABLE table -> NTE_TABLE (List.concat [table;acc_table])
+                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
         )
         |MARGIN_LABELS string_list -> acc_of_sec_main doc_settings cref_table nte_table path (MARGIN_LABELS ((label_of_path doc_settings path)::string_list)) a.fld_sec_main
         |CREF_TABLE table ->
@@ -528,7 +558,12 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                                 | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                         )
                 in
-                LINES (List.concat [acc_lines;lines])
+                let lines_endnotes : string list =
+			match a.fld_sec_main with
+			|Cu_pars_or_blks_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
+			|_ -> []
+                in
+                LINES (List.concat [acc_lines;lines;lines_endnotes])
         )
         |EXML acc_list -> 
                 let xml_list_main:Xml.xml list= (
@@ -549,15 +584,22 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                 in
                 let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
+                let xml_endnotes_opt : Xml.xml option = 
+			match a.fld_sec_main, xml_of_nte_table_opt doc_settings cref_table path nte_table with
+			|Cu_pars_or_blks_blks _, Some xml_endnotes -> Some xml_endnotes
+			|_,_ -> None
+		in
                 let sec_class : string = 
                         match a.fld_sec_main with
                         |Cu_pars_or_blks_blks _ -> "blks"
                         |Cu_pars_or_blks_pars _ -> "pars"
                 in
                 let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["sec";sec_class] a.fld_sec_tag_or_id in
-                match a.fld_sec_hdr with
-                |None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main])]])
-                |Some _ -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main])]])
+                match a.fld_sec_hdr, xml_endnotes_opt with
+                |None, None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main])]])
+                |Some _, None -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main])]])
+                |None, Some endnotes -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_hdr;xml_main;endnotes])]])
+                |Some _, Some endnotes -> EXML (List.concat [acc_list;[Xml.Element ("sec", attr_list, [xml_lbl;xml_hdr;xml_main;endnotes])]])
 
 let add_empty_lines_after_sec (tl:tr_sec list) (acc : t_acc) : t_acc =
         match tl, acc with
@@ -617,7 +659,7 @@ let acc_of_ch_main (doc_settings : t_doc_settings) (cref_table : t_cref_table) (
 let acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (acc : t_acc) (a : tr_ch) : t_acc =
         match acc with
         |NTE_TABLE acc_table -> (
-                let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path a.fld_ch_hdr in
+                let table_hdr : t_nte_table = Common_utils.nte_table_of_ts_hdr_opt doc_settings cref_table path [] a.fld_ch_hdr in
                 match acc_of_ch_main doc_settings cref_table nte_table path (NTE_TABLE table_hdr) a.fld_ch_main with
                 |NTE_TABLE table -> NTE_TABLE (List.concat [table;acc_table])
                 | _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -640,10 +682,12 @@ let acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nt
                         |LINES lines -> lines
                         |_ -> raise (Error "accumulator output type not identical to accumulator input type")
                 in
-                let lines_footnotes : string list = 
-                        lines_of_nte_table doc_settings cref_table path nte_table
+                let lines_endnotes : string list =
+			match a.fld_ch_main with
+			|Cu_secs_pars_or_blks_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
+			|_ -> []
                 in
-                LINES (List.concat [acc_lines; lines_hdr; lines_main; lines_footnotes])
+                LINES (List.concat [acc_lines; lines_hdr; lines_main; lines_endnotes])
         |EXML acc_list -> 
                 let xml_list_main : Xml.xml list = (
                         match acc_of_ch_main doc_settings cref_table nte_table path (EXML []) a.fld_ch_main with
@@ -660,16 +704,20 @@ let acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nt
                                 |Cs_hdr (t : ts_txt_lines) -> Xml.Element ("ch_hdr", [], Exml_utils.xml_list_of_ts_txt_lines doc_settings cref_table nte_table path t)
                 )
                 in
-                let xml_endnotes_opt : Xml.xml option = xml_of_nte_table_opt doc_settings cref_table path nte_table in
+                let xml_endnotes_opt : Xml.xml option = 
+			match a.fld_ch_main, xml_of_nte_table_opt doc_settings cref_table path nte_table with
+			|Cu_secs_pars_or_blks_blks _, Some xml_endnotes -> Some xml_endnotes
+			|_,_ -> None
+		in
                 let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
                 let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["ch"] a.fld_ch_tag_or_id in
                 let xml_list_ch = 
                         match a.fld_ch_hdr, xml_endnotes_opt with
-                        |None,None -> [xml_hdr;xml_main]
-                        |Some _,None -> [xml_lbl;xml_hdr;xml_main]
-                        |None, Some xml_footnotes -> [xml_hdr;xml_main;xml_footnotes]
-                        |Some _, Some xml_footnotes -> [xml_lbl;xml_hdr;xml_main;xml_footnotes]
+                        |None, Some xml_endnotes -> [xml_hdr;xml_main;xml_endnotes]
+                        |Some _, Some xml_endnotes -> [xml_lbl;xml_hdr;xml_main;xml_endnotes]
+                        |None, None -> [xml_hdr;xml_main]
+                        |Some _, None -> [xml_lbl;xml_hdr;xml_main]
                 in
                 EXML (List.concat [acc_list;[Xml.Element ("ch", attr_list,xml_list_ch)]])
 
@@ -838,12 +886,12 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                         |_::_,_::_ -> List.concat [lines_authors;lines_date;[""]]
                         |[],[] -> []
                 in
-                let lines_footnotes : string list = 
-                        match doc_class with
-                        |DOC_CHS -> []
-                        |_ -> lines_of_nte_table doc_settings cref_table [] nte_table
+                let lines_endnotes : string list =
+			match doc.fld_doc_main with
+			|Cu_doc_main_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
+			|_ -> []
                 in
-                LINES (List.concat [lines_title;lines_authors_date;lines_abstract;lines_main;lines_refs;lines_footnotes])
+                LINES (List.concat [lines_title;lines_authors_date;lines_abstract;lines_main;lines_refs;lines_endnotes])
         )
         | EXML _ ->
                 let xml_title_list : Xml.xml list = Exml_utils.xml_list_of_ts_title_opt doc.fld_doc_title in
@@ -871,15 +919,11 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 in
-                let xml_endnotes_opt : Xml.xml option =
-                        match doc_class with
-                        |DOC_CHS -> None
-                        |_ -> xml_of_nte_table_opt doc_settings cref_table [] nte_table
-                in
+                let xml_endnotes_opt : Xml.xml option = xml_of_nte_table_opt doc_settings cref_table [] nte_table in
                 let xml_endnotes_list : Xml.xml list =
-                        match xml_endnotes_opt with
-                        |None -> []
-                        |Some xml -> [xml]
+                        match doc.fld_doc_main, xml_endnotes_opt with
+                        |Cu_doc_main_blks _, Some xml -> [xml]
+                        |_, _ -> []
                 in
                 let xml_list_doc = List.concat [
                         xml_title_list;

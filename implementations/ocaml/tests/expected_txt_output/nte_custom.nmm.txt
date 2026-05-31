@@ -1,16 +1,16 @@
 Custom numbering of notes* could look† like‡ this⹋ and** so†† on‡‡.
 
 ────────────────────────────────────────────────────────────────────
-*  First note
+*     First note
 
-†  Second note
+†     Second note
 
-‡  Third note
+‡     Third note
 
-⹋  Fourth note
+⹋     Fourth note
 
-** Fifth note
+**    Fifth note
 
-†† Sixth note
+††    Sixth note
 
-‡‡ Seventh note
+‡‡    Seventh note

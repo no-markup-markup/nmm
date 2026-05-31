@@ -5,6 +5,8 @@ A toolkit used by {!module:Compiler_of_doc} when compiling raw text, for handlin
 
 val insert_label : Common_utils.t_doc_settings -> Common_utils.t_path -> string -> string
 
+val indent_of_path : Common_utils.t_doc_settings -> Common_utils.t_path -> int
+
 val lines_of_ts_txt_units : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.ts_txt_units -> string list
 
 val lines_of_ts_title_opt : Common_utils.t_doc_settings -> Doc_types.ts_title option -> string list
@@ -17,7 +19,7 @@ val lines_of_abstract_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_cl
 
 val lines_of_refs_hdr : Common_utils.t_doc_settings -> Common_utils.t_doc_class -> string list
 
-val lines_of_endnotes_hdr : Common_utils.t_doc_settings -> string list
+val lines_of_endnotes_hdr : Common_utils.t_doc_settings -> Common_utils.t_path -> string list
 
 val lines_of_ts_hdr_opt : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Common_utils.t_nte_table -> Common_utils.t_path -> Doc_types.ts_hdr option -> string list
 

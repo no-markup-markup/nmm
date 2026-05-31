@@ -49,7 +49,7 @@ let rec indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
                 | ITM_NODE _ -> indent_of_path doc_settings tl + doc_settings.tab_length
                 | BLT_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
                 | DSP_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
-                | NTE_NODE _ -> 3
+                | NTE_NODE _ -> indent_of_path doc_settings tl + doc_settings.tab_length
                 | _ -> indent_of_path doc_settings tl
 
 
@@ -78,7 +78,7 @@ let pos_of_label (doc_settings : t_doc_settings) (path : t_path) : int =
                 | ITM_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
                 | BLT_NODE -> indent_of_path doc_settings path - doc_settings.tab_length
                 | DSP_LINE_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
-                | NTE_NODE _ -> 0
+                | NTE_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
                 |_ -> 0
 
 
@@ -345,10 +345,10 @@ let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) 
 
 (* endnotes *)
 
-let lines_of_endnotes_hdr (doc_settings : t_doc_settings) : string list =
+let lines_of_endnotes_hdr (doc_settings : t_doc_settings) (path : t_path) : string list =
         match doc_settings.endnotes_hdr with
         |None -> []
-        |Some hdr -> lines_of_string doc_settings 0 hdr
+        |Some hdr -> lines_of_string doc_settings (indent_of_path doc_settings path) hdr
 
 
 (* blk_txt *)

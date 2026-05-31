@@ -301,16 +301,20 @@ h2, h3, h4, h5 {
     margin-left : 6ch;
 }
 
-/******** ENDNOTES and FOOTNOTES **********/
+/******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
+}
+
+.sec_endnotes, .par_endnotes {
+    margin-left : 4.20rem;
 }
 
 .blk_nte_lbl {
@@ -318,7 +322,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : 3ch;
+    margin-left : 6ch;
 }
 
 /*************** BIB ********************/
@@ -400,9 +404,7 @@ h2, h3, h4, h5 {
 <p class="blk txt">This is a sentence with a reference to a footnote attached to it.<a class="txt_unit_nte" href="#NTE_one_0" id="ref_NTE_one_0">¹</a></p>
 <p class="blk txt">If a footnote is referenced multiple times<a class="txt_unit_nte" href="#NTE_times_1" id="ref_NTE_times_1">²</a>, it will be displayed multiple times with the same content but different numbering.<a class="txt_unit_nte" href="#NTE_one_2" id="ref_NTE_one_2">³</a></p>
 </div>
-</section>
-</div>
-<footer class="ch_endnotes">
+<footer class="par_endnotes">
 <div class="blk nte" id="NTE_one_0"><a class="blk_nte_lbl" href="#ref_NTE_one_0">¹</a><div class="clear"></div><div class="blk_nte_main">
 <p class="blk txt">Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</p>
 </div></div>
@@ -413,6 +415,8 @@ h2, h3, h4, h5 {
 <p class="blk txt">Here is the content of that footnote, which should be displayed at the bottom of the page on which it is referenced, but may occur anywhere in the source document (modulo scope).</p>
 </div></div>
 </footer>
+</section>
+</div>
 </section>
 <section class="CH ch">
 <h2 class="ch_lbl hdr">CHAPTER 2</h2>

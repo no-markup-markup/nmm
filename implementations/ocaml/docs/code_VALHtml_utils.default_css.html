@@ -321,16 +321,20 @@ h2, h3, h4, h5 {
     margin-left : "</span>^ tab_length ^<span class="string">";
 }
 
-/******** ENDNOTES and FOOTNOTES **********/
+/******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
+}
+
+.sec_endnotes, .par_endnotes {
+    margin-left : "</span> ^ margin_left ^ <span class="string">";
 }
 
 .blk_nte_lbl {
@@ -338,7 +342,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : 3ch;
+    margin-left : "</span>^ tab_length ^<span class="string">";
 }
 
 /*************** BIB ********************/

@@ -3,6 +3,7 @@ A text block.¹
 Another text block.²
 
 ────────────────────────────────────────────────────────────────────
-¹  A footnote.
+¹     A footnote.
 
-²  Another footnote. Multiple lines in the source for this footnote.
+²     Another footnote. Multiple lines in the source for this
+      footnote.

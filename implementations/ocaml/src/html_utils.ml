@@ -86,8 +86,13 @@ match element with
 
 |Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","sec_endnotes")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","par_endnotes")], List.map (html_of_exml doc_class) xml_list)
+
 |Xml.Element ("doc_endnotes_hdr",_,xml_list) -> Xml.Element ("h2",[("class","doc_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("ch_endnotes_hdr",_,xml_list) -> Xml.Element ("h3",[("class","ch_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("sec_endnotes_hdr",_,xml_list) -> Xml.Element ("h4",[("class","sec_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("par_endnotes_hdr",_,xml_list) -> Xml.Element ("h5",[("class","sec_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
 
 |Xml.Element ("blk_nte",attr_list,xml_list) -> Xml.Element ("div",("class","blk nte")::attr_list, List.map (html_of_exml doc_class) xml_list)
 |Xml.Element ("blk_nte_lbl",attr_list,xml_list) -> Xml.Element ("a",("class","blk_nte_lbl")::attr_list,List.map (html_of_exml doc_class) xml_list)
@@ -403,16 +408,20 @@ h2, h3, h4, h5 {
     margin-left : "^ tab_length ^";
 }
 
-/******** ENDNOTES and FOOTNOTES **********/
+/******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
+}
+
+.sec_endnotes, .par_endnotes {
+    margin-left : " ^ margin_left ^ ";
 }
 
 .blk_nte_lbl {
@@ -420,7 +429,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : 3ch;
+    margin-left : "^ tab_length ^";
 }
 
 /*************** BIB ********************/
