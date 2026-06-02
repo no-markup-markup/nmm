@@ -1,0 +1,25 @@
+     ════════════════════════════════════════════════════════════════════
+     Abstract with notes
+     ════════════════════════════════════════════════════════════════════
+
+     ABSTRACT
+     This is an abstract¹ with a note.
+
+     ────────────────────────────────────────────────────────────────────
+     ¹     Content of note in abstract.
+
+
+¶ 1  This is document has an abstract containing a note. So does its
+     first paragraph.¹
+
+     ────────────────────────────────────────────────────────────────────
+     ¹     Content of note in paragraph.
+
+
+     REFERENCES
+     ──────────
+
+     A reference list with a note.¹
+
+     ────────────────────────────────────────────────────────────────────
+     ¹     Content of note in refs.

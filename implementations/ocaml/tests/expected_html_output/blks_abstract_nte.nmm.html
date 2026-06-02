@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abstract with notes</title>
+
+<style>
 
 html {
     font-family : monospace;
@@ -37,11 +45,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .title {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.chs .title {
@@ -63,11 +71,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .authors {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 /************ DATE ******************/
@@ -77,11 +85,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .date {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .date {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 /************ ABSTRACT ******************/
@@ -95,11 +103,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .abstract_hdr {
@@ -116,11 +124,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.secs .refs {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .doc.chs .refs {
@@ -187,7 +195,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
     font-size   : large;
     line-height : 130%;
 }
@@ -224,7 +232,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 
@@ -251,7 +259,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .blk.txt {
@@ -295,18 +303,18 @@ h2, h3, h4, h5 {
 
 /******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes, .abstract_endnotes, .refs_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : 0rem;
+    margin-left : 1.20rem;
 }
 
 .blk_nte_lbl {
@@ -375,7 +383,31 @@ h2, h3, h4, h5 {
 
     @bottom-center {
       padding : 10mm;
-      content : counter(page) " of " counter(pages);
+      content : counter(page) "/" counter(pages);
     }
   }
 }
+
+</style>
+</head>
+<body>
+<main class="doc blks">
+<h1 class="title">Abstract with notes</h1>
+<section class="abstract">
+<h2 class="abstract_hdr">ABSTRACT</h2>
+<p class="blk txt">This is an abstract<a class="txt_unit_nte" href="#NTE_note_in_abstract_0" id="ref_NTE_note_in_abstract_0">¹</a> with a note.</p>
+</section>
+<div class="doc_main">
+<p class="blk txt">This is document has an abstract containing a note, and so does its body.<a class="txt_unit_nte" href="#NTE_body_1" id="ref_NTE_body_1">²</a></p>
+</div>
+<footer class="doc_endnotes">
+<div class="blk nte" id="NTE_note_in_abstract_0"><a class="blk_nte_lbl" href="#ref_NTE_note_in_abstract_0">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Content of note in abstract.</p>
+</div></div>
+<div class="blk nte" id="NTE_body_1"><a class="blk_nte_lbl" href="#ref_NTE_body_1">²</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Content of note in body.</p>
+</div></div>
+</footer>
+</main>
+</body>
+</html>

@@ -1,24 +1,23 @@
 exception Error of string
 
-let validate_exml (path : string) (format : string) (path_to_dtd : string) (exml : Xml.xml) : unit =
+let validate_exml (path : string) (exml : Xml.xml) : unit =
         try
-                let dtd : Dtd.dtd = Dtd.parse_file path_to_dtd in
+                let dtd : Dtd.dtd = Dtd.parse_string (Exml_utils.exml_schema ()) in
                 let checked : Dtd.checked = Dtd.check dtd in
                 let _ = Dtd.prove checked "doc" exml in ()
         with
-        |Dtd.Prove_error e -> raise (Error (String.concat " " [path;format;"->";"Ddt.prove_error:";Dtd.prove_error e]))
+        |Dtd.Prove_error e -> raise (Error (String.concat " " [path;"exml";"->";"Ddt.prove_error:";Dtd.prove_error e]))
 
-let validate_axml (path : string) (format : string) (path_to_dtd : string) (axml : Xml.xml) : unit =
+let validate_axml (path : string) (axml : Xml.xml) : unit =
         try
-                let dtd : Dtd.dtd = Dtd.parse_file path_to_dtd in
+                let dtd : Dtd.dtd = Dtd.parse_string (Axml_of_doc.axml_schema ()) in
                 let checked : Dtd.checked = Dtd.check dtd in
                 let _ = Dtd.prove checked "cr_doc" axml in ()
         with
-        |Dtd.Prove_error e -> raise (Error (String.concat " " [path;format;"->";"Ddt.prove_error:";Dtd.prove_error e]))
+        |Dtd.Prove_error e -> raise (Error (String.concat " " [path;"axml";"->";"Ddt.prove_error:";Dtd.prove_error e]))
 
 let rec test_with_nmm_file (options : Common_utils.t_html_options) (path : string) : unit =
 try
-        let _ : unit = IO.quiet.contents <- options.quiet in
         let doc : Doc_types.tr_doc = Main.doc_of_nmm (Common_utils.axml_options_of_html_options options) path in
         let axml : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
         let doc_of_axml : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
@@ -28,9 +27,9 @@ try
         let _ : unit = xml_right_test path "exml" doc exml in
         let _ : unit = xml_right_test_fmt path "axml" doc axml in
         let _ : unit = xml_right_test_fmt path "exml" doc exml in
-        let _ : unit = validate_axml path "axml" "../docs/specs/axml.dtd" axml in
-        let _ : unit = validate_exml path "exml" "../docs/specs/exml.dtd" exml in
-        ()
+        let _ : unit = validate_axml path axml in
+        let _ : unit = validate_exml path exml in
+        print_endline (path ^ " -> All tests PASSED")
 with
 |Main.Error e -> raise (Error (String.concat " " [path;" -> ";"Main.Error:";e]))
 |Compiler_of_doc.Error e -> raise (Error (String.concat " " [path;" -> ";"Compiler_of_doc.Error:";e]))
@@ -39,7 +38,6 @@ with
 
 and test_with_axml_file (options : Common_utils.t_html_options) (path : string) : unit =
 try
-        let _ : unit = IO.quiet.contents <- options.quiet in
         let axml : Xml.xml = Xml_right.parse_file false path in
         let doc : Doc_types.tr_doc = Doc_of_axml.f_tr_doc_of_axml axml in
         let axml_of_doc : Xml.xml = Axml_of_doc.axml_of_tr_doc doc in
@@ -49,9 +47,9 @@ try
         let _ : unit = xml_right_test path "exml" doc exml in
         let _ : unit = xml_right_test_fmt path "axml" doc axml in
         let _ : unit = xml_right_test_fmt path "exml" doc exml in
-        let _ : unit = validate_axml path "axml" "../docs/specs/axml.dtd" axml in
-        let _ : unit = validate_exml path "exml" "../docs/specs/exml.dtd" exml in
-        ()
+        let _ : unit = validate_axml path axml in
+        let _ : unit = validate_exml path exml in
+        print_endline (path ^ " -> All tests PASSED")
 with
 |Xml_right.Error e -> raise (Error (String.concat " " [path;" -> ";"Xml_right.Error:";e]))
 |Main.Error e -> raise (Error (String.concat " " [path;" -> ";"Main.Error:";e]))

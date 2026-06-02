@@ -81,14 +81,14 @@ let xml_list_of_tu_date_opt (doc_settings : t_doc_settings) (date_opt : tu_date 
                 |Some xml -> [xml]
                 |None -> []
 
-(* abstract *)
+(* abstract_hdr *)
 
 let xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : Xml.xml list =
         match doc_settings.abstract_hdr with
         |None -> []
         |Some (abstract_hdr,_) -> [Xml.Element ("abstract_hdr",[],[xml_of_string abstract_hdr])]
 
-(* refs *)
+(* refs_hdr *)
 
 let xml_list_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml list =
         match doc_settings.refs_hdr with
@@ -97,7 +97,11 @@ let xml_list_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml list =
                 let content : Xml.xml list = [xml_of_string hdr] in
                 [Xml.Element ("refs_hdr",[],content)]
 
+
 (* tag_or_id *)
+
+let cdata_of_string (s : string) : string =
+        pcdata_of_string s
 
 let string_of_scope (doc_settings : t_doc_settings) (path : t_path) (scope : tu_scope) : string =
         match scope with
@@ -109,8 +113,8 @@ let string_of_scope (doc_settings : t_doc_settings) (path : t_path) (scope : tu_
 
 let cdata_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : string =
         match id.fld_id_tag, id.fld_id_name, id.fld_id_scope with
-        |Cs_tag (tag_string : string), Cs_name (name_string : string), None -> (tag_string ^ "_" ^ name_string)
-        |Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
+        |Cs_tag (tag_string : string), Cs_name (name_string : string), None -> cdata_of_string (tag_string ^ "_" ^ name_string)
+        |Cs_tag (tag_string : string), Cs_name (name_string : string), Some scope -> cdata_of_string (tag_string ^ "_" ^ name_string ^ "_" ^ (string_of_scope doc_settings path scope))
 
 let attr_list_of_tr_id (doc_settings : t_doc_settings) (path : t_path) (id : tr_id) : (string*string) list =
         [("id", cdata_of_tr_id doc_settings path id)]
@@ -219,21 +223,22 @@ let xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table
         match blk_txt with
         |Cs_blk_txt (txt_lines : ts_txt_lines) -> Xml.Element ("blk_txt",[],xml_list_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines)))
 
+
 (* dsp_line *)
 
 let xml_of_tr_dsp_line (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : tr_dsp_line) : Xml.xml =
-	let xml_list_main:Xml.xml list = xml_list_of_ts_txt_units doc_settings cref_table nte_table path a.fld_dsp_line_units in 
+        let xml_list_main:Xml.xml list = xml_list_of_ts_txt_units doc_settings cref_table nte_table path a.fld_dsp_line_units in 
         let xml_list_lbl:Xml.xml list = 
-		match label_of_path_opt doc_settings path with
-			|None -> []
-			|Some (s:string) -> [xml_of_string s]
-	in
-	let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
-	let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
-	let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
-	let attr_list: (string*string) list = attr_list_of_tr_id_opt doc_settings path ["dsp_line"] a.fld_dsp_line_id in
+                match label_of_path_opt doc_settings path with
+                        |None -> []
+                        |Some (s:string) -> [xml_of_string s]
+        in
+        let xml_main:Xml.xml = Xml.Element ("dsp_line_main",[],xml_list_main) in
+        let xml_lbl:Xml.xml = Xml.Element ("dsp_line_lbl",[],xml_list_lbl) in
+        let xml_clear : Xml.xml = Xml.Element ("clear",[],[]) in
+        let attr_list: (string*string) list = attr_list_of_tr_id_opt doc_settings path ["dsp_line"] a.fld_dsp_line_id in
         match a.fld_dsp_line_lbl with
-		|None -> Xml.Element ("dsp_line", attr_list, [xml_main])
+                |None -> Xml.Element ("dsp_line", attr_list, [xml_main])
                 |Some _ -> Xml.Element ("dsp_line", attr_list, [xml_lbl; xml_clear; xml_main])
 
 
@@ -254,8 +259,8 @@ let xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : Xml.xml =
         match blk_vrb with
         |Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> Xml.Element ("blk_vrb",[],xml_list_of_ts_vrb_lines vrb_lines)
 
-(* blk_qtn *)
 
+(* blk_qtn *)
 
 let xml_of_ts_qtn_unit_emph (qtn_unit_emph : ts_qtn_unit_emph) : Xml.xml =
         match qtn_unit_emph with
@@ -308,7 +313,6 @@ let xml_list_of_ts_qtn_lines (qtn_lines : ts_qtn_lines) : Xml.xml list =
 let xml_of_ts_blk_qtn (blk_qtn : ts_blk_qtn) : Xml.xml =
         match blk_qtn with
         |Cs_blk_qtn (qtn_lines : ts_qtn_lines) -> Xml.Element ("blk_qtn", [], xml_list_of_ts_qtn_lines qtn_lines)
-
 
 (* par_hdr *)
 
@@ -385,3 +389,136 @@ let rec normalize_exml (xml : Xml.xml) : Xml.xml =
                 |_ -> Xml.Element (tag, attr_list, List.map normalize_exml xml_list)
         )
         |Xml.PCData s -> Xml.PCData s
+
+(* exml.dtd *)
+
+let exml_schema () : string =
+"
+<!ELEMENT doc (title?, authors?, date?, abstract?, doc_main, refs?, doc_endnotes?)>
+<!ATTLIST doc
+    class CDATA #REQUIRED
+>
+
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT authors (author+)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ATTLIST date
+    datetime CDATA #IMPLIED
+>
+
+<!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, abstract_endnotes?)>
+<!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
+<!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, refs_endnotes?)>
+
+<!ELEMENT abstract_hdr (#PCDATA)>
+<!ELEMENT refs_hdr (#PCDATA)>
+
+<!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main, ch_endnotes?)>
+<!ATTLIST ch 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+>
+
+<!ELEMENT sec (((sec_lbl, sec_hdr) | sec_lbl_hdr), sec_main, sec_endnotes?)>
+<!ATTLIST sec 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+>
+
+<!ELEMENT par ((par_lbl, clear, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, clear, par_main, par_endnotes?))>
+<!ATTLIST par
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+>
+
+<!ELEMENT ch_main (sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
+<!ELEMENT sec_main (par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
+<!ELEMENT par_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
+<!ELEMENT par_main_w_hdr (
+    ((par_tag?, par_hdr) | par_tag_hdr ),
+    (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn )+)
+>
+
+<!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+<!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)>
+<!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)>
+<!ATTLIST blk_itm 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+>
+<!ELEMENT blk_dsp (dsp_line+)>
+
+<!ELEMENT blk_vrb ((vrb_line | vrb_line_empty)+)>
+<!ELEMENT vrb_line (#PCDATA)>
+<!ELEMENT vrb_line_empty EMPTY>
+
+<!ELEMENT blk_qtn (txt_unit_wysiwyg | txt_unit_emph | br)+>
+<!ELEMENT br EMPTY>
+
+<!ELEMENT blk_blt_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
+<!ELEMENT blk_itm_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
+
+<!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+<!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+<!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+
+<!ELEMENT par_tag (#PCDATA)>
+<!ELEMENT par_tag_hdr (#PCDATA)>
+
+<!ELEMENT ch_lbl (#PCDATA)>
+<!ELEMENT ch_lbl_hdr (#PCDATA)>
+<!ELEMENT sec_lbl (#PCDATA)>
+<!ELEMENT sec_lbl_hdr (#PCDATA)>
+<!ELEMENT par_lbl (#PCDATA)>
+<!ELEMENT par_lbl_hdr (#PCDATA)>
+<!ELEMENT blk_blt_lbl (#PCDATA)>
+<!ELEMENT blk_itm_lbl (#PCDATA)>
+<!ELEMENT dsp_line_lbl (#PCDATA)>
+
+<!ELEMENT txt_unit_wysiwyg (#PCDATA)>
+<!ELEMENT txt_unit_emph (#PCDATA)>
+<!ELEMENT txt_unit_c_ref (#PCDATA)>
+<!ATTLIST txt_unit_c_ref 
+    href CDATA #REQUIRED
+>
+<!ELEMENT txt_unit_nte (#PCDATA)>
+<!ATTLIST txt_unit_nte 
+    href CDATA #REQUIRED
+    id CDATA #REQUIRED
+>
+
+<!ELEMENT dsp_line (dsp_line_lbl?, clear?, dsp_line_main)+>
+<!ATTLIST dsp_line 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+>
+
+<!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+<!ELEMENT clear EMPTY>
+
+<!ELEMENT doc_endnotes (doc_endnotes_hdr?, blk_nte+)>
+<!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)>
+<!ELEMENT sec_endnotes (sec_endnotes_hdr?, blk_nte+)>
+<!ELEMENT par_endnotes (par_endnotes_hdr?, blk_nte+)>
+<!ELEMENT abstract_endnotes (abstract_endnotes_hdr?, blk_nte+)>
+<!ELEMENT refs_endnotes (refs_endnotes_hdr?, blk_nte+)>
+
+<!ELEMENT doc_endnotes_hdr (#PCDATA)>
+<!ELEMENT ch_endnotes_hdr (#PCDATA)>
+<!ELEMENT sec_endnotes_hdr (#PCDATA)>
+<!ELEMENT par_endnotes_hdr (#PCDATA)>
+<!ELEMENT abstract_endnotes_hdr (#PCDATA)>
+<!ELEMENT refs_endnotes_hdr (#PCDATA)>
+
+<!ELEMENT blk_nte (blk_nte_lbl, clear, blk_nte_main)>
+<!ATTLIST blk_nte
+    id CDATA #REQUIRED
+>
+<!ELEMENT blk_nte_lbl (#PCDATA)>
+<!ATTLIST blk_nte_lbl
+    href CDATA #REQUIRED
+>
+
+<!ELEMENT blk_nte_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
+"

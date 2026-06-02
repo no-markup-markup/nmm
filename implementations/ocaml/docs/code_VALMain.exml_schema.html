@@ -22,17 +22,7 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_ts_txt_units</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.exml_schema</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string list =
-        <span class="keyword">let</span> lines_of_string_function : int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string list = (
-                <span class="keyword">match</span> path <span class="keyword">with</span>
-                <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> lines_of_string doc_settings
-                <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> 
-                        <span class="keyword">match</span> hd <span class="keyword">with</span>
-                        <span class="keywordsign">|</span> <span class="constructor">DSP_LINE_NODE</span> _ <span class="keywordsign">-&gt;</span> lines_of_string_dsp
-                        <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> lines_of_string doc_settings
-        )
-        <span class="keyword">in</span> 
-        lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings cref_table nte_table path a)</code></body></html>
+<code class="code"><span class="keyword">let</span> exml_schema () : string = <span class="constructor">Exml_utils</span>.exml_schema ()</code></body></html>

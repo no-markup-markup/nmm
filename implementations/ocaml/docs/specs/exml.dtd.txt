@@ -1,6 +1,7 @@
+
 <!ELEMENT doc (title?, authors?, date?, abstract?, doc_main, refs?, doc_endnotes?)>
 <!ATTLIST doc
-	class CDATA #REQUIRED
+    class CDATA #REQUIRED
 >
 
 <!ELEMENT title (#PCDATA)>
@@ -8,48 +9,48 @@
 <!ELEMENT author (#PCDATA)>
 <!ELEMENT date (#PCDATA)>
 <!ATTLIST date
-	datetime CDATA #IMPLIED
+    datetime CDATA #IMPLIED
 >
 
-<!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
+<!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, abstract_endnotes?)>
 <!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
-<!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
+<!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, refs_endnotes?)>
 
 <!ELEMENT abstract_hdr (#PCDATA)>
 <!ELEMENT refs_hdr (#PCDATA)>
 
 <!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main, ch_endnotes?)>
 <!ATTLIST ch 
-	class CDATA #REQUIRED
-	id CDATA #IMPLIED
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
 >
 
 <!ELEMENT sec (((sec_lbl, sec_hdr) | sec_lbl_hdr), sec_main, sec_endnotes?)>
 <!ATTLIST sec 
-	class CDATA #REQUIRED
-	id CDATA #IMPLIED
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
 >
 
 <!ELEMENT par ((par_lbl, clear, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, clear, par_main, par_endnotes?))>
 <!ATTLIST par
-	class CDATA #REQUIRED
-	id CDATA #IMPLIED
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
 >
 
 <!ELEMENT ch_main (sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
 <!ELEMENT sec_main (par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
 <!ELEMENT par_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
 <!ELEMENT par_main_w_hdr (
-	((par_tag?, par_hdr) | par_tag_hdr ),
-	(blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn )+)
+    ((par_tag?, par_hdr) | par_tag_hdr ),
+    (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn )+)
 >
 
 <!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
 <!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)>
 <!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)>
 <!ATTLIST blk_itm 
-	class CDATA #REQUIRED
-	id CDATA #IMPLIED
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
 >
 <!ELEMENT blk_dsp (dsp_line+)>
 
@@ -84,18 +85,18 @@
 <!ELEMENT txt_unit_emph (#PCDATA)>
 <!ELEMENT txt_unit_c_ref (#PCDATA)>
 <!ATTLIST txt_unit_c_ref 
-	href CDATA #REQUIRED
+    href CDATA #REQUIRED
 >
 <!ELEMENT txt_unit_nte (#PCDATA)>
 <!ATTLIST txt_unit_nte 
-	href CDATA #REQUIRED
-	id CDATA #REQUIRED
+    href CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 
 <!ELEMENT dsp_line (dsp_line_lbl?, clear?, dsp_line_main)+>
 <!ATTLIST dsp_line 
-	class CDATA #REQUIRED
-	id CDATA #IMPLIED
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
 >
 
 <!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
@@ -105,21 +106,24 @@
 <!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)>
 <!ELEMENT sec_endnotes (sec_endnotes_hdr?, blk_nte+)>
 <!ELEMENT par_endnotes (par_endnotes_hdr?, blk_nte+)>
+<!ELEMENT abstract_endnotes (abstract_endnotes_hdr?, blk_nte+)>
+<!ELEMENT refs_endnotes (refs_endnotes_hdr?, blk_nte+)>
 
 <!ELEMENT doc_endnotes_hdr (#PCDATA)>
 <!ELEMENT ch_endnotes_hdr (#PCDATA)>
 <!ELEMENT sec_endnotes_hdr (#PCDATA)>
 <!ELEMENT par_endnotes_hdr (#PCDATA)>
+<!ELEMENT abstract_endnotes_hdr (#PCDATA)>
+<!ELEMENT refs_endnotes_hdr (#PCDATA)>
 
 <!ELEMENT blk_nte (blk_nte_lbl, clear, blk_nte_main)>
 <!ATTLIST blk_nte
-	id CDATA #REQUIRED
+    id CDATA #REQUIRED
 >
 <!ELEMENT blk_nte_lbl (#PCDATA)>
 <!ATTLIST blk_nte_lbl
-	href CDATA #REQUIRED
+    href CDATA #REQUIRED
 >
 
 <!ELEMENT blk_nte_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
-
 

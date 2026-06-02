@@ -323,11 +323,11 @@ h2, h3, h4, h5 {
 
 /******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes, .abstract_endnotes, .refs_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
@@ -403,7 +403,7 @@ h2, h3, h4, h5 {
 
     @bottom-center {
       padding : 10mm;
-      content : counter(page) \" of \" counter(pages);
+      content : counter(page) \"/\" counter(pages);
     }
   }
 }"</span></code></body></html>

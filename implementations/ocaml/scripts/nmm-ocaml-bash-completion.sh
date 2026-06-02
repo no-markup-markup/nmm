@@ -6,7 +6,7 @@
 
 _nmm_ocaml_get_options () {
 
-	local subcommands='html-of-nmm txt-of-nmm exml-of-nmm axml-of-nmm html-of-axml txt-of-axml exml-of-axml'
+	local subcommands='html-of-nmm txt-of-nmm exml-of-nmm axml-of-nmm html-of-axml txt-of-axml exml-of-axml show-exml-schema show-axml-schema show-default-css validate-xml check-xml-schema normalize-axml'
 	local axml_options='--tags'
 	local exml_options="$axml_options --quiet --numbering --allow-custom-numbering"
 	local txt_options="$exml_options --margin --width"
@@ -18,16 +18,16 @@ _nmm_ocaml_get_options () {
 		nmm-ocaml )
 			echo $subcommands
 			;;
-		axml-of-* )
+		axml-of-nmm )
 			echo $axml_options
 			;;
-		exml-of-* )
+		exml-of-nmm | exml-of-axml )
 			echo $exml_options
 			;;
-		txt-of-* )
+		txt-of-nmm | txt-of-axml )
 			echo $txt_options
 			;;
-		html-of-* | pdf-of-* )
+		html-of-nmm | html-of-axml | pdf-of-nmm )
 			echo $html_options
 			;;
 		--numbering )
@@ -37,10 +37,10 @@ _nmm_ocaml_get_options () {
 			echo $lang_options
 			;;
 		--margin )
-			echo $(seq 0 100) #etc
+			echo $(seq 0 9)  #etc
 			;;
 		--width )
-			echo $(seq 1 100) #etc
+			echo $(seq 1 9) #etc
 			;;
 		*)
 			echo ''
@@ -70,10 +70,10 @@ _nmm_ocaml () {
 		--numbering | --margin | --width | --lang )
 			COMPREPLY=( $(compgen -W "${options}" -- ${cur}) )
 			;;
-		--tags | --internal-css | --external-css )
+		--tags | --internal-css | --external-css | --validate-xml | --check-xml-schema )
 			COMPREPLY=( $(compgen -f -- ${cur}) )
 			;;
-		- )
+		- | show-* )
 			COMPREPLY=()
 			;;
 		* )

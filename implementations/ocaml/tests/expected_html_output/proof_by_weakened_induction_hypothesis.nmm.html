@@ -304,11 +304,11 @@ h2, h3, h4, h5 {
 
 /******** ENDNOTES/FOOTNOTES ************/
 
-.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr {
+.doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
     font-weight : normal;
 }
 
-.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes {
+.doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes, .abstract_endnotes, .refs_endnotes {
     margin-top  : 2rem;
     border-top  : thin solid;
     padding-top : 0.5rem;
@@ -384,7 +384,7 @@ h2, h3, h4, h5 {
 
     @bottom-center {
       padding : 10mm;
-      content : counter(page) " of " counter(pages);
+      content : counter(page) "/" counter(pages);
     }
   }
 }
@@ -943,7 +943,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <h3 class="par_tag hdr">REMARK</h3>
-<p class="blk txt">We here have cases where, relative to a base theory T, one <em class="txt_unit_emph">must</em> use a different induction hypothesis, and <em class="txt_unit_emph">may</em> use one that is not stronger. Are there cases where one both <em class="txt_unit_emph">may</em> and <em class="txt_unit_emph">must</em> use a non-strengthened induction hypothesis? Indeed there are! (<a class="txt_unit_c_ref" href="#FCT_fct2">Fact 5.11</a>). This follows from a result reported by Hetzl and Wong in <a class="txt_unit_c_ref" href="#ITM_Hetzl&Wong">(a) of References</a>, which we expand upon below.</p>
+<p class="blk txt">We here have cases where, relative to a base theory T, one <em class="txt_unit_emph">must</em> use a different induction hypothesis, and <em class="txt_unit_emph">may</em> use one that is not stronger. Are there cases where one both <em class="txt_unit_emph">may</em> and <em class="txt_unit_emph">must</em> use a non-strengthened induction hypothesis? Indeed there are! (<a class="txt_unit_c_ref" href="#FCT_fct2">Fact 5.11</a>). This follows from a result reported by Hetzl and Wong in <a class="txt_unit_c_ref" href="#ITM_Hetzl&amp;Wong">(a) of References</a>, which we expand upon below.</p>
 </div>
 </section>
 </div>
@@ -1246,7 +1246,7 @@ h2, h3, h4, h5 {
 </div>
 <section class="refs">
 <h2 class="refs_hdr">REFERENCES</h2>
-<div class="ITM blk itm" id="ITM_Hetzl&Wong">
+<div class="ITM blk itm" id="ITM_Hetzl&amp;Wong">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
 <div class="blk_itm_main">

@@ -57,9 +57,9 @@
 </div>
 </div>
 
-<pre><span id="VALdefault_css"><span class="keyword">val</span> <a href="code_VALMain.default_css.html">default_css</a></span> : <code class="type">unit -&gt; string</code></pre><div class="info ">
+<pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.txt_of_nmm.html">txt_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">Common_utils.t_txt_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">default_css&nbsp;()</code> evaluates to <a href="Html_utils.html#VALdefault_css"><code class="code"><span class="constructor">Html_utils</span>.default_css</code></a><code class="code">&nbsp;<span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code>.</p>
+<p><code class="code">txt_of_nmm&nbsp;options&nbsp;path</code> evaluate to <code class="code">txt_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
 </div>
 </div>
 
@@ -77,6 +77,18 @@
 </div>
 </div>
 
+<pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.html_of_nmm.html">html_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">Common_utils.t_html_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">html_of_nmm&nbsp;options&nbsp;path</code> evaluates to <code class="code">html_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALdefault_css"><span class="keyword">val</span> <a href="code_VALMain.default_css.html">default_css</a></span> : <code class="type">unit -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">default_css&nbsp;()</code> evaluates to <a href="Html_utils.html#VALdefault_css"><code class="code"><span class="constructor">Html_utils</span>.default_css</code></a><code class="code">&nbsp;<span class="string">"6ch"</span>&nbsp;<span class="string">"0"</span></code>.</p>
+</div>
+</div>
+
 <pre><span id="VALdoc_of_axml"><span class="keyword">val</span> <a href="code_VALMain.doc_of_axml.html">doc_of_axml</a></span> : <code class="type">string -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">doc_of_axml&nbsp;<span class="string">"path/to/file"</span></code> evaluates to <a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a><code class="code">&nbsp;(</code><a href="Xml_right.html#VALparse_file"><code class="code"><span class="constructor">Xml_right</span>.parse_file</code></a><code class="code">&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span>)</code>.</p>
@@ -88,18 +100,6 @@
 <pre><span id="VALaxml_of_doc"><span class="keyword">val</span> <a href="code_VALMain.axml_of_doc.html">axml_of_doc</a></span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">axml_of_doc&nbsp;doc</code> evaluates to a normalized XML-representation of <code class="code">doc</code> that is an instance of <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
-</div>
-</div>
-
-<pre><span id="VALhtml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.html_of_nmm.html">html_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">Common_utils.t_html_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
-<div class="info-desc">
-<p><code class="code">html_of_nmm&nbsp;options&nbsp;path</code> evaluates to <code class="code">html_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
-</div>
-</div>
-
-<pre><span id="VALtxt_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.txt_of_nmm.html">txt_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_txt_options">Common_utils.t_txt_options</a> -&gt; string -&gt; string</code></pre><div class="info ">
-<div class="info-desc">
-<p><code class="code">txt_of_nmm&nbsp;options&nbsp;path</code> evaluate to <code class="code">txt_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;path)</code>.</p>
 </div>
 </div>
 
@@ -121,6 +121,9 @@
 </div>
 </div>
 
+<pre><span id="VALnormalize_axml_file"><span class="keyword">val</span> <a href="code_VALMain.normalize_axml_file.html">normalize_axml_file</a></span> : <code class="type">string -&gt; string</code></pre>
+<pre><span id="VALexml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.exml_of_nmm.html">exml_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; string -&gt; string</code></pre>
+<pre><span id="VALexml_of_axml"><span class="keyword">val</span> <a href="code_VALMain.exml_of_axml.html">exml_of_axml</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; string -&gt; string</code></pre>
 <pre><span id="VALcheck_xml_schema"><span class="keyword">val</span> <a href="code_VALMain.check_xml_schema.html">check_xml_schema</a></span> : <code class="type">string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">check_xml_schema&nbsp;<span class="string">"path/to/xml-schema.dtd"</span></code> calls the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> function <code class="code"><span class="constructor">Dtd</span>.parse_file</code> for parsing path/to/xml-schema.dtd, and <code class="code"><span class="constructor">Dtd</span>.check</code> for checking that it is a well-defined xml-schema in the format dtd.</p>
@@ -133,6 +136,15 @@
 </div>
 </div>
 
-<pre><span id="VALexml_of_nmm"><span class="keyword">val</span> <a href="code_VALMain.exml_of_nmm.html">exml_of_nmm</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; string -&gt; string</code></pre>
-<pre><span id="VALexml_of_axml"><span class="keyword">val</span> <a href="code_VALMain.exml_of_axml.html">exml_of_axml</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; string -&gt; string</code></pre>
-<pre><span id="VALnormalize_axml_file"><span class="keyword">val</span> <a href="code_VALMain.normalize_axml_file.html">normalize_axml_file</a></span> : <code class="type">string -&gt; string</code></pre></body></html>
+<pre><span id="VALexml_schema"><span class="keyword">val</span> <a href="code_VALMain.exml_schema.html">exml_schema</a></span> : <code class="type">unit -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">exml_schema&nbsp;()</code> evaluates to <a href="Exml_utils.html#VALexml_schema"><code class="code"><span class="constructor">Exml_utils</span>.exml_schema</code></a><code class="code">&nbsp;()</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALaxml_schema"><span class="keyword">val</span> <a href="code_VALMain.axml_schema.html">axml_schema</a></span> : <code class="type">unit -&gt; string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">axml_schema&nbsp;()</code> evaluates to <a href="Axml_of_doc.html#VALaxml_schema"><code class="code"><span class="constructor">Axml_of_doc</span>.axml_schema</code></a><code class="code">&nbsp;()</code>.</p>
+</div>
+</div>
+</body></html>

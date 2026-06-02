@@ -1,3 +1,5 @@
-txt_output
-html_output
-axml_output
+txt_output/
+html_output/
+axml_output/
+css_output/
+dtd_output/

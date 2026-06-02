@@ -42,7 +42,7 @@ type t_doc_settings = {
         expand_tag: Doc_types.ts_tag -> (string * string) option;
         auto_numbering : int -> int -> string;
         allow_custom_numbering : bool;
-	nte_numbering : int -> string;
+        nte_numbering : int -> string;
 }
 
 
@@ -110,7 +110,7 @@ let superscript_string_of_int (n : int) : string =
         string_of_int_gen superscript_digits n
 
 let nte_numbering_default (n : int) : string =
-	superscript_string_of_int (n+1)
+        superscript_string_of_int (n+1)
 
 let auto_numbering_of_string (s: string) : int -> int -> string =
         match s with
@@ -192,7 +192,7 @@ let doc_settings_default () : t_doc_settings = {
         expand_tag = Tags.expand_tag_default;
         auto_numbering = auto_numbering_default;
         allow_custom_numbering = false;
-	nte_numbering = nte_numbering_default;
+        nte_numbering = nte_numbering_default;
 }
 
 
@@ -240,7 +240,7 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int) (blks : 
                                                         expand_tag = doc_settings.expand_tag;
                                                         auto_numbering = new_auto_numbering;
                                                         allow_custom_numbering = doc_settings.allow_custom_numbering;
-							nte_numbering = doc_settings.nte_numbering;
+                                                        nte_numbering = doc_settings.nte_numbering;
                                                 }
                                         |_ -> doc_settings
                                 )
@@ -297,9 +297,9 @@ let key_value_pair_of_string_opt (s : string): (string*string) option=
         | _ -> None
 
 let nte_numbering_of_string (v : string) : int -> string =
-	let string_list = String.split_on_char ',' v in
-	let string_array = Array.of_list string_list in
-	symbol_of_array_roman string_array
+        let string_list = String.split_on_char ',' v in
+        let string_array = Array.of_list string_list in
+        symbol_of_array_roman string_array
 
 let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
         try 
@@ -321,7 +321,7 @@ let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -348,7 +348,7 @@ let set_left_margin (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -375,7 +375,7 @@ let set_title_indent (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -402,7 +402,7 @@ let set_author_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setti
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -429,7 +429,7 @@ let set_abstract_indent (v : string) (doc_settings : t_doc_settings) : t_doc_set
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -456,7 +456,7 @@ let set_refs_indent (v : string) (doc_settings : t_doc_settings) : t_doc_setting
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -484,7 +484,7 @@ let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -510,7 +510,7 @@ let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
 
 let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -532,7 +532,7 @@ let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
 
 let set_endnotes_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -554,7 +554,7 @@ let set_endnotes_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settin
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
 
 let set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -576,7 +576,7 @@ let set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings 
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
 
 let set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -598,7 +598,7 @@ let set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
 
 let set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -620,7 +620,7 @@ let set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
 
 let set_expand_tag (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
@@ -643,7 +643,7 @@ let set_expand_tag (v : string) (doc_settings : t_doc_settings) : t_doc_settings
         expand_tag = tag_value_of_string doc_settings.expand_tag v;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = doc_settings.nte_numbering;
+        nte_numbering = doc_settings.nte_numbering;
         }
         with _ ->
         let _ : unit =
@@ -670,7 +670,7 @@ let set_nte_numbering (v : string) (doc_settings : t_doc_settings) : t_doc_setti
         expand_tag = doc_settings.expand_tag;
         auto_numbering = doc_settings.auto_numbering;
         allow_custom_numbering = doc_settings.allow_custom_numbering;
-	nte_numbering = nte_numbering_of_string v;
+        nte_numbering = nte_numbering_of_string v;
         }
         with _ ->
         let _ : unit =
@@ -697,7 +697,7 @@ let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
                                 |Some ("refs-hdr", v) -> set_refs_hdr v settings
                                 |Some ("endnotes-hdr", v) -> set_endnotes_hdr v settings
                                 |Some ("tag", v) -> set_expand_tag v settings
-				|Some ("nte-numbering",v) -> set_nte_numbering v settings
+                                |Some ("nte-numbering",v) -> set_nte_numbering v settings
                                 |_ -> let _ : unit = IO.print_warning 
                                         (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings
                         in aux tl new_doc_settings

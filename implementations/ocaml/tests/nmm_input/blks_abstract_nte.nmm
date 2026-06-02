@@ -1,0 +1,15 @@
+TITLE:
+	Abstract with notes
+
+ABSTRACT:
+	This is an abstract[NTE:note_in_abstract] with a note.
+
+This is document has an abstract containing a note, and so does
+its body.[NTE:body]
+
+*	NTE:note_in_abstract
+	Content of note in abstract.
+
+*	NTE:body
+	Content of note in body.
+

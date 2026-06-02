@@ -2,6 +2,8 @@ open Doc_types
 
 exception Error of string
 
+(* parsing nmm *)
+
 let doc_of_nmm (options : Common_utils.t_axml_options) (path : string) : Doc_types.tr_doc =
         try
         match path with
@@ -10,6 +12,7 @@ let doc_of_nmm (options : Common_utils.t_axml_options) (path : string) : Doc_typ
         with 
         |Doc_of_nmm.Error e -> raise (Error (String.concat " " [path;"->";"Doc_of_nmm.Error:";e]))
 
+(* txt semantics *)
 
 let txt_of_doc (options : Common_utils.t_txt_options) (doc : Doc_types.tr_doc) : string =
         try
@@ -17,6 +20,11 @@ let txt_of_doc (options : Common_utils.t_txt_options) (doc : Doc_types.tr_doc) :
         with
         |Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:";e]))
 
+let txt_of_nmm (options : Common_utils.t_txt_options) (path:string):string =
+        txt_of_doc options (doc_of_nmm (Common_utils.axml_options_of_txt_options options) path)
+
+
+(* html semantics *)
 
 let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc) : string =
         try
@@ -45,12 +53,12 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
                 |None -> Html_utils.margin_left_of_tr_doc doc
         in
         let internal_css: string = (
-		"<style>\n" ^ 
-		(Html_utils.default_css "6ch" margin_left) ^ "\n" ^
-		(String.concat "\n" (List.map IO.string_of_file options.internal_css)) ^ 
-		"\n</style>"
-	) 
-	in
+                "<style>\n" ^ 
+                (Html_utils.default_css "6ch" margin_left) ^ "\n" ^
+                (String.concat "\n" (List.map IO.string_of_file options.internal_css)) ^ 
+                "\n</style>"
+        ) 
+        in
         let external_css: string =
                 let map (uri : string) : string = ("<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n") in
                 String.concat "" (List.map map options.external_css)
@@ -81,6 +89,13 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
         |Compiler_of_doc.Error e -> raise (Error (String.concat " " ["Compiler_of_doc.Error:"; e]))
         |Xml_right.Error e -> raise (Error (String.concat " " ["Xml_right.Error:"; e]))
 
+let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
+        html_of_doc options (doc_of_nmm (Common_utils.axml_options_of_html_options options) path)
+
+let default_css () : string = Html_utils.default_css "6ch" "0rem"
+
+
+(* axml *)
 
 let doc_of_axml (path : string) : Doc_types.tr_doc = 
         try
@@ -100,11 +115,9 @@ let axml_of_doc (doc : Doc_types.tr_doc) : string =
         "<?xml version=\"1.0\"?>\n" ^ 
         (Xml_right.to_string_fmt (Axml_of_doc.normalize_axml (Axml_of_doc.axml_of_tr_doc doc)))
 
-let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
-        html_of_doc options (doc_of_nmm (Common_utils.axml_options_of_html_options options) path)
+let axml_of_nmm (options : Common_utils.t_axml_options) (path : string) : string =
+        axml_of_doc (doc_of_nmm options path)
 
-let txt_of_nmm (options : Common_utils.t_txt_options) (path:string):string =
-        txt_of_doc options (doc_of_nmm (Common_utils.axml_options_of_txt_options options) path)
 
 let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string =
         txt_of_doc options (doc_of_axml path) 
@@ -112,8 +125,28 @@ let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string 
 let html_of_axml (options : Common_utils.t_html_options) (path : string) : string =
         html_of_doc options (doc_of_axml path)
 
-let axml_of_nmm (options : Common_utils.t_axml_options) (path : string) : string =
-        axml_of_doc (doc_of_nmm options path)
+let normalize_axml_file (path : string) : string =
+        let axml:Xml.xml =
+                match path with
+                |"-" -> Xml_right.parse_stdin false
+                |_ -> Xml_right.parse_file false path 
+        in
+        "<?xml version=\"1.0\"?>\n" ^ 
+        (Xml_right.to_string_fmt (Axml_of_doc.normalize_axml axml))
+
+(* exml *)
+
+let exml_of_doc (options : Common_utils.t_exml_options) (doc : Doc_types.tr_doc) : string =
+        "<?xml version=\"1.0\"?>\n" ^ 
+        (Xml_right.to_string_fmt (Exml_utils.normalize_exml (Compiler_of_doc.exml_of_tr_doc options doc)))
+
+let exml_of_nmm (options : Common_utils.t_exml_options) (path : string) : string =
+        exml_of_doc options (doc_of_nmm (Common_utils.axml_options_of_exml_options options) path)
+
+let exml_of_axml (options : Common_utils.t_exml_options) (path : string) : string =
+        exml_of_doc options (doc_of_axml path)
+
+(* xml-validation *)
 
 let check_xml_schema (path : string) : string =
         try
@@ -147,25 +180,11 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
         |Xml_light_errors.File_not_found e -> raise (Error (String.concat " " ["Xml_light_errors.File_not_found:";e]))
         |Xml_right.Error e -> raise (Error (String.concat " " [path_to_xml;"->";"Xml_right.Error:";e]))
 
-let default_css () : string = Html_utils.default_css "6ch" "0rem"
+let exml_schema () : string = Exml_utils.exml_schema ()
+
+let axml_schema () : string = Axml_of_doc.axml_schema ()
 
 
-let exml_of_doc (options : Common_utils.t_exml_options) (doc : Doc_types.tr_doc) : string =
-        "<?xml version=\"1.0\"?>\n" ^ 
-        (Xml_right.to_string_fmt (Exml_utils.normalize_exml (Compiler_of_doc.exml_of_tr_doc options doc)))
 
-let exml_of_nmm (options : Common_utils.t_exml_options) (path : string) : string =
-        exml_of_doc options (doc_of_nmm (Common_utils.axml_options_of_exml_options options) path)
 
-let exml_of_axml (options : Common_utils.t_exml_options) (path : string) : string =
-        exml_of_doc options (doc_of_axml path)
-
-let normalize_axml_file (path : string) : string =
-        let axml:Xml.xml =
-                match path with
-                |"-" -> Xml_right.parse_stdin false
-                |_ -> Xml_right.parse_file false path 
-        in
-        "<?xml version=\"1.0\"?>\n" ^ 
-        (Xml_right.to_string_fmt (Axml_of_doc.normalize_axml axml))
 

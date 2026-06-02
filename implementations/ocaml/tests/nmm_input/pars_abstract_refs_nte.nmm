@@ -1,0 +1,23 @@
+TITLE:
+	Abstract with notes
+
+ABSTRACT:
+	This is an abstract[NTE:note_in_abstract] with a note.
+
+¶
+
+This is document has an abstract containing a note.
+So does its first paragraph.[NTE:par]
+
+*	NTE:note_in_abstract
+	Content of note in abstract.
+
+*	NTE:par
+	Content of note in paragraph.
+
+¶ REFS
+
+A reference list with a note.[NTE:refs]
+
+*	NTE:refs
+	Content of note in refs.

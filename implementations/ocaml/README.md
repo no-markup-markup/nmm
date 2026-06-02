@@ -21,23 +21,25 @@ nmm-ocaml [
 
   | check-xml-schema <path-to-dtd-file>
   | validate-xml <path-to-dtd-file> { <path-to-xml-file> | - }
-  | show-default-css
   | normalize-axml { <path-to-axml-file> | - }
+  | show-axml-schema
+  | show-exml-schema
+  | show-default-css
 ]
 
-In cases where '-' can be given instead of a path, the program
+In cases where '-' may be provided instead of a path, the program
 reads from standard input.
 
 TXT-OPTIONS:
-  --margin <numeral>
-  --width <numeral>
+  --margin <non-negative-integer>
+  --width <positive-integer>
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering
   --tags <path-to-tsv-file>
 
 HTML-OPTIONS:
-  --margin <numeral>
+  --margin <non-negative-integer>
   --lang <language-code>
   --internal-css <path-to-css-file>
   --external-css <uri>

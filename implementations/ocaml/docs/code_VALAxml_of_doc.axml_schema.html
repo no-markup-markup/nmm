@@ -1,0 +1,141 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right_parser" rel="Chapter" href="Xml_right_parser.html">
+<link title="Xml_right_lexer" rel="Chapter" href="Xml_right_lexer.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Axml_of_doc.axml_schema</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> axml_schema () : string =
+<span class="string">"
+&lt;!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, (cu_date_auto | cu_date_custom)?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)&gt;
+&lt;!ELEMENT cs_preamble (#PCDATA)&gt;
+&lt;!ELEMENT cs_title (#PCDATA)&gt;
+&lt;!ELEMENT cs_authors (cs_author+)&gt;
+&lt;!ELEMENT cs_author (#PCDATA)&gt;
+&lt;!ELEMENT cu_date_auto (cs_date_auto)&gt;
+&lt;!ELEMENT cu_date_custom (cs_date_custom)&gt;
+&lt;!ELEMENT cs_abstract (cs_blks)&gt;
+
+&lt;!ELEMENT cu_doc_main_chs (cs_chs)&gt;
+&lt;!ELEMENT cu_doc_main_secs (cs_secs)&gt;
+&lt;!ELEMENT cu_doc_main_pars (cs_pars)&gt;
+&lt;!ELEMENT cu_doc_main_blks (cs_blks)&gt;
+
+&lt;!ELEMENT cs_refs (cs_blks)&gt;
+
+&lt;!ELEMENT cs_chs (cr_ch+)&gt;
+&lt;!ELEMENT cs_secs (cr_sec+)&gt;
+&lt;!ELEMENT cs_pars ((cu_par_std | cu_par_rpt)+)&gt;
+&lt;!ELEMENT cs_blks (cu_blk_txt | cu_blk_blt | cu_blk_itm | cu_blk_dsp | cu_blk_vrb | cu_blk_nte | cu_blk_qtn)+&gt;
+
+&lt;!ELEMENT cr_ch ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_secs_pars_or_blks_secs | cu_secs_pars_or_blks_pars | cu_secs_pars_or_blks_blks))&gt;
+&lt;!ELEMENT cr_sec ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, (cu_pars_or_blks_pars | cu_pars_or_blks_blks))&gt;
+&lt;!ELEMENT cu_par_std (cr_par_std)&gt;
+&lt;!ELEMENT cu_par_rpt (cs_par_rpt)&gt;
+&lt;!ELEMENT cs_par_rpt (cr_id)&gt;
+&lt;!ELEMENT cr_par_std ((cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_hdr?, cs_blks)&gt;
+
+&lt;!ELEMENT cu_secs_pars_or_blks_secs (cs_secs)&gt;
+&lt;!ELEMENT cu_secs_pars_or_blks_pars (cs_pars)&gt;
+&lt;!ELEMENT cu_secs_pars_or_blks_blks (cs_blks)&gt;
+
+&lt;!ELEMENT cu_pars_or_blks_pars (cs_pars)&gt;
+&lt;!ELEMENT cu_pars_or_blks_blks (cs_blks)&gt;
+
+&lt;!ELEMENT cu_blk_txt (cs_blk_txt)&gt;
+&lt;!ELEMENT cu_blk_blt (cs_blk_blt)&gt;
+&lt;!ELEMENT cu_blk_itm (cr_blk_itm)&gt;
+&lt;!ELEMENT cu_blk_dsp (cs_blk_dsp)&gt;
+&lt;!ELEMENT cu_blk_vrb (cs_blk_vrb)&gt;
+&lt;!ELEMENT cu_blk_nte (cr_blk_nte)&gt;
+&lt;!ELEMENT cu_blk_qtn (cs_blk_qtn)&gt;
+
+&lt;!ELEMENT cs_blk_txt (cs_txt_lines)&gt;
+&lt;!ELEMENT cs_blk_blt (cs_blks)&gt;
+&lt;!ELEMENT cr_blk_itm ((cu_lbl_auto | cu_lbl_custom), (cu_tag_or_id_tag | cu_tag_or_id_id)?, cs_blks)&gt;
+&lt;!ELEMENT cs_blk_dsp (cs_dsp_lines)&gt;
+&lt;!ELEMENT cs_blk_vrb (cs_vrb_lines)&gt;
+&lt;!ELEMENT cr_blk_nte (cr_id, cs_blks)&gt;
+&lt;!ELEMENT cs_blk_qtn (cs_qtn_lines)&gt;
+
+&lt;!ELEMENT cs_txt_lines (cs_txt_line+)&gt;
+&lt;!ELEMENT cs_txt_line (cs_txt_units)&gt;
+
+&lt;!ELEMENT cs_vrb_lines (cs_vrb_line+)&gt;
+&lt;!ELEMENT cs_vrb_line (#PCDATA)&gt;
+
+&lt;!ELEMENT cs_qtn_lines (cu_qtn_line_std | cu_qtn_line_br)+&gt;
+&lt;!ELEMENT cu_qtn_line_std (cs_qtn_line_std)&gt;
+&lt;!ELEMENT cu_qtn_line_br (cs_qtn_line_br)&gt;
+&lt;!ELEMENT cs_qtn_line_std (cs_qtn_units)&gt;
+&lt;!ELEMENT cs_qtn_line_br (cs_qtn_units)&gt;
+
+&lt;!ELEMENT cs_txt_units (cu_txt_unit_wysiwyg | cu_txt_unit_emph | cu_txt_unit_c_ref | cu_txt_unit_nte_ref | cu_txt_unit_nte_inline)+&gt;
+&lt;!ELEMENT cs_qtn_units (cu_qtn_unit_wysiwyg | cu_qtn_unit_emph)*&gt;
+&lt;!ELEMENT cs_dsp_lines (cu_dsp_line_no_lbl | cu_dsp_line_lbld)+&gt;
+
+&lt;!ELEMENT cu_dsp_line_no_lbl (cs_dsp_line_no_lbl)&gt;
+&lt;!ELEMENT cu_dsp_line_lbld (cr_dsp_line_lbld)&gt;
+&lt;!ELEMENT cs_dsp_line_no_lbl (cs_txt_units)&gt;
+&lt;!ELEMENT cr_dsp_line_lbld ((cu_lbl_auto | cu_lbl_custom)?, cr_id?, cs_txt_units)&gt;
+
+&lt;!ELEMENT cu_txt_unit_wysiwyg (cs_txt_unit_wysiwyg)&gt;
+&lt;!ELEMENT cu_txt_unit_emph (cs_txt_unit_emph)&gt;
+&lt;!ELEMENT cu_txt_unit_c_ref (cs_txt_unit_c_ref)&gt;
+&lt;!ELEMENT cu_txt_unit_nte_ref (cs_txt_unit_nte_ref)&gt;
+&lt;!ELEMENT cu_txt_unit_nte_inline (cs_txt_unit_nte_inline)&gt;
+
+&lt;!ELEMENT cs_txt_unit_wysiwyg (#PCDATA)&gt;
+&lt;!ELEMENT cs_txt_unit_emph (#PCDATA)&gt;
+&lt;!ELEMENT cs_txt_unit_c_ref (cs_c_ref)&gt;
+&lt;!ELEMENT cs_txt_unit_nte_ref (cs_nte_ref)&gt;
+&lt;!ELEMENT cs_txt_unit_nte_inline (cs_blks)&gt;
+
+&lt;!ELEMENT cu_qtn_unit_wysiwyg (cs_qtn_unit_wysiwyg)&gt;
+&lt;!ELEMENT cu_qtn_unit_emph (cs_qtn_unit_emph)&gt;
+&lt;!ELEMENT cs_qtn_unit_wysiwyg (#PCDATA)&gt;
+&lt;!ELEMENT cs_qtn_unit_emph (#PCDATA)&gt;
+
+&lt;!ELEMENT cs_c_ref (cr_id)&gt;
+&lt;!ELEMENT cs_nte_ref (cr_id)&gt;
+
+&lt;!ELEMENT cr_id (cs_tag, cs_name, (cu_scope_gbl | cu_scope_ch | cu_scope_sec | cu_scope_app | cu_scope_par)?)&gt;
+&lt;!ELEMENT cu_tag_or_id_tag (cs_tag)&gt;
+&lt;!ELEMENT cu_tag_or_id_id (cr_id)&gt;
+&lt;!ELEMENT cs_hdr (cs_txt_lines)&gt;
+&lt;!ELEMENT cu_lbl_auto (cs_lbl_auto)&gt;
+&lt;!ELEMENT cs_lbl_auto EMPTY&gt;
+&lt;!ELEMENT cu_lbl_custom (cs_lbl_custom)&gt;
+&lt;!ELEMENT cs_lbl_custom (#PCDATA)&gt;
+&lt;!ELEMENT cs_tag (#PCDATA)&gt;
+&lt;!ELEMENT cs_name (#PCDATA)&gt;
+
+&lt;!ELEMENT cu_scope_gbl EMPTY&gt;
+&lt;!ELEMENT cu_scope_ch EMPTY&gt;
+&lt;!ELEMENT cu_scope_sec EMPTY&gt;
+&lt;!ELEMENT cu_scope_app EMPTY&gt;
+&lt;!ELEMENT cu_scope_par EMPTY&gt;
+
+&lt;!ELEMENT cs_date_auto EMPTY&gt;
+&lt;!ELEMENT cs_date_custom (#PCDATA)&gt;
+"</span></code></body></html>

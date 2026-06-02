@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Some chapters</title>
-<meta name="author" content="Donald Duck and Mickey Mouse">
+<title>Abstract with notes</title>
+
 <style>
 
 html {
@@ -45,11 +45,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .title {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.chs .title {
@@ -71,11 +71,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .authors {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 /************ DATE ******************/
@@ -85,11 +85,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .date {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .date {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 /************ ABSTRACT ******************/
@@ -103,11 +103,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .abstract_hdr {
@@ -124,11 +124,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.secs .refs {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .doc.chs .refs {
@@ -195,7 +195,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
     font-size   : large;
     line-height : 130%;
 }
@@ -232,7 +232,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 
@@ -259,7 +259,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .blk.txt {
@@ -314,7 +314,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : 5.40rem;
+    margin-left : 3.00rem;
 }
 
 .blk_nte_lbl {
@@ -391,80 +391,40 @@ h2, h3, h4, h5 {
 </style>
 </head>
 <body>
-<main class="doc chs">
-<h1 class="title">Some chapters</h1>
-<div class="authors">
-<p class="author">Donald Duck and Mickey Mouse</p>
-</div>
+<main class="doc pars">
+<h1 class="title">Abstract with notes</h1>
+<section class="abstract">
+<h2 class="abstract_hdr">ABSTRACT</h2>
+<p class="blk txt">This is an abstract<a class="txt_unit_nte" href="#NTE_note_in_abstract_0" id="ref_NTE_note_in_abstract_0">¹</a> with a note.</p>
+<footer class="abstract_endnotes">
+<div class="blk nte" id="NTE_note_in_abstract_0"><a class="blk_nte_lbl" href="#ref_NTE_note_in_abstract_0">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Content of note in abstract.</p>
+</div></div>
+</footer>
+</section>
 <div class="doc_main">
-<section class="CH ch">
-<div class="ch_lbl">CHAPTER 1</div>
-<h2 class="ch_hdr">First chapter</h2>
-<div class="ch_main">
-<p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-<p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-</div>
-</section>
-<section class="CH ch">
-<div class="ch_lbl">CHAPTER 2</div>
-<h2 class="ch_hdr">Second chapter</h2>
-<div class="ch_main">
 <section class="par">
-<div class="par_lbl">¶ 2.1</div>
+<h2 class="par_lbl hdr">¶ 1</h2>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">First paragraph of second chapter</h4>
-<p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p class="blk txt">This is document has an abstract containing a note. So does its first paragraph.<a class="txt_unit_nte" href="#NTE_par_1" id="ref_NTE_par_1">¹</a></p>
 </div>
-</section>
-<section class="par">
-<h4 class="par_lbl hdr">¶ 2.2</h4>
-<div class="clear"></div>
-<div class="par_main">
-<p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-</div>
+<footer class="par_endnotes">
+<div class="blk nte" id="NTE_par_1"><a class="blk_nte_lbl" href="#ref_NTE_par_1">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Content of note in paragraph.</p>
+</div></div>
+</footer>
 </section>
 </div>
+<section class="refs">
+<h2 class="refs_hdr">REFERENCES</h2>
+<p class="blk txt">A reference list with a note.<a class="txt_unit_nte" href="#NTE_refs_2" id="ref_NTE_refs_2">¹</a></p>
+<footer class="refs_endnotes">
+<div class="blk nte" id="NTE_refs_2"><a class="blk_nte_lbl" href="#ref_NTE_refs_2">¹</a><div class="clear"></div><div class="blk_nte_main">
+<p class="blk txt">Content of note in refs.</p>
+</div></div>
+</footer>
 </section>
-<section class="CH ch">
-<div class="ch_lbl">CHAPTER 3</div>
-<h2 class="ch_hdr">Third chapter</h2>
-<div class="ch_main">
-<section class="sec blks">
-<h3 class="sec_lbl hdr">§ 3.1</h3>
-<div class="sec_main">
-<p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
-</section>
-<section class="sec pars">
-<div class="sec_lbl">§ 3.2</div>
-<h3 class="sec_hdr">Second section of third chapter</h3>
-<div class="sec_main">
-<section class="par">
-<h4 class="par_lbl hdr">¶ 3.2.1</h4>
-<div class="clear"></div>
-<div class="par_main">
-<p class="blk txt">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-</div>
-</section>
-<section class="par">
-<h4 class="par_lbl hdr">¶ 3.2.2</h4>
-<div class="clear"></div>
-<div class="par_main">
-<p class="blk txt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-</div>
-</section>
-</div>
-</section>
-</div>
-</section>
-<section class="CH ch">
-<h2 class="ch_lbl hdr">CHAPTER 4</h2>
-<div class="ch_main">
-<p class="blk txt">Chapter without header.</p>
-</div>
-</section>
-</div>
 </main>
 </body>
 </html>

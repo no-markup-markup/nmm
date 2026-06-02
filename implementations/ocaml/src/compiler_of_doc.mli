@@ -22,8 +22,3 @@ For determining the size of the left margin.
 *)
 
 
-(* for debugging *)
-
-val cref_table_of_tr_doc : Common_utils.t_doc_settings -> Doc_types.tr_doc -> Common_utils.t_cref_table
-
-val nte_table_of_tr_doc : Common_utils.t_doc_settings -> Common_utils.t_cref_table -> Doc_types.tr_doc -> Common_utils.t_nte_table

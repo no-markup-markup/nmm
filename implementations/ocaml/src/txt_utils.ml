@@ -34,7 +34,7 @@ let utf_8_grapheme_clusters (s : string) : string list =
 let utf_8_length (s : string) : int =
         List.length (utf_8_grapheme_clusters s)
 
-(* inserting labels *)
+(* indentation *)
 
 let rec indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
         match path with
@@ -168,44 +168,26 @@ let lines_of_string (doc_settings : t_doc_settings) (indent : int) (s: string) :
         let add_ind (t : string) : string = ind ^ t in
         List.map add_ind lines
 
+(* title *)
 
-(* txt_units *)
+let make_string (n:int) (s:string) : string=
+        let rec aux (i:int) (acc:string) = 
+                if i > n - 1 then acc else aux (i+1) (acc ^ s) 
+        in aux 0 ""
 
-let underline (s : string) : string =
-        let lst = utf_8_grapheme_clusters s in
-        let map (el : string) : string = 
-                match el with
-		| "g" | "j" | "p" | "q" | "y" -> el
-                |_ -> el ^ "\u{0332}"
-        in
-        String.concat "" (List.map map lst)
-
-let emph (a : string) : string = underline a
+let lines_of_ts_title (doc_settings : t_doc_settings) (title : ts_title) : string list =
+        match title with
+        |Cs_title (s : string) -> 
+                let indent : string = String.make doc_settings.title_indent ' ' in
+                let overline : string = make_string (doc_settings.doc_width - doc_settings.title_indent) "═" in
+                let underline : string = overline in
+                List.concat [[indent ^ overline]; lines_of_string doc_settings doc_settings.title_indent s;[indent ^ underline;""]]
 
 
-let string_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : tu_txt_unit) : string =
-        match a with
-        | Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
-        | Cu_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
-        | Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref doc_settings cref_table path b
-        | Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref (b : ts_nte_ref)) -> string_of_ts_nte_ref doc_settings nte_table path b
-        | Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline (b : ts_nte_inline)) -> string_of_ts_nte_inline doc_settings nte_table path b
-
-let string_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string =
-        match a with Cs_txt_units (b: tu_txt_unit list) ->
-        String.concat "" (List.map (string_of_tu_txt_unit doc_settings cref_table nte_table path) b)
-
-let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string list =
-        let lines_of_string_function : int -> string -> string list = (
-                match path with
-                | [] -> lines_of_string doc_settings
-                | hd :: tl -> 
-                        match hd with
-                        | DSP_LINE_NODE _ -> lines_of_string_dsp
-                        | _ -> lines_of_string doc_settings
-        )
-        in 
-        lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings cref_table nte_table path a)
+let lines_of_ts_title_opt (doc_settings : t_doc_settings) (title_opt : ts_title option) : string list =
+        match title_opt with
+        |None -> []
+        |Some title -> lines_of_ts_title doc_settings title
 
 (* authors *)
 
@@ -249,16 +231,58 @@ let lines_of_tu_date_opt (doc_settings : t_doc_settings) (date_opt : tu_date opt
         |None -> []
         |Some date -> lines_of_tu_date doc_settings date
 
-(* hdr *)
+(* txt_lines *)
 
-let make_string (n:int) (s:string) : string=
-        let rec aux (i:int) (acc:string) = 
-                if i > n - 1 then acc else aux (i+1) (acc ^ s) 
-        in aux 0 ""
+let underline (s : string) : string =
+        let lst = utf_8_grapheme_clusters s in
+        let map (el : string) : string = 
+                match el with
+                | "g" | "j" | "p" | "q" | "y" -> el
+                |_ -> el ^ "\u{0332}"
+        in
+        String.concat "" (List.map map lst)
 
+let emph (a : string) : string = underline a
+
+
+let string_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : tu_txt_unit) : string =
+        match a with
+        | Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg (b : string)) -> b
+        | Cu_txt_unit_emph (Cs_txt_unit_emph (b : string)) -> emph b
+        | Cu_txt_unit_c_ref (Cs_txt_unit_c_ref (b : ts_c_ref)) -> string_of_ts_c_ref doc_settings cref_table path b
+        | Cu_txt_unit_nte_ref (Cs_txt_unit_nte_ref (b : ts_nte_ref)) -> string_of_ts_nte_ref doc_settings nte_table path b
+        | Cu_txt_unit_nte_inline (Cs_txt_unit_nte_inline (b : ts_nte_inline)) -> string_of_ts_nte_inline doc_settings nte_table path b
+
+let string_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string =
+        match a with Cs_txt_units (b: tu_txt_unit list) ->
+        String.concat "" (List.map (string_of_tu_txt_unit doc_settings cref_table nte_table path) b)
+
+let lines_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : string list =
+        let lines_of_string_function : int -> string -> string list = (
+                match path with
+                | [] -> lines_of_string doc_settings
+                | hd :: tl -> 
+                        match hd with
+                        | DSP_LINE_NODE _ -> lines_of_string_dsp
+                        | _ -> lines_of_string doc_settings
+        )
+        in 
+        lines_of_string_function (indent_of_path doc_settings path) (string_of_ts_txt_units doc_settings cref_table nte_table path a)
 
 let string_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (txt_lines : ts_txt_lines) : string =
         string_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
+
+
+
+(* abstract *)
+
+let lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
+        match doc_settings.abstract_hdr with
+        |None -> []
+        |Some (hdr,_) -> 
+                lines_of_string doc_settings doc_settings.abstract_indent hdr
+
+(* hdr *)
 
 let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (hdr : ts_hdr) : string list =
         match hdr with 
@@ -301,33 +325,77 @@ let lines_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_tab
                 )
                 | [] -> []
 
+(* par_hdr *)
 
-(* title *)
-
-let lines_of_ts_title (doc_settings : t_doc_settings) (title : ts_title) : string list =
-        match title with
-        |Cs_title (s : string) -> 
-                let indent : string = String.make doc_settings.title_indent ' ' in
-                let overline : string = make_string (doc_settings.doc_width - doc_settings.title_indent) "═" in
-                let underline : string = overline in
-                List.concat [[indent ^ overline]; lines_of_string doc_settings doc_settings.title_indent s;[indent ^ underline;""]]
-
-
-let lines_of_ts_title_opt (doc_settings : t_doc_settings) (title_opt : ts_title option) : string list =
-        match title_opt with
-        |None -> []
-        |Some title -> lines_of_ts_title doc_settings title
+let special_tag (doc_settings : t_doc_settings) (a : tu_tag_or_id option) : tu_txt_unit option =
+        match a with
+        |None -> None
+        |Some (b : tu_tag_or_id) ->
+                match b with
+                |Cu_tag_or_id_tag (tag : ts_tag) 
+                |Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
+                        match doc_settings.expand_tag tag with
+                        | Some (lbl,_) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg lbl))
+                        | None -> None
 
 
-(* abstract *)
+let copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_std = 
+        let space : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
+        let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
+        let rpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")") in
+        match special_tag doc_settings par.fld_par_tag_or_id, par.fld_par_hdr, par.fld_par_main with
+        | Some (s : tu_txt_unit),
+          Some (Cs_hdr (h : ts_txt_lines)), 
+          Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines txt_lines)))::tl) -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines ((Cs_txt_line (Cs_txt_units (List.concat [[s;space;lpar];Common_utils.txt_units_of_txt_lines h;[rpar;space]])))::txt_lines))))::tl)
+          }
+        | None,
+          Some (Cs_hdr (h : ts_txt_lines)), 
+          Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines txt_lines)))::tl) -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines ((Cs_txt_line (Cs_txt_units (List.concat [Common_utils.txt_units_of_txt_lines h;[space;]])))::txt_lines))))::tl)
+          }
+        | None,
+          None,
+          _ -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = par.fld_par_main
+          }
+        | Some (s : tu_txt_unit),
+          None,
+          Cs_blks (Cu_blk_txt (Cs_blk_txt (Cs_txt_lines txt_lines))::tl) -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines ((Cs_txt_line (Cs_txt_units [s;space;]))::txt_lines))))::tl)
+          }
+        | Some (s : tu_txt_unit),
+          Some (Cs_hdr (h : ts_txt_lines)), 
+          Cs_blks (blks : tu_blk list) -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines [Cs_txt_line (Cs_txt_units (List.concat [[s;space;lpar];Common_utils.txt_units_of_txt_lines h;[rpar]]))])))::blks)
+          }
+        | None,
+          Some (Cs_hdr (Cs_txt_lines (h : ts_txt_line list))), 
+          Cs_blks (blks : tu_blk list) -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines h)))::blks)
+          }
+        | Some (s : tu_txt_unit),
+          None,
+          Cs_blks (blks : tu_blk list) -> {
+                fld_par_tag_or_id = par.fld_par_tag_or_id;
+                fld_par_hdr = par.fld_par_hdr;
+                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines [Cs_txt_line (Cs_txt_units [s])])))::blks)
+          }
 
-let lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
-        match doc_settings.abstract_hdr with
-        |None -> []
-        |Some (hdr,_) -> 
-                lines_of_string doc_settings doc_settings.abstract_indent hdr
 
-(* refs *)
+(* refs_hdr *)
 
 let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
         match doc_settings.refs_hdr with
@@ -343,7 +411,7 @@ let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) 
         let hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent hdr in
         List.concat [hdr_lines;[indent ^ underline;""]]
 
-(* endnotes *)
+(* endnotes_hdr *)
 
 let lines_of_endnotes_hdr (doc_settings : t_doc_settings) (path : t_path) : string list =
         match doc_settings.endnotes_hdr with
@@ -457,74 +525,5 @@ let max_length_of_margin_labels (margin_labels : string list) : int =
 let left_margin_of_margin_labels (margin_labels : string list) : int =
         let max_length : int = max_length_of_margin_labels margin_labels in
         if max_length = 0 then 0 else max_length + 2
-
-(* par_hdr *)
-
-let special_tag (doc_settings : t_doc_settings) (a : tu_tag_or_id option) : tu_txt_unit option =
-        match a with
-        |None -> None
-        |Some (b : tu_tag_or_id) ->
-                match b with
-                |Cu_tag_or_id_tag (tag : ts_tag) 
-                |Cu_tag_or_id_id { fld_id_tag = (tag : ts_tag); fld_id_name = _ } ->
-                        match doc_settings.expand_tag tag with
-                        | Some (lbl,_) -> Some (Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg lbl))
-                        | None -> None
-
-
-let copy_hdr_to_main (doc_settings : t_doc_settings) (par : tr_par_std): tr_par_std = 
-        let space : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg " ") in
-        let lpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg "(") in
-        let rpar : tu_txt_unit = Cu_txt_unit_wysiwyg (Cs_txt_unit_wysiwyg ")") in
-        match special_tag doc_settings par.fld_par_tag_or_id, par.fld_par_hdr, par.fld_par_main with
-        | Some (s : tu_txt_unit),
-          Some (Cs_hdr (h : ts_txt_lines)), 
-          Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines txt_lines)))::tl) -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines ((Cs_txt_line (Cs_txt_units (List.concat [[s;space;lpar];Common_utils.txt_units_of_txt_lines h;[rpar;space]])))::txt_lines))))::tl)
-          }
-        | None,
-          Some (Cs_hdr (h : ts_txt_lines)), 
-          Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines txt_lines)))::tl) -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines ((Cs_txt_line (Cs_txt_units (List.concat [Common_utils.txt_units_of_txt_lines h;[space;]])))::txt_lines))))::tl)
-          }
-        | None,
-          None,
-          _ -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = par.fld_par_main
-          }
-        | Some (s : tu_txt_unit),
-          None,
-          Cs_blks (Cu_blk_txt (Cs_blk_txt (Cs_txt_lines txt_lines))::tl) -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines ((Cs_txt_line (Cs_txt_units [s;space;]))::txt_lines))))::tl)
-          }
-        | Some (s : tu_txt_unit),
-          Some (Cs_hdr (h : ts_txt_lines)), 
-          Cs_blks (blks : tu_blk list) -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines [Cs_txt_line (Cs_txt_units (List.concat [[s;space;lpar];Common_utils.txt_units_of_txt_lines h;[rpar]]))])))::blks)
-          }
-        | None,
-          Some (Cs_hdr (Cs_txt_lines (h : ts_txt_line list))), 
-          Cs_blks (blks : tu_blk list) -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines h)))::blks)
-          }
-        | Some (s : tu_txt_unit),
-          None,
-          Cs_blks (blks : tu_blk list) -> {
-                fld_par_tag_or_id = par.fld_par_tag_or_id;
-                fld_par_hdr = par.fld_par_hdr;
-                fld_par_main = Cs_blks ((Cu_blk_txt (Cs_blk_txt (Cs_txt_lines [Cs_txt_line (Cs_txt_units [s])])))::blks)
-          }
 
 

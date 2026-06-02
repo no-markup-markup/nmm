@@ -147,29 +147,29 @@ and acc_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (acc : t_a
 
 
 and paths_match (path : t_path) (table_path : t_path) : bool =
-	match List.rev path, List.rev table_path with
-	|[],_ -> true
-	|(CH_NODE path_ch)::[], (CH_NODE table_ch)::_ -> path_ch = table_ch
-	|(SEC_NODE path_sec)::[], (SEC_NODE table_sec)::_ -> path_sec = table_sec
-	|(APP_NODE path_app)::[], (APP_NODE table_app)::_ -> path_app = table_app 
-	|(PAR_NODE path_par)::[], (PAR_NODE table_par)::_ -> path_par = table_par
-	|(CH_NODE path_ch)::((SEC_NODE path_sec)::[]), (CH_NODE table_ch)::((SEC_NODE table_sec)::_) -> 
-		path_ch = table_ch && path_sec = table_sec
-	|(CH_NODE path_ch)::((APP_NODE path_app)::[]), (CH_NODE table_ch)::((APP_NODE table_app)::_) -> 
-		path_ch = table_ch && path_app = table_app
-	|(CH_NODE path_ch)::((PAR_NODE path_par)::[]), (CH_NODE table_ch)::((PAR_NODE table_par)::_) -> 
-		path_ch = table_ch && path_par = table_par
-	|(CH_NODE path_ch)::((SEC_NODE path_sec)::(PAR_NODE path_par::[])), (CH_NODE table_ch)::((SEC_NODE table_sec)::(PAR_NODE table_par::_)) -> 
-		path_ch = table_ch && path_sec = table_sec && path_par = table_par
-	|(CH_NODE path_ch)::((APP_NODE path_app)::(PAR_NODE path_par::[])), (CH_NODE table_ch)::((APP_NODE table_app)::(PAR_NODE table_par::_)) -> 
-		path_ch = table_ch && path_app = table_app && path_par = table_par
-	|((SEC_NODE path_sec)::(PAR_NODE path_par::[])), ((SEC_NODE table_sec)::(PAR_NODE table_par::_)) -> 
-		path_sec = table_sec && path_par = table_par
-	|((APP_NODE path_app)::(PAR_NODE path_par::[])), ((APP_NODE table_app)::(PAR_NODE table_par::_)) -> 
-		path_app = table_app && path_par = table_par
-	|REFS_NODE::_, REFS_NODE::_ -> true
-	|ABSTRACT_NODE::_, ABSTRACT_NODE::_ -> true
-	|_,_ -> false
+        match List.rev path, List.rev table_path with
+        |[],_ -> true
+        |(CH_NODE path_ch)::[], (CH_NODE table_ch)::_ -> path_ch = table_ch
+        |(SEC_NODE path_sec)::[], (SEC_NODE table_sec)::_ -> path_sec = table_sec
+        |(APP_NODE path_app)::[], (APP_NODE table_app)::_ -> path_app = table_app 
+        |(PAR_NODE path_par)::[], (PAR_NODE table_par)::_ -> path_par = table_par
+        |(CH_NODE path_ch)::((SEC_NODE path_sec)::[]), (CH_NODE table_ch)::((SEC_NODE table_sec)::_) -> 
+                path_ch = table_ch && path_sec = table_sec
+        |(CH_NODE path_ch)::((APP_NODE path_app)::[]), (CH_NODE table_ch)::((APP_NODE table_app)::_) -> 
+                path_ch = table_ch && path_app = table_app
+        |(CH_NODE path_ch)::((PAR_NODE path_par)::[]), (CH_NODE table_ch)::((PAR_NODE table_par)::_) -> 
+                path_ch = table_ch && path_par = table_par
+        |(CH_NODE path_ch)::((SEC_NODE path_sec)::(PAR_NODE path_par::[])), (CH_NODE table_ch)::((SEC_NODE table_sec)::(PAR_NODE table_par::_)) -> 
+                path_ch = table_ch && path_sec = table_sec && path_par = table_par
+        |(CH_NODE path_ch)::((APP_NODE path_app)::(PAR_NODE path_par::[])), (CH_NODE table_ch)::((APP_NODE table_app)::(PAR_NODE table_par::_)) -> 
+                path_ch = table_ch && path_app = table_app && path_par = table_par
+        |((SEC_NODE path_sec)::(PAR_NODE path_par::[])), ((SEC_NODE table_sec)::(PAR_NODE table_par::_)) -> 
+                path_sec = table_sec && path_par = table_par
+        |((APP_NODE path_app)::(PAR_NODE path_par::[])), ((APP_NODE table_app)::(PAR_NODE table_par::_)) -> 
+                path_app = table_app && path_par = table_par
+        |REFS_NODE::_, REFS_NODE::_ -> true
+        |ABSTRACT_NODE::_, ABSTRACT_NODE::_ -> true
+        |_,_ -> false
 
 and acc_of_tr_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (acc : t_acc) (a : tr_blk_nte) : t_acc =
         match acc with
@@ -180,7 +180,7 @@ and lines_of_nte_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table
         let new_cref_table =
                 match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
                 |CREF_TABLE table -> table
-                |_ -> raise (Error "unexpected")
+                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
         in
         match acc_of_ts_blks doc_settings new_cref_table [] path (LINES []) blks with
                 |LINES lines -> (
@@ -188,7 +188,7 @@ and lines_of_nte_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table
                         |hd :: tl -> (insert_label doc_settings path hd)::tl
                         |[] -> []
                 )
-                |_ -> raise (Error "unexpected")
+                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
 
 
 
@@ -196,10 +196,10 @@ and lines_of_nte_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
         let map (nte_entry : t_nte_entry) : (string list) option =
                 match nte_entry with
                 |Ftn_entry_ref (_, table_path, n, blk_nte) -> (
-			match paths_match path table_path with
-			|true -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blk_nte.fld_blk_nte_main)
-			|false -> None
-		)
+                        match paths_match path table_path with
+                        |true -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blk_nte.fld_blk_nte_main)
+                        |false -> None
+                )
                 |Ftn_entry_inline (Cs_nte_inline (blks,_), table_path, n) -> (
                         match paths_match path table_path with
                         |true -> Some (lines_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) blks)
@@ -226,7 +226,7 @@ and lines_of_nte_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
         match endnotes with
         |[] -> []
         |_ ->
-		let indent : int = indent_of_path doc_settings path in
+                let indent : int = indent_of_path doc_settings path in
                 let overline : string = String.concat "" [make_string indent " ";make_string (doc_settings.doc_width - indent) "─"] in
                 match hdr_lines with
                 |[] -> List.concat [["";overline];endnotes]
@@ -238,12 +238,12 @@ and xml_of_nte_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
         let new_cref_table =
                 match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
                 |CREF_TABLE table -> table
-                |_ -> raise (Error "unexpected")
+                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
         in
         let xml_list_main : Xml.xml list = 
                 match acc_of_ts_blks doc_settings new_cref_table [] path (EXML []) blks with
                 |EXML xml_list -> xml_list
-                |_ -> raise (Error "unexpected")
+                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
         in
         let addendum : string = string_of_int i in
         let attr_list : (string * string) list = [("id","NTE" ^ addendum)] in
@@ -263,12 +263,12 @@ and xml_of_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (
         let new_cref_table =
                 match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blk_nte.fld_blk_nte_main with
                 |CREF_TABLE table -> table
-                |_ -> raise (Error "unexpected")
+                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
         in
         let xml_list_main : Xml.xml list = 
                 match acc_of_ts_blks doc_settings new_cref_table [] path (EXML []) blk_nte.fld_blk_nte_main with
                 |EXML xml_list -> xml_list
-                |_ -> raise (Error "unexpected")
+                |_ -> raise (Error "accumulator output type not identical to accumulator input type")
         in
         let addendum : string =
                 match nte_ref with
@@ -320,6 +320,8 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
                 |Some hdr, (SEC_NODE _)::_ -> Some (Xml.Element ("sec_endnotes_hdr",[],[xml_of_string hdr]))
                 |Some hdr, (APP_NODE _)::_ -> Some (Xml.Element ("app_endnotes_hdr",[],[xml_of_string hdr]))
                 |Some hdr, (PAR_NODE _)::_ -> Some (Xml.Element ("par_endnotes_hdr",[],[xml_of_string hdr]))
+                |Some hdr, ABSTRACT_NODE::_ -> Some (Xml.Element ("abstract_endnotes_hdr",[],[xml_of_string hdr]))
+                |Some hdr, REFS_NODE::_ -> Some (Xml.Element ("refs_endnotes_hdr",[],[xml_of_string hdr]))
                 |_, _ -> None
         in
         match xml_hdr_opt, xml_list, path with
@@ -333,6 +335,10 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
         |Some hdr, _::_, (APP_NODE _)::_ -> Some (Xml.Element ("app_endnotes", [], hdr::xml_list))
         |None, _::_, (PAR_NODE _)::_ -> Some (Xml.Element ("par_endnotes", [], xml_list))
         |Some hdr, _::_, (PAR_NODE _)::_ -> Some (Xml.Element ("par_endnotes", [], hdr::xml_list))
+        |None, _::_, ABSTRACT_NODE::_ -> Some (Xml.Element ("abstract_endnotes", [], xml_list))
+        |Some hdr, _::_, ABSTRACT_NODE::_ -> Some (Xml.Element ("abstract_endnotes", [], hdr::xml_list))
+        |None, _::_, REFS_NODE::_ -> Some (Xml.Element ("refs_endnotes", [], xml_list))
+        |Some hdr, _::_, REFS_NODE::_ -> Some (Xml.Element ("refs_endnotes", [], hdr::xml_list))
         |_,_,_ -> None
 
 
@@ -471,10 +477,10 @@ let acc_of_tr_par_std (doc_settings : t_doc_settings) (cref_table : t_cref_table
                 )
                 in
                 let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["par"] a.fld_par_tag_or_id 
-		in
+                in
                 match xml_of_nte_table_opt doc_settings cref_table path nte_table with
-		|None -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
-		|Some endnotes -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main;endnotes])]])
+                |None -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main])]])
+                |Some endnotes -> EXML (List.concat [acc_list;[Xml.Element ("par", attr_list,[xml_lbl;xml_clear;xml_main;endnotes])]])
         )
 
 let acc_of_tu_par (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (acc : t_acc) (a : tu_par) : t_acc =
@@ -559,9 +565,9 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                         )
                 in
                 let lines_endnotes : string list =
-			match a.fld_sec_main with
-			|Cu_pars_or_blks_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
-			|_ -> []
+                        match a.fld_sec_main with
+                        |Cu_pars_or_blks_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
+                        |_ -> []
                 in
                 LINES (List.concat [acc_lines;lines;lines_endnotes])
         )
@@ -585,10 +591,10 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                 let xml_main:Xml.xml = Xml.Element ("sec_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("sec_lbl",[],xml_list_lbl) in
                 let xml_endnotes_opt : Xml.xml option = 
-			match a.fld_sec_main, xml_of_nte_table_opt doc_settings cref_table path nte_table with
-			|Cu_pars_or_blks_blks _, Some xml_endnotes -> Some xml_endnotes
-			|_,_ -> None
-		in
+                        match a.fld_sec_main, xml_of_nte_table_opt doc_settings cref_table path nte_table with
+                        |Cu_pars_or_blks_blks _, Some xml_endnotes -> Some xml_endnotes
+                        |_,_ -> None
+                in
                 let sec_class : string = 
                         match a.fld_sec_main with
                         |Cu_pars_or_blks_blks _ -> "blks"
@@ -683,9 +689,9 @@ let acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nt
                         |_ -> raise (Error "accumulator output type not identical to accumulator input type")
                 in
                 let lines_endnotes : string list =
-			match a.fld_ch_main with
-			|Cu_secs_pars_or_blks_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
-			|_ -> []
+                        match a.fld_ch_main with
+                        |Cu_secs_pars_or_blks_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
+                        |_ -> []
                 in
                 LINES (List.concat [acc_lines; lines_hdr; lines_main; lines_endnotes])
         |EXML acc_list -> 
@@ -705,10 +711,10 @@ let acc_of_tr_ch (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nt
                 )
                 in
                 let xml_endnotes_opt : Xml.xml option = 
-			match a.fld_ch_main, xml_of_nte_table_opt doc_settings cref_table path nte_table with
-			|Cu_secs_pars_or_blks_blks _, Some xml_endnotes -> Some xml_endnotes
-			|_,_ -> None
-		in
+                        match a.fld_ch_main, xml_of_nte_table_opt doc_settings cref_table path nte_table with
+                        |Cu_secs_pars_or_blks_blks _, Some xml_endnotes -> Some xml_endnotes
+                        |_,_ -> None
+                in
                 let xml_main:Xml.xml = Xml.Element ("ch_main",[],xml_list_main) in
                 let xml_lbl:Xml.xml = Xml.Element ("ch_lbl",[],xml_list_lbl) in
                 let attr_list : (string*string) list = Exml_utils.attr_list_of_tu_tag_or_id_opt doc_settings path ["ch"] a.fld_ch_tag_or_id in
@@ -757,14 +763,27 @@ let acc_of_ts_abstract (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
                         | _ -> ["";""]
                         in
                         let hdr : string list = Txt_utils.lines_of_abstract_hdr doc_settings doc_class in
+                        let endnotes : string list =
+                                match doc_class with
+                                |DOC_BLKS -> []
+                                |_ -> lines_of_nte_table doc_settings cref_table path nte_table
+                        in
                         match acc_of_ts_blks doc_settings cref_table nte_table path (LINES []) b with
-                        |LINES lines -> LINES (List.concat [hdr; lines; padding])
+                        |LINES lines -> LINES (List.concat [hdr; lines; endnotes; padding])
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 |EXML _ -> (
                         let hdr : Xml.xml list = Exml_utils.xml_list_of_abstract_hdr doc_settings in
+                        let endnotes : Xml.xml list =
+                                match doc_class with
+                                |DOC_BLKS -> []
+                                |_ ->
+                                        match xml_of_nte_table_opt doc_settings cref_table path nte_table with
+                                        |Some xml -> [xml]
+                                        |None -> []
+                        in
                         match acc_of_ts_blks doc_settings cref_table nte_table path (EXML []) b with
-                        |EXML xml_list -> EXML [Xml.Element ("abstract",[],List.concat [hdr;xml_list])]
+                        |EXML xml_list -> EXML [Xml.Element ("abstract",[],List.concat [hdr;xml_list;endnotes])]
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 | _ -> acc_of_ts_blks doc_settings cref_table nte_table path acc b
@@ -782,14 +801,27 @@ let acc_of_ts_refs (doc_settings : t_doc_settings) (cref_table : t_cref_table) (
                         | _ -> ["";""]
                         in
                         let hdr : string list = Txt_utils.lines_of_refs_hdr doc_settings doc_class in
+                        let endnotes : string list =
+                                match doc_class with
+                                |DOC_BLKS -> []
+                                |_ -> lines_of_nte_table doc_settings cref_table path nte_table
+                        in
                         match acc_of_ts_blks doc_settings cref_table nte_table path (LINES []) b with
-                        |LINES lines -> LINES (List.concat [padding; hdr; lines])
+                        |LINES lines -> LINES (List.concat [padding; hdr; lines; endnotes])
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 |EXML _ -> (
                         let hdr : Xml.xml list = Exml_utils.xml_list_of_refs_hdr doc_settings in
+                        let endnotes : Xml.xml list =
+                                match doc_class with
+                                |DOC_BLKS -> []
+                                |_ ->
+                                        match xml_of_nte_table_opt doc_settings cref_table path nte_table with
+                                        |Some xml -> [xml]
+                                        |None -> []
+                        in
                         match acc_of_ts_blks doc_settings cref_table nte_table path (EXML []) b with
-                        |EXML xml_list -> EXML [Xml.Element ("refs",[],List.concat [hdr;xml_list])]
+                        |EXML xml_list -> EXML [Xml.Element ("refs",[],List.concat [hdr;xml_list; endnotes])]
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 | _ -> acc_of_ts_blks doc_settings cref_table nte_table path acc b
@@ -823,12 +855,20 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                                 |NTE_TABLE table -> table
                                 | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 in
-                let table_main : t_nte_table = 
-                        match acc_of_tu_doc_main doc_settings cref_table nte_table path acc doc.fld_doc_main with
-                        |NTE_TABLE table -> table
-                        | _ -> raise (Error "accumulator output type not identical to accumulator input type")
+                let table_main : t_nte_table =
+                        match doc_class with
+                        |DOC_BLKS -> (
+                                match acc_of_tu_doc_main doc_settings cref_table nte_table path (NTE_TABLE table_abstract) doc.fld_doc_main with
+                                |NTE_TABLE table -> table
+                                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
+                        )
+                        |_ -> (
+                                match acc_of_tu_doc_main doc_settings cref_table nte_table path acc doc.fld_doc_main with
+                                |NTE_TABLE table -> List.concat [table_abstract;table]
+                                | _ -> raise (Error "accumulator output type not identical to accumulator input type")
+                        )
                 in
-                NTE_TABLE (List.concat [table_abstract; table_main; table_refs])
+                NTE_TABLE (List.concat [table_main; table_refs])
         )
         | CREF_TABLE _ -> (
                 let table_abstract : t_cref_table = 
@@ -861,7 +901,7 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                 let lines_abstract:string list =
                         match doc.fld_doc_abstract with
                         |None -> []
-                        |Some (abstract : ts_abstract) -> 
+                        |Some (abstract : ts_abstract) ->
                                 match acc_of_ts_abstract doc_settings cref_table nte_table doc_class (ABSTRACT_NODE::path) acc abstract with
                                 |LINES lines -> lines
                                 | _ -> raise (Error "accumulator output type not identical to accumulator input type")
@@ -887,9 +927,9 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                         |[],[] -> []
                 in
                 let lines_endnotes : string list =
-			match doc.fld_doc_main with
-			|Cu_doc_main_blks _ -> lines_of_nte_table doc_settings cref_table path nte_table
-			|_ -> []
+                        match doc_class with
+                        |DOC_BLKS -> lines_of_nte_table doc_settings cref_table path nte_table
+                        |_ -> []
                 in
                 LINES (List.concat [lines_title;lines_authors_date;lines_abstract;lines_main;lines_refs;lines_endnotes])
         )
@@ -919,7 +959,7 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table) (n
                         | _ -> raise (Error "accumulator output type not identical to accumulator input type")
                 )
                 in
-                let xml_endnotes_opt : Xml.xml option = xml_of_nte_table_opt doc_settings cref_table [] nte_table in
+                let xml_endnotes_opt : Xml.xml option = xml_of_nte_table_opt doc_settings cref_table path nte_table in
                 let xml_endnotes_list : Xml.xml list =
                         match doc.fld_doc_main, xml_endnotes_opt with
                         |Cu_doc_main_blks _, Some xml -> [xml]
@@ -1014,7 +1054,7 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
-		nte_numbering = doc_settings.nte_numbering;
+                nte_numbering = doc_settings.nte_numbering;
         }
         in
         let _ : unit = IO.quiet.contents <- options.quiet in
@@ -1059,7 +1099,7 @@ let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
                 expand_tag = expand_tag;
                 auto_numbering = auto_numbering;
                 allow_custom_numbering = allow_custom_numbering;
-		nte_numbering = doc_settings.nte_numbering;
+                nte_numbering = doc_settings.nte_numbering;
         }
         in
         let _ : unit = IO.quiet.contents <- options.quiet in

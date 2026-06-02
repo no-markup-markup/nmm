@@ -1,0 +1,157 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Doc_types" rel="Chapter" href="Doc_types.html">
+<link title="Xml_right_parser" rel="Chapter" href="Xml_right_parser.html">
+<link title="Xml_right_lexer" rel="Chapter" href="Xml_right_lexer.html">
+<link title="Xml_right" rel="Chapter" href="Xml_right.html">
+<link title="Nmm_parser" rel="Chapter" href="Nmm_parser.html">
+<link title="Nmm_lexer" rel="Chapter" href="Nmm_lexer.html">
+<link title="Doc_of_nmm" rel="Chapter" href="Doc_of_nmm.html">
+<link title="Common_utils" rel="Chapter" href="Common_utils.html">
+<link title="Tags" rel="Chapter" href="Tags.html">
+<link title="Txt_utils" rel="Chapter" href="Txt_utils.html">
+<link title="Exml_utils" rel="Chapter" href="Exml_utils.html">
+<link title="Compiler_of_doc" rel="Chapter" href="Compiler_of_doc.html">
+<link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
+<link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
+<link title="Html_utils" rel="Chapter" href="Html_utils.html">
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.exml_schema</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span> exml_schema () : string =
+<span class="string">"
+&lt;!ELEMENT doc (title?, authors?, date?, abstract?, doc_main, refs?, doc_endnotes?)&gt;
+&lt;!ATTLIST doc
+    class CDATA #REQUIRED
+&gt;
+
+&lt;!ELEMENT title (#PCDATA)&gt;
+&lt;!ELEMENT authors (author+)&gt;
+&lt;!ELEMENT author (#PCDATA)&gt;
+&lt;!ELEMENT date (#PCDATA)&gt;
+&lt;!ATTLIST date
+    datetime CDATA #IMPLIED
+&gt;
+
+&lt;!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, abstract_endnotes?)&gt;
+&lt;!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)&gt;
+&lt;!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, refs_endnotes?)&gt;
+
+&lt;!ELEMENT abstract_hdr (#PCDATA)&gt;
+&lt;!ELEMENT refs_hdr (#PCDATA)&gt;
+
+&lt;!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main, ch_endnotes?)&gt;
+&lt;!ATTLIST ch 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+&gt;
+
+&lt;!ELEMENT sec (((sec_lbl, sec_hdr) | sec_lbl_hdr), sec_main, sec_endnotes?)&gt;
+&lt;!ATTLIST sec 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+&gt;
+
+&lt;!ELEMENT par ((par_lbl, clear, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, clear, par_main, par_endnotes?))&gt;
+&lt;!ATTLIST par
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+&gt;
+
+&lt;!ELEMENT ch_main (sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)&gt;
+&lt;!ELEMENT sec_main (par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)&gt;
+&lt;!ELEMENT par_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+&gt;
+&lt;!ELEMENT par_main_w_hdr (
+    ((par_tag?, par_hdr) | par_tag_hdr ),
+    (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn )+)
+&gt;
+
+&lt;!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+&lt;!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)&gt;
+&lt;!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)&gt;
+&lt;!ATTLIST blk_itm 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+&gt;
+&lt;!ELEMENT blk_dsp (dsp_line+)&gt;
+
+&lt;!ELEMENT blk_vrb ((vrb_line | vrb_line_empty)+)&gt;
+&lt;!ELEMENT vrb_line (#PCDATA)&gt;
+&lt;!ELEMENT vrb_line_empty EMPTY&gt;
+
+&lt;!ELEMENT blk_qtn (txt_unit_wysiwyg | txt_unit_emph | br)+&gt;
+&lt;!ELEMENT br EMPTY&gt;
+
+&lt;!ELEMENT blk_blt_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+&gt;
+&lt;!ELEMENT blk_itm_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+&gt;
+
+&lt;!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+&lt;!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+&lt;!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+
+&lt;!ELEMENT par_tag (#PCDATA)&gt;
+&lt;!ELEMENT par_tag_hdr (#PCDATA)&gt;
+
+&lt;!ELEMENT ch_lbl (#PCDATA)&gt;
+&lt;!ELEMENT ch_lbl_hdr (#PCDATA)&gt;
+&lt;!ELEMENT sec_lbl (#PCDATA)&gt;
+&lt;!ELEMENT sec_lbl_hdr (#PCDATA)&gt;
+&lt;!ELEMENT par_lbl (#PCDATA)&gt;
+&lt;!ELEMENT par_lbl_hdr (#PCDATA)&gt;
+&lt;!ELEMENT blk_blt_lbl (#PCDATA)&gt;
+&lt;!ELEMENT blk_itm_lbl (#PCDATA)&gt;
+&lt;!ELEMENT dsp_line_lbl (#PCDATA)&gt;
+
+&lt;!ELEMENT txt_unit_wysiwyg (#PCDATA)&gt;
+&lt;!ELEMENT txt_unit_emph (#PCDATA)&gt;
+&lt;!ELEMENT txt_unit_c_ref (#PCDATA)&gt;
+&lt;!ATTLIST txt_unit_c_ref 
+    href CDATA #REQUIRED
+&gt;
+&lt;!ELEMENT txt_unit_nte (#PCDATA)&gt;
+&lt;!ATTLIST txt_unit_nte 
+    href CDATA #REQUIRED
+    id CDATA #REQUIRED
+&gt;
+
+&lt;!ELEMENT dsp_line (dsp_line_lbl?, clear?, dsp_line_main)+&gt;
+&lt;!ATTLIST dsp_line 
+    class CDATA #REQUIRED
+    id CDATA #IMPLIED
+&gt;
+
+&lt;!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+&lt;!ELEMENT clear EMPTY&gt;
+
+&lt;!ELEMENT doc_endnotes (doc_endnotes_hdr?, blk_nte+)&gt;
+&lt;!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)&gt;
+&lt;!ELEMENT sec_endnotes (sec_endnotes_hdr?, blk_nte+)&gt;
+&lt;!ELEMENT par_endnotes (par_endnotes_hdr?, blk_nte+)&gt;
+&lt;!ELEMENT abstract_endnotes (abstract_endnotes_hdr?, blk_nte+)&gt;
+&lt;!ELEMENT refs_endnotes (refs_endnotes_hdr?, blk_nte+)&gt;
+
+&lt;!ELEMENT doc_endnotes_hdr (#PCDATA)&gt;
+&lt;!ELEMENT ch_endnotes_hdr (#PCDATA)&gt;
+&lt;!ELEMENT sec_endnotes_hdr (#PCDATA)&gt;
+&lt;!ELEMENT par_endnotes_hdr (#PCDATA)&gt;
+&lt;!ELEMENT abstract_endnotes_hdr (#PCDATA)&gt;
+&lt;!ELEMENT refs_endnotes_hdr (#PCDATA)&gt;
+
+&lt;!ELEMENT blk_nte (blk_nte_lbl, clear, blk_nte_main)&gt;
+&lt;!ATTLIST blk_nte
+    id CDATA #REQUIRED
+&gt;
+&lt;!ELEMENT blk_nte_lbl (#PCDATA)&gt;
+&lt;!ATTLIST blk_nte_lbl
+    href CDATA #REQUIRED
+&gt;
+
+&lt;!ELEMENT blk_nte_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+&gt;
+"</span></code></body></html>

@@ -1,0 +1,15 @@
+════════════════════════════════════════════════════════════════════
+Abstract with notes
+════════════════════════════════════════════════════════════════════
+
+ABSTRACT
+This is an abstract¹ with a note.
+
+
+This is document has an abstract containing a note, and so does its
+body.²
+
+────────────────────────────────────────────────────────────────────
+¹     Content of note in abstract.
+
+²     Content of note in body.
