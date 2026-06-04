@@ -2,9 +2,9 @@
         Proof by weakened induction hypothesis
         ════════════════════════════════════════════════════════════════════
 
-        Eric Johannesson, eric.johannesson@philosophy.su.se
+        Eric Johannesson <eric.johannesson@philosophy.su.se>
 
-        Anders Lundstedt, anders.lundstedt@philosophy.su.se
+        Anders Lundstedt <anders.lundstedt@philosophy.su.se>
 
 
         ABSTRACT
@@ -14,7 +14,7 @@
         from which ∀xφ(x) may be derived. This is sometimes called “proof by
         strengthened induction hypothesis”. We show that this is an instance
         of a more general phenomenon which we call pr̲o̲o̲f̲ ̲b̲y
-        n̲o̲n̲-̲s̲t̲r̲a̲i̲gh̲t̲f̲o̲r̲w̲a̲r̲d̲ ̲i̲n̲d̲u̲c̲t̲i̲o̲n̲. Cruacially, we show that there are
+        n̲o̲n̲-̲s̲t̲r̲a̲i̲gh̲t̲f̲o̲r̲w̲a̲r̲d̲ ̲i̲n̲d̲u̲c̲t̲i̲o̲n̲. Crucially, we show that there are
         cases where straightforward induction fails, but where proof by
         i̲n̲c̲o̲m̲pa̲r̲a̲b̲l̲e̲ or even w̲e̲a̲k̲e̲r̲ induction hypothesis succeeds.
 

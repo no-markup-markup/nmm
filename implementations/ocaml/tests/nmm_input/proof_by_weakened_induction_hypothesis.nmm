@@ -2,12 +2,12 @@ TITLE:
 	Proof by weakened induction hypothesis
 
 AUTHOR:
-	Eric Johannesson,
-	eric.johannesson@philosophy.su.se
+	Eric Johannesson
+	<eric.johannesson@philosophy.su.se>
 
 AUTHOR:
-	Anders Lundstedt,
-	anders.lundstedt@philosophy.su.se
+	Anders Lundstedt
+	<anders.lundstedt@philosophy.su.se>
 
 
 ABSTRACT:
@@ -18,7 +18,7 @@ ABSTRACT:
 	called “proof by strengthened induction hypothesis”.
 	We show that this is an instance of a more general phenomenon
 	which we call *proof by non-straightforward induction*.
-	Cruacially, we show that there are cases
+	Crucially, we show that there are cases
 	where straightforward induction fails, but where proof by
 	*incomparable* or even *weaker* induction hypothesis succeeds.
 

@@ -234,7 +234,9 @@ and lines_of_nte_table (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
 
 
 
-and xml_of_nte_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (i : int) (blks : ts_blks) : Xml.xml =
+and xml_of_blk_nte_inline (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_inline : ts_nte_inline) : Xml.xml =
+        match nte_inline with
+        |Cs_nte_inline (blks,Cs_int i) ->
         let new_cref_table =
                 match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blks with
                 |CREF_TABLE table -> table
@@ -259,7 +261,7 @@ and xml_of_nte_blks (doc_settings : t_doc_settings) (cref_table : t_cref_table) 
         Xml.Element ("blk_nte",attr_list,[xml_lbl;xml_clear;xml_main])
 
 
-and xml_of_blk_nte (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_ref : ts_nte_ref) (blk_nte : tr_blk_nte) : Xml.xml =
+and xml_of_blk_nte_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (nte_ref : ts_nte_ref) (blk_nte : tr_blk_nte) : Xml.xml =
         let new_cref_table =
                 match acc_of_ts_blks doc_settings [] [] path (CREF_TABLE cref_table) blk_nte.fld_blk_nte_main with
                 |CREF_TABLE table -> table
@@ -296,12 +298,12 @@ and xml_of_nte_table_opt (doc_settings : t_doc_settings) (cref_table : t_cref_ta
                 match nte_entry with
                 |Ftn_entry_ref (nte_ref, table_path, n, blk_nte) -> (
                         match paths_match path table_path with
-                        |true -> Some (xml_of_blk_nte doc_settings cref_table ((NTE_NODE n)::path) nte_ref blk_nte)
+                        |true -> Some (xml_of_blk_nte_ref doc_settings cref_table ((NTE_NODE n)::path) nte_ref blk_nte)
                         |false -> None
                 )
-                |Ftn_entry_inline (Cs_nte_inline (blks,Cs_int i), table_path, n) -> (
+                |Ftn_entry_inline (nte_inline, table_path, n) -> (
                         match paths_match path table_path with
-                        |true -> Some (xml_of_nte_blks doc_settings cref_table ((NTE_NODE n)::path) i blks)
+                        |true -> Some (xml_of_blk_nte_inline doc_settings cref_table ((NTE_NODE n)::path) nte_inline)
                         |false -> None
                 )
         in

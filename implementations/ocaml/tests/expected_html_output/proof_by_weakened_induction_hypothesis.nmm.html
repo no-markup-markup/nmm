@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proof by weakened induction hypothesis</title>
-<meta name="author" content="Eric Johannesson, eric.johannesson@philosophy.su.se">
-<meta name="author" content="Anders Lundstedt, anders.lundstedt@philosophy.su.se">
+<meta name="author" content="Eric Johannesson <eric.johannesson@philosophy.su.se>">
+<meta name="author" content="Anders Lundstedt <anders.lundstedt@philosophy.su.se>">
 <style>
 
 html {
@@ -225,7 +225,7 @@ h2, h3, h4, h5 {
 
 
 .par_tag + .par_hdr::before {
-    content : " (";
+    content : "(";
 }
 
 .par_tag + .par_hdr::after {
@@ -239,20 +239,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.par_hdr + p.blk.txt {
+.par_hdr + .blk.txt {
     display : inline;
 }
 
-.par_tag.hdr + p.blk.txt {
+.par_tag.hdr + .blk.txt {
     display : inline;
 }
 
-.par_hdr + p.blk.txt::before {
-    content : "  ";
+.par_hdr + .blk.txt::before {
+    content : " ";
 }
 
-.par_tag.hdr + p.blk.txt::before {
-    content : "  ";
+.par_tag.hdr + .blk.txt::before {
+    content : " ";
 }
 
 * + .blk {
@@ -395,12 +395,12 @@ h2, h3, h4, h5 {
 <main class="doc secs">
 <h1 class="title">Proof by weakened induction hypothesis</h1>
 <div class="authors">
-<p class="author">Eric Johannesson, eric.johannesson@philosophy.su.se</p>
-<p class="author">Anders Lundstedt, anders.lundstedt@philosophy.su.se</p>
+<p class="author">Eric Johannesson &lt;eric.johannesson@philosophy.su.se&gt;</p>
+<p class="author">Anders Lundstedt &lt;anders.lundstedt@philosophy.su.se&gt;</p>
 </div>
 <section class="abstract">
 <h2 class="abstract_hdr">ABSTRACT</h2>
-<p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”. We show that this is an instance of a more general phenomenon which we call <em class="txt_unit_emph">proof by non-straightforward induction</em>. Cruacially, we show that there are cases where straightforward induction fails, but where proof by <em class="txt_unit_emph">incomparable</em> or even <em class="txt_unit_emph">weaker</em> induction hypothesis succeeds.</p>
+<p class="blk txt">Sometimes, in order to a prove an arithmetical fact ∀xφ(x) by induction, straightforward induction “does not work”. Instead one “must” use a “stronger” induction hypothesis ψ(x) and prove ∀xψ(x), from which ∀xφ(x) may be derived. This is sometimes called “proof by strengthened induction hypothesis”. We show that this is an instance of a more general phenomenon which we call <em class="txt_unit_emph">proof by non-straightforward induction</em>. Crucially, we show that there are cases where straightforward induction fails, but where proof by <em class="txt_unit_emph">incomparable</em> or even <em class="txt_unit_emph">weaker</em> induction hypothesis succeeds.</p>
 </section>
 <div class="doc_main">
 <section class="SEC sec pars" id="SEC_intro">

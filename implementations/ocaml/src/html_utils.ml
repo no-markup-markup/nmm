@@ -335,7 +335,7 @@ h2, h3, h4, h5 {
 
 
 .par_tag + .par_hdr::before {
-    content : \" (\";
+    content : \"(\";
 }
 
 .par_tag + .par_hdr::after {
@@ -349,20 +349,20 @@ h2, h3, h4, h5 {
 
 /************** BLK *********************/
 
-.par_hdr + p.blk.txt {
+.par_hdr + .blk.txt {
     display : inline;
 }
 
-.par_tag.hdr + p.blk.txt {
+.par_tag.hdr + .blk.txt {
     display : inline;
 }
 
-.par_hdr + p.blk.txt::before {
-    content : \"  \";
+.par_hdr + .blk.txt::before {
+    content : \" \";
 }
 
-.par_tag.hdr + p.blk.txt::before {
-    content : \"  \";
+.par_tag.hdr + .blk.txt::before {
+    content : \" \";
 }
 
 * + .blk {

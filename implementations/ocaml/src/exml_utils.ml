@@ -206,18 +206,13 @@ let xml_of_tu_txt_unit (doc_settings : t_doc_settings) (cref_table : t_cref_tabl
 
 
 let xml_list_of_ts_txt_units (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (a : ts_txt_units) : Xml.xml list =
-        let rec aux (lst : tu_txt_unit list) (acc : Xml.xml list) =
-                match lst with
-                |[] -> acc
-                |hd::tl ->
-                        let xml_hd : Xml.xml = xml_of_tu_txt_unit doc_settings cref_table nte_table path hd in
-                        aux tl (xml_hd::acc)
-        in
         match a with
-        | Cs_txt_units (b : tu_txt_unit list) -> List.rev (aux b [])
+        | Cs_txt_units (b : tu_txt_unit list) -> List.map (xml_of_tu_txt_unit doc_settings cref_table nte_table path) b 
+
 
 let xml_list_of_ts_txt_lines (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (txt_lines : ts_txt_lines) : Xml.xml list =
         xml_list_of_ts_txt_units doc_settings cref_table nte_table path (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines))
+
 
 let xml_of_ts_blk_txt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (blk_txt : ts_blk_txt) : Xml.xml =
         match blk_txt with

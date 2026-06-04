@@ -1,4 +1,4 @@
-(** Specifies default tags and their expansion *)
+(** Specifies default tags and their expansions, and generates custom tag expansions from a tsv-file. *)
 
 (* expander *)
 

@@ -7,8 +7,7 @@ MAKEFLAGS += --no-builtin-rules
 
 .PHONY: default clean
 
-default:
-	make packages
+default: packages
 
 clean:
 	# remove anything in .gitignore, including directories
