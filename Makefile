@@ -29,6 +29,7 @@ test: test-nmm2xml test-nmm2txt
 	cd implementations
 	make test
 	cd -
+	nix build
 
 bin:
 	cd bin
