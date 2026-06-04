@@ -99,6 +99,7 @@
             installPhase = ''
               mkdir -p $out/bin
               cp bin/* $out/bin/
+              rm       $out/bin/Makefile
               mkdir -p $out/share
               cp -r share/* $out/share/
             '';
