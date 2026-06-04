@@ -44,6 +44,6 @@ test-nmm2txt: bin test-data-nmm2txt
 
 share: share/bash-completion/completions/nmm-ocaml
 
-share/bash-completion/completions/nmm-ocaml: implementations/ocaml/bin/nmm-ocaml-bash-completion.sh
+share/bash-completion/completions/nmm-ocaml: implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh
 	mkdir -p share/bash-completion/completions
-	cp implementations/ocaml/bin/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
+	cp implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
