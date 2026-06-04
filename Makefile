@@ -46,5 +46,3 @@ share: share/bash-completion/completions/nmm-ocaml
 share/bash-completion/completions/nmm-ocaml: implementations/ocaml/bin/nmm-ocaml-bash-completion.sh
 	mkdir -p share/bash-completion/completions
 	cp implementations/ocaml/bin/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
-
-
