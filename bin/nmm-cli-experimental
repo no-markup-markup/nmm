@@ -52,7 +52,7 @@ _ta_tags_file : TA = Annotated[
     exists       = True,
     dir_okay     = False,
     resolve_path = True,
-    help         = 'Use tags from tab-separated-values-file TAGS-FILE.'
+    help         = 'Use tags from tab-separated-values file.'
   )
 ]
 _default_tags_file : F[pathlib.Path] = \
@@ -67,11 +67,11 @@ _ta_margin : TA = Annotated[
     '--margin',
     min = 0,
     help =
-      'Set margin width to MARGIN spaces.'
+      'Set margin width to MARGIN := x spaces.'
       +
       ' '
       +
-      'MARGIN=0 means margin is automatically computed to be as small as possible.',
+      'MARGIN = 0 means margin is automatically computed to be as small as possible.',
   )
 ]
 
@@ -85,7 +85,7 @@ _ta_text_width : TA = Annotated[
     '--text-width',
     min = 0,
     help =
-      'Set body text width to WIDTH spaces.'
+      'Set body text width to WIDTH := x spaces.'
       +
       ' '
       +
