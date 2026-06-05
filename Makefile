@@ -42,8 +42,20 @@ test-nmm2xml: bin test-data-nmm2xml
 test-nmm2txt: bin test-data-nmm2txt
 	./test-nmm2txt.sh
 
-share: share/bash-completion/completions/nmm-ocaml
+share: share/bash-completion/completions share/fish/completions share/zsh/site-functions
 
-share/bash-completion/completions/nmm-ocaml: implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh
+share/bash-completion/completions:                           \
+	implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh \
+	bin/nmm-cli-experimental
+	#
 	mkdir -p share/bash-completion/completions
 	cp implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
+	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm-cli-experimental --show-completion bash > share/bash-completion/completions/nmm-cli-experimental
+
+share/fish/completions: bin/nmm-cli-experimental
+	mkdir -p share/fish/completions
+	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm-cli-experimental --show-completion fish > share/fish/completions/_nmm-cli-experimental
+
+share/zsh/site-functions: bin/nmm-cli-experimental
+	mkdir -p share/zsh/site-functions
+	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm-cli-experimental --show-completion zsh  > share/zsh/site-functions/_nmm-cli-experimental
