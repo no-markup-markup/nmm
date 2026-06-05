@@ -173,7 +173,7 @@ def nmm2txt(
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_path_to_file('nmm-ocaml'),sub_cmd_name]
     +
-    ['--margin',   str(margin)]
+    ([] if margin == 0 else ['--margin',str(margin)])
     +
     ['--width',    str(text_width)]
     +
