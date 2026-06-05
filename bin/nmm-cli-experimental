@@ -4,6 +4,7 @@
 
 import os.path
 import pathlib
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -157,14 +158,20 @@ def nmm2txt(
   """
   Print raw text semantics of nmm source file at PATH.
   """
-  xml_file_path : F[str] = tempfile.mkstemp()[1]
-  with open(xml_file_path,'w') as f:
-    exit_code_nmm2xml = _nmm2xml(path,parser_backend,f)
-  if exit_code_nmm2xml != 0:
-    os.remove(xml_file_path)
-    sys.exit(exit_code_nmm2xml)
+  match parser_backend:
+    case 'OCaml':
+      sub_cmd_name  : F[str] = 'txt-of-nmm'
+      tmp_file_path : F[str] = shutil.copy(path,tempfile.mkdtemp())
+    case 'Mercury':
+      sub_cmd_name  : F[str] = 'txt-of-axml'         # pyright: ignore reportGeneralTypeIssues
+      tmp_file_path : F[str] = tempfile.mkstemp()[1] # pyright: ignore reportGeneralTypeIssues
+      with open(tmp_file_path,'w') as f:
+        exit_code_nmm2xml = _nmm2xml(path,parser_backend,f)
+      if exit_code_nmm2xml != 0:
+        os.remove(tmp_file_path)
+        sys.exit(exit_code_nmm2xml)
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_path_to_file('nmm-ocaml'),'txt-of-axml']
+    [_get_path_to_file('nmm-ocaml'),sub_cmd_name]
     +
     ['--margin',   str(margin)]
     +
@@ -176,9 +183,9 @@ def nmm2txt(
     +
     (['--quite']                  if quite                  else [])
     +
-    [xml_file_path],
+    [tmp_file_path],
   )
-  os.remove(xml_file_path)
+  os.remove(tmp_file_path)
   sys.exit(completed_proc.returncode)
 
 # HELPER _NMM2XML
