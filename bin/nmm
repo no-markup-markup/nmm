@@ -144,17 +144,17 @@ def _get_margin_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
 
 def _get_width_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
   err_msg : F[str] = 'WIDTH must be a positive integer'
-  if args.margin is None:
+  if args.width is None:
     return []
   try:
-    margin : F[int] = int(args.margin)
+    width : F[int] = int(args.width)
   except ValueError:
     print(err_msg,file=sys.stderr)
     sys.exit(1)
-  if str(margin) != str(args.margin) or margin <= 0:
+  if str(width) != str(args.width) or width <= 0:
     print(err_msg,file=sys.stderr)
     sys.exit(1)
-  return ['--margin',str(margin)]
+  return ['--width',str(width)]
 
 
 ## HELPER _GET_NUMBERING_ARG_LIST_OR_EXIT_WITH_ERROR
