@@ -126,7 +126,7 @@ def _get_realpath_as_str(file_path:str) -> str:
 ## HELPER _GET_MARGIN_ARG_LIST_OR_EXIT_W_ERR
 
 def _get_margin_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
-  err_msg : F[str] = 'MARGIN must be a positive integer'
+  err_msg : F[str] = 'MARGIN must be a non-negative integer'
   if args.margin is None:
     return []
   try:
@@ -134,7 +134,7 @@ def _get_margin_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
   except ValueError:
     print(err_msg,file=sys.stderr)
     sys.exit(1)
-  if str(margin) != str(args.margin) or margin <= 0:
+  if str(margin) != str(args.margin) or margin < 0:
     print(err_msg,file=sys.stderr)
     sys.exit(1)
   return ['--margin',str(margin)]
