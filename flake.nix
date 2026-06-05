@@ -100,6 +100,9 @@
               pkgs_ocaml
             );
             src          = ./.;
+            patchPhase   = ''
+              patchShebangs bin/nmm-cli-experimental
+            '';
             buildPhase   = ''
               make bin
               make share
