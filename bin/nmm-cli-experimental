@@ -1,0 +1,210 @@
+#! /usr/bin/env python3.13
+
+# IMPORTS
+
+import os.path
+import pathlib
+import subprocess
+import sys
+import tempfile
+import typing
+
+from typing import Annotated, Final as F, Literal, TypeAlias as TA
+
+import typer
+
+# HELPER _GET_PATH_TO_FILE
+
+def _get_path_to_file(filename:str) -> str:
+  return str(
+    os.path.join(
+      os.path.dirname(os.path.realpath(__file__)),
+      filename,
+    )
+  )
+
+# CREATE TYPER OBJECT _CLI
+
+_cli : F[typer.Typer] = typer.Typer(no_args_is_help=True)
+
+# TYPE ALIASES AND DEFAULT VALUES FOR OPTIONS
+
+## --PARSER-BACKEND
+
+_ta_parser_backend : TA = Annotated[
+  Literal['Mercury','OCaml'],
+  typer.Option(
+    '--parser-backend',
+    help ='Parser implementation to use. The OCaml implementation is faster but experimental.',
+  )
+]
+
+_default_parser_backend : F[str] = 'Mercury'
+
+## TODO: --TAGS-FILE
+
+ # _ta_tags_file : TA = Annotated[
+ #   pathlib.Path,
+ #   typer.Option(
+ #     '--tags-file',
+ #     mode         = 'r',
+ #     exists       = True,
+ #     dir_okay     = False,
+ #     resolve_path = True,
+ #     help         = 'Use tags from tab-separated-values-file TAGS-FILE.'
+ #   )
+ # ]
+ # _default_tags_file : F[pathlib.Path] = \
+ #   pathlib.Path(_get_path_to_file('tags.tsv'))
+
+
+## ---MARGIN
+
+_ta_margin : TA = Annotated[
+  int,
+  typer.Option(
+    '--margin',
+    min = 0,
+    help =
+      'Set margin width to MARGIN spaces.'
+      +
+      ' '
+      +
+      'MARGIN=0 means margin is automatically computed to be as small as possible.',
+  )
+]
+
+_default_margin : F[int] = 11
+
+## --TEXT-WIDTH
+
+_ta_text_width : TA = Annotated[
+  int,
+  typer.Option(
+    '--text-width',
+    min = 0,
+    help =
+      'Set body text width to WIDTH spaces.'
+      +
+      ' '
+      +
+      'Totalt width becomes MARGIN+WIDTH.',
+  )
+]
+
+_default_text_width : F[int] = 69
+
+## --NUMBERING
+
+_ta_numbering : TA = Annotated[
+ Literal['a1i','ai1','1ai','1ia','ia1','i1a'],
+  typer.Option(
+    '--numbering',
+    help ='Set numbering logic for item blocks and displayed blocks.',
+  )
+]
+
+_default_numbering : F[str] = 'a1i'
+
+## --ALLOW_CUSTOM_NUMBERING
+
+_ta_custom_numbering : TA = \
+  Annotated[bool,typer.Option('--allow-custom-numbering')]
+
+_default_custom_numbering : F[bool] = False
+
+## --QUITE
+
+_ta_quite      : TA      = Annotated[bool,typer.Option('--quite')]
+_default_quite : F[bool] = False
+
+# TYPE ALIAS FOR INPUT PATH
+
+_ta_input_path : TA = Annotated[
+  pathlib.Path,
+  typer.Argument(
+    mode         = 'r',
+    exists       = True,
+    dir_okay     = False,
+    resolve_path = True,
+  )
+]
+
+# SUBCOMMAND NMM2XML
+
+@_cli.command(no_args_is_help=True)
+def nmm2xml(
+  path           : _ta_input_path,
+  parser_backend : _ta_parser_backend = _default_parser_backend,
+):
+  """
+  Print XML semantics of nmm source file at PATH.
+  """
+  sys.exit(_nmm2xml(path,parser_backend,sys.stdout))
+
+# SUBCOMMAND NMM2TXT
+
+@_cli.command(no_args_is_help=True)
+def nmm2txt(
+  path                   : _ta_input_path,
+  parser_backend         : _ta_parser_backend   = _default_parser_backend,
+  margin                 : _ta_margin           = _default_margin,
+  text_width             : _ta_text_width       = _default_text_width,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print raw text semantics of nmm source file at PATH.
+  """
+  xml_file_path : F[str] = tempfile.mkstemp()[1]
+  with open(xml_file_path,'w') as f:
+    exit_code_nmm2xml = _nmm2xml(path,parser_backend,f)
+  if exit_code_nmm2xml != 0:
+    os.remove(xml_file_path)
+    sys.exit(exit_code_nmm2xml)
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file('nmm-ocaml'),'txt-of-axml']
+    +
+    ['--margin',   str(margin)]
+    +
+    ['--width',    str(text_width)]
+    +
+    ['--numbering',str(numbering)]
+    +
+    (['--allow-custom-numbering'] if allow_custom_numbering else [])
+    +
+    (['--quite']                  if quite                  else [])
+    +
+    [xml_file_path],
+  )
+  os.remove(xml_file_path)
+  sys.exit(completed_proc.returncode)
+
+# HELPER _NMM2XML
+
+def _nmm2xml(
+  path           : _ta_input_path,
+  parser_backend : _ta_parser_backend,
+  out            : typing.TextIO,
+) -> int:
+  """
+  Print XML semantics of nmm source file at PATH.
+  """
+  match parser_backend:
+    case 'Mercury' :
+      bin_name : F[str] = 'nmm-mercury' # pyright: ignore reportGeneralTypeIssues
+      cmd_name : F[str] = 'nmm2xml'     # pyright: ignore reportGeneralTypeIssues
+    case 'OCaml'   :
+      bin_name : F[str] = 'nmm-ocaml'   # pyright: ignore reportGeneralTypeIssues
+      cmd_name : F[str] = 'axml-of-nmm' # pyright: ignore reportGeneralTypeIssues
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file(bin_name),cmd_name,path],
+    stdout = out
+  )
+  return completed_proc.returncode
+
+# MAIN
+
+if __name__ == '__main__':
+  _cli()

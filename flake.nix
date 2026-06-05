@@ -37,10 +37,20 @@
           );
           pkgs          = nixpkgs.legacyPackages.${system};
           pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-          pkgs_common   = [
+          python-env    = is-dev-shell: (
+            pkgs.python313.withPackages (
+              python-pkgs: (
+                builtins.filter(x: x != 0) [
+                  (if is-dev-shell then python-pkgs.ipython else 0)
+                  python-pkgs.typer
+                ]
+              )
+            )
+          );
+          pkgs_common   = is-dev-shell: [
             pkgs.bash
             pkgs.gnumake
-            pkgs.python313
+            (python-env is-dev-shell)
             pkgs.python312Packages.weasyprint
             pkgs.xmldiff
           ];
@@ -57,7 +67,7 @@
         in {
           devShells.default = pkgs.mkShell {
             buildInputs = (
-              pkgs_common
+              (pkgs_common true)
               ++
               pkgs_mercury
               ++
@@ -69,23 +79,21 @@
             );
           };
           devShells.rocq = pkgs.mkShell {
-            buildInputs = pkgs_common ++ pkgs_rocq;
+            buildInputs = (pkgs_common true) ++ pkgs_rocq;
           };
           devShells.mercury = pkgs.mkShell {
-            buildInputs = pkgs_common ++ pkgs_mercury;
+            buildInputs = (pkgs_common true) ++ pkgs_mercury;
           };
           devShells.ocaml = pkgs.mkShell {
-            buildInputs = pkgs_common ++ pkgs_ocaml;
+            buildInputs = (pkgs_common true) ++ pkgs_ocaml;
           };
           devShells.github = pkgs.mkShell {
-            buildInputs = pkgs_common ++ pkgs_github;
+            buildInputs = (pkgs_common true) ++ pkgs_github;
           };
           packages.default = pkgs.stdenv.mkDerivation {
             name        = "no-markup-markup-${version}";
             buildInputs = (
-              [pkgs.makeWrapper]
-              ++
-              pkgs_common
+              (pkgs_common false)
               ++
               pkgs_mercury
               ++
