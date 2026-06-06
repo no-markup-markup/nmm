@@ -226,7 +226,7 @@ def xml2txt(
 # SUBCOMMAND LEX2TXT
 
 @_cli.command(no_args_is_help=True)
-def lex2txt(path : _ta_input_path):
+def lex2txt(path:_ta_input_path):
   """
   Print a raw text representation of the Mercury backend's lexing of nmm source
   file at PATH.
@@ -234,6 +234,21 @@ def lex2txt(path : _ta_input_path):
   sys.exit(
     subprocess.run([_get_path_to_file('nmm-mercury'),'lex2txt',path]).returncode
   )
+
+# SUBCOMMAND VALIDATE_XML
+
+@_cli.command(no_args_is_help=True,name='validate-xml')
+def validate_xml(path:_ta_input_path):
+  """
+  Check whether the XML file at PATH represents the AST of an nmm source.
+  """
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run([
+    _get_path_to_file('nmm-ocaml'),
+    'validate-xml',
+    _get_path_to_file('AST.dtd'),
+    path
+  ])
+  sys.exit(completed_proc.returncode)
 
 # HELPER _NMM2XML
 
