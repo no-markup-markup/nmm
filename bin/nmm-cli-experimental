@@ -4,7 +4,6 @@
 
 import os.path
 import pathlib
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -36,7 +35,9 @@ _ta_parser_backend : TA = Annotated[
   Literal['Mercury','OCaml'],
   typer.Option(
     '--parser-backend',
-    help ='Parser implementation to use. The OCaml implementation is faster but experimental.',
+    case_sensitive = False,
+    help           =
+      'Parser implementation to use. The OCaml implementation is faster but experimental.',
   )
 ]
 
@@ -131,19 +132,6 @@ _ta_input_path : TA = Annotated[
   )
 ]
 
-# SUBCOMMAND NMM2XML
-
-@_cli.command(no_args_is_help=True)
-def nmm2xml(
-  path           : _ta_input_path,
-  parser_backend : _ta_parser_backend = _default_parser_backend,
-  tags_file      : _ta_tags_file      = _default_tags_file,
-):
-  """
-  Print XML semantics of nmm source file at PATH.
-  """
-  sys.exit(_nmm2xml(path,parser_backend,tags_file,sys.stdout))
-
 # SUBCOMMAND NMM2TXT
 
 @_cli.command(no_args_is_help=True)
@@ -161,34 +149,79 @@ def nmm2txt(
   Print raw text semantics of nmm source file at PATH.
   """
   match parser_backend:
-    case 'OCaml':
-      sub_cmd_name  : F[str] = 'txt-of-nmm'
-      tmp_file_path : F[str] = shutil.copy(path,tempfile.mkdtemp())
     case 'Mercury':
-      sub_cmd_name  : F[str] = 'txt-of-axml'         # pyright: ignore reportGeneralTypeIssues
-      tmp_file_path : F[str] = tempfile.mkstemp()[1] # pyright: ignore reportGeneralTypeIssues
-      with open(tmp_file_path,'w') as f:
-        exit_code_nmm2xml = _nmm2xml(path,parser_backend,tags_file,f)
+      tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
+      with open(tmp_xml_file_path,'w') as f:
+        exit_code_nmm2xml : F[int] = _nmm2xml(path,parser_backend,tags_file,f)
       if exit_code_nmm2xml != 0:
-        os.remove(tmp_file_path)
+        os.remove(tmp_xml_file_path)
         sys.exit(exit_code_nmm2xml)
-  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_path_to_file('nmm-ocaml'),sub_cmd_name]
-    +
-    ([] if margin == 0 else ['--margin',str(margin)])
-    +
-    ['--width',    str(text_width)]
-    +
-    ['--numbering',str(numbering)]
-    +
-    (['--allow-custom-numbering'] if allow_custom_numbering else [])
-    +
-    (['--quite']                  if quite                  else [])
-    +
-    [tmp_file_path],
-  )
-  os.remove(tmp_file_path)
-  sys.exit(completed_proc.returncode)
+      exit_code_xml2txt : F[int] = _xml2txt(
+        tmp_xml_file_path,
+        margin,
+        text_width,
+        numbering,
+        allow_custom_numbering,
+        tags_file,
+        quite,
+      )
+      os.remove(tmp_xml_file_path)
+      sys.exit(exit_code_xml2txt)
+    case 'OCaml':
+      completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+        [_get_path_to_file('nmm-ocaml'),'txt-of-nmm']
+        +
+        ([] if margin == 0 else ['--margin',str(margin)])
+        +
+        ['--width',    str(text_width)]
+        +
+        ['--numbering',str(numbering)]
+        +
+        (['--allow-custom-numbering'] if allow_custom_numbering else [])
+        +
+        (['--quite']                  if quite                  else [])
+        +
+        [path],
+      )
+      sys.exit(completed_proc.returncode)
+
+# SUBCOMMAND NMM2XML
+
+@_cli.command(no_args_is_help=True)
+def nmm2xml(
+  path           : _ta_input_path,
+  parser_backend : _ta_parser_backend = _default_parser_backend,
+  tags_file      : _ta_tags_file      = _default_tags_file,
+):
+  """
+  Print XML semantics of nmm source file at PATH.
+  """
+  sys.exit(_nmm2xml(path,parser_backend,tags_file,sys.stdout))
+
+# SUBCOMMAND XML2TXT
+
+@_cli.command(no_args_is_help=True)
+def xml2txt(
+  path                   : _ta_input_path,
+  margin                 : _ta_margin           = _default_margin,
+  text_width             : _ta_text_width       = _default_text_width,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print raw text semantics of XML-semantics-file at PATH.
+  """
+  sys.exit(_xml2txt(
+    str(path),
+    margin,
+    text_width,
+    numbering,
+    allow_custom_numbering,
+    tags_file,
+    quite,
+  ))
 
 # HELPER _NMM2XML
 
@@ -218,6 +251,36 @@ def _nmm2xml(
       tags_file_arg_list : F[list[str]] = ['--tags', tags_file] # pyright: ignore reportGeneralTypeIssues
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_path_to_file(bin_name),cmd_name]+tags_file_arg_list+[path],stdout=out
+  )
+  return completed_proc.returncode
+
+# HELPER _XML2TXT
+
+def _xml2txt(
+  path                   : str,
+  margin                 : _ta_margin,
+  text_width             : _ta_text_width,
+  numbering              : _ta_numbering,
+  allow_custom_numbering : _ta_custom_numbering,
+  tags_file              : _ta_tags_file,
+  quite                  : _ta_quite,
+) -> int:
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file('nmm-ocaml'),'txt-of-axml']
+    +
+    ([] if margin == 0 else ['--margin',str(margin)])
+    +
+    ['--width',    str(text_width)]
+    +
+    ['--numbering',str(numbering)]
+    +
+    ['--tags',    tags_file]
+    +
+    (['--allow-custom-numbering'] if allow_custom_numbering else [])
+    +
+    (['--quite']                  if quite                  else [])
+    +
+    [path],
   )
   return completed_proc.returncode
 
