@@ -250,6 +250,18 @@ def validate_xml(path:_ta_input_path):
   ])
   sys.exit(completed_proc.returncode)
 
+# SUBCOMMAND NORMALIZE_XML
+
+@_cli.command(no_args_is_help=True,name='normalize-xml')
+def normalize_xml(path:_ta_input_path):
+  """
+  Print normalized version of XML-semantics-file at PATH.
+  """
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file('nmm-ocaml'),'normalize-axml',path]
+  )
+  sys.exit(completed_proc.returncode)
+
 # HELPER _NMM2XML
 
 def _nmm2xml(
