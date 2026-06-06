@@ -223,6 +223,18 @@ def xml2txt(
     quite,
   ))
 
+# SUBCOMMAND LEX2TXT
+
+@_cli.command(no_args_is_help=True)
+def lex2txt(path : _ta_input_path):
+  """
+  Print a raw text representation of the Mercury backend's lexing of nmm source
+  file at PATH.
+  """
+  sys.exit(
+    subprocess.run([_get_path_to_file('nmm-mercury'),'lex2txt',path]).returncode
+  )
+
 # HELPER _NMM2XML
 
 def _nmm2xml(
