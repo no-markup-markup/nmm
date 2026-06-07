@@ -9,7 +9,9 @@ import sys
 import tempfile
 import typing
 
-from typing import Annotated, Final as F, Literal, TypeAlias as TA
+from typing import (
+  Annotated, Final as F, Literal, Optional as O, TypeAlias as TA,
+)
 
 import typer
 
@@ -108,6 +110,41 @@ _ta_numbering : TA = Annotated[
 
 _default_numbering : F[str] = 'a1i'
 
+## --LANG (ALIAS TA_HTML_LANG)
+
+_ta_html_lang : TA = Annotated[
+  str,
+  typer.Option(
+    '--lang',
+    help = 'The expression L in ⌜<html lang="L">⌝---affects hyphenation.',
+  )
+]
+
+_default_html_lang = 'en'
+
+## --INTERNAL-CSS
+
+_ta_internal_css : TA = Annotated[
+  O[pathlib.Path],
+  typer.Option(
+    '--internal-css',
+    mode         = 'r',
+    exists       = True,
+    dir_okay     = False,
+    resolve_path = True,
+  )
+]
+
+## --EXTERNAL-CSS
+
+_ta_external_css : TA = Annotated[
+  O[str],
+  typer.Option(
+    '--external-css',
+    help = 'URI',
+  )
+]
+
 ## --ALLOW_CUSTOM_NUMBERING
 
 _ta_custom_numbering : TA = \
@@ -185,6 +222,69 @@ def nmm2txt(
       )
       sys.exit(completed_proc.returncode)
 
+# SUBCOMMAND NMM2HTML
+
+@_cli.command(no_args_is_help=True)
+def nmm2html(
+  path                   : _ta_input_path,
+  parser_backend         : _ta_parser_backend   = _default_parser_backend,
+  margin                 : _ta_margin           = _default_margin,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  lang                   : _ta_html_lang        = _default_html_lang,
+  internal_css           : _ta_internal_css     = None,
+  external_css           : _ta_external_css     = None,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print HTML semantics of nmm source file at PATH.
+  """
+  match parser_backend:
+    case 'Mercury':
+      tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
+      with open(tmp_xml_file_path,'w') as f:
+        exit_code_nmm2xml : F[int] = _nmm2xml(path,parser_backend,tags_file,f)
+      if exit_code_nmm2xml != 0:
+        os.remove(tmp_xml_file_path)
+        sys.exit(exit_code_nmm2xml)
+      exit_code_xml2txt : F[int] = _xml2html(
+        tmp_xml_file_path,
+        margin,
+        numbering,
+        allow_custom_numbering,
+        tags_file,
+        lang,
+        internal_css,
+        external_css,
+        quite,
+      )
+      os.remove(tmp_xml_file_path)
+      sys.exit(exit_code_xml2txt)
+    case 'OCaml':
+      completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+        [_get_path_to_file('nmm-ocaml'),'html-of-nmm']
+        +
+        ([] if margin == 0 else ['--margin',str(margin)])
+        +
+        ['--lang',lang]
+        +
+        ['--numbering',numbering]
+        +
+        (['--allow-custom-numbering'] if allow_custom_numbering else [])
+        +
+        (['--tags', tags_file])
+        +
+        ([] if internal_css is None else ['--internal-css', internal_css])
+        +
+        ([] if external_css is None else ['--external-css', external_css])
+        +
+        (['--quite'] if quite else [])
+        +
+        [path]
+      )
+      sys.exit(completed_proc.returncode)
+
 # SUBCOMMAND NMM2XML
 
 @_cli.command(no_args_is_help=True)
@@ -223,10 +323,40 @@ def xml2txt(
     quite,
   ))
 
-# SUBCOMMAND LEX2TXT
+# SUBCOMMAND XML2HTML
 
 @_cli.command(no_args_is_help=True)
-def lex2txt(path:_ta_input_path):
+def xml2html(
+  path                   : _ta_input_path,
+  margin                 : _ta_margin           = _default_margin,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  lang                   : _ta_html_lang        = _default_html_lang,
+  internal_css           : _ta_internal_css     = None,
+  external_css           : _ta_external_css     = None,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print HTML semantics of XML-semantics-file at PATH.
+  """
+  sys.exit(_xml2html(
+    str(path),
+    margin,
+    numbering,
+    allow_custom_numbering,
+    tags_file,
+    lang,
+    internal_css,
+    external_css,
+    quite,
+  ))
+
+
+# SUBCOMMAND LEX-NMM
+
+@_cli.command(no_args_is_help=True,name='lex-nmm')
+def lex_nmm(path:_ta_input_path):
   """
   Print a raw text representation of the Mercury backend's lexing of nmm source
   file at PATH.
@@ -320,6 +450,42 @@ def _xml2txt(
     (['--quite']                  if quite                  else [])
     +
     [path],
+  )
+  return completed_proc.returncode
+
+# HELPER _XML2HTML
+
+def _xml2html(
+  path                   : str,
+  margin                 : _ta_margin           = _default_margin,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  lang                   : _ta_html_lang        = _default_html_lang,
+  internal_css           : _ta_internal_css     = None,
+  external_css           : _ta_external_css     = None,
+  quite                  : _ta_quite            = _default_quite
+) -> int:
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file('nmm-ocaml'), 'html-of-axml']
+    +
+    ([] if margin == 0 else ['--margin',str(margin)])
+    +
+    ['--lang',lang]
+    +
+    ['--numbering',numbering]
+    +
+    (['--allow-custom-numbering'] if allow_custom_numbering else [])
+    +
+    (['--tags', tags_file])
+    +
+    ([] if internal_css is None else ['--internal-css', internal_css])
+    +
+    ([] if external_css is None else ['--external-css', external_css])
+    +
+    (['--quite'] if quite else [])
+    +
+    [path]
   )
   return completed_proc.returncode
 
