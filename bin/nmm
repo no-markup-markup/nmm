@@ -187,12 +187,7 @@ def nmm2txt(
   """
   match parser_backend:
     case 'Mercury':
-      tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
-      with open(tmp_xml_file_path,'w') as f:
-        exit_code_nmm2xml : F[int] = _nmm2xml(path,parser_backend,tags_file,f)
-      if exit_code_nmm2xml != 0:
-        os.remove(tmp_xml_file_path)
-        sys.exit(exit_code_nmm2xml)
+      tmp_xml_file_path = _get_mercury_nmm2xml_tmp_file_path(path,tags_file)
       exit_code_xml2txt : F[int] = _xml2txt(
         tmp_xml_file_path,
         margin,
@@ -242,12 +237,7 @@ def nmm2html(
   """
   match parser_backend:
     case 'Mercury':
-      tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
-      with open(tmp_xml_file_path,'w') as f:
-        exit_code_nmm2xml : F[int] = _nmm2xml(path,parser_backend,tags_file,f)
-      if exit_code_nmm2xml != 0:
-        os.remove(tmp_xml_file_path)
-        sys.exit(exit_code_nmm2xml)
+      tmp_xml_file_path = _get_mercury_nmm2xml_tmp_file_path(path,tags_file)
       exit_code_xml2txt : F[int] = _xml2html(
         tmp_xml_file_path,
         margin,
@@ -391,6 +381,20 @@ def normalize_xml(path:_ta_input_path):
     [_get_path_to_file('nmm-ocaml'),'normalize-axml',path]
   )
   sys.exit(completed_proc.returncode)
+
+# HELPER _MERCURY_NMM2XML_TMP_FILE
+
+def _get_mercury_nmm2xml_tmp_file_path(
+  path      : _ta_input_path,
+  tags_file : _ta_tags_file,
+) -> str:
+  tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
+  with open(tmp_xml_file_path,'w') as f:
+    exit_code_nmm2xml : F[int] = _nmm2xml(path,'Mercury',tags_file,f)
+  if exit_code_nmm2xml != 0:
+    os.remove(tmp_xml_file_path)
+    sys.exit(exit_code_nmm2xml)
+  return tmp_xml_file_path
 
 # HELPER _NMM2XML
 
