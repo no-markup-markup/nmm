@@ -1,4 +1,4 @@
-#! usr/bin/env bash
+#! /usr/bin/env bash
 
 make_subset_font_css_main () {
 	local input_ttf_file=$1
