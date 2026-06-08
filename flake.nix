@@ -101,7 +101,7 @@
             );
             src          = ./.;
             patchPhase   = ''
-              patchShebangs bin/nmm-cli-experimental
+              patchShebangs bin/nmm
             '';
             buildPhase   = ''
               make bin
