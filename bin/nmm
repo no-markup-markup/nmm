@@ -2,450 +2,494 @@
 
 # IMPORTS
 
-import argparse as ap
-import os
 import os.path
+import pathlib
 import subprocess
 import sys
 import tempfile
 import typing
 
-from dataclasses import dataclass
-from typing import Any, Final as F, Literal, Optional as O
-
-
-
-# DATA CLASS C_SHARED_FLAG
-
-@dataclass(frozen=True,kw_only=True)
-class c_shared_flag:
-  flag_incl_dashes : F[str]
-  help             : F[str]
-  choices          : O[tuple[Any,...]]
-  default          : F[Any]
-
-
-
-# FUNCTION F_ADD_SHARED_FLAG
-
-def f_add_shared_flag(p: ap.ArgumentParser, f: c_shared_flag) -> None:
-  p.add_argument(
-    f.flag_incl_dashes,
-    help    = f.help,
-    choices = f.choices,
-    default = f.default
+from typing import (
+  Annotated, Final as F, Literal, Optional as O, TypeAlias as TA,
 )
 
+import typer
 
+# HELPER _GET_PATH_TO_FILE
 
-# LITERAL TYPE T_BACKEND_CHOICES
-
-t_backend_choices = Literal['Mercury','OCaml']
-
-
-
-# LITERAL TYPE T_NUMBERING_CHOICES
-
-t_numbering_choices = Literal['a1i','ai1','1ai','1ia','ia1','i1a']
-numbering_choices   : F[tuple[str]] = typing.get_args(t_numbering_choices)
-
-
-
-# SHARED FLAG ‘--BACKEND’
-
-flag_parser_backend = c_shared_flag(
-  flag_incl_dashes = '--parser-backend',
-  help             =
-    'Default: ‘Mercury’.'
-    +
-    '\n'
-    +
-    'The OCaml backend is faster but experimental'
-    +
-    '---'
-    +
-    'recommended only to deal with performance issues.',
-  choices          = ('Mercury','OCaml'),
-  default          = 'Mercury',
-)
-
-
-
-# CREATE PARSER
-
-parser : F[ap.ArgumentParser] = ap.ArgumentParser(
-  description='no-markup-markup utilities',
-  formatter_class=ap.ArgumentDefaultsHelpFormatter,
-)
-
-
-
-# DESCRIPTION_BY_COMMAND
-
-description_by_command : F[dict[str,str]] = {
-  'nmm2txt'       :
-    'turn a no-markup-markup source file into raw text',
-  'nmm2html'      :
-    'turn a no-markup-markup source file into HTML',
-  'nmm2xml'       :
-    'turn a no-markup-markup source file into an XML representation of its AST',
-  'xml2txt'       :
-    'turn an XML representation of a no-markup-markup AST into raw text',
-  'lex2txt'       :
-    'turn a no-markup-markup source file into a raw text representation of its lexical tokenization',
-  'validate-xml'  :
-    'check that an XML file represents a no-markup-markup AST',
-  'normalize-xml' :
-    'normalize an XML representation of a no-markup-markup AST',
-}
-
-
-
-# CREATE SUBPARSERS AND THEIR HANDLERS
-
-subparsers : F = parser.add_subparsers(title='commands')
-
-
-## HELPER _GET_BIN_PATH
-
-def _get_bin_path(bin_name:str) -> str:
+def _get_path_to_file(filename:str) -> str:
   return str(
     os.path.join(
       os.path.dirname(os.path.realpath(__file__)),
-      bin_name,
+      filename,
     )
   )
 
+# CREATE TYPER OBJECT _CLI
 
-## HELPER _GET_REALPATH_AS_STR
+_cli : F[typer.Typer] = typer.Typer(no_args_is_help=True)
 
-def _get_realpath_as_str(file_path:str) -> str:
-  return str(os.path.realpath(file_path))
+# TYPE ALIASES AND DEFAULT VALUES FOR OPTIONS
 
+## --PARSER-BACKEND
 
-## HELPER _GET_MARGIN_ARG_LIST_OR_EXIT_W_ERR
-
-def _get_margin_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
-  err_msg : F[str] = 'MARGIN must be a non-negative integer'
-  if args.margin is None:
-    return []
-  try:
-    margin : F[int] = int(args.margin)
-  except ValueError:
-    print(err_msg,file=sys.stderr)
-    sys.exit(1)
-  if str(margin) != str(args.margin) or margin < 0:
-    print(err_msg,file=sys.stderr)
-    sys.exit(1)
-  return ['--margin',str(margin)]
-
-
-## HELPER _GET_WIDTH_ARG_LIST_OR_EXIT_WITH_ERROR
-
-def _get_width_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
-  err_msg : F[str] = 'WIDTH must be a positive integer'
-  if args.width is None:
-    return []
-  try:
-    width : F[int] = int(args.width)
-  except ValueError:
-    print(err_msg,file=sys.stderr)
-    sys.exit(1)
-  if str(width) != str(args.width) or width <= 0:
-    print(err_msg,file=sys.stderr)
-    sys.exit(1)
-  return ['--width',str(width)]
-
-
-## HELPER _GET_NUMBERING_ARG_LIST_OR_EXIT_WITH_ERROR
-
-def _get_numbering_arg_list_or_exit_w_err(args:ap.Namespace) -> list[str]:
-  err_msg : F[str] = (
-    'in option ⌜--numbering E⌝, E must be either of:'
-    +
-    '\n'
-    +
-    ' '.join(map(lambda s: f'‘{s}’', numbering_choices))
+_ta_parser_backend : TA = Annotated[
+  Literal['Mercury','OCaml'],
+  typer.Option(
+    '--parser-backend',
+    case_sensitive = False,
+    help           =
+      'Parser implementation to use. The OCaml implementation is faster but experimental.',
   )
-  if args.numbering is None:
-    return []
-  if args.numbering not in numbering_choices:
-    print(err_msg,file=sys.stderr)
-    sys.exit(1)
-  return ['--numbering',args.numbering]
+]
+
+_default_parser_backend : F[str] = 'Mercury'
+
+## --TAGS-FILE
+
+_ta_tags_file : TA = Annotated[
+  pathlib.Path,
+  typer.Option(
+    '--tags-file',
+    mode         = 'r',
+    exists       = True,
+    dir_okay     = False,
+    resolve_path = True,
+    help         = 'Use tags from tab-separated-values file.'
+  )
+]
+_default_tags_file : F[pathlib.Path] = \
+  pathlib.Path(_get_path_to_file('tags.tsv'))
 
 
-## HELPER _NMM2XML
+## ---MARGIN
 
-def _nmm2xml(path:str, backend:t_backend_choices) -> str:
-  xml_file_path : F[str] = tempfile.mkstemp()[1]
-  with open(xml_file_path,'w') as f:
-    match backend:
-      case 'Mercury' :
-        bin_name : F[str] = 'nmm-mercury' # pyright: ignore reportGeneralTypeIssues
-        cmd_name : F[str] = 'nmm2xml'     # pyright: ignore reportGeneralTypeIssues
-      case 'OCaml'   :
-        bin_name : F[str] = 'nmm-ocaml'   # pyright: ignore reportGeneralTypeIssues
-        cmd_name : F[str] = 'axml-of-nmm' # pyright: ignore reportGeneralTypeIssues
-    completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-      [_get_bin_path(bin_name),cmd_name,_get_realpath_as_str(path)],
-      stdout=f
-    )
-  if completed_proc.returncode != 0:
-    os.remove(xml_file_path)
-    sys.exit(completed_proc.returncode)
-  return xml_file_path
+_ta_margin : TA = Annotated[
+  int,
+  typer.Option(
+    '--margin',
+    min = 0,
+    help =
+      'Set margin width to MARGIN := x spaces.'
+      +
+      ' '
+      +
+      'MARGIN = 0 means margin is automatically computed to be as small as possible.',
+  )
+]
+
+_default_margin : F[int] = 11
+
+## --TEXT-WIDTH
+
+_ta_text_width : TA = Annotated[
+  int,
+  typer.Option(
+    '--text-width',
+    min = 0,
+    help =
+      'Set body text width to WIDTH := x spaces.'
+      +
+      ' '
+      +
+      'Totalt width becomes MARGIN+WIDTH.',
+  )
+]
+
+_default_text_width : F[int] = 69
+
+## --NUMBERING
+
+_ta_numbering : TA = Annotated[
+ Literal['a1i','ai1','1ai','1ia','ia1','i1a'],
+  typer.Option(
+    '--numbering',
+    help ='Set numbering logic for item blocks and displayed blocks.',
+  )
+]
+
+_default_numbering : F[str] = 'a1i'
+
+## --LANG (ALIAS TA_HTML_LANG)
+
+_ta_html_lang : TA = Annotated[
+  str,
+  typer.Option(
+    '--lang',
+    help = 'The expression L in ⌜<html lang="L">⌝---affects hyphenation.',
+  )
+]
+
+_default_html_lang = 'en'
+
+## --INTERNAL-CSS
+
+_ta_internal_css : TA = Annotated[
+  O[pathlib.Path],
+  typer.Option(
+    '--internal-css',
+    mode         = 'r',
+    exists       = True,
+    dir_okay     = False,
+    resolve_path = True,
+  )
+]
+
+## --EXTERNAL-CSS
+
+_ta_external_css : TA = Annotated[
+  O[str],
+  typer.Option(
+    '--external-css',
+    help = 'URI',
+  )
+]
+
+## --ALLOW_CUSTOM_NUMBERING
+
+_ta_custom_numbering : TA = \
+  Annotated[bool,typer.Option('--allow-custom-numbering')]
+
+_default_custom_numbering : F[bool] = False
+
+## --QUITE
+
+_ta_quite      : TA      = Annotated[bool,typer.Option('--quite')]
+_default_quite : F[bool] = False
+
+# TYPE ALIAS FOR INPUT PATH
+
+_ta_input_path : TA = Annotated[
+  pathlib.Path,
+  typer.Argument(
+    mode         = 'r',
+    exists       = True,
+    dir_okay     = False,
+    resolve_path = True,
+  )
+]
+
+# SUBCOMMAND NMM2TXT
+
+@_cli.command(no_args_is_help=True)
+def nmm2txt(
+  path                   : _ta_input_path,
+  parser_backend         : _ta_parser_backend   = _default_parser_backend,
+  margin                 : _ta_margin           = _default_margin,
+  text_width             : _ta_text_width       = _default_text_width,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print raw text semantics of nmm source file at PATH.
+  """
+  match parser_backend:
+    case 'Mercury':
+      tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
+      with open(tmp_xml_file_path,'w') as f:
+        exit_code_nmm2xml : F[int] = _nmm2xml(path,parser_backend,tags_file,f)
+      if exit_code_nmm2xml != 0:
+        os.remove(tmp_xml_file_path)
+        sys.exit(exit_code_nmm2xml)
+      exit_code_xml2txt : F[int] = _xml2txt(
+        tmp_xml_file_path,
+        margin,
+        text_width,
+        numbering,
+        allow_custom_numbering,
+        tags_file,
+        quite,
+      )
+      os.remove(tmp_xml_file_path)
+      sys.exit(exit_code_xml2txt)
+    case 'OCaml':
+      completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+        [_get_path_to_file('nmm-ocaml'),'txt-of-nmm']
+        +
+        ([] if margin == 0 else ['--margin',str(margin)])
+        +
+        ['--width',    str(text_width)]
+        +
+        ['--numbering',str(numbering)]
+        +
+        (['--allow-custom-numbering'] if allow_custom_numbering else [])
+        +
+        (['--quite']                  if quite                  else [])
+        +
+        [path],
+      )
+      sys.exit(completed_proc.returncode)
+
+# SUBCOMMAND NMM2HTML
+
+@_cli.command(no_args_is_help=True)
+def nmm2html(
+  path                   : _ta_input_path,
+  parser_backend         : _ta_parser_backend   = _default_parser_backend,
+  margin                 : _ta_margin           = _default_margin,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  lang                   : _ta_html_lang        = _default_html_lang,
+  internal_css           : _ta_internal_css     = None,
+  external_css           : _ta_external_css     = None,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print HTML semantics of nmm source file at PATH.
+  """
+  match parser_backend:
+    case 'Mercury':
+      tmp_xml_file_path : F[str] = tempfile.mkstemp()[1]
+      with open(tmp_xml_file_path,'w') as f:
+        exit_code_nmm2xml : F[int] = _nmm2xml(path,parser_backend,tags_file,f)
+      if exit_code_nmm2xml != 0:
+        os.remove(tmp_xml_file_path)
+        sys.exit(exit_code_nmm2xml)
+      exit_code_xml2txt : F[int] = _xml2html(
+        tmp_xml_file_path,
+        margin,
+        numbering,
+        allow_custom_numbering,
+        tags_file,
+        lang,
+        internal_css,
+        external_css,
+        quite,
+      )
+      os.remove(tmp_xml_file_path)
+      sys.exit(exit_code_xml2txt)
+    case 'OCaml':
+      completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+        [_get_path_to_file('nmm-ocaml'),'html-of-nmm']
+        +
+        ([] if margin == 0 else ['--margin',str(margin)])
+        +
+        ['--lang',lang]
+        +
+        ['--numbering',numbering]
+        +
+        (['--allow-custom-numbering'] if allow_custom_numbering else [])
+        +
+        (['--tags', tags_file])
+        +
+        ([] if internal_css is None else ['--internal-css', internal_css])
+        +
+        ([] if external_css is None else ['--external-css', external_css])
+        +
+        (['--quite'] if quite else [])
+        +
+        [path]
+      )
+      sys.exit(completed_proc.returncode)
+
+# SUBCOMMAND NMM2XML
+
+@_cli.command(no_args_is_help=True)
+def nmm2xml(
+  path           : _ta_input_path,
+  parser_backend : _ta_parser_backend = _default_parser_backend,
+  tags_file      : _ta_tags_file      = _default_tags_file,
+):
+  """
+  Print XML semantics of nmm source file at PATH.
+  """
+  sys.exit(_nmm2xml(path,parser_backend,tags_file,sys.stdout))
+
+# SUBCOMMAND XML2TXT
+
+@_cli.command(no_args_is_help=True)
+def xml2txt(
+  path                   : _ta_input_path,
+  margin                 : _ta_margin           = _default_margin,
+  text_width             : _ta_text_width       = _default_text_width,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print raw text semantics of XML-semantics-file at PATH.
+  """
+  sys.exit(_xml2txt(
+    str(path),
+    margin,
+    text_width,
+    numbering,
+    allow_custom_numbering,
+    tags_file,
+    quite,
+  ))
+
+# SUBCOMMAND XML2HTML
+
+@_cli.command(no_args_is_help=True)
+def xml2html(
+  path                   : _ta_input_path,
+  margin                 : _ta_margin           = _default_margin,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  lang                   : _ta_html_lang        = _default_html_lang,
+  internal_css           : _ta_internal_css     = None,
+  external_css           : _ta_external_css     = None,
+  quite                  : _ta_quite            = _default_quite,
+):
+  """
+  Print HTML semantics of XML-semantics-file at PATH.
+  """
+  sys.exit(_xml2html(
+    str(path),
+    margin,
+    numbering,
+    allow_custom_numbering,
+    tags_file,
+    lang,
+    internal_css,
+    external_css,
+    quite,
+  ))
 
 
-## NMM2XML
+# SUBCOMMAND LEX-NMM
 
-subparser_nmm2xml : F[ap.ArgumentParser] = subparsers.add_parser(
-  name            = 'nmm2xml',
-  description     = description_by_command['nmm2xml'],
-)
-subparser_nmm2xml.add_argument('path',help='path to nmm source file')
-f_add_shared_flag(subparser_nmm2xml,flag_parser_backend)
+@_cli.command(no_args_is_help=True,name='lex-nmm')
+def lex_nmm(path:_ta_input_path):
+  """
+  Print a raw text representation of the Mercury backend's lexing of nmm source
+  file at PATH.
+  """
+  sys.exit(
+    subprocess.run([_get_path_to_file('nmm-mercury'),'lex2txt',path]).returncode
+  )
 
-def nmm2xml(args:ap.Namespace) -> None:
-  xml_path = _nmm2xml(args.path,args.parser_backend)
-  with open(xml_path) as f:
-    print(f.read(),end='')
-  os.remove(xml_path)
-  sys.exit(0)
+# SUBCOMMAND VALIDATE_XML
 
-subparser_nmm2xml.set_defaults(func=nmm2xml)
+@_cli.command(no_args_is_help=True,name='validate-xml')
+def validate_xml(path:_ta_input_path):
+  """
+  Check whether the XML file at PATH represents the AST of an nmm source.
+  """
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run([
+    _get_path_to_file('nmm-ocaml'),
+    'validate-xml',
+    _get_path_to_file('AST.dtd'),
+    path
+  ])
+  sys.exit(completed_proc.returncode)
 
+# SUBCOMMAND NORMALIZE_XML
 
-## HELPER _NMM2TXT
+@_cli.command(no_args_is_help=True,name='normalize-xml')
+def normalize_xml(path:_ta_input_path):
+  """
+  Print normalized version of XML-semantics-file at PATH.
+  """
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file('nmm-ocaml'),'normalize-axml',path]
+  )
+  sys.exit(completed_proc.returncode)
 
-def _nmm2txt(
-  *,
+# HELPER _NMM2XML
+
+def _nmm2xml(
+  path           : _ta_input_path,
+  parser_backend : _ta_parser_backend,
+  tags_file      : _ta_tags_file,
+  out            : typing.TextIO,
+) -> int:
+  """
+  Print XML semantics of nmm source file at PATH.
+  """
+  match parser_backend:
+    case 'Mercury':
+      bin_name           : F[str]       = 'nmm-mercury' # pyright: ignore reportGeneralTypeIssues
+      cmd_name           : F[str]       = 'nmm2xml'     # pyright: ignore reportGeneralTypeIssues
+      tags_file_arg_list : F[list[str]] = []            # pyright: ignore reportGeneralTypeIssues
+      if os.path.abspath(tags_file) != os.path.abspath(_default_tags_file):
+        print(
+          '--tags-file non-default value not yet supported for Mercury parser.',
+          file=sys.stderr,
+        )
+        return 1
+    case 'OCaml':
+      bin_name : F[str] = 'nmm-ocaml'                           # pyright: ignore reportGeneralTypeIssues
+      cmd_name : F[str] = 'axml-of-nmm'                         # pyright: ignore reportGeneralTypeIssues
+      tags_file_arg_list : F[list[str]] = ['--tags', tags_file] # pyright: ignore reportGeneralTypeIssues
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file(bin_name),cmd_name]+tags_file_arg_list+[path],stdout=out
+  )
+  return completed_proc.returncode
+
+# HELPER _XML2TXT
+
+def _xml2txt(
   path                   : str,
-  margin_arg_list        : list[str],
-  width_arg_list         : list[str],
-  backend                : t_backend_choices,
-  quite                  : bool,
-  numbering_arg_list     : list[str],
-  allow_custom_numbering : bool,
-) -> None:
-  if backend == 'OCaml':
-    completed_proc_1  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-      [_get_bin_path('nmm-ocaml'),'txt-of-nmm']
-      +
-      margin_arg_list
-      +
-      width_arg_list
-      +
-      numbering_arg_list
-      +
-      (['--quite'] if quite else [])
-      +
-      (['--allow-custom-numbering'] if allow_custom_numbering else [])
-      +
-      [path],
-    )
-    if completed_proc_1.returncode != 0:
-      sys.exit(completed_proc_1.returncode)
-    sys.exit(0)
-  xml_path         : F[str]       = _nmm2xml(path,backend)
-  completed_proc_2 : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_bin_path('nmm-ocaml'),'txt-of-axml']
+  margin                 : _ta_margin,
+  text_width             : _ta_text_width,
+  numbering              : _ta_numbering,
+  allow_custom_numbering : _ta_custom_numbering,
+  tags_file              : _ta_tags_file,
+  quite                  : _ta_quite,
+) -> int:
+  completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
+    [_get_path_to_file('nmm-ocaml'),'txt-of-axml']
     +
-    margin_arg_list
+    ([] if margin == 0 else ['--margin',str(margin)])
     +
-    width_arg_list
+    ['--width',    str(text_width)]
     +
-    numbering_arg_list
+    ['--numbering',str(numbering)]
     +
-    (['--quite'] if quite else [])
+    ['--tags',    tags_file]
     +
     (['--allow-custom-numbering'] if allow_custom_numbering else [])
     +
-    [xml_path],
+    (['--quite']                  if quite                  else [])
+    +
+    [path],
   )
-  os.remove(xml_path)
-  if completed_proc_2.returncode != 0:
-    sys.exit(completed_proc_2.returncode)
-  sys.exit(0)
+  return completed_proc.returncode
 
+# HELPER _XML2HTML
 
-## NMM2TXT
-
-subparser_nmm2txt : F[ap.ArgumentParser] = subparsers.add_parser(
-  name            = 'nmm2txt',
-  description     = description_by_command['nmm2txt'],
-)
-subparser_nmm2txt.add_argument('path',help='path to nmm source file')
-subparser_nmm2txt.add_argument(
-  '--margin',help='manually set margin to MARGIN spaces'
-)
-subparser_nmm2txt.add_argument(
-  '--width', help='manually set width to WIDTH characters'
-)
-subparser_nmm2txt.add_argument(
-  '--numbering',
-  help='change numbering logic for item blocks and for displayed blocks',
-  choices=numbering_choices
-)
-subparser_nmm2txt.add_argument(
-  '--allow-custom-numbering',action='store_true',default=False
-)
-subparser_nmm2txt.add_argument(
-  '--quite',help='suppress warnings',action='store_true',default=False
-)
-f_add_shared_flag(subparser_nmm2txt,flag_parser_backend)
-
-def nmm2txt(args:ap.Namespace) -> None:
-  margin_arg_list    : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
-  width_arg_list     : F[list[str]] = _get_width_arg_list_or_exit_w_err(args)
-  numbering_arg_list : F[list[str]] = \
-    _get_numbering_arg_list_or_exit_w_err(args)
-  _nmm2txt(
-    path                   = args.path,
-    margin_arg_list        = margin_arg_list,
-    width_arg_list         = width_arg_list,
-    numbering_arg_list     = numbering_arg_list,
-    allow_custom_numbering = args.allow_custom_numbering,
-    backend                = args.parser_backend,
-    quite                  = args.quite,
-  )
-
-subparser_nmm2txt.set_defaults(func=nmm2txt)
-
-
-## NMM2HTML
-
-subparser_nmm2html : F[ap.ArgumentParser] = subparsers.add_parser(
-  name             = 'nmm2html',
-  description      = description_by_command['nmm2html'],
-)
-subparser_nmm2html.add_argument('path',help='path to nmm source file')
-subparser_nmm2html.add_argument(
-  '--margin',
-  help = 'manually set margin to MARGIN rem (default: automatically computed)'
-)
-subparser_nmm2html.add_argument(
-  '--css',help='URI of CSS file for overriding default CSS',default=None,
-)
-subparser_nmm2html.add_argument(
-  '--lang',
-  help    =
-    'the expression L in ⌜<html lang="L"⌝>---affects hyphenation (default: en)',
-  default = 'en',
-)
-subparser_nmm2html.add_argument(
-  '--quite', help='suppress warnings',
-  action='store_true',default=False
-)
-subparser_nmm2html.add_argument(
-  '--numbering',
-  help='change numbering logic for item blocks and for displayed blocks',
-  choices=numbering_choices
-)
-subparser_nmm2html.add_argument(
-  '--allow-custom-numbering',action='store_true',default=False
-)
-f_add_shared_flag(subparser_nmm2html,flag_parser_backend)
-
-def nmm2html(args:ap.Namespace) -> None:
-  margin_arg_list    : F[list[str]] = _get_margin_arg_list_or_exit_w_err(args)
-  css_arg_list       : F[list[str]] = \
-    [] if args.css  is None else ['--css', 'args.css']
-  lang_arg_list      : F[list[str]] = \
-    [] if args.lang is None else ['--lang','args.lang']
-  numbering_arg_list : F[list[str]] = \
-    _get_numbering_arg_list_or_exit_w_err(args)
-  xml_path        : F[str]       = _nmm2xml(args.path,args.parser_backend)
-  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_bin_path('nmm-ocaml'),'html-of-axml']
-    +
-    css_arg_list
-    +
-    lang_arg_list
-    +
-    margin_arg_list
-    +
-    numbering_arg_list
-    +
-    (['--allow-custom-numbering'] if args.allow_custom_numbering else [])
-    +
-    (['--quite'] if args.quite else [])
-    +
-    [xml_path],
-  )
-  os.remove(xml_path)
-  if completed_proc.returncode != 0:
-    sys.exit(completed_proc.returncode)
-  sys.exit(0)
-
-subparser_nmm2html.set_defaults(func=nmm2html)
-
-
-## VALIDATE_XML
-
-subparser_validate_xml : F[ap.ArgumentParser] = subparsers.add_parser(
-  name            = 'validate-xml',
-  description     = description_by_command['validate-xml'],
-)
-subparser_validate_xml.add_argument('path',help='path to nmm source file')
-
-def validate_xml(args:ap.Namespace) -> None:
-  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_bin_path('nmm-ocaml'),'validate-xml',args.path]
-  )
-  sys.exit(completed_proc.returncode)
-
-subparser_validate_xml.set_defaults(func=validate_xml)
-
-
-## LEX2TXT
-
-subparser_lex2txt: F[ap.ArgumentParser] = subparsers.add_parser(
-  name            = 'lex2txt',
-  description     = description_by_command['lex2txt'],
-)
-subparser_lex2txt.add_argument('path',help='path to nmm source file')
-
-def lex2txt(args:ap.Namespace) -> None:
+def _xml2html(
+  path                   : str,
+  margin                 : _ta_margin           = _default_margin,
+  numbering              : _ta_numbering        = _default_numbering,
+  allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
+  tags_file              : _ta_tags_file        = _default_tags_file,
+  lang                   : _ta_html_lang        = _default_html_lang,
+  internal_css           : _ta_internal_css     = None,
+  external_css           : _ta_external_css     = None,
+  quite                  : _ta_quite            = _default_quite
+) -> int:
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_bin_path('nmm-mercury'),'lex2txt',_get_realpath_as_str(args.path)],
+    [_get_path_to_file('nmm-ocaml'), 'html-of-axml']
+    +
+    ([] if margin == 0 else ['--margin',str(margin)])
+    +
+    ['--lang',lang]
+    +
+    ['--numbering',numbering]
+    +
+    (['--allow-custom-numbering'] if allow_custom_numbering else [])
+    +
+    (['--tags', tags_file])
+    +
+    ([] if internal_css is None else ['--internal-css', internal_css])
+    +
+    ([] if external_css is None else ['--external-css', external_css])
+    +
+    (['--quite'] if quite else [])
+    +
+    [path]
   )
-  sys.exit(completed_proc.returncode)
+  return completed_proc.returncode
 
-subparser_lex2txt.set_defaults(func=lex2txt)
+# MAIN
 
-
-## NORMALIZE_XML
-
-subparser_normalize_xml : F[ap.ArgumentParser] = subparsers.add_parser(
-  name            = 'normalize-xml',
-  description     = description_by_command['normalize-xml'],
-)
-subparser_normalize_xml.add_argument(
-  'path',help='path to XML representation of a no-markup-markup AST'
-)
-
-def normalize_xml(args:ap.Namespace) -> None:
-  completed_proc  : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
-    [_get_bin_path('nmm-ocaml'),'normalize-axml',args.path]
-  )
-  sys.exit(completed_proc.returncode)
-
-subparser_normalize_xml.set_defaults(func=normalize_xml)
-
-
-# PARSE
-
-args : F[ap.Namespace] = parser.parse_args()
-
-if args == ap.Namespace():
-  print(
-    'command (or ‘-h’ or ‘--help’) missing; available commands:',
-    file=sys.stderr
-  )
-  for sc in description_by_command.keys():
-    print(f'  {sc}',file=sys.stderr)
-    print(f'    {description_by_command[sc]}',file=sys.stderr)
-  sys.exit(1)
-
-args.func(args)
+if __name__ == '__main__':
+  _cli()

@@ -19,17 +19,18 @@
                  document.
 
            (3)   When referring to (2) above, any common initial path
-                 shared between the location of the referring expression
-                 and the location of its referent will be omitted. The
-                 same applies with respect to (æ) below.
+                 shared between the location of the referring
+                 expression and the location of its referent will be
+                 omitted. The same applies with respect to (æ) below.
 
-           (æ)   Of course, items with custom labels can also be named!
+           (æ)   Of course, items with custom labels can also be
+                 named!
 
      Due to the feature mentioned in (b)(3), a reference to (b)(2) or
      (b)(æ) occurring elsewhere may appear differently.
 
-     (c)   Displayed lines of text suitable for mathematical equations,
-           which are either
+     (c)   Displayed lines of text suitable for mathematical
+           equations, which are either
 
            (1)   automatically labeled (and named),
            (+)   custom labeled (and named), or,
@@ -41,10 +42,11 @@
      occurring in ¶ 1.
 
 
-¶ 3  Paragraph header, which is a text block that may contain e̲m̲ph̲ ̲t̲e̲x̲t̲
-     and a reference to (c)(1) of ¶ 1.  This is a paragraph with a
-     header. As we shall se in ¶ 4 below, paragraphs with headers can
-     also be named.
+¶ 3  Paragraph header, which is a text block that may contain e̲m̲ph̲
+     t̲e̲x̲t̲ and a reference to (c)(1) of ¶ 1.  This is a paragraph with
+     a header. As we shall se in ¶ 4 below, paragraphs with headers
+     can also be named.
 
 
-¶ 4  Header of the named paragraph  Believe it or not, it actually works!
+¶ 4  Header of the named paragraph  Believe it or not, it actually
+     works!

@@ -46,16 +46,16 @@ share: share/bash-completion/completions share/fish/completions share/zsh/site-f
 
 share/bash-completion/completions:                           \
 	implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh \
-	bin/nmm-cli-experimental
+	bin/nmm
 	#
 	mkdir -p share/bash-completion/completions
 	cp implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
-	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm-cli-experimental --show-completion bash > share/bash-completion/completions/nmm-cli-experimental
+	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm --show-completion bash > share/bash-completion/completions/nmm
 
-share/fish/completions: bin/nmm-cli-experimental
+share/fish/completions: bin/nmm
 	mkdir -p share/fish/completions
-	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm-cli-experimental --show-completion fish > share/fish/completions/_nmm-cli-experimental
+	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm --show-completion fish > share/fish/completions/_nmm
 
-share/zsh/site-functions: bin/nmm-cli-experimental
+share/zsh/site-functions: bin/nmm
 	mkdir -p share/zsh/site-functions
-	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm-cli-experimental --show-completion zsh  > share/zsh/site-functions/_nmm-cli-experimental
+	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm --show-completion zsh  > share/zsh/site-functions/_nmm

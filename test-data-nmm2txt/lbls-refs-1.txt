@@ -1,13 +1,13 @@
 § 1    Introduction
        ────────────
 
-¶ 1.1  Some facts about inductively defined structures seem not to admit
-       “straightforward” induction proofs. In such cases, a
-       “non-straightforward” induction proof seems “necessary”. A curious
-       one, or one fond of precision, or anyone with any other motivation,
-       might then wonder whether there is a way to precisely and sensibly
-       state, and prove, that this or that fact does not admit a
-       straightforward induction proof.
+¶ 1.1  Some facts about inductively defined structures seem not to
+       admit “straightforward” induction proofs. In such cases, a
+       “non-straightforward” induction proof seems “necessary”. A
+       curious one, or one fond of precision, or anyone with any
+       other motivation, might then wonder whether there is a way to
+       precisely and sensibly state, and prove, that this or that
+       fact does not admit a straightforward induction proof.
 
 
 ¶ 1.2  DEFINITION
@@ -17,8 +17,8 @@
        (R)   b(n+1) ≔ b(n)+(n+2)⁻²
 
 
-¶ 1.3  REMARK  Definition 1.2 is by (successor) recursion on the natural
-       numbers.
+¶ 1.3  REMARK  Definition 1.2 is by (successor) recursion on the
+       natural numbers.
 
        (a)   Definition 1.2(B) is the the base case.
 
@@ -30,8 +30,8 @@
              b(n) < 2.
 
 
-¶ 1.5  Fact 1.4 is a simplification of t̲h̲e̲ ̲B̲a̲s̲e̲l̲ ̲pr̲o̲b̲l̲e̲m̲, which ask for a
-       closed-form expression of the infinite sum:
+¶ 1.5  Fact 1.4 is a simplification of t̲h̲e̲ ̲B̲a̲s̲e̲l̲ ̲pr̲o̲b̲l̲e̲m̲, which ask
+       for a closed-form expression of the infinite sum:
 
               1     1     1     1
              ─── + ─── + ─── + ─── + ⋯

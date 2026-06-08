@@ -2,7 +2,8 @@
        ─────────
 
 ¶ 1.1  The ID (‘PAR:par_default_scope’) of this paragraph has default
-       (global) scope. It may be referred to from anywhere in the document.
+       (global) scope. It may be referred to from anywhere in the
+       document.
 
 
 ¶ 1.2  The ID (‘PAR:par:GBL’) of this paragraph has explicitly global
@@ -13,8 +14,8 @@
 § 2    Section 2
        ─────────
 
-¶ 2.1  The ID (‘PAR:par:SEC’) of this paragraph has section scope. We may
-       still refer to ¶ 1.2, by using ‘[PAR:par:GBL]’.
+¶ 2.1  The ID (‘PAR:par:SEC’) of this paragraph has section scope. We
+       may still refer to ¶ 1.2, by using ‘[PAR:par:GBL]’.
 
 
 ¶ 2.2  Some cross-references:
@@ -30,9 +31,9 @@
 § 3    Section 3
        ─────────
 
-¶ 3.1  The ID (‘PAR:par:SEC’) of this paragraph has section scope. Since it
-       has section scope there is no problem that it has the same ID as a
-       paragraph in another section.
+¶ 3.1  The ID (‘PAR:par:SEC’) of this paragraph has section scope.
+       Since it has section scope there is no problem that it has the
+       same ID as a paragraph in another section.
 
 
 ¶ 3.2  Some cross-references:

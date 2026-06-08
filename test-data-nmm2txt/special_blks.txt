@@ -20,11 +20,11 @@ features:
 
       ─     Here is another one.
 
-            but this is interpreted as a text block at level 2,
-            whose (lack of) linebreaks are not respected.
+            but this is interpreted as a text block at level 2, whose
+            (lack of) linebreaks are not respected.
 
-      this is interpreted as a text block at level 1, whose (lack
-      of) linebreaks are not respected.
+      this is interpreted as a text block at level 1, whose (lack of)
+      linebreaks are not respected.
 
 In fact, here are some more unlabled display lines:
 

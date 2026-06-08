@@ -5,9 +5,9 @@ Here is what someone had to say:
       i̲t̲ ̲pr̲o̲v̲e̲d̲ ̲i̲n̲s̲t̲r̲u̲m̲e̲n̲t̲a̲l̲ ̲t̲o̲ ̲t̲h̲e̲ ̲ph̲i̲l̲o̲s̲o̲ph̲i̲c̲o̲-̲m̲a̲t̲h̲e̲m̲a̲t̲i̲c̲a̲l̲
       s̲e̲n̲s̲a̲t̲i̲o̲n̲ ̲o̲f̲ ̲t̲h̲e̲ ̲a̲ge̲:̲ ̲G̲Ö̲D̲E̲L̲'̲S̲ ̲T̲H̲E̲O̲R̲E̲M̲.̲ Gödel's proof hinged on
       modeling the formalism of logic and arithmetic in arithmetic.
-      The theorem could not even be conceived and conjectured, in
-      its latter-day generality, without the clarification of the
-      idea of a proof procedure that formalism affords.
+      The theorem could not even be conceived and conjectured, in its
+      latter-day generality, without the clarification of the idea of
+      a proof procedure that formalism affords.
       [Quine (1987) pp. 66–67]
       (emphasis mine)
 
