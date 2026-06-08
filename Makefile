@@ -50,12 +50,12 @@ share/bash-completion/completions:                           \
 	#
 	mkdir -p share/bash-completion/completions
 	cp implementations/ocaml/scripts/nmm-ocaml-bash-completion.sh share/bash-completion/completions/nmm-ocaml
-	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm --show-completion bash > share/bash-completion/completions/nmm
+	./bin/nmm show-completion bash > share/bash-completion/completions/nmm
 
 share/fish/completions: bin/nmm
 	mkdir -p share/fish/completions
-	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm --show-completion fish > share/fish/completions/_nmm
+	./bin/nmm show-completion fish > share/fish/completions/_nmm
 
 share/zsh/site-functions: bin/nmm
 	mkdir -p share/zsh/site-functions
-	_TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1 ./bin/nmm --show-completion zsh  > share/zsh/site-functions/_nmm
+	./bin/nmm show-completion zsh  > share/zsh/site-functions/_nmm

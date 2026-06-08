@@ -14,6 +14,8 @@ from typing import (
 )
 
 import typer
+import typer.completion
+import typer._completion_shared
 
 # HELPER _GET_PATH_TO_FILE
 
@@ -27,7 +29,18 @@ def _get_path_to_file(filename:str) -> str:
 
 # CREATE TYPER OBJECT _CLI
 
-_cli : F[typer.Typer] = typer.Typer(no_args_is_help=True)
+_cli : F[typer.Typer] = typer.Typer(no_args_is_help=True,add_completion=False)
+
+# HIDDEN SUBCOMMAND SHOW_COMPLETION
+
+# solution from:
+# https://github.com/fastapi/typer/issues/498#issuecomment-1455075443
+@_cli.command(no_args_is_help=True,name='show-completion',hidden=True)
+def show_completion(ctx:typer.Context,shell:typer._completion_shared.Shells):
+  """
+  Show completion for SHELL, to copy it or customize the installation.
+  """
+  typer.completion.show_callback(ctx, None, shell) # pyright: ignore reportArgumentType
 
 # TYPE ALIASES AND DEFAULT VALUES FOR OPTIONS
 
