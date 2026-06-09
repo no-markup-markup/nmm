@@ -36,10 +36,10 @@ bin:
 	make
 	cd -
 
-test-nmm2xml: bin test-data-nmm2xml
+test-nmm2xml: bin test-data
 	./test-nmm2xml.sh
 
-test-nmm2txt: bin test-data-nmm2txt
+test-nmm2txt: bin test-data
 	./test-nmm2txt.sh
 
 share: share/bash-completion/completions share/fish/completions share/zsh/site-functions

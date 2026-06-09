@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")"
 exit_code=0
-for nmm_file in ./test-data-nmm2xml/*.nmm; do
+for nmm_file in ./test-data/*.nmm; do
     expected_output_file="${nmm_file%.nmm}.xml"
 
     # tmp files
@@ -83,16 +83,16 @@ for nmm_file in ./test-data-nmm2xml/*.nmm; do
     rm "$nmm_ocaml_normalized_output_file"
 done
 
-# verify that nmm normalize-xml does not tests OK for trivial reasons
+# verify that nmm normalize-xml does not test OK for trivial reasons
 tmp_normalized_xml_1="$(mktemp)"
 tmp_normalized_xml_2="$(mktemp)"
-./bin/nmm normalize-xml ./test-data-nmm2xml/simple.xml    > "$tmp_normalized_xml_1"
-./bin/nmm normalize-xml ./test-data-nmm2xml/date_auto.xml > "$tmp_normalized_xml_2"
+./bin/nmm normalize-xml ./test-data/simple.xml     > "$tmp_normalized_xml_1"
+./bin/nmm normalize-xml ./test-data/tagged_itm.xml > "$tmp_normalized_xml_2"
 diff -q "$tmp_normalized_xml_1" "$tmp_normalized_xml_2" > /dev/null
 if [[ "$?" -eq 0 ]]; then
-  >&2 echo "  ./bin/nmm normalize-xml ./test-data-nmm2xml/simple.xml"
+  >&2 echo "  ./bin/nmm normalize-xml ./test-data/simple.xml"
   >&2 echo "and"
-  >&2 echo "  ./bin/nmm normalize-xml ./test-data-nmm2xml/date_auto.xml"
+  >&2 echo "  ./bin/nmm normalize-xml ./test-data/tagged_itm.xml"
   >&2 echo "gives the same output"
   exit_code=1
 fi
