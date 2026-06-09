@@ -6,7 +6,7 @@ make_subset_font_css_main () {
 	local temp_txt_file=$(mktemp)
 	local temp_ttf_file=$(mktemp)
 	nmm-ocaml txt-of-nmm ${input_nmm_file} > ${temp_txt_file}
-	local unicodes=$(iconv -f utf8 -t ucs2 ${temp_txt_file} | hexdump -v -e '/2 "%04x "' | sort -u -t ' ')
+	local unicodes=$(iconv -f utf8 -t utf32 ${temp_txt_file} | hexdump -v -e '"%04x "' | sort -u -t ' ')
 	pyftsubset ${input_ttf_file} --unicodes="${unicodes}" --output-file="${temp_ttf_file}"
 	local output_font_base64=$(base64 --wrap=0 ${temp_ttf_file})
 	rm ${temp_txt_file} ${temp_ttf_file}
