@@ -30,24 +30,8 @@
 <br>
 <span class="comment">(*&nbsp;string&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;pcdata_of_string&nbsp;(s:&nbsp;string):&nbsp;string&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_amp&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&amp;"</span>)&nbsp;<span class="string">"&amp;amp;"</span>&nbsp;s&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_lt&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&lt;"</span>)&nbsp;<span class="string">"&amp;lt;"</span>&nbsp;s_amp&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_gt&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&gt;"</span>)&nbsp;<span class="string">"&amp;gt;"</span>&nbsp;s_lt&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_apos&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"\'"</span>)&nbsp;<span class="string">"&amp;apos;"</span>&nbsp;s_gt&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_quot&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"\""</span>)&nbsp;<span class="string">"&amp;quot;"</span>&nbsp;s_apos&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s_quot<br>
-<br>
-<span class="keyword">let</span>&nbsp;string_of_pcdata&nbsp;(s&nbsp;:&nbsp;string):&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_amp&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&amp;amp;"</span>)&nbsp;<span class="string">"&amp;"</span>&nbsp;s&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_lt&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&amp;lt;"</span>)&nbsp;<span class="string">"&lt;"</span>&nbsp;s_amp&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_gt&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&amp;gt;"</span>)&nbsp;<span class="string">"&gt;"</span>&nbsp;s_lt&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_apos&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&amp;apos;"</span>)&nbsp;<span class="string">"\'"</span>&nbsp;s_gt&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s_quot&nbsp;=&nbsp;<span class="constructor">Str</span>.global_replace&nbsp;(<span class="constructor">Str</span>.regexp&nbsp;<span class="string">"&amp;quot;"</span>)&nbsp;<span class="string">"\""</span>&nbsp;s_apos&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s_quot<br>
-<br>
 <span class="keyword">let</span>&nbsp;xml_of_string&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(pcdata_of_string&nbsp;s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(<span class="constructor">Xml_right</span>.pcdata_of_string&nbsp;s)<br>
 <br>
 <span class="comment">(*&nbsp;title&nbsp;*)</span><br>
 <br>
@@ -128,7 +112,7 @@
 <span class="comment">(*&nbsp;tag_or_id&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;cdata_of_string&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pcdata_of_string&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml_right</span>.pcdata_of_string&nbsp;s<br>
 <br>
 <span class="keyword">let</span>&nbsp;string_of_scope&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(scope&nbsp;:&nbsp;tu_scope)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;scope&nbsp;<span class="keyword">with</span><br>
@@ -177,7 +161,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_c_ref</span>&nbsp;(id&nbsp;:&nbsp;tr_id)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[(<span class="string">"href"</span>,<span class="string">"#"</span>&nbsp;^&nbsp;(cdata_of_tr_id&nbsp;doc_settings&nbsp;path&nbsp;id))]<br>
 <br>
 <span class="keyword">let</span>&nbsp;xml_of_ts_c_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;ts_c_ref)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(pcdata_of_string&nbsp;(string_of_ts_c_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;a))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_of_string&nbsp;(string_of_ts_c_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;a)<br>
 <br>
 <span class="comment">(*&nbsp;nte_ref&nbsp;*)</span><br>
 <br>
@@ -189,7 +173,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[(<span class="string">"href"</span>,<span class="string">"#"</span>&nbsp;^&nbsp;href_string);(<span class="string">"id"</span>,&nbsp;id_string)]<br>
 <br>
 <span class="keyword">let</span>&nbsp;xml_of_ts_nte_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;ts_nte_ref)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(pcdata_of_string&nbsp;(string_of_ts_nte_ref&nbsp;doc_settings&nbsp;nte_table&nbsp;path&nbsp;a))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_of_string&nbsp;(string_of_ts_nte_ref&nbsp;doc_settings&nbsp;nte_table&nbsp;path&nbsp;a)<br>
 <br>
 <span class="comment">(*&nbsp;nte_inline&nbsp;*)</span><br>
 <br>
@@ -201,7 +185,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[(<span class="string">"href"</span>,<span class="string">"#"</span>&nbsp;^&nbsp;href_string);(<span class="string">"id"</span>,&nbsp;id_string)]<br>
 <br>
 <span class="keyword">let</span>&nbsp;xml_of_ts_nte_inline&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(a&nbsp;:&nbsp;ts_nte_inline)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;(pcdata_of_string&nbsp;(string_of_ts_nte_inline&nbsp;doc_settings&nbsp;nte_table&nbsp;path&nbsp;a))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xml_of_string&nbsp;(string_of_ts_nte_inline&nbsp;doc_settings&nbsp;nte_table&nbsp;path&nbsp;a)<br>
 <br>
 <span class="comment">(*&nbsp;blk_txt&nbsp;*)</span><br>
 <br>

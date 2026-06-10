@@ -302,16 +302,22 @@ Same as <code class="code">parse_file</code>, except that it reads from the prov
 <td></td></tr>
 <tr><td><a href="Common_utils.html#VALpath_to_sec_node">path_to_sec_node</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Exml_utils.html#VALpcdata_of_string">pcdata_of_string</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
-<td></td></tr>
+<tr><td><a href="Xml_right.html#VALpcdata_of_string">pcdata_of_string</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+Replaces forbidden pcdata-characters (<code class="code"><span class="string">"&amp;"</span>&nbsp;<span class="string">"&lt;"</span>&nbsp;<span class="string">"&gt;"</span>&nbsp;<span class="string">"\'"</span>&nbsp;<span class="string">"\""</span></code>) in a string with subsitutes (<code class="code"><span class="string">"&amp;amp;"</span>&nbsp;<span class="string">"&amp;lt;"</span>&nbsp;<span class="string">"&amp;gt;"</span>&nbsp;<span class="string">"&amp;apos;"</span>&nbsp;<span class="string">"&amp;quot;"</span></code>).
+</div>
+</td></tr>
 <tr><td align="left"><div>R</div></td></tr>
 <tr><td><a href="Common_utils.html#VALreference_of_ts_nte_ref">reference_of_ts_nte_ref</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>S</div></td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_path">string_of_path</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
-<tr><td><a href="Exml_utils.html#VALstring_of_pcdata">string_of_pcdata</a> [<a href="Exml_utils.html">Exml_utils</a>]</td>
-<td></td></tr>
+<tr><td><a href="Xml_right.html#VALstring_of_pcdata">string_of_pcdata</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+Replaces substitutes in a string with forbidden pcdata-characters.
+</div>
+</td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_t_doc_class">string_of_t_doc_class</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Common_utils.html#VALstring_of_tr_id">string_of_tr_id</a> [<a href="Common_utils.html">Common_utils</a>]</td>
@@ -330,6 +336,11 @@ Same as <code class="code">parse_file</code>, except that it reads from the prov
 <td></td></tr>
 <tr><td><a href="Tags.html#VALtagger_of_path_opt">tagger_of_path_opt</a> [<a href="Tags.html">Tags</a>]</td>
 <td></td></tr>
+<tr><td><a href="Xml_right.html#VALtext_of_xml">text_of_xml</a> [<a href="Xml_right.html">Xml_right</a>]</td>
+<td><div class="info">
+Extracts pcdata from an xml-document.
+</div>
+</td></tr>
 <tr><td><a href="Common_utils.html#VALtime_of_ts_date_auto">time_of_ts_date_auto</a> [<a href="Common_utils.html">Common_utils</a>]</td>
 <td></td></tr>
 <tr><td><a href="Xml_right.html#VALto_string">to_string</a> [<a href="Xml_right.html">Xml_right</a>]</td>

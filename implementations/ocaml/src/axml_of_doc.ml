@@ -429,7 +429,7 @@ and xml_of_ts_name (name:ts_name):Xml.xml=
         |Cs_name (s:string) -> Xml.Element ("cs_name",[],[xml_of_string s])
 
 and xml_of_string (s:string):Xml.xml=
-        PCData (Exml_utils.pcdata_of_string s)
+        PCData (Xml_right.pcdata_of_string s)
 
 (* lbl *)
 

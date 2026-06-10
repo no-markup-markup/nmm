@@ -3,24 +3,8 @@ open Common_utils
 
 (* string *)
 
-let pcdata_of_string (s: string): string = 
-        let s_amp = Str.global_replace (Str.regexp "&") "&amp;" s in
-        let s_lt = Str.global_replace (Str.regexp "<") "&lt;" s_amp in
-        let s_gt = Str.global_replace (Str.regexp ">") "&gt;" s_lt in
-        let s_apos = Str.global_replace (Str.regexp "\'") "&apos;" s_gt in
-        let s_quot = Str.global_replace (Str.regexp "\"") "&quot;" s_apos in
-        s_quot
-
-let string_of_pcdata (s : string): string =
-        let s_amp = Str.global_replace (Str.regexp "&amp;") "&" s in
-        let s_lt = Str.global_replace (Str.regexp "&lt;") "<" s_amp in
-        let s_gt = Str.global_replace (Str.regexp "&gt;") ">" s_lt in
-        let s_apos = Str.global_replace (Str.regexp "&apos;") "\'" s_gt in
-        let s_quot = Str.global_replace (Str.regexp "&quot;") "\"" s_apos in
-        s_quot
-
 let xml_of_string (s : string) : Xml.xml =
-        Xml.PCData (pcdata_of_string s)
+        Xml.PCData (Xml_right.pcdata_of_string s)
 
 (* title *)
 
@@ -101,7 +85,7 @@ let xml_list_of_refs_hdr (doc_settings : t_doc_settings): Xml.xml list =
 (* tag_or_id *)
 
 let cdata_of_string (s : string) : string =
-        pcdata_of_string s
+        Xml_right.pcdata_of_string s
 
 let string_of_scope (doc_settings : t_doc_settings) (path : t_path) (scope : tu_scope) : string =
         match scope with
@@ -150,7 +134,7 @@ let attr_list_of_ts_c_ref (doc_settings : t_doc_settings) (path : t_path) (a : t
         match a with Cs_c_ref (id : tr_id) -> [("href","#" ^ (cdata_of_tr_id doc_settings path id))]
 
 let xml_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (path : t_path) (a : ts_c_ref) : Xml.xml =
-        Xml.PCData (pcdata_of_string (string_of_ts_c_ref doc_settings cref_table path a))
+        xml_of_string (string_of_ts_c_ref doc_settings cref_table path a)
 
 (* nte_ref *)
 
@@ -162,7 +146,7 @@ let attr_list_of_ts_nte_ref (doc_settings : t_doc_settings) (path : t_path) (a :
                 [("href","#" ^ href_string);("id", id_string)]
 
 let xml_of_ts_nte_ref (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (a : ts_nte_ref) : Xml.xml =
-        Xml.PCData (pcdata_of_string (string_of_ts_nte_ref doc_settings nte_table path a))
+        xml_of_string (string_of_ts_nte_ref doc_settings nte_table path a)
 
 (* nte_inline *)
 
@@ -174,7 +158,7 @@ let attr_list_of_ts_nte_inline (doc_settings : t_doc_settings) (path : t_path) (
                 [("href","#" ^ href_string);("id", id_string)]
 
 let xml_of_ts_nte_inline (doc_settings : t_doc_settings) (nte_table : t_nte_table) (path : t_path) (a : ts_nte_inline) : Xml.xml =
-        Xml.PCData (pcdata_of_string (string_of_ts_nte_inline doc_settings nte_table path a))
+        xml_of_string (string_of_ts_nte_inline doc_settings nte_table path a)
 
 (* blk_txt *)
 

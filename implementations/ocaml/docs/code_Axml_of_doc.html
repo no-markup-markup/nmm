@@ -456,7 +456,7 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_name</span>&nbsp;(s:string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_name"</span>,[],[xml_of_string&nbsp;s])<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_string&nbsp;(s:string):<span class="constructor">Xml</span>.xml=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PCData</span>&nbsp;(<span class="constructor">Exml_utils</span>.pcdata_of_string&nbsp;s)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PCData</span>&nbsp;(<span class="constructor">Xml_right</span>.pcdata_of_string&nbsp;s)<br>
 <br>
 <span class="comment">(*&nbsp;lbl&nbsp;*)</span><br>
 <br>

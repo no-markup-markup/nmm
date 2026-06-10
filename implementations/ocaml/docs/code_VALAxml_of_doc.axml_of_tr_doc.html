@@ -446,7 +446,7 @@
         <span class="keywordsign">|</span><span class="constructor">Cs_name</span> (s:string) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_name"</span>,[],[xml_of_string s])
 
 <span class="keyword">and</span> xml_of_string (s:string):<span class="constructor">Xml</span>.xml=
-        <span class="constructor">PCData</span> (<span class="constructor">Exml_utils</span>.pcdata_of_string s)
+        <span class="constructor">PCData</span> (<span class="constructor">Xml_right</span>.pcdata_of_string s)
 
 <span class="comment">(* lbl *)</span>
 

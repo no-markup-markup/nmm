@@ -838,5 +838,5 @@ and f_string_of_pcdata_list (pcdata_list:Xml.xml list):string=
 
 and f_string_of_pcdata (pcdata:Xml.xml):string=
         match pcdata with
-        |Xml.PCData s -> Exml_utils.string_of_pcdata s
+        |Xml.PCData s -> Xml_right.string_of_pcdata s
         |_ -> raise (Error (String.concat "" ["expected pcdata; got: ";string_of_xml_list [pcdata]]))

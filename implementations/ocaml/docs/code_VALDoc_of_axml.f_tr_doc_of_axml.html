@@ -848,5 +848,5 @@
 
 <span class="keyword">and</span> f_string_of_pcdata (pcdata:<span class="constructor">Xml</span>.xml):string=
         <span class="keyword">match</span> pcdata <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">Exml_utils</span>.string_of_pcdata s
+        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.string_of_pcdata s
         <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">""</span> [<span class="string">"expected pcdata; got: "</span>;string_of_xml_list [pcdata]]))</code></body></html>

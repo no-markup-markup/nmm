@@ -36,6 +36,25 @@ Ideally, if [xml] is an object of type [Xml.xml], both [parse_string print_token
 *)
 
 
+(** {2 PCDATA} *)
+
+val pcdata_of_string : string -> string
+(**
+Replaces forbidden pcdata-characters (["&" "<" ">" "\'" "\""]) in a string with subsitutes (["&amp;" "&lt;" "&gt;" "&apos;" "&quot;"]).
+*)
+
+val string_of_pcdata : string -> string
+(**
+Replaces substitutes in a string with forbidden pcdata-characters.
+*)
+
+(** {2 Text} *)
+
+val text_of_xml : Xml.xml -> string
+(**
+Extracts pcdata from an xml-document.
+*)
+
 (** {2 For debugging purposes} *)
 
 val diff_of_xmls : Xml.xml -> Xml.xml -> (Xml.xml option * Xml.xml option) list
