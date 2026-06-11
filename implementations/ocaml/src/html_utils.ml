@@ -58,7 +58,7 @@ match element with
 
 |Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
 
-|Xml.Element ("blk_qtn", _, xml_list) -> Xml.Element ("p", [("class", "blk qtn")], List.map (html_of_exml doc_class) xml_list)
+|Xml.Element ("blk_qtn", _, xml_list) -> Xml.Element ("div", [("class", "blk qtn")], [Xml.Element ("p", [("class", "blk_qtn_main")], List.map (html_of_exml doc_class) xml_list)])
 |Xml.Element ("br", _,_) -> Xml.Element ("br", [], [])
 
 |Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
@@ -406,7 +406,7 @@ h2, h3, h4, h5 {
     white-space : pre;
 }
 
-.blk.qtn {
+.blk_qtn_main {
     hyphens     : auto;
     white-space : pre-wrap;
     margin-left : "^ tab_length ^";
