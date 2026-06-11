@@ -48,12 +48,6 @@ val string_of_pcdata : string -> string
 Replaces substitutes in a string with forbidden pcdata-characters.
 *)
 
-(** {2 Text} *)
-
-val text_of_xml : Xml.xml -> string
-(**
-Extracts pcdata from an xml-document.
-*)
 
 (** {2 For debugging purposes} *)
 

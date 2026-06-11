@@ -136,14 +136,9 @@ let string_of_pcdata (s : string): string =
         let s_quot = Str.global_replace (Str.regexp "&quot;") "\"" s_apos in
         s_quot
 
-(* text *)
-
-let rec text_of_xml (xml : Xml.xml) : string =
-        match xml with
-        |Xml.Element (_,_,xml_list) -> String.concat "\n" (List.map text_of_xml xml_list)
-        |Xml.PCData s -> string_of_pcdata s
 
 (* for debugging purposes *)
+
 
 let rec diff_of_xmls (xml1:Xml.xml) (xml2:Xml.xml):(Xml.xml option*Xml.xml option) list =
         match xml1=xml2 with
