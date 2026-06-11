@@ -274,14 +274,16 @@ let xml_list_of_ts_qtn_line_br (qtn_line_br : ts_qtn_line_br) : Xml.xml list =
 
 
 let xml_list_of_tu_qtn_line_list (qtn_line_list : tu_qtn_line list) : Xml.xml list =
+        let space : Xml.xml = Xml.Element ("txt_unit_wysiwyg",[], [Xml.PCData " "]) in
         let br : Xml.xml list = [Xml.Element ("br",[],[])] in
         let rec aux (lst : tu_qtn_line list) (acc : Xml.xml list) =
                 match lst with
                 |[] -> acc
                 |lst_hd::lst_tl ->
-                        match lst_hd with
-                        |Cu_qtn_line_std qtn_line_std -> aux lst_tl (List.concat [acc;xml_list_of_ts_qtn_line_std qtn_line_std])
-                        |Cu_qtn_line_br qtn_line_br -> aux lst_tl (List.concat [acc;br;xml_list_of_ts_qtn_line_br qtn_line_br])
+                        match acc, lst_hd with
+                        |_::_, Cu_qtn_line_std qtn_line_std -> aux lst_tl (List.concat [acc;[space];xml_list_of_ts_qtn_line_std qtn_line_std])
+                        |[], Cu_qtn_line_std qtn_line_std -> aux lst_tl (List.concat [acc;xml_list_of_ts_qtn_line_std qtn_line_std])
+                        |_, Cu_qtn_line_br qtn_line_br -> aux lst_tl (List.concat [acc;br;xml_list_of_ts_qtn_line_br qtn_line_br])
         in
         aux qtn_line_list []
 
