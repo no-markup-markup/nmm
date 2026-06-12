@@ -123,6 +123,7 @@ html {
     font-size   : medium;
     line-height : 150%;
     max-width   : 80ch;
+    min-width   : 80ch;
     margin      : auto;
 }
 
@@ -170,10 +171,11 @@ h2, h3, h4, h5 {
 
 /************ AUTHORS *******************/
 
+.title + .authors {
+    margin-top : 1rem;
+}
 
 .authors {
-    font-size     : medium;
-    margin-top    : 2rem;
     margin-bottom : 1rem;
 }
 
@@ -191,9 +193,6 @@ h2, h3, h4, h5 {
 
 /************ DATE ******************/
 
-.date {
-    font-size : small;
-}
 
 .doc.pars .date {
     margin-left : "^ margin_left ^";
