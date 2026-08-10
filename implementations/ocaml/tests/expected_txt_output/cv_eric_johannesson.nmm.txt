@@ -10,7 +10,7 @@
        interests include the philosophy of science, logic, language, and
        probability.
 
-       Email: eric@ericjohannesson.com
+       Email: <mailto:eric@ericjohannesson.com>
 
        Website: <https://ericjohannesson.com>
 

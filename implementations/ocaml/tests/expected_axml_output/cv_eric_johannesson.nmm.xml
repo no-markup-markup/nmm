@@ -39,7 +39,7 @@
 <cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Email: eric@ericjohannesson.com</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Email: &lt;mailto:eric@ericjohannesson.com&gt;</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_txt_line>

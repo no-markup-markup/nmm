@@ -54,7 +54,7 @@
         <span class="keyword">let</span> internal_css: string = (
                 <span class="string">"&lt;style&gt;\n"</span> ^ 
                 (<span class="constructor">Html_utils</span>.default_css <span class="string">"6ch"</span> margin_left) ^ <span class="string">"\n"</span> ^
-                (<span class="constructor">String</span>.concat <span class="string">"\n"</span> (<span class="constructor">List</span>.map <span class="constructor">IO</span>.string_of_file options.internal_css)) ^ 
+                (<span class="constructor">String</span>.concat <span class="string">"\n"</span> (<span class="constructor">List</span>.map <span class="constructor">Html_utils</span>.internal_css_of_file options.internal_css)) ^ 
                 <span class="string">"\n&lt;/style&gt;"</span>
         ) 
         <span class="keyword">in</span>

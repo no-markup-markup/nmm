@@ -116,8 +116,16 @@ let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
         let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in
         String.concat "" [Printf.sprintf "%.2f" margin; "rem"]
 
+let internal_css_of_file (path : string) : string =
+        let comment : string =
+"
+/*========================= css from file =========================*/\n\n" in
+        comment ^ (IO.string_of_file path)
+
 let default_css (tab_length : string) (margin_left : string) : string =
 "
+/*========================= default css ===========================*/
+
 html {
     font-family : monospace;
     font-size   : medium;

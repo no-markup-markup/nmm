@@ -55,7 +55,7 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
         let internal_css: string = (
                 "<style>\n" ^ 
                 (Html_utils.default_css "6ch" margin_left) ^ "\n" ^
-                (String.concat "\n" (List.map IO.string_of_file options.internal_css)) ^ 
+                (String.concat "\n" (List.map Html_utils.internal_css_of_file options.internal_css)) ^ 
                 "\n</style>"
         ) 
         in

@@ -22,13 +22,11 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Html_utils</title>
+<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Html_utils.internal_css_of_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">sig</span><br>
-&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;html_of_exml&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_class&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.xml&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.xml<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;margin_left_of_tr_doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;internal_css_of_file&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;default_css&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-<span class="keyword">end</span></code></body></html>
+<code class="code"><span class="keyword">let</span> internal_css_of_file (path : string) : string =
+        <span class="keyword">let</span> comment : string =
+<span class="string">"
+/*========================= css from file =========================*/\n\n"</span> <span class="keyword">in</span>
+        comment ^ (<span class="constructor">IO</span>.string_of_file path)</code></body></html>
