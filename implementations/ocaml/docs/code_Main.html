@@ -79,9 +79,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string_of_int&nbsp;m)&nbsp;^&nbsp;<span class="string">"rem"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Html_utils</span>.margin_left_of_tr_doc&nbsp;doc<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indent&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.indent&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length)&nbsp;^&nbsp;<span class="string">"ch"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string_of_int&nbsp;n)&nbsp;^&nbsp;<span class="string">"ch"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;internal_css:&nbsp;string&nbsp;=&nbsp;(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;style&gt;\n"</span>&nbsp;^&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Html_utils</span>.default_css&nbsp;<span class="string">"6ch"</span>&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Html_utils</span>.default_css&nbsp;indent&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;<span class="constructor">Html_utils</span>.internal_css_of_file&nbsp;options.internal_css))&nbsp;^&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"\n&lt;/style&gt;"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
@@ -119,7 +124,7 @@
 <span class="keyword">let</span>&nbsp;html_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_html_options&nbsp;options)&nbsp;path)<br>
 <br>
-<span class="keyword">let</span>&nbsp;default_css&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Html_utils</span>.default_css&nbsp;<span class="string">"6ch"</span>&nbsp;<span class="string">"0rem"</span><br>
+<span class="keyword">let</span>&nbsp;default_css&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Html_utils</span>.default_css&nbsp;((string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length)&nbsp;^&nbsp;<span class="string">"ch"</span>)&nbsp;<span class="string">"0rem"</span><br>
 <br>
 <br>
 <span class="comment">(*&nbsp;axml&nbsp;*)</span><br>

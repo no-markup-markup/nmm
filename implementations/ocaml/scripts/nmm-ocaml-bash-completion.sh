@@ -9,8 +9,8 @@ _nmm_ocaml_get_options () {
 	local subcommands='html-of-nmm txt-of-nmm exml-of-nmm axml-of-nmm html-of-axml txt-of-axml exml-of-axml show-exml-schema show-axml-schema show-default-css validate-xml check-xml-schema normalize-axml'
 	local axml_options='--tags'
 	local exml_options="$axml_options --quiet --numbering --allow-custom-numbering"
-	local txt_options="$exml_options --margin --width"
-	local html_options="$exml_options --margin --internal-css --external-css --lang"
+	local txt_options="$exml_options --margin --indent --width"
+	local html_options="$exml_options --margin --indent --internal-css --external-css --lang"
 	local numbering_options='a1i ai1 1ai 1ia ia1 i1a'
 	local lang_options='en sv fr de es' #etc
 
@@ -36,7 +36,7 @@ _nmm_ocaml_get_options () {
 		--lang )
 			echo $lang_options
 			;;
-		--margin )
+		--margin | --indent )
 			echo $(seq 0 9)  #etc
 			;;
 		--width )
@@ -67,7 +67,7 @@ _nmm_ocaml () {
 			_nmm_ocaml_chosen_subcommand=$prev
 			COMPREPLY=( $(compgen -W "${options}" -- ${cur}) $(compgen -f -- ${cur}) )
 			;;
-		--numbering | --margin | --width | --lang )
+		--numbering | --margin | --indent | --width | --lang )
 			COMPREPLY=( $(compgen -W "${options}" -- ${cur}) )
 			;;
 		--tags | --internal-css | --external-css | --validate-xml | --check-xml-schema )

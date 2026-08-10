@@ -1038,6 +1038,11 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 |None -> doc_settings.expand_tag
                 |Some path -> Tags.expander_of_file path
         in
+        let tab_length : int =
+                match options.indent with
+		|None -> doc_settings.tab_length
+		|Some n -> n
+	in
         let new_doc_settings : t_doc_settings = {
                 doc_width = doc_width;
                 left_margin = left_margin;
@@ -1045,7 +1050,7 @@ let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
                 author_indent = left_margin;
                 abstract_indent = left_margin;
                 refs_indent = left_margin;
-                tab_length = doc_settings.tab_length;
+                tab_length = tab_length;
                 abstract_hdr = doc_settings.abstract_hdr;
                 refs_hdr = doc_settings.refs_hdr;
                 endnotes_hdr = doc_settings.endnotes_hdr;

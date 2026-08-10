@@ -1549,6 +1549,7 @@ let nte_table_of_ts_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref
 
 type t_txt_options = {
         margin : int option;
+        indent : int option;
         width : int option;
         quiet : bool;
         numbering : string;
@@ -1558,6 +1559,7 @@ type t_txt_options = {
 
 type t_html_options = {
         margin : int option;
+        indent : int option;
         lang : string;
         internal_css : string list;
         external_css : string list;
@@ -1599,6 +1601,7 @@ let axml_options_of_exml_options (exml_options : t_exml_options) : t_axml_option
 
 let txt_options_default () : t_txt_options = {
         margin = None;
+        indent = None;
         width = None;
         quiet = false;
         numbering = "a1i";
@@ -1608,6 +1611,7 @@ let txt_options_default () : t_txt_options = {
 
 let html_options_default () : t_html_options = {
         margin = None;
+        indent = None;
         lang = "en";
         internal_css = [];
         external_css = [];

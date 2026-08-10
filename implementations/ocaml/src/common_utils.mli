@@ -221,6 +221,7 @@ val reference_of_ts_nte_ref : t_doc_settings -> t_cref_table -> t_path -> Doc_ty
 
 type t_txt_options = {
         margin : int option;
+        indent : int option;
         width : int option;
         quiet : bool;
         numbering : string;
@@ -230,6 +231,7 @@ type t_txt_options = {
 
 type t_html_options = {
         margin : int option;
+        indent : int option;
         lang : string;
         internal_css : string list;
         external_css : string list;

@@ -28,6 +28,7 @@ reads from standard input.
 
 TXT-OPTIONS:
   --margin <non-negative-integer>
+  --indent <non-negative-integer>
   --width <positive-integer>
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
@@ -36,6 +37,7 @@ TXT-OPTIONS:
 
 HTML-OPTIONS:
   --margin <non-negative-integer>
+  --indent <non-negative-integer>
   --lang <language-code>
   --internal-css <path-to-css-file>
   --external-css <uri>
@@ -68,6 +70,8 @@ let anon_arg_count : int ref = ref 0
 
 let margin : (int option) ref = ref None
 
+let indent : (int option) ref = ref None
+
 let width : (int option) ref = ref None
 
 let lang : string ref = ref "en"
@@ -93,8 +97,16 @@ let set_margin (s : string) : unit =
                 margin.contents <- Some (int_of_string s)
         with _ -> raise (Error ("invalid --margin argument: " ^ s))
 
+let set_indent (s : string) : unit =
+        try
+                indent.contents <- Some (int_of_string s)
+        with _ -> raise (Error ("invalid --indent argument: " ^ s))
+
 let keyspecdoc_margin : t_keyspecdoc =
         ("--margin", Arg.String set_margin, "")
+
+let keyspecdoc_indent : t_keyspecdoc =
+        ("--indent", Arg.String set_indent, "")
 
 let set_width (s : string) : unit =
         try
@@ -140,9 +152,10 @@ let keyspecdoc_tags : t_keyspecdoc =
 
 let keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
         keyspecdoc_margin;
+        keyspecdoc_indent;
+        keyspecdoc_width;
         keyspecdoc_stdin;
         keyspecdoc_quiet;
-        keyspecdoc_width;
         keyspecdoc_numbering;
         keyspecdoc_allow_custom_numbering;
         keyspecdoc_tags;
@@ -150,6 +163,7 @@ let keyspecdoc_list_txt_of_nmm : t_keyspecdoc list = [
 
 let keyspecdoc_list_txt_of_xml : t_keyspecdoc list = [
         keyspecdoc_margin;
+        keyspecdoc_indent;
         keyspecdoc_stdin;
         keyspecdoc_quiet;
         keyspecdoc_width;
@@ -166,6 +180,7 @@ let keyspecdoc_list_xml_of_nmm : t_keyspecdoc list = [
 
 let keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
         keyspecdoc_margin;
+        keyspecdoc_indent;
         keyspecdoc_stdin;
         keyspecdoc_quiet;
         keyspecdoc_lang;
@@ -178,6 +193,7 @@ let keyspecdoc_list_html_of_nmm : t_keyspecdoc list = [
 
 let keyspecdoc_list_html_of_xml : t_keyspecdoc list = [
         keyspecdoc_margin;
+        keyspecdoc_indent;
         keyspecdoc_stdin;
         keyspecdoc_quiet;
         keyspecdoc_lang;
@@ -276,6 +292,7 @@ let _ : unit =
         |"txt-of-axml" -> (
                 let options : Common_utils.t_txt_options = {
                         margin = margin.contents;
+                        indent = indent.contents;
                         width = width.contents;
                         quiet = quiet.contents;
                         numbering = numbering.contents;
@@ -293,6 +310,7 @@ let _ : unit =
         |"html-of-axml" -> (
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
+                        indent = indent.contents;
                         lang = lang.contents;
                         internal_css = List.rev internal_css.contents;
                         external_css = List.rev external_css.contents;
@@ -324,6 +342,7 @@ let _ : unit =
         |"txt-of-nmm" -> (
                 let options : Common_utils.t_txt_options = {
                         margin = margin.contents;
+                        indent = indent.contents;
                         width = width.contents;
                         quiet = quiet.contents;
                         numbering = numbering.contents;
@@ -341,6 +360,7 @@ let _ : unit =
         |"html-of-nmm" -> (
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
+                        indent = indent.contents;
                         lang = lang.contents;
                         internal_css = List.rev internal_css.contents;
                         external_css = List.rev external_css.contents;
@@ -369,6 +389,7 @@ let _ : unit =
         |"test-with-axml" -> (
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
+                        indent = indent.contents;
                         lang = lang.contents;
                         internal_css = List.rev internal_css.contents;
                         external_css = List.rev external_css.contents;
@@ -385,6 +406,7 @@ let _ : unit =
         |"test-with-nmm" -> (
                 let options : Common_utils.t_html_options = {
                         margin = margin.contents;
+                        indent = indent.contents;
                         lang = lang.contents;
                         internal_css = List.rev internal_css.contents;
                         external_css = List.rev external_css.contents;

@@ -52,9 +52,14 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
                 |Some m -> (string_of_int m) ^ "rem"
                 |None -> Html_utils.margin_left_of_tr_doc doc
         in
+        let indent : string =
+                match options.indent with
+		|None -> (string_of_int (Common_utils.doc_settings_default ()).tab_length) ^ "ch"
+		|Some n -> (string_of_int n) ^ "ch"
+	in
         let internal_css: string = (
                 "<style>\n" ^ 
-                (Html_utils.default_css "6ch" margin_left) ^ "\n" ^
+                (Html_utils.default_css indent margin_left) ^ "\n" ^
                 (String.concat "\n" (List.map Html_utils.internal_css_of_file options.internal_css)) ^ 
                 "\n</style>"
         ) 
@@ -92,7 +97,7 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
 let html_of_nmm (options : Common_utils.t_html_options) (path : string) : string =
         html_of_doc options (doc_of_nmm (Common_utils.axml_options_of_html_options options) path)
 
-let default_css () : string = Html_utils.default_css "6ch" "0rem"
+let default_css () : string = Html_utils.default_css ((string_of_int (Common_utils.doc_settings_default ()).tab_length) ^ "ch") "0rem"
 
 
 (* axml *)
