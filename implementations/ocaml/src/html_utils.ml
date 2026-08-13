@@ -456,10 +456,6 @@ h2, h3, h4, h5 {
 
 @media print {
 
-  html {
-    font-size : 13px;
-  }
-
   h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
     break-after  : avoid-page;
     break-inside : avoid-page;
