@@ -232,29 +232,30 @@
 
 <p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case <code class="code">preamble</code> has the following format:</p>
 
-<pre class="verbatim">PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
+<pre class="verbatim">PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
 
-KEY_VALUE := | 'doc-width=' INT
-             | 'left-margin=' INT
-             | 'title-indent=' INT
-             | 'author-indent=' INT
-             | 'abstract-indent=' INT
-             | 'refs-indent=' INT
-             | 'tab-length=' INT
-             | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'tag=' TAG ',' LABEL_FORM [',' CREF_FORM]
+KEY_VALUE ::= | 'doc-width=' INT
+              | 'left-margin=' INT
+              | 'title-indent=' INT
+              | 'author-indent=' INT
+              | 'abstract-indent=' INT
+              | 'refs-indent=' INT
+              | 'tab-length=' INT
+              | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
+              | 'notes=' STRING [',' STRING]*
 
-LABEL_FORM := TAG
+LABEL_FORM ::= STRING
 
-CREF_FORM := TAG
+CREF_FORM ::= STRING
 
-TAG := [! ';' ',']*
+STRING ::= [! ';' ',']*
 
-INT := ['0'-'9']+
+INT ::= ['0'-'9']+
 </pre></div>
 </div>
 <h3 id="2_Crossreferences">Cross-references</h3>

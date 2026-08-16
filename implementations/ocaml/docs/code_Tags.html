@@ -73,7 +73,7 @@
 <br>
 <span class="keyword">let</span>&nbsp;standard_tags&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;list&nbsp;=&nbsp;[<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PAR"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ITM"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DSP"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"BIB"</span>]<br>
 <br>
-<span class="keyword">let</span>&nbsp;expander_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=&nbsp;<span class="comment">(*&nbsp;TODO&nbsp;*)</span><br>
+<span class="keyword">let</span>&nbsp;expander_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;file_string&nbsp;=&nbsp;<span class="constructor">IO</span>.string_of_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\n'</span>&nbsp;file_string&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;collect_tags_singular&nbsp;(line_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;(string*string*string)&nbsp;list)&nbsp;=<br>

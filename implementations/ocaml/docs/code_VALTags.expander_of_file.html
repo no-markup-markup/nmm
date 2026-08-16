@@ -25,7 +25,7 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Tags.expander_of_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> expander_of_file (path : string) : <span class="constructor">Doc_types</span>.ts_tag <span class="keywordsign">-&gt;</span> (string * string) option = <span class="comment">(* TODO *)</span>
+<code class="code"><span class="keyword">let</span> expander_of_file (path : string) : <span class="constructor">Doc_types</span>.ts_tag <span class="keywordsign">-&gt;</span> (string * string) option =
         <span class="keyword">let</span> file_string = <span class="constructor">IO</span>.string_of_file path <span class="keyword">in</span>
         <span class="keyword">let</span> lines = <span class="constructor">String</span>.split_on_char <span class="string">'\n'</span> file_string <span class="keyword">in</span>
         <span class="keyword">let</span> <span class="keyword">rec</span> collect_tags_singular (line_list : string list) (acc : (string*string*string) list) =

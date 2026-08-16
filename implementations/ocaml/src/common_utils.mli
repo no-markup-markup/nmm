@@ -60,29 +60,30 @@ Prints a warning to [stderr] if parsing fails, and keeps the default value.
 [Cs_preamble (preamble : string)] is valid for parsing just in case [preamble] has the following format:
 
 {v
-PREAMBLE := KEY_VALUE [';' KEY_VALUE]*
+PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
 
-KEY_VALUE := | 'doc-width=' INT
-             | 'left-margin=' INT
-             | 'title-indent=' INT
-             | 'author-indent=' INT
-             | 'abstract-indent=' INT
-             | 'refs-indent=' INT
-             | 'tab-length=' INT
-             | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-             | 'tag=' TAG ',' LABEL_FORM [',' CREF_FORM]
+KEY_VALUE ::= | 'doc-width=' INT
+              | 'left-margin=' INT
+              | 'title-indent=' INT
+              | 'author-indent=' INT
+              | 'abstract-indent=' INT
+              | 'refs-indent=' INT
+              | 'tab-length=' INT
+              | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+              | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
+              | 'notes=' STRING [',' STRING]*
 
-LABEL_FORM := TAG
+LABEL_FORM ::= STRING
 
-CREF_FORM := TAG
+CREF_FORM ::= STRING
 
-TAG := [! ';' ',']*
+STRING ::= [! ';' ',']*
 
-INT := ['0'-'9']+
+INT ::= ['0'-'9']+
 
 v}
 *)

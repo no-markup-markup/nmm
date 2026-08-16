@@ -65,13 +65,7 @@
 
 <pre><span id="VALhtml_of_doc"><span class="keyword">val</span> <a href="code_VALMain.html_of_doc.html">html_of_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_html_options">Common_utils.t_html_options</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">html_of_doc&nbsp;options&nbsp;doc</code> evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of</p>
-
-<p><code class="code"><span class="string">"&lt;style&gt;\n"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALdefault_css"><code class="code"><span class="constructor">Html_utils</span>.default_css</code></a><code class="code">&nbsp;default_tab_length&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n&lt;/style&gt;"</span></code></p>
-
-<p>where <code class="code">default_tab_length</code> is <code class="code"><span class="string">"6ch"</span></code> and <code class="code">margin_left</code> is a string determined by <code class="code">options</code> and <code class="code">doc</code>.</p>
-
-<p>The body of the html-document is specified by the value of</p>
+<p><code class="code">html_of_doc&nbsp;options&nbsp;doc</code> evaluates to a string representing a html-document whose body is specified by the value of</p>
 
 <p><code class="code"><span class="string">"&lt;body&gt;\n"</span>&nbsp;^&nbsp;(</code><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a><code class="code">&nbsp;(</code><a href="Compiler_of_doc.html#VALexml_of_tr_doc"><code class="code"><span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc</code></a><code class="code">&nbsp;options&nbsp;doc))&nbsp;^&nbsp;<span class="string">"\n&lt;/body&gt;"</span></code>.</p>
 </div>

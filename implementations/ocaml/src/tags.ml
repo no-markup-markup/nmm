@@ -46,7 +46,7 @@ match tag with
 
 let standard_tags : Doc_types.ts_tag list = [Cs_tag "PAR"; Cs_tag "ITM"; Cs_tag "DSP"; Cs_tag "BIB"]
 
-let expander_of_file (path : string) : Doc_types.ts_tag -> (string * string) option = (* TODO *)
+let expander_of_file (path : string) : Doc_types.ts_tag -> (string * string) option =
         let file_string = IO.string_of_file path in
         let lines = String.split_on_char '\n' file_string in
         let rec collect_tags_singular (line_list : string list) (acc : (string*string*string) list) =

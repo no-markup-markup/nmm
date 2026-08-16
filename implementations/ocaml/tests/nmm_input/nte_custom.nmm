@@ -1,5 +1,5 @@
 START	PREAMBLE
-nte-numbering=*,†,‡,⹋,**,††,‡‡,⹋⹋
+notes=*,†,‡,⹋,**,††,‡‡,⹋⹋
 END	PREAMBLE
 
 Custom numbering of notes[NTE:one] could look[NTE:two] like[NTE:three] this[NTE:four]

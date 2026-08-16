@@ -27,13 +27,7 @@ val txt_of_nmm : Common_utils.t_txt_options -> string -> string
 
 val html_of_doc : Common_utils.t_html_options -> Doc_types.tr_doc -> string
 (**
-[html_of_doc options doc] evaluates to a string containing a html-document with an internal css stylesheet, specified by the value of
-
-["<style>\n" ^ (]{!val:Html_utils.default_css}[ default_tab_length margin_left) ^ "\n</style>"]
-
-where [default_tab_length] is ["6ch"] and [margin_left] is a string determined by [options] and [doc].
-
-The body of the html-document is specified by the value of
+[html_of_doc options doc] evaluates to a string representing a html-document whose body is specified by the value of
 
 ["<body>\n" ^ (]{!val:Html_utils.html_of_exml}[ (]{!val:Compiler_of_doc.exml_of_tr_doc}[ options doc)) ^ "\n</body>"].
 *)

@@ -674,7 +674,7 @@ let set_nte_numbering (v : string) (doc_settings : t_doc_settings) : t_doc_setti
         }
         with _ ->
         let _ : unit =
-        IO.print_warning (String.concat "" ["WARNING: invalid tag value: ";v;"; ";"ignoring it."])
+        IO.print_warning (String.concat "" ["WARNING: invalid notes value: ";v;"; ";"ignoring it."])
         in doc_settings
 
 let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_types.ts_preamble) : t_doc_settings =
@@ -697,7 +697,7 @@ let doc_settings_of_ts_preamble (doc_settings : t_doc_settings) (preamble : Doc_
                                 |Some ("refs-hdr", v) -> set_refs_hdr v settings
                                 |Some ("endnotes-hdr", v) -> set_endnotes_hdr v settings
                                 |Some ("tag", v) -> set_expand_tag v settings
-                                |Some ("nte-numbering",v) -> set_nte_numbering v settings
+                                |Some ("notes",v) -> set_nte_numbering v settings
                                 |_ -> let _ : unit = IO.print_warning 
                                         (String.concat "" ["WARNING: invalid attribute: ";hd;"; ";"ignoring it"]) in settings
                         in aux tl new_doc_settings
