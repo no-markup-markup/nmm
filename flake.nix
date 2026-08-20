@@ -2,13 +2,21 @@
   description = "no-markup-markup";
 
   inputs = {
-    nixpkgs-linux.url    = "nixpkgs/nixos-25.11";
-    nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.11-darwin";
-    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
-    flake-utils.url      = "github:numtide/flake-utils";
+    nixos-25-11.url          = "nixpkgs/nixos-25.11";
+    nixpkgs-darwin-25-11.url = "nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs-linux.url        = "nixpkgs/nixos-26.05";
+    nixpkgs-darwin.url       = "nixpkgs/nixpkgs-26.05-darwin";
+    nixpkgs-unstable.url     = "nixpkgs/nixpkgs-unstable";
+    flake-utils.url          = "github:numtide/flake-utils";
   };
   outputs = {
-    self, nixpkgs-linux, nixpkgs-darwin, nixpkgs-unstable, flake-utils
+    self,
+    nixos-25-11,
+    nixpkgs-darwin-25-11,
+    nixpkgs-linux,
+    nixpkgs-darwin,
+    nixpkgs-unstable,
+    flake-utils
   }:
     let
       linux-systems  = [
@@ -27,15 +35,22 @@
     in
       flake-utils.lib.eachSystem systems (system:
         let
-          nixpkgs      = (
+          pkgs          = (
             if      builtins.elem system linux-systems  then
-              nixpkgs-linux
+              nixpkgs-linux.legacyPackages.${system}
             else if builtins.elem system darwin-systems then
-              nixpkgs-darwin
+              nixpkgs-darwin.legacyPackages.${system}
             else
-              nixpkgs-unstable
+              nixpkgs-unstable.legacyPackages.${system}
           );
-          pkgs          = nixpkgs.legacyPackages.${system};
+          pkgs-25-11    = (
+            if      builtins.elem system linux-systems  then
+              nixos-25-11.legacyPackages.${system}
+            else if builtins.elem system darwin-systems then
+              nixpkgs-darwin-25-11.legacyPackages.${system}
+            else
+              nixos-25-11.legacyPackages.${system}
+          );
           pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
           python-env    = is-dev-shell: (
             pkgs.python313.withPackages (
@@ -51,7 +66,7 @@
             pkgs.bash
             pkgs.gnumake
             (python-env is-dev-shell)
-            pkgs.python312Packages.weasyprint
+            pkgs-25-11.python312Packages.weasyprint
             pkgs.xmldiff
           ];
           pkgs_mercury  = [pkgs.mercury];
