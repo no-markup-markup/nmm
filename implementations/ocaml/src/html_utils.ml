@@ -159,7 +159,7 @@ h2, h3, h4, h5 {
 
 .title {
     font-weight   : normal;
-    font-size     : x-large;
+    font-size     : 200%;
     margin-bottom : 1rem;
     line-height   : 130%;
 }
@@ -173,7 +173,7 @@ h2, h3, h4, h5 {
 }
 
 .doc.chs .title {
-    font-size : xx-large;
+    font-size : 300%;
 }
 
 
@@ -230,7 +230,7 @@ h2, h3, h4, h5 {
 
 .abstract_hdr {
     font-weight   : normal;
-    font-size     : large;
+    font-size     : 120%;
     margin-bottom : 0.5rem;
 }
 
@@ -257,11 +257,11 @@ h2, h3, h4, h5 {
 
 .refs_hdr {
     font-weight : normal;
-    font-size   : large;
+    font-size   : 150%;
 }
 
 .doc.chs .refs_hdr {
-    font-size : x-large;
+    font-size : 200%;
     margin-bottom : 3rem;
 }
 
@@ -282,11 +282,11 @@ h2, h3, h4, h5 {
 
 .ch_lbl {
     font-weight : normal;
-    font-size   : x-large;
+    font-size   : 200%;
 }
 
 .ch_hdr {
-    font-size   : x-large;
+    font-size   : 200%;
     line-height : 130%;
 }
 
@@ -307,14 +307,14 @@ h2, h3, h4, h5 {
 
 .sec_lbl {
     float       : left;
-    font-size   : large;
+    font-size   : 150%;
     font-weight : normal;
     line-height : 130%;
 }
 
 .sec_hdr {
     margin-left : "^ margin_left ^";
-    font-size   : large;
+    font-size   : 150%;
     line-height : 130%;
 }
 
@@ -423,6 +423,7 @@ h2, h3, h4, h5 {
 
 .doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
     font-weight : normal;
+    font-size   : 120%;
 }
 
 .doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes, .abstract_endnotes, .refs_endnotes {
@@ -455,6 +456,10 @@ h2, h3, h4, h5 {
 /*************** PRINTING ***************/
 
 @media print {
+
+  html {
+    font-size : 12px;
+  }
 
   h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
     break-after  : avoid-page;
@@ -490,6 +495,7 @@ h2, h3, h4, h5 {
     margin-left   : 20mm;
     margin-right  : 20mm;
     margin-bottom : 30mm;
+    width         : 80ch;
 
     @top-center {
        content : \" \";
