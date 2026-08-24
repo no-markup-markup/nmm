@@ -2,21 +2,25 @@
   description = "no-markup-markup";
 
   inputs = {
-    nixos-25-11.url          = "nixpkgs/nixos-25.11";
-    nixpkgs-darwin-25-11.url = "nixpkgs/nixpkgs-25.11-darwin";
-    nixpkgs-linux.url        = "nixpkgs/nixos-26.05";
-    nixpkgs-darwin.url       = "nixpkgs/nixpkgs-26.05-darwin";
-    nixpkgs-unstable.url     = "nixpkgs/nixpkgs-unstable";
-    flake-utils.url          = "github:numtide/flake-utils";
+    pins.url = "github:anderslundstedt/nix-pins";
+
+    nixpkgs-linux-25-11.follows   = "pins/nixos-25-11";
+    nixpkgs-darwin-25-11.follows  = "pins/nixpkgs-darwin-25-11";
+    nixpkgs-linux-stable.follows  = "pins/nixos-stable";
+    nixpkgs-darwin-stable.follows = "pins/nixpkgs-darwin-stable";
+    nixpkgs-unstable.follows      = "pins/nixpkgs-unstable";
+
+    flake-utils.url               = "github:numtide/flake-utils";
   };
   outputs = {
     self,
-    nixos-25-11,
+    nixpkgs-linux-25-11,
     nixpkgs-darwin-25-11,
-    nixpkgs-linux,
-    nixpkgs-darwin,
+    nixpkgs-linux-stable,
+    nixpkgs-darwin-stable,
     nixpkgs-unstable,
-    flake-utils
+    flake-utils,
+    ...
   }:
     let
       linux-systems  = [
@@ -35,42 +39,43 @@
     in
       flake-utils.lib.eachSystem systems (system:
         let
-          pkgs          = (
+          pkgs-stable   = (
             if      builtins.elem system linux-systems  then
-              nixpkgs-linux.legacyPackages.${system}
+              nixpkgs-linux-stable.legacyPackages.${system}
             else if builtins.elem system darwin-systems then
-              nixpkgs-darwin.legacyPackages.${system}
+              nixpkgs-darwin-stable.legacyPackages.${system}
             else
               nixpkgs-unstable.legacyPackages.${system}
           );
           pkgs-25-11    = (
             if      builtins.elem system linux-systems  then
-              nixos-25-11.legacyPackages.${system}
+              nixpkgs-linux-25-11.legacyPackages.${system}
             else if builtins.elem system darwin-systems then
               nixpkgs-darwin-25-11.legacyPackages.${system}
             else
-              nixos-25-11.legacyPackages.${system}
+              throw "Unsupported system: neither Linux nor Darwin"
           );
           pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
           python-env    = is-dev-shell: (
-            pkgs.python313.withPackages (
+            pkgs-stable.python313.withPackages (
               python-pkgs: (
                 builtins.filter(x: x != 0) [
                   (if is-dev-shell then python-pkgs.ipython else 0)
+                  python-pkgs.fonttools
                   python-pkgs.typer
                 ]
               )
             )
           );
           pkgs_common   = is-dev-shell: [
-            pkgs.bash
-            pkgs.gnumake
+            pkgs-stable.bash
+            pkgs-stable.gnumake
             (python-env is-dev-shell)
             pkgs-25-11.python312Packages.weasyprint
-            pkgs.xmldiff
+            pkgs-stable.xmldiff
           ];
-          pkgs_mercury  = [pkgs.mercury];
-          pkgs_rocq     = [pkgs.coq];
+          pkgs_mercury  = [pkgs-stable.mercury];
+          pkgs_rocq     = [pkgs-stable.coq];
           pkgs_ocaml    = [
             pkgs-unstable.ocaml
             pkgs-unstable.ocamlPackages.findlib
@@ -78,9 +83,9 @@
             pkgs-unstable.ocamlPackages.uuseg
             pkgs-unstable.ocamlPackages.xml-light
           ];
-          pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
+          pkgs_github  = [pkgs-stable.gh pkgs-stable.gh-markdown-preview];
         in {
-          devShells.default = pkgs.mkShell {
+          devShells.default = pkgs-stable.mkShell {
             buildInputs = (
               (pkgs_common true)
               ++
@@ -93,19 +98,19 @@
               pkgs_github
             );
           };
-          devShells.rocq = pkgs.mkShell {
+          devShells.rocq = pkgs-stable.mkShell {
             buildInputs = (pkgs_common true) ++ pkgs_rocq;
           };
-          devShells.mercury = pkgs.mkShell {
+          devShells.mercury = pkgs-stable.mkShell {
             buildInputs = (pkgs_common true) ++ pkgs_mercury;
           };
-          devShells.ocaml = pkgs.mkShell {
+          devShells.ocaml = pkgs-stable.mkShell {
             buildInputs = (pkgs_common true) ++ pkgs_ocaml;
           };
-          devShells.github = pkgs.mkShell {
+          devShells.github = pkgs-stable.mkShell {
             buildInputs = (pkgs_common true) ++ pkgs_github;
           };
-          packages.default = pkgs.stdenv.mkDerivation {
+          packages.default = pkgs-stable.stdenv.mkDerivation {
             name        = "no-markup-markup-${version}";
             buildInputs = (
               (pkgs_common false)
