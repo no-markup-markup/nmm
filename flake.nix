@@ -47,7 +47,7 @@
             pkg-nix-auto-follow-unpatched.overrideAttrs (_: {
               propagatedBuildInputs = [];
             });
-          python-env          = is-dev-shell: (
+          python-env = is-dev-shell: (
             pkgs-stable.python313.withPackages (
               python-pkgs: (
                 builtins.filter(x: x != 0) [
