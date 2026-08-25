@@ -1885,15 +1885,17 @@ let lines_of_tr_doc
 
 let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
   let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-  let left_margin : int = 
-    match options.margin, doc.fld_doc_main with
-    |_, Cu_doc_main_blks _ -> 0
-    |Some (m : int), _ -> m
-    |None, _ -> 
+  let left_margin_auto : int =
       let margin_labels : string list =
         margin_labels_of_tr_doc doc_settings doc
       in
       Txt_utils.left_margin_of_margin_labels margin_labels
+  in
+  let left_margin : int = 
+    match options.margin, left_margin_auto = 0 with
+    |Some _, true -> 0
+    |Some (m : int), false -> m
+    |None, _ -> left_margin_auto
   in
   let doc_width : int = 
     match options.width with

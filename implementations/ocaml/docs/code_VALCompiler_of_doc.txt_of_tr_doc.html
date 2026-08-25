@@ -27,15 +27,17 @@
 <body>
 <code class="code"><span class="keyword">let</span> txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
   <span class="keyword">let</span> doc_settings : t_doc_settings = doc_settings_of_tr_doc doc <span class="keyword">in</span>
-  <span class="keyword">let</span> left_margin : int = 
-    <span class="keyword">match</span> options.margin, doc.fld_doc_main <span class="keyword">with</span>
-    <span class="keywordsign">|</span>_, <span class="constructor">Cu_doc_main_blks</span> _ <span class="keywordsign">-&gt;</span> 0
-    <span class="keywordsign">|</span><span class="constructor">Some</span> (m : int), _ <span class="keywordsign">-&gt;</span> m
-    <span class="keywordsign">|</span><span class="constructor">None</span>, _ <span class="keywordsign">-&gt;</span> 
+  <span class="keyword">let</span> left_margin_auto : int =
       <span class="keyword">let</span> margin_labels : string list =
         margin_labels_of_tr_doc doc_settings doc
       <span class="keyword">in</span>
       <span class="constructor">Txt_utils</span>.left_margin_of_margin_labels margin_labels
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> left_margin : int = 
+    <span class="keyword">match</span> options.margin, left_margin_auto = 0 <span class="keyword">with</span>
+    <span class="keywordsign">|</span><span class="constructor">Some</span> _, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> 0
+    <span class="keywordsign">|</span><span class="constructor">Some</span> (m : int), <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> m
+    <span class="keywordsign">|</span><span class="constructor">None</span>, _ <span class="keywordsign">-&gt;</span> left_margin_auto
   <span class="keyword">in</span>
   <span class="keyword">let</span> doc_width : int = 
     <span class="keyword">match</span> options.width <span class="keyword">with</span>
