@@ -33,6 +33,8 @@
           # we need to patch it
           # why? see:
           # https://claude.ai/share/878a571e-2bc3-4af6-bf93-1570121e47d7
+          # if that conversation ever disappears, see:
+          # https://gist.github.com/anderslundstedt/b02fccdc3032c55d3f46c8292a6c8062
           # short version:
           # we need to strip propagatedBuildInputs since nixpkgs' python build
           # infra always propagates the bare interpreter for
