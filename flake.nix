@@ -23,22 +23,27 @@
     in
       inputs.flake-utils.lib.eachSystem systems (system:
         let
-          pkgs-25-11    =
+          pkgs-25-11          =
             inputs.pins.nixpkgs-25-11.${system}.legacyPackages.${system};
-          pkgs-stable   =
+          pkgs-stable         =
             inputs.pins.nixpkgs-stable.${system}.legacyPackages.${system};
-          pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
-          python-env    = is-dev-shell: (
+          pkgs-unstable       =
+            inputs.nixpkgs-unstable.legacyPackages.${system};
+          pkg-nix-auto-follow =
+            inputs.pins.nix-auto-follow.${system}.packages.${system}.default;
+          python-env          = is-dev-shell: (
             pkgs-stable.python313.withPackages (
               python-pkgs: (
                 builtins.filter(x: x != 0) [
                   (if is-dev-shell then python-pkgs.ipython else 0)
+                  python-pkgs.fonttools
                   python-pkgs.typer
                 ]
               )
             )
           );
           pkgs_common = is-dev-shell: [
+            pkg-nix-auto-follow
             pkgs-stable.bash
             pkgs-stable.gnumake
             (python-env is-dev-shell)
