@@ -328,6 +328,6 @@ make_tests () {
 	return $exit_code
 }
 
-make_tests
+make_tests 2> /dev/null
 
 

@@ -296,8 +296,7 @@ blks:
 ;
 
 special_blks:
-  |lb1 special_blk_dsp0                           { (Cs_blks ((Cu_blk_dsp $2)::[])):ts_blks }
-  |lb1 special_blk_dsp0 NL blks0                  { (Cs_blks ((Cu_blk_dsp $2)::$4)):ts_blks }
+  |special_blks0                                  { Cs_blks $1 : ts_blks }
 ;
 
 hdr:
@@ -315,13 +314,20 @@ nls:
 blks0:
   |blk0                                           { ($1::[]):tu_blk list }
   |blk0 lb0 blks0                                 { ($1::$3):tu_blk list }
-  |special_blks0                                  { $1:tu_blk list }
+  |weird_blks0                                    { $1:tu_blk list }
+;
+
+weird_blks0:
+  |blk_txt0 special_blks0                         { (Cu_blk_txt $1)::$2 : tu_blk list }
+  |blk_dsp0 special_blks0                         { (Cu_blk_dsp $1)::$2 : tu_blk list }
 ;
 
 special_blks0:
-  |blk_txt0 lb1 special_blk_dsp0                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
-  |blk_txt0 lb1 special_blk_dsp0 lb0 blks0        { (Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5):tu_blk list }
+  |lb1 special_blk_dsp0                           { (Cu_blk_dsp $2)::[] : tu_blk list }
+  |lb1 special_blk_dsp0 lb0 blks0                 { (Cu_blk_dsp $2)::$4 : tu_blk list }
+  |lb1 special_blk_dsp0 special_blks0             { (Cu_blk_dsp $2)::$3 : tu_blk list }
 ;
+
 
 blk0:
   |blk_txt0                                       { Cu_blk_txt $1:tu_blk }
@@ -482,14 +488,20 @@ lb0:
 (* General recipe for n>0:
 
 blks(n):
-  |blk(n)                                                 { ($1::[]):tu_blk list }
-  |blk(n) lb(n) blks(n)                                   { ($1::$3):tu_blk list }
-  |special_blks(n)                                        { $1:tu_blk list }
+  |blk(n)                                           { ($1::[]):tu_blk list }
+  |blk(n) lb(n) blks(n)                             { ($1::$3):tu_blk list }
+  |weird_blks(n)                                    { $1:tu_blk list }
+;
+
+weird_blks(n):
+  |blk_txt(n) special_blks(n)                         { (Cu_blk_txt $1)::$2 : tu_blk list }
+  |blk_dsp(n) special_blks(n)                         { (Cu_blk_dsp $1)::$2 : tu_blk list }
 ;
 
 special_blks(n):
-  |blk_txt(n) lb(n+1) special_blk_dsp(n)                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
-  |blk_txt(n) lb(n+1) special_blk_dsp(n)  lb(n) blks(n)   { (Cu_blk_txt $1::((Cu_blk_dsp $3)::$5)):tu_blk list }
+  |lb(n+1) special_blk_dsp(n)                           { (Cu_blk_dsp $2)::[] : tu_blk list }
+  |lb(n+1) special_blk_dsp(n) lb(n) blks(n)             { (Cu_blk_dsp $2)::$4 : tu_blk list }
+  |lb(n+1) special_blk_dsp(n) special_blks(n)           { (Cu_blk_dsp $2)::$3 : tu_blk list }
 ;
 
 blk(n):
@@ -653,12 +665,18 @@ lb(n):
 blks1:
   |blk1                                           { ($1::[]):tu_blk list }
   |blk1 lb1 blks1                                 { ($1::$3):tu_blk list }
-  |special_blks1                                  { $1:tu_blk list }
+  |weird_blks1                                    { $1:tu_blk list }
+;
+
+weird_blks1:
+  |blk_txt1 special_blks1                         { (Cu_blk_txt $1)::$2 : tu_blk list }
+  |blk_dsp1 special_blks1                         { (Cu_blk_dsp $1)::$2 : tu_blk list }
 ;
 
 special_blks1:
-  |blk_txt1 lb2 special_blk_dsp1                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
-  |blk_txt1 lb2 special_blk_dsp1 lb1 blks1        { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
+  |lb2 special_blk_dsp1                           { (Cu_blk_dsp $2)::[] : tu_blk list }
+  |lb2 special_blk_dsp1 lb1 blks1                 { (Cu_blk_dsp $2)::$4 : tu_blk list }
+  |lb2 special_blk_dsp1 special_blks1             { (Cu_blk_dsp $2)::$3 : tu_blk list }
 ;
 
 blk1:
@@ -825,12 +843,18 @@ lb1:
 blks2:
   |blk2                                           { ($1::[]):tu_blk list }
   |blk2 lb2 blks2                                 { ($1::$3):tu_blk list }
-  |special_blks2                                  { $1:tu_blk list }
+  |weird_blks2                                    { $1:tu_blk list }
+;
+
+weird_blks2:
+  |blk_txt2 special_blks2                         { (Cu_blk_txt $1)::$2 : tu_blk list }
+  |blk_dsp2 special_blks2                         { (Cu_blk_dsp $1)::$2 : tu_blk list }
 ;
 
 special_blks2:
-  |blk_txt2 lb3 special_blk_dsp2                  { [Cu_blk_txt $1;Cu_blk_dsp $3]:tu_blk list }
-  |blk_txt2 lb3 special_blk_dsp2  lb2 blks2       { ((Cu_blk_txt $1)::((Cu_blk_dsp $3)::$5)):tu_blk list }
+  |lb3 special_blk_dsp2                           { (Cu_blk_dsp $2)::[] : tu_blk list }
+  |lb3 special_blk_dsp2 lb2 blks2                 { (Cu_blk_dsp $2)::$4 : tu_blk list }
+  |lb3 special_blk_dsp2 special_blks2             { (Cu_blk_dsp $2)::$3 : tu_blk list }
 ;
 
 blk2:
