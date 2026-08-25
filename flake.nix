@@ -23,14 +23,30 @@
     in
       inputs.flake-utils.lib.eachSystem systems (system:
         let
-          pkgs-25-11          =
+          pkgs-25-11    =
             inputs.pins.nixpkgs-25-11.${system}.legacyPackages.${system};
-          pkgs-stable         =
+          pkgs-stable   =
             inputs.pins.nixpkgs-stable.${system}.legacyPackages.${system};
-          pkgs-unstable       =
+          pkgs-unstable =
             inputs.nixpkgs-unstable.legacyPackages.${system};
-          pkg-nix-auto-follow =
+          # next up the nix-auto-follow package
+          # we need to patch it
+          # why? see:
+          # https://claude.ai/share/878a571e-2bc3-4af6-bf93-1570121e47d7
+          # short version:
+          # we need to strip propagatedBuildInputs since nixpkgs' python build
+          # infra always propagates the bare interpreter for
+          # buildPythonApplication derivations, and this one's interpreter (from
+          # nix-auto-follow's own pinned nixpkgs) would otherwise shadow
+          # python-env on PATH, breaking `import typer` with no error at eval
+          # time. safe to drop: nix-auto-follow has no python dependencies of
+          # its own
+          pkg-nix-auto-follow-unpatched =
             inputs.pins.nix-auto-follow.${system}.packages.${system}.default;
+          pkg-nix-auto-follow-patched   =
+            pkg-nix-auto-follow-unpatched.overrideAttrs (_: {
+              propagatedBuildInputs = [];
+            });
           python-env          = is-dev-shell: (
             pkgs-stable.python313.withPackages (
               python-pkgs: (
@@ -43,7 +59,7 @@
             )
           );
           pkgs_common = is-dev-shell: [
-            pkg-nix-auto-follow
+            pkg-nix-auto-follow-patched
             pkgs-stable.bash
             pkgs-stable.gnumake
             (python-env is-dev-shell)
