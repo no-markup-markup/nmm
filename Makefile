@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test test-nmm2xml test-nmm2txt bin
+.PHONY: default clean test test-nmm2xml test-nmm2txt check-flake.lock bin
 
 default:
 	@echo 'no default target'
@@ -25,7 +25,7 @@ readme:
 	make
 	cd -
 
-test: test-nmm2xml test-nmm2txt
+test: check-flake.lock test-nmm2xml test-nmm2txt
 	cd implementations
 	make test
 	cd -
@@ -41,6 +41,9 @@ test-nmm2xml: bin test-data
 
 test-nmm2txt: bin test-data
 	./test-nmm2txt.sh
+
+check-flake.lock:
+	auto-follow --check
 
 share: share/bash-completion/completions share/fish/completions share/zsh/site-functions
 
