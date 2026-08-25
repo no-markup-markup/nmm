@@ -23,6 +23,8 @@ depends = nmm-ocaml, bash, sed, weasyprint
 
 directory = ${package}_${version}-${release}_${architecture}
 
+version := $(shell ../../bin/nmm-ocaml version)
+
 define control
 Package: ${package}
 Version: ${version}

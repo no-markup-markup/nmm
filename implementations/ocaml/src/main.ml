@@ -2,6 +2,10 @@ open Doc_types
 
 exception Error of string
 
+(* version *)
+
+let version () : string = "1.9"
+
 (* parsing nmm *)
 
 let doc_of_nmm (options : Common_utils.t_axml_options) (path : string) : Doc_types.tr_doc =
@@ -54,9 +58,9 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
         in
         let indent : string =
                 match options.indent with
-		|None -> (string_of_int (Common_utils.doc_settings_default ()).tab_length) ^ "ch"
-		|Some n -> (string_of_int n) ^ "ch"
-	in
+                |None -> (string_of_int (Common_utils.doc_settings_default ()).tab_length) ^ "ch"
+                |Some n -> (string_of_int n) ^ "ch"
+        in
         let internal_css: string = (
                 "<style>\n" ^ 
                 (Html_utils.default_css indent margin_left) ^ "\n" ^

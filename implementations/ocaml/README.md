@@ -25,6 +25,8 @@ nmm-ocaml [
   | show-axml-schema
   | show-exml-schema
   | show-default-css
+  | version
+  | help
 ]
 
 In cases where '-' may be provided instead of a path, the program

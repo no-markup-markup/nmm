@@ -2,6 +2,13 @@
 
 exception Error of string
 
+(* version *)
+
+val version : unit -> string
+(**
+[version ()] evaluates to a string representing the current version number of nmm-ocaml.
+*)
+
 (* parsing nmm *)
 
 val doc_of_nmm : Common_utils.t_axml_options -> string -> Doc_types.tr_doc

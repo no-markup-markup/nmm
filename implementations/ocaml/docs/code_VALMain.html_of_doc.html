@@ -53,9 +53,9 @@
         <span class="keyword">in</span>
         <span class="keyword">let</span> indent : string =
                 <span class="keyword">match</span> options.indent <span class="keyword">with</span>
-		<span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (string_of_int (<span class="constructor">Common_utils</span>.doc_settings_default ()).tab_length) ^ <span class="string">"ch"</span>
-		<span class="keywordsign">|</span><span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> (string_of_int n) ^ <span class="string">"ch"</span>
-	<span class="keyword">in</span>
+                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (string_of_int (<span class="constructor">Common_utils</span>.doc_settings_default ()).tab_length) ^ <span class="string">"ch"</span>
+                <span class="keywordsign">|</span><span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> (string_of_int n) ^ <span class="string">"ch"</span>
+        <span class="keyword">in</span>
         <span class="keyword">let</span> internal_css: string = (
                 <span class="string">"&lt;style&gt;\n"</span> ^ 
                 (<span class="constructor">Html_utils</span>.default_css indent margin_left) ^ <span class="string">"\n"</span> ^

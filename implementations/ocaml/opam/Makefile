@@ -10,6 +10,7 @@ MAKEFLAGS += --no-builtin-rules
 default: package
 
 description = An OCaml implementation of the no-markup-markup markup language
+version := $(shell ../bin/nmm-ocaml version)
 
 define META
 version = \"${version}\"

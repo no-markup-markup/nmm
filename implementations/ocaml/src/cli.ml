@@ -3,7 +3,8 @@ open Nmm_ocaml
 exception Error of string
 
 let usage : string=
-"USAGE:
+"nmm-ocaml v" ^ (Main.version ()) ^ "
+USAGE:
 nmm-ocaml [
   | txt-of-nmm   [ <txt-options>  ] { <path-to-nmm-file>  | - }
   | html-of-nmm  [ <html-options> ] { <path-to-nmm-file>  | - }
@@ -21,6 +22,8 @@ nmm-ocaml [
   | show-axml-schema
   | show-exml-schema
   | show-default-css
+  | version
+  | help
 ]
 
 In cases where '-' may be provided instead of a path, the program
@@ -53,8 +56,7 @@ EXML-OPTIONS:
   --tags <path-to-tsv-file>
 
 AXML-OPTIONS:
-  --tags <path-to-tsv-file>
-"
+  --tags <path-to-tsv-file>"
 
 type t_keyspecdoc = (Arg.key *  Arg.spec * Arg.doc)
 
@@ -240,7 +242,8 @@ let anon_arg_fun arg : unit =
                 |"validate-xml"
                 |"show-axml-schema"
                 |"show-exml-schema"
-                |"show-default-css" -> ()
+                |"show-default-css"
+                |"version" | "help" -> ()
                 |"exml-of-nmm" -> keyspecdoc_list.contents <- keyspecdoc_list_exml_of_nmm
                 |"exml-of-axml" -> keyspecdoc_list.contents <- keyspecdoc_list_exml_of_axml
                 |"normalize-axml" -> keyspecdoc_list.contents <- keyspecdoc_list_normalize_axml
@@ -263,7 +266,8 @@ let anon_arg_fun arg : unit =
                 |"validate-xml" -> let _ : unit = path_to_dtd_file.contents <- arg in keyspecdoc_list.contents <- (keyspecdoc_stdin::keyspecdoc_list.contents)
                 |"show-axml-schema"
                 |"show-exml-schema"
-                |"show-default-css" -> raise (Error (String.concat " " ["one too many arguments:";arg]))
+                |"show-default-css"
+                |"version" | "help" -> raise (Error (String.concat " " ["one too many arguments:";arg]))
                 |"exml-of-nmm" -> path_to_nmm_file.contents <- arg
                 |"exml-of-axml" -> path_to_xml_file.contents <- arg
                 |"normalize-axml" -> path_to_xml_file.contents <- arg
@@ -458,6 +462,7 @@ let _ : unit =
                         |"" -> raise (Error "missing path-to-axml-file")
                         |path -> print_endline (Main.normalize_axml_file path)
         )
-        |"" -> print_endline usage
+        |"version" -> print_endline (Main.version ())
+        |"" | "help" -> print_endline usage
         |unknown -> raise (Error ("unknown command: " ^ unknown))
 
