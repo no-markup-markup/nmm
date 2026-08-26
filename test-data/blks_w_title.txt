@@ -1,0 +1,125 @@
+═════════════════════════════════════════════════════════════════════
+Tentative plan for completion of Anders Lundstedt's PhD thesis
+(revision 2)
+═════════════════════════════════════════════════════════════════════
+
+Completed:
+
+      Chapter 6
+      Finitely non-standard models of Robinson arithmetic
+
+      Chapter 9
+      Comparing inductive solutions
+
+Jun 5 -- Jun 14:
+
+─     Preparation for Eric's and my presentation at Filosofidagarna
+
+─     Proof-reading of and work on my paper together with Stefan
+      Hetzl and his student Elijah Schulzki
+
+Jun 15 -- Aug 31:
+
+─     Proof-reading of and work on my paper together with Stefan
+      Hetzl and his student Elijah Schulzki
+
+─     Complete:
+
+            Chapter 5
+            Non-inductiveness as a tool for representing the
+            necessity of non-straightforward induction proofs
+
+Aug 31 -- Sep 11:
+
+─     Work on:
+
+            Chapter 7
+            Finitely non-standard models of weak extensions of
+            Robinson arithmetic
+
+            Chapter 8
+            Natural induction
+
+Sep 12 -- Sep 18:
+
+─     Work on:
+
+            Chapter 7
+            Finitely non-standard models of weak extensions of
+            Robinson arithmetic
+
+            Chapter 8
+            Natural induction
+
+─     Attend JAF45 in Warsaw
+
+      ─     https://jaf45warsaw.wfz.uw.edu.pl
+
+      ─     Give a talk based on:
+
+                  Chapter 6
+                  Finitely non-standard models of Robinson
+                  arithmetic
+
+Sep 19 -- Sep 27:
+
+─     Research visit to Vienna
+
+      ─     Finish the paper co-written with Stefan Hetzl and his
+            student Elijah Schulzki
+
+      ─     Give the same talk as in Warsaw
+
+─     Work on:
+
+            Chapter 7
+            Finitely non-standard models of weak extensions of
+            Robinson arithmetic
+
+            Chapter 8
+            Natural induction
+
+Sep 28 -- Oct 11:
+
+─     Complete:
+
+            Chapter 7
+            Finitely non-standard models of weak extensions of
+            Robinson arithmetic
+
+            Chapter 8
+            Natural induction
+
+Oct 12 -- Oct 31:
+
+─     Work on:
+
+            Chapter 1
+            Introduction
+
+─     Complete:
+
+            Chapter 2
+            Preliminaries
+
+            Chapter 3
+            Languages, theories and models of arithmetic
+
+            Chapter 5
+            Precisely and sensibly representing mathematical
+            definitions, facts and proofs
+
+Nov 1 -- Nov 15:
+
+─     Complete:
+
+            Chapter 1
+            Introduction
+
+            Chapter 10
+            Ideas for future work
+
+Nov 15 -- Dec 31:
+
+─     Proof-read the finished thesis draft, and fix whatever needs
+      fixing
