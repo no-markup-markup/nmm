@@ -233,6 +233,8 @@ doc_main:
   |secs                                           { (Cu_doc_main_secs (Cs_secs $1)):tu_doc_main }
   |pars                                           { (Cu_doc_main_pars (Cs_pars $1)):tu_doc_main }
   |blks0                                          { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
+  |special_blks0                                  { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
+  |crazy_blks0                                  { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
 ;
 
 chs:
@@ -326,6 +328,12 @@ special_blks0:
   |lb1 special_blk_dsp0                           { (Cu_blk_dsp $2)::[] : tu_blk list }
   |lb1 special_blk_dsp0 lb0 blks0                 { (Cu_blk_dsp $2)::$4 : tu_blk list }
   |lb1 special_blk_dsp0 special_blks0             { (Cu_blk_dsp $2)::$3 : tu_blk list }
+;
+
+crazy_blks0:
+  |TAB special_blk_dsp0                           { (Cu_blk_dsp $2)::[] : tu_blk list }
+  |TAB special_blk_dsp0 lb0 blks0                 { (Cu_blk_dsp $2)::$4 : tu_blk list }
+  |TAB special_blk_dsp0 special_blks0             { (Cu_blk_dsp $2)::$3 : tu_blk list }
 ;
 
 
