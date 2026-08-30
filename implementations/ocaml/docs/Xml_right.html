@@ -40,7 +40,9 @@
 
 <pre><span id="MODULEXml_right"><span class="keyword">module</span> Xml_right</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Xml_right.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For parsing XML-files containing parsed nmm source-code (abstract syntax trees in the format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>), and for printing compiled nmm-documents in XML- or HTML-format to file.</p>
+<p>For parsing XML-files containing parsed nmm source-code (abstract syntax
+    trees in the format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>), and for
+    printing compiled nmm-documents in XML- or HTML-format to file.</p>
 </div>
 </div>
 <hr width="100%">
@@ -49,9 +51,17 @@
 
 <pre><span id="VALparse_file"><span class="keyword">val</span> <a href="code_VALXml_right.parse_file.html">parse_file</a></span> : <code class="type">bool -&gt; string -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Raises <code class="code"><span class="constructor">Error</span>&nbsp;<span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and <code class="code"><span class="constructor">Error</span>&nbsp;<span class="string">"parsing&nbsp;failed"</span></code> on parsing failure.</p>
+<p><code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file
+    exists), prints read tokens to <code class="code">stderr</code>, and returns (if succesful) an
+    object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type
+    <code class="code"><span class="constructor">Xml</span>.xml</code>. Raises <code class="code"><span class="constructor">Error</span>&nbsp;<span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if
+    no file exists, and <code class="code"><span class="constructor">Error</span>&nbsp;<span class="string">"parsing&nbsp;failed"</span></code> on parsing failure.</p>
 
-<p><code class="code">parse_file&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file exists), and returns (if succesful) an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Raises <code class="code"><span class="constructor">Error</span>&nbsp;<span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and evaluates to <code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> on parsing failure.</p>
+<p><code class="code">parse_file&nbsp;<span class="keyword">false</span>&nbsp;<span class="string">"path/to/file"</span></code> reads from path/to/file (if such a file
+    exists), and returns (if succesful) an object of the
+    <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code>. Raises
+    <code class="code"><span class="constructor">Error</span>&nbsp;<span class="string">"cannot&nbsp;read&nbsp;from&nbsp;path/to/file:&nbsp;No&nbsp;such&nbsp;file"</span></code> if no file exists, and
+    evaluates to <code class="code">parse_file&nbsp;<span class="keyword">true</span>&nbsp;<span class="string">"path/to/file"</span></code> on parsing failure.</p>
 </div>
 </div>
 
@@ -69,21 +79,25 @@
 
 <pre><span id="VALto_string"><span class="keyword">val</span> <a href="code_VALXml_right.to_string.html">to_string</a></span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">to_string&nbsp;xml</code> evaluates to a string containing an xml-document representing <code class="code">xml</code>, with no white-space between elements.</p>
+<p><code class="code">to_string&nbsp;xml</code> evaluates to a string containing an xml-document
+    representing <code class="code">xml</code>, with no white-space between elements.</p>
 </div>
 </div>
 
 <pre><span id="VALto_string_fmt"><span class="keyword">val</span> <a href="code_VALXml_right.to_string_fmt.html">to_string_fmt</a></span> : <code class="type">Xml.xml -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">to_string_fmt&nbsp;xml</code> evaluates to a string containing an xml-document representing <code class="code">xml</code>, with elements separated by line feeds.</p>
+<p><code class="code">to_string_fmt&nbsp;xml</code> evaluates to a string containing an xml-document
+    representing <code class="code">xml</code>, with elements separated by line feeds.</p>
 </div>
 </div>
-<p>Ideally, if <code class="code">xml</code> is an object of type <code class="code"><span class="constructor">Xml</span>.xml</code>, both <code class="code">parse_string&nbsp;print_tokens&nbsp;(to_string&nbsp;xml)</code> and
-<code class="code">parse_string&nbsp;print_tokens&nbsp;(to_string_fmt&nbsp;xml)</code> should evaluate to <code class="code">xml</code>.</p>
+<p>Ideally, if <code class="code">xml</code> is an object of type <code class="code"><span class="constructor">Xml</span>.xml</code>, both
+    <code class="code">parse_string&nbsp;print_tokens&nbsp;(to_string&nbsp;xml)</code> and
+    <code class="code">parse_string&nbsp;print_tokens&nbsp;(to_string_fmt&nbsp;xml)</code> should evaluate to <code class="code">xml</code>.</p>
 <h3 id="2_PCDATA">PCDATA</h3>
 <pre><span id="VALpcdata_of_string"><span class="keyword">val</span> <a href="code_VALXml_right.pcdata_of_string.html">pcdata_of_string</a></span> : <code class="type">string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p>Replaces forbidden pcdata-characters (<code class="code"><span class="string">"&amp;"</span>&nbsp;<span class="string">"&lt;"</span>&nbsp;<span class="string">"&gt;"</span>&nbsp;<span class="string">"\'"</span>&nbsp;<span class="string">"\""</span></code>) in a string with subsitutes (<code class="code"><span class="string">"&amp;amp;"</span>&nbsp;<span class="string">"&amp;lt;"</span>&nbsp;<span class="string">"&amp;gt;"</span>&nbsp;<span class="string">"&amp;apos;"</span>&nbsp;<span class="string">"&amp;quot;"</span></code>).</p>
+<p>Replaces forbidden pcdata-characters (<code class="code"><span class="string">"&amp;"</span>&nbsp;<span class="string">"&lt;"</span>&nbsp;<span class="string">"&gt;"</span>&nbsp;<span class="string">"\'"</span>&nbsp;<span class="string">"\""</span></code>) in a string
+    with subsitutes (<code class="code"><span class="string">"&amp;amp;"</span>&nbsp;<span class="string">"&amp;lt;"</span>&nbsp;<span class="string">"&amp;gt;"</span>&nbsp;<span class="string">"&amp;apos;"</span>&nbsp;<span class="string">"&amp;quot;"</span></code>).</p>
 </div>
 </div>
 

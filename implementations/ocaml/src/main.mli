@@ -5,109 +5,95 @@ exception Error of string
 (* version *)
 
 val version : unit -> string
-(**
-[version ()] evaluates to a string representing the current version number of nmm-ocaml.
-*)
+(** [version ()] evaluates to a string representing the current version number
+    of nmm-ocaml. *)
 
 (* parsing nmm *)
 
 val doc_of_nmm : Common_utils.t_axml_options -> string -> Doc_types.tr_doc
-(**
-[doc_of_nmm "path/to/file"] evaluates to {!val:Doc_of_nmm.doc_of_nmm_file}[ false "path/to/file"].
+(** [doc_of_nmm "path/to/file"] evaluates to
+    {!val:Doc_of_nmm.doc_of_nmm_file}[ false "path/to/file"].
 
-[doc_of_nmm "-"] evaluates to {!val:Doc_of_nmm.doc_of_nmm_stdin}[ false].
-*)
+    [doc_of_nmm "-"] evaluates to {!val:Doc_of_nmm.doc_of_nmm_stdin}[ false]. *)
 
 (* txt semantics *)
 
 val txt_of_doc : Common_utils.t_txt_options -> Doc_types.tr_doc -> string
-(**
-[txt_of_doc doc] evaluates to {!val:Compiler_of_doc.txt_of_tr_doc}[ doc].
-*)
+(** [txt_of_doc doc] evaluates to {!val:Compiler_of_doc.txt_of_tr_doc}[ doc]. *)
 
 val txt_of_nmm : Common_utils.t_txt_options -> string -> string
-(**
-[txt_of_nmm options path] evaluate to [txt_of_doc options (doc_of_nmm path)].
-*)
+(** [txt_of_nmm options path] evaluate to
+    [txt_of_doc options (doc_of_nmm path)]. *)
 
 (* html semantics *)
 
 val html_of_doc : Common_utils.t_html_options -> Doc_types.tr_doc -> string
-(**
-[html_of_doc options doc] evaluates to a string representing a html-document whose body is specified by the value of
+(** [html_of_doc options doc] evaluates to a string representing a html-document
+    whose body is specified by the value of
 
-["<body>\n" ^ (]{!val:Html_utils.html_of_exml}[ (]{!val:Compiler_of_doc.exml_of_tr_doc}[ options doc)) ^ "\n</body>"].
-*)
+    ["<body>\n" ^ (]{!val:Html_utils.html_of_exml}[ (]{!val:Compiler_of_doc.exml_of_tr_doc}
+    [ options doc)) ^ "\n</body>"]. *)
 
 val html_of_nmm : Common_utils.t_html_options -> string -> string
-(**
-[html_of_nmm options path] evaluates to [html_of_doc options (doc_of_nmm path)].
-*)
+(** [html_of_nmm options path] evaluates to
+    [html_of_doc options (doc_of_nmm path)]. *)
 
 val default_css : unit -> string
-(**
-[default_css ()] evaluates to {!val:Html_utils.default_css}[ "6ch" "0"].
-*)
+(** [default_css ()] evaluates to {!val:Html_utils.default_css}[ "6ch" "0"]. *)
 
 (* axml *)
 
 val doc_of_axml : string -> Doc_types.tr_doc
-(**
-[doc_of_axml "path/to/file"] evaluates to {!val:Doc_of_axml.f_tr_doc_of_axml}[ (]{!val:Xml_right.parse_file}[ false "path/to/file")].
+(** [doc_of_axml "path/to/file"] evaluates to
+    {!val:Doc_of_axml.f_tr_doc_of_axml}[ (]{!val:Xml_right.parse_file}[ false
+                                                                       "path/to/file")].
 
-[doc_of_axml "-"] evaluates to {!val:Doc_of_axml.f_tr_doc_of_axml}[ (]{!val:Xml_right.parse_stdin}[ false)].
+    [doc_of_axml "-"] evaluates to
+    {!val:Doc_of_axml.f_tr_doc_of_axml}[ (]{!val:Xml_right.parse_stdin}[ false)].
 *)
+
 val axml_of_doc : Doc_types.tr_doc -> string
-(**
-[axml_of_doc doc] evaluates to a normalized XML-representation of [doc] that is an instance of {{:specs/axml.dtd.txt}axml.dtd}.
-*)
+(** [axml_of_doc doc] evaluates to a normalized XML-representation of [doc] that
+    is an instance of {{:specs/axml.dtd.txt}axml.dtd}. *)
 
 val txt_of_axml : Common_utils.t_txt_options -> string -> string
-(**
-[txt_of_axml options path] evaluates to [txt_of_doc options (doc_of_axml path)].
-*)
+(** [txt_of_axml options path] evaluates to
+    [txt_of_doc options (doc_of_axml path)]. *)
 
 val html_of_axml : Common_utils.t_html_options -> string -> string
-(**
-[html_of_axml options path] evaluates to [html_of_doc options (doc_of_axml path)].
-*)
+(** [html_of_axml options path] evaluates to
+    [html_of_doc options (doc_of_axml path)]. *)
 
 val axml_of_nmm : Common_utils.t_axml_options -> string -> string
-(**
-[axml_of_nmm path] evaluates to [axml_of_doc (doc_of_nmm path)].
-*)
+(** [axml_of_nmm path] evaluates to [axml_of_doc (doc_of_nmm path)]. *)
 
 val normalize_axml_file : string -> string
 
 (* exml *)
 
 val exml_of_nmm : Common_utils.t_exml_options -> string -> string
-
 val exml_of_axml : Common_utils.t_exml_options -> string -> string
 
 (* xml-validation *)
 
 val check_xml_schema : string -> string
-(**
-[check_xml_schema "path/to/xml-schema.dtd"] calls the {{:https://github.com/ncannasse/xml-light}Xml-light} function [Dtd.parse_file] for parsing path/to/xml-schema.dtd, and [Dtd.check] for checking that it is a well-defined xml-schema in the format dtd.
-*)
+(** [check_xml_schema "path/to/xml-schema.dtd"] calls the
+    {{:https://github.com/ncannasse/xml-light}Xml-light} function
+    [Dtd.parse_file] for parsing path/to/xml-schema.dtd, and [Dtd.check] for
+    checking that it is a well-defined xml-schema in the format dtd. *)
 
 val validate_xml : string -> string -> string
-(**
-[validate_xml "path/to/xml-schema.dtd" "path/to/xml-file.xml"] first calls the {{:https://github.com/ncannasse/xml-light}Xml-light} function [Dtd.parse_file] for parsing xml-schema.dtd, and [Dtd.check] for checking that it is well-defined. It then calls the function {!val:Xml_right.parse_file} for parsing xml-file.xml into an object of the {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Lastly, it calls [Dtd.prove] for proving (or disproving) that xml-file.xml is an instance of xml-schema.dtd.
-*)
-
-
+(** [validate_xml "path/to/xml-schema.dtd" "path/to/xml-file.xml"] first calls
+    the {{:https://github.com/ncannasse/xml-light}Xml-light} function
+    [Dtd.parse_file] for parsing xml-schema.dtd, and [Dtd.check] for checking
+    that it is well-defined. It then calls the function
+    {!val:Xml_right.parse_file} for parsing xml-file.xml into an object of the
+    {{:https://github.com/ncannasse/xml-light}Xml-light} type [Xml.xml]. Lastly,
+    it calls [Dtd.prove] for proving (or disproving) that xml-file.xml is an
+    instance of xml-schema.dtd. *)
 
 val exml_schema : unit -> string
-(**
-[exml_schema ()] evaluates to {!val:Exml_utils.exml_schema}[ ()].
-*)
+(** [exml_schema ()] evaluates to {!val:Exml_utils.exml_schema}[ ()]. *)
 
 val axml_schema : unit -> string
-(**
-[axml_schema ()] evaluates to {!val:Axml_of_doc.axml_schema}[ ()].
-*)
-
-
-
+(** [axml_schema ()] evaluates to {!val:Axml_of_doc.axml_schema}[ ()]. *)

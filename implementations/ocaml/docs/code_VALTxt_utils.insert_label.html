@@ -25,7 +25,8 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.insert_label</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> insert_label (doc_settings : t_doc_settings) (path : t_path) (s : string) : string =
-        <span class="keyword">match</span> label_of_path_opt doc_settings path <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> s
-        <span class="keywordsign">|</span> <span class="constructor">Some</span> (t : string) <span class="keywordsign">-&gt;</span> insert_string t (pos_of_label doc_settings path) s</code></body></html>
+<code class="code"><span class="keyword">let</span> insert_label (doc_settings : t_doc_settings) (path : t_path) (s : string) :
+    string =
+  <span class="keyword">match</span> label_of_path_opt doc_settings path <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> s
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (t : string) <span class="keywordsign">-&gt;</span> insert_string t (pos_of_label doc_settings path) s</code></body></html>

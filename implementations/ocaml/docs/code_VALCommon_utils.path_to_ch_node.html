@@ -26,11 +26,10 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> path_to_ch_node (path : t_path) : t_path =
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux (rev_path : t_path) (acc : t_path) : t_path =
-                <span class="keyword">match</span> rev_path <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc
-                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
-                        <span class="keyword">match</span> hd <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">CH_NODE</span> _ <span class="keywordsign">-&gt;</span> hd::acc
-                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> aux tl (hd::acc)
-        <span class="keyword">in</span> aux (<span class="constructor">List</span>.rev path) []</code></body></html>
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux (rev_path : t_path) (acc : t_path) : t_path =
+    <span class="keyword">match</span> rev_path <span class="keyword">with</span>
+    <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> acc
+    <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> hd <span class="keyword">with</span> <span class="constructor">CH_NODE</span> _ <span class="keywordsign">-&gt;</span> hd :: acc <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> aux tl (hd :: acc))
+  <span class="keyword">in</span>
+  aux (<span class="constructor">List</span>.rev path) []</code></body></html>

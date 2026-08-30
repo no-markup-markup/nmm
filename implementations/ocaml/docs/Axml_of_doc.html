@@ -38,16 +38,24 @@
 
 <pre><span id="MODULEAxml_of_doc"><span class="keyword">module</span> Axml_of_doc</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Axml_of_doc.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For translating parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) to an abstract syntax tree in the XML-format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
+<p>For translating parsed nmm source-code (an abstract syntax tree in the
+    format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) to an abstract syntax tree in the
+    XML-format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
 </div>
 </div>
 <hr width="100%">
 
 <pre><span id="VALaxml_of_tr_doc"><span class="keyword">val</span> <a href="code_VALAxml_of_doc.axml_of_tr_doc.html">axml_of_tr_doc</a></span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">axml_of_tr_doc&nbsp;doc</code> evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
+<p><code class="code">axml_of_tr_doc&nbsp;doc</code> evaluates to an object of the
+    <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is
+    also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
 
-<p>Ideally, if <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of <a href="specs/axml.dtd.txt">axml.dtd</a>, then <code class="code">axml_of_tr_doc&nbsp;(</code><a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a><code class="code">&nbsp;axml)</code> should evaluate to <code class="code">axml</code>.</p>
+<p>Ideally, if <code class="code">axml</code> is an object of the
+    <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is
+    also an instance of <a href="specs/axml.dtd.txt">axml.dtd</a>, then
+    <code class="code">axml_of_tr_doc&nbsp;(</code><a href="Doc_of_axml.html#VALf_tr_doc_of_axml"><code class="code"><span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml</code></a><code class="code">&nbsp;axml)</code> should
+    evaluate to <code class="code">axml</code>.</p>
 </div>
 </div>
 
@@ -59,7 +67,8 @@
 
 <pre><span id="VALaxml_schema"><span class="keyword">val</span> <a href="code_VALAxml_of_doc.axml_schema.html">axml_schema</a></span> : <code class="type">unit -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">axml_schema&nbsp;()</code> evaluates to a string-representation of <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
+<p><code class="code">axml_schema&nbsp;()</code> evaluates to a string-representation of
+    <a href="specs/axml.dtd.txt">axml.dtd</a>.</p>
 </div>
 </div>
 </body></html>

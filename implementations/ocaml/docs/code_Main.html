@@ -35,193 +35,274 @@
 <br>
 <span class="comment">(*&nbsp;parsing&nbsp;nmm&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;doc_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tagger&nbsp;(<span class="constructor">Tags</span>.tagger_of_path_opt&nbsp;options.tags)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tagger&nbsp;(<span class="constructor">Tags</span>.tagger_of_path_opt&nbsp;options.tags)&nbsp;path<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Doc_of_nmm</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path;<span class="string">"-&gt;"</span>;<span class="string">"Doc_of_nmm.Error:"</span>;e]))<br>
+<span class="keyword">let</span>&nbsp;doc_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tagger<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Tags</span>.tagger_of_path_opt&nbsp;options.tags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tagger<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Tags</span>.tagger_of_path_opt&nbsp;options.tags)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Doc_of_nmm</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;path;&nbsp;<span class="string">"-&gt;"</span>;&nbsp;<span class="string">"Doc_of_nmm.Error:"</span>;&nbsp;e&nbsp;]))<br>
 <br>
 <span class="comment">(*&nbsp;txt&nbsp;semantics&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;txt_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_txt_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Compiler_of_doc</span>.txt_of_tr_doc&nbsp;options&nbsp;doc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[<span class="string">"Compiler_of_doc.Error:"</span>;e]))<br>
+<span class="keyword">let</span>&nbsp;txt_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_txt_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;<span class="constructor">Compiler_of_doc</span>.txt_of_tr_doc&nbsp;options&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;<span class="string">"Compiler_of_doc.Error:"</span>;&nbsp;e&nbsp;]))<br>
 <br>
-<span class="keyword">let</span>&nbsp;txt_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_txt_options)&nbsp;(path:string):string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_txt_options&nbsp;options)&nbsp;path)<br>
-<br>
+<span class="keyword">let</span>&nbsp;txt_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_txt_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;txt_of_doc&nbsp;options<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_txt_options&nbsp;options)&nbsp;path)<br>
 <br>
 <span class="comment">(*&nbsp;html&nbsp;semantics&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;html_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml:<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc&nbsp;(<span class="constructor">Common_utils</span>.exml_options_of_html_options&nbsp;options)&nbsp;doc&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_class&nbsp;=&nbsp;<span class="constructor">Common_utils</span>.class_of_tr_doc&nbsp;doc&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;html:<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Html_utils</span>.html_of_exml&nbsp;doc_class&nbsp;exml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;html_string:string&nbsp;=&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;html&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;title:string&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_title&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"&lt;title&gt;"</span>;<span class="string">"untitled"</span>;<span class="string">"&lt;/title&gt;"</span>]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_title</span>&nbsp;s)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"&lt;title&gt;"</span>;s;<span class="string">"&lt;/title&gt;"</span>]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;authors:string&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_authors&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_authors</span>&nbsp;(author_list&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author&nbsp;list))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(author&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author)&nbsp;:&nbsp;string&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Cs_author</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"&lt;meta&nbsp;name=\"author\"&nbsp;content=\""</span>;s;<span class="string">"\"&gt;"</span>]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;author_list)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;(<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;options.lang&nbsp;^&nbsp;<span class="string">"\""</span>)&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_left&nbsp;:&nbsp;string&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.margin&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string_of_int&nbsp;m)&nbsp;^&nbsp;<span class="string">"rem"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Html_utils</span>.margin_left_of_tr_doc&nbsp;doc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indent&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.indent&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length)&nbsp;^&nbsp;<span class="string">"ch"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string_of_int&nbsp;n)&nbsp;^&nbsp;<span class="string">"ch"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;internal_css:&nbsp;string&nbsp;=&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;style&gt;\n"</span>&nbsp;^&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Html_utils</span>.default_css&nbsp;indent&nbsp;margin_left)&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;<span class="constructor">Html_utils</span>.internal_css_of_file&nbsp;options.internal_css))&nbsp;^&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"\n&lt;/style&gt;"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;external_css:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(uri&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=&nbsp;(<span class="string">"&lt;link&nbsp;rel=\"stylesheet\"&nbsp;href=\""</span>&nbsp;^&nbsp;uri&nbsp;^&nbsp;<span class="string">"\"&gt;\n"</span>)&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;options.external_css)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;intro&nbsp;:&nbsp;string&nbsp;=&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;!DOCTYPE&nbsp;html&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;html"</span>&nbsp;^&nbsp;lang_attr&nbsp;^&nbsp;<span class="string">"&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;head&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;meta&nbsp;charset=\"UTF-8\"&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;meta&nbsp;name=\"viewport\"&nbsp;content=\"width=device-width,&nbsp;initial-scale=1.0\"&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;authors&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;internal_css&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;external_css&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;/head&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;body&gt;\n"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;outro&nbsp;:&nbsp;string&nbsp;=&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"\n&lt;/body&gt;\n"</span>&nbsp;^<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;/html&gt;"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(intro&nbsp;^&nbsp;html_string&nbsp;^&nbsp;outro)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Common_utils</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[<span class="string">"Common_utils.Error:"</span>;&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Html_utils</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[<span class="string">"Html_utils.Error:"</span>;&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[<span class="string">"Compiler_of_doc.Error:"</span>;&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[<span class="string">"Xml_right.Error:"</span>;&nbsp;e]))<br>
+<span class="keyword">let</span>&nbsp;html_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Common_utils</span>.exml_options_of_html_options&nbsp;options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_class&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.class_of_tr_doc&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;html&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Html_utils</span>.html_of_exml&nbsp;doc_class&nbsp;exml&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;html_string&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;html&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;title&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_title&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"&lt;title&gt;"</span>;&nbsp;<span class="string">"untitled"</span>;&nbsp;<span class="string">"&lt;/title&gt;"</span>&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_title</span>&nbsp;s)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"&lt;title&gt;"</span>;&nbsp;s;&nbsp;<span class="string">"&lt;/title&gt;"</span>&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;authors&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_authors&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_authors</span>&nbsp;(author_list&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author&nbsp;list))&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(author&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_author</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"&lt;meta&nbsp;name=\"author\"&nbsp;content=\""</span>;&nbsp;s;&nbsp;<span class="string">"\"&gt;"</span>&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;author_list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;options.lang&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_left&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.margin&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_int&nbsp;m&nbsp;^&nbsp;<span class="string">"rem"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Html_utils</span>.margin_left_of_tr_doc&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indent&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.indent&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length&nbsp;^&nbsp;<span class="string">"ch"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_int&nbsp;n&nbsp;^&nbsp;<span class="string">"ch"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;internal_css&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;style&gt;\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="constructor">Html_utils</span>.default_css&nbsp;indent&nbsp;margin_left<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="string">"\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">List</span>.map&nbsp;<span class="constructor">Html_utils</span>.internal_css_of_file&nbsp;options.internal_css)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="string">"\n&lt;/style&gt;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;external_css&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(uri&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;link&nbsp;rel=\"stylesheet\"&nbsp;href=\""</span>&nbsp;^&nbsp;uri&nbsp;^&nbsp;<span class="string">"\"&gt;\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;options.external_css)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;intro&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;!DOCTYPE&nbsp;html&gt;\n"</span>&nbsp;^&nbsp;<span class="string">"&lt;html"</span>&nbsp;^&nbsp;lang_attr&nbsp;^&nbsp;<span class="string">"&gt;\n"</span>&nbsp;^&nbsp;<span class="string">"&lt;head&gt;\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="string">"&lt;meta&nbsp;charset=\"UTF-8\"&gt;\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="string">"&lt;meta&nbsp;name=\"viewport\"&nbsp;content=\"width=device-width,&nbsp;initial-scale=1.0\"&gt;\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;title&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^&nbsp;authors&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^&nbsp;internal_css&nbsp;^&nbsp;<span class="string">"\n"</span>&nbsp;^&nbsp;external_css<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;<span class="string">"&lt;/head&gt;\n"</span>&nbsp;^&nbsp;<span class="string">"&lt;body&gt;\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;outro&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"\n&lt;/body&gt;\n"</span>&nbsp;^&nbsp;<span class="string">"&lt;/html&gt;"</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;intro&nbsp;^&nbsp;html_string&nbsp;^&nbsp;outro<br>
+&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Common_utils</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;<span class="string">"Common_utils.Error:"</span>;&nbsp;e&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Html_utils</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;<span class="string">"Html_utils.Error:"</span>;&nbsp;e&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;<span class="string">"Compiler_of_doc.Error:"</span>;&nbsp;e&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_right</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;<span class="string">"Xml_right.Error:"</span>;&nbsp;e&nbsp;]))<br>
 <br>
-<span class="keyword">let</span>&nbsp;html_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_html_options&nbsp;options)&nbsp;path)<br>
+<span class="keyword">let</span>&nbsp;html_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;=<br>
+&nbsp;&nbsp;html_of_doc&nbsp;options<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_html_options&nbsp;options)&nbsp;path)<br>
 <br>
-<span class="keyword">let</span>&nbsp;default_css&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Html_utils</span>.default_css&nbsp;((string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length)&nbsp;^&nbsp;<span class="string">"ch"</span>)&nbsp;<span class="string">"0rem"</span><br>
-<br>
+<span class="keyword">let</span>&nbsp;default_css&nbsp;()&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">Html_utils</span>.default_css<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length&nbsp;^&nbsp;<span class="string">"ch"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"0rem"</span><br>
 <br>
 <span class="comment">(*&nbsp;axml&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;doc_of_axml&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml:<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;print_tokens<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;print_tokens&nbsp;path&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml&nbsp;axml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path;<span class="string">"-&gt;"</span>;<span class="string">"Xml_right.Error:"</span>;e]))&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Doc_of_axml</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path;<span class="string">"-&gt;"</span>;<span class="string">"Doc_of_axml.Error:"</span>;e]))&nbsp;<br>
-<br>
+<span class="keyword">let</span>&nbsp;doc_of_axml&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;print_tokens<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;print_tokens&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml&nbsp;axml<br>
+&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_right</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;path;&nbsp;<span class="string">"-&gt;"</span>;&nbsp;<span class="string">"Xml_right.Error:"</span>;&nbsp;e&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Doc_of_axml</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;path;&nbsp;<span class="string">"-&gt;"</span>;&nbsp;<span class="string">"Doc_of_axml.Error:"</span>;&nbsp;e&nbsp;]))<br>
 <br>
 <span class="keyword">let</span>&nbsp;axml_of_doc&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span>&nbsp;^&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;(<span class="constructor">Axml_of_doc</span>.normalize_axml&nbsp;(<span class="constructor">Axml_of_doc</span>.axml_of_tr_doc&nbsp;doc)))<br>
+&nbsp;&nbsp;<span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span><br>
+&nbsp;&nbsp;^&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Axml_of_doc</span>.normalize_axml&nbsp;(<span class="constructor">Axml_of_doc</span>.axml_of_tr_doc&nbsp;doc))<br>
 <br>
-<span class="keyword">let</span>&nbsp;axml_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axml_of_doc&nbsp;(doc_of_nmm&nbsp;options&nbsp;path)<br>
+<span class="keyword">let</span>&nbsp;axml_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;=<br>
+&nbsp;&nbsp;axml_of_doc&nbsp;(doc_of_nmm&nbsp;options&nbsp;path)<br>
 <br>
+<span class="keyword">let</span>&nbsp;txt_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_txt_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;=<br>
+&nbsp;&nbsp;txt_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
 <br>
-<span class="keyword">let</span>&nbsp;txt_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_txt_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)&nbsp;<br>
-<br>
-<span class="keyword">let</span>&nbsp;html_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
+<span class="keyword">let</span>&nbsp;html_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;html_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
 <br>
 <span class="keyword">let</span>&nbsp;normalize_axml_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml:<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;<span class="keyword">false</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;<span class="keyword">false</span>&nbsp;path&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span>&nbsp;^&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;(<span class="constructor">Axml_of_doc</span>.normalize_axml&nbsp;axml))<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;<span class="keyword">false</span>&nbsp;path<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span><br>
+&nbsp;&nbsp;^&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;(<span class="constructor">Axml_of_doc</span>.normalize_axml&nbsp;axml)<br>
 <br>
 <span class="comment">(*&nbsp;exml&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;exml_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span>&nbsp;^&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;(<span class="constructor">Exml_utils</span>.normalize_exml&nbsp;(<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc&nbsp;options&nbsp;doc)))<br>
+<span class="keyword">let</span>&nbsp;exml_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="string">"&lt;?xml&nbsp;version=\"1.0\"?&gt;\n"</span><br>
+&nbsp;&nbsp;^&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Exml_utils</span>.normalize_exml&nbsp;(<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc&nbsp;options&nbsp;doc))<br>
 <br>
-<span class="keyword">let</span>&nbsp;exml_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exml_of_doc&nbsp;options&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_exml_options&nbsp;options)&nbsp;path)<br>
+<span class="keyword">let</span>&nbsp;exml_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;=<br>
+&nbsp;&nbsp;exml_of_doc&nbsp;options<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc_of_nmm&nbsp;(<span class="constructor">Common_utils</span>.axml_options_of_exml_options&nbsp;options)&nbsp;path)<br>
 <br>
-<span class="keyword">let</span>&nbsp;exml_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exml_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
+<span class="keyword">let</span>&nbsp;exml_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;exml_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
 <br>
 <span class="comment">(*&nbsp;xml-validation&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;check_xml_schema&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dtd:<span class="constructor">Dtd</span>.dtd=<span class="constructor">Dtd</span>.parse_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_:<span class="constructor">Dtd</span>.checked=<span class="constructor">Dtd</span>.check&nbsp;dtd&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path;<span class="string">"is&nbsp;a&nbsp;well-defined&nbsp;xml-schema"</span>]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_check_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_check_error:"</span>;<span class="constructor">Dtd</span>.check_error&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_parse_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_parse_error:"</span>;<span class="constructor">Dtd</span>.parse_error&nbsp;e]))<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.dtd&nbsp;=&nbsp;<span class="constructor">Dtd</span>.parse_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;<span class="constructor">Dtd</span>.checked&nbsp;=&nbsp;<span class="constructor">Dtd</span>.check&nbsp;dtd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;path;&nbsp;<span class="string">"is&nbsp;a&nbsp;well-defined&nbsp;xml-schema"</span>&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_check_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"-&gt;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Xml_light_errors.Dtd_check_error:"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dtd</span>.check_error&nbsp;e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_parse_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"-&gt;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Xml_light_errors.Dtd_parse_error:"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dtd</span>.parse_error&nbsp;e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]))<br>
 <br>
 <span class="keyword">let</span>&nbsp;validate_xml&nbsp;(path_to_dtd&nbsp;:&nbsp;string)&nbsp;(path_to_xml&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dtd:<span class="constructor">Dtd</span>.dtd=<span class="constructor">Dtd</span>.parse_file&nbsp;path_to_dtd&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;checked_dtd:<span class="constructor">Dtd</span>.checked=<span class="constructor">Dtd</span>.check&nbsp;dtd&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml:<span class="constructor">Xml</span>.xml=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_to_xml&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;print_tokens&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;print_tokens&nbsp;path<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(entry_point,&nbsp;_,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_=<span class="constructor">Dtd</span>.prove&nbsp;checked_dtd&nbsp;entry_point&nbsp;xml&nbsp;<span class="keyword">in</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path_to_xml;<span class="string">"is&nbsp;an&nbsp;instance&nbsp;of"</span>;path_to_dtd;<span class="string">"with&nbsp;entry-point"</span>;entry_point]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(path_to_xml&nbsp;^&nbsp;<span class="string">"&nbsp;has&nbsp;no&nbsp;entry_point"</span>))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_parse_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path_to_dtd;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_parse_error:"</span>;<span class="constructor">Dtd</span>.parse_error&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_check_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path_to_dtd;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_check_error:"</span>;<span class="constructor">Dtd</span>.check_error&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_prove_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path_to_dtd;path_to_xml;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_prove_error:"</span>;<span class="constructor">Dtd</span>.prove_error&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Xml_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path_to_xml;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Xml_error:"</span>;<span class="constructor">Xml</span>.error&nbsp;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">File_not_found</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[<span class="string">"Xml_light_errors.File_not_found:"</span>;e]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Xml_right</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[path_to_xml;<span class="string">"-&gt;"</span>;<span class="string">"Xml_right.Error:"</span>;e]))<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.dtd&nbsp;=&nbsp;<span class="constructor">Dtd</span>.parse_file&nbsp;path_to_dtd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;checked_dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.checked&nbsp;=&nbsp;<span class="constructor">Dtd</span>.check&nbsp;dtd&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_to_xml&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;print_tokens<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;print_tokens&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(entry_point,&nbsp;_,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Dtd</span>.prove&nbsp;checked_dtd&nbsp;entry_point&nbsp;xml&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path_to_xml;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"is&nbsp;an&nbsp;instance&nbsp;of"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path_to_dtd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"with&nbsp;entry-point"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;entry_point;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(path_to_xml&nbsp;^&nbsp;<span class="string">"&nbsp;has&nbsp;no&nbsp;entry_point"</span>))<br>
+&nbsp;&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_parse_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path_to_dtd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"-&gt;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Xml_light_errors.Dtd_parse_error:"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dtd</span>.parse_error&nbsp;e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_check_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path_to_dtd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"-&gt;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Xml_light_errors.Dtd_check_error:"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dtd</span>.check_error&nbsp;e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_prove_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path_to_dtd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path_to_xml;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"-&gt;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Xml_light_errors.Dtd_prove_error:"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Dtd</span>.prove_error&nbsp;e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">Xml_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;path_to_xml;&nbsp;<span class="string">"-&gt;"</span>;&nbsp;<span class="string">"Xml_light_errors.Xml_error:"</span>;&nbsp;<span class="constructor">Xml</span>.error&nbsp;e&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_light_errors</span>.<span class="constructor">File_not_found</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;<span class="string">"Xml_light_errors.File_not_found:"</span>;&nbsp;e&nbsp;]))<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml_right</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;path_to_xml;&nbsp;<span class="string">"-&gt;"</span>;&nbsp;<span class="string">"Xml_right.Error:"</span>;&nbsp;e&nbsp;]))<br>
 <br>
 <span class="keyword">let</span>&nbsp;exml_schema&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Exml_utils</span>.exml_schema&nbsp;()<br>
-<br>
 <span class="keyword">let</span>&nbsp;axml_schema&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Axml_of_doc</span>.axml_schema&nbsp;()<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 </code></body></html>

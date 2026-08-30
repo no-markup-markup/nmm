@@ -26,9 +26,9 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> max_length_of_margin_labels (margin_labels : string list) : int =
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux (i : int) (labels : string list) : int =
-                <span class="keyword">match</span>  labels <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> i
-                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> aux (<span class="constructor">Int</span>.max i (utf_8_length hd)) tl
-        <span class="keyword">in</span>
-        aux 0 margin_labels</code></body></html>
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux (i : int) (labels : string list) : int =
+    <span class="keyword">match</span> labels <span class="keyword">with</span>
+    <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> i
+    <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> aux (<span class="constructor">Int</span>.max i (utf_8_length hd)) tl
+  <span class="keyword">in</span>
+  aux 0 margin_labels</code></body></html>

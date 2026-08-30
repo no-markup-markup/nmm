@@ -3,127 +3,335 @@ open Common_utils
 exception Error of string
 
 let sec_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
-        match doc_class with
-        |DOC_CHS -> "h3"
-        |DOC_SECS -> "h2"
-        |_ -> raise (Error "unexpected document class")
+  match doc_class with
+  | DOC_CHS -> "h3"
+  | DOC_SECS -> "h2"
+  | _ -> raise (Error "unexpected document class")
 
 let par_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
-        match doc_class with
-        |DOC_CHS -> "h4"
-        |DOC_SECS -> "h3"
-        |DOC_PARS -> "h2"
-        |DOC_BLKS -> raise (Error "unexpected document class")
+  match doc_class with
+  | DOC_CHS -> "h4"
+  | DOC_SECS -> "h3"
+  | DOC_PARS -> "h2"
+  | DOC_BLKS -> raise (Error "unexpected document class")
 
-
-let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element:Xml.xml):Xml.xml=
-match element with
-|Xml.Element ("doc", attr_list, xml_list) -> Xml.Element ("main", attr_list, List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("title", _, xml_list) -> Xml.Element ("h1", [("class", "title")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("authors", _, xml_list) -> Xml.Element ("div", [("class", "authors")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("author", _, xml_list) -> Xml.Element ("p", [("class", "author")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("date", attr_list, [Xml.PCData s]) -> Xml.Element ("time", ("class", "date")::attr_list, [Xml.PCData s])
-
-|Xml.Element ("abstract", _, xml_list) -> Xml.Element ("section", [("class", "abstract")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("abstract_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "abstract_hdr")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("refs", _ , xml_list) -> Xml.Element ("section", [("class","refs")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("refs_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "refs_hdr")],List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("doc_main", _, xml_list) -> Xml.Element ("div", [("class", "doc_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("ch", attr_list, xml_list) -> Xml.Element ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_lbl", _ , xml_list) -> Xml.Element ("div", [("class","ch_lbl")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_lbl_hdr", _, xml_list) -> Xml.Element ("h2", [("class", "ch_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_main", _ , xml_list) -> Xml.Element ("div", [("class","ch_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("sec", attr_list, xml_list) -> Xml.Element ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_lbl", _, xml_list) -> Xml.Element ("div", [("class", "sec_lbl")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_hdr", _, xml_list) -> Xml.Element (sec_hdr_of_doc_class doc_class, [("class", "sec_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_lbl_hdr", _, xml_list) -> Xml.Element (sec_hdr_of_doc_class doc_class, [("class", "sec_lbl hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_main", _ , xml_list) -> Xml.Element ("div", [("class","sec_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("par", attr_list, xml_list) -> Xml.Element ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_lbl", _, xml_list) -> Xml.Element ("div",[("class","par_lbl")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_lbl_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class,[("class","par_lbl hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag", _,xml_list) -> Xml.Element ("div", [("class", "par_tag")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class, [("class","par_hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_tag_hdr", _, xml_list) -> Xml.Element (par_hdr_of_doc_class doc_class, [("class","par_tag hdr")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_main", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_main_w_hdr", _ , xml_list) -> Xml.Element ("div", [("class","par_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_txt", _, xml_list) -> Xml.Element ("p", [("class", "blk txt")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_qtn", _, xml_list) -> Xml.Element ("div", [("class", "blk qtn")], [Xml.Element ("p", [("class", "blk_qtn_main")], List.map (html_of_exml doc_class) xml_list)])
-|Xml.Element ("br", _,_) -> Xml.Element ("br", [], [])
-
-|Xml.Element ("blk_itm", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_itm_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_itm_lbl")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_itm_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_itm_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_blt", _, xml_list) -> Xml.Element ("div", [("class", "blk blt")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_blt_lbl", _, xml_list) -> Xml.Element ("div",[("class","blk_blt_lbl")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_blt_main", _, xml_list) -> Xml.Element ("div", [("class", "blk_blt_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_dsp", _, xml_list) -> Xml.Element ("div", [("class", "blk dsp")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line", attr_list, xml_list) -> Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line_lbl", _, xml_list) -> Xml.Element ("div",[("class","dsp_line_lbl")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("dsp_line_main", _, xml_list) -> Xml.Element ("div", [("class", "dsp_line_main")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_vrb",_,xml_list) -> Xml.Element ("div",[("class","blk vrb")],List.map (html_of_exml doc_class) xml_list) 
-|Xml.Element ("vrb_line",_,xml_list) -> Xml.Element ("pre",[("class","vrb_line")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("vrb_line_empty",_,_) -> Xml.Element ("br",[("class","vrb_line_empty")],[])
-
-|Xml.Element ("txt_unit_wysiwyg", _, [Xml.PCData s]) -> Xml.PCData s
-|Xml.Element ("txt_unit_emph", _, xml_list) -> Xml.Element ("em", [("class", "txt_unit_emph")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("txt_unit_c_ref", attr_list, xml_list) -> Xml.Element ("a", ("class", "txt_unit_c_ref")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("txt_unit_nte",attr_list,xml_list) -> Xml.Element ("a", ("class","txt_unit_nte")::attr_list,List.map (html_of_exml doc_class) xml_list)
-
-
-|Xml.Element ("doc_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","doc_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","ch_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","sec_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","par_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("abstract_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","abstract_endnotes")], List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("refs_endnotes",_,xml_list) -> Xml.Element ("footer",[("class","refs_endnotes")], List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("doc_endnotes_hdr",_,xml_list) -> Xml.Element ("h2",[("class","doc_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("ch_endnotes_hdr",_,xml_list) -> Xml.Element ("h3",[("class","ch_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("sec_endnotes_hdr",_,xml_list) -> Xml.Element ("h4",[("class","sec_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("par_endnotes_hdr",_,xml_list) -> Xml.Element ("h5",[("class","sec_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("abstract_endnotes_hdr",_,xml_list) -> Xml.Element ("h5",[("class","abstract_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("refs_endnotes_hdr",_,xml_list) -> Xml.Element ("h5",[("class","refs_endnotes_hdr")],List.map (html_of_exml doc_class) xml_list)
-
-|Xml.Element ("blk_nte",attr_list,xml_list) -> Xml.Element ("div",("class","blk nte")::attr_list, List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_nte_lbl",attr_list,xml_list) -> Xml.Element ("a",("class","blk_nte_lbl")::attr_list,List.map (html_of_exml doc_class) xml_list)
-|Xml.Element ("blk_nte_main",_,xml_list) -> Xml.Element ("div", [("class", "blk_nte_main")],List.map (html_of_exml doc_class) xml_list)
-
-|Xml.PCData s -> Xml.PCData s
-
-|Xml.Element ("clear", _, _) -> Xml.Element ("div",[("class","clear")],[Xml.PCData ""])
-
-|Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
-
+let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
+    : Xml.xml =
+  match element with
+  | Xml.Element ("doc", attr_list, xml_list) ->
+      Xml.Element ("main", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("title", _, xml_list) ->
+      Xml.Element
+        ( "h1",
+          [ ("class", "title") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("authors", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "authors") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("author", _, xml_list) ->
+      Xml.Element
+        ( "p",
+          [ ("class", "author") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("date", attr_list, [ Xml.PCData s ]) ->
+      Xml.Element ("time", ("class", "date") :: attr_list, [ Xml.PCData s ])
+  | Xml.Element ("abstract", _, xml_list) ->
+      Xml.Element
+        ( "section",
+          [ ("class", "abstract") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("abstract_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h2",
+          [ ("class", "abstract_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("refs", _, xml_list) ->
+      Xml.Element
+        ( "section",
+          [ ("class", "refs") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("refs_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h2",
+          [ ("class", "refs_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("doc_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "doc_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("ch", attr_list, xml_list) ->
+      Xml.Element
+        ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("ch_lbl", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "ch_lbl") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("ch_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h2",
+          [ ("class", "ch_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("ch_lbl_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h2",
+          [ ("class", "ch_lbl hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("ch_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "ch_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("sec", attr_list, xml_list) ->
+      Xml.Element
+        ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("sec_lbl", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "sec_lbl") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("sec_hdr", _, xml_list) ->
+      Xml.Element
+        ( sec_hdr_of_doc_class doc_class,
+          [ ("class", "sec_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("sec_lbl_hdr", _, xml_list) ->
+      Xml.Element
+        ( sec_hdr_of_doc_class doc_class,
+          [ ("class", "sec_lbl hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("sec_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "sec_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par", attr_list, xml_list) ->
+      Xml.Element
+        ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("par_lbl", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "par_lbl") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_lbl_hdr", _, xml_list) ->
+      Xml.Element
+        ( par_hdr_of_doc_class doc_class,
+          [ ("class", "par_lbl hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_tag", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "par_tag") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_hdr", _, xml_list) ->
+      Xml.Element
+        ( par_hdr_of_doc_class doc_class,
+          [ ("class", "par_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_tag_hdr", _, xml_list) ->
+      Xml.Element
+        ( par_hdr_of_doc_class doc_class,
+          [ ("class", "par_tag hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "par_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_main_w_hdr", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "par_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_txt", _, xml_list) ->
+      Xml.Element
+        ( "p",
+          [ ("class", "blk txt") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_qtn", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk qtn") ],
+          [
+            Xml.Element
+              ( "p",
+                [ ("class", "blk_qtn_main") ],
+                List.map (html_of_exml doc_class) xml_list );
+          ] )
+  | Xml.Element ("br", _, _) -> Xml.Element ("br", [], [])
+  | Xml.Element ("blk_itm", attr_list, xml_list) ->
+      Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("blk_itm_lbl", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk_itm_lbl") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_itm_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk_itm_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_blt", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk blt") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_blt_lbl", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk_blt_lbl") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_blt_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk_blt_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_dsp", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk dsp") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("dsp_line", attr_list, xml_list) ->
+      Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("dsp_line_lbl", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "dsp_line_lbl") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("dsp_line_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "dsp_line_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_vrb", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk vrb") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("vrb_line", _, xml_list) ->
+      Xml.Element
+        ( "pre",
+          [ ("class", "vrb_line") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("vrb_line_empty", _, _) ->
+      Xml.Element ("br", [ ("class", "vrb_line_empty") ], [])
+  | Xml.Element ("txt_unit_wysiwyg", _, [ Xml.PCData s ]) -> Xml.PCData s
+  | Xml.Element ("txt_unit_emph", _, xml_list) ->
+      Xml.Element
+        ( "em",
+          [ ("class", "txt_unit_emph") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("txt_unit_c_ref", attr_list, xml_list) ->
+      Xml.Element
+        ( "a",
+          ("class", "txt_unit_c_ref") :: attr_list,
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("txt_unit_nte", attr_list, xml_list) ->
+      Xml.Element
+        ( "a",
+          ("class", "txt_unit_nte") :: attr_list,
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("doc_endnotes", _, xml_list) ->
+      Xml.Element
+        ( "footer",
+          [ ("class", "doc_endnotes") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("ch_endnotes", _, xml_list) ->
+      Xml.Element
+        ( "footer",
+          [ ("class", "ch_endnotes") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("sec_endnotes", _, xml_list) ->
+      Xml.Element
+        ( "footer",
+          [ ("class", "sec_endnotes") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_endnotes", _, xml_list) ->
+      Xml.Element
+        ( "footer",
+          [ ("class", "par_endnotes") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("abstract_endnotes", _, xml_list) ->
+      Xml.Element
+        ( "footer",
+          [ ("class", "abstract_endnotes") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("refs_endnotes", _, xml_list) ->
+      Xml.Element
+        ( "footer",
+          [ ("class", "refs_endnotes") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("doc_endnotes_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h2",
+          [ ("class", "doc_endnotes_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("ch_endnotes_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h3",
+          [ ("class", "ch_endnotes_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("sec_endnotes_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h4",
+          [ ("class", "sec_endnotes_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("par_endnotes_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h5",
+          [ ("class", "sec_endnotes_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("abstract_endnotes_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h5",
+          [ ("class", "abstract_endnotes_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("refs_endnotes_hdr", _, xml_list) ->
+      Xml.Element
+        ( "h5",
+          [ ("class", "refs_endnotes_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_nte", attr_list, xml_list) ->
+      Xml.Element
+        ( "div",
+          ("class", "blk nte") :: attr_list,
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_nte_lbl", attr_list, xml_list) ->
+      Xml.Element
+        ( "a",
+          ("class", "blk_nte_lbl") :: attr_list,
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_nte_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "blk_nte_main") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.PCData s -> Xml.PCData s
+  | Xml.Element ("clear", _, _) ->
+      Xml.Element ("div", [ ("class", "clear") ], [ Xml.PCData "" ])
+  | Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
 let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
-        let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-        let margin_labels = Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc in
-        let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
-        let margin : float = (Float.of_int (max_length + 2)) *. 0.6 in
-        String.concat "" [Printf.sprintf "%.2f" margin; "rem"]
+  let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
+  let margin_labels =
+    Compiler_of_doc.margin_labels_of_tr_doc doc_settings doc
+  in
+  let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
+  let margin : float = Float.of_int (max_length + 2) *. 0.6 in
+  String.concat "" [ Printf.sprintf "%.2f" margin; "rem" ]
 
 let internal_css_of_file (path : string) : string =
-        let comment : string =
-"
-/*========================= css from file =========================*/\n\n" in
-        comment ^ (IO.string_of_file path)
+  let comment : string =
+    "
+/*========================= css from file =========================*/\n\n"
+  in
+  comment ^ IO.string_of_file path
 
 let default_css (tab_length : string) (margin_left : string) : string =
-"
+  "
 /*========================= default css ===========================*/
 
 html {
@@ -165,11 +373,13 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left ^ ";
 }
 
 .doc.secs .title {
-    margin-left : "^ margin_left ^";
+    margin-left : " ^ margin_left
+  ^ ";
 }
 
 .doc.chs .title {
@@ -192,22 +402,26 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left ^ ";
 }
 
 .doc.secs .authors {
-    margin-left : "^ margin_left ^";
+    margin-left : " ^ margin_left
+  ^ ";
 }
 
 /************ DATE ******************/
 
 
 .doc.pars .date {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left ^ ";
 }
 
 .doc.secs .date {
-    margin-left : "^ margin_left ^";
+    margin-left : " ^ margin_left
+  ^ ";
 }
 
 /************ ABSTRACT ******************/
@@ -221,11 +435,13 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left ^ ";
 }
 
 .doc.secs .abstract {
-    margin-left : "^ margin_left ^";
+    margin-left : " ^ margin_left
+  ^ ";
 }
 
 .abstract_hdr {
@@ -242,11 +458,13 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left ^ ";
 }
 
 .doc.secs .refs {
-    margin-left : "^ margin_left ^";
+    margin-left : " ^ margin_left
+  ^ ";
 }
 
 .doc.chs .refs {
@@ -313,7 +531,9 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left
+  ^ ";
     font-size   : 150%;
     line-height : 130%;
 }
@@ -350,7 +570,9 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left
+  ^ ";
 }
 
 
@@ -377,7 +599,9 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : "^ margin_left ^";
+    margin-left : "
+  ^ margin_left
+  ^ ";
 }
 
 .blk.txt {
@@ -391,7 +615,9 @@ h2, h3, h4, h5 {
 }
 
 .blk_blt_main {
-    margin-left : "^ tab_length ^";
+    margin-left : "
+  ^ tab_length
+  ^ ";
 }
 
 
@@ -400,7 +626,9 @@ h2, h3, h4, h5 {
 }
 
 .blk_itm_main {
-    margin-left : "^ tab_length ^";
+    margin-left : "
+  ^ tab_length
+  ^ ";
 }
 
 
@@ -409,14 +637,18 @@ h2, h3, h4, h5 {
 }
 
 .dsp_line_main {
-    margin-left : "^ tab_length ^";
+    margin-left : "
+  ^ tab_length
+  ^ ";
     white-space : pre;
 }
 
 .blk_qtn_main {
     hyphens     : auto;
     white-space : pre-wrap;
-    margin-left : "^ tab_length ^";
+    margin-left : "
+  ^ tab_length
+  ^ ";
 }
 
 /******** ENDNOTES/FOOTNOTES ************/
@@ -433,7 +665,9 @@ h2, h3, h4, h5 {
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : " ^ margin_left ^ ";
+    margin-left : "
+  ^ margin_left
+  ^ ";
 }
 
 .blk_nte_lbl {
@@ -441,7 +675,9 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : "^ tab_length ^";
+    margin-left : "
+  ^ tab_length
+  ^ ";
 }
 
 /*************** BIB ********************/
@@ -507,4 +743,3 @@ h2, h3, h4, h5 {
     }
   }
 }"
-

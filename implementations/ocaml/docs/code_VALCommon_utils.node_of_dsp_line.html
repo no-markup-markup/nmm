@@ -25,26 +25,23 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.node_of_dsp_line</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path) (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_dsp_line) : t_node =
-        <span class="keyword">match</span> a.fld_dsp_line_lbl <span class="keyword">with</span>
-                <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span>) <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">let</span> lvl : int = lvl_of_path path <span class="keyword">in</span>
-                        <span class="keyword">let</span> lbl : string = doc_settings.auto_numbering lvl auto_nr <span class="keyword">in</span>
-                        <span class="keyword">match</span> a.fld_dsp_line_id <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_AUTO</span> lbl)
-                        <span class="keywordsign">|</span><span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> (
-                                <span class="keyword">match</span> doc_settings.expand_tag id.fld_id_tag <span class="keyword">with</span>
-                                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_AUTO</span> lbl)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> (_,tag) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_TAG_AUTO</span> (tag, lbl))
-                        )
-                )
-                <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string))) <span class="keywordsign">-&gt;</span> ( 
-                        <span class="keyword">match</span> a.fld_dsp_line_id <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_CUSTOM</span> s)
-                        <span class="keywordsign">|</span><span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> (
-                                <span class="keyword">match</span> doc_settings.expand_tag id.fld_id_tag <span class="keyword">with</span>
-                                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_CUSTOM</span> s)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> (_,tag) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_TAG_CUSTOM</span> (tag,s))
-                        )
-                )
-                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> <span class="constructor">DSP_NONE</span></code></body></html>
+<code class="code"><span class="keyword">let</span> node_of_dsp_line (doc_settings : t_doc_settings) (path : t_path)
+    (auto_nr : int) (a : <span class="constructor">Doc_types</span>.tr_dsp_line) : t_node =
+  <span class="keyword">match</span> a.fld_dsp_line_lbl <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_auto</span> <span class="constructor">Cs_lbl_auto</span>) <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">let</span> lvl : int = lvl_of_path path <span class="keyword">in</span>
+      <span class="keyword">let</span> lbl : string = doc_settings.auto_numbering lvl auto_nr <span class="keyword">in</span>
+      <span class="keyword">match</span> a.fld_dsp_line_id <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_AUTO</span> lbl)
+      <span class="keywordsign">|</span> <span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> doc_settings.expand_tag id.fld_id_tag <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_AUTO</span> lbl)
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (_, tag) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_TAG_AUTO</span> (tag, lbl))))
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cu_lbl_custom</span> (<span class="constructor">Cs_lbl_custom</span> (s : string))) <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> a.fld_dsp_line_id <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_CUSTOM</span> s)
+      <span class="keywordsign">|</span> <span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> doc_settings.expand_tag id.fld_id_tag <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_CUSTOM</span> s)
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (_, tag) <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> (<span class="constructor">DSP_TAG_CUSTOM</span> (tag, s))))
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">DSP_LINE_NODE</span> <span class="constructor">DSP_NONE</span></code></body></html>

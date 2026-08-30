@@ -25,7 +25,8 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.make_string</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> make_string (n:int) (s:string) : string=
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux (i:int) (acc:string) = 
-                <span class="keyword">if</span> i &gt; n - 1 <span class="keyword">then</span> acc <span class="keyword">else</span> aux (i+1) (acc ^ s) 
-        <span class="keyword">in</span> aux 0 <span class="string">""</span></code></body></html>
+<code class="code"><span class="keyword">let</span> make_string (n : int) (s : string) : string =
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux (i : int) (acc : string) =
+    <span class="keyword">if</span> i &gt; n - 1 <span class="keyword">then</span> acc <span class="keyword">else</span> aux (i + 1) (acc ^ s)
+  <span class="keyword">in</span>
+  aux 0 <span class="string">""</span></code></body></html>

@@ -25,7 +25,7 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.label_of_path</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> label_of_path (doc_settings : t_doc_settings) (path : t_path) : string=
-        <span class="keyword">match</span> label_of_path_opt doc_settings path <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">"DOCUMENT"</span>
-        <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : string) <span class="keywordsign">-&gt;</span> s</code></body></html>
+<code class="code"><span class="keyword">let</span> label_of_path (doc_settings : t_doc_settings) (path : t_path) : string =
+  <span class="keyword">match</span> label_of_path_opt doc_settings path <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">"DOCUMENT"</span>
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (s : string) <span class="keywordsign">-&gt;</span> s</code></body></html>

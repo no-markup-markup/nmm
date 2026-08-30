@@ -25,30 +25,37 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.par_hdr_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table) (nte_table : t_nte_table) (path : t_path) (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) : (<span class="constructor">Xml</span>.xml list) option=
-        <span class="keyword">let</span> tag_content_opt : (<span class="constructor">Xml</span>.xml list) option = 
-                <span class="keyword">match</span> tag_or_id_opt <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag) 
-                        <span class="keywordsign">|</span><span class="constructor">Cu_tag_or_id_id</span> { fld_id_tag = (tag : ts_tag); fld_id_name = _ } <span class="keywordsign">-&gt;</span>
-                                <span class="keyword">match</span> doc_settings.expand_tag tag <span class="keyword">with</span>
-                                <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl,_) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> [xml_of_string lbl]
-                                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-                )
-                <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> hdr_content_opt : (<span class="constructor">Xml</span>.xml list) option = 
-                <span class="keyword">match</span> hdr_opt <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-                <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (txt_lines : ts_txt_lines)) <span class="keywordsign">-&gt;</span>
-                        <span class="constructor">Some</span> (xml_list_of_ts_txt_units doc_settings cref_table nte_table path (<span class="constructor">Cs_txt_units</span> (<span class="constructor">Common_utils</span>.txt_units_of_txt_lines txt_lines)))
-        <span class="keyword">in</span>
-        <span class="keyword">match</span> tag_content_opt, hdr_content_opt <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">Some</span> hdr_content <span class="keywordsign">-&gt;</span>
-                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag"</span>,[],tag_content);<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>,[],hdr_content)]
-                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">Some</span> hdr_content <span class="keywordsign">-&gt;</span>
-                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>,[],hdr_content)]
-                <span class="keywordsign">|</span><span class="constructor">Some</span> tag_content, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
-                        <span class="constructor">Some</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>,[],tag_content)]
-                <span class="keywordsign">|</span><span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span></code></body></html>
+<code class="code"><span class="keyword">let</span> par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table)
+    (nte_table : t_nte_table) (path : t_path)
+    (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) :
+    <span class="constructor">Xml</span>.xml list option =
+  <span class="keyword">let</span> tag_content_opt : <span class="constructor">Xml</span>.xml list option =
+    <span class="keyword">match</span> tag_or_id_opt <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag)
+        <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_id</span> { fld_id_tag = (tag : ts_tag); fld_id_name = _ } <span class="keywordsign">-&gt;</span> (
+            <span class="keyword">match</span> doc_settings.expand_tag tag <span class="keyword">with</span>
+            <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> [ xml_of_string lbl ]
+            <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>))
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> hdr_content_opt : <span class="constructor">Xml</span>.xml list option =
+    <span class="keyword">match</span> hdr_opt <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cs_hdr</span> (txt_lines : ts_txt_lines)) <span class="keywordsign">-&gt;</span>
+        <span class="constructor">Some</span>
+          (xml_list_of_ts_txt_units doc_settings cref_table nte_table path
+             (<span class="constructor">Cs_txt_units</span> (<span class="constructor">Common_utils</span>.txt_units_of_txt_lines txt_lines)))
+  <span class="keyword">in</span>
+  <span class="keyword">match</span> (tag_content_opt, hdr_content_opt) <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> tag_content, <span class="constructor">Some</span> hdr_content <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Some</span>
+        [
+          <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag"</span>, [], tag_content);
+          <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>, [], hdr_content);
+        ]
+  <span class="keywordsign">|</span> <span class="constructor">None</span>, <span class="constructor">Some</span> hdr_content <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> [ <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>, [], hdr_content) ]
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> tag_content, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Some</span> [ <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>, [], tag_content) ]
+  <span class="keywordsign">|</span> <span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span></code></body></html>

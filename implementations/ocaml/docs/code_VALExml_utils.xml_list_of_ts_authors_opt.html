@@ -25,8 +25,9 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.xml_list_of_ts_authors_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : <span class="constructor">Xml</span>.xml list =
-        <span class="keyword">match</span> authors_opt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> (<span class="constructor">Cs_authors</span> (author_list : ts_author list)) <span class="keywordsign">-&gt;</span> 
-                [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"authors"</span>,[],<span class="constructor">List</span>.map xml_of_ts_author author_list)]</code></body></html>
+<code class="code"><span class="keyword">let</span> xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : <span class="constructor">Xml</span>.xml list
+    =
+  <span class="keyword">match</span> authors_opt <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (<span class="constructor">Cs_authors</span> (author_list : ts_author list)) <span class="keywordsign">-&gt;</span>
+      [ <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"authors"</span>, [], <span class="constructor">List</span>.map xml_of_ts_author author_list) ]</code></body></html>

@@ -25,30 +25,41 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.string_of_ts_c_ref</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> string_of_ts_c_ref (doc_settings : t_doc_settings) (cref_table : t_cref_table) (c_ref_loc : t_path) (c_ref : <span class="constructor">Doc_types</span>.ts_c_ref) : string =
-        <span class="keyword">match</span> reference_of_ts_c_ref cref_table c_ref_loc c_ref <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
-                <span class="keyword">match</span> c_ref <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Cs_c_ref</span> id_c_ref <span class="keywordsign">-&gt;</span>
-                        <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [
-                                <span class="string">"WARNING: id \'"</span>;
-                                string_of_tr_id id_c_ref;
-                                <span class="string">"\' referenced in "</span>;
-                                string_of_path doc_settings c_ref_loc;
-                                <span class="string">" does not exist or is out of scope."</span>;
-                        ]) <span class="keyword">in</span> <span class="string">"??"</span>
-        )
-        <span class="keywordsign">|</span><span class="constructor">Some</span> (_, id_loc, _) <span class="keywordsign">-&gt;</span> 
-                <span class="keyword">let</span> sub_path = (path_from_common_ancestor c_ref_loc id_loc) <span class="keyword">in</span>
-                <span class="keyword">match</span> <span class="constructor">List</span>.rev sub_path <span class="keyword">with</span>
-                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> hd <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">ABSTRACT_NODE</span> <span class="keywordsign">|</span> <span class="constructor">REFS_NODE</span> <span class="keywordsign">-&gt;</span> (
-                                <span class="keyword">match</span> id_loc <span class="keyword">with</span>
-                                <span class="keywordsign">|</span>(<span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_AUTO</span> _))::_ <span class="keywordsign">|</span> (<span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_CUSTOM</span> _))::_ <span class="keywordsign">-&gt;</span>
-                                        string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl)
-                                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">"\u{00A0}"</span> [string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl);<span class="string">"of"</span>; string_of_path doc_settings [hd]]
-                        )
-                        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> string_of_shown_path doc_settings id_loc sub_path
-                )
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"path to id cannot be empty"</span>)</code></body></html>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> string_of_ts_c_ref (doc_settings : t_doc_settings)
+    (cref_table : t_cref_table) (c_ref_loc : t_path)
+    (c_ref : <span class="constructor">Doc_types</span>.ts_c_ref) : string =
+  <span class="keyword">match</span> reference_of_ts_c_ref cref_table c_ref_loc c_ref <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> c_ref <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">Cs_c_ref</span> id_c_ref <span class="keywordsign">-&gt;</span>
+          <span class="keyword">let</span> _ : unit =
+            <span class="constructor">IO</span>.print_warning
+              (<span class="constructor">String</span>.concat <span class="string">""</span>
+                 [
+                   <span class="string">"WARNING: id \'"</span>;
+                   string_of_tr_id id_c_ref;
+                   <span class="string">"\' referenced in "</span>;
+                   string_of_path doc_settings c_ref_loc;
+                   <span class="string">" does not exist or is out of scope."</span>;
+                 ])
+          <span class="keyword">in</span>
+          <span class="string">"??"</span>)
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (_, id_loc, _) <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">let</span> sub_path = path_from_common_ancestor c_ref_loc id_loc <span class="keyword">in</span>
+      <span class="keyword">match</span> <span class="constructor">List</span>.rev sub_path <span class="keyword">with</span>
+      <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> hd <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">ABSTRACT_NODE</span> <span class="keywordsign">|</span> <span class="constructor">REFS_NODE</span> <span class="keywordsign">-&gt;</span> (
+              <span class="keyword">match</span> id_loc <span class="keyword">with</span>
+              <span class="keywordsign">|</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_AUTO</span> _) :: _
+              <span class="keywordsign">|</span> <span class="constructor">ITM_NODE</span> (<span class="constructor">ITM_BIB_CUSTOM</span> _) :: _ <span class="keywordsign">-&gt;</span>
+                  string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl)
+              <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
+                  <span class="constructor">String</span>.concat <span class="string">"\u{00A0}"</span>
+                    [
+                      string_of_shown_path doc_settings id_loc (<span class="constructor">List</span>.rev tl);
+                      <span class="string">"of"</span>;
+                      string_of_path doc_settings [ hd ];
+                    ])
+          <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> string_of_shown_path doc_settings id_loc sub_path)
+      <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"path to id cannot be empty"</span>))</code></body></html>

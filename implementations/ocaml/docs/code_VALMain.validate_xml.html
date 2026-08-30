@@ -26,24 +26,67 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
-        <span class="keyword">let</span> print_tokens = <span class="keyword">false</span> <span class="keyword">in</span> 
-        <span class="keyword">try</span> 
-        <span class="keyword">let</span> dtd:<span class="constructor">Dtd</span>.dtd=<span class="constructor">Dtd</span>.parse_file path_to_dtd <span class="keyword">in</span>
-        <span class="keyword">let</span> checked_dtd:<span class="constructor">Dtd</span>.checked=<span class="constructor">Dtd</span>.check dtd <span class="keyword">in</span>
-        <span class="keyword">let</span> xml:<span class="constructor">Xml</span>.xml=
-                <span class="keyword">match</span> path_to_xml <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin print_tokens 
-                <span class="keywordsign">|</span>path <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file print_tokens path
-        <span class="keyword">in</span>
-        <span class="keyword">match</span> xml <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (entry_point, _, _) <span class="keywordsign">-&gt;</span>
-                <span class="keyword">let</span> _=<span class="constructor">Dtd</span>.prove checked_dtd entry_point xml <span class="keyword">in</span> 
-                <span class="constructor">String</span>.concat <span class="string">" "</span> [path_to_xml;<span class="string">"is an instance of"</span>;path_to_dtd;<span class="string">"with entry-point"</span>;entry_point]
-        <span class="keywordsign">|</span> _  <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (path_to_xml ^ <span class="string">" has no entry_point"</span>))
-        <span class="keyword">with</span> 
-        <span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_parse_error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path_to_dtd;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_parse_error:"</span>;<span class="constructor">Dtd</span>.parse_error e]))
-        <span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_check_error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path_to_dtd;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_check_error:"</span>;<span class="constructor">Dtd</span>.check_error e]))
-        <span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_prove_error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path_to_dtd;path_to_xml;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Dtd_prove_error:"</span>;<span class="constructor">Dtd</span>.prove_error e]))
-        <span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">Xml_error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path_to_xml;<span class="string">"-&gt;"</span>;<span class="string">"Xml_light_errors.Xml_error:"</span>;<span class="constructor">Xml</span>.error e]))
-        <span class="keywordsign">|</span><span class="constructor">Xml_light_errors</span>.<span class="constructor">File_not_found</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [<span class="string">"Xml_light_errors.File_not_found:"</span>;e]))
-        <span class="keywordsign">|</span><span class="constructor">Xml_right</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path_to_xml;<span class="string">"-&gt;"</span>;<span class="string">"Xml_right.Error:"</span>;e]))</code></body></html>
+  <span class="keyword">let</span> print_tokens = <span class="keyword">false</span> <span class="keyword">in</span>
+  <span class="keyword">try</span>
+    <span class="keyword">let</span> dtd : <span class="constructor">Dtd</span>.dtd = <span class="constructor">Dtd</span>.parse_file path_to_dtd <span class="keyword">in</span>
+    <span class="keyword">let</span> checked_dtd : <span class="constructor">Dtd</span>.checked = <span class="constructor">Dtd</span>.check dtd <span class="keyword">in</span>
+    <span class="keyword">let</span> xml : <span class="constructor">Xml</span>.xml =
+      <span class="keyword">match</span> path_to_xml <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin print_tokens
+      <span class="keywordsign">|</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file print_tokens path
+    <span class="keyword">in</span>
+    <span class="keyword">match</span> xml <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (entry_point, _, _) <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ = <span class="constructor">Dtd</span>.prove checked_dtd entry_point xml <span class="keyword">in</span>
+        <span class="constructor">String</span>.concat <span class="string">" "</span>
+          [
+            path_to_xml;
+            <span class="string">"is an instance of"</span>;
+            path_to_dtd;
+            <span class="string">"with entry-point"</span>;
+            entry_point;
+          ]
+    <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (path_to_xml ^ <span class="string">" has no entry_point"</span>))
+  <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_parse_error</span> e <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span>
+           (<span class="constructor">String</span>.concat <span class="string">" "</span>
+              [
+                path_to_dtd;
+                <span class="string">"-&gt;"</span>;
+                <span class="string">"Xml_light_errors.Dtd_parse_error:"</span>;
+                <span class="constructor">Dtd</span>.parse_error e;
+              ]))
+  <span class="keywordsign">|</span> <span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_check_error</span> e <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span>
+           (<span class="constructor">String</span>.concat <span class="string">" "</span>
+              [
+                path_to_dtd;
+                <span class="string">"-&gt;"</span>;
+                <span class="string">"Xml_light_errors.Dtd_check_error:"</span>;
+                <span class="constructor">Dtd</span>.check_error e;
+              ]))
+  <span class="keywordsign">|</span> <span class="constructor">Xml_light_errors</span>.<span class="constructor">Dtd_prove_error</span> e <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span>
+           (<span class="constructor">String</span>.concat <span class="string">" "</span>
+              [
+                path_to_dtd;
+                path_to_xml;
+                <span class="string">"-&gt;"</span>;
+                <span class="string">"Xml_light_errors.Dtd_prove_error:"</span>;
+                <span class="constructor">Dtd</span>.prove_error e;
+              ]))
+  <span class="keywordsign">|</span> <span class="constructor">Xml_light_errors</span>.<span class="constructor">Xml_error</span> e <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span>
+           (<span class="constructor">String</span>.concat <span class="string">" "</span>
+              [ path_to_xml; <span class="string">"-&gt;"</span>; <span class="string">"Xml_light_errors.Xml_error:"</span>; <span class="constructor">Xml</span>.error e ]))
+  <span class="keywordsign">|</span> <span class="constructor">Xml_light_errors</span>.<span class="constructor">File_not_found</span> e <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ <span class="string">"Xml_light_errors.File_not_found:"</span>; e ]))
+  <span class="keywordsign">|</span> <span class="constructor">Xml_right</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ path_to_xml; <span class="string">"-&gt;"</span>; <span class="string">"Xml_right.Error:"</span>; e ]))</code></body></html>

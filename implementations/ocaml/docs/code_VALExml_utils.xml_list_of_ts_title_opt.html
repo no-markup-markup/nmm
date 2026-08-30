@@ -26,6 +26,4 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> xml_list_of_ts_title_opt (title_opt : ts_title option) : <span class="constructor">Xml</span>.xml list =
-        <span class="keyword">match</span> title_opt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> title <span class="keywordsign">-&gt;</span> [xml_of_ts_title title]</code></body></html>
+  <span class="keyword">match</span> title_opt <span class="keyword">with</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> [] <span class="keywordsign">|</span> <span class="constructor">Some</span> title <span class="keywordsign">-&gt;</span> [ xml_of_ts_title title ]</code></body></html>

@@ -26,7 +26,8 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> internal_css_of_file (path : string) : string =
-        <span class="keyword">let</span> comment : string =
-<span class="string">"
-/*========================= css from file =========================*/\n\n"</span> <span class="keyword">in</span>
-        comment ^ (<span class="constructor">IO</span>.string_of_file path)</code></body></html>
+  <span class="keyword">let</span> comment : string =
+    <span class="string">"
+/*========================= css from file =========================*/\n\n"</span>
+  <span class="keyword">in</span>
+  comment ^ <span class="constructor">IO</span>.string_of_file path</code></body></html>

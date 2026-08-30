@@ -38,7 +38,9 @@
 
 <pre><span id="MODULEDoc_of_axml"><span class="keyword">module</span> Doc_of_axml</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Doc_of_axml.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For translating parsed nmm source-code (an abstract syntax tree in the XML-format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>) to an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>.</p>
+<p>For translating parsed nmm source-code (an abstract syntax tree in the
+    XML-format specified by <a href="specs/axml.dtd.txt">axml.dtd</a>) to an abstract
+    syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>.</p>
 </div>
 </div>
 <hr width="100%">
@@ -47,9 +49,15 @@
 
 <pre><span id="VALf_tr_doc_of_axml"><span class="keyword">val</span> <a href="code_VALDoc_of_axml.f_tr_doc_of_axml.html">f_tr_doc_of_axml</a></span> : <code class="type">Xml.xml -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a></code></pre><div class="info ">
 <div class="info-desc">
-<p>If <code class="code">axml</code> is an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>, then <code class="code">f_tr_doc_of_axml&nbsp;axml</code> evaluates to an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>. Otherwise it raises an error.</p>
+<p>If <code class="code">axml</code> is an object of the
+    <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is
+    also an instance of the xml-schema <a href="specs/axml.dtd.txt">axml.dtd</a>, then
+    <code class="code">f_tr_doc_of_axml&nbsp;axml</code> evaluates to an object of type
+    <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>. Otherwise it raises an error.</p>
 
-<p>Ideally, if <code class="code">doc</code> is an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>, then <code class="code">f_tr_doc_of_axml&nbsp;(</code><a href="Axml_of_doc.html#VALaxml_of_tr_doc"><code class="code"><span class="constructor">Axml_of_doc</span>.axml_of_tr_doc</code></a><code class="code">&nbsp;doc)</code> should evaluate to <code class="code">doc</code>.</p>
+<p>Ideally, if <code class="code">doc</code> is an object of type <a href="Doc_types.html#TYPEtr_doc"><code class="code"><span class="constructor">Doc_types</span>.tr_doc</code></a>, then
+    <code class="code">f_tr_doc_of_axml&nbsp;(</code><a href="Axml_of_doc.html#VALaxml_of_tr_doc"><code class="code"><span class="constructor">Axml_of_doc</span>.axml_of_tr_doc</code></a><code class="code">&nbsp;doc)</code> should evaluate
+    to <code class="code">doc</code>.</p>
 </div>
 </div>
 </body></html>

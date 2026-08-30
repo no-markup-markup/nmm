@@ -26,8 +26,10 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> margin_left_of_tr_doc (doc : <span class="constructor">Doc_types</span>.tr_doc) : string =
-        <span class="keyword">let</span> doc_settings : t_doc_settings = doc_settings_of_tr_doc doc <span class="keyword">in</span>
-        <span class="keyword">let</span> margin_labels = <span class="constructor">Compiler_of_doc</span>.margin_labels_of_tr_doc doc_settings doc <span class="keyword">in</span>
-        <span class="keyword">let</span> max_length : int = <span class="constructor">Txt_utils</span>.max_length_of_margin_labels margin_labels <span class="keyword">in</span>
-        <span class="keyword">let</span> margin : float = (<span class="constructor">Float</span>.of_int (max_length + 2)) *. 0.6 <span class="keyword">in</span>
-        <span class="constructor">String</span>.concat <span class="string">""</span> [<span class="constructor">Printf</span>.sprintf <span class="string">"%.2f"</span> margin; <span class="string">"rem"</span>]</code></body></html>
+  <span class="keyword">let</span> doc_settings : t_doc_settings = doc_settings_of_tr_doc doc <span class="keyword">in</span>
+  <span class="keyword">let</span> margin_labels =
+    <span class="constructor">Compiler_of_doc</span>.margin_labels_of_tr_doc doc_settings doc
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> max_length : int = <span class="constructor">Txt_utils</span>.max_length_of_margin_labels margin_labels <span class="keyword">in</span>
+  <span class="keyword">let</span> margin : float = <span class="constructor">Float</span>.of_int (max_length + 2) *. 0.6 <span class="keyword">in</span>
+  <span class="constructor">String</span>.concat <span class="string">""</span> [ <span class="constructor">Printf</span>.sprintf <span class="string">"%.2f"</span> margin; <span class="string">"rem"</span> ]</code></body></html>

@@ -25,43 +25,37 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.label_of_path_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) : string option =
-        <span class="keyword">match</span> path <span class="keyword">with</span>
-        <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-        <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span>
-                <span class="keyword">match</span> hd <span class="keyword">with</span>
-                <span class="keywordsign">|</span> <span class="constructor">CH_NODE</span> _ <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> doc_settings.ch_prefix, string_of_path doc_settings path <span class="keyword">with</span>
-                        <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p 
-                        <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl,_), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p)
-                )
-                <span class="keywordsign">|</span> <span class="constructor">SEC_NODE</span> _ <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> doc_settings.sec_prefix, string_of_path doc_settings path <span class="keyword">with</span>
-                        <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p 
-                        <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl,_), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p)
-                )
-                <span class="keywordsign">|</span> <span class="constructor">APP_NODE</span> _ <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> doc_settings.app_prefix, string_of_path doc_settings path <span class="keyword">with</span>
-                        <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p 
-                        <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl,_), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p)
-                )
-                <span class="keywordsign">|</span> <span class="constructor">PAR_NODE</span> _ <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> doc_settings.par_prefix, string_of_path doc_settings path <span class="keyword">with</span>
-                        <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p 
-                        <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl,_), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p)
-                )
-                <span class="keywordsign">|</span> <span class="constructor">ITM_NODE</span> _
-                <span class="keywordsign">|</span> <span class="constructor">BLT_NODE</span>
-                <span class="keywordsign">|</span> <span class="constructor">DSP_LINE_NODE</span> _ <span class="keywordsign">-&gt;</span> string_of_node_opt doc_settings tl hd
-                <span class="keywordsign">|</span> <span class="constructor">ABSTRACT_NODE</span> <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">Some</span> (lbl,_) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> lbl
-                        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-                )
-                <span class="keywordsign">|</span> <span class="constructor">REFS_NODE</span> <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> doc_settings.refs_hdr <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">Some</span> (lbl,_) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> lbl
-                        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-                )
-                <span class="keywordsign">|</span><span class="constructor">NTE_NODE</span> n <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (doc_settings.nte_numbering n)
-                <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span></code></body></html>
+<code class="code"><span class="keyword">let</span> label_of_path_opt (doc_settings : t_doc_settings) (path : t_path) :
+    string option =
+  <span class="keyword">match</span> path <span class="keyword">with</span>
+  <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+  <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> hd <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">CH_NODE</span> _ <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> (doc_settings.ch_prefix, string_of_path doc_settings path) <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p))
+      <span class="keywordsign">|</span> <span class="constructor">SEC_NODE</span> _ <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> (doc_settings.sec_prefix, string_of_path doc_settings path) <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p))
+      <span class="keywordsign">|</span> <span class="constructor">APP_NODE</span> _ <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> (doc_settings.app_prefix, string_of_path doc_settings path) <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p))
+      <span class="keywordsign">|</span> <span class="constructor">PAR_NODE</span> _ <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> (doc_settings.par_prefix, string_of_path doc_settings path) <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">None</span>, p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> p
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _), p <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (lbl ^ <span class="string">"\u{00A0}"</span> ^ p))
+      <span class="keywordsign">|</span> <span class="constructor">ITM_NODE</span> _ <span class="keywordsign">|</span> <span class="constructor">BLT_NODE</span> <span class="keywordsign">|</span> <span class="constructor">DSP_LINE_NODE</span> _ <span class="keywordsign">-&gt;</span>
+          string_of_node_opt doc_settings tl hd
+      <span class="keywordsign">|</span> <span class="constructor">ABSTRACT_NODE</span> <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> lbl
+          <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>)
+      <span class="keywordsign">|</span> <span class="constructor">REFS_NODE</span> <span class="keywordsign">-&gt;</span> (
+          <span class="keyword">match</span> doc_settings.refs_hdr <span class="keyword">with</span>
+          <span class="keywordsign">|</span> <span class="constructor">Some</span> (lbl, _) <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> lbl
+          <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>)
+      <span class="keywordsign">|</span> <span class="constructor">NTE_NODE</span> n <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> (doc_settings.nte_numbering n)
+      <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>)</code></body></html>

@@ -25,8 +25,9 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_abstract_hdr</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_abstract_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
-        <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> (hdr,_) <span class="keywordsign">-&gt;</span> 
-                lines_of_string doc_settings doc_settings.abstract_indent hdr</code></body></html>
+<code class="code"><span class="keyword">let</span> lines_of_abstract_hdr (doc_settings : t_doc_settings)
+    (doc_class : t_doc_class) : string list =
+  <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (hdr, _) <span class="keywordsign">-&gt;</span>
+      lines_of_string doc_settings doc_settings.abstract_indent hdr</code></body></html>

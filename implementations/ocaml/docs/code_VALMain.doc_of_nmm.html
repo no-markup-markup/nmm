@@ -25,10 +25,16 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.doc_of_nmm</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_of_nmm (options : <span class="constructor">Common_utils</span>.t_axml_options) (path : string) : <span class="constructor">Doc_types</span>.tr_doc =
-        <span class="keyword">try</span>
-        <span class="keyword">match</span> path <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tagger (<span class="constructor">Tags</span>.tagger_of_path_opt options.tags)
-        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tagger (<span class="constructor">Tags</span>.tagger_of_path_opt options.tags) path
-        <span class="keyword">with</span> 
-        <span class="keywordsign">|</span><span class="constructor">Doc_of_nmm</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [path;<span class="string">"-&gt;"</span>;<span class="string">"Doc_of_nmm.Error:"</span>;e]))</code></body></html>
+<code class="code"><span class="keyword">let</span> doc_of_nmm (options : <span class="constructor">Common_utils</span>.t_axml_options) (path : string) :
+    <span class="constructor">Doc_types</span>.tr_doc =
+  <span class="keyword">try</span>
+    <span class="keyword">match</span> path <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span>
+        <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tagger
+          (<span class="constructor">Tags</span>.tagger_of_path_opt options.tags)
+    <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
+        <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tagger
+          (<span class="constructor">Tags</span>.tagger_of_path_opt options.tags)
+          path
+  <span class="keyword">with</span> <span class="constructor">Doc_of_nmm</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
+    raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ path; <span class="string">"-&gt;"</span>; <span class="string">"Doc_of_nmm.Error:"</span>; e ]))</code></body></html>

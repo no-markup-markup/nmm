@@ -25,7 +25,8 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.node_of_tu_par</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par) : t_node =
-        <span class="keyword">match</span> p <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cu_par_rpt</span> (<span class="constructor">Cs_par_rpt</span> (id : tr_id)) <span class="keywordsign">-&gt;</span> <span class="constructor">PAR_NODE</span> (<span class="constructor">PAR_AUTO</span> auto_nr)
-        <span class="keywordsign">|</span><span class="constructor">Cu_par_std</span> (par : tr_par_std) <span class="keywordsign">-&gt;</span> node_of_tr_par_std doc_settings auto_nr par</code></body></html>
+<code class="code"><span class="keyword">let</span> node_of_tu_par (doc_settings : t_doc_settings) (auto_nr : int) (p : tu_par)
+    : t_node =
+  <span class="keyword">match</span> p <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cu_par_rpt</span> (<span class="constructor">Cs_par_rpt</span> (id : tr_id)) <span class="keywordsign">-&gt;</span> <span class="constructor">PAR_NODE</span> (<span class="constructor">PAR_AUTO</span> auto_nr)
+  <span class="keywordsign">|</span> <span class="constructor">Cu_par_std</span> (par : tr_par_std) <span class="keywordsign">-&gt;</span> node_of_tr_par_std doc_settings auto_nr par</code></body></html>

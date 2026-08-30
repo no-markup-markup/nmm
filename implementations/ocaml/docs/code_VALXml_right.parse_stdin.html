@@ -25,16 +25,18 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Xml_right.parse_stdin</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> parse_stdin (print_tokens:bool):<span class="constructor">Xml</span>.xml =
-        <span class="keyword">let</span> input : string = <span class="constructor">In_channel</span>.input_all stdin <span class="keyword">in</span>
-        <span class="keyword">try</span>
-                <span class="keyword">let</span> lexbuf = <span class="constructor">Lexing</span>.from_string input <span class="keyword">in</span>
-                <span class="keyword">let</span> parse = <span class="constructor">Xml_right_parser</span>.main (lexer print_tokens) <span class="keyword">in</span>
-                parse lexbuf
-        <span class="keyword">with</span>
-        <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span>
-                <span class="keyword">let</span> _ = <span class="constructor">IO</span>.print_to_stderr (<span class="string">"Xml_right failed, read the following tokens from standard input:"</span>) <span class="keyword">in</span>
-                <span class="keyword">let</span> print_tokens =  <span class="keyword">true</span> <span class="keyword">in</span>
-                <span class="keyword">let</span> lexbuf = <span class="constructor">Lexing</span>.from_string input <span class="keyword">in</span>
-                <span class="keyword">let</span> parse = <span class="constructor">Xml_right_parser</span>.main (lexer print_tokens) <span class="keyword">in</span>
-                parse lexbuf</code></body></html>
+<code class="code"><span class="keyword">let</span> parse_stdin (print_tokens : bool) : <span class="constructor">Xml</span>.xml =
+  <span class="keyword">let</span> input : string = <span class="constructor">In_channel</span>.input_all stdin <span class="keyword">in</span>
+  <span class="keyword">try</span>
+    <span class="keyword">let</span> lexbuf = <span class="constructor">Lexing</span>.from_string input <span class="keyword">in</span>
+    <span class="keyword">let</span> parse = <span class="constructor">Xml_right_parser</span>.main (lexer print_tokens) <span class="keyword">in</span>
+    parse lexbuf
+  <span class="keyword">with</span> _ <span class="keywordsign">-&gt;</span>
+    <span class="keyword">let</span> _ =
+      <span class="constructor">IO</span>.print_to_stderr
+        <span class="string">"Xml_right failed, read the following tokens from standard input:"</span>
+    <span class="keyword">in</span>
+    <span class="keyword">let</span> print_tokens = <span class="keyword">true</span> <span class="keyword">in</span>
+    <span class="keyword">let</span> lexbuf = <span class="constructor">Lexing</span>.from_string input <span class="keyword">in</span>
+    <span class="keyword">let</span> parse = <span class="constructor">Xml_right_parser</span>.main (lexer print_tokens) <span class="keyword">in</span>
+    parse lexbuf</code></body></html>

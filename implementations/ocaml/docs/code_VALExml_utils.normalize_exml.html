@@ -26,16 +26,11 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> normalize_exml (xml : <span class="constructor">Xml</span>.xml) : <span class="constructor">Xml</span>.xml =
-        <span class="keyword">match</span> xml <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, xml_list) <span class="keywordsign">-&gt;</span> (
-                <span class="keyword">match</span> tag <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="string">"blk_qtn"</span>
-                <span class="keywordsign">|</span><span class="string">"blk_txt"</span>
-                <span class="keywordsign">|</span><span class="string">"dsp_line_main"</span>
-                <span class="keywordsign">|</span><span class="string">"par_hdr_inline"</span>
-                <span class="keywordsign">|</span><span class="string">"par_hdr"</span>
-                <span class="keywordsign">|</span><span class="string">"sec_hdr"</span>
-                <span class="keywordsign">|</span><span class="string">"ch_hdr"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, normalize_exml_txt_units xml_list)
-                <span class="keywordsign">|</span>_ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, <span class="constructor">List</span>.map normalize_exml xml_list)
-        )
-        <span class="keywordsign">|</span><span class="constructor">Xml</span>.<span class="constructor">PCData</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">PCData</span> s</code></body></html>
+  <span class="keyword">match</span> xml <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, xml_list) <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> tag <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="string">"blk_qtn"</span> <span class="keywordsign">|</span> <span class="string">"blk_txt"</span> <span class="keywordsign">|</span> <span class="string">"dsp_line_main"</span> <span class="keywordsign">|</span> <span class="string">"par_hdr_inline"</span> <span class="keywordsign">|</span> <span class="string">"par_hdr"</span>
+      <span class="keywordsign">|</span> <span class="string">"sec_hdr"</span> <span class="keywordsign">|</span> <span class="string">"ch_hdr"</span> <span class="keywordsign">-&gt;</span>
+          <span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, normalize_exml_txt_units xml_list)
+      <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (tag, attr_list, <span class="constructor">List</span>.map normalize_exml xml_list))
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">PCData</span> s <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">PCData</span> s</code></body></html>

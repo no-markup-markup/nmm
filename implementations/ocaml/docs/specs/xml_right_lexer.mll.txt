@@ -4,16 +4,16 @@ open Xml_right_parser
 exception ERROR of string
 
 let line_of_lexbuf (lexbuf:Lexing.lexbuf):string=
-        string_of_int (lexbuf.Lexing.lex_start_p).Lexing.pos_lnum
+  string_of_int (lexbuf.Lexing.lex_start_p).Lexing.pos_lnum
 
 let newlines (s:string) (b:Lexing.lexbuf):unit=
-        let rec aux (string_list:string list):unit=
-                match string_list with
-                |[]->()
-                |hd::[]->()
-                |hd::tl-> let _=Lexing.new_line b in aux tl
-        in
-        aux (String.split_on_char '\n' s)
+  let rec aux (string_list:string list):unit=
+  match string_list with
+  | [] -> ()
+  | hd :: [] -> ()
+  | hd :: tl ->
+    let _ = Lexing.new_line b in aux tl in
+    aux (String.split_on_char '\n' s)
 }
 
 

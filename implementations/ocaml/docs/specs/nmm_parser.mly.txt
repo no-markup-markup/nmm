@@ -4,81 +4,146 @@ open Doc_types
 exception ERROR of string
 
 let tagger_default (blk_itm : tr_blk_itm) : tr_blk_itm = blk_itm
-
 let blk_itm_tagger_ref : (tr_blk_itm -> tr_blk_itm) ref = ref tagger_default
 
 let scope_of_string (s : string) : tu_scope =
-        match s with
-        |"GBL" -> Cu_scope_gbl
-        |"CH" -> Cu_scope_ch
-        |"SEC" -> Cu_scope_sec
-        |"PAR" -> Cu_scope_par
-        |_ -> raise (ERROR (String.concat "" ["expected GBL, CH, SEC, or PAR, got: ";s]))
+  match s with
+  | "GBL" -> Cu_scope_gbl
+  | "CH" -> Cu_scope_ch
+  | "SEC" -> Cu_scope_sec
+  | "PAR" -> Cu_scope_par
+  | _ ->
+      raise
+        (ERROR (String.concat "" [ "expected GBL, CH, SEC, or PAR, got: "; s ]))
 
-let first ((a,b):('a * 'b)):'a = a
+let first ((a, b) : 'a * 'b) : 'a = a
+let second ((a, b) : 'a * 'b) : 'b = b
 
-let second ((a,b):('a * 'b)):'b = b
+let tag_or_id_of_string (s : string) : Doc_types.tu_tag_or_id =
+  match String.split_on_char ':' s with
+  | [ tag; name ] ->
+      Cu_tag_or_id_id
+        {
+          fld_id_tag = Cs_tag tag;
+          fld_id_name = Cs_name name;
+          fld_id_scope = None;
+        }
+  | [ tag; name; scope ] ->
+      Cu_tag_or_id_id
+        {
+          fld_id_tag = Cs_tag tag;
+          fld_id_name = Cs_name name;
+          fld_id_scope = Some (scope_of_string scope);
+        }
+  | [ tag ] -> Cu_tag_or_id_tag (Cs_tag tag)
+  | _ ->
+      raise
+        (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
 
-let tag_or_id_of_string (s:string):Doc_types.tu_tag_or_id=
-        match String.split_on_char ':' s with
-        |[tag;name]-> Cu_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = None }
-        |[tag;name;scope]-> Cu_tag_or_id_id { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = Some (scope_of_string scope) }
-        |[tag]-> Cu_tag_or_id_tag (Cs_tag tag)
-        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+let id_of_string (s : string) : Doc_types.tr_id =
+  match String.split_on_char ':' s with
+  | [ tag; name ] ->
+      {
+        fld_id_tag = Cs_tag tag;
+        fld_id_name = Cs_name name;
+        fld_id_scope = None;
+      }
+  | [ tag; name; scope ] ->
+      {
+        fld_id_tag = Cs_tag tag;
+        fld_id_name = Cs_name name;
+        fld_id_scope = Some (scope_of_string scope);
+      }
+  | _ ->
+      raise
+        (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
 
-let id_of_string (s:string):Doc_types.tr_id =
-       match String.split_on_char ':' s with
-       | [tag;name] -> { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = None }
-       | [tag;name;scope]-> { fld_id_tag = Cs_tag tag; fld_id_name = Cs_name name; fld_id_scope = Some (scope_of_string scope) }
-       | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+let c_ref_of_string (s : string) : Doc_types.ts_c_ref =
+  let t : string = String.sub s 1 (String.length s - 2) in
+  match String.split_on_char ':' t with
+  | [ tag; name ] ->
+      Cs_c_ref
+        {
+          fld_id_tag = Cs_tag tag;
+          fld_id_name = Cs_name name;
+          fld_id_scope = None;
+        }
+  | [ tag; name; scope ] ->
+      Cs_c_ref
+        {
+          fld_id_tag = Cs_tag tag;
+          fld_id_name = Cs_name name;
+          fld_id_scope = Some (scope_of_string scope);
+        }
+  | _ ->
+      raise
+        (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
 
-let c_ref_of_string (s:string):Doc_types.ts_c_ref=
-        let t:string=String.sub s 1 ((String.length s)-2) in
-        match String.split_on_char ':' t with
-        |[tag;name] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = None }
-        |[tag;name;scope] -> Cs_c_ref { fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }
-        | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+let nte_ref_of_string_int ((s, i) : string * int) : Doc_types.ts_nte_ref =
+  let t : string = String.sub s 1 (String.length s - 2) in
+  match String.split_on_char ':' t with
+  | [ tag; name ] ->
+      Cs_nte_ref
+        ( {
+            fld_id_tag = Cs_tag tag;
+            fld_id_name = Cs_name name;
+            fld_id_scope = None;
+          },
+          Cs_int i )
+  | [ tag; name; scope ] ->
+      Cs_nte_ref
+        ( {
+            fld_id_tag = Cs_tag tag;
+            fld_id_name = Cs_name name;
+            fld_id_scope = Some (scope_of_string scope);
+          },
+          Cs_int i )
+  | _ ->
+      raise
+        (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
 
-let nte_ref_of_string_int ((s,i):string * int) : Doc_types.ts_nte_ref =
-        let t:string=String.sub s 1 ((String.length s)-2) in
-        match String.split_on_char ':' t with
-        |[tag;name] -> Cs_nte_ref ({ fld_id_tag=Cs_tag tag; fld_id_name=Cs_name name; fld_id_scope = None }, Cs_int i)
-        |[tag;name;scope] -> Cs_nte_ref ({ fld_id_tag=Cs_tag tag;fld_id_name=Cs_name name;  fld_id_scope = Some (scope_of_string scope) }, Cs_int i)
-        | _ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
-
-let add_author (authors_opt : ts_authors option) (author : ts_author) : ts_authors option =
-        match authors_opt with
-        |None -> Some (Cs_authors [author])
-        |Some (Cs_authors (authors : ts_author list)) -> Some (Cs_authors (author::authors))
+let add_author (authors_opt : ts_authors option) (author : ts_author) :
+    ts_authors option =
+  match authors_opt with
+  | None -> Some (Cs_authors [ author ])
+  | Some (Cs_authors (authors : ts_author list)) ->
+      Some (Cs_authors (author :: authors))
 
 let get_custom_string (s : string) : string =
-        try
-        match String.split_on_char '\t' s with
-        |[a;_] -> (
-                match String.split_on_char '[' a with
-                |[_;b] -> (
-                        match String.split_on_char ']' b with
-                        |lst2 -> String.concat "" lst2
-                )
-                |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+  try
+    match String.split_on_char '\t' s with
+    | [ a; _ ] -> (
+        match String.split_on_char '[' a with
+        | [ _; b ] -> (
+            match String.split_on_char ']' b with
+            | lst2 -> String.concat "" lst2)
+        | _ ->
+            raise
+              (ERROR
+                 (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
         )
-        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
-        with
-        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+    | _ ->
+        raise
+          (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
+  with _ ->
+    raise
+      (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
 
 let get_id_string (s : string) : string =
-        try
-        match String.split_on_char '\t' s with
-        |[a;b] -> b
-        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
-        with
-        |_ -> raise (ERROR (String.concat "" ["unexpected string:";" ";"\"";s;"\""]))
+  try
+    match String.split_on_char '\t' s with
+    | [ a; b ] -> b
+    | _ ->
+        raise
+          (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
+  with _ ->
+    raise
+      (ERROR (String.concat "" [ "unexpected string:"; " "; "\""; s; "\"" ]))
 
 let date_of_string (s : string) : tu_date =
-        match s with
-        |"auto" -> Cu_date_auto Cs_date_auto
-        |_ -> Cu_date_custom (Cs_date_custom s)
-
+  match s with
+  | "auto" -> Cu_date_auto Cs_date_auto
+  | _ -> Cu_date_custom (Cs_date_custom s)
 %}
 
 %token                          STAR LBR RBR COLON PILCROW SECTION EOF
@@ -234,7 +299,7 @@ doc_main:
   |pars                                           { (Cu_doc_main_pars (Cs_pars $1)):tu_doc_main }
   |blks0                                          { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
   |special_blks0                                  { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
-  |crazy_blks0                                  { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
+  |crazy_blks0                                    { (Cu_doc_main_blks (Cs_blks $1)):tu_doc_main }
 ;
 
 chs:
@@ -476,7 +541,7 @@ qtn_units0:
 ;
 
 qtn_unit0:
-  |qtn_unit_wysiwyg                              { Cu_qtn_unit_wysiwyg $1 : tu_qtn_unit }
+  |qtn_unit_wysiwyg                               { Cu_qtn_unit_wysiwyg $1 : tu_qtn_unit }
   |qtn_unit_emph0                                 { Cu_qtn_unit_emph $1 : tu_qtn_unit }
 ;
 
@@ -807,12 +872,12 @@ qtn_line1:
 ;
 
 qtn_line_std1:
-  |tab1 TAB qtn_units1                             { Cs_qtn_line_std (Cs_qtn_units $3) : ts_qtn_line_std }
+  |tab1 TAB qtn_units1                            { Cs_qtn_line_std (Cs_qtn_units $3) : ts_qtn_line_std }
 ;
 
 qtn_line_br1:
-  |tab1 BR TAB qtn_units1                          { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
-  |tab1 BR TAB                                     { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
+  |tab1 BR TAB qtn_units1                         { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
+  |tab1 BR TAB                                    { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
 ;
 
 qtn_units1:
@@ -1168,7 +1233,7 @@ dsp_unit:
 ;
 
 txt_unit_wysiwyg:
-  |txt                                           { Cs_txt_unit_wysiwyg $1 : ts_txt_unit_wysiwyg }
+  |txt                                            { Cs_txt_unit_wysiwyg $1 : ts_txt_unit_wysiwyg }
 ;
 
 txt_unit_emph:

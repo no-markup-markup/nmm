@@ -26,6 +26,7 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> xml_list_of_abstract_hdr (doc_settings : t_doc_settings) : <span class="constructor">Xml</span>.xml list =
-        <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> (abstract_hdr,_) <span class="keywordsign">-&gt;</span> [<span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"abstract_hdr"</span>,[],[xml_of_string abstract_hdr])]</code></body></html>
+  <span class="keyword">match</span> doc_settings.abstract_hdr <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (abstract_hdr, _) <span class="keywordsign">-&gt;</span>
+      [ <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"abstract_hdr"</span>, [], [ xml_of_string abstract_hdr ]) ]</code></body></html>

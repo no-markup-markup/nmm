@@ -25,35 +25,43 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.check_cref_table</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) : t_cref_table =
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux1 (lst : t_cref_table) (acc : (<span class="constructor">Doc_types</span>.tr_id * t_path) list): (<span class="constructor">Doc_types</span>.tr_id * t_path) list =
-                <span class="keyword">match</span> lst <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> acc
-                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span>
-                        <span class="keyword">match</span> hd <span class="keyword">with</span>
-                        <span class="keywordsign">|</span>(id, path, _) <span class="keywordsign">-&gt;</span>
-                                <span class="keyword">match</span> id.fld_id_scope <span class="keyword">with</span>
-                                <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_gbl</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id,[])::acc)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_ch</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_ch_node path)::acc)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_sec</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_sec_node path)::acc)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_app</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_app_node path)::acc)
-                                <span class="keywordsign">|</span><span class="constructor">Some</span> <span class="constructor">Cu_scope_par</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_par_node path)::acc)
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux2 (lst : (<span class="constructor">Doc_types</span>.tr_id * t_path) list) : unit =
-                <span class="keyword">match</span> lst <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> ()
-                <span class="keywordsign">|</span>(id,path)::tl <span class="keywordsign">-&gt;</span>
-                        <span class="keyword">match</span> <span class="constructor">List</span>.mem (id,path) tl <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
-                                <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.print_warning (<span class="constructor">String</span>.concat <span class="string">""</span> [
-                                        <span class="string">"WARNING: id \'"</span>;
-                                        string_of_tr_id id;<span class="string">"\'"</span>;
-                                        <span class="string">" is defined more than once in "</span>;
-                                        string_of_path doc_settings path;
-                                        ])
-                                <span class="keyword">in</span> aux2 tl
-                        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> aux2 tl
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> lst : (<span class="constructor">Doc_types</span>.tr_id * t_path) list = aux1 table [] <span class="keyword">in</span>
-        <span class="keyword">let</span> _ : unit = aux2 lst <span class="keyword">in</span>
-        table</code></body></html>
+<code class="code"><span class="keyword">let</span> check_cref_table (doc_settings : t_doc_settings) (table : t_cref_table) :
+    t_cref_table =
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux1 (lst : t_cref_table) (acc : (<span class="constructor">Doc_types</span>.tr_id * t_path) list) :
+      (<span class="constructor">Doc_types</span>.tr_id * t_path) list =
+    <span class="keyword">match</span> lst <span class="keyword">with</span>
+    <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> acc
+    <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> hd <span class="keyword">with</span>
+        <span class="keywordsign">|</span> id, path, _ <span class="keywordsign">-&gt;</span> (
+            <span class="keyword">match</span> id.fld_id_scope <span class="keyword">with</span>
+            <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_gbl</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, []) :: acc)
+            <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_ch</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_ch_node path) :: acc)
+            <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_sec</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_sec_node path) :: acc)
+            <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_app</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_app_node path) :: acc)
+            <span class="keywordsign">|</span> <span class="constructor">Some</span> <span class="constructor">Cu_scope_par</span> <span class="keywordsign">-&gt;</span> aux1 tl ((id, path_to_par_node path) :: acc))
+        )
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux2 (lst : (<span class="constructor">Doc_types</span>.tr_id * t_path) list) : unit =
+    <span class="keyword">match</span> lst <span class="keyword">with</span>
+    <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> ()
+    <span class="keywordsign">|</span> (id, path) :: tl <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> <span class="constructor">List</span>.mem (id, path) tl <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="keyword">true</span> <span class="keywordsign">-&gt;</span>
+            <span class="keyword">let</span> _ : unit =
+              <span class="constructor">IO</span>.print_warning
+                (<span class="constructor">String</span>.concat <span class="string">""</span>
+                   [
+                     <span class="string">"WARNING: id \'"</span>;
+                     string_of_tr_id id;
+                     <span class="string">"\'"</span>;
+                     <span class="string">" is defined more than once in "</span>;
+                     string_of_path doc_settings path;
+                   ])
+            <span class="keyword">in</span>
+            aux2 tl
+        <span class="keywordsign">|</span> <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> aux2 tl)
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> lst : (<span class="constructor">Doc_types</span>.tr_id * t_path) list = aux1 table [] <span class="keyword">in</span>
+  <span class="keyword">let</span> _ : unit = aux2 lst <span class="keyword">in</span>
+  table</code></body></html>

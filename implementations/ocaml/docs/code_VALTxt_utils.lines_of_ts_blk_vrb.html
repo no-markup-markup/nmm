@@ -25,6 +25,8 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_ts_blk_vrb</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path) (blk_vrb : ts_blk_vrb) : string list =
-        <span class="keyword">match</span> blk_vrb <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_blk_vrb</span> (vrb_lines : ts_vrb_lines) <span class="keywordsign">-&gt;</span> lines_of_ts_vrb_lines doc_settings path vrb_lines</code></body></html>
+<code class="code"><span class="keyword">let</span> lines_of_ts_blk_vrb (doc_settings : t_doc_settings) (path : t_path)
+    (blk_vrb : ts_blk_vrb) : string list =
+  <span class="keyword">match</span> blk_vrb <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cs_blk_vrb</span> (vrb_lines : ts_vrb_lines) <span class="keywordsign">-&gt;</span>
+      lines_of_ts_vrb_lines doc_settings path vrb_lines</code></body></html>

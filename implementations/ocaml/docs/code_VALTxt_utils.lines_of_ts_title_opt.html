@@ -25,7 +25,8 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_ts_title_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_ts_title_opt (doc_settings : t_doc_settings) (title_opt : ts_title option) : string list =
-        <span class="keyword">match</span> title_opt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> title <span class="keywordsign">-&gt;</span> lines_of_ts_title doc_settings title</code></body></html>
+<code class="code"><span class="keyword">let</span> lines_of_ts_title_opt (doc_settings : t_doc_settings)
+    (title_opt : ts_title option) : string list =
+  <span class="keyword">match</span> title_opt <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> title <span class="keywordsign">-&gt;</span> lines_of_ts_title doc_settings title</code></body></html>

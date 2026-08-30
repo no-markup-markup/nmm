@@ -25,7 +25,13 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.attr_list_of_tr_id_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> attr_list_of_tr_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (id_opt : tr_id option) : (string*string) list =
-        <span class="keyword">match</span> id_opt <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> [(<span class="string">"class"</span>), <span class="constructor">String</span>.concat <span class="string">" "</span> classes]
-        <span class="keywordsign">|</span> <span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span> <span class="constructor">List</span>.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]</code></body></html>
+<code class="code"><span class="keyword">let</span> attr_list_of_tr_id_opt (doc_settings : t_doc_settings) (path : t_path)
+    (classes : string list) (id_opt : tr_id option) : (string * string) list =
+  <span class="keyword">match</span> id_opt <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> [ (<span class="string">"class"</span>, <span class="constructor">String</span>.concat <span class="string">" "</span> classes) ]
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> id <span class="keywordsign">-&gt;</span>
+      <span class="constructor">List</span>.concat
+        [
+          attr_list_of_ts_tag classes id.fld_id_tag;
+          attr_list_of_tr_id doc_settings path id;
+        ]</code></body></html>

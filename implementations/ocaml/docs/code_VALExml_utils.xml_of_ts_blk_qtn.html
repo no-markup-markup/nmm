@@ -26,5 +26,6 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> xml_of_ts_blk_qtn (blk_qtn : ts_blk_qtn) : <span class="constructor">Xml</span>.xml =
-        <span class="keyword">match</span> blk_qtn <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_blk_qtn</span> (qtn_lines : ts_qtn_lines) <span class="keywordsign">-&gt;</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_qtn"</span>, [], xml_list_of_ts_qtn_lines qtn_lines)</code></body></html>
+  <span class="keyword">match</span> blk_qtn <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cs_blk_qtn</span> (qtn_lines : ts_qtn_lines) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"blk_qtn"</span>, [], xml_list_of_ts_qtn_lines qtn_lines)</code></body></html>

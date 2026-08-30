@@ -25,23 +25,24 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.doc_settings_default</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_settings_default () : t_doc_settings = {
-        doc_width = 68;
-        left_margin = 0;
-        title_indent = 0;
-        author_indent = 0;
-        abstract_indent = 0;
-        refs_indent = 0;
-        tab_length = 6;
-        abstract_hdr = <span class="constructor">Some</span> (<span class="string">"ABSTRACT"</span>, <span class="string">"Abstract"</span>);
-        refs_hdr = <span class="constructor">Some</span> (<span class="string">"REFERENCES"</span>, <span class="string">"References"</span>);
-        endnotes_hdr = <span class="constructor">None</span>;
-        ch_prefix = <span class="constructor">Some</span> (<span class="string">"CHAPTER"</span>, <span class="string">"Chapter"</span>);
-        sec_prefix = <span class="constructor">Some</span> (<span class="string">"§"</span>,<span class="string">"§"</span>);
-        app_prefix = <span class="constructor">Some</span> (<span class="string">"§"</span>,<span class="string">"Appendix"</span>);
-        par_prefix = <span class="constructor">Some</span> (<span class="string">"¶"</span>,<span class="string">"¶"</span>);
-        expand_tag = <span class="constructor">Tags</span>.expand_tag_default;
-        auto_numbering = auto_numbering_default;
-        allow_custom_numbering = <span class="keyword">false</span>;
-        nte_numbering = nte_numbering_default;
-}</code></body></html>
+<code class="code"><span class="keyword">let</span> doc_settings_default () : t_doc_settings =
+  {
+    doc_width = 68;
+    left_margin = 0;
+    title_indent = 0;
+    author_indent = 0;
+    abstract_indent = 0;
+    refs_indent = 0;
+    tab_length = 6;
+    abstract_hdr = <span class="constructor">Some</span> (<span class="string">"ABSTRACT"</span>, <span class="string">"Abstract"</span>);
+    refs_hdr = <span class="constructor">Some</span> (<span class="string">"REFERENCES"</span>, <span class="string">"References"</span>);
+    endnotes_hdr = <span class="constructor">None</span>;
+    ch_prefix = <span class="constructor">Some</span> (<span class="string">"CHAPTER"</span>, <span class="string">"Chapter"</span>);
+    sec_prefix = <span class="constructor">Some</span> (<span class="string">"§"</span>, <span class="string">"§"</span>);
+    app_prefix = <span class="constructor">Some</span> (<span class="string">"§"</span>, <span class="string">"Appendix"</span>);
+    par_prefix = <span class="constructor">Some</span> (<span class="string">"¶"</span>, <span class="string">"¶"</span>);
+    expand_tag = <span class="constructor">Tags</span>.expand_tag_default;
+    auto_numbering = auto_numbering_default;
+    allow_custom_numbering = <span class="keyword">false</span>;
+    nte_numbering = nte_numbering_default;
+  }</code></body></html>

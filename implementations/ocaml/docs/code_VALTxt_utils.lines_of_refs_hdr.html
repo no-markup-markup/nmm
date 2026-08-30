@@ -25,16 +25,22 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_refs_hdr</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class) : string list =
-        <span class="keyword">match</span> doc_settings.refs_hdr <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> (hdr,_) <span class="keywordsign">-&gt;</span> 
-        <span class="keyword">let</span> underline_symbol : string =
-                <span class="keyword">match</span> doc_class <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">DOC_CHS</span> <span class="keywordsign">-&gt;</span> <span class="string">"═"</span>
-                <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="string">"─"</span>
-        <span class="keyword">in</span>
-        <span class="keyword">let</span> indent : string = <span class="constructor">String</span>.make doc_settings.refs_indent <span class="string">' '</span> <span class="keyword">in</span>
-        <span class="keyword">let</span> underline = make_string (<span class="constructor">Int</span>.min (utf_8_length hdr) (doc_settings.doc_width - doc_settings.refs_indent)) underline_symbol <span class="keyword">in</span>
-        <span class="keyword">let</span> hdr_lines : string list = lines_of_string doc_settings doc_settings.refs_indent hdr <span class="keyword">in</span>
-        <span class="constructor">List</span>.concat [hdr_lines;[indent ^ underline;<span class="string">""</span>]]</code></body></html>
+<code class="code"><span class="keyword">let</span> lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class)
+    : string list =
+  <span class="keyword">match</span> doc_settings.refs_hdr <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (hdr, _) <span class="keywordsign">-&gt;</span>
+      <span class="keyword">let</span> underline_symbol : string =
+        <span class="keyword">match</span> doc_class <span class="keyword">with</span> <span class="constructor">DOC_CHS</span> <span class="keywordsign">-&gt;</span> <span class="string">"═"</span> <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="string">"─"</span>
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> indent : string = <span class="constructor">String</span>.make doc_settings.refs_indent <span class="string">' '</span> <span class="keyword">in</span>
+      <span class="keyword">let</span> underline =
+        make_string
+          (<span class="constructor">Int</span>.min (utf_8_length hdr)
+             (doc_settings.doc_width - doc_settings.refs_indent))
+          underline_symbol
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> hdr_lines : string list =
+        lines_of_string doc_settings doc_settings.refs_indent hdr
+      <span class="keyword">in</span>
+      <span class="constructor">List</span>.concat [ hdr_lines; [ indent ^ underline; <span class="string">""</span> ] ]</code></body></html>

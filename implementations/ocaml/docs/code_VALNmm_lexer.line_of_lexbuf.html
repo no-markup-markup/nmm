@@ -25,6 +25,6 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Nmm_lexer.line_of_lexbuf</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> line_of_lexbuf (lexbuf:<span class="constructor">Sedlexing</span>.lexbuf):string=
-        <span class="keyword">match</span> <span class="constructor">Sedlexing</span>.lexing_positions lexbuf <span class="keyword">with</span>
-        (start_pos,end_pos) <span class="keywordsign">-&gt;</span> string_of_int (start_pos.pos_lnum)</code></body></html>
+<code class="code"><span class="keyword">let</span> line_of_lexbuf (lexbuf : <span class="constructor">Sedlexing</span>.lexbuf) : string =
+  <span class="keyword">match</span> <span class="constructor">Sedlexing</span>.lexing_positions lexbuf <span class="keyword">with</span>
+  <span class="keywordsign">|</span> start_pos, end_pos <span class="keywordsign">-&gt;</span> string_of_int start_pos.pos_lnum</code></body></html>

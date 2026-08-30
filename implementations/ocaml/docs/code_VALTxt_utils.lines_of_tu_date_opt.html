@@ -25,7 +25,8 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Txt_utils.lines_of_tu_date_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> lines_of_tu_date_opt (doc_settings : t_doc_settings) (date_opt : tu_date option) : string list =
-        <span class="keyword">match</span> date_opt <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
-        <span class="keywordsign">|</span><span class="constructor">Some</span> date <span class="keywordsign">-&gt;</span> lines_of_tu_date doc_settings date</code></body></html>
+<code class="code"><span class="keyword">let</span> lines_of_tu_date_opt (doc_settings : t_doc_settings)
+    (date_opt : tu_date option) : string list =
+  <span class="keyword">match</span> date_opt <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> []
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> date <span class="keywordsign">-&gt;</span> lines_of_tu_date doc_settings date</code></body></html>

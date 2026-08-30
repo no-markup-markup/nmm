@@ -25,15 +25,20 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Exml_utils.attr_list_of_tu_tag_or_id_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> attr_list_of_tu_tag_or_id_opt (doc_settings : t_doc_settings) (path : t_path) (classes : string list) (a : tu_tag_or_id option) : (string*string) list=
-        <span class="keyword">match</span> a <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
-                <span class="keyword">match</span> classes <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> []
-                <span class="keywordsign">|</span>_::_ <span class="keywordsign">-&gt;</span> [<span class="string">"class"</span>, <span class="constructor">String</span>.concat <span class="string">" "</span> classes]
-        )
-        <span class="keywordsign">|</span> <span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> 
-                <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
-                <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag) <span class="keywordsign">-&gt;</span> attr_list_of_ts_tag classes tag
-                <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_id</span> (id : tr_id) <span class="keywordsign">-&gt;</span> 
-                        <span class="constructor">List</span>.concat [attr_list_of_ts_tag classes id.fld_id_tag;attr_list_of_tr_id doc_settings path id]</code></body></html>
+<code class="code"><span class="keyword">let</span> attr_list_of_tu_tag_or_id_opt (doc_settings : t_doc_settings)
+    (path : t_path) (classes : string list) (a : tu_tag_or_id option) :
+    (string * string) list =
+  <span class="keyword">match</span> a <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> classes <span class="keyword">with</span>
+      <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> []
+      <span class="keywordsign">|</span> _ :: _ <span class="keywordsign">-&gt;</span> [ (<span class="string">"class"</span>, <span class="constructor">String</span>.concat <span class="string">" "</span> classes) ])
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> (tag_or_id : tu_tag_or_id) <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> tag_or_id <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_tag</span> (tag : ts_tag) <span class="keywordsign">-&gt;</span> attr_list_of_ts_tag classes tag
+      <span class="keywordsign">|</span> <span class="constructor">Cu_tag_or_id_id</span> (id : tr_id) <span class="keywordsign">-&gt;</span>
+          <span class="constructor">List</span>.concat
+            [
+              attr_list_of_ts_tag classes id.fld_id_tag;
+              attr_list_of_tr_id doc_settings path id;
+            ])</code></body></html>

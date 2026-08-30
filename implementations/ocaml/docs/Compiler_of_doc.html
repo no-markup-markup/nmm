@@ -38,7 +38,10 @@
 
 <pre><span id="MODULECompiler_of_doc"><span class="keyword">module</span> Compiler_of_doc</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Compiler_of_doc.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For compiling parsed nmm source-code (an abstract syntax tree in the format specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) into raw text and XML (in the format specified by <a href="specs/exml.dtd.txt">exml.dtd</a>) with resolved cross-references and labels.</p>
+<p>For compiling parsed nmm source-code (an abstract syntax tree in the format
+    specified by <a href="Doc_types.html"><code class="code"><span class="constructor">Doc_types</span></code></a>) into raw text and XML (in the format
+    specified by <a href="specs/exml.dtd.txt">exml.dtd</a>) with resolved cross-references
+    and labels.</p>
 </div>
 </div>
 <hr width="100%">
@@ -53,9 +56,12 @@
 
 <pre><span id="VALexml_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCompiler_of_doc.exml_of_tr_doc.html">exml_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_exml_options">Common_utils.t_exml_options</a> -&gt; <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; Xml.xml</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">exml_of_tr_doc&nbsp;options&nbsp;doc</code> evaluates to an object of the <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is also an instance of the xml-schema <a href="specs/exml.dtd.txt">exml.dtd</a>.</p>
+<p><code class="code">exml_of_tr_doc&nbsp;options&nbsp;doc</code> evaluates to an object of the
+    <a href="https://github.com/ncannasse/xml-light">Xml-light</a> type <code class="code"><span class="constructor">Xml</span>.xml</code> that is
+    also an instance of the xml-schema <a href="specs/exml.dtd.txt">exml.dtd</a>.</p>
 
-<p><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> can translate that object into the body of an html-document.</p>
+<p><a href="Html_utils.html#VALhtml_of_exml"><code class="code"><span class="constructor">Html_utils</span>.html_of_exml</code></a> can translate that object into the body of an
+    html-document.</p>
 </div>
 </div>
 

@@ -25,5 +25,6 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Main.txt_of_nmm</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> txt_of_nmm (options : <span class="constructor">Common_utils</span>.t_txt_options) (path:string):string =
-        txt_of_doc options (doc_of_nmm (<span class="constructor">Common_utils</span>.axml_options_of_txt_options options) path)</code></body></html>
+<code class="code"><span class="keyword">let</span> txt_of_nmm (options : <span class="constructor">Common_utils</span>.t_txt_options) (path : string) : string =
+  txt_of_doc options
+    (doc_of_nmm (<span class="constructor">Common_utils</span>.axml_options_of_txt_options options) path)</code></body></html>

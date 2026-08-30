@@ -25,10 +25,10 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Xml_right.pcdata_of_string</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> pcdata_of_string (s: string): string = 
-        <span class="keyword">let</span> s_amp = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;"</span>) <span class="string">"&amp;amp;"</span> s <span class="keyword">in</span>
-        <span class="keyword">let</span> s_lt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&lt;"</span>) <span class="string">"&amp;lt;"</span> s_amp <span class="keyword">in</span>
-        <span class="keyword">let</span> s_gt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&gt;"</span>) <span class="string">"&amp;gt;"</span> s_lt <span class="keyword">in</span>
-        <span class="keyword">let</span> s_apos = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"\'"</span>) <span class="string">"&amp;apos;"</span> s_gt <span class="keyword">in</span>
-        <span class="keyword">let</span> s_quot = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"\""</span>) <span class="string">"&amp;quot;"</span> s_apos <span class="keyword">in</span>
-        s_quot</code></body></html>
+<code class="code"><span class="keyword">let</span> pcdata_of_string (s : string) : string =
+  <span class="keyword">let</span> s_amp = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&amp;"</span>) <span class="string">"&amp;amp;"</span> s <span class="keyword">in</span>
+  <span class="keyword">let</span> s_lt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&lt;"</span>) <span class="string">"&amp;lt;"</span> s_amp <span class="keyword">in</span>
+  <span class="keyword">let</span> s_gt = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"&gt;"</span>) <span class="string">"&amp;gt;"</span> s_lt <span class="keyword">in</span>
+  <span class="keyword">let</span> s_apos = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"\'"</span>) <span class="string">"&amp;apos;"</span> s_gt <span class="keyword">in</span>
+  <span class="keyword">let</span> s_quot = <span class="constructor">Str</span>.global_replace (<span class="constructor">Str</span>.regexp <span class="string">"\""</span>) <span class="string">"&amp;quot;"</span> s_apos <span class="keyword">in</span>
+  s_quot</code></body></html>

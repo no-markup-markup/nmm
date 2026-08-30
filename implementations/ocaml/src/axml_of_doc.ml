@@ -8,514 +8,618 @@ open Doc_types
 
 (* doc *)
 
-let rec axml_of_tr_doc (doc:tr_doc):Xml.xml=
-        let xml_list_preamble : Xml.xml list = xml_list_of_ts_preamble_opt doc.fld_doc_preamble in
-        let xml_list_title : Xml.xml list = xml_list_of_ts_title_opt doc.fld_doc_title in
-        let xml_list_authors : Xml.xml list = xml_list_of_ts_authors_opt doc.fld_doc_authors in
-        let xml_list_date : Xml.xml list = xml_list_of_tu_date_opt doc.fld_doc_date in
-        let xml_list_abstract : Xml.xml list = xml_list_of_ts_abstract_opt doc.fld_doc_abstract in
-        let xml_list_main : Xml.xml list = [xml_of_tu_doc_main doc.fld_doc_main] in
-        let xml_list_refs : Xml.xml list = xml_list_of_ts_refs_opt doc.fld_doc_refs in
-        let xml_list_doc : Xml.xml list = List.concat [
-                xml_list_preamble;
-                xml_list_title;
-                xml_list_authors;
-                xml_list_date;
-                xml_list_abstract;
-                xml_list_main;
-                xml_list_refs;
-        ]
-        in
-        Xml.Element ("cr_doc",[],xml_list_doc)
+let rec axml_of_tr_doc (doc : tr_doc) : Xml.xml =
+  let xml_list_preamble : Xml.xml list =
+    xml_list_of_ts_preamble_opt doc.fld_doc_preamble
+  in
+  let xml_list_title : Xml.xml list =
+    xml_list_of_ts_title_opt doc.fld_doc_title
+  in
+  let xml_list_authors : Xml.xml list =
+    xml_list_of_ts_authors_opt doc.fld_doc_authors
+  in
+  let xml_list_date : Xml.xml list = xml_list_of_tu_date_opt doc.fld_doc_date in
+  let xml_list_abstract : Xml.xml list =
+    xml_list_of_ts_abstract_opt doc.fld_doc_abstract
+  in
+  let xml_list_main : Xml.xml list = [ xml_of_tu_doc_main doc.fld_doc_main ] in
+  let xml_list_refs : Xml.xml list = xml_list_of_ts_refs_opt doc.fld_doc_refs in
+  let xml_list_doc : Xml.xml list =
+    List.concat
+      [
+        xml_list_preamble;
+        xml_list_title;
+        xml_list_authors;
+        xml_list_date;
+        xml_list_abstract;
+        xml_list_main;
+        xml_list_refs;
+      ]
+  in
+  Xml.Element ("cr_doc", [], xml_list_doc)
 
 (* preamble *)
 
-and xml_list_of_ts_preamble_opt (preamble_opt : ts_preamble option) : Xml.xml list =
-        match preamble_opt with
-        | None -> []
-        | Some preamble -> [xml_of_ts_preamble preamble]
+and xml_list_of_ts_preamble_opt (preamble_opt : ts_preamble option) :
+    Xml.xml list =
+  match preamble_opt with
+  | None -> []
+  | Some preamble -> [ xml_of_ts_preamble preamble ]
 
 and xml_of_ts_preamble (preamble : ts_preamble) : Xml.xml =
-        match preamble with
-        | Cs_preamble (s : string) -> Xml.Element ("cs_preamble",[],[xml_of_string s])
+  match preamble with
+  | Cs_preamble (s : string) ->
+      Xml.Element ("cs_preamble", [], [ xml_of_string s ])
 
 (* title *)
 
 and xml_list_of_ts_title_opt (title_opt : ts_title option) : Xml.xml list =
-        match title_opt with
-        | None -> []
-        | Some title -> [xml_of_ts_title title]
+  match title_opt with None -> [] | Some title -> [ xml_of_ts_title title ]
 
-and xml_of_ts_title (title:ts_title):Xml.xml=
-        match title with
-        |Cs_title (s:string) -> Xml.Element ("cs_title",[],[xml_of_string s])
+and xml_of_ts_title (title : ts_title) : Xml.xml =
+  match title with
+  | Cs_title (s : string) -> Xml.Element ("cs_title", [], [ xml_of_string s ])
 
 (* authors *)
 
-and xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : Xml.xml list =
-        match authors_opt with
-        | None -> []
-        | Some (Cs_authors (author_list : ts_author list)) -> 
-                [Xml.Element ("cs_authors",[],List.map xml_of_ts_author author_list)]
+and xml_list_of_ts_authors_opt (authors_opt : ts_authors option) : Xml.xml list
+    =
+  match authors_opt with
+  | None -> []
+  | Some (Cs_authors (author_list : ts_author list)) ->
+      [ Xml.Element ("cs_authors", [], List.map xml_of_ts_author author_list) ]
 
-and xml_of_ts_author (author:ts_author):Xml.xml=
-        match author with
-        |Cs_author (s:string) -> Xml.Element ("cs_author",[],[xml_of_string s])
+and xml_of_ts_author (author : ts_author) : Xml.xml =
+  match author with
+  | Cs_author (s : string) -> Xml.Element ("cs_author", [], [ xml_of_string s ])
 
 (* date *)
 
 and xml_list_of_tu_date_opt (date_opt : tu_date option) : Xml.xml list =
-        match date_opt with
-        | None -> []
-        | Some date -> [xml_of_tu_date date]
+  match date_opt with None -> [] | Some date -> [ xml_of_tu_date date ]
 
 and xml_of_tu_date (date : tu_date) : Xml.xml =
-        match date with
-        |Cu_date_auto d -> Xml.Element ("cu_date_auto",[],[xml_of_ts_date_auto d])
-        |Cu_date_custom d -> Xml.Element ("cu_date_custom",[],[xml_of_ts_date_custom d])
+  match date with
+  | Cu_date_auto d -> Xml.Element ("cu_date_auto", [], [ xml_of_ts_date_auto d ])
+  | Cu_date_custom d ->
+      Xml.Element ("cu_date_custom", [], [ xml_of_ts_date_custom d ])
 
 and xml_of_ts_date_auto (d : ts_date_auto) : Xml.xml =
-        match d with
-        |Cs_date_auto -> Xml.Element ("cs_date_auto",[],[])
+  match d with Cs_date_auto -> Xml.Element ("cs_date_auto", [], [])
 
 and xml_of_ts_date_custom (d : ts_date_custom) : Xml.xml =
-        match d with
-        |Cs_date_custom s -> Xml.Element ("cs_date_custom",[],[xml_of_string s])
+  match d with
+  | Cs_date_custom s -> Xml.Element ("cs_date_custom", [], [ xml_of_string s ])
 
 (* abstract *)
 
-and xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) : Xml.xml list =
-        match abstract_opt with
-        | None -> []
-        | Some abstract -> [xml_of_ts_abstract abstract]
+and xml_list_of_ts_abstract_opt (abstract_opt : ts_abstract option) :
+    Xml.xml list =
+  match abstract_opt with
+  | None -> []
+  | Some abstract -> [ xml_of_ts_abstract abstract ]
 
-and xml_of_ts_abstract (abstract:ts_abstract):Xml.xml = 
-        match abstract with
-        |Cs_abstract (blks: ts_blks) ->
-                Xml.Element ("cs_abstract",[], [xml_of_ts_blks blks])
-
+and xml_of_ts_abstract (abstract : ts_abstract) : Xml.xml =
+  match abstract with
+  | Cs_abstract (blks : ts_blks) ->
+      Xml.Element ("cs_abstract", [], [ xml_of_ts_blks blks ])
 
 (* refs *)
 
 and xml_list_of_ts_refs_opt (refs_opt : ts_refs option) : Xml.xml list =
-        match refs_opt with
-        | None -> []
-        | Some refs -> [xml_of_ts_refs refs]
+  match refs_opt with None -> [] | Some refs -> [ xml_of_ts_refs refs ]
 
-
-and xml_of_ts_refs (refs:ts_refs):Xml.xml = 
-        match refs with
-        |Cs_refs (blks: ts_blks) ->
-                Xml.Element ("cs_refs",[], [xml_of_ts_blks blks])
+and xml_of_ts_refs (refs : ts_refs) : Xml.xml =
+  match refs with
+  | Cs_refs (blks : ts_blks) ->
+      Xml.Element ("cs_refs", [], [ xml_of_ts_blks blks ])
 
 (* doc_main *)
 
-and xml_of_tu_doc_main (doc_main:tu_doc_main):Xml.xml=
-        match doc_main with
-        |Cu_doc_main_chs (chs:ts_chs) -> Xml.Element ("cu_doc_main_chs",[],[xml_of_ts_chs chs])
-        |Cu_doc_main_secs (secs:ts_secs) -> Xml.Element ("cu_doc_main_secs",[],[xml_of_ts_secs secs])
-        |Cu_doc_main_pars (pars:ts_pars) -> Xml.Element ("cu_doc_main_pars",[],[xml_of_ts_pars pars])
-        |Cu_doc_main_blks (blks:ts_blks) -> Xml.Element ("cu_doc_main_blks",[],[xml_of_ts_blks blks])
+and xml_of_tu_doc_main (doc_main : tu_doc_main) : Xml.xml =
+  match doc_main with
+  | Cu_doc_main_chs (chs : ts_chs) ->
+      Xml.Element ("cu_doc_main_chs", [], [ xml_of_ts_chs chs ])
+  | Cu_doc_main_secs (secs : ts_secs) ->
+      Xml.Element ("cu_doc_main_secs", [], [ xml_of_ts_secs secs ])
+  | Cu_doc_main_pars (pars : ts_pars) ->
+      Xml.Element ("cu_doc_main_pars", [], [ xml_of_ts_pars pars ])
+  | Cu_doc_main_blks (blks : ts_blks) ->
+      Xml.Element ("cu_doc_main_blks", [], [ xml_of_ts_blks blks ])
 
 (* chs *)
 
-and xml_of_ts_chs (chs:ts_chs):Xml.xml=
-        match chs with
-        |Cs_chs (ch_list:tr_ch list) -> Xml.Element ("cs_chs",[],List.map xml_of_tr_ch ch_list)
+and xml_of_ts_chs (chs : ts_chs) : Xml.xml =
+  match chs with
+  | Cs_chs (ch_list : tr_ch list) ->
+      Xml.Element ("cs_chs", [], List.map xml_of_tr_ch ch_list)
 
-and xml_of_tr_ch (ch:tr_ch):Xml.xml=
-        let a:Xml.xml list=
-                match ch.fld_ch_tag_or_id with
-                |None -> []
-                |Some (tag_or_id:tu_tag_or_id)->[xml_of_tu_tag_or_id tag_or_id]
-        in
-        let b:Xml.xml list=
-                match ch.fld_ch_hdr with
-                |None -> []
-                |Some (hdr:ts_hdr)->[xml_of_ts_hdr hdr]
-        in
-        let c:Xml.xml list=[xml_of_tu_secs_pars_or_blks ch.fld_ch_main] in
-        Xml.Element ("cr_ch",[],List.concat [a;b;c])
+and xml_of_tr_ch (ch : tr_ch) : Xml.xml =
+  let a : Xml.xml list =
+    match ch.fld_ch_tag_or_id with
+    | None -> []
+    | Some (tag_or_id : tu_tag_or_id) -> [ xml_of_tu_tag_or_id tag_or_id ]
+  in
+  let b : Xml.xml list =
+    match ch.fld_ch_hdr with
+    | None -> []
+    | Some (hdr : ts_hdr) -> [ xml_of_ts_hdr hdr ]
+  in
+  let c : Xml.xml list = [ xml_of_tu_secs_pars_or_blks ch.fld_ch_main ] in
+  Xml.Element ("cr_ch", [], List.concat [ a; b; c ])
 
-and xml_of_tu_secs_pars_or_blks (secs_pars_or_blks:tu_secs_pars_or_blks):Xml.xml=
-        match secs_pars_or_blks with
-        |Cu_secs_pars_or_blks_secs (secs:ts_secs) -> Xml.Element ("cu_secs_pars_or_blks_secs",[],[xml_of_ts_secs secs])
-        |Cu_secs_pars_or_blks_pars (pars:ts_pars) -> Xml.Element ("cu_secs_pars_or_blks_pars",[],[xml_of_ts_pars pars])
-        |Cu_secs_pars_or_blks_blks (blks:ts_blks) -> Xml.Element ("cu_secs_pars_or_blks_blks",[],[xml_of_ts_blks blks])
+and xml_of_tu_secs_pars_or_blks (secs_pars_or_blks : tu_secs_pars_or_blks) :
+    Xml.xml =
+  match secs_pars_or_blks with
+  | Cu_secs_pars_or_blks_secs (secs : ts_secs) ->
+      Xml.Element ("cu_secs_pars_or_blks_secs", [], [ xml_of_ts_secs secs ])
+  | Cu_secs_pars_or_blks_pars (pars : ts_pars) ->
+      Xml.Element ("cu_secs_pars_or_blks_pars", [], [ xml_of_ts_pars pars ])
+  | Cu_secs_pars_or_blks_blks (blks : ts_blks) ->
+      Xml.Element ("cu_secs_pars_or_blks_blks", [], [ xml_of_ts_blks blks ])
 
 (* secs *)
 
-and xml_of_ts_secs (secs:ts_secs):Xml.xml=
-        match secs with
-        |Cs_secs (sec_list:tr_sec list) -> Xml.Element ("cs_secs",[],List.map xml_of_tr_sec sec_list)
+and xml_of_ts_secs (secs : ts_secs) : Xml.xml =
+  match secs with
+  | Cs_secs (sec_list : tr_sec list) ->
+      Xml.Element ("cs_secs", [], List.map xml_of_tr_sec sec_list)
 
-and xml_of_tr_sec (sec:tr_sec):Xml.xml=
-        let a:Xml.xml list=
-                match sec.fld_sec_tag_or_id with
-                |None -> []
-                |Some (tag_or_id:tu_tag_or_id)->[xml_of_tu_tag_or_id tag_or_id]
-        in
-        let b:Xml.xml list=
-                match sec.fld_sec_hdr with
-                |None -> []
-                |Some (hdr:ts_hdr)->[xml_of_ts_hdr hdr]
-        in
-        let c:Xml.xml list=[xml_of_tu_pars_or_blks sec.fld_sec_main] in
-        Xml.Element ("cr_sec",[],List.concat [a;b;c])
+and xml_of_tr_sec (sec : tr_sec) : Xml.xml =
+  let a : Xml.xml list =
+    match sec.fld_sec_tag_or_id with
+    | None -> []
+    | Some (tag_or_id : tu_tag_or_id) -> [ xml_of_tu_tag_or_id tag_or_id ]
+  in
+  let b : Xml.xml list =
+    match sec.fld_sec_hdr with
+    | None -> []
+    | Some (hdr : ts_hdr) -> [ xml_of_ts_hdr hdr ]
+  in
+  let c : Xml.xml list = [ xml_of_tu_pars_or_blks sec.fld_sec_main ] in
+  Xml.Element ("cr_sec", [], List.concat [ a; b; c ])
 
-and xml_of_tu_pars_or_blks (pars_or_blks:tu_pars_or_blks):Xml.xml=
-        match pars_or_blks with
-        |Cu_pars_or_blks_pars (pars:ts_pars) -> Xml.Element ("cu_pars_or_blks_pars",[],[xml_of_ts_pars pars])
-        |Cu_pars_or_blks_blks (blks:ts_blks) -> Xml.Element ("cu_pars_or_blks_blks",[],[xml_of_ts_blks blks])
+and xml_of_tu_pars_or_blks (pars_or_blks : tu_pars_or_blks) : Xml.xml =
+  match pars_or_blks with
+  | Cu_pars_or_blks_pars (pars : ts_pars) ->
+      Xml.Element ("cu_pars_or_blks_pars", [], [ xml_of_ts_pars pars ])
+  | Cu_pars_or_blks_blks (blks : ts_blks) ->
+      Xml.Element ("cu_pars_or_blks_blks", [], [ xml_of_ts_blks blks ])
 
 (* pars *)
 
-and xml_of_ts_pars (pars:ts_pars):Xml.xml=
-        match pars with
-        |Cs_pars (par_list:tu_par list) -> Xml.Element ("cs_pars",[],List.map xml_of_tu_par par_list)
+and xml_of_ts_pars (pars : ts_pars) : Xml.xml =
+  match pars with
+  | Cs_pars (par_list : tu_par list) ->
+      Xml.Element ("cs_pars", [], List.map xml_of_tu_par par_list)
 
 and xml_of_tu_par (p : tu_par) : Xml.xml =
-        match p with
-        |Cu_par_std (par_std : tr_par_std) -> Xml.Element ("cu_par_std", [], [xml_of_tr_par_std par_std])
-        |Cu_par_rpt (par_rpt : ts_par_rpt) -> Xml.Element ("cu_par_rpt",[],[xml_of_ts_par_rpt par_rpt])
+  match p with
+  | Cu_par_std (par_std : tr_par_std) ->
+      Xml.Element ("cu_par_std", [], [ xml_of_tr_par_std par_std ])
+  | Cu_par_rpt (par_rpt : ts_par_rpt) ->
+      Xml.Element ("cu_par_rpt", [], [ xml_of_ts_par_rpt par_rpt ])
 
-and xml_of_tr_par_std (par:tr_par_std):Xml.xml=
-        let a:Xml.xml list=
-                match par.fld_par_tag_or_id with
-                |None -> []
-                |Some (tag_or_id:tu_tag_or_id)->[xml_of_tu_tag_or_id tag_or_id]
-        in
-        let b:Xml.xml list=
-                match par.fld_par_hdr with
-                |None -> []
-                |Some (hdr:ts_hdr)->[xml_of_ts_hdr hdr]
-        in
-        let c:Xml.xml list=[xml_of_ts_blks par.fld_par_main] in
-        Xml.Element ("cr_par_std",[],List.concat [a;b;c])
+and xml_of_tr_par_std (par : tr_par_std) : Xml.xml =
+  let a : Xml.xml list =
+    match par.fld_par_tag_or_id with
+    | None -> []
+    | Some (tag_or_id : tu_tag_or_id) -> [ xml_of_tu_tag_or_id tag_or_id ]
+  in
+  let b : Xml.xml list =
+    match par.fld_par_hdr with
+    | None -> []
+    | Some (hdr : ts_hdr) -> [ xml_of_ts_hdr hdr ]
+  in
+  let c : Xml.xml list = [ xml_of_ts_blks par.fld_par_main ] in
+  Xml.Element ("cr_par_std", [], List.concat [ a; b; c ])
 
 and xml_of_ts_par_rpt (par_rpt : ts_par_rpt) : Xml.xml =
-        match par_rpt with
-        |Cs_par_rpt (id : tr_id) -> Xml.Element ("cs_par_rpt",[],[xml_of_tr_id id])
+  match par_rpt with
+  | Cs_par_rpt (id : tr_id) ->
+      Xml.Element ("cs_par_rpt", [], [ xml_of_tr_id id ])
 
 (* blks *)
 
-and xml_of_ts_blks (blks:ts_blks):Xml.xml=
-        match blks with
-        |Cs_blks (blk_list:tu_blk list) -> Xml.Element ("cs_blks",[],List.map xml_of_tu_blk blk_list)
+and xml_of_ts_blks (blks : ts_blks) : Xml.xml =
+  match blks with
+  | Cs_blks (blk_list : tu_blk list) ->
+      Xml.Element ("cs_blks", [], List.map xml_of_tu_blk blk_list)
 
-
-and xml_of_tu_blk (blk:tu_blk):Xml.xml=
-        match blk with
-        |Cu_blk_txt (blk_txt:ts_blk_txt) -> Xml.Element ("cu_blk_txt",[],[xml_of_ts_blk_txt blk_txt])
-        |Cu_blk_blt (blk_blt:ts_blk_blt) -> Xml.Element ("cu_blk_blt",[],[xml_of_ts_blk_blt blk_blt])
-        |Cu_blk_itm (blk_itm:tr_blk_itm) -> Xml.Element ("cu_blk_itm",[],[xml_of_tr_blk_itm blk_itm])
-        |Cu_blk_dsp (blk_dsp:ts_blk_dsp) -> Xml.Element ("cu_blk_dsp",[],[xml_of_ts_blk_dsp blk_dsp])
-        |Cu_blk_vrb (blk_vrb:ts_blk_vrb) -> Xml.Element ("cu_blk_vrb",[],[xml_of_ts_blk_vrb blk_vrb])
-        |Cu_blk_nte (blk_nte:tr_blk_nte) -> Xml.Element ("cu_blk_nte",[],[xml_of_tr_blk_nte blk_nte])
-        |Cu_blk_qtn (blk_qtn:ts_blk_qtn) -> Xml.Element ("cu_blk_qtn",[],[xml_of_ts_blk_qtn blk_qtn])
-
+and xml_of_tu_blk (blk : tu_blk) : Xml.xml =
+  match blk with
+  | Cu_blk_txt (blk_txt : ts_blk_txt) ->
+      Xml.Element ("cu_blk_txt", [], [ xml_of_ts_blk_txt blk_txt ])
+  | Cu_blk_blt (blk_blt : ts_blk_blt) ->
+      Xml.Element ("cu_blk_blt", [], [ xml_of_ts_blk_blt blk_blt ])
+  | Cu_blk_itm (blk_itm : tr_blk_itm) ->
+      Xml.Element ("cu_blk_itm", [], [ xml_of_tr_blk_itm blk_itm ])
+  | Cu_blk_dsp (blk_dsp : ts_blk_dsp) ->
+      Xml.Element ("cu_blk_dsp", [], [ xml_of_ts_blk_dsp blk_dsp ])
+  | Cu_blk_vrb (blk_vrb : ts_blk_vrb) ->
+      Xml.Element ("cu_blk_vrb", [], [ xml_of_ts_blk_vrb blk_vrb ])
+  | Cu_blk_nte (blk_nte : tr_blk_nte) ->
+      Xml.Element ("cu_blk_nte", [], [ xml_of_tr_blk_nte blk_nte ])
+  | Cu_blk_qtn (blk_qtn : ts_blk_qtn) ->
+      Xml.Element ("cu_blk_qtn", [], [ xml_of_ts_blk_qtn blk_qtn ])
 
 (* blk_txt *)
 
-and xml_of_ts_blk_txt (blk_txt:ts_blk_txt):Xml.xml=
-        match blk_txt with
-        |Cs_blk_txt (txt_lines:ts_txt_lines) -> Xml.Element ("cs_blk_txt",[],[xml_of_ts_txt_lines txt_lines])
+and xml_of_ts_blk_txt (blk_txt : ts_blk_txt) : Xml.xml =
+  match blk_txt with
+  | Cs_blk_txt (txt_lines : ts_txt_lines) ->
+      Xml.Element ("cs_blk_txt", [], [ xml_of_ts_txt_lines txt_lines ])
 
 and xml_of_ts_txt_lines (txt_lines : ts_txt_lines) : Xml.xml =
-        match txt_lines with
-        |Cs_txt_lines txt_line_list -> Xml.Element ("cs_txt_lines",[],List.map xml_of_ts_txt_line txt_line_list)
+  match txt_lines with
+  | Cs_txt_lines txt_line_list ->
+      Xml.Element ("cs_txt_lines", [], List.map xml_of_ts_txt_line txt_line_list)
 
 and xml_of_ts_txt_line (txt_line : ts_txt_line) : Xml.xml =
-        match txt_line with
-        |Cs_txt_line txt_units -> Xml.Element ("cs_txt_line",[],[xml_of_ts_txt_units txt_units])
+  match txt_line with
+  | Cs_txt_line txt_units ->
+      Xml.Element ("cs_txt_line", [], [ xml_of_ts_txt_units txt_units ])
 
-and xml_of_ts_txt_units (txt_units:ts_txt_units):Xml.xml=
-        match txt_units with
-        |Cs_txt_units (txt_unit_list:tu_txt_unit list) -> Xml.Element ("cs_txt_units",[],List.map xml_of_tu_txt_unit txt_unit_list)
+and xml_of_ts_txt_units (txt_units : ts_txt_units) : Xml.xml =
+  match txt_units with
+  | Cs_txt_units (txt_unit_list : tu_txt_unit list) ->
+      Xml.Element ("cs_txt_units", [], List.map xml_of_tu_txt_unit txt_unit_list)
 
-and xml_of_tu_txt_unit (a:tu_txt_unit):Xml.xml=
-        match a with
-        |Cu_txt_unit_wysiwyg (b:ts_txt_unit_wysiwyg) -> Xml.Element ("cu_txt_unit_wysiwyg",[],[xml_of_ts_txt_unit_wysiwyg b]) 
-        |Cu_txt_unit_emph (b:ts_txt_unit_emph) -> Xml.Element ("cu_txt_unit_emph",[],[xml_of_ts_txt_unit_emph b])
-        |Cu_txt_unit_c_ref (b:ts_txt_unit_c_ref) -> Xml.Element ("cu_txt_unit_c_ref",[],[xml_of_ts_txt_unit_c_ref b])
-        |Cu_txt_unit_nte_ref (b:ts_txt_unit_nte_ref) -> Xml.Element ("cu_txt_unit_nte_ref",[],[xml_of_ts_txt_unit_nte_ref b])
-        |Cu_txt_unit_nte_inline (b:ts_txt_unit_nte_inline) -> Xml.Element ("cu_txt_unit_nte_inline",[],[xml_of_ts_txt_unit_nte_inline b])
+and xml_of_tu_txt_unit (a : tu_txt_unit) : Xml.xml =
+  match a with
+  | Cu_txt_unit_wysiwyg (b : ts_txt_unit_wysiwyg) ->
+      Xml.Element ("cu_txt_unit_wysiwyg", [], [ xml_of_ts_txt_unit_wysiwyg b ])
+  | Cu_txt_unit_emph (b : ts_txt_unit_emph) ->
+      Xml.Element ("cu_txt_unit_emph", [], [ xml_of_ts_txt_unit_emph b ])
+  | Cu_txt_unit_c_ref (b : ts_txt_unit_c_ref) ->
+      Xml.Element ("cu_txt_unit_c_ref", [], [ xml_of_ts_txt_unit_c_ref b ])
+  | Cu_txt_unit_nte_ref (b : ts_txt_unit_nte_ref) ->
+      Xml.Element ("cu_txt_unit_nte_ref", [], [ xml_of_ts_txt_unit_nte_ref b ])
+  | Cu_txt_unit_nte_inline (b : ts_txt_unit_nte_inline) ->
+      Xml.Element
+        ("cu_txt_unit_nte_inline", [], [ xml_of_ts_txt_unit_nte_inline b ])
 
-and xml_of_ts_txt_unit_wysiwyg (a:ts_txt_unit_wysiwyg):Xml.xml =
-        match a with Cs_txt_unit_wysiwyg (b:string) -> Xml.Element ("cs_txt_unit_wysiwyg",[],[xml_of_string b]) 
+and xml_of_ts_txt_unit_wysiwyg (a : ts_txt_unit_wysiwyg) : Xml.xml =
+  match a with
+  | Cs_txt_unit_wysiwyg (b : string) ->
+      Xml.Element ("cs_txt_unit_wysiwyg", [], [ xml_of_string b ])
 
-and xml_of_ts_txt_unit_emph (a:ts_txt_unit_emph):Xml.xml =
-        match a with Cs_txt_unit_emph (b:string) -> Xml.Element ("cs_txt_unit_emph",[],[xml_of_string b]) 
+and xml_of_ts_txt_unit_emph (a : ts_txt_unit_emph) : Xml.xml =
+  match a with
+  | Cs_txt_unit_emph (b : string) ->
+      Xml.Element ("cs_txt_unit_emph", [], [ xml_of_string b ])
 
-and xml_of_ts_txt_unit_c_ref (a:ts_txt_unit_c_ref):Xml.xml =
-        match a with Cs_txt_unit_c_ref (b:ts_c_ref) -> Xml.Element ("cs_txt_unit_c_ref",[],[xml_of_ts_c_ref b])
+and xml_of_ts_txt_unit_c_ref (a : ts_txt_unit_c_ref) : Xml.xml =
+  match a with
+  | Cs_txt_unit_c_ref (b : ts_c_ref) ->
+      Xml.Element ("cs_txt_unit_c_ref", [], [ xml_of_ts_c_ref b ])
 
-and xml_of_ts_txt_unit_nte_ref (a:ts_txt_unit_nte_ref):Xml.xml =
-        match a with Cs_txt_unit_nte_ref (b:ts_nte_ref) -> Xml.Element ("cs_txt_unit_nte_ref",[],[xml_of_ts_nte_ref b])
+and xml_of_ts_txt_unit_nte_ref (a : ts_txt_unit_nte_ref) : Xml.xml =
+  match a with
+  | Cs_txt_unit_nte_ref (b : ts_nte_ref) ->
+      Xml.Element ("cs_txt_unit_nte_ref", [], [ xml_of_ts_nte_ref b ])
 
-and xml_of_ts_txt_unit_nte_inline (a:ts_txt_unit_nte_inline):Xml.xml =
-        match a with Cs_txt_unit_nte_inline (b:ts_nte_inline) -> Xml.Element ("cs_txt_unit_nte_inline",[],[xml_of_ts_nte_inline b])
+and xml_of_ts_txt_unit_nte_inline (a : ts_txt_unit_nte_inline) : Xml.xml =
+  match a with
+  | Cs_txt_unit_nte_inline (b : ts_nte_inline) ->
+      Xml.Element ("cs_txt_unit_nte_inline", [], [ xml_of_ts_nte_inline b ])
 
 (* blk_qtn *)
 
-and xml_of_ts_blk_qtn (blk_qtn:ts_blk_qtn):Xml.xml=
-        match blk_qtn with
-        |Cs_blk_qtn (qtn_lines:ts_qtn_lines) -> Xml.Element ("cs_blk_qtn",[],[xml_of_ts_qtn_lines qtn_lines])
+and xml_of_ts_blk_qtn (blk_qtn : ts_blk_qtn) : Xml.xml =
+  match blk_qtn with
+  | Cs_blk_qtn (qtn_lines : ts_qtn_lines) ->
+      Xml.Element ("cs_blk_qtn", [], [ xml_of_ts_qtn_lines qtn_lines ])
 
 and xml_of_ts_qtn_lines (qtn_lines : ts_qtn_lines) : Xml.xml =
-        match qtn_lines with
-        |Cs_qtn_lines qtn_line_list -> Xml.Element ("cs_qtn_lines",[],List.map xml_of_tu_qtn_line qtn_line_list)
+  match qtn_lines with
+  | Cs_qtn_lines qtn_line_list ->
+      Xml.Element ("cs_qtn_lines", [], List.map xml_of_tu_qtn_line qtn_line_list)
 
 and xml_of_tu_qtn_line (qtn_line : tu_qtn_line) : Xml.xml =
-        match qtn_line with
-        |Cu_qtn_line_std qtn_line_std -> Xml.Element ("cu_qtn_line_std",[],[xml_of_ts_qtn_line_std qtn_line_std])
-        |Cu_qtn_line_br qtn_line_br -> Xml.Element ("cu_qtn_line_br",[],[xml_of_ts_qtn_line_br qtn_line_br])
+  match qtn_line with
+  | Cu_qtn_line_std qtn_line_std ->
+      Xml.Element
+        ("cu_qtn_line_std", [], [ xml_of_ts_qtn_line_std qtn_line_std ])
+  | Cu_qtn_line_br qtn_line_br ->
+      Xml.Element ("cu_qtn_line_br", [], [ xml_of_ts_qtn_line_br qtn_line_br ])
 
 and xml_of_ts_qtn_line_std (qtn_line_std : ts_qtn_line_std) : Xml.xml =
-        match qtn_line_std with
-        |Cs_qtn_line_std qtn_units -> Xml.Element ("cs_qtn_line_std", [], [xml_of_ts_qtn_units qtn_units])
+  match qtn_line_std with
+  | Cs_qtn_line_std qtn_units ->
+      Xml.Element ("cs_qtn_line_std", [], [ xml_of_ts_qtn_units qtn_units ])
 
 and xml_of_ts_qtn_line_br (qtn_line_br : ts_qtn_line_br) : Xml.xml =
-        match qtn_line_br with
-        |Cs_qtn_line_br qtn_units -> Xml.Element ("cs_qtn_line_br", [], [xml_of_ts_qtn_units qtn_units])
+  match qtn_line_br with
+  | Cs_qtn_line_br qtn_units ->
+      Xml.Element ("cs_qtn_line_br", [], [ xml_of_ts_qtn_units qtn_units ])
 
-and xml_of_ts_qtn_units (qtn_units:ts_qtn_units):Xml.xml=
-        match qtn_units with
-        |Cs_qtn_units (qtn_unit_list:tu_qtn_unit list) -> Xml.Element ("cs_qtn_units",[],List.map xml_of_tu_qtn_unit qtn_unit_list)
+and xml_of_ts_qtn_units (qtn_units : ts_qtn_units) : Xml.xml =
+  match qtn_units with
+  | Cs_qtn_units (qtn_unit_list : tu_qtn_unit list) ->
+      Xml.Element ("cs_qtn_units", [], List.map xml_of_tu_qtn_unit qtn_unit_list)
 
-and xml_of_tu_qtn_unit (a:tu_qtn_unit):Xml.xml=
-        match a with
-        |Cu_qtn_unit_wysiwyg (b:ts_qtn_unit_wysiwyg) -> Xml.Element ("cu_qtn_unit_wysiwyg",[],[xml_of_ts_qtn_unit_wysiwyg b]) 
-        |Cu_qtn_unit_emph (b:ts_qtn_unit_emph) -> Xml.Element ("cu_qtn_unit_emph",[],[xml_of_ts_qtn_unit_emph b])
+and xml_of_tu_qtn_unit (a : tu_qtn_unit) : Xml.xml =
+  match a with
+  | Cu_qtn_unit_wysiwyg (b : ts_qtn_unit_wysiwyg) ->
+      Xml.Element ("cu_qtn_unit_wysiwyg", [], [ xml_of_ts_qtn_unit_wysiwyg b ])
+  | Cu_qtn_unit_emph (b : ts_qtn_unit_emph) ->
+      Xml.Element ("cu_qtn_unit_emph", [], [ xml_of_ts_qtn_unit_emph b ])
 
-and xml_of_ts_qtn_unit_wysiwyg (a:ts_qtn_unit_wysiwyg):Xml.xml =
-        match a with Cs_qtn_unit_wysiwyg (b:string) -> Xml.Element ("cs_qtn_unit_wysiwyg",[],[xml_of_string b]) 
+and xml_of_ts_qtn_unit_wysiwyg (a : ts_qtn_unit_wysiwyg) : Xml.xml =
+  match a with
+  | Cs_qtn_unit_wysiwyg (b : string) ->
+      Xml.Element ("cs_qtn_unit_wysiwyg", [], [ xml_of_string b ])
 
-and xml_of_ts_qtn_unit_emph (a:ts_qtn_unit_emph):Xml.xml =
-        match a with Cs_qtn_unit_emph (b:string) -> Xml.Element ("cs_qtn_unit_emph",[],[xml_of_string b]) 
+and xml_of_ts_qtn_unit_emph (a : ts_qtn_unit_emph) : Xml.xml =
+  match a with
+  | Cs_qtn_unit_emph (b : string) ->
+      Xml.Element ("cs_qtn_unit_emph", [], [ xml_of_string b ])
 
 (* blk_blt *)
 
-and xml_of_ts_blk_blt (blk_blt:ts_blk_blt):Xml.xml=
-        match blk_blt with
-        |Cs_blk_blt (blks:ts_blks) -> Xml.Element ("cs_blk_blt",[],[xml_of_ts_blks blks])
+and xml_of_ts_blk_blt (blk_blt : ts_blk_blt) : Xml.xml =
+  match blk_blt with
+  | Cs_blk_blt (blks : ts_blks) ->
+      Xml.Element ("cs_blk_blt", [], [ xml_of_ts_blks blks ])
 
 (* blk_itm *)
 
-and xml_of_tr_blk_itm (blk_itm:tr_blk_itm):Xml.xml=
-        let a:Xml.xml list=[xml_of_tu_lbl blk_itm.fld_blk_itm_lbl] in
-        let b:Xml.xml list=
-                match blk_itm.fld_blk_itm_tag_or_id with
-                |None -> []
-                |Some (tag_or_id:tu_tag_or_id)-> [xml_of_tu_tag_or_id tag_or_id]
-                in
-                let c:Xml.xml list=[xml_of_ts_blks blk_itm.fld_blk_itm_main] in
-                Xml.Element ("cr_blk_itm",[],List.concat [a;b;c])
+and xml_of_tr_blk_itm (blk_itm : tr_blk_itm) : Xml.xml =
+  let a : Xml.xml list = [ xml_of_tu_lbl blk_itm.fld_blk_itm_lbl ] in
+  let b : Xml.xml list =
+    match blk_itm.fld_blk_itm_tag_or_id with
+    | None -> []
+    | Some (tag_or_id : tu_tag_or_id) -> [ xml_of_tu_tag_or_id tag_or_id ]
+  in
+  let c : Xml.xml list = [ xml_of_ts_blks blk_itm.fld_blk_itm_main ] in
+  Xml.Element ("cr_blk_itm", [], List.concat [ a; b; c ])
 
 (* blk_nte *)
 
-and xml_of_tr_blk_nte (blk_nte:tr_blk_nte):Xml.xml=
-        Xml.Element ("cr_blk_nte",[],[xml_of_tr_id blk_nte.fld_blk_nte_id;xml_of_ts_blks blk_nte.fld_blk_nte_main])
+and xml_of_tr_blk_nte (blk_nte : tr_blk_nte) : Xml.xml =
+  Xml.Element
+    ( "cr_blk_nte",
+      [],
+      [
+        xml_of_tr_id blk_nte.fld_blk_nte_id;
+        xml_of_ts_blks blk_nte.fld_blk_nte_main;
+      ] )
 
 (* blk_dsp *)
 
-and xml_of_ts_blk_dsp (blk_dsp:ts_blk_dsp):Xml.xml=
-        match blk_dsp with
-        |Cs_blk_dsp (dsp_lines:ts_dsp_lines) -> Xml.Element ("cs_blk_dsp",[],[xml_of_ts_dsp_lines dsp_lines])
+and xml_of_ts_blk_dsp (blk_dsp : ts_blk_dsp) : Xml.xml =
+  match blk_dsp with
+  | Cs_blk_dsp (dsp_lines : ts_dsp_lines) ->
+      Xml.Element ("cs_blk_dsp", [], [ xml_of_ts_dsp_lines dsp_lines ])
 
-and xml_of_ts_dsp_lines (dsp_lines:ts_dsp_lines):Xml.xml=
-        match dsp_lines with
-        |Cs_dsp_lines (dsp_line_list:tr_dsp_line list) -> Xml.Element ("cs_dsp_lines",[],List.map xml_of_tr_dsp_line dsp_line_list)
+and xml_of_ts_dsp_lines (dsp_lines : ts_dsp_lines) : Xml.xml =
+  match dsp_lines with
+  | Cs_dsp_lines (dsp_line_list : tr_dsp_line list) ->
+      Xml.Element ("cs_dsp_lines", [], List.map xml_of_tr_dsp_line dsp_line_list)
 
-and xml_of_tr_dsp_line (dsp_line:tr_dsp_line):Xml.xml=
-        let c:Xml.xml list=[xml_of_ts_txt_units dsp_line.fld_dsp_line_units] in
-        match dsp_line.fld_dsp_line_lbl with
-                |None -> Xml.Element ("cu_dsp_line_no_lbl",[],[Xml.Element ("cs_dsp_line_no_lbl",[],c)])
-                |Some (lbl:tu_lbl) -> 
-                        let a:Xml.xml list=[xml_of_tu_lbl lbl] in
-                        let b:Xml.xml list=
-                                match dsp_line.fld_dsp_line_id with
-                                |None -> []
-                                |Some (id:tr_id)-> [xml_of_tr_id id]
-                        in
-                        let d:Xml.xml list=[Xml.Element ("cr_dsp_line_lbld",[],List.concat [a;b;c])] in
-                        Xml.Element ("cu_dsp_line_lbld",[],d)
+and xml_of_tr_dsp_line (dsp_line : tr_dsp_line) : Xml.xml =
+  let c : Xml.xml list = [ xml_of_ts_txt_units dsp_line.fld_dsp_line_units ] in
+  match dsp_line.fld_dsp_line_lbl with
+  | None ->
+      Xml.Element
+        ("cu_dsp_line_no_lbl", [], [ Xml.Element ("cs_dsp_line_no_lbl", [], c) ])
+  | Some (lbl : tu_lbl) ->
+      let a : Xml.xml list = [ xml_of_tu_lbl lbl ] in
+      let b : Xml.xml list =
+        match dsp_line.fld_dsp_line_id with
+        | None -> []
+        | Some (id : tr_id) -> [ xml_of_tr_id id ]
+      in
+      let d : Xml.xml list =
+        [ Xml.Element ("cr_dsp_line_lbld", [], List.concat [ a; b; c ]) ]
+      in
+      Xml.Element ("cu_dsp_line_lbld", [], d)
 
 (* blk_vrb *)
 
 and xml_of_ts_blk_vrb (blk_vrb : ts_blk_vrb) : Xml.xml =
-        match blk_vrb with
-        |Cs_blk_vrb (vrb_lines : ts_vrb_lines) -> Xml.Element ("cs_blk_vrb",[],[xml_of_ts_vrb_lines vrb_lines])
+  match blk_vrb with
+  | Cs_blk_vrb (vrb_lines : ts_vrb_lines) ->
+      Xml.Element ("cs_blk_vrb", [], [ xml_of_ts_vrb_lines vrb_lines ])
 
 and xml_of_ts_vrb_lines (vrb_lines : ts_vrb_lines) : Xml.xml =
-        match vrb_lines with
-        |Cs_vrb_lines (vrb_line_list : ts_vrb_line list) -> Xml.Element ("cs_vrb_lines",[],List.map xml_of_ts_vrb_line vrb_line_list)
+  match vrb_lines with
+  | Cs_vrb_lines (vrb_line_list : ts_vrb_line list) ->
+      Xml.Element ("cs_vrb_lines", [], List.map xml_of_ts_vrb_line vrb_line_list)
 
 and xml_of_ts_vrb_line (vrb_line : ts_vrb_line) : Xml.xml =
-        match vrb_line with
-        |Cs_vrb_line (s : string) -> 
-                match s with
-                |"" -> Xml.Element ("cs_vrb_line",[],[]) 
-                |_ -> Xml.Element ("cs_vrb_line",[],[xml_of_string s])
+  match vrb_line with
+  | Cs_vrb_line (s : string) -> (
+      match s with
+      | "" -> Xml.Element ("cs_vrb_line", [], [])
+      | _ -> Xml.Element ("cs_vrb_line", [], [ xml_of_string s ]))
 
 (* hdr *)
 
-and xml_of_ts_hdr (hdr:ts_hdr):Xml.xml=
-        match hdr with
-        |Cs_hdr (txt_lines:ts_txt_lines) -> Xml.Element ("cs_hdr",[],[xml_of_ts_txt_lines txt_lines])
-
-
+and xml_of_ts_hdr (hdr : ts_hdr) : Xml.xml =
+  match hdr with
+  | Cs_hdr (txt_lines : ts_txt_lines) ->
+      Xml.Element ("cs_hdr", [], [ xml_of_ts_txt_lines txt_lines ])
 
 (* c_ref *)
 
-and xml_of_ts_c_ref (a:ts_c_ref):Xml.xml=
-        match a with Cs_c_ref (b:tr_id) -> Xml.Element ("cs_c_ref",[],[xml_of_tr_id b])
+and xml_of_ts_c_ref (a : ts_c_ref) : Xml.xml =
+  match a with
+  | Cs_c_ref (b : tr_id) -> Xml.Element ("cs_c_ref", [], [ xml_of_tr_id b ])
 
 (* nte_ref *)
 
-and xml_of_ts_nte_ref (a:ts_nte_ref):Xml.xml=
-        match a with Cs_nte_ref (id, _) -> Xml.Element ("cs_nte_ref",[],[xml_of_tr_id id])
+and xml_of_ts_nte_ref (a : ts_nte_ref) : Xml.xml =
+  match a with
+  | Cs_nte_ref (id, _) -> Xml.Element ("cs_nte_ref", [], [ xml_of_tr_id id ])
 
 (* nte_inline *)
 
-and xml_of_ts_nte_inline (a:ts_nte_inline):Xml.xml=
-        match a with Cs_nte_inline (blks, _) -> xml_of_ts_blks blks
-
+and xml_of_ts_nte_inline (a : ts_nte_inline) : Xml.xml =
+  match a with Cs_nte_inline (blks, _) -> xml_of_ts_blks blks
 
 (* int *)
 
 and xml_of_ts_int (i : ts_int) : Xml.xml =
-        match i with
-        |Cs_int k -> Xml.Element ("cs_int",[],[Xml.PCData (string_of_int k)])
+  match i with
+  | Cs_int k -> Xml.Element ("cs_int", [], [ Xml.PCData (string_of_int k) ])
 
 (* tag_or_id *)
 
-and xml_of_tu_tag_or_id (tag_or_id:tu_tag_or_id):Xml.xml=
-        match tag_or_id with
-        |Cu_tag_or_id_tag (tag:ts_tag) -> Xml.Element ("cu_tag_or_id_tag",[],[xml_of_ts_tag tag])
-        |Cu_tag_or_id_id (id:tr_id) -> Xml.Element ("cu_tag_or_id_id",[],[xml_of_tr_id id])
+and xml_of_tu_tag_or_id (tag_or_id : tu_tag_or_id) : Xml.xml =
+  match tag_or_id with
+  | Cu_tag_or_id_tag (tag : ts_tag) ->
+      Xml.Element ("cu_tag_or_id_tag", [], [ xml_of_ts_tag tag ])
+  | Cu_tag_or_id_id (id : tr_id) ->
+      Xml.Element ("cu_tag_or_id_id", [], [ xml_of_tr_id id ])
 
-and xml_of_tr_id (id:tr_id):Xml.xml=
-        let a:Xml.xml=xml_of_ts_tag id.fld_id_tag in
-        let b:Xml.xml=xml_of_ts_name id.fld_id_name in
-        match id.fld_id_scope with
-        |Some scope ->
-                let c:Xml.xml = xml_of_tu_scope scope in
-                Xml.Element ("cr_id",[],[a;b;c])
-        |None -> 
-                Xml.Element ("cr_id",[],[a;b])
-
+and xml_of_tr_id (id : tr_id) : Xml.xml =
+  let a : Xml.xml = xml_of_ts_tag id.fld_id_tag in
+  let b : Xml.xml = xml_of_ts_name id.fld_id_name in
+  match id.fld_id_scope with
+  | Some scope ->
+      let c : Xml.xml = xml_of_tu_scope scope in
+      Xml.Element ("cr_id", [], [ a; b; c ])
+  | None -> Xml.Element ("cr_id", [], [ a; b ])
 
 (* scope *)
 
 and xml_of_tu_scope (scope : tu_scope) : Xml.xml =
-        match scope with
-        |Cu_scope_gbl -> Xml.Element ("cu_scope_gbl",[],[])
-        |Cu_scope_ch -> Xml.Element ("cu_scope_ch",[],[])
-        |Cu_scope_sec -> Xml.Element ("cu_scope_sec",[],[])
-        |Cu_scope_app -> Xml.Element ("cu_scope_app",[],[])
-        |Cu_scope_par -> Xml.Element ("cu_scope_par",[],[])
+  match scope with
+  | Cu_scope_gbl -> Xml.Element ("cu_scope_gbl", [], [])
+  | Cu_scope_ch -> Xml.Element ("cu_scope_ch", [], [])
+  | Cu_scope_sec -> Xml.Element ("cu_scope_sec", [], [])
+  | Cu_scope_app -> Xml.Element ("cu_scope_app", [], [])
+  | Cu_scope_par -> Xml.Element ("cu_scope_par", [], [])
 
 (* tag *)
 
-and xml_of_ts_tag (tag:ts_tag):Xml.xml=
-        match tag with
-        |Cs_tag (s:string) -> Xml.Element ("cs_tag",[],[xml_of_string s])
+and xml_of_ts_tag (tag : ts_tag) : Xml.xml =
+  match tag with
+  | Cs_tag (s : string) -> Xml.Element ("cs_tag", [], [ xml_of_string s ])
 
 (* name *)
 
-and xml_of_ts_name (name:ts_name):Xml.xml=
-        match name with
-        |Cs_name (s:string) -> Xml.Element ("cs_name",[],[xml_of_string s])
+and xml_of_ts_name (name : ts_name) : Xml.xml =
+  match name with
+  | Cs_name (s : string) -> Xml.Element ("cs_name", [], [ xml_of_string s ])
 
-and xml_of_string (s:string):Xml.xml=
-        PCData (Xml_right.pcdata_of_string s)
+and xml_of_string (s : string) : Xml.xml = PCData (Xml_right.pcdata_of_string s)
 
 (* lbl *)
 
-and xml_of_tu_lbl (a:tu_lbl):Xml.xml=
-        match a with
-        |Cu_lbl_auto (b:ts_lbl_auto) -> Xml.Element ("cu_lbl_auto",[],[xml_of_ts_lbl_auto b])
-        |Cu_lbl_custom (b:ts_lbl_custom) -> Xml.Element ("cu_lbl_custom",[],[xml_of_ts_lbl_custom b])
+and xml_of_tu_lbl (a : tu_lbl) : Xml.xml =
+  match a with
+  | Cu_lbl_auto (b : ts_lbl_auto) ->
+      Xml.Element ("cu_lbl_auto", [], [ xml_of_ts_lbl_auto b ])
+  | Cu_lbl_custom (b : ts_lbl_custom) ->
+      Xml.Element ("cu_lbl_custom", [], [ xml_of_ts_lbl_custom b ])
 
-and xml_of_ts_lbl_auto (a:ts_lbl_auto):Xml.xml=
-        match a with Cs_lbl_auto -> Xml.Element ("cs_lbl_auto",[],[])
+and xml_of_ts_lbl_auto (a : ts_lbl_auto) : Xml.xml =
+  match a with Cs_lbl_auto -> Xml.Element ("cs_lbl_auto", [], [])
 
-and xml_of_ts_lbl_custom (a:ts_lbl_custom):Xml.xml=
-        match a with Cs_lbl_custom (b:string) -> Xml.Element ("cs_lbl_custom",[],[xml_of_string b])
-
-
+and xml_of_ts_lbl_custom (a : ts_lbl_custom) : Xml.xml =
+  match a with
+  | Cs_lbl_custom (b : string) ->
+      Xml.Element ("cs_lbl_custom", [], [ xml_of_string b ])
 
 (* normalize *)
 
 let unite_axml_txt_units_wysiwyg (xml_list : Xml.xml list) : Xml.xml =
-        let rec aux (lst : Xml.xml list) (acc : string) : string =
-                match lst with
-                |[] -> acc
-                |hd::tl ->
-                        match hd with
-                        |Xml.Element ("cs_txt_unit_wysiwyg",[],[Xml.PCData s]) ->
-                                aux tl (acc ^ s)
-                        |_ -> aux tl acc
-        in
-        Xml.Element ("cu_txt_unit_wysiwyg",[], [Xml.Element ("cs_txt_unit_wysiwyg",[],[Xml.PCData (aux xml_list "")])])
+  let rec aux (lst : Xml.xml list) (acc : string) : string =
+    match lst with
+    | [] -> acc
+    | hd :: tl -> (
+        match hd with
+        | Xml.Element ("cs_txt_unit_wysiwyg", [], [ Xml.PCData s ]) ->
+            aux tl (acc ^ s)
+        | _ -> aux tl acc)
+  in
+  Xml.Element
+    ( "cu_txt_unit_wysiwyg",
+      [],
+      [
+        Xml.Element ("cs_txt_unit_wysiwyg", [], [ Xml.PCData (aux xml_list "") ]);
+      ] )
 
 let unite_axml_qtn_units_wysiwyg (xml_list : Xml.xml list) : Xml.xml =
-        let rec aux (lst : Xml.xml list) (acc : string) : string =
-                match lst with
-                |[] -> acc
-                |hd::tl ->
-                        match hd with
-                        |Xml.Element ("cs_qtn_unit_wysiwyg",[],[Xml.PCData s]) ->
-                                aux tl (acc ^ s)
-                        |_ -> aux tl acc
-        in
-        Xml.Element ("cu_qtn_unit_wysiwyg",[], [Xml.Element ("cs_qtn_unit_wysiwyg",[],[Xml.PCData (aux xml_list "")])])
-
+  let rec aux (lst : Xml.xml list) (acc : string) : string =
+    match lst with
+    | [] -> acc
+    | hd :: tl -> (
+        match hd with
+        | Xml.Element ("cs_qtn_unit_wysiwyg", [], [ Xml.PCData s ]) ->
+            aux tl (acc ^ s)
+        | _ -> aux tl acc)
+  in
+  Xml.Element
+    ( "cu_qtn_unit_wysiwyg",
+      [],
+      [
+        Xml.Element ("cs_qtn_unit_wysiwyg", [], [ Xml.PCData (aux xml_list "") ]);
+      ] )
 
 let normalize_axml_txt_units (xml_list : Xml.xml list) : Xml.xml list =
-        let rec aux (lst : Xml.xml list) (acc_list : Xml.xml list) (acc_wysiwyg : Xml.xml list) =
-                match lst with
-                |[] -> (
-                        match acc_wysiwyg with
-                        |[] -> acc_list
-                        |_::_ -> (unite_axml_txt_units_wysiwyg (List.rev acc_wysiwyg))::acc_list
-                )
-                |hd::tl ->
-                        match hd, acc_wysiwyg with
-                        |Xml.Element ("cu_txt_unit_wysiwyg", _, [xml]), _ -> aux tl acc_list (xml::acc_wysiwyg)
-                        |_, _::_ -> aux tl (hd::((unite_axml_txt_units_wysiwyg (List.rev acc_wysiwyg))::acc_list)) []
-                        |_, [] -> aux tl (hd::acc_list) []
-        in List.rev (aux xml_list [] [])
-
+  let rec aux (lst : Xml.xml list) (acc_list : Xml.xml list)
+      (acc_wysiwyg : Xml.xml list) =
+    match lst with
+    | [] -> (
+        match acc_wysiwyg with
+        | [] -> acc_list
+        | _ :: _ ->
+            unite_axml_txt_units_wysiwyg (List.rev acc_wysiwyg) :: acc_list)
+    | hd :: tl -> (
+        match (hd, acc_wysiwyg) with
+        | Xml.Element ("cu_txt_unit_wysiwyg", _, [ xml ]), _ ->
+            aux tl acc_list (xml :: acc_wysiwyg)
+        | _, _ :: _ ->
+            aux tl
+              (hd
+              :: unite_axml_txt_units_wysiwyg (List.rev acc_wysiwyg)
+              :: acc_list)
+              []
+        | _, [] -> aux tl (hd :: acc_list) [])
+  in
+  List.rev (aux xml_list [] [])
 
 let normalize_axml_qtn_units (xml_list : Xml.xml list) : Xml.xml list =
-        let rec aux (lst : Xml.xml list) (acc_list : Xml.xml list) (acc_wysiwyg : Xml.xml list) =
-                match lst with
-                |[] -> (
-                        match acc_wysiwyg with
-                        |[] -> acc_list
-                        |_::_ -> (unite_axml_qtn_units_wysiwyg (List.rev acc_wysiwyg))::acc_list
-                )
-                |hd::tl ->
-                        match hd, acc_wysiwyg with
-                        |Xml.Element ("cu_qtn_unit_wysiwyg", _, [xml]), _ -> aux tl acc_list (xml::acc_wysiwyg)
-                        |_, _::_ -> aux tl (hd::((unite_axml_qtn_units_wysiwyg (List.rev acc_wysiwyg))::acc_list)) []
-                        |_, [] -> aux tl (hd::acc_list) []
-        in List.rev (aux xml_list [] [])
-
+  let rec aux (lst : Xml.xml list) (acc_list : Xml.xml list)
+      (acc_wysiwyg : Xml.xml list) =
+    match lst with
+    | [] -> (
+        match acc_wysiwyg with
+        | [] -> acc_list
+        | _ :: _ ->
+            unite_axml_qtn_units_wysiwyg (List.rev acc_wysiwyg) :: acc_list)
+    | hd :: tl -> (
+        match (hd, acc_wysiwyg) with
+        | Xml.Element ("cu_qtn_unit_wysiwyg", _, [ xml ]), _ ->
+            aux tl acc_list (xml :: acc_wysiwyg)
+        | _, _ :: _ ->
+            aux tl
+              (hd
+              :: unite_axml_qtn_units_wysiwyg (List.rev acc_wysiwyg)
+              :: acc_list)
+              []
+        | _, [] -> aux tl (hd :: acc_list) [])
+  in
+  List.rev (aux xml_list [] [])
 
 let rec normalize_axml (xml : Xml.xml) : Xml.xml =
-        match xml with
-        |Xml.Element ("cs_txt_units", attr_list, xml_list) -> Xml.Element ("cs_txt_units", attr_list, normalize_axml_txt_units xml_list)
-        |Xml.Element ("cs_qtn_units", attr_list, xml_list) -> Xml.Element ("cs_qtn_units", attr_list, normalize_axml_qtn_units xml_list)
-        |Xml.Element (tag, attr_list, xml_list) -> Xml.Element (tag, attr_list, List.map normalize_axml xml_list)
-        |Xml.PCData s -> Xml.PCData s
+  match xml with
+  | Xml.Element ("cs_txt_units", attr_list, xml_list) ->
+      Xml.Element ("cs_txt_units", attr_list, normalize_axml_txt_units xml_list)
+  | Xml.Element ("cs_qtn_units", attr_list, xml_list) ->
+      Xml.Element ("cs_qtn_units", attr_list, normalize_axml_qtn_units xml_list)
+  | Xml.Element (tag, attr_list, xml_list) ->
+      Xml.Element (tag, attr_list, List.map normalize_axml xml_list)
+  | Xml.PCData s -> Xml.PCData s
 
 (* axml.dtd *)
 
 let axml_schema () : string =
-"
+  "
 <!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, (cu_date_auto | cu_date_custom)?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)>
 <!ELEMENT cs_preamble (#PCDATA)>
 <!ELEMENT cs_title (#PCDATA)>

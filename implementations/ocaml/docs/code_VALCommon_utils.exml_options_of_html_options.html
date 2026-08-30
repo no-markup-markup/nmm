@@ -25,9 +25,11 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.exml_options_of_html_options</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> exml_options_of_html_options (html_options : t_html_options) : t_exml_options = {
-        quiet = html_options.quiet;
-        numbering = html_options.numbering;
-        allow_custom_numbering = html_options.allow_custom_numbering;
-        tags = html_options.tags;
-}</code></body></html>
+<code class="code"><span class="keyword">let</span> exml_options_of_html_options (html_options : t_html_options) :
+    t_exml_options =
+  {
+    quiet = html_options.quiet;
+    numbering = html_options.numbering;
+    allow_custom_numbering = html_options.allow_custom_numbering;
+    tags = html_options.tags;
+  }</code></body></html>

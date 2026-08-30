@@ -26,6 +26,7 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> string_of_tr_id (id : <span class="constructor">Doc_types</span>.tr_id) : string =
-        <span class="keyword">match</span> id.fld_id_tag, id.fld_id_name, id.fld_id_scope <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> tag, <span class="constructor">Cs_name</span> name, <span class="constructor">Some</span> scope <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">":"</span> [tag; name; string_of_tu_scope scope]
-        <span class="keywordsign">|</span><span class="constructor">Cs_tag</span> tag, <span class="constructor">Cs_name</span> name, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">":"</span> [tag; name]</code></body></html>
+  <span class="keyword">match</span> (id.fld_id_tag, id.fld_id_name, id.fld_id_scope) <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cs_tag</span> tag, <span class="constructor">Cs_name</span> name, <span class="constructor">Some</span> scope <span class="keywordsign">-&gt;</span>
+      <span class="constructor">String</span>.concat <span class="string">":"</span> [ tag; name; string_of_tu_scope scope ]
+  <span class="keywordsign">|</span> <span class="constructor">Cs_tag</span> tag, <span class="constructor">Cs_name</span> name, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">":"</span> [ tag; name ]</code></body></html>

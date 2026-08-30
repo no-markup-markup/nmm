@@ -49,7 +49,9 @@
 
 <pre><span id="MODULECommon_utils"><span class="keyword">module</span> Common_utils</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Common_utils.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>A toolkit used by <a href="Compiler_of_doc.html"><code class="code"><span class="constructor">Compiler_of_doc</span></code></a> for handling default and custom document settings (margins, document width, etc.), cross-references, and labels.</p>
+<p>A toolkit used by <a href="Compiler_of_doc.html"><code class="code"><span class="constructor">Compiler_of_doc</span></code></a> for handling default and custom
+    document settings (margins, document width, etc.), cross-references, and
+    labels.</p>
 </div>
 </div>
 <hr width="100%">
@@ -226,37 +228,40 @@
 <pre><span id="VALdoc_settings_of_ts_blks"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_ts_blks.html">doc_settings_of_ts_blks</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEts_blks">Doc_types.ts_blks</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre>
 <pre><span id="VALdoc_settings_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_tr_doc.html">doc_settings_of_tr_doc</a></span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">doc_settings_of_tr_doc&nbsp;doc</code> checks if <code class="code">doc</code> has a preamble. If so, it attempts to parse that preamble and adjusts <code class="code">doc_settings_default</code> accordingly (possibly overriding the default settings).</p>
+<p><code class="code">doc_settings_of_tr_doc&nbsp;doc</code> checks if <code class="code">doc</code> has a preamble. If so, it
+    attempts to parse that preamble and adjusts <code class="code">doc_settings_default</code>
+    accordingly (possibly overriding the default settings).</p>
 
 <p>Prints a warning to <code class="code">stderr</code> if parsing fails, and keeps the default value.</p>
 
-<p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case <code class="code">preamble</code> has the following format:</p>
+<p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case
+    <code class="code">preamble</code> has the following format:</p>
 
-<pre class="verbatim">PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
+<pre class="verbatim">    PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
 
-KEY_VALUE ::= | 'doc-width=' INT
-              | 'left-margin=' INT
-              | 'title-indent=' INT
-              | 'author-indent=' INT
-              | 'abstract-indent=' INT
-              | 'refs-indent=' INT
-              | 'tab-length=' INT
-              | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-              | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-              | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-              | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-              | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-              | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
-              | 'notes=' STRING [',' STRING]*
+    KEY_VALUE ::= | 'doc-width=' INT
+                  | 'left-margin=' INT
+                  | 'title-indent=' INT
+                  | 'author-indent=' INT
+                  | 'abstract-indent=' INT
+                  | 'refs-indent=' INT
+                  | 'tab-length=' INT
+                  | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+                  | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+                  | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+                  | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+                  | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+                  | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
+                  | 'notes=' STRING [',' STRING]*
 
-LABEL_FORM ::= STRING
+    LABEL_FORM ::= STRING
 
-CREF_FORM ::= STRING
+    CREF_FORM ::= STRING
 
-STRING ::= [! ';' ',']*
+    STRING ::= [! ';' ',']*
 
-INT ::= ['0'-'9']+
-</pre></div>
+    INT ::= ['0'-'9']+
+   </pre></div>
 </div>
 <h3 id="2_Crossreferences">Cross-references</h3>
 <pre><code><span id="TYPEt_par_node"><span class="keyword">type</span> <code class="type"></code>t_par_node</span> = </code></pre><table class="typetable">
@@ -504,7 +509,10 @@ INT ::= ['0'-'9']+
 <pre><span id="VALstring_of_path"><span class="keyword">val</span> <a href="code_VALCommon_utils.string_of_path.html">string_of_path</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt; <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; string</code></pre>
 <pre><span id="VALstring_of_ts_c_ref"><span class="keyword">val</span> <a href="code_VALCommon_utils.string_of_ts_c_ref.html">string_of_ts_c_ref</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_cref_table">t_cref_table</a> -&gt;<br>       <a href="Common_utils.html#TYPEt_path">t_path</a> -&gt; <a href="Doc_types.html#TYPEts_c_ref">Doc_types.ts_c_ref</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">string_of_ts_c_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;c_ref</code> attempts to match <code class="code">c_ref</code> ocurring at <code class="code">path</code> with an <code class="code">id</code> in <code class="code">cref_table</code>, and return a string representation of the path to <code class="code">id</code> relative to the closest common ancestor of <code class="code">c_ref</code> and <code class="code">id</code>.</p>
+<p><code class="code">string_of_ts_c_ref&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;c_ref</code> attempts to match
+    <code class="code">c_ref</code> ocurring at <code class="code">path</code> with an <code class="code">id</code> in <code class="code">cref_table</code>, and return a string
+    representation of the path to <code class="code">id</code> relative to the closest common ancestor
+    of <code class="code">c_ref</code> and <code class="code">id</code>.</p>
 
 <p>Prints a warning to <code class="code">stderr</code> if no match is found, and returns <code class="code"><span class="string">"??"</span></code>.</p>
 </div>
