@@ -1413,7 +1413,6 @@
 <br>
 <span class="keyword">let</span>&nbsp;utc_timezone&nbsp;((sign,&nbsp;hour,&nbsp;minute)&nbsp;:&nbsp;string&nbsp;*&nbsp;int&nbsp;*&nbsp;int)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hour,&nbsp;minute&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>0,0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"UTC"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"UTC"</span>&nbsp;^&nbsp;sign&nbsp;^&nbsp;(<span class="constructor">Printf</span>.sprintf&nbsp;<span class="string">"%.2i"</span>&nbsp;hour)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>_,_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"UTC"</span>&nbsp;^&nbsp;sign&nbsp;^&nbsp;(<span class="constructor">Printf</span>.sprintf&nbsp;<span class="string">"%.2i"</span>&nbsp;hour)&nbsp;^&nbsp;<span class="string">":"</span>&nbsp;^&nbsp;(<span class="constructor">Printf</span>.sprintf&nbsp;<span class="string">"%.2i"</span>&nbsp;minute)<br>
 <br>

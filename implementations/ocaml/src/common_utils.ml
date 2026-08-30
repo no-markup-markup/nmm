@@ -1386,7 +1386,6 @@ type t_time = {
 
 let utc_timezone ((sign, hour, minute) : string * int * int) : string =
         match hour, minute with
-        |0,0 -> "UTC"
         |_,0 -> "UTC" ^ sign ^ (Printf.sprintf "%.2i" hour)
         |_,_ -> "UTC" ^ sign ^ (Printf.sprintf "%.2i" hour) ^ ":" ^ (Printf.sprintf "%.2i" minute)
 
