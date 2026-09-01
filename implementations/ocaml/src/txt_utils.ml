@@ -667,3 +667,56 @@ let max_length_of_margin_labels (margin_labels : string list) : int =
 let left_margin_of_margin_labels (margin_labels : string list) : int =
   let max_length : int = max_length_of_margin_labels margin_labels in
   if max_length = 0 then 0 else max_length + 2
+
+(* doc settings *)
+
+let doc_settings_of_txt_options (margin_labels : string list)
+    (doc_settings : t_doc_settings) (options : t_txt_options)
+    : t_doc_settings =
+  let left_margin_auto : int =
+    left_margin_of_margin_labels margin_labels
+  in
+  let left_margin : int =
+    match (options.margin, left_margin_auto = 0) with
+    | Some _, true -> 0
+    | Some (m : int), false -> m
+    | None, _ -> left_margin_auto
+  in
+  let doc_width : int =
+    match options.width with
+    | Some (w : int) -> w
+    | None -> if 68 + left_margin > 80 then 80 else 68 + left_margin
+  in
+  let auto_numbering : int -> int -> string =
+    auto_numbering_of_string options.numbering
+  in
+  let allow_custom_numbering : bool = options.allow_custom_numbering in
+  let expand_tag : ts_tag -> (string * string) option =
+    match options.tags with
+    | None -> doc_settings.expand_tag
+    | Some path -> Tags.expander_of_file path
+  in
+  let tab_length : int =
+    match options.indent with None -> doc_settings.tab_length | Some n -> n
+  in
+  {
+    doc_width = doc_width;
+    left_margin = left_margin;
+    title_indent = left_margin;
+    author_indent = left_margin;
+    abstract_indent = left_margin;
+    refs_indent = left_margin;
+    tab_length = tab_length;
+    abstract_hdr = doc_settings.abstract_hdr;
+    refs_hdr = doc_settings.refs_hdr;
+    endnotes_hdr = doc_settings.endnotes_hdr;
+    ch_prefix = doc_settings.ch_prefix;
+    sec_prefix = doc_settings.sec_prefix;
+    app_prefix = doc_settings.app_prefix;
+    par_prefix = doc_settings.par_prefix;
+    expand_tag = expand_tag;
+    auto_numbering = auto_numbering;
+    allow_custom_numbering = allow_custom_numbering;
+    nte_numbering = doc_settings.nte_numbering;
+  }
+

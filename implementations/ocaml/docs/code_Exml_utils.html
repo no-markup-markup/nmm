@@ -505,6 +505,40 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(tag,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;normalize_exml&nbsp;xml_list))<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s<br>
 <br>
+<span class="comment">(*&nbsp;doc&nbsp;settings&nbsp;*)</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;doc_settings_of_exml_options&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(options&nbsp;:&nbsp;t_exml_options)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering_of_string&nbsp;options.numbering&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;=&nbsp;options.allow_custom_numbering&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;expand_tag&nbsp;:&nbsp;ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.tags&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.expand_tag<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Tags</span>.expander_of_file&nbsp;path<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;expand_tag;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;allow_custom_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
+&nbsp;&nbsp;}<br>
+<br>
+<br>
+<br>
 <span class="comment">(*&nbsp;exml.dtd&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;exml_schema&nbsp;()&nbsp;:&nbsp;string&nbsp;=<br>

@@ -37,7 +37,7 @@
       <span class="constructor">Common_utils</span>.class_of_tr_doc doc
     <span class="keyword">in</span>
     <span class="keyword">let</span> html : <span class="constructor">Xml</span>.xml = <span class="constructor">Html_utils</span>.html_of_exml doc_class exml <span class="keyword">in</span>
-    <span class="keyword">let</span> html_string : string = <span class="constructor">Xml_right</span>.to_string_fmt html <span class="keyword">in</span>
+    <span class="keyword">let</span> body : string = <span class="constructor">Xml_right</span>.to_string_fmt html <span class="keyword">in</span>
     <span class="keyword">let</span> title : string =
       <span class="keyword">match</span> doc.fld_doc_title <span class="keyword">with</span>
       <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">String</span>.concat <span class="string">""</span> [ <span class="string">"&lt;title&gt;"</span>; <span class="string">"untitled"</span>; <span class="string">"&lt;/title&gt;"</span> ]
@@ -68,28 +68,36 @@
       <span class="keywordsign">|</span> <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> string_of_int n ^ <span class="string">"ch"</span>
     <span class="keyword">in</span>
     <span class="keyword">let</span> internal_css : string =
-      <span class="string">"&lt;style&gt;\n"</span>
-      ^ <span class="constructor">Html_utils</span>.default_css indent margin_left
-      ^ <span class="string">"\n"</span>
-      ^ <span class="constructor">String</span>.concat <span class="string">"\n"</span>
-          (<span class="constructor">List</span>.map <span class="constructor">Html_utils</span>.internal_css_of_file options.internal_css)
-      ^ <span class="string">"\n&lt;/style&gt;"</span>
+      <span class="constructor">String</span>.concat <span class="string">"\n"</span> [
+        <span class="string">"&lt;style&gt;"</span>;
+          <span class="constructor">Html_utils</span>.default_css indent margin_left;
+          <span class="constructor">String</span>.concat <span class="string">"\n"</span>
+            (<span class="constructor">List</span>.map <span class="constructor">Html_utils</span>.internal_css_of_file options.internal_css);
+        <span class="string">"&lt;/style&gt;"</span>;
+      ]
     <span class="keyword">in</span>
     <span class="keyword">let</span> external_css : string =
       <span class="keyword">let</span> map (uri : string) : string =
-        <span class="string">"&lt;link rel=\"stylesheet\" href=\""</span> ^ uri ^ <span class="string">"\"&gt;\n"</span>
+        <span class="string">"&lt;link rel=\"stylesheet\" href=\""</span> ^ uri ^ <span class="string">"\"&gt;"</span>
       <span class="keyword">in</span>
-      <span class="constructor">String</span>.concat <span class="string">""</span> (<span class="constructor">List</span>.map map options.external_css)
+      <span class="constructor">String</span>.concat <span class="string">"\n"</span> (<span class="constructor">List</span>.map map options.external_css)
     <span class="keyword">in</span>
-    <span class="keyword">let</span> intro : string =
-      <span class="string">"&lt;!DOCTYPE html&gt;\n"</span> ^ <span class="string">"&lt;html"</span> ^ lang_attr ^ <span class="string">"&gt;\n"</span> ^ <span class="string">"&lt;head&gt;\n"</span>
-      ^ <span class="string">"&lt;meta charset=\"UTF-8\"&gt;\n"</span>
-      ^ <span class="string">"&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;\n"</span>
-      ^ title ^ <span class="string">"\n"</span> ^ authors ^ <span class="string">"\n"</span> ^ internal_css ^ <span class="string">"\n"</span> ^ external_css
-      ^ <span class="string">"&lt;/head&gt;\n"</span> ^ <span class="string">"&lt;body&gt;\n"</span>
-    <span class="keyword">in</span>
-    <span class="keyword">let</span> outro : string = <span class="string">"\n&lt;/body&gt;\n"</span> ^ <span class="string">"&lt;/html&gt;"</span> <span class="keyword">in</span>
-    intro ^ html_string ^ outro
+    <span class="constructor">String</span>.concat <span class="string">"\n"</span> [
+      <span class="string">"&lt;!DOCTYPE html&gt;"</span>; 
+      <span class="string">"&lt;html"</span> ^ lang_attr ^ <span class="string">"&gt;"</span>;
+        <span class="string">"&lt;head&gt;"</span>;
+        <span class="string">"&lt;meta charset=\"UTF-8\"&gt;"</span>;
+        <span class="string">"&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;"</span>;
+          title;
+          authors;
+          internal_css;
+          external_css;
+        <span class="string">"&lt;/head&gt;"</span>;
+        <span class="string">"&lt;body&gt;"</span>;
+          body;
+        <span class="string">"&lt;/body&gt;"</span>;
+      <span class="string">"&lt;/html&gt;"</span>;
+    ]
   <span class="keyword">with</span>
   <span class="keywordsign">|</span> <span class="constructor">Common_utils</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
       raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ <span class="string">"Common_utils.Error:"</span>; e ]))

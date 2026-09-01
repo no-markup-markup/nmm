@@ -43,11 +43,16 @@ ${directory}/usr/bin/nmm-ocaml: ../../bin/nmm-ocaml
 	mkdir -p ${directory}/usr/bin
 	cp ../../bin/nmm-ocaml ${directory}/usr/bin/
 
-${directory}/usr/share/bash-completion/completions/nmm-ocaml: ../../scripts/nmm-ocaml-bash-completion.sh
+${directory}/usr/share/bash-completion/completions/nmm-ocaml: \
+	../../scripts/nmm-ocaml-bash-completion.sh
 	mkdir -p ${directory}/usr/share/bash-completion/completions
-	cp ../../scripts/nmm-ocaml-bash-completion.sh ${directory}/usr/share/bash-completion/completions/nmm-ocaml
+	cp ../../scripts/nmm-ocaml-bash-completion.sh \
+		${directory}/usr/share/bash-completion/completions/nmm-ocaml
 
-${directory}: ${directory}/DEBIAN/control ${directory}/usr/bin/nmm-ocaml ${directory}/usr/share/bash-completion/completions/nmm-ocaml
+${directory}: \
+	${directory}/DEBIAN/control \
+	${directory}/usr/bin/nmm-ocaml \
+	${directory}/usr/share/bash-completion/completions/nmm-ocaml
 
 packages: ${directory}
 	dpkg-deb --root-owner-group --build ${directory}

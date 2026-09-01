@@ -99,6 +99,13 @@ val par_hdr_opt :
 
 val normalize_exml : Xml.xml -> Xml.xml
 
+(* doc settings *)
+
+val doc_settings_of_exml_options :
+  Common_utils.t_doc_settings ->
+  Common_utils.t_exml_options ->
+  Common_utils.t_doc_settings
+
 (* exml.dtd *)
 
 val exml_schema : unit -> string

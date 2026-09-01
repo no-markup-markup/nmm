@@ -1429,56 +1429,11 @@ let lines_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) : string list
 
 let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
   let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-  let left_margin_auto : int =
-    let margin_labels : string list =
+  let margin_labels : string list =
       margin_labels_of_tr_doc doc_settings doc
-    in
-    Txt_utils.left_margin_of_margin_labels margin_labels
-  in
-  let left_margin : int =
-    match (options.margin, left_margin_auto = 0) with
-    | Some _, true -> 0
-    | Some (m : int), false -> m
-    | None, _ -> left_margin_auto
-  in
-  let doc_width : int =
-    match options.width with
-    | Some (w : int) -> w
-    | None -> if 68 + left_margin > 80 then 80 else 68 + left_margin
-  in
-  let auto_numbering : int -> int -> string =
-    auto_numbering_of_string options.numbering
-  in
-  let allow_custom_numbering : bool = options.allow_custom_numbering in
-  let expand_tag : ts_tag -> (string * string) option =
-    match options.tags with
-    | None -> doc_settings.expand_tag
-    | Some path -> Tags.expander_of_file path
-  in
-  let tab_length : int =
-    match options.indent with None -> doc_settings.tab_length | Some n -> n
   in
   let new_doc_settings : t_doc_settings =
-    {
-      doc_width;
-      left_margin;
-      title_indent = left_margin;
-      author_indent = left_margin;
-      abstract_indent = left_margin;
-      refs_indent = left_margin;
-      tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag;
-      auto_numbering;
-      allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    Txt_utils.doc_settings_of_txt_options margin_labels doc_settings options
   in
   let _ : unit = IO.quiet.contents <- options.quiet in
   String.concat "\n" (lines_of_tr_doc new_doc_settings doc)
@@ -1501,34 +1456,8 @@ let xml_list_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
 
 let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
   let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-  let auto_numbering = auto_numbering_of_string options.numbering in
-  let allow_custom_numbering : bool = options.allow_custom_numbering in
-  let expand_tag : ts_tag -> (string * string) option =
-    match options.tags with
-    | None -> doc_settings.expand_tag
-    | Some path -> Tags.expander_of_file path
-  in
   let new_doc_settings : t_doc_settings =
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag;
-      auto_numbering;
-      allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    Exml_utils.doc_settings_of_exml_options doc_settings options
   in
   let _ : unit = IO.quiet.contents <- options.quiet in
   match xml_list_of_tr_doc new_doc_settings doc with

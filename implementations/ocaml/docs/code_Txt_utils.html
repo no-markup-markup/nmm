@@ -694,4 +694,57 @@
 <span class="keyword">let</span>&nbsp;left_margin_of_margin_labels&nbsp;(margin_labels&nbsp;:&nbsp;string&nbsp;list)&nbsp;:&nbsp;int&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;max_length&nbsp;:&nbsp;int&nbsp;=&nbsp;max_length_of_margin_labels&nbsp;margin_labels&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">if</span>&nbsp;max_length&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;0&nbsp;<span class="keyword">else</span>&nbsp;max_length&nbsp;+&nbsp;2<br>
+<br>
+<span class="comment">(*&nbsp;doc&nbsp;settings&nbsp;*)</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;doc_settings_of_txt_options&nbsp;(margin_labels&nbsp;:&nbsp;string&nbsp;list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(options&nbsp;:&nbsp;t_txt_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left_margin_auto&nbsp;:&nbsp;int&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;left_margin_of_margin_labels&nbsp;margin_labels<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left_margin&nbsp;:&nbsp;int&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(options.margin,&nbsp;left_margin_auto&nbsp;=&nbsp;0)&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;_,&nbsp;<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(m&nbsp;:&nbsp;int),&nbsp;<span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;left_margin_auto<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_width&nbsp;:&nbsp;int&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.width&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(w&nbsp;:&nbsp;int)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;w<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;68&nbsp;+&nbsp;left_margin&nbsp;&gt;&nbsp;80&nbsp;<span class="keyword">then</span>&nbsp;80&nbsp;<span class="keyword">else</span>&nbsp;68&nbsp;+&nbsp;left_margin<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;auto_numbering&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering_of_string&nbsp;options.numbering<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;=&nbsp;options.allow_custom_numbering&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;expand_tag&nbsp;:&nbsp;ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.tags&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.expand_tag<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Tags</span>.expander_of_file&nbsp;path<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tab_length&nbsp;:&nbsp;int&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.indent&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.tab_length&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;n<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_width;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;tab_length;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;expand_tag;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;allow_custom_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
+&nbsp;&nbsp;}<br>
+<br>
 </code></body></html>

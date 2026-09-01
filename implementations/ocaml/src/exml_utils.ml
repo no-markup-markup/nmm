@@ -478,6 +478,40 @@ let rec normalize_exml (xml : Xml.xml) : Xml.xml =
       | _ -> Xml.Element (tag, attr_list, List.map normalize_exml xml_list))
   | Xml.PCData s -> Xml.PCData s
 
+(* doc settings *)
+
+let doc_settings_of_exml_options (doc_settings : t_doc_settings)
+    (options : t_exml_options) : t_doc_settings =
+  let auto_numbering = auto_numbering_of_string options.numbering in
+  let allow_custom_numbering : bool = options.allow_custom_numbering in
+  let expand_tag : ts_tag -> (string * string) option =
+    match options.tags with
+    | None -> doc_settings.expand_tag
+    | Some path -> Tags.expander_of_file path
+  in
+  {
+    doc_width = doc_settings.doc_width;
+    left_margin = doc_settings.left_margin;
+    title_indent = doc_settings.title_indent;
+    author_indent = doc_settings.author_indent;
+    abstract_indent = doc_settings.abstract_indent;
+    refs_indent = doc_settings.refs_indent;
+    tab_length = doc_settings.tab_length;
+    abstract_hdr = doc_settings.abstract_hdr;
+    refs_hdr = doc_settings.refs_hdr;
+    endnotes_hdr = doc_settings.endnotes_hdr;
+    ch_prefix = doc_settings.ch_prefix;
+    sec_prefix = doc_settings.sec_prefix;
+    app_prefix = doc_settings.app_prefix;
+    par_prefix = doc_settings.par_prefix;
+    expand_tag = expand_tag;
+    auto_numbering = auto_numbering;
+    allow_custom_numbering = allow_custom_numbering;
+    nte_numbering = doc_settings.nte_numbering;
+  }
+
+
+
 (* exml.dtd *)
 
 let exml_schema () : string =

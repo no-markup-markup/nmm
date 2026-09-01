@@ -48,7 +48,7 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
       Common_utils.class_of_tr_doc doc
     in
     let html : Xml.xml = Html_utils.html_of_exml doc_class exml in
-    let html_string : string = Xml_right.to_string_fmt html in
+    let body : string = Xml_right.to_string_fmt html in
     let title : string =
       match doc.fld_doc_title with
       | None -> String.concat "" [ "<title>"; "untitled"; "</title>" ]
@@ -79,28 +79,36 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
       | Some n -> string_of_int n ^ "ch"
     in
     let internal_css : string =
-      "<style>\n"
-      ^ Html_utils.default_css indent margin_left
-      ^ "\n"
-      ^ String.concat "\n"
-          (List.map Html_utils.internal_css_of_file options.internal_css)
-      ^ "\n</style>"
+      String.concat "\n" [
+        "<style>";
+          Html_utils.default_css indent margin_left;
+          String.concat "\n"
+            (List.map Html_utils.internal_css_of_file options.internal_css);
+        "</style>";
+      ]
     in
     let external_css : string =
       let map (uri : string) : string =
-        "<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">\n"
+        "<link rel=\"stylesheet\" href=\"" ^ uri ^ "\">"
       in
-      String.concat "" (List.map map options.external_css)
+      String.concat "\n" (List.map map options.external_css)
     in
-    let intro : string =
-      "<!DOCTYPE html>\n" ^ "<html" ^ lang_attr ^ ">\n" ^ "<head>\n"
-      ^ "<meta charset=\"UTF-8\">\n"
-      ^ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-      ^ title ^ "\n" ^ authors ^ "\n" ^ internal_css ^ "\n" ^ external_css
-      ^ "</head>\n" ^ "<body>\n"
-    in
-    let outro : string = "\n</body>\n" ^ "</html>" in
-    intro ^ html_string ^ outro
+    String.concat "\n" [
+      "<!DOCTYPE html>"; 
+      "<html" ^ lang_attr ^ ">";
+        "<head>";
+        "<meta charset=\"UTF-8\">";
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
+          title;
+          authors;
+          internal_css;
+          external_css;
+        "</head>";
+        "<body>";
+          body;
+        "</body>";
+      "</html>";
+    ]
   with
   | Common_utils.Error e ->
       raise (Error (String.concat " " [ "Common_utils.Error:"; e ]))
