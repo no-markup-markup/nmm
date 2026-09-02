@@ -28,39 +28,44 @@
 <code class="code"><span class="keyword">let</span> doc_settings_of_txt_options (doc_settings : t_doc_settings)
     (margin_labels : string list) (options : t_txt_options)
     : t_doc_settings =
-  <span class="keyword">let</span> left_margin : int =
-    <span class="keyword">match</span> (options.margin, margin_labels) <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">Some</span> _, [] <span class="keywordsign">-&gt;</span> doc_settings.left_margin
-    <span class="keywordsign">|</span> <span class="constructor">Some</span> (m : int), _ <span class="keywordsign">-&gt;</span> m
-    <span class="keywordsign">|</span> <span class="constructor">None</span>, _ <span class="keywordsign">-&gt;</span> doc_settings.left_margin
+  <span class="keyword">let</span> new_doc_settings : t_doc_settings =
+    <span class="keyword">match</span> options.margin, margin_labels <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> _, [] <span class="keywordsign">-&gt;</span> doc_settings
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> m, _ <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> new_margin_labels : string list =
+          [ make_string m <span class="string">"0"</span> ]
+        <span class="keyword">in</span>
+        doc_settings_of_margin_labels doc_settings new_margin_labels
+    <span class="keywordsign">|</span> <span class="constructor">None</span>, _ <span class="keywordsign">-&gt;</span> doc_settings
   <span class="keyword">in</span>
   <span class="keyword">let</span> doc_width : int =
     <span class="keyword">match</span> options.width <span class="keyword">with</span>
     <span class="keywordsign">|</span> <span class="constructor">Some</span> (w : int) <span class="keywordsign">-&gt;</span> w
-    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.doc_width
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> new_doc_settings.doc_width
   <span class="keyword">in</span>
   <span class="keyword">let</span> auto_numbering : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string =
     <span class="keyword">match</span> options.numbering <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.auto_numbering
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> new_doc_settings.auto_numbering
     <span class="keywordsign">|</span> <span class="constructor">Some</span> s <span class="keywordsign">-&gt;</span> auto_numbering_of_string s
   <span class="keyword">in</span>
   <span class="keyword">let</span> allow_custom_numbering : bool =
     <span class="keyword">match</span> options.allow_custom_numbering <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.allow_custom_numbering
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> new_doc_settings.allow_custom_numbering
     <span class="keywordsign">|</span> <span class="constructor">Some</span> value <span class="keywordsign">-&gt;</span> value
   <span class="keyword">in</span>
   <span class="keyword">let</span> expand_tag : ts_tag <span class="keywordsign">-&gt;</span> (string * string) option =
     <span class="keyword">match</span> options.tags <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.expand_tag
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> new_doc_settings.expand_tag
     <span class="keywordsign">|</span> <span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Tags</span>.expander_of_file path
   <span class="keyword">in</span>
   <span class="keyword">let</span> tab_length : int =
-    <span class="keyword">match</span> options.indent <span class="keyword">with</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.tab_length <span class="keywordsign">|</span> <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> n
+    <span class="keyword">match</span> options.indent <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> new_doc_settings.tab_length
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> n
   <span class="keyword">in</span>
   {
-    doc_settings <span class="keyword">with</span>
+    new_doc_settings <span class="keyword">with</span>
     doc_width = doc_width;
-    left_margin = left_margin;
     tab_length = tab_length;
     expand_tag = expand_tag;
     auto_numbering = auto_numbering;

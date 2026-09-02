@@ -699,39 +699,44 @@ let doc_settings_of_margin_labels (doc_settings : t_doc_settings)
 let doc_settings_of_txt_options (doc_settings : t_doc_settings)
     (margin_labels : string list) (options : t_txt_options)
     : t_doc_settings =
-  let left_margin : int =
-    match (options.margin, margin_labels) with
-    | Some _, [] -> doc_settings.left_margin
-    | Some (m : int), _ -> m
-    | None, _ -> doc_settings.left_margin
+  let new_doc_settings : t_doc_settings =
+    match options.margin, margin_labels with
+    | Some _, [] -> doc_settings
+    | Some m, _ ->
+        let new_margin_labels : string list =
+          [ make_string m "0" ]
+        in
+        doc_settings_of_margin_labels doc_settings new_margin_labels
+    | None, _ -> doc_settings
   in
   let doc_width : int =
     match options.width with
     | Some (w : int) -> w
-    | None -> doc_settings.doc_width
+    | None -> new_doc_settings.doc_width
   in
   let auto_numbering : int -> int -> string =
     match options.numbering with
-    | None -> doc_settings.auto_numbering
+    | None -> new_doc_settings.auto_numbering
     | Some s -> auto_numbering_of_string s
   in
   let allow_custom_numbering : bool =
     match options.allow_custom_numbering with
-    | None -> doc_settings.allow_custom_numbering
+    | None -> new_doc_settings.allow_custom_numbering
     | Some value -> value
   in
   let expand_tag : ts_tag -> (string * string) option =
     match options.tags with
-    | None -> doc_settings.expand_tag
+    | None -> new_doc_settings.expand_tag
     | Some path -> Tags.expander_of_file path
   in
   let tab_length : int =
-    match options.indent with None -> doc_settings.tab_length | Some n -> n
+    match options.indent with
+    | None -> new_doc_settings.tab_length
+    | Some n -> n
   in
   {
-    doc_settings with
+    new_doc_settings with
     doc_width = doc_width;
-    left_margin = left_margin;
     tab_length = tab_length;
     expand_tag = expand_tag;
     auto_numbering = auto_numbering;
