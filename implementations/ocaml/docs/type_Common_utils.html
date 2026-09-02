@@ -56,6 +56,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.ts_blks&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_tr_doc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_par_node&nbsp;=&nbsp;<span class="constructor">PAR_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAR_TAG</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;int)<br>
 &nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t_itm_node&nbsp;=<br>
@@ -184,25 +185,25 @@
 &nbsp;&nbsp;&nbsp;&nbsp;indent&nbsp;:&nbsp;int&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;:&nbsp;int&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_html_options&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin&nbsp;:&nbsp;int&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;indent&nbsp;:&nbsp;int&nbsp;option;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;lang&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lang&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;internal_css&nbsp;:&nbsp;string&nbsp;list;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;external_css&nbsp;:&nbsp;string&nbsp;list;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_exml_options&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_axml_options&nbsp;=&nbsp;{&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;&nbsp;}<br>

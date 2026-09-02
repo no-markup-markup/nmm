@@ -31,7 +31,7 @@
 <br>
 <span class="comment">(*&nbsp;version&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;version&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"2.1"</span><br>
+<span class="keyword">let</span>&nbsp;version&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"2.2"</span><br>
 <br>
 <span class="comment">(*&nbsp;parsing&nbsp;nmm&nbsp;*)</span><br>
 <br>
@@ -93,7 +93,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;author_list)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;options.lang&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_code&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.lang&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"en"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;lang_code&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_left&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.margin&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_int&nbsp;m&nbsp;^&nbsp;<span class="string">"rem"</span><br>

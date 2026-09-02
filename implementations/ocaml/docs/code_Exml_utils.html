@@ -509,8 +509,16 @@
 <br>
 <span class="keyword">let</span>&nbsp;doc_settings_of_exml_options&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(options&nbsp;:&nbsp;t_exml_options)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering_of_string&nbsp;options.numbering&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;=&nbsp;options.allow_custom_numbering&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;auto_numbering&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.numbering&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.auto_numbering<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;auto_numbering_of_string&nbsp;s<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.allow_custom_numbering&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.allow_custom_numbering<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;value&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;value<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;expand_tag&nbsp;:&nbsp;ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.tags&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.expand_tag<br>

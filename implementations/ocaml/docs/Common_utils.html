@@ -226,7 +226,7 @@
 <pre><span id="VALdoc_settings_default"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_default.html">doc_settings_default</a></span> : <code class="type">unit -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><h4 id="3_Userdefinedsettings">User-defined settings</h4>
 <pre><span id="VALauto_numbering_of_string"><span class="keyword">val</span> <a href="code_VALCommon_utils.auto_numbering_of_string.html">auto_numbering_of_string</a></span> : <code class="type">string -&gt; int -&gt; int -&gt; string</code></pre>
 <pre><span id="VALdoc_settings_of_ts_blks"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_ts_blks.html">doc_settings_of_ts_blks</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       int -&gt; <a href="Doc_types.html#TYPEts_blks">Doc_types.ts_blks</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre>
-<pre><span id="VALdoc_settings_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_tr_doc.html">doc_settings_of_tr_doc</a></span> : <code class="type"><a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><div class="info ">
+<pre><span id="VALdoc_settings_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_tr_doc.html">doc_settings_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">doc_settings_of_tr_doc&nbsp;doc</code> checks if <code class="code">doc</code> has a preamble. If so, it
     attempts to parse that preamble and adjusts <code class="code">doc_settings_default</code>
@@ -641,14 +641,14 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_txt_options.numbering">numbering</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_txt_options.numbering">numbering</span>&nbsp;: <code class="type">string option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_txt_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool</code>;</code></td>
+<code><span id="TYPEELTt_txt_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool option</code>;</code></td>
 
 </tr>
 <tr>
@@ -681,7 +681,7 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_html_options.lang">lang</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_html_options.lang">lang</span>&nbsp;: <code class="type">string option</code>;</code></td>
 
 </tr>
 <tr>
@@ -709,14 +709,14 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_html_options.numbering">numbering</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_html_options.numbering">numbering</span>&nbsp;: <code class="type">string option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_html_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool</code>;</code></td>
+<code><span id="TYPEELTt_html_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool option</code>;</code></td>
 
 </tr>
 <tr>
@@ -742,14 +742,14 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_exml_options.numbering">numbering</span>&nbsp;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTt_exml_options.numbering">numbering</span>&nbsp;: <code class="type">string option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt_exml_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool</code>;</code></td>
+<code><span id="TYPEELTt_exml_options.allow_custom_numbering">allow_custom_numbering</span>&nbsp;: <code class="type">bool option</code>;</code></td>
 
 </tr>
 <tr>

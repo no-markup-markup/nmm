@@ -25,8 +25,9 @@
 <link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Common_utils.doc_settings_of_tr_doc</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_settings_of_tr_doc (doc : <span class="constructor">Doc_types</span>.tr_doc) : t_doc_settings =
+<code class="code"><span class="keyword">let</span> doc_settings_of_tr_doc (doc_settings : t_doc_settings)
+    (doc : <span class="constructor">Doc_types</span>.tr_doc) : t_doc_settings =
   <span class="keyword">match</span> doc.fld_doc_preamble <span class="keyword">with</span>
-  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings_default ()
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings
   <span class="keywordsign">|</span> <span class="constructor">Some</span> preamble <span class="keywordsign">-&gt;</span>
-      doc_settings_of_ts_preamble (doc_settings_default ()) preamble</code></body></html>
+      doc_settings_of_ts_preamble doc_settings preamble</code></body></html>

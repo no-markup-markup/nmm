@@ -55,7 +55,12 @@
           <span class="keyword">in</span>
           <span class="constructor">String</span>.concat <span class="string">"\n"</span> (<span class="constructor">List</span>.map map author_list)
     <span class="keyword">in</span>
-    <span class="keyword">let</span> lang_attr : string = <span class="string">" lang=\""</span> ^ options.lang ^ <span class="string">"\""</span> <span class="keyword">in</span>
+    <span class="keyword">let</span> lang_code : string =
+      <span class="keyword">match</span> options.lang <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="string">"en"</span>
+      <span class="keywordsign">|</span> <span class="constructor">Some</span> s <span class="keywordsign">-&gt;</span> s
+    <span class="keyword">in</span>
+    <span class="keyword">let</span> lang_attr : string = <span class="string">" lang=\""</span> ^ lang_code ^ <span class="string">"\""</span> <span class="keyword">in</span>
     <span class="keyword">let</span> margin_left : string =
       <span class="keyword">match</span> options.margin <span class="keyword">with</span>
       <span class="keywordsign">|</span> <span class="constructor">Some</span> m <span class="keywordsign">-&gt;</span> string_of_int m ^ <span class="string">"rem"</span>

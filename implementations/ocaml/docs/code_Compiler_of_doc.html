@@ -1455,15 +1455,24 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;type"</span>)<br>
 <br>
 <span class="keyword">let</span>&nbsp;txt_of_tr_doc&nbsp;(options&nbsp;:&nbsp;t_txt_options)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;doc_settings_of_tr_doc&nbsp;doc&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_labels&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin_labels_of_tr_doc&nbsp;doc_settings&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;default&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_preamble&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.doc_settings_of_tr_doc&nbsp;default&nbsp;doc<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_doc_settings&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Txt_utils</span>.doc_settings_of_txt_options&nbsp;margin_labels&nbsp;doc_settings&nbsp;options<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_labels&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin_labels_of_tr_doc&nbsp;doc_settings_preamble&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_auto&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Txt_utils</span>.doc_settings_of_margin_labels&nbsp;default&nbsp;margin_labels<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_doc_settings_preamble&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.doc_settings_of_tr_doc&nbsp;doc_settings_auto&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_cli&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Txt_utils</span>.doc_settings_of_txt_options&nbsp;new_doc_settings_preamble&nbsp;margin_labels&nbsp;options<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;options.quiet&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(lines_of_tr_doc&nbsp;new_doc_settings&nbsp;doc)<br>
+&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(lines_of_tr_doc&nbsp;doc_settings_cli&nbsp;doc)<br>
 <br>
 <span class="comment">(*&nbsp;exml&nbsp;*)</span><br>
 <br>
@@ -1482,12 +1491,13 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;type"</span>)<br>
 <br>
 <span class="keyword">let</span>&nbsp;exml_of_tr_doc&nbsp;(options&nbsp;:&nbsp;t_exml_options)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;doc_settings_of_tr_doc&nbsp;doc&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_doc_settings&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Exml_utils</span>.doc_settings_of_exml_options&nbsp;doc_settings&nbsp;options<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;default&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_preamble&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;doc_settings_of_tr_doc&nbsp;default&nbsp;doc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_options&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Exml_utils</span>.doc_settings_of_exml_options&nbsp;doc_settings_preamble&nbsp;options<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;options.quiet&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_list_of_tr_doc&nbsp;new_doc_settings&nbsp;doc&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_list_of_tr_doc&nbsp;doc_settings_options&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;hd<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"expected&nbsp;singleton&nbsp;exml-list"</span>)<br>
 </code></body></html>

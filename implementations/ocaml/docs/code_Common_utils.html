@@ -829,6 +829,70 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;doc_settings<br>
 <br>
+<span class="keyword">let</span>&nbsp;set_auto_numbering&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering_of_string&nbsp;v;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"WARNING:&nbsp;invalid&nbsp;auto-numbering&nbsp;value:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v;&nbsp;<span class="string">";&nbsp;"</span>;&nbsp;<span class="string">"ignoring&nbsp;it."</span>&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_settings<br>
+<br>
+<span class="keyword">let</span>&nbsp;set_allow_custom_numbering&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;bool_of_string&nbsp;v;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"WARNING:&nbsp;invalid&nbsp;allow-custom-numbering&nbsp;value:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v;&nbsp;<span class="string">";&nbsp;"</span>;&nbsp;<span class="string">"ignoring&nbsp;it."</span>&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_settings<br>
+<br>
 <span class="keyword">let</span>&nbsp;doc_settings_of_ts_preamble&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(preamble&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_preamble)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(str_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
@@ -852,11 +916,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"endnotes-hdr"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_endnotes_hdr&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"tag"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_expand_tag&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"notes"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_nte_numbering&nbsp;v&nbsp;settings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"auto-numbering"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_auto_numbering&nbsp;v&nbsp;settings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"allow-custom-numbering"</span>,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set_allow_custom_numbering&nbsp;v&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"WARNING:&nbsp;invalid&nbsp;attribute:&nbsp;"</span>;&nbsp;hd;&nbsp;<span class="string">";&nbsp;"</span>;&nbsp;<span class="string">"ignoring&nbsp;it"</span>&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"WARNING:&nbsp;invalid&nbsp;attribute:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hd;&nbsp;<span class="string">";&nbsp;"</span>;&nbsp;<span class="string">"ignoring&nbsp;it"</span>&nbsp;])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
@@ -868,11 +936,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;str_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">';'</span>&nbsp;s&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;str_list&nbsp;doc_settings<br>
 <br>
-<span class="keyword">let</span>&nbsp;doc_settings_of_tr_doc&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;doc_settings_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_preamble&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings_default&nbsp;()<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;preamble&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_settings_of_ts_preamble&nbsp;(doc_settings_default&nbsp;())&nbsp;preamble<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_settings_of_ts_preamble&nbsp;doc_settings&nbsp;preamble<br>
 <br>
 <span class="comment">(*&nbsp;cross-references&nbsp;*)</span><br>
 <br>
@@ -986,15 +1055,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;rev_c_ref_loc_tl&nbsp;rev_id_loc_tl<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keyword">false</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.rev&nbsp;rev_id_loc)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[],&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;IO.print_warning&nbsp;("WARNING:&nbsp;self-reference&nbsp;in&nbsp;"&nbsp;^&nbsp;(string_of_path&nbsp;c_ref_loc))&nbsp;in&nbsp;*)</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;[&nbsp;<span class="constructor">List</span>.hd&nbsp;id_loc&nbsp;]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"id_loc&nbsp;not&nbsp;expected&nbsp;to&nbsp;be&nbsp;an&nbsp;empty&nbsp;path"</span>))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;::&nbsp;_,&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;IO.print_warning&nbsp;("WARNING:&nbsp;reference&nbsp;to&nbsp;parent&nbsp;node&nbsp;in&nbsp;"&nbsp;^&nbsp;(string_of_path&nbsp;c_ref_loc))&nbsp;in&nbsp;*)</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;[&nbsp;<span class="constructor">List</span>.hd&nbsp;id_loc&nbsp;]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"id_loc&nbsp;not&nbsp;expected&nbsp;to&nbsp;be&nbsp;an&nbsp;empty&nbsp;path"</span>))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[],&nbsp;_&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;_:unit=IO.print_warning&nbsp;("WARNING:&nbsp;reference&nbsp;to&nbsp;child&nbsp;node&nbsp;in&nbsp;"&nbsp;^&nbsp;(string_of_path&nbsp;c_ref_loc))&nbsp;in&nbsp;*)</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.rev&nbsp;rev_id_loc<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;aux&nbsp;rev_c_ref_loc&nbsp;rev_id_loc<br>
@@ -1793,27 +1859,27 @@
 &nbsp;&nbsp;indent&nbsp;:&nbsp;int&nbsp;option;<br>
 &nbsp;&nbsp;width&nbsp;:&nbsp;int&nbsp;option;<br>
 &nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
-&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;numbering&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
 &nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 }<br>
 <br>
 <span class="keyword">type</span>&nbsp;t_html_options&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;margin&nbsp;:&nbsp;int&nbsp;option;<br>
 &nbsp;&nbsp;indent&nbsp;:&nbsp;int&nbsp;option;<br>
-&nbsp;&nbsp;lang&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;lang&nbsp;:&nbsp;string&nbsp;option;<br>
 &nbsp;&nbsp;internal_css&nbsp;:&nbsp;string&nbsp;list;<br>
 &nbsp;&nbsp;external_css&nbsp;:&nbsp;string&nbsp;list;<br>
 &nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
-&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;numbering&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
 &nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 }<br>
 <br>
 <span class="keyword">type</span>&nbsp;t_exml_options&nbsp;=&nbsp;{<br>
 &nbsp;&nbsp;quiet&nbsp;:&nbsp;bool;<br>
-&nbsp;&nbsp;numbering&nbsp;:&nbsp;string;<br>
-&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;numbering&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
 &nbsp;&nbsp;tags&nbsp;:&nbsp;string&nbsp;option;<br>
 }<br>
 <br>
@@ -1845,8 +1911,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;indent&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;=&nbsp;<span class="string">"a1i"</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;}<br>
 <br>
@@ -1854,20 +1920,20 @@
 &nbsp;&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;indent&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;lang&nbsp;=&nbsp;<span class="string">"en"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lang&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;internal_css&nbsp;=&nbsp;[];<br>
 &nbsp;&nbsp;&nbsp;&nbsp;external_css&nbsp;=&nbsp;[];<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;=&nbsp;<span class="string">"a1i"</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;exml_options_default&nbsp;()&nbsp;:&nbsp;t_exml_options&nbsp;=<br>
 &nbsp;&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;quiet&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;=&nbsp;<span class="string">"a1i"</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="keyword">false</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;numbering&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tags&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
 &nbsp;&nbsp;}<br>
 <br>
