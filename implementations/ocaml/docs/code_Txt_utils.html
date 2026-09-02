@@ -69,18 +69,19 @@
 <span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;indent_of_path&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;int&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">REFS_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.refs_indent<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ABSTRACT_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.abstract_indent<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CH_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.left_margin<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.left_margin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CH_NODE</span>&nbsp;_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">APP_NODE</span>&nbsp;_<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAR_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.left_margin<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BLT_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl&nbsp;+&nbsp;doc_settings.tab_length<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_LINE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;tl<br>
 <br>
 <span class="keyword">let</span>&nbsp;insert_string&nbsp;(label&nbsp;:&nbsp;string)&nbsp;(pos&nbsp;:&nbsp;int)&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;string_len&nbsp;:&nbsp;int&nbsp;=&nbsp;<span class="constructor">String</span>.length&nbsp;s&nbsp;<span class="keyword">in</span><br>
@@ -101,14 +102,20 @@
 <span class="keyword">let</span>&nbsp;pos_of_label&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;:&nbsp;int&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BLT_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_LINE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">NTE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;indent_of_path&nbsp;doc_settings&nbsp;path&nbsp;-&nbsp;doc_settings.tab_length<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">REFS_NODE</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ABSTRACT_NODE</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CH_NODE</span>&nbsp;_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">APP_NODE</span>&nbsp;_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAR_NODE</span>&nbsp;_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_NODE</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0<br>
 <br>
 <span class="keyword">let</span>&nbsp;insert_label&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;=<br>
@@ -268,7 +275,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;date_string;&nbsp;time_string;&nbsp;utc_timezone&nbsp;time.timezone&nbsp;]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.date_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_tu_date&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;tu_date)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;list&nbsp;=<br>

@@ -28,15 +28,16 @@
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
   <span class="keyword">match</span> path <span class="keyword">with</span>
   <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> 0
-  <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+  <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span>
       <span class="keyword">match</span> hd <span class="keyword">with</span>
       <span class="keywordsign">|</span> <span class="constructor">REFS_NODE</span> <span class="keywordsign">-&gt;</span> doc_settings.refs_indent
       <span class="keywordsign">|</span> <span class="constructor">ABSTRACT_NODE</span> <span class="keywordsign">-&gt;</span> doc_settings.abstract_indent
-      <span class="keywordsign">|</span> <span class="constructor">CH_NODE</span> _ <span class="keywordsign">-&gt;</span> doc_settings.left_margin
-      <span class="keywordsign">|</span> <span class="constructor">SEC_NODE</span> _ <span class="keywordsign">-&gt;</span> doc_settings.left_margin
+      <span class="keywordsign">|</span> <span class="constructor">CH_NODE</span> _
+      <span class="keywordsign">|</span> <span class="constructor">SEC_NODE</span> _
+      <span class="keywordsign">|</span> <span class="constructor">APP_NODE</span> _
       <span class="keywordsign">|</span> <span class="constructor">PAR_NODE</span> _ <span class="keywordsign">-&gt;</span> doc_settings.left_margin
       <span class="keywordsign">|</span> <span class="constructor">ITM_NODE</span> _ <span class="keywordsign">-&gt;</span> indent_of_path doc_settings tl + doc_settings.tab_length
       <span class="keywordsign">|</span> <span class="constructor">BLT_NODE</span> <span class="keywordsign">-&gt;</span> indent_of_path doc_settings tl + doc_settings.tab_length
       <span class="keywordsign">|</span> <span class="constructor">DSP_NODE</span> <span class="keywordsign">-&gt;</span> indent_of_path doc_settings tl + doc_settings.tab_length
       <span class="keywordsign">|</span> <span class="constructor">NTE_NODE</span> _ <span class="keywordsign">-&gt;</span> indent_of_path doc_settings tl + doc_settings.tab_length
-      <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> indent_of_path doc_settings tl)</code></body></html>
+      <span class="keywordsign">|</span> <span class="constructor">DSP_LINE_NODE</span> _ <span class="keywordsign">-&gt;</span> indent_of_path doc_settings tl</code></body></html>
