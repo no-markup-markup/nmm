@@ -54,6 +54,7 @@
 &nbsp;&nbsp;left_margin&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;title_indent&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;author_indent&nbsp;:&nbsp;int;<br>
+&nbsp;&nbsp;date_indent&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;abstract_indent&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;refs_indent&nbsp;:&nbsp;int;<br>
 &nbsp;&nbsp;tab_length&nbsp;:&nbsp;int;<br>
@@ -260,6 +261,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_indent&nbsp;=&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;6;<br>
@@ -308,27 +310,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;new_n&nbsp;=&nbsp;<span class="keyword">if</span>&nbsp;l&nbsp;=&nbsp;lvl&nbsp;<span class="keyword">then</span>&nbsp;n&nbsp;+&nbsp;1&nbsp;<span class="keyword">else</span>&nbsp;n&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_settings.auto_numbering&nbsp;(l&nbsp;-&nbsp;lvl&nbsp;+&nbsp;inc)&nbsp;new_n<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;new_auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;auto_numbering&nbsp;=&nbsp;new_auto_numbering&nbsp;}<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;aux&nbsp;tl)<br>
@@ -381,32 +363,15 @@
 <span class="keyword">let</span>&nbsp;set_doc_width&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;doc_width&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"WARNING:&nbsp;invalid&nbsp;doc_width&nbsp;value:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"WARNING:&nbsp;invalid&nbsp;doc-width&nbsp;value:&nbsp;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"\n"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"using&nbsp;default&nbsp;value."</span>;<br>
@@ -417,26 +382,9 @@
 <span class="keyword">let</span>&nbsp;set_left_margin&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;left_margin&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -453,26 +401,9 @@
 <span class="keyword">let</span>&nbsp;set_title_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;title_indent&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -489,26 +420,9 @@
 <span class="keyword">let</span>&nbsp;set_author_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;author_indent&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -525,26 +439,9 @@
 <span class="keyword">let</span>&nbsp;set_abstract_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;abstract_indent&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -561,26 +458,9 @@
 <span class="keyword">let</span>&nbsp;set_refs_indent&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;refs_indent&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -597,26 +477,9 @@
 <span class="keyword">let</span>&nbsp;set_tab_length&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;int_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;value&nbsp;=&nbsp;int_of_string&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;value&nbsp;&gt;&nbsp;-1&nbsp;<span class="keyword">then</span>&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;tab_length&nbsp;=&nbsp;value&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;raise&nbsp;(<span class="constructor">Invalid_argument</span>&nbsp;v)<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -632,164 +495,31 @@
 <br>
 <span class="keyword">let</span>&nbsp;set_abstract_hdr&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;prefix_value_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;abstract_hdr&nbsp;=&nbsp;prefix_value_of_string&nbsp;v&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_refs_hdr&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings&nbsp;=<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;prefix_value_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;prefix_value_of_string&nbsp;v&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_endnotes_hdr&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;endnotes_hdr_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;endnotes_hdr&nbsp;=&nbsp;endnotes_hdr_of_string&nbsp;v&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_ch_prefix&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;prefix_value_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;ch_prefix&nbsp;=&nbsp;prefix_value_of_string&nbsp;v&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_sec_prefix&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;prefix_value_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;sec_prefix&nbsp;=&nbsp;prefix_value_of_string&nbsp;v&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_par_prefix&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
-&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;prefix_value_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;par_prefix&nbsp;=&nbsp;prefix_value_of_string&nbsp;v&nbsp;}<br>
 <br>
 <span class="keyword">let</span>&nbsp;set_expand_tag&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:&nbsp;t_doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;tag_value_of_string&nbsp;doc_settings.expand_tag&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;expand_tag&nbsp;=&nbsp;tag_value_of_string&nbsp;doc_settings.expand_tag&nbsp;v&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -801,26 +531,7 @@
 <span class="keyword">let</span>&nbsp;set_nte_numbering&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;nte_numbering_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;nte_numbering&nbsp;=&nbsp;nte_numbering_of_string&nbsp;v&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -832,26 +543,7 @@
 <span class="keyword">let</span>&nbsp;set_auto_numbering&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering_of_string&nbsp;v&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>
@@ -864,26 +556,7 @@
 <span class="keyword">let</span>&nbsp;set_allow_custom_numbering&nbsp;(v&nbsp;:&nbsp;string)&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_doc_settings&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_settings.doc_width;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;doc_settings.left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;bool_of_string&nbsp;v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span>&nbsp;allow_custom_numbering&nbsp;=&nbsp;bool_of_string&nbsp;v&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning<br>

@@ -185,58 +185,33 @@ doc:
                                                     } : tr_doc 
                                                   }
   | doc_preamble nls doc                          {
-                                                    {
-                                                      fld_doc_preamble = Some $1;
-                                                      fld_doc_title = $3.fld_doc_title;
-                                                      fld_doc_authors = $3.fld_doc_authors;
-                                                      fld_doc_date = $3.fld_doc_date;
-                                                      fld_doc_abstract = $3.fld_doc_abstract;
-                                                      fld_doc_main = $3.fld_doc_main;
-                                                      fld_doc_refs = $3.fld_doc_refs; 
+                                                    { 
+                                                      $3 with
+                                                      fld_doc_preamble = Some $1
                                                     } : tr_doc 
                                                   }
   | doc_title nls doc                             { 
                                                     {
-                                                      fld_doc_preamble = $3.fld_doc_preamble;
-                                                      fld_doc_title = Some $1;
-                                                      fld_doc_authors = $3.fld_doc_authors;
-                                                      fld_doc_date = $3.fld_doc_date;
-                                                      fld_doc_abstract = $3.fld_doc_abstract;
-                                                      fld_doc_main = $3.fld_doc_main;
-                                                      fld_doc_refs = $3.fld_doc_refs;
+                                                      $3 with
+                                                      fld_doc_title = Some $1
                                                     } : tr_doc 
                                                    }
   | doc_author nls doc                            {
                                                     {
-                                                      fld_doc_preamble = $3.fld_doc_preamble;
-                                                      fld_doc_title = $3.fld_doc_title;
+                                                      $3 with
                                                       fld_doc_authors = add_author $3.fld_doc_authors $1;
-                                                      fld_doc_date = $3.fld_doc_date;
-                                                      fld_doc_abstract = $3.fld_doc_abstract;
-                                                      fld_doc_main = $3.fld_doc_main;
-                                                      fld_doc_refs = $3.fld_doc_refs;
                                                     } : tr_doc 
                                                    }
   | doc_date nls doc                              {
                                                     {
-                                                      fld_doc_preamble = $3.fld_doc_preamble;
-                                                      fld_doc_title = $3.fld_doc_title;
-                                                      fld_doc_authors = $3.fld_doc_authors;
+                                                      $3 with
                                                       fld_doc_date = Some $1;
-                                                      fld_doc_abstract = $3.fld_doc_abstract;
-                                                      fld_doc_main = $3.fld_doc_main;
-                                                      fld_doc_refs = $3.fld_doc_refs;
                                                     } : tr_doc 
                                                   }
   | doc_abstract nls doc                          {
                                                     {
-                                                      fld_doc_preamble = $3.fld_doc_preamble;
-                                                      fld_doc_title = $3.fld_doc_title;
-                                                      fld_doc_authors = $3.fld_doc_authors;
-                                                      fld_doc_date = $3.fld_doc_date;
+                                                      $3 with 
                                                       fld_doc_abstract = Some $1;
-                                                      fld_doc_main = $3.fld_doc_main;
-                                                      fld_doc_refs = $3.fld_doc_refs;
                                                     } : tr_doc 
                                                   }
   | doc_main doc_refs                             {

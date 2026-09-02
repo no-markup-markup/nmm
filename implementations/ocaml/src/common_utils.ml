@@ -27,6 +27,7 @@ type t_doc_settings = {
   left_margin : int;
   title_indent : int;
   author_indent : int;
+  date_indent : int;
   abstract_indent : int;
   refs_indent : int;
   tab_length : int;
@@ -233,6 +234,7 @@ let doc_settings_default () : t_doc_settings =
     left_margin = 0;
     title_indent = 0;
     author_indent = 0;
+    date_indent = 0;
     abstract_indent = 0;
     refs_indent = 0;
     tab_length = 6;
@@ -281,27 +283,7 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int)
                         let new_n = if l = lvl then n + 1 else n in
                         doc_settings.auto_numbering (l - lvl + inc) new_n
                       in
-                      {
-                        doc_width = doc_settings.doc_width;
-                        left_margin = doc_settings.left_margin;
-                        title_indent = doc_settings.title_indent;
-                        author_indent = doc_settings.author_indent;
-                        abstract_indent = doc_settings.abstract_indent;
-                        refs_indent = doc_settings.refs_indent;
-                        tab_length = doc_settings.tab_length;
-                        abstract_hdr = doc_settings.abstract_hdr;
-                        refs_hdr = doc_settings.refs_hdr;
-                        endnotes_hdr = doc_settings.endnotes_hdr;
-                        ch_prefix = doc_settings.ch_prefix;
-                        sec_prefix = doc_settings.sec_prefix;
-                        app_prefix = doc_settings.app_prefix;
-                        par_prefix = doc_settings.par_prefix;
-                        expand_tag = doc_settings.expand_tag;
-                        auto_numbering = new_auto_numbering;
-                        allow_custom_numbering =
-                          doc_settings.allow_custom_numbering;
-                        nte_numbering = doc_settings.nte_numbering;
-                      }
+                      { doc_settings with auto_numbering = new_auto_numbering }
                   | _ -> doc_settings)
               | _ -> doc_settings)
           | _ -> aux tl)
@@ -354,32 +336,15 @@ let nte_numbering_of_string (v : string) : int -> string =
 let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings
     =
   try
-    {
-      doc_width = int_of_string v;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with doc_width = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [
-             "WARNING: invalid doc_width value: ";
+             "WARNING: invalid doc-width value: ";
              v;
              "\n";
              "using default value.";
@@ -390,26 +355,9 @@ let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 let set_left_margin (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = int_of_string v;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with left_margin = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -426,26 +374,9 @@ let set_left_margin (v : string) (doc_settings : t_doc_settings) :
 let set_title_indent (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = int_of_string v;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with title_indent = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -462,26 +393,9 @@ let set_title_indent (v : string) (doc_settings : t_doc_settings) :
 let set_author_indent (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = int_of_string v;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with author_indent = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -498,26 +412,9 @@ let set_author_indent (v : string) (doc_settings : t_doc_settings) :
 let set_abstract_indent (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = int_of_string v;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with abstract_indent = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -534,26 +431,9 @@ let set_abstract_indent (v : string) (doc_settings : t_doc_settings) :
 let set_refs_indent (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = int_of_string v;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with refs_indent = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -570,26 +450,9 @@ let set_refs_indent (v : string) (doc_settings : t_doc_settings) :
 let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
     =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = int_of_string v;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with tab_length = value }
+    else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -605,164 +468,31 @@ let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 
 let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
-  {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = prefix_value_of_string v;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
-  }
+  { doc_settings with abstract_hdr = prefix_value_of_string v }
 
 let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-  {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = prefix_value_of_string v;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
-  }
+  { doc_settings with     refs_hdr = prefix_value_of_string v }
 
 let set_endnotes_hdr (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
-  {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = endnotes_hdr_of_string v;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
-  }
+  { doc_settings with endnotes_hdr = endnotes_hdr_of_string v }
 
 let set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
     =
-  {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = prefix_value_of_string v;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
-  }
+  { doc_settings with ch_prefix = prefix_value_of_string v }
 
 let set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
     =
-  {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = prefix_value_of_string v;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
-  }
+  { doc_settings with sec_prefix = prefix_value_of_string v }
 
 let set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
     =
-  {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = prefix_value_of_string v;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
-  }
+  { doc_settings with par_prefix = prefix_value_of_string v }
 
 let set_expand_tag (v : string) (doc_settings : t_doc_settings) : t_doc_settings
     =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = tag_value_of_string doc_settings.expand_tag v;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    { doc_settings with expand_tag = tag_value_of_string doc_settings.expand_tag v }
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -774,26 +504,7 @@ let set_expand_tag (v : string) (doc_settings : t_doc_settings) : t_doc_settings
 let set_nte_numbering (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = nte_numbering_of_string v;
-    }
+    { doc_settings with nte_numbering = nte_numbering_of_string v }
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -805,26 +516,7 @@ let set_nte_numbering (v : string) (doc_settings : t_doc_settings) :
 let set_auto_numbering (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = auto_numbering_of_string v;
-      allow_custom_numbering = doc_settings.allow_custom_numbering;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    { doc_settings with auto_numbering = auto_numbering_of_string v }
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -837,26 +529,7 @@ let set_auto_numbering (v : string) (doc_settings : t_doc_settings) :
 let set_allow_custom_numbering (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
-    {
-      doc_width = doc_settings.doc_width;
-      left_margin = doc_settings.left_margin;
-      title_indent = doc_settings.title_indent;
-      author_indent = doc_settings.author_indent;
-      abstract_indent = doc_settings.abstract_indent;
-      refs_indent = doc_settings.refs_indent;
-      tab_length = doc_settings.tab_length;
-      abstract_hdr = doc_settings.abstract_hdr;
-      refs_hdr = doc_settings.refs_hdr;
-      endnotes_hdr = doc_settings.endnotes_hdr;
-      ch_prefix = doc_settings.ch_prefix;
-      sec_prefix = doc_settings.sec_prefix;
-      app_prefix = doc_settings.app_prefix;
-      par_prefix = doc_settings.par_prefix;
-      expand_tag = doc_settings.expand_tag;
-      auto_numbering = doc_settings.auto_numbering;
-      allow_custom_numbering = bool_of_string v;
-      nte_numbering = doc_settings.nte_numbering;
-    }
+    { doc_settings with allow_custom_numbering = bool_of_string v }
   with _ ->
     let _ : unit =
       IO.print_warning

@@ -41,6 +41,6 @@
           underline_symbol
       <span class="keyword">in</span>
       <span class="keyword">let</span> hdr_lines : string list =
-        lines_of_string doc_settings doc_settings.refs_indent hdr
+        lines_of_string doc_settings.doc_width doc_settings.refs_indent hdr
       <span class="keyword">in</span>
       <span class="constructor">List</span>.concat [ hdr_lines; [ indent ^ underline; <span class="string">""</span> ] ]</code></body></html>

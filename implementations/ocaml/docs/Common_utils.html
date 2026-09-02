@@ -125,6 +125,13 @@
 <td align="left" valign="top" >
 <code>&nbsp;&nbsp;</code></td>
 <td align="left" valign="top" >
+<code><span id="TYPEELTt_doc_settings.date_indent">date_indent</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
 <code><span id="TYPEELTt_doc_settings.abstract_indent">abstract_indent</span>&nbsp;: <code class="type">int</code>;</code></td>
 
 </tr>
@@ -229,23 +236,22 @@
 <pre><span id="VALdoc_settings_of_tr_doc"><span class="keyword">val</span> <a href="code_VALCommon_utils.doc_settings_of_tr_doc.html">doc_settings_of_tr_doc</a></span> : <code class="type"><a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a> -&gt;<br>       <a href="Doc_types.html#TYPEtr_doc">Doc_types.tr_doc</a> -&gt; <a href="Common_utils.html#TYPEt_doc_settings">t_doc_settings</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">doc_settings_of_tr_doc&nbsp;doc</code> checks if <code class="code">doc</code> has a preamble. If so, it
-    attempts to parse that preamble and adjusts <code class="code">doc_settings_default</code>
-    accordingly (possibly overriding the default settings).</p>
+    attempts to parse that preamble and return updated document settings.</p>
 
-<p>Prints a warning to <code class="code">stderr</code> if parsing fails, and keeps the default value.</p>
+<p>Prints a warning to <code class="code">stderr</code> if parsing fails, and keeps the default setting.</p>
 
 <p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case
     <code class="code">preamble</code> has the following format:</p>
 
 <pre class="verbatim">    PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
 
-    KEY_VALUE ::= | 'doc-width=' INT
-                  | 'left-margin=' INT
-                  | 'title-indent=' INT
-                  | 'author-indent=' INT
-                  | 'abstract-indent=' INT
-                  | 'refs-indent=' INT
-                  | 'tab-length=' INT
+    KEY_VALUE ::= | 'doc-width=' NAT
+                  | 'left-margin=' NAT
+                  | 'title-indent=' NAT
+                  | 'author-indent=' NAT
+                  | 'abstract-indent=' NAT
+                  | 'refs-indent=' NAT
+                  | 'tab-length=' NAT
                   | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
                   | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
                   | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
@@ -253,6 +259,8 @@
                   | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
                   | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
                   | 'notes=' STRING [',' STRING]*
+                  | 'numbering=' { '1ai' | '1ia' | 'a1i' | 'ai1' | 'i1a' | 'ia1' }
+                  | 'allow-custom-numbering=' { 'true' | 'false' }
 
     LABEL_FORM ::= STRING
 
@@ -260,7 +268,7 @@
 
     STRING ::= [! ';' ',']*
 
-    INT ::= ['0'-'9']+
+    NAT ::= ['0'-'9']+
    </pre></div>
 </div>
 <h3 id="2_Crossreferences">Cross-references</h3>

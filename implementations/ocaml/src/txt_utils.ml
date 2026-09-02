@@ -151,12 +151,12 @@ let line_break (line_width : int) (s : string) : string list =
   in
   List.rev (aux graphemes None None [])
 
-let lines_of_string (doc_settings : t_doc_settings) (indent : int) (s : string)
+let lines_of_string (doc_width : int) (indent : int) (s : string)
     : string list =
   match s with
   | "" -> [ "" ]
   | _ ->
-      let line_width : int = doc_settings.doc_width - indent in
+      let line_width : int = doc_width - indent in
       let lines : string list = line_break line_width s in
       let ind : string = String.make indent ' ' in
       let add_ind (t : string) : string = ind ^ t in
@@ -182,7 +182,7 @@ let lines_of_ts_title (doc_settings : t_doc_settings) (title : ts_title) :
       List.concat
         [
           [ indent ^ overline ];
-          lines_of_string doc_settings doc_settings.title_indent s;
+          lines_of_string doc_settings.doc_width doc_settings.title_indent s;
           [ indent ^ underline; "" ];
         ]
 
@@ -199,7 +199,7 @@ let lines_of_ts_author (doc_settings : t_doc_settings) (author : ts_author) :
   match author with
   | Cs_author (s : string) ->
       List.concat
-        [ lines_of_string doc_settings doc_settings.author_indent s; [ "" ] ]
+        [ lines_of_string doc_settings.doc_width doc_settings.author_indent s; [ "" ] ]
 
 let lines_of_ts_authors (doc_settings : t_doc_settings) (authors : ts_authors) :
     string list =
@@ -221,7 +221,7 @@ let lines_of_ts_date_custom (doc_settings : t_doc_settings)
   match date with
   | Cs_date_custom (s : string) ->
       List.concat
-        [ lines_of_string doc_settings doc_settings.author_indent s; [ "" ] ]
+        [ lines_of_string doc_settings.doc_width doc_settings.date_indent s; [ "" ] ]
 
 let lines_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto)
     : string list =
@@ -241,7 +241,7 @@ let lines_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto)
           [ date_string; time_string; utc_timezone time.timezone ]
       in
       List.concat
-        [ lines_of_string doc_settings doc_settings.author_indent s; [ "" ] ]
+        [ lines_of_string doc_settings.doc_width doc_settings.author_indent s; [ "" ] ]
 
 let lines_of_tu_date (doc_settings : t_doc_settings) (date : tu_date) :
     string list =
@@ -294,11 +294,11 @@ let lines_of_ts_txt_units (doc_settings : t_doc_settings)
     (a : ts_txt_units) : string list =
   let lines_of_string_function : int -> string -> string list =
     match path with
-    | [] -> lines_of_string doc_settings
+    | [] -> lines_of_string doc_settings.doc_width
     | hd :: tl -> (
         match hd with
         | DSP_LINE_NODE _ -> lines_of_string_dsp
-        | _ -> lines_of_string doc_settings)
+        | _ -> lines_of_string doc_settings.doc_width)
   in
   lines_of_string_function
     (indent_of_path doc_settings path)
@@ -317,7 +317,7 @@ let lines_of_abstract_hdr (doc_settings : t_doc_settings)
   match doc_settings.abstract_hdr with
   | None -> []
   | Some (hdr, _) ->
-      lines_of_string doc_settings doc_settings.abstract_indent hdr
+      lines_of_string doc_settings.doc_width doc_settings.abstract_indent hdr
 
 (* hdr *)
 
@@ -333,7 +333,7 @@ let lines_of_ts_hdr (doc_settings : t_doc_settings) (cref_table : t_cref_table)
               txt_lines
           in
           let hdr_lines : string list =
-            lines_of_string doc_settings doc_settings.left_margin hdr_string
+            lines_of_string doc_settings.doc_width doc_settings.left_margin hdr_string
           in
           match path_hd with
           | SEC_NODE _ | APP_NODE _ -> (
@@ -531,7 +531,7 @@ let lines_of_refs_hdr (doc_settings : t_doc_settings) (doc_class : t_doc_class)
           underline_symbol
       in
       let hdr_lines : string list =
-        lines_of_string doc_settings doc_settings.refs_indent hdr
+        lines_of_string doc_settings.doc_width doc_settings.refs_indent hdr
       in
       List.concat [ hdr_lines; [ indent ^ underline; "" ] ]
 
@@ -542,7 +542,7 @@ let lines_of_endnotes_hdr (doc_settings : t_doc_settings) (path : t_path) :
   match doc_settings.endnotes_hdr with
   | None -> []
   | Some hdr ->
-      lines_of_string doc_settings (indent_of_path doc_settings path) hdr
+      lines_of_string doc_settings.doc_width (indent_of_path doc_settings path) hdr
 
 (* blk_txt *)
 
@@ -618,7 +618,7 @@ let lines_of_tu_qtn_line_list (doc_settings : t_doc_settings) (path : t_path)
   let indent : int =
     (doc_settings.tab_length * lvl) + doc_settings.left_margin
   in
-  List.concat (List.map (lines_of_string doc_settings indent) string_list)
+  List.concat (List.map (lines_of_string doc_settings.doc_width indent) string_list)
 
 let lines_of_ts_qtn_lines (doc_settings : t_doc_settings) (path : t_path)
     (qtn_lines : ts_qtn_lines) : string list =
@@ -678,25 +678,14 @@ let doc_settings_of_margin_labels (doc_settings : t_doc_settings)
   let doc_width_auto : int =
     if 68 + left_margin_auto > 80 then 80 else 68 + left_margin_auto
   in
-  {
+  { doc_settings with
     doc_width = doc_width_auto;
     left_margin = left_margin_auto;
     title_indent = left_margin_auto;
     author_indent = left_margin_auto;
+    date_indent = left_margin_auto;
     abstract_indent = left_margin_auto;
     refs_indent = left_margin_auto;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
-    expand_tag = doc_settings.expand_tag;
-    auto_numbering = doc_settings.auto_numbering;
-    allow_custom_numbering = doc_settings.allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
   }
 
 
@@ -733,23 +722,12 @@ let doc_settings_of_txt_options (doc_settings : t_doc_settings)
     match options.indent with None -> doc_settings.tab_length | Some n -> n
   in
   {
+    doc_settings with
     doc_width = doc_width;
     left_margin = left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
     tab_length = tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
     expand_tag = expand_tag;
     auto_numbering = auto_numbering;
     allow_custom_numbering = allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
   }
 

@@ -34,7 +34,7 @@ reads from standard input.
 TXT-OPTIONS:
   --margin <non-negative-integer>
   --indent <non-negative-integer>
-  --width <positive-integer>
+  --width <non-negative-integer>
   --quiet
   --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
   --allow-custom-numbering

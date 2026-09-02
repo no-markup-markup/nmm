@@ -498,24 +498,10 @@ let doc_settings_of_exml_options (doc_settings : t_doc_settings)
     | Some path -> Tags.expander_of_file path
   in
   {
-    doc_width = doc_settings.doc_width;
-    left_margin = doc_settings.left_margin;
-    title_indent = doc_settings.title_indent;
-    author_indent = doc_settings.author_indent;
-    abstract_indent = doc_settings.abstract_indent;
-    refs_indent = doc_settings.refs_indent;
-    tab_length = doc_settings.tab_length;
-    abstract_hdr = doc_settings.abstract_hdr;
-    refs_hdr = doc_settings.refs_hdr;
-    endnotes_hdr = doc_settings.endnotes_hdr;
-    ch_prefix = doc_settings.ch_prefix;
-    sec_prefix = doc_settings.sec_prefix;
-    app_prefix = doc_settings.app_prefix;
-    par_prefix = doc_settings.par_prefix;
+    doc_settings with
     expand_tag = expand_tag;
     auto_numbering = auto_numbering;
     allow_custom_numbering = allow_custom_numbering;
-    nte_numbering = doc_settings.nte_numbering;
   }
 
 

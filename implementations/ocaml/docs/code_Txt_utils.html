@@ -178,12 +178,12 @@
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="constructor">List</span>.rev&nbsp;(aux&nbsp;graphemes&nbsp;<span class="constructor">None</span>&nbsp;<span class="constructor">None</span>&nbsp;[])<br>
 <br>
-<span class="keyword">let</span>&nbsp;lines_of_string&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(indent&nbsp;:&nbsp;int)&nbsp;(s&nbsp;:&nbsp;string)<br>
+<span class="keyword">let</span>&nbsp;lines_of_string&nbsp;(doc_width&nbsp;:&nbsp;int)&nbsp;(indent&nbsp;:&nbsp;int)&nbsp;(s&nbsp;:&nbsp;string)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;s&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;line_width&nbsp;:&nbsp;int&nbsp;=&nbsp;doc_settings.doc_width&nbsp;-&nbsp;indent&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;line_width&nbsp;:&nbsp;int&nbsp;=&nbsp;doc_width&nbsp;-&nbsp;indent&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;line_break&nbsp;line_width&nbsp;s&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ind&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">String</span>.make&nbsp;indent&nbsp;<span class="string">'&nbsp;'</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;add_ind&nbsp;(t&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=&nbsp;ind&nbsp;^&nbsp;t&nbsp;<span class="keyword">in</span><br>
@@ -209,7 +209,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;indent&nbsp;^&nbsp;overline&nbsp;];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.title_indent&nbsp;s;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.title_indent&nbsp;s;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;indent&nbsp;^&nbsp;underline;&nbsp;<span class="string">""</span>&nbsp;];<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
 <br>
@@ -226,7 +226,7 @@
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_author</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_authors&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(authors&nbsp;:&nbsp;ts_authors)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;list&nbsp;=<br>
@@ -248,7 +248,7 @@
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;date&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_date_custom</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.date_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_date_auto&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;ts_date_auto)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
@@ -268,7 +268,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;date_string;&nbsp;time_string;&nbsp;utc_timezone&nbsp;time.timezone&nbsp;]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.author_indent&nbsp;s;&nbsp;[&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_tu_date&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(date&nbsp;:&nbsp;tu_date)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;list&nbsp;=<br>
@@ -321,11 +321,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;(a&nbsp;:&nbsp;ts_txt_units)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines_of_string_function&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings.doc_width<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DSP_LINE_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string_dsp<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;lines_of_string&nbsp;doc_settings.doc_width)<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;lines_of_string_function<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(indent_of_path&nbsp;doc_settings&nbsp;path)<br>
@@ -344,7 +344,7 @@
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.abstract_hdr&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(hdr,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.abstract_indent&nbsp;hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.abstract_indent&nbsp;hdr<br>
 <br>
 <span class="comment">(*&nbsp;hdr&nbsp;*)</span><br>
 <br>
@@ -360,7 +360,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt_lines<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hdr_lines&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.left_margin&nbsp;hdr_string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.left_margin&nbsp;hdr_string<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_hd&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SEC_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">APP_NODE</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
@@ -558,7 +558,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;underline_symbol<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;hdr_lines&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;doc_settings.refs_indent&nbsp;hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;doc_settings.refs_indent&nbsp;hdr<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[&nbsp;hdr_lines;&nbsp;[&nbsp;indent&nbsp;^&nbsp;underline;&nbsp;<span class="string">""</span>&nbsp;]&nbsp;]<br>
 <br>
@@ -569,7 +569,7 @@
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc_settings.endnotes_hdr&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;hdr&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings&nbsp;(indent_of_path&nbsp;doc_settings&nbsp;path)&nbsp;hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines_of_string&nbsp;doc_settings.doc_width&nbsp;(indent_of_path&nbsp;doc_settings&nbsp;path)&nbsp;hdr<br>
 <br>
 <span class="comment">(*&nbsp;blk_txt&nbsp;*)</span><br>
 <br>
@@ -645,7 +645,7 @@
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;indent&nbsp;:&nbsp;int&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(doc_settings.tab_length&nbsp;*&nbsp;lvl)&nbsp;+&nbsp;doc_settings.left_margin<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;(<span class="constructor">List</span>.map&nbsp;(lines_of_string&nbsp;doc_settings&nbsp;indent)&nbsp;string_list)<br>
+&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;(<span class="constructor">List</span>.map&nbsp;(lines_of_string&nbsp;doc_settings.doc_width&nbsp;indent)&nbsp;string_list)<br>
 <br>
 <span class="keyword">let</span>&nbsp;lines_of_ts_qtn_lines&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(path&nbsp;:&nbsp;t_path)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(qtn_lines&nbsp;:&nbsp;ts_qtn_lines)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
@@ -705,25 +705,14 @@
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_width_auto&nbsp;:&nbsp;int&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;68&nbsp;+&nbsp;left_margin_auto&nbsp;&gt;&nbsp;80&nbsp;<span class="keyword">then</span>&nbsp;80&nbsp;<span class="keyword">else</span>&nbsp;68&nbsp;+&nbsp;left_margin_auto<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;{&nbsp;doc_settings&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_width_auto;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;left_margin_auto;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;left_margin_auto;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;left_margin_auto;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_indent&nbsp;=&nbsp;left_margin_auto;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;left_margin_auto;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;left_margin_auto;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;doc_settings.tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;doc_settings.expand_tag;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;doc_settings.auto_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;doc_settings.allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
 &nbsp;&nbsp;}<br>
 <br>
 <br>
@@ -760,24 +749,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.indent&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;doc_settings.tab_length&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;n<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_settings&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;=&nbsp;doc_width;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;=&nbsp;left_margin;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;=&nbsp;doc_settings.title_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;=&nbsp;doc_settings.author_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;=&nbsp;doc_settings.abstract_indent;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;=&nbsp;doc_settings.refs_indent;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;=&nbsp;tab_length;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;=&nbsp;doc_settings.abstract_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;=&nbsp;doc_settings.refs_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;=&nbsp;doc_settings.endnotes_hdr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;=&nbsp;doc_settings.ch_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;=&nbsp;doc_settings.sec_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;=&nbsp;doc_settings.app_prefix;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;=&nbsp;doc_settings.par_prefix;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;=&nbsp;expand_tag;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;=&nbsp;auto_numbering;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;=&nbsp;allow_custom_numbering;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;=&nbsp;doc_settings.nte_numbering;<br>
 &nbsp;&nbsp;}<br>
 <br>
 </code></body></html>
