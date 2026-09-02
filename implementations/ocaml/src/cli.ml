@@ -5,6 +5,7 @@ exception Error of string
 let usage : string =
   "nmm-ocaml v" ^ Main.version ()
   ^ "
+
 USAGE:
 nmm-ocaml [
   | txt-of-nmm   [ <txt-options>  ] { <path-to-nmm-file>  | - }
@@ -69,13 +70,13 @@ let anon_arg_count : int ref = ref 0
 let margin : int option ref = ref None
 let indent : int option ref = ref None
 let width : int option ref = ref None
-let lang : string ref = ref "en"
+let lang : string option ref = ref None
 let internal_css : string list ref = ref []
 let external_css : string list ref = ref []
 let read_from_stdin : bool ref = ref false
 let quiet : bool ref = ref false
-let numbering : string ref = ref "a1i"
-let allow_custom_numbering : bool ref = ref false
+let numbering : string option ref = ref None
+let allow_custom_numbering : bool option ref = ref None
 let tags : string option ref = ref None
 let keyspecdoc_list : t_keyspecdoc list ref = ref []
 
@@ -95,7 +96,11 @@ let set_width (s : string) : unit =
   with _ -> raise (Error ("invalid --width argument: " ^ s))
 
 let keyspecdoc_width : t_keyspecdoc = ("--width", Arg.String set_width, "")
-let keyspecdoc_lang : t_keyspecdoc = ("--lang", Arg.Set_string lang, "")
+
+let set_lang (s : string) : unit =
+  lang.contents <- Some s
+
+let keyspecdoc_lang : t_keyspecdoc = ("--lang", Arg.String set_lang, "")
 
 let add_internal_css (s : string) : unit =
   internal_css.contents <- s :: internal_css.contents
@@ -112,11 +117,17 @@ let keyspecdoc_external_css : t_keyspecdoc =
 let keyspecdoc_stdin : t_keyspecdoc = ("-", Arg.Set read_from_stdin, "")
 let keyspecdoc_quiet : t_keyspecdoc = ("--quiet", Arg.Set quiet, "")
 
+let set_numbering (s : string) : unit =
+  numbering.contents <- Some s
+
 let keyspecdoc_numbering : t_keyspecdoc =
-  ("--numbering", Arg.Set_string numbering, "")
+  ("--numbering", Arg.String set_numbering, "")
+
+let set_allow_custom_numbering () : unit =
+  allow_custom_numbering.contents <- (Some true)
 
 let keyspecdoc_allow_custom_numbering : t_keyspecdoc =
-  ("--allow-custom-numbering", Arg.Set allow_custom_numbering, "")
+  ("--allow-custom-numbering", Arg.Unit set_allow_custom_numbering, "")
 
 let add_tags (s : string) : unit = tags.contents <- Some s
 let keyspecdoc_tags : t_keyspecdoc = ("--tags", Arg.String add_tags, "")

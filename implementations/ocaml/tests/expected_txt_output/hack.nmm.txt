@@ -5,3 +5,5 @@
       ─     Some bullet
 
 (c)   DFE Some typo
+
+(d)   Another typo

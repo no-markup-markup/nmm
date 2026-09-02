@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cs_preamble>title-indent=0;author-indent=0;abstract-indent=0;refs-indent=0;left-margin=10</cs_preamble>
+<cs_title>Some title</cs_title>
+<cs_authors>
+<cs_author>Eric Johannesson</cs_author>
+</cs_authors>
+<cs_abstract>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some abstract</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_abstract>
+<cu_doc_main_secs>
+<cs_secs>
+<cr_sec>
+<cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Section header</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_hdr>
+<cu_pars_or_blks_pars>
+<cs_pars>
+<cu_par_std>
+<cr_par_std>
+<cs_hdr>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Paragraph header</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_hdr>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some text</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cr_par_std>
+</cu_par_std>
+</cs_pars>
+</cu_pars_or_blks_pars>
+</cr_sec>
+</cs_secs>
+</cu_doc_main_secs>
+<cs_refs>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some references</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_refs>
+</cr_doc>

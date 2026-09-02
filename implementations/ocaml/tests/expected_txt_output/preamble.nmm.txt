@@ -1,0 +1,23 @@
+═══════════════════════════════════════════════════════════════════════════
+Some title
+═══════════════════════════════════════════════════════════════════════════
+
+Eric Johannesson
+
+
+ABSTRACT
+Some abstract
+
+
+
+§ 1       Section header
+          ──────────────
+
+¶ 1.1     Paragraph header  Some text
+
+
+
+REFERENCES
+──────────
+
+Some references

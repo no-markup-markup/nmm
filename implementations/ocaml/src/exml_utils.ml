@@ -482,8 +482,16 @@ let rec normalize_exml (xml : Xml.xml) : Xml.xml =
 
 let doc_settings_of_exml_options (doc_settings : t_doc_settings)
     (options : t_exml_options) : t_doc_settings =
-  let auto_numbering = auto_numbering_of_string options.numbering in
-  let allow_custom_numbering : bool = options.allow_custom_numbering in
+  let auto_numbering : int -> int -> string =
+    match options.numbering with
+    | None -> doc_settings.auto_numbering
+    | Some s -> auto_numbering_of_string s
+  in
+  let allow_custom_numbering : bool =
+    match options.allow_custom_numbering with
+    | None -> doc_settings.allow_custom_numbering
+    | Some value -> value
+  in
   let expand_tag : ts_tag -> (string * string) option =
     match options.tags with
     | None -> doc_settings.expand_tag

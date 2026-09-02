@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>untitled</title>
-
+<title>Some title</title>
+<meta name="author" content="Eric Johannesson">
 <style>
 
 /*========================= default css ===========================*/
@@ -48,11 +48,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.secs .title {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.chs .title {
@@ -75,22 +75,22 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.secs .authors {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 /************ DATE ******************/
 
 
 .doc.pars .date {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.secs .date {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 /************ ABSTRACT ******************/
@@ -104,11 +104,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .abstract_hdr {
@@ -125,11 +125,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.secs .refs {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .doc.chs .refs {
@@ -196,7 +196,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
     font-size   : 150%;
     line-height : 130%;
 }
@@ -233,7 +233,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 
@@ -260,7 +260,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .blk.txt {
@@ -316,7 +316,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : 1.20rem;
+    margin-left : 4.20rem;
 }
 
 .blk_nte_lbl {
@@ -395,50 +395,35 @@ h2, h3, h4, h5 {
 
 </head>
 <body>
-<main class="doc blks">
+<main class="doc secs">
+<h1 class="title">Some title</h1>
+<div class="authors">
+<p class="author">Eric Johannesson</p>
+</div>
+<section class="abstract">
+<h2 class="abstract_hdr">ABSTRACT</h2>
+<p class="blk txt">Some abstract</p>
+</section>
 <div class="doc_main">
-<div class="DEF blk itm">
-<div class="blk_itm_lbl">(a)</div>
+<section class="sec pars">
+<div class="sec_lbl">§ 1</div>
+<h2 class="sec_hdr">Section header</h2>
+<div class="sec_main">
+<section class="par">
+<div class="par_lbl">¶ 1.1</div>
 <div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">Some definition</p>
+<div class="par_main">
+<h3 class="par_hdr">Paragraph header</h3>
+<p class="blk txt">Some text</p>
 </div>
+</section>
 </div>
-<div class="DEF blk itm">
-<div class="blk_itm_lbl">(b)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<div class="blk itm">
-<div class="blk_itm_lbl">(1)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">Some item</p>
+</section>
 </div>
-</div>
-<div class="blk blt">
-<div class="blk_blt_lbl">─</div>
-<div class="clear"></div>
-<div class="blk_blt_main">
-<p class="blk txt">Some bullet</p>
-</div>
-</div>
-</div>
-</div>
-<div class="blk itm">
-<div class="blk_itm_lbl">(c)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">DFE Some typo</p>
-</div>
-</div>
-<div class="DFE blk itm" id="DFE_name">
-<div class="blk_itm_lbl">(d)</div>
-<div class="clear"></div>
-<div class="blk_itm_main">
-<p class="blk txt">Another typo</p>
-</div>
-</div>
-</div>
+<section class="refs">
+<h2 class="refs_hdr">REFERENCES</h2>
+<p class="blk txt">Some references</p>
+</section>
 </main>
 </body>
 </html>

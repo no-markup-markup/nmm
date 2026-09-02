@@ -4,7 +4,7 @@ exception Error of string
 
 (* version *)
 
-let version () : string = "2.1"
+let version () : string = "2.2"
 
 (* parsing nmm *)
 
@@ -66,7 +66,12 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
           in
           String.concat "\n" (List.map map author_list)
     in
-    let lang_attr : string = " lang=\"" ^ options.lang ^ "\"" in
+    let lang_code : string =
+      match options.lang with
+      | None -> "en"
+      | Some s -> s
+    in
+    let lang_attr : string = " lang=\"" ^ lang_code ^ "\"" in
     let margin_left : string =
       match options.margin with
       | Some m -> string_of_int m ^ "rem"

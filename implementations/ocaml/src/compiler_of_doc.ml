@@ -1428,15 +1428,24 @@ let lines_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) : string list
   | _ -> raise (Error "accumulator type")
 
 let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
-  let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-  let margin_labels : string list =
-      margin_labels_of_tr_doc doc_settings doc
+  let default : t_doc_settings = Common_utils.doc_settings_default () in
+  let doc_settings_preamble : t_doc_settings =
+    Common_utils.doc_settings_of_tr_doc default doc
   in
-  let new_doc_settings : t_doc_settings =
-    Txt_utils.doc_settings_of_txt_options margin_labels doc_settings options
+  let margin_labels : string list =
+      margin_labels_of_tr_doc doc_settings_preamble doc
+  in
+  let doc_settings_auto : t_doc_settings =
+    Txt_utils.doc_settings_of_margin_labels default margin_labels
+  in
+  let new_doc_settings_preamble : t_doc_settings =
+    Common_utils.doc_settings_of_tr_doc doc_settings_auto doc
+  in
+  let doc_settings_cli : t_doc_settings =
+    Txt_utils.doc_settings_of_txt_options new_doc_settings_preamble margin_labels options
   in
   let _ : unit = IO.quiet.contents <- options.quiet in
-  String.concat "\n" (lines_of_tr_doc new_doc_settings doc)
+  String.concat "\n" (lines_of_tr_doc doc_settings_cli doc)
 
 (* exml *)
 
@@ -1455,11 +1464,12 @@ let xml_list_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
   | _ -> raise (Error "accumulator type")
 
 let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
-  let doc_settings : t_doc_settings = doc_settings_of_tr_doc doc in
-  let new_doc_settings : t_doc_settings =
-    Exml_utils.doc_settings_of_exml_options doc_settings options
+  let default : t_doc_settings = Common_utils.doc_settings_default () in
+  let doc_settings_preamble : t_doc_settings = doc_settings_of_tr_doc default doc in
+  let doc_settings_options : t_doc_settings =
+    Exml_utils.doc_settings_of_exml_options doc_settings_preamble options
   in
   let _ : unit = IO.quiet.contents <- options.quiet in
-  match xml_list_of_tr_doc new_doc_settings doc with
+  match xml_list_of_tr_doc doc_settings_options doc with
   | hd :: [] -> hd
   | _ -> raise (Error "expected singleton exml-list")
