@@ -42,18 +42,19 @@ let utf_8_length (s : string) : int = List.length (utf_8_grapheme_clusters s)
 let rec indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
   match path with
   | [] -> 0
-  | hd :: tl -> (
+  | hd :: tl ->
       match hd with
       | REFS_NODE -> doc_settings.refs_indent
       | ABSTRACT_NODE -> doc_settings.abstract_indent
-      | CH_NODE _ -> doc_settings.left_margin
-      | SEC_NODE _ -> doc_settings.left_margin
+      | CH_NODE _
+      | SEC_NODE _
+      | APP_NODE _
       | PAR_NODE _ -> doc_settings.left_margin
       | ITM_NODE _ -> indent_of_path doc_settings tl + doc_settings.tab_length
       | BLT_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
       | DSP_NODE -> indent_of_path doc_settings tl + doc_settings.tab_length
       | NTE_NODE _ -> indent_of_path doc_settings tl + doc_settings.tab_length
-      | _ -> indent_of_path doc_settings tl)
+      | DSP_LINE_NODE _ -> indent_of_path doc_settings tl
 
 let insert_string (label : string) (pos : int) (s : string) : string =
   let string_len : int = String.length s in
@@ -74,14 +75,20 @@ let insert_string (label : string) (pos : int) (s : string) : string =
 let pos_of_label (doc_settings : t_doc_settings) (path : t_path) : int =
   match path with
   | [] -> 0
-  | hd :: tl -> (
+  | hd :: tl ->
       match hd with
       | ITM_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
       | BLT_NODE -> indent_of_path doc_settings path - doc_settings.tab_length
       | DSP_LINE_NODE _ ->
           indent_of_path doc_settings path - doc_settings.tab_length
       | NTE_NODE _ -> indent_of_path doc_settings path - doc_settings.tab_length
-      | _ -> 0)
+      | REFS_NODE
+      | ABSTRACT_NODE
+      | CH_NODE _
+      | SEC_NODE _
+      | APP_NODE _
+      | PAR_NODE _
+      | DSP_NODE -> 0
 
 let insert_label (doc_settings : t_doc_settings) (path : t_path) (s : string) :
     string =
@@ -241,7 +248,7 @@ let lines_of_ts_date_auto (doc_settings : t_doc_settings) (date : ts_date_auto)
           [ date_string; time_string; utc_timezone time.timezone ]
       in
       List.concat
-        [ lines_of_string doc_settings.doc_width doc_settings.author_indent s; [ "" ] ]
+        [ lines_of_string doc_settings.doc_width doc_settings.date_indent s; [ "" ] ]
 
 let lines_of_tu_date (doc_settings : t_doc_settings) (date : tu_date) :
     string list =

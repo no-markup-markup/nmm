@@ -409,6 +409,25 @@ let set_author_indent (v : string) (doc_settings : t_doc_settings) :
     in
     doc_settings
 
+let set_date_indent (v : string) (doc_settings : t_doc_settings) :
+    t_doc_settings =
+  try
+    let value = int_of_string v in
+    if value > -1 then { doc_settings with date_indent = value }
+    else raise (Invalid_argument v)
+  with _ ->
+    let _ : unit =
+      IO.print_warning
+        (String.concat ""
+           [
+             "WARNING: invalid date_indent value: ";
+             v;
+             "\n";
+             "using default value.";
+           ])
+    in
+    doc_settings
+
 let set_abstract_indent (v : string) (doc_settings : t_doc_settings) :
     t_doc_settings =
   try
@@ -551,6 +570,7 @@ let doc_settings_of_ts_preamble (doc_settings : t_doc_settings)
           | Some ("left-margin", v) -> set_left_margin v settings
           | Some ("title-indent", v) -> set_title_indent v settings
           | Some ("author-indent", v) -> set_author_indent v settings
+          | Some ("date-indent", v) -> set_date_indent v settings
           | Some ("abstract-indent", v) -> set_abstract_indent v settings
           | Some ("refs-indent", v) -> set_refs_indent v settings
           | Some ("tab-length", v) -> set_tab_length v settings

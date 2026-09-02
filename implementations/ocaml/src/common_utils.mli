@@ -65,6 +65,7 @@ val doc_settings_of_tr_doc :
                   | 'left-margin=' NAT
                   | 'title-indent=' NAT
                   | 'author-indent=' NAT
+                  | 'date-indent=' NAT
                   | 'abstract-indent=' NAT
                   | 'refs-indent=' NAT
                   | 'tab-length=' NAT
