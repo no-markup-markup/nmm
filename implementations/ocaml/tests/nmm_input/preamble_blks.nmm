@@ -1,0 +1,17 @@
+START	PREAMBLE
+	title-indent=3
+	author-indent=20
+	abstract-indent=10
+	left-margin=5
+END	PREAMBLE
+
+TITLE:
+	Some title
+
+AUTHOR:
+	Eric Johannesson
+
+ABSTRACT:
+	Some abstract
+
+Some text.

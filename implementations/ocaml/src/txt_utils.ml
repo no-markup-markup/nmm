@@ -41,7 +41,7 @@ let utf_8_length (s : string) : int = List.length (utf_8_grapheme_clusters s)
 
 let rec indent_of_path (doc_settings : t_doc_settings) (path : t_path) : int =
   match path with
-  | [] -> 0
+  | [] -> doc_settings.left_margin
   | hd :: tl ->
       match hd with
       | REFS_NODE -> doc_settings.refs_indent

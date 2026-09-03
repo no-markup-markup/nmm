@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cs_preamble>title-indent=3;author-indent=20;abstract-indent=10;left-margin=5</cs_preamble>
+<cs_title>Some title</cs_title>
+<cs_authors>
+<cs_author>Eric Johannesson</cs_author>
+</cs_authors>
+<cs_abstract>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some abstract</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cs_abstract>
+<cu_doc_main_blks>
+<cs_blks>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some text.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_doc_main_blks>
+</cr_doc>
