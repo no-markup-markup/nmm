@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "nmm-ocaml"
-version: "2.1"
+version: "2.3"
 maintainer: "Eric Johannesson <eric@ericjohannesson.com>"
 authors: "Eric Johannesson <eric@ericjohannesson.com>"
 synopsis: "An OCaml implementation of the no-markup-markup markup language"
