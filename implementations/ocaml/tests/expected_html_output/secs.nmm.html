@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 4.80rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -399,7 +404,7 @@ h2, h3, h4, h5 {
 <div class="doc_main">
 <section class="SEC sec pars" id="SEC_named_section">
 <div class="sec_lbl">§ 1</div>
-<h2 class="sec_hdr">Introduction</h2>
+<h2 class="sec_hdr" bookmark="§ 1">Introduction</h2>
 <div class="sec_main">
 <section class="PAR par" id="PAR_named_paragraph">
 <h3 class="par_lbl hdr">¶ 1.1</h3>
@@ -543,7 +548,7 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 2</div>
-<h2 class="sec_hdr">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h2>
+<h2 class="sec_hdr" bookmark="§ 2">Section headers are optional, but recommended. They may contain both <em class="txt_unit_emph">emphasized text</em> and references, neither of which are recommended.</h2>
 <div class="sec_main">
 <section class="par">
 <h3 class="par_lbl hdr">¶ 2.1</h3>
@@ -556,7 +561,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> and <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h3>
+<h3 class="par_hdr" bookmark="¶ 2.2">This is a <em class="txt_unit_emph">paragraph header</em>, referencing <a class="txt_unit_c_ref" href="#ITM_x">(c)(2) of ¶ 1.1</a> and <a class="txt_unit_c_ref" href="#ITM_y">(c)(3) of ¶ 1.1</a> above. Again, these references will appear differently than when occurring in <a class="txt_unit_c_ref" href="#PAR_named_paragraph">¶ 1.1</a>.</h3>
 <p class="blk txt">Putting references in a header does not look very nice.</p>
 </div>
 </section>
@@ -564,7 +569,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_tag hdr">DEFINITION</h3>
+<h3 class="par_tag hdr" bookmark="¶ 2.3">DEFINITION</h3>
 <p class="blk txt">We say that Γ ⊨ φ just in case every model of Γ is a model of φ.</p>
 </div>
 </section>
@@ -573,7 +578,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">DEFINITION</div>
-<h3 class="par_hdr">Provability</h3>
+<h3 class="par_hdr" bookmark="¶ 2.4  DEFINITION">Provability</h3>
 <p class="blk txt">We say that Γ ⊢ φ just in case there is a proof from Γ to φ.</p>
 </div>
 </section>
@@ -581,7 +586,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.5</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_tag hdr">FACT</h3>
+<h3 class="par_tag hdr" bookmark="¶ 2.5">FACT</h3>
 <p class="blk txt">For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢ φ.</p>
 </div>
 </section>

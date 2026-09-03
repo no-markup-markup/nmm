@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 4.80rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -411,13 +416,13 @@ h2, h3, h4, h5 {
 <div class="doc_main">
 <section class="sec pars">
 <div class="sec_lbl">§ 1</div>
-<h2 class="sec_hdr">Employment</h2>
+<h2 class="sec_hdr" bookmark="§ 1">Employment</h2>
 <div class="sec_main">
 <section class="par">
 <div class="par_lbl">¶ 1.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Lecturer (100%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.1">Lecturer (100%)</h3>
 <p class="blk txt">Department of Philosophy, Uppsala University.</p>
 <p class="blk txt">Aug. 2024-Jun. 2025.</p>
 </div>
@@ -426,7 +431,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Lecturer (60%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.2">Lecturer (60%)</h3>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jan. 2024-Apr. 2024.</p>
 </div>
@@ -435,7 +440,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Visiting assistant professor (100%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.3">Visiting assistant professor (100%)</h3>
 <p class="blk txt">Department of Philosophy, Ashoka University.</p>
 <p class="blk txt">Aug. 2022-May 2023.</p>
 </div>
@@ -444,7 +449,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Lecturer (40%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.4">Lecturer (40%)</h3>
 <p class="blk txt">Department of Philosophy, Linguistics and Theory of Science, University of Gothenburg.</p>
 <p class="blk txt">Apr. 2022-Jul. 2022.</p>
 </div>
@@ -453,7 +458,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.5</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Project manager (20%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.5">Project manager (20%)</h3>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Feb. 2021-Feb. 2022.</p>
 </div>
@@ -462,7 +467,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.6</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Lecturer (100%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.6">Lecturer (100%)</h3>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Jul. 2018-Jun. 2020.</p>
 </div>
@@ -471,7 +476,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.7</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Postdoc (100%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.7">Postdoc (100%)</h3>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Nov. 2017-Jun. 2018.</p>
 </div>
@@ -480,7 +485,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.8</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Lecturer (100%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.8">Lecturer (100%)</h3>
 <p class="blk txt">Department of Philosophy, Stockholm University.</p>
 <p class="blk txt">Feb. 2017-Oct. 2017.</p>
 </div>
@@ -489,7 +494,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1.9</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">PhD student (100%)</h3>
+<h3 class="par_hdr" bookmark="¶ 1.9">PhD student (100%)</h3>
 <p class="blk txt">Department of Philosophy, Stockholms University.</p>
 <p class="blk txt">Jan. 2012-Dec. 2016.</p>
 </div>
@@ -498,13 +503,13 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 2</div>
-<h2 class="sec_hdr">Education</h2>
+<h2 class="sec_hdr" bookmark="§ 2">Education</h2>
 <div class="sec_main">
 <section class="par">
 <div class="par_lbl">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">PhD in Theoretical philosophy</h3>
+<h3 class="par_hdr" bookmark="¶ 2.1">PhD in Theoretical philosophy</h3>
 <p class="blk txt">Stockholm University, Stockholm, June 2017.</p>
 <p class="blk txt">Thesis title: <em class="txt_unit_emph">Analyticity, Necessity and Belief: Aspects of Two-Dimensional Semantics</em>. </p>
 <p class="blk txt">Supervisors: Professors Peter Pagin and Dag Westerståhl.</p>
@@ -516,7 +521,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h3>
+<h3 class="par_hdr" bookmark="¶ 2.2">Master (<em class="txt_unit_emph">Magister</em>) in Theoretical philosophy</h3>
 <p class="blk txt">Stockholm University, Stockholm, Nov. 2011.</p>
 </div>
 </section>
@@ -524,7 +529,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Military service</h3>
+<h3 class="par_hdr" bookmark="¶ 2.3">Military service</h3>
 <p class="blk txt">Tolkskolan (Interpreter/interrogator at the Armed Forces Intelligence and Security Center), Uppsala, Jun. 2001--Jun. 2002.</p>
 </div>
 </section>
@@ -532,7 +537,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h3>
+<h3 class="par_hdr" bookmark="¶ 2.4">High school diploma (<em class="txt_unit_emph">gymnasieexamen</em>)</h3>
 <p class="blk txt">Natural science program, Sunnerboskolan, Ljungby, 2001.</p>
 </div>
 </section>
@@ -540,13 +545,13 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 3</div>
-<h2 class="sec_hdr">Publications</h2>
+<h2 class="sec_hdr" bookmark="§ 3">Publications</h2>
 <div class="sec_main">
 <section class="par">
 <div class="par_lbl">¶ 3.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">In peer-reviewed international journals</h3>
+<h3 class="par_hdr" bookmark="¶ 3.1">In peer-reviewed international journals</h3>
 <div class="blk itm">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
@@ -625,7 +630,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 3.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Monographs</h3>
+<h3 class="par_hdr" bookmark="¶ 3.2">Monographs</h3>
 <div class="blk itm">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
@@ -640,7 +645,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 3.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Other</h3>
+<h3 class="par_hdr" bookmark="¶ 3.3">Other</h3>
 <div class="blk itm">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
@@ -671,13 +676,13 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 4</div>
-<h2 class="sec_hdr">Teaching</h2>
+<h2 class="sec_hdr" bookmark="§ 4">Teaching</h2>
 <div class="sec_main">
 <section class="par">
 <div class="par_lbl">¶ 4.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Uppsala University (2024–2025)</h3>
+<h3 class="par_hdr" bookmark="¶ 4.1">Uppsala University (2024–2025)</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -716,7 +721,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Stockholm University (2024)</h3>
+<h3 class="par_hdr" bookmark="¶ 4.2">Stockholm University (2024)</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -739,7 +744,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Ashoka University (2022–2023)</h3>
+<h3 class="par_hdr" bookmark="¶ 4.3">Ashoka University (2022–2023)</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -778,7 +783,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">University of Gothenburg (2022)</h3>
+<h3 class="par_hdr" bookmark="¶ 4.4">University of Gothenburg (2022)</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -793,7 +798,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.5</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Stockholm University (2013–2020)</h3>
+<h3 class="par_hdr" bookmark="¶ 4.5">Stockholm University (2013–2020)</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -919,7 +924,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.6</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">Thesis supervising</h3>
+<h3 class="par_hdr" bookmark="¶ 4.6">Thesis supervising</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -947,13 +952,13 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 5</div>
-<h2 class="sec_hdr">Refereeing</h2>
+<h2 class="sec_hdr" bookmark="§ 5">Refereeing</h2>
 <div class="sec_main">
 <section class="par">
 <div class="par_lbl">¶ 5.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">For funding agencies</h3>
+<h3 class="par_hdr" bookmark="¶ 5.1">For funding agencies</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -967,7 +972,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 5.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h3 class="par_hdr">For journals</h3>
+<h3 class="par_hdr" bookmark="¶ 5.2">For journals</h3>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>

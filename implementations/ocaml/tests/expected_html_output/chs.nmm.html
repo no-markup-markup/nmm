@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 6.00rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -417,7 +422,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">First paragraph of second chapter</h4>
+<h4 class="par_hdr" bookmark="¶ 2.1">First paragraph of second chapter</h4>
 <p class="blk txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 </div>
 </section>
@@ -442,7 +447,7 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 3.2</div>
-<h3 class="sec_hdr">Second section of third chapter</h3>
+<h3 class="sec_hdr" bookmark="§ 3.2">Second section of third chapter</h3>
 <div class="sec_main">
 <section class="par">
 <h4 class="par_lbl hdr">¶ 3.2.1</h4>

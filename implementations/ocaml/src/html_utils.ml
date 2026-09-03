@@ -93,10 +93,10 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "div",
           [ ("class", "sec_lbl") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("sec_hdr", _, xml_list) ->
+  | Xml.Element ("sec_hdr", attr_list, xml_list) ->
       Xml.Element
         ( sec_hdr_of_doc_class doc_class,
-          [ ("class", "sec_hdr") ],
+          ("class", "sec_hdr") :: attr_list,
           List.map (html_of_exml doc_class) xml_list )
   | Xml.Element ("sec_lbl_hdr", _, xml_list) ->
       Xml.Element
@@ -126,15 +126,15 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "div",
           [ ("class", "par_tag") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("par_hdr", _, xml_list) ->
+  | Xml.Element ("par_hdr", attr_list, xml_list) ->
       Xml.Element
         ( par_hdr_of_doc_class doc_class,
-          [ ("class", "par_hdr") ],
+          ("class", "par_hdr") :: attr_list,
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("par_tag_hdr", _, xml_list) ->
+  | Xml.Element ("par_tag_hdr", attr_list, xml_list) ->
       Xml.Element
         ( par_hdr_of_doc_class doc_class,
-          [ ("class", "par_tag hdr") ],
+          ("class", "par_tag hdr") :: attr_list,
           List.map (html_of_exml doc_class) xml_list )
   | Xml.Element ("par_main", _, xml_list) ->
       Xml.Element
@@ -374,13 +374,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : "
-  ^ margin_left ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.secs .title {
-    margin-left : " ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.chs .title {
@@ -403,26 +401,22 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : "
-  ^ margin_left ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.secs .authors {
-    margin-left : " ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 /************ DATE ******************/
 
 
 .doc.pars .date {
-    margin-left : "
-  ^ margin_left ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.secs .date {
-    margin-left : " ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 /************ ABSTRACT ******************/
@@ -436,13 +430,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : "
-  ^ margin_left ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.secs .abstract {
-    margin-left : " ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .abstract_hdr {
@@ -459,13 +451,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : "
-  ^ margin_left ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.secs .refs {
-    margin-left : " ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .doc.chs .refs {
@@ -532,11 +522,10 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : "
-  ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) \"  \" content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -559,8 +548,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) \"  \" content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) \"  (\" content() \")\";
+}
 
 .par_tag + .par_hdr::before {
     content : \"(\";
@@ -571,9 +564,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : "
-  ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 
@@ -600,9 +591,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : "
-  ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .blk.txt {
@@ -616,9 +605,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_blt_main {
-    margin-left : "
-  ^ tab_length
-  ^ ";
+    margin-left : " ^ tab_length ^ ";
 }
 
 
@@ -627,9 +614,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_itm_main {
-    margin-left : "
-  ^ tab_length
-  ^ ";
+    margin-left : " ^ tab_length ^ ";
 }
 
 
@@ -638,18 +623,14 @@ h2, h3, h4, h5 {
 }
 
 .dsp_line_main {
-    margin-left : "
-  ^ tab_length
-  ^ ";
+    margin-left : " ^ tab_length ^ ";
     white-space : pre;
 }
 
 .blk_qtn_main {
     hyphens     : auto;
     white-space : pre-wrap;
-    margin-left : "
-  ^ tab_length
-  ^ ";
+    margin-left : " ^ tab_length ^ ";
 }
 
 /******** ENDNOTES/FOOTNOTES ************/
@@ -666,9 +647,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : "
-  ^ margin_left
-  ^ ";
+    margin-left : " ^ margin_left ^ ";
 }
 
 .blk_nte_lbl {
@@ -676,9 +655,7 @@ h2, h3, h4, h5 {
 }
 
 .blk_nte_main {
-    margin-left : "
-  ^ tab_length
-  ^ ";
+    margin-left : " ^ tab_length ^ ";
 }
 
 /*************** BIB ********************/

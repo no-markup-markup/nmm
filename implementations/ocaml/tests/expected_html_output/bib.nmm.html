@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 3.60rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -400,7 +405,7 @@ h2, h3, h4, h5 {
 <div class="doc_main">
 <section class="sec blks">
 <div class="sec_lbl">§ 1</div>
-<h2 class="sec_hdr">Section title</h2>
+<h2 class="sec_hdr" bookmark="§ 1">Section title</h2>
 <div class="sec_main">
 <p class="blk txt">This is an item with ID ‘BIB:JL’:</p>
 <div class="BIB blk itm" id="BIB_JL">
@@ -426,7 +431,7 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec blks">
 <div class="sec_lbl">§ 2</div>
-<h2 class="sec_hdr">Another section</h2>
+<h2 class="sec_hdr" bookmark="§ 2">Another section</h2>
 <div class="sec_main">
 <p class="blk txt">Referring from another section:</p>
 <p class="blk txt"><a class="txt_unit_c_ref" href="#BIB_JL">(a) of § 1</a></p>

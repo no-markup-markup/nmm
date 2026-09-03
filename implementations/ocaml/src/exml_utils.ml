@@ -422,16 +422,23 @@ let par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table)
           (xml_list_of_ts_txt_units doc_settings cref_table nte_table path
              (Cs_txt_units (Common_utils.txt_units_of_txt_lines txt_lines)))
   in
+  let label : string = label_of_path doc_settings path in
   match (tag_content_opt, hdr_content_opt) with
   | Some tag_content, Some hdr_content ->
+      let tag : string =
+        match tag_content with
+        | [Xml.PCData s] -> s
+        | _ -> "" (* cannot happen *)
+      in
       Some
         [
           Xml.Element ("par_tag", [], tag_content);
-          Xml.Element ("par_hdr", [], hdr_content);
+          Xml.Element ("par_hdr", [("bookmark", label ^ "  " ^ tag)], hdr_content);
         ]
-  | None, Some hdr_content -> Some [ Xml.Element ("par_hdr", [], hdr_content) ]
+  | None, Some hdr_content ->
+      Some [ Xml.Element ("par_hdr", [("bookmark", label)], hdr_content) ]
   | Some tag_content, None ->
-      Some [ Xml.Element ("par_tag_hdr", [], tag_content) ]
+      Some [ Xml.Element ("par_tag_hdr", [("bookmark", label)], tag_content) ]
   | None, None -> None
 
 (* normalize *)
@@ -577,10 +584,19 @@ let exml_schema () : string =
 
 <!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
 <!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+<!ATTLIST sec_hdr
+    bookmark CDATA #REQUIRED
+>
 <!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
+<!ATTLIST par_hdr
+    bookmark CDATA #REQUIRED
+>
 
 <!ELEMENT par_tag (#PCDATA)>
 <!ELEMENT par_tag_hdr (#PCDATA)>
+<!ATTLIST par_tag_hdr
+    bookmark CDATA #REQUIRED
+>
 
 <!ELEMENT ch_lbl (#PCDATA)>
 <!ELEMENT ch_lbl_hdr (#PCDATA)>

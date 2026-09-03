@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 4.80rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -405,7 +410,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">THEOREM</div>
-<h3 class="par_hdr">Main</h3>
+<h3 class="par_hdr" bookmark="¶ 1.1  THEOREM">Main</h3>
 <div class="ITM blk itm" id="ITM_1">
 <div class="blk_itm_lbl">(a)</div>
 <div class="clear"></div>
@@ -445,7 +450,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">PROOF</div>
-<h3 class="par_hdr">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h3>
+<h3 class="par_hdr" bookmark="¶ 1.2  PROOF">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h3>
 <p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 <p class="blk txt">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></p>
 <p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorem 1.1</a></p>
@@ -464,7 +469,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">PROOF</div>
-<h3 class="par_hdr">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h3>
+<h3 class="par_hdr" bookmark="¶ 2.1  PROOF">of <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></h3>
 <p class="blk txt">By straightforward induction on the complexity of nothing.</p>
 <p class="blk txt">&apos;[THM:main]&apos; -&gt; <a class="txt_unit_c_ref" href="#THM_main">Theorem 1.1</a></p>
 <p class="blk txt">&apos;[ITM:1]&apos; -&gt; <a class="txt_unit_c_ref" href="#ITM_1">(a) of Theorem 1.1</a></p>

@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 6.00rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -431,7 +436,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">Paragraph with a header</h4>
+<h4 class="par_hdr" bookmark="¶ 2.1">Paragraph with a header</h4>
 <div class="blk dsp">
 <div class="dsp_line">
 <div class="dsp_line_main">unlabeled display line</div>
@@ -483,7 +488,7 @@ h2, h3, h4, h5 {
 <div class="ch_main">
 <section class="sec blks">
 <div class="sec_lbl">§ 3.1</div>
-<h3 class="sec_hdr">First section</h3>
+<h3 class="sec_hdr" bookmark="§ 3.1">First section</h3>
 <div class="sec_main">
 <div class="blk dsp">
 <div class="dsp_line">
@@ -508,7 +513,7 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec blks">
 <div class="sec_lbl">§ 3.2</div>
-<h3 class="sec_hdr">Second section</h3>
+<h3 class="sec_hdr" bookmark="§ 3.2">Second section</h3>
 <div class="sec_main">
 <div class="blk dsp">
 <div class="dsp_line">
@@ -539,13 +544,13 @@ h2, h3, h4, h5 {
 <div class="ch_main">
 <section class="sec pars">
 <div class="sec_lbl">§ 4.1</div>
-<h3 class="sec_hdr">First section</h3>
+<h3 class="sec_hdr" bookmark="§ 4.1">First section</h3>
 <div class="sec_main">
 <section class="par">
 <div class="par_lbl">¶ 4.1.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">Paragraph with a header</h4>
+<h4 class="par_hdr" bookmark="¶ 4.1.1">Paragraph with a header</h4>
 <div class="blk dsp">
 <div class="dsp_line">
 <div class="dsp_line_main">unlabeled display line</div>
@@ -593,13 +598,13 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <div class="sec_lbl">§ 4.2</div>
-<h3 class="sec_hdr">Second section</h3>
+<h3 class="sec_hdr" bookmark="§ 4.2">Second section</h3>
 <div class="sec_main">
 <section class="DEF par">
 <div class="par_lbl">¶ 4.2.1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_tag hdr">DEFINITION</h4>
+<h4 class="par_tag hdr" bookmark="¶ 4.2.1">DEFINITION</h4>
 <div class="blk dsp">
 <div class="dsp_line">
 <div class="dsp_line_main">unlabeled display line</div>
@@ -625,7 +630,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4.2.2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h4 class="par_hdr">Paragraph with a header</h4>
+<h4 class="par_hdr" bookmark="¶ 4.2.2">Paragraph with a header</h4>
 <div class="blk dsp">
 <div class="dsp_line">
 <div class="dsp_line_main">unlabeled display line</div>

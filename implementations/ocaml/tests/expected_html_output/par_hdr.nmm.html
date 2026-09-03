@@ -199,6 +199,7 @@ h2, h3, h4, h5 {
     margin-left : 3.60rem;
     font-size   : 150%;
     line-height : 130%;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
@@ -221,8 +222,12 @@ h2, h3, h4, h5 {
     font-weight  : bold;
     display      : inline;
     font-size    : inherit;
+    bookmark-label : attr(bookmark) "  " content();
 }
 
+.par_tag + .par_hdr {
+    bookmark-label : attr(bookmark) "  (" content() ")";
+}
 
 .par_tag + .par_hdr::before {
     content : "(";
@@ -401,7 +406,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 1</div>
 <div class="clear"></div>
 <div class="par_main">
-<h2 class="par_hdr">Header 1</h2>
+<h2 class="par_hdr" bookmark="¶ 1">Header 1</h2>
 <p class="blk txt">Some text.</p>
 </div>
 </section>
@@ -409,7 +414,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 2</div>
 <div class="clear"></div>
 <div class="par_main">
-<h2 class="par_tag hdr">DEFINITION</h2>
+<h2 class="par_tag hdr" bookmark="¶ 2">DEFINITION</h2>
 <p class="blk txt">Some text.</p>
 </div>
 </section>
@@ -417,7 +422,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 3</div>
 <div class="clear"></div>
 <div class="par_main">
-<h2 class="par_tag hdr">DEFINITION</h2>
+<h2 class="par_tag hdr" bookmark="¶ 3">DEFINITION</h2>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -431,7 +436,7 @@ h2, h3, h4, h5 {
 <div class="par_lbl">¶ 4</div>
 <div class="clear"></div>
 <div class="par_main">
-<h2 class="par_hdr">Header 2</h2>
+<h2 class="par_hdr" bookmark="¶ 4">Header 2</h2>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -446,7 +451,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">THEOREM</div>
-<h2 class="par_hdr">Header 3</h2>
+<h2 class="par_hdr" bookmark="¶ 5  THEOREM">Header 3</h2>
 <div class="blk blt">
 <div class="blk_blt_lbl">─</div>
 <div class="clear"></div>
@@ -461,7 +466,7 @@ h2, h3, h4, h5 {
 <div class="clear"></div>
 <div class="par_main">
 <div class="par_tag">THEOREM</div>
-<h2 class="par_hdr">Header 4</h2>
+<h2 class="par_hdr" bookmark="¶ 6  THEOREM">Header 4</h2>
 <p class="blk txt">Some theorem.</p>
 </div>
 </section>

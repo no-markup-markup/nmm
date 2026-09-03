@@ -815,8 +815,9 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table)
         | EXML xml_list -> xml_list
         | _ -> raise (Error "accumulator type")
       in
+      let label : string = label_of_path doc_settings path in
       let xml_list_lbl : Xml.xml list =
-        [ Exml_utils.xml_of_string (label_of_path doc_settings path) ]
+        [ Exml_utils.xml_of_string label ]
       in
       let xml_hdr : Xml.xml =
         match sec.fld_sec_hdr with
@@ -826,7 +827,7 @@ let acc_of_tr_sec (doc_settings : t_doc_settings) (cref_table : t_cref_table)
             | Cs_hdr (txt_lines : ts_txt_lines) ->
                 Xml.Element
                   ( "sec_hdr",
-                    [],
+                    [("bookmark", label)],
                     xml_list_of_ts_txt_lines doc_settings cref_table nte_table
                       path txt_lines ))
       in
