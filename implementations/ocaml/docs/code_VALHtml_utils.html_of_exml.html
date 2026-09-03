@@ -103,10 +103,10 @@
         ( <span class="string">"div"</span>,
           [ (<span class="string">"class"</span>, <span class="string">"sec_lbl"</span>) ],
           <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list )
-  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_hdr"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>
         ( sec_hdr_of_doc_class doc_class,
-          [ (<span class="string">"class"</span>, <span class="string">"sec_hdr"</span>) ],
+          (<span class="string">"class"</span>, <span class="string">"sec_hdr"</span>) :: attr_list,
           <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list )
   <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_lbl_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>
@@ -136,15 +136,15 @@
         ( <span class="string">"div"</span>,
           [ (<span class="string">"class"</span>, <span class="string">"par_tag"</span>) ],
           <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list )
-  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_hdr"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>
         ( par_hdr_of_doc_class doc_class,
-          [ (<span class="string">"class"</span>, <span class="string">"par_hdr"</span>) ],
+          (<span class="string">"class"</span>, <span class="string">"par_hdr"</span>) :: attr_list,
           <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list )
-  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_tag_hdr"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>
         ( par_hdr_of_doc_class doc_class,
-          [ (<span class="string">"class"</span>, <span class="string">"par_tag hdr"</span>) ],
+          (<span class="string">"class"</span>, <span class="string">"par_tag hdr"</span>) :: attr_list,
           <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list )
   <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"par_main"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>

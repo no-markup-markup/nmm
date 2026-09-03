@@ -94,10 +94,19 @@
 
 &lt;!ELEMENT ch_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
 &lt;!ELEMENT sec_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+&lt;!ATTLIST sec_hdr
+    bookmark CDATA #REQUIRED
+&gt;
 &lt;!ELEMENT par_hdr (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
+&lt;!ATTLIST par_hdr
+    bookmark CDATA #REQUIRED
+&gt;
 
 &lt;!ELEMENT par_tag (#PCDATA)&gt;
 &lt;!ELEMENT par_tag_hdr (#PCDATA)&gt;
+&lt;!ATTLIST par_tag_hdr
+    bookmark CDATA #REQUIRED
+&gt;
 
 &lt;!ELEMENT ch_lbl (#PCDATA)&gt;
 &lt;!ELEMENT ch_lbl_hdr (#PCDATA)&gt;

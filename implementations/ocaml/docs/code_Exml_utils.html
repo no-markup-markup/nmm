@@ -449,16 +449,23 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(xml_list_of_ts_txt_units&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;path<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Cs_txt_units</span>&nbsp;(<span class="constructor">Common_utils</span>.txt_units_of_txt_lines&nbsp;txt_lines)))<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;label&nbsp;:&nbsp;string&nbsp;=&nbsp;label_of_path&nbsp;doc_settings&nbsp;path&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(tag_content_opt,&nbsp;hdr_content_opt)&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;tag_content,&nbsp;<span class="constructor">Some</span>&nbsp;hdr_content&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag_content&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span>&nbsp;<span class="comment">(*&nbsp;cannot&nbsp;happen&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag"</span>,&nbsp;[],&nbsp;tag_content);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[],&nbsp;hdr_content);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[(<span class="string">"bookmark"</span>,&nbsp;label&nbsp;^&nbsp;<span class="string">"&nbsp;&nbsp;"</span>&nbsp;^&nbsp;tag)],&nbsp;hdr_content);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;<span class="constructor">Some</span>&nbsp;hdr_content&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[],&nbsp;hdr_content)&nbsp;]<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;<span class="constructor">Some</span>&nbsp;hdr_content&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span>&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[(<span class="string">"bookmark"</span>,&nbsp;label)],&nbsp;hdr_content)&nbsp;]<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;tag_content,&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span>&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr"</span>,&nbsp;[],&nbsp;tag_content)&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span>&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr"</span>,&nbsp;[(<span class="string">"bookmark"</span>,&nbsp;label)],&nbsp;tag_content)&nbsp;]<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 <br>
 <span class="comment">(*&nbsp;normalize&nbsp;*)</span><br>
@@ -604,10 +611,19 @@
 <br>
 &lt;!ELEMENT&nbsp;ch_hdr&nbsp;(txt_unit_wysiwyg&nbsp;|&nbsp;txt_unit_emph&nbsp;|&nbsp;txt_unit_c_ref&nbsp;|&nbsp;txt_unit_nte)+&gt;<br>
 &lt;!ELEMENT&nbsp;sec_hdr&nbsp;(txt_unit_wysiwyg&nbsp;|&nbsp;txt_unit_emph&nbsp;|&nbsp;txt_unit_c_ref&nbsp;|&nbsp;txt_unit_nte)+&gt;<br>
+&lt;!ATTLIST&nbsp;sec_hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bookmark&nbsp;CDATA&nbsp;#REQUIRED<br>
+&gt;<br>
 &lt;!ELEMENT&nbsp;par_hdr&nbsp;(txt_unit_wysiwyg&nbsp;|&nbsp;txt_unit_emph&nbsp;|&nbsp;txt_unit_c_ref&nbsp;|&nbsp;txt_unit_nte)+&gt;<br>
+&lt;!ATTLIST&nbsp;par_hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bookmark&nbsp;CDATA&nbsp;#REQUIRED<br>
+&gt;<br>
 <br>
 &lt;!ELEMENT&nbsp;par_tag&nbsp;(#PCDATA)&gt;<br>
 &lt;!ELEMENT&nbsp;par_tag_hdr&nbsp;(#PCDATA)&gt;<br>
+&lt;!ATTLIST&nbsp;par_tag_hdr<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bookmark&nbsp;CDATA&nbsp;#REQUIRED<br>
+&gt;<br>
 <br>
 &lt;!ELEMENT&nbsp;ch_lbl&nbsp;(#PCDATA)&gt;<br>
 &lt;!ELEMENT&nbsp;ch_lbl_hdr&nbsp;(#PCDATA)&gt;<br>

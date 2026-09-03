@@ -120,10 +120,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">"div"</span>,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"sec_lbl"</span>)&nbsp;],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec_hdr"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;sec_hdr_of_doc_class&nbsp;doc_class,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"sec_hdr"</span>)&nbsp;],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"sec_hdr"</span>)&nbsp;::&nbsp;attr_list,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec_lbl_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
@@ -153,15 +153,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">"div"</span>,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"par_tag"</span>)&nbsp;],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;par_hdr_of_doc_class&nbsp;doc_class,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"par_hdr"</span>)&nbsp;],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"par_hdr"</span>)&nbsp;::&nbsp;attr_list,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag_hdr"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;par_hdr_of_doc_class&nbsp;doc_class,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"par_tag&nbsp;hdr"</span>)&nbsp;],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"par_tag&nbsp;hdr"</span>)&nbsp;::&nbsp;attr_list,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_main"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
@@ -401,13 +401,11 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .doc.pars&nbsp;.title&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.secs&nbsp;.title&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.chs&nbsp;.title&nbsp;{<br>
@@ -430,26 +428,22 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .doc.pars&nbsp;.authors&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.secs&nbsp;.authors&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 /************&nbsp;DATE&nbsp;******************/<br>
 <br>
 <br>
 .doc.pars&nbsp;.date&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.secs&nbsp;.date&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 /************&nbsp;ABSTRACT&nbsp;******************/<br>
@@ -463,13 +457,11 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .doc.pars&nbsp;.abstract&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.secs&nbsp;.abstract&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .abstract_hdr&nbsp;{<br>
@@ -486,13 +478,11 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .doc.pars&nbsp;.refs&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.secs&nbsp;.refs&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .doc.chs&nbsp;.refs&nbsp;{<br>
@@ -559,11 +549,10 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .sec_hdr&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;150%;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;line-height&nbsp;:&nbsp;130%;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bookmark-label&nbsp;:&nbsp;attr(bookmark)&nbsp;\"&nbsp;&nbsp;\"&nbsp;content();<br>
 }<br>
 <br>
 .sec.pars&nbsp;&gt;&nbsp;.sec_lbl.hdr&nbsp;{<br>
@@ -586,8 +575,12 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;&nbsp;:&nbsp;bold;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inline;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inherit;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bookmark-label&nbsp;:&nbsp;attr(bookmark)&nbsp;\"&nbsp;&nbsp;\"&nbsp;content();<br>
 }<br>
 <br>
+.par_tag&nbsp;+&nbsp;.par_hdr&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bookmark-label&nbsp;:&nbsp;attr(bookmark)&nbsp;\"&nbsp;&nbsp;(\"&nbsp;content()&nbsp;\")\";<br>
+}<br>
 <br>
 .par_tag&nbsp;+&nbsp;.par_hdr::before&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;content&nbsp;:&nbsp;\"(\";<br>
@@ -598,9 +591,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .par_main&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 <br>
@@ -627,9 +618,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .sec_main&nbsp;&gt;&nbsp;.blk&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .blk.txt&nbsp;{<br>
@@ -643,9 +632,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .blk_blt_main&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;tab_length<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;tab_length&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 <br>
@@ -654,9 +641,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .blk_itm_main&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;tab_length<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;tab_length&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 <br>
@@ -665,18 +650,14 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .dsp_line_main&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;tab_length<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;tab_length&nbsp;^&nbsp;<span class="string">";<br>
 &nbsp;&nbsp;&nbsp;&nbsp;white-space&nbsp;:&nbsp;pre;<br>
 }<br>
 <br>
 .blk_qtn_main&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;hyphens&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;auto;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;white-space&nbsp;:&nbsp;pre-wrap;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;tab_length<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;tab_length&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 /********&nbsp;ENDNOTES/FOOTNOTES&nbsp;************/<br>
@@ -693,9 +674,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .sec_endnotes,&nbsp;.par_endnotes&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;margin_left<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 .blk_nte_lbl&nbsp;{<br>
@@ -703,9 +682,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .blk_nte_main&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span><br>
-&nbsp;&nbsp;^&nbsp;tab_length<br>
-&nbsp;&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;tab_length&nbsp;^&nbsp;<span class="string">";<br>
 }<br>
 <br>
 /***************&nbsp;BIB&nbsp;********************/<br>
