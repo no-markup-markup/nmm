@@ -126,7 +126,7 @@ show_txt_diff () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file differs from $output_file
+			echo $expected_output_file ≠ $output_file
 		fi
 	done
 	return $exit_code
@@ -147,7 +147,7 @@ show_html_diff () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file differs from $output_file
+			echo $expected_output_file ≠ $output_file
 		fi
 	done
 	return $exit_code
@@ -167,7 +167,7 @@ show_xml_diff () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file differs from $output_file
+			echo $expected_output_file ≠ $output_file
 		fi
 	done
 	return $exit_code
