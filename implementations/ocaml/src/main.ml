@@ -4,7 +4,7 @@ exception Error of string
 
 (* version *)
 
-let version () : string = "2.3"
+let version () : string = "2.4"
 
 (* parsing nmm *)
 
