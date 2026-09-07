@@ -140,12 +140,12 @@ let pcdata_of_string (s : string) : string =
   s_quot
 
 let string_of_pcdata (s : string) : string =
-  let s_amp = Str.global_replace (Str.regexp "&amp;") "&" s in
-  let s_lt = Str.global_replace (Str.regexp "&lt;") "<" s_amp in
+  let s_lt = Str.global_replace (Str.regexp "&lt;") "<" s in
   let s_gt = Str.global_replace (Str.regexp "&gt;") ">" s_lt in
   let s_apos = Str.global_replace (Str.regexp "&apos;") "\'" s_gt in
   let s_quot = Str.global_replace (Str.regexp "&quot;") "\"" s_apos in
-  s_quot
+  let s_amp = Str.global_replace (Str.regexp "&amp;") "&" s_quot in
+  s_amp
 
 (* for debugging purposes *)
 
