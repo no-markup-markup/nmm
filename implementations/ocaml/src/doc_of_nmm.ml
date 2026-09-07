@@ -166,7 +166,7 @@ let rec doc_of_nmm_stdin (print_tokens : bool) : Doc_types.tr_doc =
         let _ : unit =
           IO.print_to_stderr
             (String.concat "\n"
-               [ "Read the the following tokens from \'" ^ input ^ "\':" ])
+               [ "Read the the following tokens from stdin:" ])
         in
         doc_of_nmm_string true input
     | true -> raise (Error "Parsing failed"))
