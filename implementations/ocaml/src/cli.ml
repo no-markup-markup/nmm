@@ -2,24 +2,6 @@ open Nmm_ocaml
 
 exception Error of string
 
-let commands : string list =
-  [
-    "txt-of-nmm";
-    "html-of-nmm";
-    "exml-of-nmm";
-    "axml-of-nmm";
-    "txt-of-axml";
-    "html-of-axml";
-    "exml-of-axml";
-    "check-xml-schema";
-    "validate-xml";
-    "normalize-axml";
-    "show-axml-schema";
-    "show-exml-schema";
-    "version";
-    "help";
-  ]
-
 let usage_msg_of_command (command : string) : string =
   match command with
   | "txt-of-nmm" -> "[ OPTIONS ] { PATH-TO-NMM-FILE | - }"
@@ -32,6 +14,8 @@ let usage_msg_of_command (command : string) : string =
   | "check-xml-schema" -> "PATH-TO-DTD-FILE"
   | "validate-xml" -> "PATH-TO-DTD-FILE { PATH-TO-XML-FILE | - }"
   | "normalize-axml" -> "{ PATH-TO-AXML-FILE | - }"
+  | "test-with-nmm" -> "[ OPTIONS ] PATH-TO-NMM-FILE"
+  | "test-with-axml" -> "[ OPTIONS ] PATH-TO-AXML-FILE"
   | _ -> ""
 
 let usage_msg : string =
@@ -103,6 +87,8 @@ let options_of_command (command : string) : string list =
   | "exml-of-nmm" 
   | "exml-of-axml" -> exml_options
   | "axml-of-nmm" -> axml_options
+  | "test-with-nmm"
+  | "test-with-axml" -> exml_options
   | _ -> []
 
 let options_msg_of_command (command : string) : string =
@@ -297,12 +283,16 @@ let anon_arg_fun arg : unit =
         match arg with
         | "txt-of-axml" ->
             keyspecdoc_list.contents <- txt_of_axml_list
-        | "test-with-axml" | "html-of-axml" ->
+        | "test-with-axml" ->
+            keyspecdoc_list.contents <- exml_of_axml_list
+        | "html-of-axml" ->
             keyspecdoc_list.contents <- html_of_axml_list
         | "axml-of-nmm" ->
             keyspecdoc_list.contents <- axml_of_nmm_list
         | "txt-of-nmm" -> keyspecdoc_list.contents <- txt_of_nmm_list
-        | "test-with-nmm" | "html-of-nmm" ->
+        | "test-with-nmm" ->
+            keyspecdoc_list.contents <- exml_of_nmm_list
+        | "html-of-nmm" ->
             keyspecdoc_list.contents <- html_of_nmm_list
         | "check-xml-schema" | "validate-xml" | "show-axml-schema"
         | "show-exml-schema" | "show-default-css" | "version" | "help" ->
@@ -459,13 +449,8 @@ let _ : unit =
   | "show-exml-schema" -> print_endline (Main.exml_schema ())
   | "show-default-css" -> print_endline (Main.default_css ())
   | "test-with-axml" -> (
-      let options : Common_utils.t_html_options =
+      let options : Common_utils.t_exml_options =
         {
-          margin = margin.contents;
-          indent = indent.contents;
-          lang = lang.contents;
-          internal_css = List.rev internal_css.contents;
-          external_css = List.rev external_css.contents;
           quiet = quiet.contents;
           numbering = numbering.contents;
           allow_custom_numbering = allow_custom_numbering.contents;
@@ -476,13 +461,8 @@ let _ : unit =
       | "" -> raise (Error "missing PATH-TO-AXML-FILE")
       | path -> Test.test_with_axml_file options path)
   | "test-with-nmm" -> (
-      let options : Common_utils.t_html_options =
+      let options : Common_utils.t_exml_options =
         {
-          margin = margin.contents;
-          indent = indent.contents;
-          lang = lang.contents;
-          internal_css = List.rev internal_css.contents;
-          external_css = List.rev external_css.contents;
           quiet = quiet.contents;
           numbering = numbering.contents;
           allow_custom_numbering = allow_custom_numbering.contents;

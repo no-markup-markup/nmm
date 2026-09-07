@@ -109,7 +109,8 @@ docs: bin/nmm-ocaml
 		axml_of_doc.mli axml_of_doc.ml \
 		doc_of_axml.mli doc_of_axml.ml \
 		html_utils.mli html_utils.ml \
-		main.mli main.ml
+		main.mli main.ml \
+		test.mli test.ml
 	cd -
 
 
