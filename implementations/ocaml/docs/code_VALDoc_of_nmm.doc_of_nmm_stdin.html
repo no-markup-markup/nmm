@@ -22,7 +22,8 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Doc_of_nmm.doc_of_nmm_stdin</title>
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Doc_of_nmm.doc_of_nmm_stdin</title>
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> doc_of_nmm_stdin (print_tokens : bool) : <span class="constructor">Doc_types</span>.tr_doc =
@@ -46,7 +47,7 @@
         <span class="keyword">let</span> _ : unit =
           <span class="constructor">IO</span>.print_to_stderr
             (<span class="constructor">String</span>.concat <span class="string">"\n"</span>
-               [ <span class="string">"Read the the following tokens from \'"</span> ^ input ^ <span class="string">"\':"</span> ])
+               [ <span class="string">"Read the the following tokens from stdin:"</span> ])
         <span class="keyword">in</span>
         doc_of_nmm_string <span class="keyword">true</span> input
     <span class="keywordsign">|</span> <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"Parsing failed"</span>))</code></body></html>

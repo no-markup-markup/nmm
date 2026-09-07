@@ -22,7 +22,8 @@
 <link title="Axml_of_doc" rel="Chapter" href="Axml_of_doc.html">
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
-<link title="Main" rel="Chapter" href="Main.html"><title>Nmm_ocaml : Doc_of_nmm</title>
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Doc_of_nmm</title>
 </head>
 <body>
 <code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">Nmm_parser</span><br>
@@ -193,7 +194,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_to_stderr<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"Read&nbsp;the&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;\'"</span>&nbsp;^&nbsp;input&nbsp;^&nbsp;<span class="string">"\':"</span>&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"Read&nbsp;the&nbsp;the&nbsp;following&nbsp;tokens&nbsp;from&nbsp;stdin:"</span>&nbsp;])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_of_nmm_string&nbsp;<span class="keyword">true</span>&nbsp;input<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"Parsing&nbsp;failed"</span>))<br>

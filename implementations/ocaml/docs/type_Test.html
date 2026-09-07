@@ -23,8 +23,11 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Exml_utils.xml_of_string</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Test</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> xml_of_string (s : string) : <span class="constructor">Xml</span>.xml =
-  <span class="constructor">Xml</span>.<span class="constructor">PCData</span> (<span class="constructor">Xml_right</span>.pcdata_of_string s)</code></body></html>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;test_with_axml_file&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;test_with_nmm_file&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+<span class="keyword">end</span></code></body></html>
