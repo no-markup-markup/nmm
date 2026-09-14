@@ -15,6 +15,7 @@ and the XML-validation relies on [Xml-light](https://github.com/ncannasse/xml-li
 ## Command-line interface
 
 ```
+USAGE:
 nmm-ocaml [
   | txt-of-nmm   [ TXT-OPTIONS  ] { PATH-TO-NMM-FILE  | - }
   | html-of-nmm  [ HTML-OPTIONS ] { PATH-TO-NMM-FILE  | - }
@@ -65,20 +66,62 @@ AXML-OPTIONS:
   --tags PATH-TO-TSV-FILE
 ```
 
-## Installation
+## Install pre-built binary on debian-based linux with apt
 
-For installing the opam package manager, see https://opam.ocaml.org/
+Pre-built binaries for amd64 and arm64 are available at the following repository: https://ericjohannesson.github.io/apt-repo/
 
-For installing nmm-ocaml as a local opam package, clone this repository and run the following command in its root directory:
+Add the repository, and run
+```bash
+sudo apt install nmm-ocaml
+```
+
+
+## Build and install from source
+
+Clone this repository. In the root directory of the clone, you can either proceed with opam or nix:
+
+### with opam
+
+To install the opam package manager, see https://opam.ocaml.org/
+
+(On debian-based linux with apt, it is sufficient to run `sudo apt install opam`, although you probably will not get the latest version)
+
+To install the opam-dependencies, run
+```bash
+opam install ocaml ocamlfind sedlex uuseg xml-light
+```
+
+To build the executable that implements the command line interface, run
+```bash
+make bin/nmm-ocaml
+```
+
+Alternatively, to install nmm-ocaml as a local opam package, simply run
 ```bash
 opam install .
 ```
+This will automatically install the opam-dependencies, and build the executable at `~/.opam/<your-opam-switch>/bin/nmm-ocaml`.
 
-This will also build an executable file at `~/.opam/default/bin/nmm-ocaml` which implements the command-line interface.
+### with nix
 
-For only building the executable, run
+To install the standard nix package manager, see https://nixos.org/
+
+To open a nix-shell with the required packages, run
+```bash
+nix-shell
+```
+In that shell, to build the executable, run
 ```bash
 make bin/nmm-ocaml
+```
+
+On standard nix (without nix-commands), to build and add the executable to your nix profile, run
+```bash
+nix-env --install --file default.nix
+```
+To do the same on experimental nix (with nix-commands), run
+```bash
+nix profile add --file default.nix
 ```
 
 ## Documentation
