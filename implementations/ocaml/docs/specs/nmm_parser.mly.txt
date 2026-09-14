@@ -351,7 +351,7 @@ nls:
 ;
 
 
-(* Level 0 *)
+/* Level 0 */
 
 blks0:
   |blk0                                           { ($1::[]):tu_blk list }
@@ -533,7 +533,7 @@ lb0:
   |NL                                             { }
 ;
 
-(* General recipe for n>0:
+/* General recipe for n>0:
 
 blks(n):
   |blk(n)                                           { ($1::[]):tu_blk list }
@@ -706,9 +706,9 @@ end_qtn(n):
 lb(n):
   |lb(n-1)_TAB                                    { }
 ;
-*)
+*/
 
-(* Level 1 *)
+/* Level 1 */
 
 blks1:
   |blk1                                           { ($1::[]):tu_blk list }
@@ -886,7 +886,7 @@ lb1:
   |NL_TAB                                         { }
 ;
 
-(* Level 2 *)
+/* Level 2 */
 
 blks2:
   |blk2                                           { ($1::[]):tu_blk list }
@@ -1064,7 +1064,7 @@ lb2:
   |NL_TAB_TAB                                     { }
 ;
 
-(* Level 3 *)
+/* Level 3 */
 
 blks3:
   |blk3                                           { ($1::[]):tu_blk list }
@@ -1075,7 +1075,7 @@ blk3:
   |blk_txt3                                       { (Cu_blk_txt $1):tu_blk }
   |blk_vrb3                                       { (Cu_blk_vrb $1):tu_blk }
   |blk_qtn3                                       { Cu_blk_qtn $1 : tu_blk }
-  (* et cetera *)
+  /* et cetera */
 ;
 
 blk_txt3:
@@ -1184,7 +1184,7 @@ lb3:
   |NL_TAB_TAB_TAB                                 { }
 ;
 
-(* Common to all levels: *)
+/* Common to all levels: */
 
 dsp_line:
   |dsp_lbl_tab dsp_units                          { {fld_dsp_line_lbl=Some $1;fld_dsp_line_id=None;fld_dsp_line_units=Cs_txt_units $2}:tr_dsp_line }
