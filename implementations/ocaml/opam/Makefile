@@ -10,7 +10,8 @@ MAKEFLAGS += --no-builtin-rules
 default: package
 
 description = An OCaml implementation of the no-markup-markup markup language
-version := $(shell ../bin/nmm-ocaml version)
+#version = $(shell ../bin/nmm-ocaml version)
+version = 0
 
 define META
 version = \"${version}\"
@@ -34,7 +35,7 @@ homepage: \"https://github.com/ericjohannesson/nmm-ocaml\"
 dev-repo: \"git+https://github.com/ericjohannesson/nmm-ocaml.git\"
 bug-reports: \"https://github.com/ericjohannesson/nmm-ocaml/issues\"
 depends : [
-    \"ocaml\"
+    \"ocaml\" {>= \"4.14.0\"}
     \"sedlex\"
     \"uuseg\"
     \"xml-light\"
