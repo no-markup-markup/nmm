@@ -23,9 +23,9 @@ clean-docs:
 	rm -f docs/*.html
 	rm -f docs/specs/*.txt
 
-install-opam_package: opam/package src/cli.ml
+install-opam_package: opam/package
 	ocamlfind install nmm-ocaml opam/package/*
-	ocamlfind ocamlopt -o ~/.opam/default/bin/nmm-ocaml \
+	ocamlfind ocamlopt -o $(shell opam var bin)/nmm-ocaml \
 		-linkpkg \
 		-package sedlex.ppx \
 		-package uuseg \
@@ -239,12 +239,18 @@ byte: src
 	ocamlc -a -o nmm_ocaml.cma nmm_ocaml.cmo
 	cd -
 
-debian/packages: debian bin test
+debian/packages: debian bin share
 	cd debian
 	make
 	cd -
 
-opam/package: opam native byte test
+opam/package: opam byte native
 	cd opam
 	make
 	cd -
+
+share: scripts/nmm-ocaml-bash-completion.sh
+	mkdir -p share/bash-completion/completions
+	cp scripts/nmm-ocaml-bash-completion.sh \
+		share/bash-completion/completions/nmm-ocaml
+	

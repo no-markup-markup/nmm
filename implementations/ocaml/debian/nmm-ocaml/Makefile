@@ -14,16 +14,14 @@ clean:
 	git clean -fdX
 
 package = nmm-ocaml
-release = 1
-architecture = amd64
-maintainer = Eric Johannesson <eric@ericjohannesson.com>
-homepage = https://github.com/ericjohannesson/nmm-ocaml
-description = An implementation of no-markup-markup in OCaml
-depends = libc6
+version = $(shell ../../bin/nmm-ocaml version)
+release = 0
+architecture = $(shell bash get-architecture.sh)
 
 directory = ${package}_${version}-${release}_${architecture}
 
-version := $(shell ../../bin/nmm-ocaml version)
+depends = libc6
+description = An implementation of no-markup-markup in OCaml
 
 define control
 Package: ${package}
@@ -43,16 +41,14 @@ ${directory}/usr/bin/nmm-ocaml: ../../bin/nmm-ocaml
 	mkdir -p ${directory}/usr/bin
 	cp ../../bin/nmm-ocaml ${directory}/usr/bin/
 
-${directory}/usr/share/bash-completion/completions/nmm-ocaml: \
-	../../scripts/nmm-ocaml-bash-completion.sh
-	mkdir -p ${directory}/usr/share/bash-completion/completions
-	cp ../../scripts/nmm-ocaml-bash-completion.sh \
-		${directory}/usr/share/bash-completion/completions/nmm-ocaml
+${directory}/usr/share: ../../share
+	mkdir -p ${directory}/usr/share
+	cp -r ../../share/* ${directory}/usr/share/
 
 ${directory}: \
 	${directory}/DEBIAN/control \
 	${directory}/usr/bin/nmm-ocaml \
-	${directory}/usr/share/bash-completion/completions/nmm-ocaml
+	${directory}/usr/share
 
 packages: ${directory}
 	dpkg-deb --root-owner-group --build ${directory}
