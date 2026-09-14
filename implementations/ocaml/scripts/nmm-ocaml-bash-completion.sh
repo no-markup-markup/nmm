@@ -64,10 +64,10 @@ _nmm_ocaml () {
       _nmm_ocaml_chosen_subcommand=$prev
       COMPREPLY=( $(compgen -W "${options}" -- ${cur}) $(compgen -f -- ${cur}) )
       ;;
-    --lang )
+    --lang | --numbering )
       COMPREPLY=( $(compgen -W "${options}" -- ${cur}) )
       ;;
-    --numbering | --margin | --indent | --width )
+    --margin | --indent | --width )
       COMPREPLY=( $(compgen -W "${options}") )
       ;;
     --tags | --internal-css | --external-css | validate-xml | check-xml-schema )
