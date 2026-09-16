@@ -70,31 +70,24 @@
     <span class="keywordsign">|</span> <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> n
   <span class="keyword">in</span>
   <span class="keyword">let</span> tab_length : int =
-    <span class="keyword">match</span> preamble_options.tab_length, txt_options.indent <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.tab_length
-    <span class="keywordsign">|</span> _, <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> n
-    <span class="keywordsign">|</span> <span class="constructor">Some</span> n, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> n
+    <span class="keyword">match</span> txt_options.indent <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.tab_length
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> n
   <span class="keyword">in</span>
   <span class="keyword">let</span> expand_tag : ts_tag <span class="keywordsign">-&gt;</span> (string * string) option =
-    <span class="keyword">match</span> preamble_options.expand_tag, txt_options.tags <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.expand_tag
-    <span class="keywordsign">|</span> _, <span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Tags</span>.expander_of_file path
-    <span class="keywordsign">|</span> <span class="constructor">Some</span> expander , <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> expander
+    <span class="keyword">match</span> txt_options.tags <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.expand_tag
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Tags</span>.expander_of_file path
   <span class="keyword">in</span>
   <span class="keyword">let</span> auto_numbering : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string =
-    <span class="keyword">match</span> preamble_options.auto_numbering, txt_options.numbering <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.auto_numbering
-    <span class="keywordsign">|</span> _, <span class="constructor">Some</span> s <span class="keywordsign">-&gt;</span> auto_numbering_of_string s
-    <span class="keywordsign">|</span> <span class="constructor">Some</span> numbering, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> numbering
+    <span class="keyword">match</span> txt_options.numbering <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.auto_numbering
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> s <span class="keywordsign">-&gt;</span> auto_numbering_of_string s
   <span class="keyword">in</span>
   <span class="keyword">let</span> allow_custom_numbering : bool =
-    <span class="keyword">match</span>
-      preamble_options.allow_custom_numbering,
-      txt_options.allow_custom_numbering
-    <span class="keyword">with</span>
-    <span class="keywordsign">|</span> <span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.allow_custom_numbering
-    <span class="keywordsign">|</span> <span class="constructor">Some</span> b, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> b
-    <span class="keywordsign">|</span> _ , <span class="constructor">Some</span> b <span class="keywordsign">-&gt;</span> b
+    <span class="keyword">match</span> txt_options.allow_custom_numbering <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings.allow_custom_numbering
+    <span class="keywordsign">|</span> <span class="constructor">Some</span> b <span class="keywordsign">-&gt;</span> b
   <span class="keyword">in</span>
   {
     doc_settings <span class="keyword">with</span>

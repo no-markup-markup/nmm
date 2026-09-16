@@ -26,9 +26,7 @@
 <link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Main</title>
 </head>
 <body>
-<code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">Doc_types</span><br>
-<br>
-<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<code class="code"><span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
 <span class="comment">(*&nbsp;version&nbsp;*)</span><br>
 <br>
@@ -67,12 +65,6 @@
 <span class="keyword">let</span>&nbsp;html_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;preamble_options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_preamble_options&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.preamble_options_of_tr_doc&nbsp;doc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_preamble&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.doc_settings_of_preamble_options&nbsp;preamble_options<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Common_utils</span>.exml_options_of_html_options&nbsp;options)<br>
@@ -106,6 +98,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;lang_code&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;preamble_options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_preamble_options&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.preamble_options_of_tr_doc&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_preamble&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.doc_settings_of_preamble_options&nbsp;preamble_options<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_left&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Html_utils</span>.margin_left_of_tr_doc&nbsp;doc,<br>

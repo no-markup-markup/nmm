@@ -1,5 +1,3 @@
-open Doc_types
-
 exception Error of string
 
 (* version *)
@@ -39,12 +37,6 @@ let txt_of_nmm (options : Common_utils.t_txt_options) (path : string) : string =
 let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
     : string =
   try
-    let preamble_options : Common_utils.t_preamble_options =
-      Common_utils.preamble_options_of_tr_doc doc
-    in
-    let doc_settings_preamble : Common_utils.t_doc_settings = 
-      Common_utils.doc_settings_of_preamble_options preamble_options
-    in
     let exml : Xml.xml =
       Compiler_of_doc.exml_of_tr_doc
         (Common_utils.exml_options_of_html_options options)
@@ -78,6 +70,12 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
       | Some s -> s
     in
     let lang_attr : string = " lang=\"" ^ lang_code ^ "\"" in
+    let preamble_options : Common_utils.t_preamble_options =
+      Common_utils.preamble_options_of_tr_doc doc
+    in
+    let doc_settings_preamble : Common_utils.t_doc_settings = 
+      Common_utils.doc_settings_of_preamble_options preamble_options
+    in
     let margin_left : string =
       match
         Html_utils.margin_left_of_tr_doc doc,

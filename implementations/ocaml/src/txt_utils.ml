@@ -722,31 +722,24 @@ let doc_settings_of_options (doc_settings : t_doc_settings)
     | Some n -> n
   in
   let tab_length : int =
-    match preamble_options.tab_length, txt_options.indent with
-    | None, None -> doc_settings.tab_length
-    | _, Some n -> n
-    | Some n, None -> n
+    match txt_options.indent with
+    | None -> doc_settings.tab_length
+    | Some n -> n
   in
   let expand_tag : ts_tag -> (string * string) option =
-    match preamble_options.expand_tag, txt_options.tags with
-    | None, None -> doc_settings.expand_tag
-    | _, Some path -> Tags.expander_of_file path
-    | Some expander , None -> expander
+    match txt_options.tags with
+    | None -> doc_settings.expand_tag
+    | Some path -> Tags.expander_of_file path
   in
   let auto_numbering : int -> int -> string =
-    match preamble_options.auto_numbering, txt_options.numbering with
-    | None, None -> doc_settings.auto_numbering
-    | _, Some s -> auto_numbering_of_string s
-    | Some numbering, None -> numbering
+    match txt_options.numbering with
+    | None -> doc_settings.auto_numbering
+    | Some s -> auto_numbering_of_string s
   in
   let allow_custom_numbering : bool =
-    match
-      preamble_options.allow_custom_numbering,
-      txt_options.allow_custom_numbering
-    with
-    | None, None -> doc_settings.allow_custom_numbering
-    | Some b, None -> b
-    | _ , Some b -> b
+    match txt_options.allow_custom_numbering with
+    | None -> doc_settings.allow_custom_numbering
+    | Some b -> b
   in
   {
     doc_settings with
