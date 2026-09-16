@@ -41,17 +41,42 @@ val doc_settings_default : unit -> t_doc_settings
 
 (** {3 User-defined settings} *)
 
+(* preamble options *)
+
+type t_preamble_options = {
+  doc_width : int option;
+  left_margin : int option;
+  title_indent : int option;
+  author_indent : int option;
+  date_indent : int option;
+  abstract_indent : int option;
+  refs_indent : int option;
+  tab_length : int option;
+  abstract_hdr : (string * string) option option;
+  refs_hdr : (string * string) option option;
+  endnotes_hdr : string option option;
+  ch_prefix : (string * string) option option;
+  sec_prefix : (string * string) option option;
+  app_prefix : (string * string) option option;
+  par_prefix : (string * string) option option;
+  expand_tag : (Doc_types.ts_tag -> (string * string) option) option;
+  auto_numbering : (int -> int -> string) option;
+  allow_custom_numbering : bool option;
+  nte_numbering : (int -> string) option;
+}
+
+val preamble_options_default : unit -> t_preamble_options
+
 val auto_numbering_of_string : string -> int -> int -> string
 
 val doc_settings_of_ts_blks :
   t_doc_settings -> int -> Doc_types.ts_blks -> t_doc_settings
 
-val doc_settings_of_tr_doc :
-  t_doc_settings ->
+val preamble_options_of_tr_doc :
   Doc_types.tr_doc ->
-  t_doc_settings
-(** [doc_settings_of_tr_doc doc] checks if [doc] has a preamble. If so, it
-    attempts to parse that preamble and return updated document settings.
+  t_preamble_options
+(** [preamble_options_of_tr_doc doc] checks if [doc] has a preamble. If so, it
+    attempts to parse that preamble and return updated preamble options.
 
     Prints a warning to [stderr] if parsing fails, and keeps the default setting.
 
@@ -87,6 +112,10 @@ val doc_settings_of_tr_doc :
 
     NAT ::= ['0'-'9']+
     v} *)
+
+val doc_settings_of_preamble_options : t_preamble_options -> t_doc_settings
+
+
 
 (** {2 Cross-references} *)
 

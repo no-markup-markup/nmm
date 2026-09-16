@@ -1,0 +1,50 @@
+§ 1
+
+¶ 1.1     THEOREM (Main)
+
+          (a)   Nothing lasts forever.
+
+          (b)   All is well.
+
+                (1)   sometimes
+
+                (2)   forever
+
+          '[ITM:1]' -> (a)
+
+          '[ITM:2]' -> (b)
+
+          '[ITM:2a]' -> (b)(1)
+
+          '[ITM:2b]' -> (b)(2)
+
+
+¶ 1.2     PROOF (of Theorem 1.1)  By straightforward induction on the
+          complexity of nothing.
+
+          '[THM:main]' -> Theorem 1.1
+
+          '[ITM:1]' -> (a) of Theorem 1.1
+
+          '[ITM:2]' -> (b) of Theorem 1.1
+
+          '[ITM:2a]' -> (b)(1) of Theorem 1.1
+
+          '[ITM:2b]' -> (b)(2) of Theorem 1.1
+
+
+
+§ 2
+
+¶ 2.1     PROOF (of Theorem 1.1)  By straightforward induction on the
+          complexity of nothing.
+
+          '[THM:main]' -> Theorem 1.1
+
+          '[ITM:1]' -> (a) of Theorem 1.1
+
+          '[ITM:2]' -> (b) of Theorem 1.1
+
+          '[ITM:2a]' -> (b)(1) of Theorem 1.1
+
+          '[ITM:2b]' -> (b)(2) of Theorem 1.1

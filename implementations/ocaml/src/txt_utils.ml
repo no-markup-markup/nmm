@@ -677,66 +677,86 @@ let left_margin_of_margin_labels (margin_labels : string list) : int =
 
 (* doc settings *)
 
-let doc_settings_of_margin_labels (doc_settings : t_doc_settings)
-    (margin_labels : string list) : t_doc_settings =
-  let left_margin_auto : int =
-    left_margin_of_margin_labels margin_labels
-  in
-  let doc_width_auto : int =
-    if 68 + left_margin_auto > 80 then 80 else 68 + left_margin_auto
-  in
-  { doc_settings with
-    doc_width = doc_width_auto;
-    left_margin = left_margin_auto;
-    title_indent = left_margin_auto;
-    author_indent = left_margin_auto;
-    date_indent = left_margin_auto;
-    abstract_indent = left_margin_auto;
-    refs_indent = left_margin_auto;
-  }
 
-
-let doc_settings_of_txt_options (doc_settings : t_doc_settings)
-    (margin_labels : string list) (options : t_txt_options)
-    : t_doc_settings =
-  let new_doc_settings : t_doc_settings =
-    match options.margin, margin_labels with
-    | Some _, [] -> doc_settings
-    | Some m, _ ->
-        let new_margin_labels : string list =
-          [ make_string m "0" ]
-        in
-        doc_settings_of_margin_labels doc_settings new_margin_labels
-    | None, _ -> doc_settings
+let doc_settings_of_options (doc_settings : t_doc_settings)
+    (margin_auto : int)
+    (preamble_options : t_preamble_options)
+    (txt_options : t_txt_options) : t_doc_settings =
+  let left_margin : int =
+    match margin_auto, preamble_options.left_margin, txt_options.margin with
+    | 0, _, _ -> 0
+    | _, None, None -> margin_auto
+    | _, _ , Some n -> n
+    | _, Some n, None -> n
   in
   let doc_width : int =
-    match options.width with
-    | Some (w : int) -> w
-    | None -> new_doc_settings.doc_width
+    match preamble_options.doc_width, txt_options.width with
+    | None, None ->
+        if 68 + left_margin > 80 then 80 else 68 + left_margin
+    | _ , Some n -> n
+    | Some n, None -> n
   in
-  let auto_numbering : int -> int -> string =
-    match options.numbering with
-    | None -> new_doc_settings.auto_numbering
-    | Some s -> auto_numbering_of_string s
-  in
-  let allow_custom_numbering : bool =
-    match options.allow_custom_numbering with
-    | None -> new_doc_settings.allow_custom_numbering
-    | Some value -> value
-  in
-  let expand_tag : ts_tag -> (string * string) option =
-    match options.tags with
-    | None -> new_doc_settings.expand_tag
-    | Some path -> Tags.expander_of_file path
-  in
-  let tab_length : int =
-    match options.indent with
-    | None -> new_doc_settings.tab_length
+  let title_indent : int =
+    match preamble_options.title_indent with
+    | None -> left_margin
     | Some n -> n
   in
+  let author_indent : int =
+    match preamble_options.author_indent with
+    | None -> left_margin
+    | Some n -> n
+  in
+  let date_indent : int =
+    match preamble_options.date_indent with
+    | None -> left_margin
+    | Some n -> n
+  in
+  let abstract_indent : int =
+    match preamble_options.abstract_indent with
+    | None -> left_margin
+    | Some n -> n
+  in
+  let refs_indent : int =
+    match preamble_options.refs_indent with
+    | None -> left_margin
+    | Some n -> n
+  in
+  let tab_length : int =
+    match preamble_options.tab_length, txt_options.indent with
+    | None, None -> doc_settings.tab_length
+    | _, Some n -> n
+    | Some n, None -> n
+  in
+  let expand_tag : ts_tag -> (string * string) option =
+    match preamble_options.expand_tag, txt_options.tags with
+    | None, None -> doc_settings.expand_tag
+    | _, Some path -> Tags.expander_of_file path
+    | Some expander , None -> expander
+  in
+  let auto_numbering : int -> int -> string =
+    match preamble_options.auto_numbering, txt_options.numbering with
+    | None, None -> doc_settings.auto_numbering
+    | _, Some s -> auto_numbering_of_string s
+    | Some numbering, None -> numbering
+  in
+  let allow_custom_numbering : bool =
+    match
+      preamble_options.allow_custom_numbering,
+      txt_options.allow_custom_numbering
+    with
+    | None, None -> doc_settings.allow_custom_numbering
+    | Some b, None -> b
+    | _ , Some b -> b
+  in
   {
-    new_doc_settings with
+    doc_settings with
     doc_width = doc_width;
+    left_margin = left_margin;
+    title_indent = title_indent;
+    author_indent = author_indent;
+    date_indent = date_indent;
+    abstract_indent = abstract_indent;
+    refs_indent = refs_indent;
     tab_length = tab_length;
     expand_tag = expand_tag;
     auto_numbering = auto_numbering;

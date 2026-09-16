@@ -314,15 +314,19 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
       Xml.Element ("div", [ ("class", "clear") ], [ Xml.PCData "" ])
   | Xml.Element (tag, _, _) -> raise (Error ("unexpected element: " ^ tag))
 
-let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : string =
-  let default : t_doc_settings = Common_utils.doc_settings_default () in
-  let doc_settings_preamble : t_doc_settings = doc_settings_of_tr_doc default doc in
+let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : float =
+  let preamble_options : t_preamble_options =
+    Common_utils.preamble_options_of_tr_doc doc
+  in
+  let doc_settings_preamble : t_doc_settings = 
+    Common_utils.doc_settings_of_preamble_options preamble_options
+  in
   let margin_labels =
     Compiler_of_doc.margin_labels_of_tr_doc doc_settings_preamble doc
   in
-  let max_length : int = Txt_utils.max_length_of_margin_labels margin_labels in
-  let margin : float = (Float.of_int (max_length + 3)) *. 0.6 in
-  String.concat "" [ Printf.sprintf "%.2f" margin; "rem" ]
+  match Txt_utils.max_length_of_margin_labels margin_labels with
+  | 0 -> 0.0
+  | n -> (Float.of_int (n + 3)) *. 0.6
 
 let internal_css_of_file (path : string) : string =
   let comment : string =

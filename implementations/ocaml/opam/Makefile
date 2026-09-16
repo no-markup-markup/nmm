@@ -11,7 +11,7 @@ default: package
 
 description = An OCaml implementation of the no-markup-markup markup language
 #version = $(shell ../bin/nmm-ocaml version)
-version = 0
+version = 1
 
 define META
 version = \"${version}\"

@@ -132,6 +132,25 @@ show_txt_diff () {
 	return $exit_code
 }
 
+show_txt_diff_margin () {
+	local exit_code=0
+	local curr_code=0
+	local output_dir="txt_output_margin"
+	local expected_output_dir="expected_txt_output_margin"
+	for file in $(ls ${output_dir}/*.txt)
+	do
+		local expected_output_file="${expected_output_dir}/$(basename $file)"
+		local output_file="${output_dir}/$(basename $file)"
+		diff $expected_output_file $output_file > /dev/null
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+			echo $expected_output_file ≠ $output_file
+		fi
+	done
+	return $exit_code
+}
 
 show_html_diff () {
 	local exit_code=0
@@ -228,6 +247,24 @@ test_normalize_axml () {
 
 }
 
+make_txt_output_margin () {
+	local exit_code=0
+	local curr_code=0
+	local input_dir="nmm_input"
+	local output_dir="txt_output_margin"
+	mkdir -p $output_dir
+	for file in $(ls ${input_dir}/*.nmm)
+	do
+		../bin/nmm-ocaml txt-of-nmm $@ $file > ${output_dir}/$(basename $file).txt
+		curr_code=$?
+		if [ $curr_code -gt 0 ]
+		then
+			exit_code=$curr_code
+		fi
+	done
+	return $exit_code
+}
+
 
 make_tests () {
 	local exit_code=0
@@ -317,6 +354,21 @@ make_tests () {
 	then
 		exit_code=$curr_code
 	fi
+
+	make_txt_output_margin --quiet --allow-custom-numbering --margin 10
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+		exit_code=$curr_code
+	fi
+
+	show_txt_diff_margin
+	curr_code=$?
+	if [ $curr_code -gt 0 ]
+	then
+		exit_code=$curr_code
+	fi
+
 
 	if [ $exit_code -gt 0 ]
 	then

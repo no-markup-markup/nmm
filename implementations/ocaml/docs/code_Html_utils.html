@@ -342,15 +342,19 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"clear"</span>)&nbsp;],&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;<span class="string">""</span>&nbsp;])<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(tag,&nbsp;_,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="string">"unexpected&nbsp;element:&nbsp;"</span>&nbsp;^&nbsp;tag))<br>
 <br>
-<span class="keyword">let</span>&nbsp;margin_left_of_tr_doc&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;default&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_preamble&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;doc_settings_of_tr_doc&nbsp;default&nbsp;doc&nbsp;<span class="keyword">in</span><br>
+<span class="keyword">let</span>&nbsp;margin_left_of_tr_doc&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;float&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;preamble_options&nbsp;:&nbsp;t_preamble_options&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.preamble_options_of_tr_doc&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_settings_preamble&nbsp;:&nbsp;t_doc_settings&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.doc_settings_of_preamble_options&nbsp;preamble_options<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin_labels&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Compiler_of_doc</span>.margin_labels_of_tr_doc&nbsp;doc_settings_preamble&nbsp;doc<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;max_length&nbsp;:&nbsp;int&nbsp;=&nbsp;<span class="constructor">Txt_utils</span>.max_length_of_margin_labels&nbsp;margin_labels&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;margin&nbsp;:&nbsp;float&nbsp;=&nbsp;(<span class="constructor">Float</span>.of_int&nbsp;(max_length&nbsp;+&nbsp;3))&nbsp;*.&nbsp;0.6&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="constructor">Printf</span>.sprintf&nbsp;<span class="string">"%.2f"</span>&nbsp;margin;&nbsp;<span class="string">"rem"</span>&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">Txt_utils</span>.max_length_of_margin_labels&nbsp;margin_labels&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0.0<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Float</span>.of_int&nbsp;(n&nbsp;+&nbsp;3))&nbsp;*.&nbsp;0.6<br>
 <br>
 <span class="keyword">let</span>&nbsp;internal_css_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;comment&nbsp;:&nbsp;string&nbsp;=<br>

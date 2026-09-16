@@ -5,7 +5,7 @@
 exception Error of string
 
 val html_of_exml : Common_utils.t_doc_class -> Xml.xml -> Xml.xml
-val margin_left_of_tr_doc : Doc_types.tr_doc -> string
+val margin_left_of_tr_doc : Doc_types.tr_doc -> float
 val internal_css_of_file : string -> string
 
 val default_css : string -> string -> string

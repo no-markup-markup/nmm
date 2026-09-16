@@ -1,0 +1,19 @@
+¶ 1       Teoremet (Main)  Nothing lasts forever.
+
+
+¶ 2       Beviset (of Teoremet 1)  By straightforward induction on the
+          complexity of nothing.
+
+
+¶ 3       Teoremen
+
+          (a)   This theorem states that ...
+
+          (b)   This theoren states that ...
+
+
+¶ 4       Bevisen (of Teoremen 3)
+
+          (a)   To prove (a) of Teoremen 3, ...
+
+          (b)   To prove (b) of Teoremen 3, ...

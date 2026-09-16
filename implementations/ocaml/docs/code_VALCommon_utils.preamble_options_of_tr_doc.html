@@ -23,23 +23,12 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Txt_utils.doc_settings_of_margin_labels</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Common_utils.preamble_options_of_tr_doc</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_settings_of_margin_labels (doc_settings : t_doc_settings)
-    (margin_labels : string list) : t_doc_settings =
-  <span class="keyword">let</span> left_margin_auto : int =
-    left_margin_of_margin_labels margin_labels
-  <span class="keyword">in</span>
-  <span class="keyword">let</span> doc_width_auto : int =
-    <span class="keyword">if</span> 68 + left_margin_auto &gt; 80 <span class="keyword">then</span> 80 <span class="keyword">else</span> 68 + left_margin_auto
-  <span class="keyword">in</span>
-  { doc_settings <span class="keyword">with</span>
-    doc_width = doc_width_auto;
-    left_margin = left_margin_auto;
-    title_indent = left_margin_auto;
-    author_indent = left_margin_auto;
-    date_indent = left_margin_auto;
-    abstract_indent = left_margin_auto;
-    refs_indent = left_margin_auto;
-  }</code></body></html>
+<code class="code"><span class="keyword">let</span> preamble_options_of_tr_doc (doc : <span class="constructor">Doc_types</span>.tr_doc)
+    : t_preamble_options =
+  <span class="keyword">match</span> doc.fld_doc_preamble <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> preamble_options_default ()
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> preamble <span class="keywordsign">-&gt;</span>
+      preamble_options_of_ts_preamble (preamble_options_default ()) preamble</code></body></html>

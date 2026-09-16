@@ -1,0 +1,98 @@
+§ 1       Introduction
+          ────────────
+
+¶ 1.1     According to Definition 2.4 ...
+
+          This is a no-markup-markup document, sporting the following cool
+          features:
+
+          (a)   E̲m̲ph̲a̲s̲i̲z̲e̲d̲ ̲t̲e̲x̲t̲ ̲s̲pa̲n̲n̲i̲n̲g ̲m̲u̲l̲t̲i̲pl̲e̲ ̲l̲i̲n̲e̲s̲ ̲i̲n̲ ̲t̲h̲e̲ ̲s̲o̲u̲r̲c̲e̲ ̲c̲o̲d̲e̲
+                w̲i̲t̲h̲o̲u̲t̲ ̲b̲r̲e̲a̲k̲i̲n̲g ̲a̲ ̲s̲w̲e̲a̲t̲.
+
+          (b)   Bullet lists:
+
+                ─     Here is one bullet item.
+
+                ─     Here is another one.
+
+          (c)   Numbered lists with labels that are either
+
+                (1)   automatic, or
+
+                (*)   custom.
+
+                Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
+
+                (2)   The named item can be referred to anywhere in the
+                      document.
+
+                (3)   When referring to (2) above in a local manner (which is
+                      default), any common initial path shared between the
+                      location of the referring expression and the location of
+                      its referent will be omitted. The same applies with
+                      respect to (†) below.
+
+                (†)   Of course, items with custom labels can also be named!
+
+          Due to the feature mentioned in (c)(3), a local reference to (c)(2)
+          or (c)(†) occurring elsewhere may appear differently.
+
+          (d)   Displayed lines of text suitable for mathematical equations,
+                which are either
+
+                (1)   automatically labeled (and named),
+                (+)   custom labeled (and named), or,
+                      unlike (1) above, unlabeled.
+
+          Displayed lines can also be used for drawing tables and such:
+
+                    |    0    |      1      |    2      | . . .
+                ───────────────────────────────────────────────
+                f₀  | f₀(0) + 1 | f₀(1)     | f₀(2)     |
+                f₁  | f₁(0)     | f₁(1) + 1 | f₁(2)     |
+                f₂  | f₂(0)     | f₂(1)     | f₂(2) + 1 |
+                .                                         .
+                .                                           .
+                .                                             .
+
+          This is what a reference to (d)(1) looks like.
+
+
+¶ 1.2     We may also refer to (c)(2) of ¶ 1.1 or (c)(3) of ¶ 1.1 from another
+          paragraph. These references will appear differently than when
+          occurring in paragraph ¶ 1.1 above.
+
+          This is what a reference to (d)(1) of ¶ 1.1 looks like.
+
+
+
+§ 2       Section headers are optional, but recommended. They may contain both
+          e̲m̲ph̲a̲s̲i̲z̲e̲d̲ ̲t̲e̲x̲t̲ and references, neither of which are recommended.
+          ────────────────────────────────────────────────────────────────────
+
+¶ 2.1     The same goes for paragraph headers. As we shall see in ¶ 2.2 below,
+          paragraphs with headers can also be named.
+
+
+¶ 2.2     This is a pa̲r̲a̲gr̲a̲ph̲ ̲h̲e̲a̲d̲e̲r̲, referencing (c)(2) of ¶ 1.1 and
+          (c)(3) of ¶ 1.1 above. Again, these references will appear
+          differently than when occurring in ¶ 1.1.  Putting references in a
+          header does not look very nice.
+
+
+¶ 2.3     DEFINITION  We say that Γ ⊨ φ just in case every model of Γ is a
+          model of φ.
+
+
+¶ 2.4     DEFINITION (Provability)  We say that Γ ⊢ φ just in case there is a
+          proof from Γ to φ.
+
+
+¶ 2.5     FACT  For every sentence φ and set of sentences Γ, if Γ ⊨ φ then Γ ⊢
+          φ.
+
+
+
+§ 3
+
+¶ 3.1     Paragraph in a section with not header.

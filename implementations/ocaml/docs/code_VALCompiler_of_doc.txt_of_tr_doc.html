@@ -26,22 +26,22 @@
 <link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Compiler_of_doc.txt_of_tr_doc</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
-  <span class="keyword">let</span> default : t_doc_settings = <span class="constructor">Common_utils</span>.doc_settings_default () <span class="keyword">in</span>
-  <span class="keyword">let</span> doc_settings_preamble : t_doc_settings =
-    <span class="constructor">Common_utils</span>.doc_settings_of_tr_doc default doc
+<code class="code"><span class="keyword">let</span> txt_of_tr_doc (txt_options : t_txt_options) (doc : tr_doc) : string =
+  <span class="keyword">let</span> preamble_options : t_preamble_options =
+    <span class="constructor">Common_utils</span>.preamble_options_of_tr_doc doc
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> doc_settings_preamble : t_doc_settings = 
+    <span class="constructor">Common_utils</span>.doc_settings_of_preamble_options preamble_options
   <span class="keyword">in</span>
   <span class="keyword">let</span> margin_labels : string list =
       margin_labels_of_tr_doc doc_settings_preamble doc
   <span class="keyword">in</span>
-  <span class="keyword">let</span> doc_settings_auto : t_doc_settings =
-    <span class="constructor">Txt_utils</span>.doc_settings_of_margin_labels default margin_labels
+  <span class="keyword">let</span> margin_auto : int =
+    <span class="constructor">Txt_utils</span>.left_margin_of_margin_labels margin_labels
   <span class="keyword">in</span>
-  <span class="keyword">let</span> new_doc_settings_preamble : t_doc_settings =
-    <span class="constructor">Common_utils</span>.doc_settings_of_tr_doc doc_settings_auto doc
+  <span class="keyword">let</span> doc_settings : t_doc_settings =
+    <span class="constructor">Txt_utils</span>.doc_settings_of_options doc_settings_preamble
+      margin_auto preamble_options txt_options
   <span class="keyword">in</span>
-  <span class="keyword">let</span> doc_settings_cli : t_doc_settings =
-    <span class="constructor">Txt_utils</span>.doc_settings_of_txt_options new_doc_settings_preamble margin_labels options
-  <span class="keyword">in</span>
-  <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.quiet.contents &lt;- options.quiet <span class="keyword">in</span>
-  <span class="constructor">String</span>.concat <span class="string">"\n"</span> (lines_of_tr_doc doc_settings_cli doc)</code></body></html>
+  <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.quiet.contents &lt;- txt_options.quiet <span class="keyword">in</span>
+  <span class="constructor">String</span>.concat <span class="string">"\n"</span> (lines_of_tr_doc doc_settings doc)</code></body></html>

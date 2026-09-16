@@ -1,0 +1,38 @@
+This is a no-markup-markup document, sporting the following cool
+features:
+
+(a)   Bullet lists:
+
+      ─     Here is one bullet item.
+
+      ─     Here is another one.
+
+(b)   Numbered lists with labels that are either
+
+      (1)   automatic, or
+
+      (ö)   custom.
+
+      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
+
+      (2)   The named item can be referred to anywhere in the
+            document.
+
+      (3)   When referring to (2) above, any common initial path
+            shared between the location of the referring expression
+            and the location of its referent will be omitted. The
+            same applies with respect to (ä) below.
+
+      (ä)   Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in (b)(3), a reference to (b)(2) or
+(b)(ä) occurring elsewhere may appear differently.
+
+(c)   Displayed lines of text suitable for mathematical equations,
+      which are either
+
+      (1)   automatically labeled (and named),
+      (+)   custom labeled (and named), or,
+            unlike (1) above, unlabeled.
+
+Testing the forbidden characters: < > & ' "

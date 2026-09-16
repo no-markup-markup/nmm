@@ -290,6 +290,52 @@ let doc_settings_of_ts_blks (doc_settings : t_doc_settings) (lvl : int)
     in
     match blks with Cs_blks blk_list -> aux blk_list
 
+(* preamble options *)
+
+type t_preamble_options = {
+  doc_width : int option;
+  left_margin : int option;
+  title_indent : int option;
+  author_indent : int option;
+  date_indent : int option;
+  abstract_indent : int option;
+  refs_indent : int option;
+  tab_length : int option;
+  abstract_hdr : (string * string) option option;
+  refs_hdr : (string * string) option option;
+  endnotes_hdr : string option option;
+  ch_prefix : (string * string) option option;
+  sec_prefix : (string * string) option option;
+  app_prefix : (string * string) option option;
+  par_prefix : (string * string) option option;
+  expand_tag : (Doc_types.ts_tag -> (string * string) option) option;
+  auto_numbering : (int -> int -> string) option;
+  allow_custom_numbering : bool option;
+  nte_numbering : (int -> string) option;
+}
+
+let preamble_options_default () : t_preamble_options = {
+  doc_width = None;
+  left_margin = None;
+  title_indent = None;
+  author_indent = None;
+  date_indent = None;
+  abstract_indent = None;
+  refs_indent = None;
+  tab_length = None;
+  abstract_hdr = None;
+  refs_hdr = None;
+  endnotes_hdr = None;
+  ch_prefix = None;
+  sec_prefix = None;
+  app_prefix = None;
+  par_prefix = None;
+  expand_tag = None;
+  auto_numbering = None;
+  allow_custom_numbering = None;
+  nte_numbering = None;
+}
+
 let tag_value_of_string
     (expand_tag_old : Doc_types.ts_tag -> (string * string) option) (v : string)
     : Doc_types.ts_tag -> (string * string) option =
@@ -333,11 +379,11 @@ let nte_numbering_of_string (v : string) : int -> string =
   let string_array = Array.of_list string_list in
   symbol_of_array_roman string_array
 
-let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings
-    =
+let set_doc_width (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with doc_width = value }
+    if value > -1 then { options with doc_width = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
@@ -350,13 +396,13 @@ let set_doc_width (v : string) (doc_settings : t_doc_settings) : t_doc_settings
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_left_margin (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_left_margin (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with left_margin = value }
+    if value > -1 then { options with left_margin = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
@@ -369,13 +415,13 @@ let set_left_margin (v : string) (doc_settings : t_doc_settings) :
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_title_indent (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_title_indent (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with title_indent = value }
+    if value > -1 then { options with title_indent = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
@@ -388,154 +434,160 @@ let set_title_indent (v : string) (doc_settings : t_doc_settings) :
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_author_indent (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_author_indent (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with author_indent = value }
+    if value > -1 then { options with author_indent = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [
-             "WARNING: invalid author_indent value: ";
+             "WARNING: invalid author-indent value: ";
              v;
              "\n";
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_date_indent (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_date_indent (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with date_indent = value }
+    if value > -1 then { options with date_indent = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [
-             "WARNING: invalid date_indent value: ";
+             "WARNING: invalid date-indent value: ";
              v;
              "\n";
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_abstract_indent (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_abstract_indent (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with abstract_indent = value }
+    if value > -1 then { options with abstract_indent = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [
-             "WARNING: invalid abstract_indent value: ";
+             "WARNING: invalid abstract-indent value: ";
              v;
              "\n";
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_refs_indent (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_refs_indent (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with refs_indent = value }
+    if value > -1 then { options with refs_indent = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [
-             "WARNING: invalid refs_indent value: ";
+             "WARNING: invalid refs-indent value: ";
              v;
              "\n";
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_tab_length (v : string) (doc_settings : t_doc_settings) : t_doc_settings
-    =
+let set_tab_length (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
     let value = int_of_string v in
-    if value > -1 then { doc_settings with tab_length = value }
+    if value > -1 then { options with tab_length = Some value }
     else raise (Invalid_argument v)
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [
-             "WARNING: invalid tab_length value: ";
+             "WARNING: invalid tab-length value: ";
              v;
              "; ";
              "using default value.";
            ])
     in
-    doc_settings
+    options
 
-let set_abstract_hdr (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
-  { doc_settings with abstract_hdr = prefix_value_of_string v }
+let set_abstract_hdr (v : string) (options : t_preamble_options) :
+    t_preamble_options =
+  { options with abstract_hdr = Some (prefix_value_of_string v) }
 
-let set_refs_hdr (v : string) (doc_settings : t_doc_settings) : t_doc_settings =
-  { doc_settings with     refs_hdr = prefix_value_of_string v }
+let set_refs_hdr (v : string) (options : t_preamble_options) :
+    t_preamble_options =
+  { options with refs_hdr = Some (prefix_value_of_string v) }
 
-let set_endnotes_hdr (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
-  { doc_settings with endnotes_hdr = endnotes_hdr_of_string v }
+let set_endnotes_hdr (v : string) (options : t_preamble_options) :
+    t_preamble_options =
+  { options with endnotes_hdr = Some (endnotes_hdr_of_string v) }
 
-let set_ch_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
-    =
-  { doc_settings with ch_prefix = prefix_value_of_string v }
+let set_ch_prefix (v : string) (options : t_preamble_options) :
+    t_preamble_options =
+  { options with ch_prefix = Some (prefix_value_of_string v) }
 
-let set_sec_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
-    =
-  { doc_settings with sec_prefix = prefix_value_of_string v }
+let set_sec_prefix (v : string) (options : t_preamble_options) :
+    t_preamble_options =
+  { options with sec_prefix = Some (prefix_value_of_string v) }
 
-let set_par_prefix (v : string) (doc_settings : t_doc_settings) : t_doc_settings
-    =
-  { doc_settings with par_prefix = prefix_value_of_string v }
+let set_par_prefix (v : string) (options : t_preamble_options) :
+    t_preamble_options =
+  { options with par_prefix = Some (prefix_value_of_string v) }
 
-let set_expand_tag (v : string) (doc_settings : t_doc_settings) : t_doc_settings
-    =
+let set_expand_tag (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
-    { doc_settings with expand_tag = tag_value_of_string doc_settings.expand_tag v }
+    let old_expander =
+      match options.expand_tag with
+      | Some expander -> expander
+      | None -> (fun (tag : Doc_types.ts_tag) -> None)
+    in
+    { options with expand_tag = Some (tag_value_of_string old_expander v) }
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [ "WARNING: invalid tag value: "; v; "; "; "ignoring it." ])
     in
-    doc_settings
+    options
 
-let set_nte_numbering (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_nte_numbering (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
-    { doc_settings with nte_numbering = nte_numbering_of_string v }
+    { options with nte_numbering = Some (nte_numbering_of_string v) }
   with _ ->
     let _ : unit =
       IO.print_warning
         (String.concat ""
            [ "WARNING: invalid notes value: "; v; "; "; "ignoring it." ])
     in
-    doc_settings
+    options
 
-let set_auto_numbering (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_auto_numbering (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
-    { doc_settings with auto_numbering = auto_numbering_of_string v }
+    { options with auto_numbering = Some (auto_numbering_of_string v) }
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -543,12 +595,12 @@ let set_auto_numbering (v : string) (doc_settings : t_doc_settings) :
            [ "WARNING: invalid auto-numbering value: ";
               v; "; "; "ignoring it." ])
     in
-    doc_settings
+    options
 
-let set_allow_custom_numbering (v : string) (doc_settings : t_doc_settings) :
-    t_doc_settings =
+let set_allow_custom_numbering (v : string) (options : t_preamble_options) :
+    t_preamble_options =
   try
-    { doc_settings with allow_custom_numbering = bool_of_string v }
+    { options with allow_custom_numbering = Some (bool_of_string v) }
   with _ ->
     let _ : unit =
       IO.print_warning
@@ -556,35 +608,35 @@ let set_allow_custom_numbering (v : string) (doc_settings : t_doc_settings) :
            [ "WARNING: invalid allow-custom-numbering value: ";
              v; "; "; "ignoring it." ])
     in
-    doc_settings
+    options
 
-let doc_settings_of_ts_preamble (doc_settings : t_doc_settings)
-    (preamble : Doc_types.ts_preamble) : t_doc_settings =
-  let rec aux (str_list : string list) (settings : t_doc_settings) :
-      t_doc_settings =
+let preamble_options_of_ts_preamble (options : t_preamble_options)
+    (preamble : Doc_types.ts_preamble) : t_preamble_options =
+  let rec aux (str_list : string list) (options : t_preamble_options) :
+      t_preamble_options =
     match str_list with
     | hd :: tl ->
-        let new_doc_settings : t_doc_settings =
+        let new_preamble_options : t_preamble_options =
           match key_value_pair_of_string_opt hd with
-          | Some ("doc-width", v) -> set_doc_width v settings
-          | Some ("left-margin", v) -> set_left_margin v settings
-          | Some ("title-indent", v) -> set_title_indent v settings
-          | Some ("author-indent", v) -> set_author_indent v settings
-          | Some ("date-indent", v) -> set_date_indent v settings
-          | Some ("abstract-indent", v) -> set_abstract_indent v settings
-          | Some ("refs-indent", v) -> set_refs_indent v settings
-          | Some ("tab-length", v) -> set_tab_length v settings
-          | Some ("ch-prefix", v) -> set_ch_prefix v settings
-          | Some ("sec-prefix", v) -> set_sec_prefix v settings
-          | Some ("par-prefix", v) -> set_par_prefix v settings
-          | Some ("abstract-hdr", v) -> set_abstract_hdr v settings
-          | Some ("refs-hdr", v) -> set_refs_hdr v settings
-          | Some ("endnotes-hdr", v) -> set_endnotes_hdr v settings
-          | Some ("tag", v) -> set_expand_tag v settings
-          | Some ("notes", v) -> set_nte_numbering v settings
-          | Some ("auto-numbering", v) -> set_auto_numbering v settings
+          | Some ("doc-width", v) -> set_doc_width v options
+          | Some ("left-margin", v) -> set_left_margin v options
+          | Some ("title-indent", v) -> set_title_indent v options
+          | Some ("author-indent", v) -> set_author_indent v options
+          | Some ("date-indent", v) -> set_date_indent v options
+          | Some ("abstract-indent", v) -> set_abstract_indent v options
+          | Some ("refs-indent", v) -> set_refs_indent v options
+          | Some ("tab-length", v) -> set_tab_length v options
+          | Some ("ch-prefix", v) -> set_ch_prefix v options
+          | Some ("sec-prefix", v) -> set_sec_prefix v options
+          | Some ("par-prefix", v) -> set_par_prefix v options
+          | Some ("abstract-hdr", v) -> set_abstract_hdr v options
+          | Some ("refs-hdr", v) -> set_refs_hdr v options
+          | Some ("endnotes-hdr", v) -> set_endnotes_hdr v options
+          | Some ("tag", v) -> set_expand_tag v options
+          | Some ("notes", v) -> set_nte_numbering v options
+          | Some ("auto-numbering", v) -> set_auto_numbering v options
           | Some ("allow-custom-numbering", v) ->
-              set_allow_custom_numbering v settings
+              set_allow_custom_numbering v options
           | _ ->
               let _ : unit =
                 IO.print_warning
@@ -592,22 +644,85 @@ let doc_settings_of_ts_preamble (doc_settings : t_doc_settings)
                      [ "WARNING: invalid attribute: ";
                        hd; "; "; "ignoring it" ])
               in
-              settings
+              options
         in
-        aux tl new_doc_settings
-    | [] -> settings
+        aux tl new_preamble_options
+    | [] -> options
   in
   match preamble with
   | Cs_preamble (s : string) ->
       let str_list : string list = String.split_on_char ';' s in
-      aux str_list doc_settings
+      aux str_list options
 
-let doc_settings_of_tr_doc (doc_settings : t_doc_settings)
-    (doc : Doc_types.tr_doc) : t_doc_settings =
+
+let preamble_options_of_tr_doc (doc : Doc_types.tr_doc)
+    : t_preamble_options =
   match doc.fld_doc_preamble with
-  | None -> doc_settings
+  | None -> preamble_options_default ()
   | Some preamble ->
-      doc_settings_of_ts_preamble doc_settings preamble
+      preamble_options_of_ts_preamble (preamble_options_default ()) preamble
+
+let doc_settings_of_preamble_options (options : t_preamble_options) :
+    t_doc_settings =
+  let default = doc_settings_default () in
+  { default with
+    tab_length = (
+      match options.tab_length with
+      | Some value -> value
+      | None -> default.tab_length
+    );
+    abstract_hdr = (
+      match options.abstract_hdr with
+      | Some value -> value
+      | None -> default.abstract_hdr
+    );
+    refs_hdr = (
+      match options.refs_hdr with
+      | Some value -> value
+      | None -> default.refs_hdr
+    );
+    endnotes_hdr = (
+      match options.endnotes_hdr with
+      | Some value -> value
+      | None -> default.endnotes_hdr
+    );
+    ch_prefix = (
+      match options.ch_prefix with
+      | Some value -> value
+      | None -> default.ch_prefix
+    );
+    sec_prefix = (
+      match options.sec_prefix with
+      | Some value -> value
+      | None -> default.sec_prefix
+    );
+    app_prefix = (
+      match options.app_prefix with
+      | Some value -> value
+      | None -> default.app_prefix
+    );
+    par_prefix = (
+      match options.par_prefix with
+      | Some value -> value
+      | None -> default.par_prefix
+    );
+    expand_tag = (
+      match options.expand_tag with
+      | Some value -> value
+      | None -> default.expand_tag
+    );
+    nte_numbering = (
+      match options.nte_numbering with
+      | Some value -> value
+      | None -> default.nte_numbering
+    );
+    allow_custom_numbering = (
+      match options.allow_custom_numbering with
+      | Some value -> value
+      | None -> default.allow_custom_numbering
+    );
+  }
+
 
 (* cross-references *)
 

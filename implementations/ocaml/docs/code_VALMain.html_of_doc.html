@@ -29,6 +29,12 @@
 <code class="code"><span class="keyword">let</span> html_of_doc (options : <span class="constructor">Common_utils</span>.t_html_options) (doc : <span class="constructor">Doc_types</span>.tr_doc)
     : string =
   <span class="keyword">try</span>
+    <span class="keyword">let</span> preamble_options : <span class="constructor">Common_utils</span>.t_preamble_options =
+      <span class="constructor">Common_utils</span>.preamble_options_of_tr_doc doc
+    <span class="keyword">in</span>
+    <span class="keyword">let</span> doc_settings_preamble : <span class="constructor">Common_utils</span>.t_doc_settings = 
+      <span class="constructor">Common_utils</span>.doc_settings_of_preamble_options preamble_options
+    <span class="keyword">in</span>
     <span class="keyword">let</span> exml : <span class="constructor">Xml</span>.xml =
       <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc
         (<span class="constructor">Common_utils</span>.exml_options_of_html_options options)
@@ -63,14 +69,21 @@
     <span class="keyword">in</span>
     <span class="keyword">let</span> lang_attr : string = <span class="string">" lang=\""</span> ^ lang_code ^ <span class="string">"\""</span> <span class="keyword">in</span>
     <span class="keyword">let</span> margin_left : string =
-      <span class="keyword">match</span> options.margin <span class="keyword">with</span>
-      <span class="keywordsign">|</span> <span class="constructor">Some</span> m <span class="keywordsign">-&gt;</span> string_of_int m ^ <span class="string">"rem"</span>
-      <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Html_utils</span>.margin_left_of_tr_doc doc
+      <span class="keyword">match</span>
+        <span class="constructor">Html_utils</span>.margin_left_of_tr_doc doc,
+        preamble_options.left_margin,
+        options.margin
+      <span class="keyword">with</span>
+      <span class="keywordsign">|</span> 0., _, _ <span class="keywordsign">-&gt;</span> <span class="string">"0"</span>
+      <span class="keywordsign">|</span> _, _, <span class="constructor">Some</span> m
+      <span class="keywordsign">|</span> _, <span class="constructor">Some</span> m, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> string_of_int m ^ <span class="string">"rem"</span>
+      <span class="keywordsign">|</span> margin, <span class="constructor">None</span>, <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
+          <span class="constructor">String</span>.concat <span class="string">""</span> [ <span class="constructor">Printf</span>.sprintf <span class="string">"%.2f"</span> margin; <span class="string">"rem"</span> ]
     <span class="keyword">in</span>
     <span class="keyword">let</span> indent : string =
       <span class="keyword">match</span> options.indent <span class="keyword">with</span>
       <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
-          string_of_int (<span class="constructor">Common_utils</span>.doc_settings_default ()).tab_length ^ <span class="string">"ch"</span>
+          string_of_int doc_settings_preamble.tab_length ^ <span class="string">"ch"</span>
       <span class="keywordsign">|</span> <span class="constructor">Some</span> n <span class="keywordsign">-&gt;</span> string_of_int n ^ <span class="string">"ch"</span>
     <span class="keyword">in</span>
     <span class="keyword">let</span> internal_css : string =

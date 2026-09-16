@@ -1,0 +1,68 @@
+This is a no-markup-markup document, sporting the following cool
+features:
+
+(a)   labled display line at level 0
+      unlabeled display lines at level 0
+      more unlabeled display lines at level 0
+(b)   labeled display lines at level 0
+
+(c)   Bullet lists:
+
+      here preceded by a text block at level 1, whose (lack of)
+      linebreaks are not respected.
+
+      (1)   preceded by labeled display lines at level 1
+            preceded by unlabeled display line at level 1, whose (lack of) linebreaks are respected.
+
+      ─     Here is one bullet item.
+
+                  unlabled display line at level 2, whose (lack of) linebreaks are respected.
+
+      ─     Here is another one.
+
+            but this is interpreted as a text block at level 2,
+            whose (lack of) linebreaks are not respected.
+
+      this is interpreted as a text block at level 1, whose (lack
+      of) linebreaks are not respected.
+
+In fact, here are some more unlabled display lines:
+
+      this one
+      and this one
+(d)   followed by a labeled one
+      followed by an unlabeled one
+(e)   labeled with name
+
+(f)   Numbered lists with labels that are either
+
+      (1)   automatic, or
+
+      (*)   custom.
+
+      Furthermore, each item can be n̲a̲m̲e̲d̲ and r̲e̲f̲e̲r̲r̲e̲d̲ ̲t̲o̲:
+
+      (2)   The named item can be referred to anywhere in the
+            document.
+
+      (3)   When referring to (2) above, any common initial path
+            shared between the location of the referring expression
+            and the location of its referent will be omitted. The
+            same applies with respect to (**) below.
+
+      (**)  Of course, items with custom labels can also be named!
+
+Due to the feature mentioned in (f)(3), a reference to (f)(2) or
+(f)(**) occurring elsewhere may appear differently.
+
+(g)   Displayed lines of text suitable for mathematical equations,
+      which are either
+
+            unlabeled
+      (1)   automatically labeled (and named),
+      (+)   custom labeled (and named), or,
+            unlike (1) above, unlabeled.
+
+It can even end with
+
+      unlabled display block

@@ -97,16 +97,14 @@ val lines_of_ts_blk_vrb :
 
 val max_length_of_margin_labels: string list -> int
 
+val left_margin_of_margin_labels : string list -> int
+
 (* doc settings *)
 
-val doc_settings_of_margin_labels :
+val doc_settings_of_options : 
   Common_utils.t_doc_settings ->
-  string list ->
-  Common_utils.t_doc_settings
-
-val doc_settings_of_txt_options : 
-  Common_utils.t_doc_settings ->
-  string list ->
+  int ->
+  Common_utils.t_preamble_options ->
   Common_utils.t_txt_options ->
   Common_utils.t_doc_settings
 

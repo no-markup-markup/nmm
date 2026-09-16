@@ -1,0 +1,14 @@
+════════════════════════════════════════════════════════════════════
+Unlabeled display lines
+════════════════════════════════════════════════════════════════════
+
+This is a text block followed by a display block starting with an
+unlabeled display line.
+
+      This is an unlabeled display line.
+
+(a)   This is a display block followed by
+(b)   a display block starting with an
+(c)   unlabeled display line.
+
+      This is an unlabeled display line.

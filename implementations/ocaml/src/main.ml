@@ -4,7 +4,7 @@ exception Error of string
 
 (* version *)
 
-let version () : string = "0"
+let version () : string = "1"
 
 (* parsing nmm *)
 
@@ -39,6 +39,12 @@ let txt_of_nmm (options : Common_utils.t_txt_options) (path : string) : string =
 let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
     : string =
   try
+    let preamble_options : Common_utils.t_preamble_options =
+      Common_utils.preamble_options_of_tr_doc doc
+    in
+    let doc_settings_preamble : Common_utils.t_doc_settings = 
+      Common_utils.doc_settings_of_preamble_options preamble_options
+    in
     let exml : Xml.xml =
       Compiler_of_doc.exml_of_tr_doc
         (Common_utils.exml_options_of_html_options options)
@@ -73,14 +79,21 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
     in
     let lang_attr : string = " lang=\"" ^ lang_code ^ "\"" in
     let margin_left : string =
-      match options.margin with
-      | Some m -> string_of_int m ^ "rem"
-      | None -> Html_utils.margin_left_of_tr_doc doc
+      match
+        Html_utils.margin_left_of_tr_doc doc,
+        preamble_options.left_margin,
+        options.margin
+      with
+      | 0., _, _ -> "0"
+      | _, _, Some m
+      | _, Some m, None -> string_of_int m ^ "rem"
+      | margin, None, None ->
+          String.concat "" [ Printf.sprintf "%.2f" margin; "rem" ]
     in
     let indent : string =
       match options.indent with
       | None ->
-          string_of_int (Common_utils.doc_settings_default ()).tab_length ^ "ch"
+          string_of_int doc_settings_preamble.tab_length ^ "ch"
       | Some n -> string_of_int n ^ "ch"
     in
     let internal_css : string =

@@ -23,12 +23,27 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Common_utils.doc_settings_of_tr_doc</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Common_utils.preamble_options_default</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_settings_of_tr_doc (doc_settings : t_doc_settings)
-    (doc : <span class="constructor">Doc_types</span>.tr_doc) : t_doc_settings =
-  <span class="keyword">match</span> doc.fld_doc_preamble <span class="keyword">with</span>
-  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> doc_settings
-  <span class="keywordsign">|</span> <span class="constructor">Some</span> preamble <span class="keywordsign">-&gt;</span>
-      doc_settings_of_ts_preamble doc_settings preamble</code></body></html>
+<code class="code"><span class="keyword">let</span> preamble_options_default () : t_preamble_options = {
+  doc_width = <span class="constructor">None</span>;
+  left_margin = <span class="constructor">None</span>;
+  title_indent = <span class="constructor">None</span>;
+  author_indent = <span class="constructor">None</span>;
+  date_indent = <span class="constructor">None</span>;
+  abstract_indent = <span class="constructor">None</span>;
+  refs_indent = <span class="constructor">None</span>;
+  tab_length = <span class="constructor">None</span>;
+  abstract_hdr = <span class="constructor">None</span>;
+  refs_hdr = <span class="constructor">None</span>;
+  endnotes_hdr = <span class="constructor">None</span>;
+  ch_prefix = <span class="constructor">None</span>;
+  sec_prefix = <span class="constructor">None</span>;
+  app_prefix = <span class="constructor">None</span>;
+  par_prefix = <span class="constructor">None</span>;
+  expand_tag = <span class="constructor">None</span>;
+  auto_numbering = <span class="constructor">None</span>;
+  allow_custom_numbering = <span class="constructor">None</span>;
+  nte_numbering = <span class="constructor">None</span>;
+}</code></body></html>

@@ -1428,25 +1428,25 @@ let lines_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) : string list
   | LINES lines -> lines
   | _ -> raise (Error "accumulator type")
 
-let txt_of_tr_doc (options : t_txt_options) (doc : tr_doc) : string =
-  let default : t_doc_settings = Common_utils.doc_settings_default () in
-  let doc_settings_preamble : t_doc_settings =
-    Common_utils.doc_settings_of_tr_doc default doc
+let txt_of_tr_doc (txt_options : t_txt_options) (doc : tr_doc) : string =
+  let preamble_options : t_preamble_options =
+    Common_utils.preamble_options_of_tr_doc doc
+  in
+  let doc_settings_preamble : t_doc_settings = 
+    Common_utils.doc_settings_of_preamble_options preamble_options
   in
   let margin_labels : string list =
       margin_labels_of_tr_doc doc_settings_preamble doc
   in
-  let doc_settings_auto : t_doc_settings =
-    Txt_utils.doc_settings_of_margin_labels default margin_labels
+  let margin_auto : int =
+    Txt_utils.left_margin_of_margin_labels margin_labels
   in
-  let new_doc_settings_preamble : t_doc_settings =
-    Common_utils.doc_settings_of_tr_doc doc_settings_auto doc
+  let doc_settings : t_doc_settings =
+    Txt_utils.doc_settings_of_options doc_settings_preamble
+      margin_auto preamble_options txt_options
   in
-  let doc_settings_cli : t_doc_settings =
-    Txt_utils.doc_settings_of_txt_options new_doc_settings_preamble margin_labels options
-  in
-  let _ : unit = IO.quiet.contents <- options.quiet in
-  String.concat "\n" (lines_of_tr_doc doc_settings_cli doc)
+  let _ : unit = IO.quiet.contents <- txt_options.quiet in
+  String.concat "\n" (lines_of_tr_doc doc_settings doc)
 
 (* exml *)
 
@@ -1464,13 +1464,18 @@ let xml_list_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
   | EXML xml_list -> xml_list
   | _ -> raise (Error "accumulator type")
 
-let exml_of_tr_doc (options : t_exml_options) (doc : tr_doc) : Xml.xml =
-  let default : t_doc_settings = Common_utils.doc_settings_default () in
-  let doc_settings_preamble : t_doc_settings = doc_settings_of_tr_doc default doc in
-  let doc_settings_options : t_doc_settings =
-    Exml_utils.doc_settings_of_exml_options doc_settings_preamble options
+let exml_of_tr_doc (exml_options : t_exml_options) (doc : tr_doc) : Xml.xml =
+  let preamble_options : t_preamble_options =
+    Common_utils.preamble_options_of_tr_doc doc
   in
-  let _ : unit = IO.quiet.contents <- options.quiet in
-  match xml_list_of_tr_doc doc_settings_options doc with
+  let doc_settings_preamble : t_doc_settings = 
+    Common_utils.doc_settings_of_preamble_options preamble_options
+  in
+  let doc_settings : t_doc_settings =
+    Exml_utils.doc_settings_of_exml_options doc_settings_preamble
+      exml_options
+  in
+  let _ : unit = IO.quiet.contents <- exml_options.quiet in
+  match xml_list_of_tr_doc doc_settings doc with
   | hd :: [] -> hd
   | _ -> raise (Error "expected singleton exml-list")

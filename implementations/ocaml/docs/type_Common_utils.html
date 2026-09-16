@@ -53,13 +53,36 @@
 &nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string;<br>
 &nbsp;&nbsp;}<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_preamble_options&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_width&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;left_margin&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title_indent&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;author_indent&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_indent&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_indent&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_indent&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tab_length&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;abstract_hdr&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;refs_hdr&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;endnotes_hdr&nbsp;:&nbsp;string&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ch_prefix&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sec_prefix&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;app_prefix&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;par_prefix&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expand_tag&nbsp;:&nbsp;(<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option)&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto_numbering&nbsp;:&nbsp;(int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string)&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;allow_custom_numbering&nbsp;:&nbsp;bool&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nte_numbering&nbsp;:&nbsp;(int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string)&nbsp;option;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;preamble_options_default&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_preamble_options<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;auto_numbering_of_string&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_ts_blks&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.ts_blks&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_tr_doc&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;preamble_options_of_tr_doc&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_preamble_options<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;doc_settings_of_preamble_options&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.t_preamble_options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Common_utils</span>.t_doc_settings<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_par_node&nbsp;=&nbsp;<span class="constructor">PAR_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAR_TAG</span>&nbsp;<span class="keyword">of</span>&nbsp;(string&nbsp;*&nbsp;string&nbsp;*&nbsp;int)<br>
 &nbsp;&nbsp;<span class="keyword">and</span>&nbsp;t_itm_node&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">ITM_AUTO</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>

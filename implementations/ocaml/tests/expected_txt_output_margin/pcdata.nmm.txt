@@ -1,0 +1,3 @@
+&amp; &lt; &gt; &apos; &quot;
+
+& < > ' "

@@ -1,0 +1,94 @@
+          CHAPTER 1
+          ═════════
+
+§ 1.1     This section is called ‘SEC:one’
+          ────────────────────────────────
+
+¶ 1.1.1   This paragraph is called ‘PAR:one’
+
+          (a)   This item is called ‘ITM:one’
+
+          (b)   This item is called ‘ITM:one:PAR’
+
+          (c)   This item is called ‘ITM:one:SEC’
+
+          ─     ‘[ITM:one]’ ↦ ‘(a)’
+
+          ─     ‘[ITM:one:PAR]’ ↦ ‘(b)’
+
+          ─     ‘[ITM:one:SEC]’ ↦ ‘(c)’
+
+
+¶ 1.1.2   This paragraph is called ‘PAR:one:SEC’
+
+
+¶ 1.1.3   This paragraph is called ‘PAR:two:SEC’
+
+
+¶ 1.1.4   Some cross-references
+
+          (a)   ‘[ITM:one]’ ↦ ‘(a) of ¶ 1.1.1’
+
+          (b)   ‘[ITM:one:PAR]’ ↦ ‘??’
+
+          (c)   ‘[ITM:one:SEC]’ ↦ ‘(c) of ¶ 1.1.1’
+
+          (d)   ‘[PAR:one]’ ↦ ‘¶ 1.1.1’
+
+          (e)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.1.2’
+
+          (f)   ‘[PAR:two:SEC]’ ↦ ‘¶ 1.1.3’
+
+
+
+§ 1.2     This section is called ‘SEC:two:CH’
+          ───────────────────────────────────
+
+¶ 1.2.1   This paragraph is called ‘PAR:one’
+
+          (a)   This item is called ‘ITM:one’
+
+          (b)   This item is called ‘ITM:one:PAR’
+
+          (c)   This item is called ‘ITM:one:SEC’
+
+          ─     ‘[ITM:one]’ ↦ ‘(a) of ¶ 1.1.1’
+
+          ─     ‘[ITM:one:PAR]’ ↦ ‘(b)’
+
+          ─     ‘[ITM:one:SEC]’ ↦ ‘(c)’
+
+
+¶ 1.2.2   This paragraph is called ‘PAR:one:SEC’
+
+
+¶ 1.2.3   This paragraph is called ‘PAR:two:SEC’
+
+
+¶ 1.2.4   Some cross-references
+
+          (a)   ‘[ITM:one]’ ↦ ‘(a) of ¶ 1.1.1’
+
+          (b)   ‘[ITM:one:PAR]’ ↦ ‘??’
+
+          (c)   ‘[ITM:one:SEC]’ ↦ ‘(c) of ¶ 1.2.1’
+
+          (d)   ‘[PAR:one]’ ↦ ‘¶ 1.1.1’
+
+          (e)   ‘[PAR:one:SEC]’ ↦ ‘¶ 1.2.2’
+
+          (f)   ‘[PAR:two:SEC]’ ↦ ‘¶ 1.2.3’
+
+          ─     ‘[SEC:one]’ ↦ ‘§ 1.1’
+
+          ─     ‘[SEC:two:CH]’ ↦ ‘§ 1.2’
+
+
+
+
+          CHAPTER 2
+          ═════════
+
+          ─     ‘[SEC:one]’ ↦ ‘§ 1.1’
+
+          ─     ‘[SEC:two:CH]’ ↦ ‘??’
