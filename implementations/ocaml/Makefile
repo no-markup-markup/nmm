@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test utop clean-docs install-opam_package
+.PHONY: default clean test utop clean-docs install-opam_package test-verbose
 
 default:
 	@echo 'no default target'
@@ -16,7 +16,12 @@ clean:
 
 test: bin/nmm-ocaml
 	cd tests
-	bash test.sh
+	bash test.sh false
+	cd -
+
+test-verbose: bin/nmm-ocaml
+	cd tests
+	bash test.sh true
 	cd -
 
 clean-docs:
@@ -244,7 +249,7 @@ debian/packages: debian bin share
 	make
 	cd -
 
-opam/package: opam byte native
+opam/package: opam byte bin/nmm-ocaml
 	cd opam
 	make
 	cd -
@@ -253,4 +258,4 @@ share: scripts/nmm-ocaml-bash-completion.sh
 	mkdir -p share/bash-completion/completions
 	cp scripts/nmm-ocaml-bash-completion.sh \
 		share/bash-completion/completions/nmm-ocaml
-	
+

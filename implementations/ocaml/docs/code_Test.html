@@ -28,35 +28,6 @@
 <body>
 <code class="code"><span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
-<span class="keyword">let</span>&nbsp;exml_dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.dtd&nbsp;=&nbsp;<span class="constructor">Dtd</span>.parse_string&nbsp;(<span class="constructor">Exml_utils</span>.exml_schema&nbsp;())<br>
-<span class="keyword">let</span>&nbsp;exml_dtd_checked&nbsp;:&nbsp;<span class="constructor">Dtd</span>.checked&nbsp;=&nbsp;<span class="constructor">Dtd</span>.check&nbsp;exml_dtd<br>
-<br>
-<br>
-<span class="keyword">let</span>&nbsp;validate_exml&nbsp;(exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml)&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Dtd</span>.prove&nbsp;exml_dtd_checked&nbsp;<span class="string">"doc"</span>&nbsp;exml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;()<br>
-&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Dtd</span>.<span class="constructor">Prove_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"exml&nbsp;Ddt.prove_error:"</span>;&nbsp;<span class="constructor">Dtd</span>.prove_error&nbsp;e&nbsp;]))<br>
-<br>
-<span class="keyword">let</span>&nbsp;axml_dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.dtd&nbsp;=&nbsp;<span class="constructor">Dtd</span>.parse_string&nbsp;(<span class="constructor">Axml_of_doc</span>.axml_schema&nbsp;())<br>
-<span class="keyword">let</span>&nbsp;axml_dtd_checked&nbsp;:&nbsp;<span class="constructor">Dtd</span>.checked&nbsp;=&nbsp;<span class="constructor">Dtd</span>.check&nbsp;axml_dtd<br>
-<br>
-<br>
-<span class="keyword">let</span>&nbsp;validate_axml&nbsp;(axml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml)&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;<span class="constructor">Dtd</span>.prove&nbsp;axml_dtd_checked&nbsp;<span class="string">"cr_doc"</span>&nbsp;axml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;()<br>
-&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Dtd</span>.<span class="constructor">Prove_error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"axml&nbsp;Ddt.prove_error:"</span>;&nbsp;<span class="constructor">Dtd</span>.prove_error&nbsp;e&nbsp;]))<br>
-<br>
-<br>
 <span class="keyword">let</span>&nbsp;identity_test_w_doc&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(doc_of_axml&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;unit&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc&nbsp;=&nbsp;doc_of_axml&nbsp;<span class="keyword">with</span><br>
@@ -124,8 +95,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;xml_right_test&nbsp;<span class="string">"exml"</span>&nbsp;exml&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;xml_right_test_fmt&nbsp;<span class="string">"axml"</span>&nbsp;axml&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;xml_right_test_fmt&nbsp;<span class="string">"exml"</span>&nbsp;exml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;validate_axml&nbsp;axml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;validate_exml&nbsp;exml&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Main</span>.validate_axml&nbsp;axml&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Main</span>.validate_exml&nbsp;exml&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;print_endline&nbsp;(path&nbsp;^&nbsp;<span class="string">"&nbsp;-&gt;&nbsp;All&nbsp;tests&nbsp;PASSED"</span>)<br>
 &nbsp;&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
@@ -151,8 +122,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;xml_right_test&nbsp;<span class="string">"exml"</span>&nbsp;exml&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;xml_right_test_fmt&nbsp;<span class="string">"axml"</span>&nbsp;axml&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;xml_right_test_fmt&nbsp;<span class="string">"exml"</span>&nbsp;exml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;validate_axml&nbsp;axml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;validate_exml&nbsp;exml&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Main</span>.validate_axml&nbsp;axml&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Main</span>.validate_exml&nbsp;exml&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;print_endline&nbsp;(path&nbsp;^&nbsp;<span class="string">"&nbsp;-&gt;&nbsp;All&nbsp;tests&nbsp;PASSED"</span>)<br>
 &nbsp;&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>

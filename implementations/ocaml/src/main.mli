@@ -74,7 +74,7 @@ val normalize_axml_file : string -> string
 val exml_of_nmm : Common_utils.t_exml_options -> string -> string
 val exml_of_axml : Common_utils.t_exml_options -> string -> string
 
-(* xml-validation *)
+(* general xml-validation *)
 
 val check_xml_schema : string -> string
 (** [check_xml_schema "path/to/xml-schema.dtd"] calls the
@@ -92,8 +92,20 @@ val validate_xml : string -> string -> string
     it calls [Dtd.prove] for proving (or disproving) that xml-file.xml is an
     instance of xml-schema.dtd. *)
 
-val exml_schema : unit -> string
+
+(* exml- and axml-validation *)
+
+val exml_schema_string : unit -> string
 (** [exml_schema ()] evaluates to {!val:Exml_utils.exml_schema}[ ()]. *)
 
-val axml_schema : unit -> string
+val axml_schema_string : unit -> string
 (** [axml_schema ()] evaluates to {!val:Axml_of_doc.axml_schema}[ ()]. *)
+
+
+val validate_exml : Xml.xml -> unit
+
+val validate_axml : Xml.xml -> unit
+
+val validate_exml_file : string -> unit
+
+val validate_axml_file : string -> unit

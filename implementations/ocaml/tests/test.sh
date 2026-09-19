@@ -126,7 +126,7 @@ show_txt_diff () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file ≠ $output_file
+			echo $expected_output_file ≠ $output_file 1>&2
 		fi
 	done
 	return $exit_code
@@ -146,7 +146,7 @@ show_txt_diff_margin () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file ≠ $output_file
+			echo $expected_output_file ≠ $output_file 1>&2
 		fi
 	done
 	return $exit_code
@@ -166,7 +166,7 @@ show_html_diff () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file ≠ $output_file
+			echo $expected_output_file ≠ $output_file 1>&2
 		fi
 	done
 	return $exit_code
@@ -186,7 +186,7 @@ show_xml_diff () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo $expected_output_file ≠ $output_file
+			echo $expected_output_file ≠ $output_file 1>&2
 		fi
 	done
 	return $exit_code
@@ -199,7 +199,7 @@ test_auto_date () {
 	then
 		return 0
 	else
-		echo "test_auto_date FAILED: document date $doc_date ≠ system date $sys_date"
+		echo "test_auto_date FAILED: document date $doc_date ≠ system date $sys_date" 1>&2
 		return 2
 	fi
 }
@@ -235,7 +235,7 @@ test_normalize_axml () {
 		if [ $curr_code -gt 0 ]
 		then
 			exit_code=$curr_code
-			echo "differs from expected output: $file"
+			echo "differs from expected output: $file" 1>&2
 		fi
 	done
 
@@ -380,6 +380,11 @@ make_tests () {
 	return $exit_code
 }
 
-make_tests 2> /dev/null
-
-
+if [ "$1" = "true" ]; then
+  make_tests
+else
+  make_tests 2> /dev/null
+  if [ $? -gt 0 ]; then
+    echo "run 'make test-verbose' for more info"
+  fi
+fi

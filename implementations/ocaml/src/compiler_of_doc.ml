@@ -352,11 +352,10 @@ and xml_of_blk_nte_inline (doc_settings : t_doc_settings)
       let xml_lbl : Xml.xml =
         Xml.Element ("blk_nte_lbl", attr_list_lbl, xml_list_lbl)
       in
-      let xml_clear : Xml.xml = Xml.Element ("clear", [], []) in
       let xml_main : Xml.xml =
         Xml.Element ("blk_nte_main", [], xml_list_main)
       in
-      Xml.Element ("blk_nte", attr_list, [ xml_lbl; xml_clear; xml_main ])
+      Xml.Element ("blk_nte", attr_list, [ xml_lbl; xml_main ])
 
 and xml_of_blk_nte_ref (doc_settings : t_doc_settings)
     (cref_table : t_cref_table) (path : t_path) (nte_ref : ts_nte_ref)
@@ -394,9 +393,8 @@ and xml_of_blk_nte_ref (doc_settings : t_doc_settings)
   let xml_lbl : Xml.xml =
     Xml.Element ("blk_nte_lbl", attr_list_lbl, xml_list_lbl)
   in
-  let xml_clear : Xml.xml = Xml.Element ("clear", [], []) in
   let xml_main : Xml.xml = Xml.Element ("blk_nte_main", [], xml_list_main) in
-  Xml.Element ("blk_nte", attr_list, [ xml_lbl; xml_clear; xml_main ])
+  Xml.Element ("blk_nte", attr_list, [ xml_lbl; xml_main ])
 
 and xml_of_nte_table_opt (doc_settings : t_doc_settings)
     (cref_table : t_cref_table) (path : t_path) (nte_table : t_nte_table) :
@@ -525,7 +523,6 @@ and acc_of_tr_blk_itm (doc_settings : t_doc_settings)
         Xml.Element ("blk_itm_main", [], xml_list_main)
       in
       let xml_lbl : Xml.xml = Xml.Element ("blk_itm_lbl", [], xml_list_lbl) in
-      let xml_clear : Xml.xml = Xml.Element ("clear", [], []) in
       let classes : string list =
         match path with
         | ITM_NODE (ITM_BIB_CUSTOM _) :: _ -> [ "bib_custom" ]
@@ -537,7 +534,7 @@ and acc_of_tr_blk_itm (doc_settings : t_doc_settings)
           blk_itm.fld_blk_itm_tag_or_id
       in
       let exml : Xml.xml =
-        Xml.Element ("blk_itm", attr_list, [ xml_lbl; xml_clear; xml_main ])
+        Xml.Element ("blk_itm", attr_list, [ xml_lbl; xml_main ])
       in
       EXML (List.concat [ acc_list; [ exml ] ])
 
@@ -583,9 +580,8 @@ and acc_of_ts_blk_blt (doc_settings : t_doc_settings)
           let xml_lbl : Xml.xml =
             Xml.Element ("blk_blt_lbl", [], xml_list_lbl)
           in
-          let xml_clear : Xml.xml = Xml.Element ("clear", [], []) in
           let exml : Xml.xml =
-            Xml.Element ("blk_blt", [], [ xml_lbl; xml_clear; xml_main ])
+            Xml.Element ("blk_blt", [], [ xml_lbl; xml_main ])
           in
           EXML (List.concat [ acc_list; [ exml ] ]))
 
@@ -655,7 +651,6 @@ let acc_of_tr_par_std (doc_settings : t_doc_settings)
         | None -> Xml.Element ("par_lbl_hdr", [], xml_list_lbl)
         | Some _ -> Xml.Element ("par_lbl", [], xml_list_lbl)
       in
-      let xml_clear : Xml.xml = Xml.Element ("clear", [], []) in
       let xml_main : Xml.xml =
         match
           acc_of_par_main doc_settings cref_table nte_table path_origin
@@ -677,10 +672,10 @@ let acc_of_tr_par_std (doc_settings : t_doc_settings)
       let exml : Xml.xml =
         match xml_of_nte_table_opt doc_settings cref_table path nte_table with
         | None ->
-            Xml.Element ("par", attr_list, [ xml_lbl; xml_clear; xml_main ])
+            Xml.Element ("par", attr_list, [ xml_lbl; xml_main ])
         | Some endnotes ->
             Xml.Element
-              ("par", attr_list, [ xml_lbl; xml_clear; xml_main; endnotes ])
+              ("par", attr_list, [ xml_lbl; xml_main; endnotes ])
       in
       EXML (List.concat [ acc_list; [ exml ] ])
 

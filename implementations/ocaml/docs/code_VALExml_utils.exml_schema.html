@@ -60,7 +60,7 @@
     id CDATA #IMPLIED
 &gt;
 
-&lt;!ELEMENT par ((par_lbl, clear, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, clear, par_main, par_endnotes?))&gt;
+&lt;!ELEMENT par ((par_lbl, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, par_main, par_endnotes?))&gt;
 &lt;!ATTLIST par
     class CDATA #REQUIRED
     id CDATA #IMPLIED
@@ -75,8 +75,8 @@
 &gt;
 
 &lt;!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
-&lt;!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)&gt;
-&lt;!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)&gt;
+&lt;!ELEMENT blk_blt (blk_blt_lbl, blk_blt_main)&gt;
+&lt;!ELEMENT blk_itm (blk_itm_lbl, blk_itm_main)&gt;
 &lt;!ATTLIST blk_itm 
     class CDATA #REQUIRED
     id CDATA #IMPLIED
@@ -131,14 +131,13 @@
     id CDATA #REQUIRED
 &gt;
 
-&lt;!ELEMENT dsp_line (dsp_line_lbl?, clear?, dsp_line_main)+&gt;
+&lt;!ELEMENT dsp_line (dsp_line_lbl?, dsp_line_main)&gt;
 &lt;!ATTLIST dsp_line 
     class CDATA #REQUIRED
     id CDATA #IMPLIED
 &gt;
 
 &lt;!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+&gt;
-&lt;!ELEMENT clear EMPTY&gt;
 
 &lt;!ELEMENT doc_endnotes (doc_endnotes_hdr?, blk_nte+)&gt;
 &lt;!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)&gt;
@@ -154,7 +153,7 @@
 &lt;!ELEMENT abstract_endnotes_hdr (#PCDATA)&gt;
 &lt;!ELEMENT refs_endnotes_hdr (#PCDATA)&gt;
 
-&lt;!ELEMENT blk_nte (blk_nte_lbl, clear, blk_nte_main)&gt;
+&lt;!ELEMENT blk_nte (blk_nte_lbl, blk_nte_main)&gt;
 &lt;!ATTLIST blk_nte
     id CDATA #REQUIRED
 &gt;

@@ -23,7 +23,13 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Main.version</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Main.validate_axml_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> version () : string = <span class="string">"3"</span></code></body></html>
+<code class="code"><span class="keyword">let</span> validate_axml_file (path : string) : unit =
+  <span class="keyword">let</span> xml : <span class="constructor">Xml</span>.xml =
+    <span class="keyword">match</span> path <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin <span class="keyword">false</span>
+    <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file <span class="keyword">false</span> path
+  <span class="keyword">in</span>
+  validate_axml xml</code></body></html>

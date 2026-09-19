@@ -380,11 +380,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_lbl&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte_lbl"</span>,&nbsp;attr_list_lbl,&nbsp;xml_list_lbl)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_clear&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"clear"</span>,&nbsp;[],&nbsp;[])&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_main&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte_main"</span>,&nbsp;[],&nbsp;xml_list_main)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main&nbsp;])<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_blk_nte_ref&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_ref&nbsp;:&nbsp;ts_nte_ref)<br>
@@ -422,9 +421,8 @@
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_lbl&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte_lbl"</span>,&nbsp;attr_list_lbl,&nbsp;xml_list_lbl)<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_clear&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"clear"</span>,&nbsp;[],&nbsp;[])&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_main&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte_main"</span>,&nbsp;[],&nbsp;xml_list_main)&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main&nbsp;])<br>
+&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_nte"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main&nbsp;])<br>
 <br>
 <span class="keyword">and</span>&nbsp;xml_of_nte_table_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(path&nbsp;:&nbsp;t_path)&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;:<br>
@@ -553,7 +551,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm_main"</span>,&nbsp;[],&nbsp;xml_list_main)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_lbl&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm_lbl"</span>,&nbsp;[],&nbsp;xml_list_lbl)&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_clear&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"clear"</span>,&nbsp;[],&nbsp;[])&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;classes&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ITM_NODE</span>&nbsp;(<span class="constructor">ITM_BIB_CUSTOM</span>&nbsp;_)&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[&nbsp;<span class="string">"bib_custom"</span>&nbsp;]<br>
@@ -565,7 +562,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blk_itm.fld_blk_itm_tag_or_id<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_itm"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main&nbsp;])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">EXML</span>&nbsp;(<span class="constructor">List</span>.concat&nbsp;[&nbsp;acc_list;&nbsp;[&nbsp;exml&nbsp;]&nbsp;])<br>
 <br>
@@ -611,9 +608,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_lbl&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_blt_lbl"</span>,&nbsp;[],&nbsp;xml_list_lbl)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_clear&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"clear"</span>,&nbsp;[],&nbsp;[])&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_blt"</span>,&nbsp;[],&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"blk_blt"</span>,&nbsp;[],&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main&nbsp;])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">EXML</span>&nbsp;(<span class="constructor">List</span>.concat&nbsp;[&nbsp;acc_list;&nbsp;[&nbsp;exml&nbsp;]&nbsp;]))<br>
 <br>
@@ -683,7 +679,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_lbl_hdr"</span>,&nbsp;[],&nbsp;xml_list_lbl)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_lbl"</span>,&nbsp;[],&nbsp;xml_list_lbl)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_clear&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"clear"</span>,&nbsp;[],&nbsp;[])&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_main&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acc_of_par_main&nbsp;doc_settings&nbsp;cref_table&nbsp;nte_table&nbsp;path_origin<br>
@@ -705,10 +700,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_of_nte_table_opt&nbsp;doc_settings&nbsp;cref_table&nbsp;path&nbsp;nte_table&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main&nbsp;])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;endnotes&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"par"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main;&nbsp;endnotes&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"par"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main;&nbsp;endnotes&nbsp;])<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">EXML</span>&nbsp;(<span class="constructor">List</span>.concat&nbsp;[&nbsp;acc_list;&nbsp;[&nbsp;exml&nbsp;]&nbsp;])<br>
 <br>

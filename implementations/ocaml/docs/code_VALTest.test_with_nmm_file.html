@@ -41,8 +41,8 @@
     <span class="keyword">let</span> _ : unit = xml_right_test <span class="string">"exml"</span> exml <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test_fmt <span class="string">"axml"</span> axml <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test_fmt <span class="string">"exml"</span> exml <span class="keyword">in</span>
-    <span class="keyword">let</span> _ : unit = validate_axml axml <span class="keyword">in</span>
-    <span class="keyword">let</span> _ : unit = validate_exml exml <span class="keyword">in</span>
+    <span class="keyword">let</span> _ : unit = <span class="constructor">Main</span>.validate_axml axml <span class="keyword">in</span>
+    <span class="keyword">let</span> _ : unit = <span class="constructor">Main</span>.validate_exml exml <span class="keyword">in</span>
     print_endline (path ^ <span class="string">" -&gt; All tests PASSED"</span>)
   <span class="keyword">with</span>
   <span class="keywordsign">|</span> <span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> 

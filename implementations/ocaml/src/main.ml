@@ -2,7 +2,7 @@ exception Error of string
 
 (* version *)
 
-let version () : string = "1"
+let version () : string = "3"
 
 (* parsing nmm *)
 
@@ -205,7 +205,7 @@ let exml_of_axml (options : Common_utils.t_exml_options) (path : string) :
     string =
   exml_of_doc options (doc_of_axml path)
 
-(* xml-validation *)
+(* general xml-validation *)
 
 let check_xml_schema (path : string) : string =
   try
@@ -300,5 +300,89 @@ let validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
       raise
         (Error (String.concat " " [ path_to_xml; "->"; "Xml_right.Error:"; e ]))
 
-let exml_schema () : string = Exml_utils.exml_schema ()
-let axml_schema () : string = Axml_of_doc.axml_schema ()
+(* exml- and axml-validation *)
+
+let exml_schema_string () : string = Exml_utils.exml_schema ()
+let axml_schema_string () : string = Axml_of_doc.axml_schema ()
+
+let exml_dtd_checked () : Dtd.checked =
+  try
+    Dtd.check (Dtd.parse_string (exml_schema_string ()))
+  with
+  | Xml_light_errors.Dtd_check_error e ->
+      raise
+        (Error
+           (String.concat " "
+              [
+                "Xml_light_errors.Dtd_check_error:";
+                Dtd.check_error e;
+              ]))
+  | Xml_light_errors.Dtd_parse_error e ->
+      raise
+        (Error
+           (String.concat " "
+              [
+                "Xml_light_errors.Dtd_parse_error:";
+                Dtd.parse_error e;
+              ]))
+
+
+let validate_exml (exml : Xml.xml) : unit =
+  try
+    let _ = Dtd.prove (exml_dtd_checked ()) "doc" exml in
+    ()
+  with Dtd.Prove_error e ->
+    raise
+      (Error
+         (String.concat " "
+            [ "exml Ddt.prove_error:"; Dtd.prove_error e ]))
+
+let axml_dtd_checked () : Dtd.checked =
+  try
+    Dtd.check (Dtd.parse_string (axml_schema_string ()))
+  with
+  | Xml_light_errors.Dtd_check_error e ->
+      raise
+        (Error
+           (String.concat " "
+              [
+                "Xml_light_errors.Dtd_check_error:";
+                Dtd.check_error e;
+              ]))
+  | Xml_light_errors.Dtd_parse_error e ->
+      raise
+        (Error
+           (String.concat " "
+              [
+                "Xml_light_errors.Dtd_parse_error:";
+                Dtd.parse_error e;
+              ]))
+
+
+let validate_axml (axml : Xml.xml) : unit =
+  try
+    let _ = Dtd.prove (axml_dtd_checked ()) "cr_doc" axml in
+    ()
+  with Dtd.Prove_error e ->
+    raise
+      (Error
+         (String.concat " "
+            [ "axml Ddt.prove_error:"; Dtd.prove_error e ]))
+
+
+let validate_exml_file (path : string) : unit =
+  let xml : Xml.xml =
+    match path with
+    | "-" -> Xml_right.parse_stdin false
+    | _ -> Xml_right.parse_file false path
+  in
+  validate_exml xml
+
+let validate_axml_file (path : string) : unit =
+  let xml : Xml.xml =
+    match path with
+    | "-" -> Xml_right.parse_stdin false
+    | _ -> Xml_right.parse_file false path
+  in
+  validate_axml xml
+

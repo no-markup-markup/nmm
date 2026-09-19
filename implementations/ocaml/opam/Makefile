@@ -10,11 +10,11 @@ MAKEFLAGS += --no-builtin-rules
 default: package
 
 description = An OCaml implementation of the no-markup-markup markup language
-#version = $(shell ../bin/nmm-ocaml version)
-version = 1
+nmm_ocaml_version = $(shell ../bin/nmm-ocaml version)
+opam_version = 2.0
 
 define META
-version = \"${version}\"
+version = \"${nmm_ocaml_version}\"
 description = \"${description}\"
 requires = \"sedlex uuseg xml-light str unix\"
 archive(byte) = \"nmm_ocaml.cma\"
@@ -24,9 +24,9 @@ plugin(native) = \"nmm_ocaml.cmxs\"
 endef
 
 define opam
-opam-version: \"2.0\"
+opam-version: \"${opam_version}\"
 name: \"nmm-ocaml\"
-version: \"${version}\"
+version: \"${nmm_ocaml_version}\"
 maintainer: \"Eric Johannesson <eric@ericjohannesson.com>\"
 authors: \"Eric Johannesson <eric@ericjohannesson.com>\"
 synopsis: \"${description}\"
@@ -45,7 +45,7 @@ build: [ make \"opam/package\" ]
 install: [ make \"install-opam_package\" ]
 endef
 
-update:
+update: ../bin/nmm-ocaml
 	echo "${opam}" > nmm-ocaml.opam
 
 package/META:

@@ -329,14 +329,13 @@
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_main&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line_main"</span>,&nbsp;[],&nbsp;xml_list_main)&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_lbl&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line_lbl"</span>,&nbsp;[],&nbsp;xml_list_lbl)&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml_clear&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"clear"</span>,&nbsp;[],&nbsp;[])&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;attr_list&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;attr_list_of_tr_id_opt&nbsp;doc_settings&nbsp;path&nbsp;[&nbsp;<span class="string">"dsp_line"</span>&nbsp;]&nbsp;a.fld_dsp_line_id<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;a.fld_dsp_line_lbl&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_main&nbsp;])<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_clear;&nbsp;xml_main&nbsp;])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"dsp_line"</span>,&nbsp;attr_list,&nbsp;[&nbsp;xml_lbl;&nbsp;xml_main&nbsp;])<br>
 <br>
 <span class="comment">(*&nbsp;blk_vrb&nbsp;*)</span><br>
 <br>
@@ -577,7 +576,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;CDATA&nbsp;#IMPLIED<br>
 &gt;<br>
 <br>
-&lt;!ELEMENT&nbsp;par&nbsp;((par_lbl,&nbsp;clear,&nbsp;par_main_w_hdr,&nbsp;par_endnotes?)&nbsp;|&nbsp;(par_lbl_hdr,&nbsp;clear,&nbsp;par_main,&nbsp;par_endnotes?))&gt;<br>
+&lt;!ELEMENT&nbsp;par&nbsp;((par_lbl,&nbsp;par_main_w_hdr,&nbsp;par_endnotes?)&nbsp;|&nbsp;(par_lbl_hdr,&nbsp;par_main,&nbsp;par_endnotes?))&gt;<br>
 &lt;!ATTLIST&nbsp;par<br>
 &nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;CDATA&nbsp;#REQUIRED<br>
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;CDATA&nbsp;#IMPLIED<br>
@@ -592,8 +591,8 @@
 &gt;<br>
 <br>
 &lt;!ELEMENT&nbsp;blk_txt&nbsp;(txt_unit_wysiwyg&nbsp;|&nbsp;txt_unit_emph&nbsp;|&nbsp;txt_unit_c_ref&nbsp;|&nbsp;txt_unit_nte)+&gt;<br>
-&lt;!ELEMENT&nbsp;blk_blt&nbsp;(blk_blt_lbl,&nbsp;clear,&nbsp;blk_blt_main)&gt;<br>
-&lt;!ELEMENT&nbsp;blk_itm&nbsp;(blk_itm_lbl,&nbsp;clear,&nbsp;blk_itm_main)&gt;<br>
+&lt;!ELEMENT&nbsp;blk_blt&nbsp;(blk_blt_lbl,&nbsp;blk_blt_main)&gt;<br>
+&lt;!ELEMENT&nbsp;blk_itm&nbsp;(blk_itm_lbl,&nbsp;blk_itm_main)&gt;<br>
 &lt;!ATTLIST&nbsp;blk_itm&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;CDATA&nbsp;#REQUIRED<br>
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;CDATA&nbsp;#IMPLIED<br>
@@ -648,14 +647,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;CDATA&nbsp;#REQUIRED<br>
 &gt;<br>
 <br>
-&lt;!ELEMENT&nbsp;dsp_line&nbsp;(dsp_line_lbl?,&nbsp;clear?,&nbsp;dsp_line_main)+&gt;<br>
+&lt;!ELEMENT&nbsp;dsp_line&nbsp;(dsp_line_lbl?,&nbsp;dsp_line_main)&gt;<br>
 &lt;!ATTLIST&nbsp;dsp_line&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;CDATA&nbsp;#REQUIRED<br>
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;CDATA&nbsp;#IMPLIED<br>
 &gt;<br>
 <br>
 &lt;!ELEMENT&nbsp;dsp_line_main&nbsp;(txt_unit_wysiwyg&nbsp;|&nbsp;txt_unit_emph&nbsp;|&nbsp;txt_unit_c_ref&nbsp;|&nbsp;txt_unit_nte)+&gt;<br>
-&lt;!ELEMENT&nbsp;clear&nbsp;EMPTY&gt;<br>
 <br>
 &lt;!ELEMENT&nbsp;doc_endnotes&nbsp;(doc_endnotes_hdr?,&nbsp;blk_nte+)&gt;<br>
 &lt;!ELEMENT&nbsp;ch_endnotes&nbsp;(ch_endnotes_hdr?,&nbsp;blk_nte+)&gt;<br>
@@ -671,7 +669,7 @@
 &lt;!ELEMENT&nbsp;abstract_endnotes_hdr&nbsp;(#PCDATA)&gt;<br>
 &lt;!ELEMENT&nbsp;refs_endnotes_hdr&nbsp;(#PCDATA)&gt;<br>
 <br>
-&lt;!ELEMENT&nbsp;blk_nte&nbsp;(blk_nte_lbl,&nbsp;clear,&nbsp;blk_nte_main)&gt;<br>
+&lt;!ELEMENT&nbsp;blk_nte&nbsp;(blk_nte_lbl,&nbsp;blk_nte_main)&gt;<br>
 &lt;!ATTLIST&nbsp;blk_nte<br>
 &nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;CDATA&nbsp;#REQUIRED<br>
 &gt;<br>

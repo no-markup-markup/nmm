@@ -15,8 +15,12 @@ let par_hdr_of_doc_class (doc_class : Common_utils.t_doc_class) : string =
   | DOC_PARS -> "h2"
   | DOC_BLKS -> raise (Error "unexpected document class")
 
+
 let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
     : Xml.xml =
+  let clear : Xml.xml =
+    Xml.Element ("div", [ ("class", "clear") ], [ Xml.PCData "" ])
+  in
   match element with
   | Xml.Element ("doc", attr_list, xml_list) ->
       Xml.Element ("main", attr_list, List.map (html_of_exml doc_class) xml_list)
@@ -108,9 +112,13 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "div",
           [ ("class", "sec_main") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("par", attr_list, xml_list) ->
-      Xml.Element
-        ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("par", attr_list, xml_list) -> (
+      match List.map (html_of_exml doc_class) xml_list with
+      | hd::tl -> 
+          Xml.Element
+            ("section", attr_list, hd::clear::tl )
+      | [] -> raise (Error "empty par") 
+  )
   | Xml.Element ("par_lbl", _, xml_list) ->
       Xml.Element
         ( "div",
@@ -162,8 +170,12 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
                 List.map (html_of_exml doc_class) xml_list );
           ] )
   | Xml.Element ("br", _, _) -> Xml.Element ("br", [], [])
-  | Xml.Element ("blk_itm", attr_list, xml_list) ->
-      Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("blk_itm", attr_list, xml_list) -> (
+      match List.map (html_of_exml doc_class) xml_list with
+      | hd::tl -> 
+          Xml.Element ("div", attr_list, hd::clear::tl)
+      | [] -> raise (Error "empty blk_itm")
+  )
   | Xml.Element ("blk_itm_lbl", _, xml_list) ->
       Xml.Element
         ( "div",
@@ -174,11 +186,15 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "div",
           [ ("class", "blk_itm_main") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("blk_blt", _, xml_list) ->
-      Xml.Element
-        ( "div",
-          [ ("class", "blk blt") ],
-          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_blt", _, xml_list) -> (
+      match List.map (html_of_exml doc_class) xml_list with
+      | hd::tl -> 
+          Xml.Element
+            ( "div",
+              [ ("class", "blk blt") ],
+              hd::clear::tl )
+      | [] -> raise (Error "empty blk_blt")
+  )
   | Xml.Element ("blk_blt_lbl", _, xml_list) ->
       Xml.Element
         ( "div",
@@ -194,8 +210,13 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "div",
           [ ("class", "blk dsp") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("dsp_line", attr_list, xml_list) ->
-      Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("dsp_line", attr_list, xml_list) -> (
+      match List.map (html_of_exml doc_class) xml_list with
+      | [lbl; main] -> 
+          Xml.Element ("div", attr_list, [lbl; clear; main])
+      | lst -> 
+          Xml.Element ("div", attr_list, lst)
+  )
   | Xml.Element ("dsp_line_lbl", _, xml_list) ->
       Xml.Element
         ( "div",
@@ -294,11 +315,13 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "h5",
           [ ("class", "refs_endnotes_hdr") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("blk_nte", attr_list, xml_list) ->
-      Xml.Element
-        ( "div",
-          ("class", "blk nte") :: attr_list,
-          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("blk_nte", attr_list, xml_list) -> (
+      match List.map (html_of_exml doc_class) xml_list with
+      | hd::tl ->
+        Xml.Element
+          ( "div", ("class", "blk nte") :: attr_list, hd::clear::tl )
+      | [] -> raise (Error "empty blk_nte")
+  )
   | Xml.Element ("blk_nte_lbl", attr_list, xml_list) ->
       Xml.Element
         ( "a",

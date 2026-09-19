@@ -17,18 +17,20 @@ and the XML-validation relies on [Xml-light](https://github.com/ncannasse/xml-li
 ```
 USAGE:
 nmm-ocaml [
-  | txt-of-nmm   [ TXT-OPTIONS  ] { PATH-TO-NMM-FILE  | - }
-  | html-of-nmm  [ HTML-OPTIONS ] { PATH-TO-NMM-FILE  | - }
-  | exml-of-nmm  [ EXML-OPTIONS ] { PATH-TO-NMM-FILE  | - }
-  | axml-of-nmm  [ AXML-OPTIONS ] { PATH-TO-NMM-FILE  | - }
-  | txt-of-axml  [ TXT-OPTIONS  ] { PATH-TO-AXML-FILE | - }
-  | html-of-axml [ HTML-OPTIONS ] { PATH-TO-AXML-FILE | - }
-  | exml-of-axml [ EXML-OPTIONS ] { PATH-TO-AXML-FILE | - }
-  | check-xml-schema PATH-TO-DTD-FILE
-  | validate-xml PATH-TO-DTD-FILE { PATH-TO-XML-FILE | - }
-  | normalize-axml { PATH-TO-AXML-FILE | - }
+  | txt-of-nmm   [TXT-OPTIONS ] {NMM-FILE  | -}
+  | html-of-nmm  [HTML-OPTIONS] {NMM-FILE  | -}
+  | exml-of-nmm  [EXML-OPTIONS] {NMM-FILE  | -}
+  | axml-of-nmm  [AXML-OPTIONS] {NMM-FILE  | -}
+  | txt-of-axml  [TXT-OPTIONS ] {AXML-FILE | -}
+  | html-of-axml [HTML-OPTIONS] {AXML-FILE | -}
+  | exml-of-axml [EXML-OPTIONS] {AXML-FILE | -}
+  | normalize-axml {AXML-FILE | -}
+  | validate-axml  {AXML-FILE | -}
+  | validate-exml  {EXML-FILE | -}
   | show-axml-schema
   | show-exml-schema
+  | check-xml-schema DTD-FILE
+  | validate-xml DTD-FILE {XML-FILE | -}
   | version
   | help
 ]
@@ -37,8 +39,8 @@ In cases where '-' may be provided instead of a path, the program
 reads from standard input.
 
 TXT-OPTIONS:
-  --tags PATH-TO-TSV-FILE
-  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --tags TSV-FILE
+  --numbering {a1i | ai1 | 1ai | 1ia | ia1 | i1a}
   --allow-custom-numbering
   --quiet
   --margin NON-NEGATIVE-INTEGER
@@ -46,24 +48,24 @@ TXT-OPTIONS:
   --width NON-NEGATIVE-INTEGER
 
 HTML-OPTIONS:
-  --tags PATH-TO-TSV-FILE
-  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --tags TSV-FILE
+  --numbering {a1i | ai1 | 1ai | 1ia | ia1 | i1a}
   --allow-custom-numbering
   --quiet
   --margin NON-NEGATIVE-INTEGER
   --indent NON-NEGATIVE-INTEGER
   --lang ISO-LANGUAGE-CODE
-  --internal-css PATH-TO-CSS-FILE
+  --internal-css CSS-FILE
   --external-css URI
 
 EXML-OPTIONS:
-  --tags PATH-TO-TSV-FILE
-  --numbering { a1i | ai1 | 1ai | 1ia | ia1 | i1a }
+  --tags TSV-FILE
+  --numbering {a1i | ai1 | 1ai | 1ia | ia1 | i1a}
   --allow-custom-numbering
   --quiet
 
 AXML-OPTIONS:
-  --tags PATH-TO-TSV-FILE
+  --tags TSV-FILE
 ```
 
 ## Install pre-built binary on debian-based linux with apt
@@ -117,11 +119,11 @@ make bin/nmm-ocaml
 
 On standard nix (without nix-commands), to build and add the executable to your nix profile, run
 ```bash
-nix-env --install --file default.nix
+nix-env --install --file .
 ```
 To do the same on experimental nix (with nix-commands), run
 ```bash
-nix profile add --file default.nix
+nix profile add --file .
 ```
 
 ## Documentation

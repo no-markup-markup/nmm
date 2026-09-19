@@ -1158,7 +1158,7 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_nte_ref"</span>,&nbsp;[],&nbsp;[&nbsp;xml&nbsp;])&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_nte_ref</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(f_tr_id_of_xml&nbsp;xml,&nbsp;<span class="constructor">Cs_int</span>&nbsp;nte_count&nbsp;<span class="comment">(*&nbsp;f_ts_int_of_xml&nbsp;xml_int&nbsp;*)</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(f_tr_id_of_xml&nbsp;xml,&nbsp;<span class="constructor">Cs_int</span>&nbsp;nte_count)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
@@ -1171,22 +1171,8 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ts_nte_inline&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;f_ts_blks_of_xml_list&nbsp;nte_count&nbsp;xml_list&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;blks,&nbsp;nte_nr&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_nte_inline</span>&nbsp;(blks,&nbsp;<span class="constructor">Cs_int</span>&nbsp;nte_nr&nbsp;<span class="comment">(*&nbsp;f_ts_int_of_xml&nbsp;xml_int&nbsp;*)</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_nte_inline</span>&nbsp;(blks,&nbsp;<span class="constructor">Cs_int</span>&nbsp;nte_nr)<br>
 <br>
-<span class="comment">(*&nbsp;int&nbsp;*)</span><br>
-<br>
-<span class="keyword">and</span>&nbsp;f_ts_int_of_xml&nbsp;(xml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml)&nbsp;:&nbsp;ts_int&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"cs_int"</span>,&nbsp;[],&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;s&nbsp;])&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;<span class="constructor">Cs_int</span>&nbsp;(int_of_string&nbsp;s)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"expected&nbsp;integer&nbsp;pcdata;&nbsp;got:&nbsp;"</span>;&nbsp;s&nbsp;]))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Error</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"expected&nbsp;pcdata;&nbsp;got:&nbsp;"</span>;&nbsp;string_of_xml_list&nbsp;[&nbsp;xml&nbsp;]&nbsp;]))<br>
 <br>
 <span class="comment">(*&nbsp;lbl&nbsp;*)</span><br>
 <br>

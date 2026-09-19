@@ -301,14 +301,13 @@ let xml_of_tr_dsp_line (doc_settings : t_doc_settings)
   in
   let xml_main : Xml.xml = Xml.Element ("dsp_line_main", [], xml_list_main) in
   let xml_lbl : Xml.xml = Xml.Element ("dsp_line_lbl", [], xml_list_lbl) in
-  let xml_clear : Xml.xml = Xml.Element ("clear", [], []) in
   let attr_list : (string * string) list =
     attr_list_of_tr_id_opt doc_settings path [ "dsp_line" ] a.fld_dsp_line_id
   in
   match a.fld_dsp_line_lbl with
   | None -> Xml.Element ("dsp_line", attr_list, [ xml_main ])
   | Some _ ->
-      Xml.Element ("dsp_line", attr_list, [ xml_lbl; xml_clear; xml_main ])
+      Xml.Element ("dsp_line", attr_list, [ xml_lbl; xml_main ])
 
 (* blk_vrb *)
 
@@ -549,7 +548,7 @@ let exml_schema () : string =
     id CDATA #IMPLIED
 >
 
-<!ELEMENT par ((par_lbl, clear, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, clear, par_main, par_endnotes?))>
+<!ELEMENT par ((par_lbl, par_main_w_hdr, par_endnotes?) | (par_lbl_hdr, par_main, par_endnotes?))>
 <!ATTLIST par
     class CDATA #REQUIRED
     id CDATA #IMPLIED
@@ -564,8 +563,8 @@ let exml_schema () : string =
 >
 
 <!ELEMENT blk_txt (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
-<!ELEMENT blk_blt (blk_blt_lbl, clear, blk_blt_main)>
-<!ELEMENT blk_itm (blk_itm_lbl, clear, blk_itm_main)>
+<!ELEMENT blk_blt (blk_blt_lbl, blk_blt_main)>
+<!ELEMENT blk_itm (blk_itm_lbl, blk_itm_main)>
 <!ATTLIST blk_itm 
     class CDATA #REQUIRED
     id CDATA #IMPLIED
@@ -620,14 +619,13 @@ let exml_schema () : string =
     id CDATA #REQUIRED
 >
 
-<!ELEMENT dsp_line (dsp_line_lbl?, clear?, dsp_line_main)+>
+<!ELEMENT dsp_line (dsp_line_lbl?, dsp_line_main)>
 <!ATTLIST dsp_line 
     class CDATA #REQUIRED
     id CDATA #IMPLIED
 >
 
 <!ELEMENT dsp_line_main (txt_unit_wysiwyg | txt_unit_emph | txt_unit_c_ref | txt_unit_nte)+>
-<!ELEMENT clear EMPTY>
 
 <!ELEMENT doc_endnotes (doc_endnotes_hdr?, blk_nte+)>
 <!ELEMENT ch_endnotes (ch_endnotes_hdr?, blk_nte+)>
@@ -643,7 +641,7 @@ let exml_schema () : string =
 <!ELEMENT abstract_endnotes_hdr (#PCDATA)>
 <!ELEMENT refs_endnotes_hdr (#PCDATA)>
 
-<!ELEMENT blk_nte (blk_nte_lbl, clear, blk_nte_main)>
+<!ELEMENT blk_nte (blk_nte_lbl, blk_nte_main)>
 <!ATTLIST blk_nte
     id CDATA #REQUIRED
 >

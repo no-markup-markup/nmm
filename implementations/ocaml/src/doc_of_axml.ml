@@ -1130,7 +1130,7 @@ and f_ts_nte_ref_of_xml (nte_count : int) (xml : Xml.xml) : ts_nte_ref =
   match xml with
   | Xml.Element ("cs_nte_ref", [], [ xml ]) ->
       Cs_nte_ref
-        (f_tr_id_of_xml xml, Cs_int nte_count (* f_ts_int_of_xml xml_int *))
+        (f_tr_id_of_xml xml, Cs_int nte_count)
   | _ ->
       raise
         (Error
@@ -1143,22 +1143,8 @@ and f_ts_nte_inline_of_xml_list (nte_count : int) (xml_list : Xml.xml list) :
     ts_nte_inline =
   match f_ts_blks_of_xml_list nte_count xml_list with
   | blks, nte_nr ->
-      Cs_nte_inline (blks, Cs_int nte_nr (* f_ts_int_of_xml xml_int *))
+      Cs_nte_inline (blks, Cs_int nte_nr)
 
-(* int *)
-
-and f_ts_int_of_xml (xml : Xml.xml) : ts_int =
-  match xml with
-  | Xml.Element ("cs_int", [], [ Xml.PCData s ]) -> (
-      try Cs_int (int_of_string s)
-      with _ ->
-        raise (Error (String.concat "" [ "expected integer pcdata; got: "; s ]))
-      )
-  | _ ->
-      raise
-        (Error
-           (String.concat ""
-              [ "expected pcdata; got: "; string_of_xml_list [ xml ] ]))
 
 (* lbl *)
 

@@ -1,34 +1,5 @@
 exception Error of string
 
-let exml_dtd : Dtd.dtd = Dtd.parse_string (Exml_utils.exml_schema ())
-let exml_dtd_checked : Dtd.checked = Dtd.check exml_dtd
-
-
-let validate_exml (exml : Xml.xml) : unit =
-  try
-    let _ = Dtd.prove exml_dtd_checked "doc" exml in
-    ()
-  with Dtd.Prove_error e ->
-    raise
-      (Error
-         (String.concat " "
-            [ "exml Ddt.prove_error:"; Dtd.prove_error e ]))
-
-let axml_dtd : Dtd.dtd = Dtd.parse_string (Axml_of_doc.axml_schema ())
-let axml_dtd_checked : Dtd.checked = Dtd.check axml_dtd
-
-
-let validate_axml (axml : Xml.xml) : unit =
-  try
-    let _ = Dtd.prove axml_dtd_checked "cr_doc" axml in
-    ()
-  with Dtd.Prove_error e ->
-    raise
-      (Error
-         (String.concat " "
-            [ "axml Ddt.prove_error:"; Dtd.prove_error e ]))
-
-
 let identity_test_w_doc (doc : Doc_types.tr_doc)
     (doc_of_axml : Doc_types.tr_doc) : unit =
   match doc = doc_of_axml with
@@ -96,8 +67,8 @@ let test_with_nmm_file (options : Common_utils.t_exml_options)
     let _ : unit = xml_right_test "exml" exml in
     let _ : unit = xml_right_test_fmt "axml" axml in
     let _ : unit = xml_right_test_fmt "exml" exml in
-    let _ : unit = validate_axml axml in
-    let _ : unit = validate_exml exml in
+    let _ : unit = Main.validate_axml axml in
+    let _ : unit = Main.validate_exml exml in
     print_endline (path ^ " -> All tests PASSED")
   with
   | Error e -> 
@@ -123,8 +94,8 @@ let test_with_axml_file (options : Common_utils.t_exml_options) (path : string)
     let _ : unit = xml_right_test "exml" exml in
     let _ : unit = xml_right_test_fmt "axml" axml in
     let _ : unit = xml_right_test_fmt "exml" exml in
-    let _ : unit = validate_axml axml in
-    let _ : unit = validate_exml exml in
+    let _ : unit = Main.validate_axml axml in
+    let _ : unit = Main.validate_exml exml in
     print_endline (path ^ " -> All tests PASSED")
   with
   | Error e -> 

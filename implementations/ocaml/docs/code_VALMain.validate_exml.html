@@ -23,7 +23,15 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Main.version</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Main.validate_exml</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> version () : string = <span class="string">"3"</span></code></body></html>
+<code class="code"><span class="keyword">let</span> validate_exml (exml : <span class="constructor">Xml</span>.xml) : unit =
+  <span class="keyword">try</span>
+    <span class="keyword">let</span> _ = <span class="constructor">Dtd</span>.prove (exml_dtd_checked ()) <span class="string">"doc"</span> exml <span class="keyword">in</span>
+    ()
+  <span class="keyword">with</span> <span class="constructor">Dtd</span>.<span class="constructor">Prove_error</span> e <span class="keywordsign">-&gt;</span>
+    raise
+      (<span class="constructor">Error</span>
+         (<span class="constructor">String</span>.concat <span class="string">" "</span>
+            [ <span class="string">"exml Ddt.prove_error:"</span>; <span class="constructor">Dtd</span>.prove_error e ]))</code></body></html>
