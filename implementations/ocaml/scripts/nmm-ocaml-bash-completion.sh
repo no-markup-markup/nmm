@@ -6,7 +6,7 @@
 
 _nmm_ocaml_get_options () {
 
-  local subcommands='html-of-nmm txt-of-nmm exml-of-nmm axml-of-nmm html-of-axml txt-of-axml exml-of-axml show-exml-schema show-axml-schema show-default-css validate-xml check-xml-schema normalize-axml version help'
+  local subcommands='html-of-nmm txt-of-nmm exml-of-nmm axml-of-nmm html-of-axml txt-of-axml exml-of-axml show-exml-schema show-axml-schema show-default-css validate-xml check-xml-schema normalize-axml validate-axml validate-exml version help'
   local axml_options='--tags'
   local exml_options="$axml_options --quiet --numbering --allow-custom-numbering"
   local txt_options="$exml_options --margin --indent --width"
@@ -70,7 +70,7 @@ _nmm_ocaml () {
     --margin | --indent | --width )
       COMPREPLY=( $(compgen -W "${options}") )
       ;;
-    --tags | --internal-css | --external-css | validate-xml | check-xml-schema )
+    --tags | --internal-css | --external-css | validate-* | check-xml-schema )
       COMPREPLY=( $(compgen -f -- ${cur}) )
       ;;
     - | show-* | version | help )
