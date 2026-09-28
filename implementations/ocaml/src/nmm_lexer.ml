@@ -77,10 +77,10 @@ let pilcrow_spaces_tag_or_id_nl =
 let pilcrow_spaces_rpt_spaces_id_nl =
   [%sedlex.regexp? pilcrow, spaces, "rpt", spaces, par_id, nl]
 
-let title_colon = [%sedlex.regexp? "TITLE:"]
-let author_colon = [%sedlex.regexp? "AUTHOR:"]
-let date_colon = [%sedlex.regexp? "DATE:"]
-let abstract_colon = [%sedlex.regexp? "ABSTRACT:"]
+let title_colon_nl_tab = [%sedlex.regexp? "TITLE", colon, nl, tab]
+let author_colon_nl_tab = [%sedlex.regexp? "AUTHOR", colon, nl, tab]
+let date_colon_nl_tab = [%sedlex.regexp? "DATE", colon, nl, tab]
+let abstract_colon_nl_tab = [%sedlex.regexp? "ABSTRACT", colon, nl, tab]
 let section_refs_nls = [%sedlex.regexp? Utf8 "§", Plus " ", "REFS", Plus nl]
 let pilcrow_refs_nls = [%sedlex.regexp? Utf8 "¶", Plus " ", "REFS", Plus nl]
 let esc_char = [%sedlex.regexp? '\\', any]
@@ -92,7 +92,7 @@ let tab_tab_end_vrb = [%sedlex.regexp? tab, tab_end_vrb]
 let tab_tab_tab_end_vrb = [%sedlex.regexp? tab, tab_tab_end_vrb]
 let start_qtn = [%sedlex.regexp? "START", tab, "QUOTATION", nl]
 let end_qtn = [%sedlex.regexp? "END", tab, "QUOTATION", nl]
-let br = [%sedlex.regexp? "BR"]
+let br_tab = [%sedlex.regexp? "BR", tab]
 let tab_end_qtn = [%sedlex.regexp? tab, end_qtn]
 let tab_tab_end_qtn = [%sedlex.regexp? tab, tab_end_qtn]
 let tab_tab_tab_end_qtn = [%sedlex.regexp? tab, tab_tab_end_qtn]
@@ -207,10 +207,10 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
       | start_preamble -> set_preamble_and_return_token START_PREAMBLE
       | start_qtn -> set_quotation_and_return_token START_QTN
       | esc_char -> ESC_CHAR (get_esc_char (lexeme lexbuf))
-      | title_colon -> TITLE_COLON
-      | author_colon -> AUTHOR_COLON
-      | date_colon -> DATE_COLON
-      | abstract_colon -> ABSTRACT_COLON
+      | title_colon_nl_tab -> TITLE_COLON_NL_TAB
+      | author_colon_nl_tab -> AUTHOR_COLON_NL_TAB
+      | date_colon_nl_tab -> DATE_COLON_NL_TAB
+      | abstract_colon_nl_tab -> ABSTRACT_COLON_NL_TAB
       | ch_tag_or_id_nl -> CH_TAG_OR_ID_NL (String.trim (lexeme lexbuf))
       | nte_ref ->
           NTE_REF (lexeme lexbuf, increase_nte_count_and_return_previous ())
@@ -307,7 +307,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
       | tab_tab_tab_end_qtn ->
           reset_quotation_and_return_token TAB_TAB_TAB_END_QTN
       | nl -> NL
-      | br -> BR
+      | br_tab -> BR_TAB
       | tab -> TAB
       | star -> STAR
       | lbr -> LBR

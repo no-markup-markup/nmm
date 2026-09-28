@@ -38,10 +38,10 @@
       <span class="keywordsign">|</span> start_preamble <span class="keywordsign">-&gt;</span> set_preamble_and_return_token <span class="constructor">START_PREAMBLE</span>
       <span class="keywordsign">|</span> start_qtn <span class="keywordsign">-&gt;</span> set_quotation_and_return_token <span class="constructor">START_QTN</span>
       <span class="keywordsign">|</span> esc_char <span class="keywordsign">-&gt;</span> <span class="constructor">ESC_CHAR</span> (get_esc_char (lexeme lexbuf))
-      <span class="keywordsign">|</span> title_colon <span class="keywordsign">-&gt;</span> <span class="constructor">TITLE_COLON</span>
-      <span class="keywordsign">|</span> author_colon <span class="keywordsign">-&gt;</span> <span class="constructor">AUTHOR_COLON</span>
-      <span class="keywordsign">|</span> date_colon <span class="keywordsign">-&gt;</span> <span class="constructor">DATE_COLON</span>
-      <span class="keywordsign">|</span> abstract_colon <span class="keywordsign">-&gt;</span> <span class="constructor">ABSTRACT_COLON</span>
+      <span class="keywordsign">|</span> title_colon_nl_tab <span class="keywordsign">-&gt;</span> <span class="constructor">TITLE_COLON_NL_TAB</span>
+      <span class="keywordsign">|</span> author_colon_nl_tab <span class="keywordsign">-&gt;</span> <span class="constructor">AUTHOR_COLON_NL_TAB</span>
+      <span class="keywordsign">|</span> date_colon_nl_tab <span class="keywordsign">-&gt;</span> <span class="constructor">DATE_COLON_NL_TAB</span>
+      <span class="keywordsign">|</span> abstract_colon_nl_tab <span class="keywordsign">-&gt;</span> <span class="constructor">ABSTRACT_COLON_NL_TAB</span>
       <span class="keywordsign">|</span> ch_tag_or_id_nl <span class="keywordsign">-&gt;</span> <span class="constructor">CH_TAG_OR_ID_NL</span> (<span class="constructor">String</span>.trim (lexeme lexbuf))
       <span class="keywordsign">|</span> nte_ref <span class="keywordsign">-&gt;</span>
           <span class="constructor">NTE_REF</span> (lexeme lexbuf, increase_nte_count_and_return_previous ())
@@ -138,7 +138,7 @@
       <span class="keywordsign">|</span> tab_tab_tab_end_qtn <span class="keywordsign">-&gt;</span>
           reset_quotation_and_return_token <span class="constructor">TAB_TAB_TAB_END_QTN</span>
       <span class="keywordsign">|</span> nl <span class="keywordsign">-&gt;</span> <span class="constructor">NL</span>
-      <span class="keywordsign">|</span> br <span class="keywordsign">-&gt;</span> <span class="constructor">BR</span>
+      <span class="keywordsign">|</span> br_tab <span class="keywordsign">-&gt;</span> <span class="constructor">BR_TAB</span>
       <span class="keywordsign">|</span> tab <span class="keywordsign">-&gt;</span> <span class="constructor">TAB</span>
       <span class="keywordsign">|</span> star <span class="keywordsign">-&gt;</span> <span class="constructor">STAR</span>
       <span class="keywordsign">|</span> lbr <span class="keywordsign">-&gt;</span> <span class="constructor">LBR</span>

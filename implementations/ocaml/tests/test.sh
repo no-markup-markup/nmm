@@ -380,7 +380,7 @@ make_tests () {
 	return $exit_code
 }
 
-if [ "$1" = "true" ]; then
+if [ "$1" = "verbose" ]; then
   make_tests
 else
   make_tests 2> /dev/null

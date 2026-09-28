@@ -444,11 +444,23 @@ let _ : unit =
       print_endline (Main.check_xml_schema path_to_dtd_file.contents)
   | "validate-xml" -> (
       match read_from_stdin.contents with
-      | true -> print_endline (Main.validate_xml path_to_dtd_file.contents "-")
-      | false ->
-          print_endline
-            (Main.validate_xml path_to_dtd_file.contents
-               path_to_xml_file.contents))
+      | true -> (
+          match path_to_dtd_file.contents with
+          | "" -> raise (Error "missing PATH-TO-DTD-FILE")
+          | path ->
+              print_endline (Main.validate_xml path "-")
+      )
+      | false -> (
+          match
+            path_to_dtd_file.contents,
+            path_to_xml_file.contents
+          with
+          | "", _ -> raise (Error "missing PATH-TO-DTD-FILE")
+          | _, "" -> raise (Error "missing PATH-TO-XML-FILE")
+          | dtd, xml ->
+              print_endline (Main.validate_xml dtd xml)
+      )
+  )
   | "show-axml-schema" -> print_endline (Main.axml_schema_string ())
   | "show-exml-schema" -> print_endline (Main.exml_schema_string ())
   | "show-default-css" -> print_endline (Main.default_css ())

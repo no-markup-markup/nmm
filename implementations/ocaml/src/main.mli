@@ -96,10 +96,10 @@ val validate_xml : string -> string -> string
 (* exml- and axml-validation *)
 
 val exml_schema_string : unit -> string
-(** [exml_schema ()] evaluates to {!val:Exml_utils.exml_schema}[ ()]. *)
+(** [exml_schema_string ()] evaluates to {!val:Exml_utils.exml_schema}[ ()]. *)
 
 val axml_schema_string : unit -> string
-(** [axml_schema ()] evaluates to {!val:Axml_of_doc.axml_schema}[ ()]. *)
+(** [axml_schema_string ()] evaluates to {!val:Axml_of_doc.axml_schema}[ ()]. *)
 
 
 val validate_exml : Xml.xml -> unit

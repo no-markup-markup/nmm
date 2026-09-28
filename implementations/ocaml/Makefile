@@ -16,12 +16,12 @@ clean:
 
 test: bin/nmm-ocaml
 	cd tests
-	bash test.sh false
+	bash test.sh
 	cd -
 
 test-verbose: bin/nmm-ocaml
 	cd tests
-	bash test.sh true
+	bash test.sh verbose
 	cd -
 
 clean-docs:

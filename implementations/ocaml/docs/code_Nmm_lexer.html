@@ -105,10 +105,10 @@
 <span class="keyword">let</span>&nbsp;pilcrow_spaces_rpt_spaces_id_nl&nbsp;=<br>
 &nbsp;&nbsp;[%sedlex.regexp?&nbsp;pilcrow,&nbsp;spaces,&nbsp;<span class="string">"rpt"</span>,&nbsp;spaces,&nbsp;par_id,&nbsp;nl]<br>
 <br>
-<span class="keyword">let</span>&nbsp;title_colon&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"TITLE:"</span>]<br>
-<span class="keyword">let</span>&nbsp;author_colon&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"AUTHOR:"</span>]<br>
-<span class="keyword">let</span>&nbsp;date_colon&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"DATE:"</span>]<br>
-<span class="keyword">let</span>&nbsp;abstract_colon&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"ABSTRACT:"</span>]<br>
+<span class="keyword">let</span>&nbsp;title_colon_nl_tab&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"TITLE"</span>,&nbsp;colon,&nbsp;nl,&nbsp;tab]<br>
+<span class="keyword">let</span>&nbsp;author_colon_nl_tab&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"AUTHOR"</span>,&nbsp;colon,&nbsp;nl,&nbsp;tab]<br>
+<span class="keyword">let</span>&nbsp;date_colon_nl_tab&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"DATE"</span>,&nbsp;colon,&nbsp;nl,&nbsp;tab]<br>
+<span class="keyword">let</span>&nbsp;abstract_colon_nl_tab&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"ABSTRACT"</span>,&nbsp;colon,&nbsp;nl,&nbsp;tab]<br>
 <span class="keyword">let</span>&nbsp;section_refs_nls&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Utf8</span>&nbsp;<span class="string">"§"</span>,&nbsp;<span class="constructor">Plus</span>&nbsp;<span class="string">"&nbsp;"</span>,&nbsp;<span class="string">"REFS"</span>,&nbsp;<span class="constructor">Plus</span>&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;pilcrow_refs_nls&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Utf8</span>&nbsp;<span class="string">"¶"</span>,&nbsp;<span class="constructor">Plus</span>&nbsp;<span class="string">"&nbsp;"</span>,&nbsp;<span class="string">"REFS"</span>,&nbsp;<span class="constructor">Plus</span>&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;esc_char&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">'\\'</span>,&nbsp;any]<br>
@@ -120,7 +120,7 @@
 <span class="keyword">let</span>&nbsp;tab_tab_tab_end_vrb&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;tab_tab_end_vrb]<br>
 <span class="keyword">let</span>&nbsp;start_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"START"</span>,&nbsp;tab,&nbsp;<span class="string">"QUOTATION"</span>,&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;end_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"END"</span>,&nbsp;tab,&nbsp;<span class="string">"QUOTATION"</span>,&nbsp;nl]<br>
-<span class="keyword">let</span>&nbsp;br&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"BR"</span>]<br>
+<span class="keyword">let</span>&nbsp;br_tab&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"BR"</span>,&nbsp;tab]<br>
 <span class="keyword">let</span>&nbsp;tab_end_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;end_qtn]<br>
 <span class="keyword">let</span>&nbsp;tab_tab_end_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;tab_end_qtn]<br>
 <span class="keyword">let</span>&nbsp;tab_tab_tab_end_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;tab_tab_end_qtn]<br>
@@ -235,10 +235,10 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;start_preamble&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_preamble_and_return_token&nbsp;<span class="constructor">START_PREAMBLE</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;start_qtn&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;set_quotation_and_return_token&nbsp;<span class="constructor">START_QTN</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;esc_char&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ESC_CHAR</span>&nbsp;(get_esc_char&nbsp;(lexeme&nbsp;lexbuf))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;title_colon&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">TITLE_COLON</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;author_colon&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">AUTHOR_COLON</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;date_colon&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">DATE_COLON</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;abstract_colon&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ABSTRACT_COLON</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;title_colon_nl_tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">TITLE_COLON_NL_TAB</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;author_colon_nl_tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">AUTHOR_COLON_NL_TAB</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;date_colon_nl_tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">DATE_COLON_NL_TAB</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;abstract_colon_nl_tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ABSTRACT_COLON_NL_TAB</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;ch_tag_or_id_nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">CH_TAG_OR_ID_NL</span>&nbsp;(<span class="constructor">String</span>.trim&nbsp;(lexeme&nbsp;lexbuf))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nte_ref&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">NTE_REF</span>&nbsp;(lexeme&nbsp;lexbuf,&nbsp;increase_nte_count_and_return_previous&nbsp;())<br>
@@ -335,7 +335,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;tab_tab_tab_end_qtn&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reset_quotation_and_return_token&nbsp;<span class="constructor">TAB_TAB_TAB_END_QTN</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">NL</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;br&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">BR</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;br_tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">BR_TAB</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">TAB</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;star&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">STAR</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;lbr&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">LBR</span><br>

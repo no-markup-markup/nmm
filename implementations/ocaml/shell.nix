@@ -1,4 +1,8 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import (
+    builtins.fetchTarball
+      "https://github.com/NixOS/nixpkgs/archive/refs/tags/26.05.tar.gz"
+  ) { }
+}:
 let
   build_packages = with pkgs; [
     ocaml

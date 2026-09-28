@@ -150,9 +150,9 @@ let date_of_string (s : string) : tu_date =
 %token                          NL TAB NL_TAB NL_TAB_TAB NL_TAB_TAB_TAB
 %token                          DASH_TAB ITM_AUTO_TAB DSP_AUTO_TAB PILCROW_NL SECTION_NL SECTION_REFS_NLS PILCROW_REFS_NLS
 %token                          START_VRB VRB_LINE_EMPTY END_VRB TAB_END_VRB TAB_TAB_END_VRB TAB_TAB_TAB_END_VRB
-%token                          START_QTN END_QTN BR TAB_END_QTN TAB_TAB_END_QTN TAB_TAB_TAB_END_QTN
+%token                          START_QTN END_QTN BR_TAB TAB_END_QTN TAB_TAB_END_QTN TAB_TAB_TAB_END_QTN
 %token                          START_PREAMBLE END_PREAMBLE
-%token                          TITLE_COLON AUTHOR_COLON DATE_COLON ABSTRACT_COLON
+%token                          TITLE_COLON_NL_TAB AUTHOR_COLON_NL_TAB DATE_COLON_NL_TAB ABSTRACT_COLON_NL_TAB
 %token <string>                 VRB_LINE PREAMBLE_LINE
 %token <string>                 ESC_CHAR
 %token <string>                 TXT C_REF
@@ -238,23 +238,19 @@ preamble_lines:
 ;
 
 doc_title:
-  | TITLE_COLON TAB lines                         { (Cs_title $3) : ts_title }
-  | TITLE_COLON NL_TAB lines                      { (Cs_title $3) : ts_title }
+  | TITLE_COLON_NL_TAB lines                      { (Cs_title $2) : ts_title }
 ;
 
 doc_author:
-  | AUTHOR_COLON TAB lines                        { (Cs_author $3) : ts_author }
-  | AUTHOR_COLON NL_TAB lines                     { (Cs_author $3) : ts_author }
+  | AUTHOR_COLON_NL_TAB lines                     { (Cs_author $2) : ts_author }
 ;
 
 doc_date:
-  | DATE_COLON TAB lines                          { (date_of_string $3) : tu_date }
-  | DATE_COLON NL_TAB lines                       { (date_of_string $3) : tu_date }
+  | DATE_COLON_NL_TAB lines                       { (date_of_string $2) : tu_date }
 ;
 
 doc_abstract:
-  | ABSTRACT_COLON TAB blks1                      { (Cs_abstract (Cs_blks $3)) : ts_abstract }
-  | ABSTRACT_COLON lb1 blks1                      { (Cs_abstract (Cs_blks $3)) : ts_abstract }
+  | ABSTRACT_COLON_NL_TAB blks1                   { (Cs_abstract (Cs_blks $2)) : ts_abstract }
 ;
 
 doc_refs:
@@ -351,7 +347,7 @@ nls:
 ;
 
 
-/* Level 0 */
+/* ************* Level 0 ************ */
 
 blks0:
   |blk0                                           { ($1::[]):tu_blk list }
@@ -506,8 +502,8 @@ qtn_line_std0:
 ;
 
 qtn_line_br0:
-  |BR TAB qtn_units0                              { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
-  |BR TAB                                         { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
+  |BR_TAB qtn_units0                              { Cs_qtn_line_br (Cs_qtn_units $2) : ts_qtn_line_br }
+  |BR_TAB                                         { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
 ;
 
 qtn_units0:
@@ -533,7 +529,7 @@ lb0:
   |NL                                             { }
 ;
 
-/* General recipe for n>0:
+/* ************* General recipe for n>0: ***********************************************
 
 blks(n):
   |blk(n)                                           { ($1::[]):tu_blk list }
@@ -672,8 +668,8 @@ qtn_line_std(n):
 ;
 
 qtn_line_br(n):
-  |tab(n) BR TAB qtn_units(n)                     { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
-  |tab(n) BR TAB                                  { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
+  |tab(n) BR_TAB qtn_units(n)                     { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
+  |tab(n) BR_TAB                                  { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
 ;
 
 qtn_units(n):
@@ -706,9 +702,9 @@ end_qtn(n):
 lb(n):
   |lb(n-1)_TAB                                    { }
 ;
-*/
+********************************************************************************* */
 
-/* Level 1 */
+/* ************* Level 1 ************ */
 
 blks1:
   |blk1                                           { ($1::[]):tu_blk list }
@@ -851,8 +847,8 @@ qtn_line_std1:
 ;
 
 qtn_line_br1:
-  |tab1 BR TAB qtn_units1                         { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
-  |tab1 BR TAB                                    { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
+  |tab1 BR_TAB qtn_units1                         { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
+  |tab1 BR_TAB                                    { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
 ;
 
 qtn_units1:
@@ -886,7 +882,7 @@ lb1:
   |NL_TAB                                         { }
 ;
 
-/* Level 2 */
+/* ************* Level 2 ************ */
 
 blks2:
   |blk2                                           { ($1::[]):tu_blk list }
@@ -1029,8 +1025,8 @@ qtn_line_std2:
 ;
 
 qtn_line_br2:
-  |tab2 BR TAB qtn_units2                         { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
-  |tab2 BR TAB                                    { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
+  |tab2 BR_TAB qtn_units2                         { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
+  |tab2 BR_TAB                                    { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
 ;
 
 qtn_units2:
@@ -1064,7 +1060,7 @@ lb2:
   |NL_TAB_TAB                                     { }
 ;
 
-/* Level 3 */
+/* ************* Level 3 ************ */
 
 blks3:
   |blk3                                           { ($1::[]):tu_blk list }
@@ -1149,8 +1145,8 @@ qtn_line_std3:
 ;
 
 qtn_line_br3:
-  |tab3 BR TAB qtn_units3                          { Cs_qtn_line_br (Cs_qtn_units $4) : ts_qtn_line_br }
-  |tab3 BR TAB                                     { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
+  |tab3 BR_TAB qtn_units3                          { Cs_qtn_line_br (Cs_qtn_units $3) : ts_qtn_line_br }
+  |tab3 BR_TAB                                     { Cs_qtn_line_br (Cs_qtn_units []) : ts_qtn_line_br }
 ;
 
 qtn_units3:
@@ -1184,7 +1180,7 @@ lb3:
   |NL_TAB_TAB_TAB                                 { }
 ;
 
-/* Common to all levels: */
+/* ************ Common to all levels: ************** */
 
 dsp_line:
   |dsp_lbl_tab dsp_units                          { {fld_dsp_line_lbl=Some $1;fld_dsp_line_id=None;fld_dsp_line_units=Cs_txt_units $2}:tr_dsp_line }
@@ -1271,12 +1267,7 @@ txt_nte:
   |LBR                                            { "[":string }
   |PILCROW                                        { "¶":string }
   |SECTION                                        { "§":string }
-  |TITLE_COLON                                    { "TITLE:":string }
-  |AUTHOR_COLON                                   { "AUTHOR:":string }
-  |DATE_COLON                                     { "DATE:":string }
-  |ABSTRACT_COLON                                 { "ABSTRACT:":string }
   |ESC_CHAR                                       { $1:string }
-  |BR                                             { "BR" : string }
 ;
 
 emph_txt:
