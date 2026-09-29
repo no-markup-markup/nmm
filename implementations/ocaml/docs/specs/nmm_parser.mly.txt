@@ -259,9 +259,13 @@ doc_refs:
 ;
 
 lines:
+  | line                                          { $1 : string }
+  | line NL_TAB lines                             { ($1 ^ " " ^ $3) : string }
+;
+
+line:
   | txt                                           { $1 : string }
-  | txt lines                                     { ($1 ^ $2) : string }
-  | txt NL_TAB lines                              { ($1 ^ " " ^ $3) : string }
+  | txt line                                      { ($1 ^ $2) : string }
 ;
 
 doc_main:
@@ -291,9 +295,9 @@ ch:
 ch_main:
   |nls secs                                       { (Cu_secs_pars_or_blks_secs (Cs_secs $2)):tu_secs_pars_or_blks }
   |nls pars                                       { (Cu_secs_pars_or_blks_pars (Cs_pars $2)):tu_secs_pars_or_blks }
-  |nls blks                                       { (Cu_secs_pars_or_blks_blks $2):tu_secs_pars_or_blks }
-  |special_blks                                   { (Cu_secs_pars_or_blks_blks $1):tu_secs_pars_or_blks }
-  |nls special_blks                               { (Cu_secs_pars_or_blks_blks $2):tu_secs_pars_or_blks }
+  |nls blks0                                      { (Cu_secs_pars_or_blks_blks (Cs_blks $2)):tu_secs_pars_or_blks }
+  |special_blks0                                  { (Cu_secs_pars_or_blks_blks (Cs_blks $1)):tu_secs_pars_or_blks }
+  |nls special_blks0                              { (Cu_secs_pars_or_blks_blks (Cs_blks $2)):tu_secs_pars_or_blks }
 ;
 
 sec:
@@ -305,9 +309,9 @@ sec:
 
 sec_main:
   |nls pars                                       { (Cu_pars_or_blks_pars (Cs_pars $2)):tu_pars_or_blks }
-  |nls blks                                       { (Cu_pars_or_blks_blks $2):tu_pars_or_blks }
-  |special_blks                                   { (Cu_pars_or_blks_blks $1):tu_pars_or_blks }
-  |nls special_blks                               { (Cu_pars_or_blks_blks $2):tu_pars_or_blks }
+  |nls blks0                                      { (Cu_pars_or_blks_blks (Cs_blks $2)):tu_pars_or_blks }
+  |special_blks0                                  { (Cu_pars_or_blks_blks (Cs_blks $1)):tu_pars_or_blks }
+  |nls special_blks0                              { (Cu_pars_or_blks_blks (Cs_blks $2)):tu_pars_or_blks }
 ;
 
 pars:
@@ -324,17 +328,9 @@ par:
 ;
 
 par_main:
-  |nls blks                                       { $2:ts_blks }
-  |special_blks                                   { $1:ts_blks }
-  |nls special_blks                               { $2:ts_blks }
-;
-
-blks:
-  |blks0                                          { Cs_blks $1 : ts_blks }
-;
-
-special_blks:
-  |special_blks0                                  { Cs_blks $1 : ts_blks }
+  |nls blks0                                      { Cs_blks $2:ts_blks }
+  |special_blks0                                  { Cs_blks $1:ts_blks }
+  |nls special_blks0                              { Cs_blks $2:ts_blks }
 ;
 
 hdr:
@@ -389,7 +385,7 @@ blk_txt0:
 ;
 
 txt_lines0:
-  |txt_line0 lb0                                  { $1 :: [] : ts_txt_line list }
+  |txt_line0 NL                                   { $1 :: [] : ts_txt_line list }
   |txt_line0 lb0 txt_lines0                       { $1 :: $3 : ts_txt_line list }
 ;
 
@@ -458,13 +454,13 @@ special_blk_dsp0:
 ;
 
 dsp_lines0:
-  |dsp_line lb0                                   { ($1::[]):tr_dsp_line list }
+  |dsp_line NL                                    { ($1::[]):tr_dsp_line list }
   |dsp_line lb0 dsp_lines0                        { ($1::$3):tr_dsp_line list }
   |dsp_line lb1 special_dsp_lines0                { ($1::$3):tr_dsp_line list }
 ;
 
 special_dsp_lines0:
-  |special_dsp_line lb0                           { ($1::[]):tr_dsp_line list }
+  |special_dsp_line NL                            { ($1::[]):tr_dsp_line list }
   |special_dsp_line lb1 special_dsp_lines0        { ($1::$3):tr_dsp_line list }
   |special_dsp_line lb0 dsp_lines0                { ($1::$3):tr_dsp_line list }
 ;
@@ -562,7 +558,7 @@ blk_txt(n):
 ;
 
 txt_lines(n):
-  |txt_line(n) lb0                                        { $1 :: [] : ts_txt_line list }
+  |txt_line(n) NL                                         { $1 :: [] : ts_txt_line list }
   |txt_line(n) lb(n) txt_lines(n)                         { $1 :: $3 : ts_txt_line list }
 ;
 
@@ -620,13 +616,13 @@ special_blk_dsp(n):
 ;
 
 dsp_lines(n):
-  |dsp_line lb0                                           { ($1::[]):tr_dsp_line list }
+  |dsp_line NL                                            { ($1::[]):tr_dsp_line list }
   |dsp_line lb(n) dsp_lines(n)                            { ($1::$3):tr_dsp_line list }
   |dsp_line lb(n+1) special_dsp_lines(n)                  { ($1::$3):tr_dsp_line list }
 ;
 
 special_dsp_lines(n):
-  |special_dsp_line lb0                                   { ($1::[]):tr_dsp_line list }
+  |special_dsp_line NL                                    { ($1::[]):tr_dsp_line list }
   |special_dsp_line lb(n+1) special_dsp_lines(n)          { ($1::$3):tr_dsp_line list }
   |special_dsp_line lb(n) dsp_lines(n)                    { ($1::$3):tr_dsp_line list }
 ;
@@ -737,7 +733,7 @@ blk_txt1:
 ;
 
 txt_lines1:
-  |txt_line1 lb0                                  { $1 :: [] : ts_txt_line list }
+  |txt_line1 NL                                   { $1 :: [] : ts_txt_line list }
   |txt_line1 lb1 txt_lines1                       { $1 :: $3 : ts_txt_line list }
 ;
 
@@ -799,13 +795,13 @@ special_blk_dsp1:
 ;
 
 dsp_lines1:
-  |dsp_line lb0                                   { ($1::[]):tr_dsp_line list }
+  |dsp_line NL                                    { ($1::[]):tr_dsp_line list }
   |dsp_line lb1 dsp_lines1                        { ($1::$3):tr_dsp_line list }
   |dsp_line lb2 special_dsp_lines1                { ($1::$3):tr_dsp_line list }
 ;
 
 special_dsp_lines1:
-  |special_dsp_line lb0                           { ($1::[]):tr_dsp_line list }
+  |special_dsp_line NL                            { ($1::[]):tr_dsp_line list }
   |special_dsp_line lb2 special_dsp_lines1        { ($1::$3):tr_dsp_line list }
   |special_dsp_line lb1 dsp_lines1                { ($1::$3):tr_dsp_line list }
 ;
@@ -915,7 +911,7 @@ blk_txt2:
 ;
 
 txt_lines2:
-  |txt_line2 lb0                                  { $1 :: [] : ts_txt_line list }
+  |txt_line2 NL                                   { $1 :: [] : ts_txt_line list }
   |txt_line2 lb2 txt_lines2                       { $1 :: $3 : ts_txt_line list }
 ;
 
@@ -977,13 +973,13 @@ special_blk_dsp2:
 ;
 
 dsp_lines2:
-  |dsp_line lb0                                   { ($1::[]):tr_dsp_line list }
+  |dsp_line NL                                    { ($1::[]):tr_dsp_line list }
   |dsp_line lb2 dsp_lines2                        { ($1::$3):tr_dsp_line list }
   |dsp_line lb3 special_dsp_lines2                { ($1::$3):tr_dsp_line list }
 ;
 
 special_dsp_lines2:
-  |special_dsp_line lb0                           { ($1::[]):tr_dsp_line list }
+  |special_dsp_line NL                            { ($1::[]):tr_dsp_line list }
   |special_dsp_line lb3 special_dsp_lines2        { ($1::$3):tr_dsp_line list }
   |special_dsp_line lb2 dsp_lines2                { ($1::$3):tr_dsp_line list }
 ;
@@ -1079,7 +1075,7 @@ blk_txt3:
 ;
 
 txt_lines3:
-  |txt_line3 lb0                                  { $1 :: [] : ts_txt_line list }
+  |txt_line3 NL                                   { $1 :: [] : ts_txt_line list }
   |txt_line3 lb3 txt_lines3                       { $1 :: $3 : ts_txt_line list }
 ;
 
