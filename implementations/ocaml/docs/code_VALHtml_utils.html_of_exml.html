@@ -33,7 +33,7 @@
   <span class="keyword">in</span>
   <span class="keyword">match</span> element <span class="keyword">with</span>
   <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"doc"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
-      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"main"</span>, attr_list, <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"div"</span>, attr_list, <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
   <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"title"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>
         ( <span class="string">"h1"</span>,
@@ -99,9 +99,13 @@
         ( <span class="string">"div"</span>,
           [ (<span class="string">"class"</span>, <span class="string">"ch_main"</span>) ],
           <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list )
-  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span>
-      <span class="constructor">Xml</span>.<span class="constructor">Element</span>
-        (<span class="string">"section"</span>, attr_list, <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list)
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec"</span>, attr_list, xml_list) <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> <span class="constructor">List</span>.map (html_of_exml doc_class) xml_list <span class="keyword">with</span>
+      <span class="keywordsign">|</span> hd::tl <span class="keywordsign">-&gt;</span> 
+          <span class="constructor">Xml</span>.<span class="constructor">Element</span>
+            (<span class="string">"section"</span>, attr_list, hd::clear::tl )
+      <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"empty sec"</span>) 
+  )
   <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"sec_lbl"</span>, _, xml_list) <span class="keywordsign">-&gt;</span>
       <span class="constructor">Xml</span>.<span class="constructor">Element</span>
         ( <span class="string">"div"</span>,

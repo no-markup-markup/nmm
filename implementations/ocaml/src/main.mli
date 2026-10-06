@@ -41,6 +41,10 @@ val html_of_nmm : Common_utils.t_html_options -> string -> string
 val default_css : unit -> string
 (** [default_css ()] evaluates to {!val:Html_utils.default_css}[ "6ch" "0"]. *)
 
+val internal_css_of_nmm : Common_utils.t_html_options -> string -> string
+
+val html_body_of_nmm : Common_utils.t_html_options -> string -> string
+
 (* axml *)
 
 val doc_of_axml : string -> Doc_types.tr_doc
@@ -66,6 +70,11 @@ val html_of_axml : Common_utils.t_html_options -> string -> string
 
 val axml_of_nmm : Common_utils.t_axml_options -> string -> string
 (** [axml_of_nmm path] evaluates to [axml_of_doc (doc_of_nmm path)]. *)
+
+val internal_css_of_axml: Common_utils.t_html_options -> string -> string
+
+val html_body_of_axml : Common_utils.t_html_options -> string -> string
+
 
 val normalize_axml_file : string -> string
 

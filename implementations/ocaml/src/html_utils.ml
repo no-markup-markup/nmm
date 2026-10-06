@@ -23,7 +23,7 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
   in
   match element with
   | Xml.Element ("doc", attr_list, xml_list) ->
-      Xml.Element ("main", attr_list, List.map (html_of_exml doc_class) xml_list)
+      Xml.Element ("div", attr_list, List.map (html_of_exml doc_class) xml_list)
   | Xml.Element ("title", _, xml_list) ->
       Xml.Element
         ( "h1",
@@ -89,9 +89,13 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "div",
           [ ("class", "ch_main") ],
           List.map (html_of_exml doc_class) xml_list )
-  | Xml.Element ("sec", attr_list, xml_list) ->
-      Xml.Element
-        ("section", attr_list, List.map (html_of_exml doc_class) xml_list)
+  | Xml.Element ("sec", attr_list, xml_list) -> (
+      match List.map (html_of_exml doc_class) xml_list with
+      | hd::tl -> 
+          Xml.Element
+            ("section", attr_list, hd::clear::tl )
+      | [] -> raise (Error "empty sec") 
+  )
   | Xml.Element ("sec_lbl", _, xml_list) ->
       Xml.Element
         ( "div",
@@ -349,7 +353,7 @@ let margin_left_of_tr_doc (doc : Doc_types.tr_doc) : float =
   in
   match Txt_utils.max_length_of_margin_labels margin_labels with
   | 0 -> 0.0
-  | n -> (Float.of_int (n + 3)) *. 0.6
+  | n -> (Float.of_int (n+4)) *. 0.6
 
 let internal_css_of_file (path : string) : string =
   let comment : string =
@@ -362,33 +366,27 @@ let default_css (tab_length : string) (margin_left : string) : string =
   "
 /*========================= default css ===========================*/
 
-html {
+.doc {
     font-family : monospace;
-    font-size   : medium;
     line-height : 150%;
     max-width   : 80ch;
     min-width   : 80ch;
-    margin      : auto;
 }
 
-em {
+.txt_unit_emph {
     font-style      : normal;
     text-decoration : underline;
 }
 
-a {
+.txt_unit_c_ref, .txt_unit_nte, .blk_nte_lbl {
     text-decoration : none;
 }
 
-p, pre {
+.txt, .vrb_line {
     margin-top    : 0;
     margin-bottom : 0;
 }
 
-
-h2, h3, h4, h5 {
-    margin-top : 0;
-}
 
 
 /************* TITLE ********************/
@@ -465,6 +463,7 @@ h2, h3, h4, h5 {
 }
 
 .abstract_hdr {
+    margin-top    : 0;
     font-weight   : normal;
     font-size     : 120%;
     margin-bottom : 0.5rem;
@@ -492,12 +491,13 @@ h2, h3, h4, h5 {
 }
 
 .refs_hdr {
+    margin-top  : 0;
     font-weight : normal;
     font-size   : 150%;
 }
 
 .doc.chs .refs_hdr {
-    font-size : 200%;
+    font-size     : 200%;
     margin-bottom : 3rem;
 }
 
@@ -527,6 +527,7 @@ h2, h3, h4, h5 {
 }
 
 .ch_hdr, .ch_lbl.hdr {
+    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -542,6 +543,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    margin-top  : 0;
     float       : left;
     font-size   : 150%;
     font-weight : normal;
@@ -549,9 +551,10 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : " ^ margin_left ^ ";
-    font-size   : 150%;
-    line-height : 130%;
+    margin-top     : 0;
+    margin-left    : " ^ margin_left ^ ";
+    font-size      : 150%;
+    line-height    : 130%;
     bookmark-label : attr(bookmark) \"  \" content();
 }
 
@@ -566,15 +569,17 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    margin-top  : 0;
     float       : left;
     font-weight : normal;
     font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
-    font-weight  : bold;
-    display      : inline;
-    font-size    : inherit;
+    margin-top     : 0;
+    font-weight    : bold;
+    display        : inline;
+    font-size      : inherit;
     bookmark-label : attr(bookmark) \"  \" content();
 }
 
@@ -663,6 +668,7 @@ h2, h3, h4, h5 {
 /******** ENDNOTES/FOOTNOTES ************/
 
 .doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
+    margin-top  : 0;
     font-weight : normal;
     font-size   : 120%;
 }
@@ -699,10 +705,11 @@ h2, h3, h4, h5 {
 @media print {
 
   html {
-    font-size : 12px;
+    font-family : monospace;
+    font-size   : 12px;
   }
 
-  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
+  .refs_hdr, .abstract_hdr, .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
     break-after  : avoid-page;
     break-inside : avoid-page;
   }
@@ -732,11 +739,11 @@ h2, h3, h4, h5 {
 
   @page {
     size          : a4;
-    margin-top    : 20mm;
+    width         : 80ch;
     margin-left   : 20mm;
     margin-right  : 20mm;
+    margin-top    : 20mm;
     margin-bottom : 30mm;
-    width         : 80ch;
 
     @top-center {
        content : \" \";

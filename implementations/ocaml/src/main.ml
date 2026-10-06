@@ -2,7 +2,7 @@ exception Error of string
 
 (* version *)
 
-let version () : string = "3"
+let version () : string = "6"
 
 (* parsing nmm *)
 
@@ -34,42 +34,8 @@ let txt_of_nmm (options : Common_utils.t_txt_options) (path : string) : string =
 
 (* html semantics *)
 
-let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
-    : string =
-  try
-    let exml : Xml.xml =
-      Compiler_of_doc.exml_of_tr_doc
-        (Common_utils.exml_options_of_html_options options)
-        doc
-    in
-    let doc_class : Common_utils.t_doc_class =
-      Common_utils.class_of_tr_doc doc
-    in
-    let html : Xml.xml = Html_utils.html_of_exml doc_class exml in
-    let body : string = Xml_right.to_string_fmt html in
-    let title : string =
-      match doc.fld_doc_title with
-      | None -> String.concat "" [ "<title>"; "untitled"; "</title>" ]
-      | Some (Cs_title s) -> String.concat "" [ "<title>"; s; "</title>" ]
-    in
-    let authors : string =
-      match doc.fld_doc_authors with
-      | None -> ""
-      | Some (Cs_authors (author_list : Doc_types.ts_author list)) ->
-          let map (author : Doc_types.ts_author) : string =
-            match author with
-            | Cs_author s ->
-                String.concat ""
-                  [ "<meta name=\"author\" content=\""; s; "\">" ]
-          in
-          String.concat "\n" (List.map map author_list)
-    in
-    let lang_code : string =
-      match options.lang with
-      | None -> "en"
-      | Some s -> s
-    in
-    let lang_attr : string = " lang=\"" ^ lang_code ^ "\"" in
+let internal_css_of_doc (options : Common_utils.t_html_options)
+    (doc : Doc_types.tr_doc) : string =
     let preamble_options : Common_utils.t_preamble_options =
       Common_utils.preamble_options_of_tr_doc doc
     in
@@ -94,12 +60,56 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
           string_of_int doc_settings_preamble.tab_length ^ "ch"
       | Some n -> string_of_int n ^ "ch"
     in
+    String.concat "\n" [
+      Html_utils.default_css indent margin_left;
+        String.concat "\n"
+          (List.map Html_utils.internal_css_of_file options.internal_css);
+    ]
+
+let html_body_of_doc (options : Common_utils.t_html_options)
+    (doc : Doc_types.tr_doc) : string =
+  let exml_options : Common_utils.t_exml_options =
+    Common_utils.exml_options_of_html_options options
+  in
+  let exml : Xml.xml =
+    Compiler_of_doc.exml_of_tr_doc exml_options doc
+  in
+  let doc_class : Common_utils.t_doc_class =
+      Common_utils.class_of_tr_doc doc
+  in
+  Xml_right.to_string_fmt (Html_utils.html_of_exml doc_class exml)
+
+let html_of_doc (options : Common_utils.t_html_options)
+    (doc : Doc_types.tr_doc) : string =
+  try
+    let body : string = html_body_of_doc options doc in
+    let title : string =
+      match doc.fld_doc_title with
+      | None -> String.concat "" [ "<title>"; "untitled"; "</title>" ]
+      | Some (Cs_title s) -> String.concat "" [ "<title>"; s; "</title>" ]
+    in
+    let authors : string =
+      match doc.fld_doc_authors with
+      | None -> ""
+      | Some (Cs_authors (author_list : Doc_types.ts_author list)) ->
+          let map (author : Doc_types.ts_author) : string =
+            match author with
+            | Cs_author s ->
+                String.concat ""
+                  [ "<meta name=\"author\" content=\""; s; "\">" ]
+          in
+          String.concat "\n" (List.map map author_list)
+    in
+    let lang_code : string =
+      match options.lang with
+      | None -> "en"
+      | Some s -> s
+    in
+    let lang_attr : string = " lang=\"" ^ lang_code ^ "\"" in
     let internal_css : string =
       String.concat "\n" [
         "<style>";
-          Html_utils.default_css indent margin_left;
-          String.concat "\n"
-            (List.map Html_utils.internal_css_of_file options.internal_css);
+        internal_css_of_doc options doc;
         "</style>";
       ]
     in
@@ -115,13 +125,13 @@ let html_of_doc (options : Common_utils.t_html_options) (doc : Doc_types.tr_doc)
         "<head>";
         "<meta charset=\"UTF-8\">";
         "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
-          title;
-          authors;
-          internal_css;
-          external_css;
+        title;
+        authors;
+        internal_css;
+        external_css;
         "</head>";
         "<body>";
-          body;
+        body;
         "</body>";
       "</html>";
     ]
@@ -144,6 +154,26 @@ let default_css () : string =
   Html_utils.default_css
     (string_of_int (Common_utils.doc_settings_default ()).tab_length ^ "ch")
     "0rem"
+
+let internal_css_of_nmm (options : Common_utils.t_html_options)
+    (path : string) : string =
+  let axml_options : Common_utils.t_axml_options =
+    Common_utils.axml_options_of_html_options options
+  in
+  let doc : Doc_types.tr_doc =
+    doc_of_nmm axml_options path
+  in
+  internal_css_of_doc options doc
+
+let html_body_of_nmm (options : Common_utils.t_html_options)
+    (path : string) : string =
+  let axml_options : Common_utils.t_axml_options =
+    Common_utils.axml_options_of_html_options options
+  in
+  let doc : Doc_types.tr_doc =
+    doc_of_nmm axml_options path
+  in
+  html_body_of_doc options doc
 
 (* axml *)
 
@@ -178,6 +208,14 @@ let txt_of_axml (options : Common_utils.t_txt_options) (path : string) : string
 let html_of_axml (options : Common_utils.t_html_options) (path : string) :
     string =
   html_of_doc options (doc_of_axml path)
+
+let html_body_of_axml (options : Common_utils.t_html_options)
+    (path : string) : string =
+  html_body_of_doc options (doc_of_axml path)
+
+let internal_css_of_axml (options : Common_utils.t_html_options)
+    (path : string) : string =
+  internal_css_of_doc options (doc_of_axml path)
 
 let normalize_axml_file (path : string) : string =
   let axml : Xml.xml =

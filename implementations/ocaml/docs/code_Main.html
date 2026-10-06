@@ -30,7 +30,7 @@
 <br>
 <span class="comment">(*&nbsp;version&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;version&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"3"</span><br>
+<span class="keyword">let</span>&nbsp;version&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"6"</span><br>
 <br>
 <span class="comment">(*&nbsp;parsing&nbsp;nmm&nbsp;*)</span><br>
 <br>
@@ -62,42 +62,8 @@
 <br>
 <span class="comment">(*&nbsp;html&nbsp;semantics&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;html_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Common_utils</span>.exml_options_of_html_options&nbsp;options)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_class&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.class_of_tr_doc&nbsp;doc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;html&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=&nbsp;<span class="constructor">Html_utils</span>.html_of_exml&nbsp;doc_class&nbsp;exml&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;body&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;html&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;title&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_title&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"&lt;title&gt;"</span>;&nbsp;<span class="string">"untitled"</span>;&nbsp;<span class="string">"&lt;/title&gt;"</span>&nbsp;]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_title</span>&nbsp;s)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"&lt;title&gt;"</span>;&nbsp;s;&nbsp;<span class="string">"&lt;/title&gt;"</span>&nbsp;]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;authors&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_authors&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_authors</span>&nbsp;(author_list&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author&nbsp;list))&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(author&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_author</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"&lt;meta&nbsp;name=\"author\"&nbsp;content=\""</span>;&nbsp;s;&nbsp;<span class="string">"\"&gt;"</span>&nbsp;]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;author_list)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_code&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.lang&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"en"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;lang_code&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;<span class="keyword">in</span><br>
+<span class="keyword">let</span>&nbsp;internal_css_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;preamble_options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_preamble_options&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.preamble_options_of_tr_doc&nbsp;doc<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
@@ -122,12 +88,56 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string_of_int&nbsp;doc_settings_preamble.tab_length&nbsp;^&nbsp;<span class="string">"ch"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_int&nbsp;n&nbsp;^&nbsp;<span class="string">"ch"</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Html_utils</span>.default_css&nbsp;indent&nbsp;margin_left;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">List</span>.map&nbsp;<span class="constructor">Html_utils</span>.internal_css_of_file&nbsp;options.internal_css);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+<br>
+<span class="keyword">let</span>&nbsp;html_body_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml_options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_exml_options&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.exml_options_of_html_options&nbsp;options<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;exml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc&nbsp;exml_options&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc_class&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_doc_class&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.class_of_tr_doc&nbsp;doc<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Xml_right</span>.to_string_fmt&nbsp;(<span class="constructor">Html_utils</span>.html_of_exml&nbsp;doc_class&nbsp;exml)<br>
+<br>
+<span class="keyword">let</span>&nbsp;html_of_doc&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;body&nbsp;:&nbsp;string&nbsp;=&nbsp;html_body_of_doc&nbsp;options&nbsp;doc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;title&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_title&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"&lt;title&gt;"</span>;&nbsp;<span class="string">"untitled"</span>;&nbsp;<span class="string">"&lt;/title&gt;"</span>&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_title</span>&nbsp;s)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"&lt;title&gt;"</span>;&nbsp;s;&nbsp;<span class="string">"&lt;/title&gt;"</span>&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;authors&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;doc.fld_doc_authors&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_authors</span>&nbsp;(author_list&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author&nbsp;list))&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(author&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_author)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;author&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_author</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="string">"&lt;meta&nbsp;name=\"author\"&nbsp;content=\""</span>;&nbsp;s;&nbsp;<span class="string">"\"&gt;"</span>&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;map&nbsp;author_list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_code&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;options.lang&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"en"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lang_attr&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"&nbsp;lang=\""</span>&nbsp;^&nbsp;lang_code&nbsp;^&nbsp;<span class="string">"\""</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;internal_css&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;[<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;style&gt;"</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Html_utils</span>.default_css&nbsp;indent&nbsp;margin_left;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">List</span>.map&nbsp;<span class="constructor">Html_utils</span>.internal_css_of_file&nbsp;options.internal_css);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;internal_css_of_doc&nbsp;options&nbsp;doc;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;/style&gt;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
@@ -143,13 +153,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;head&gt;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;meta&nbsp;charset=\"UTF-8\"&gt;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;meta&nbsp;name=\"viewport\"&nbsp;content=\"width=device-width,&nbsp;initial-scale=1.0\"&gt;"</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;authors;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;internal_css;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;external_css;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;authors;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;internal_css;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;external_css;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;/head&gt;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;body&gt;"</span>;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;/body&gt;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"&lt;/html&gt;"</span>;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;]<br>
@@ -172,6 +182,26 @@
 &nbsp;&nbsp;<span class="constructor">Html_utils</span>.default_css<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(string_of_int&nbsp;(<span class="constructor">Common_utils</span>.doc_settings_default&nbsp;()).tab_length&nbsp;^&nbsp;<span class="string">"ch"</span>)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"0rem"</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;internal_css_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml_options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.axml_options_of_html_options&nbsp;options<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_of_nmm&nbsp;axml_options&nbsp;path<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;internal_css_of_doc&nbsp;options&nbsp;doc<br>
+<br>
+<span class="keyword">let</span>&nbsp;html_body_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml_options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.axml_options_of_html_options&nbsp;options<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc_of_nmm&nbsp;axml_options&nbsp;path<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;html_body_of_doc&nbsp;options&nbsp;doc<br>
 <br>
 <span class="comment">(*&nbsp;axml&nbsp;*)</span><br>
 <br>
@@ -206,6 +236,14 @@
 <span class="keyword">let</span>&nbsp;html_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;html_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
+<br>
+<span class="keyword">let</span>&nbsp;html_body_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;html_body_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
+<br>
+<span class="keyword">let</span>&nbsp;internal_css_of_axml&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_html_options)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;internal_css_of_doc&nbsp;options&nbsp;(doc_of_axml&nbsp;path)<br>
 <br>
 <span class="keyword">let</span>&nbsp;normalize_axml_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>

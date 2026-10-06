@@ -9,33 +9,27 @@
 
 /*========================= default css ===========================*/
 
-html {
+.doc {
     font-family : monospace;
-    font-size   : medium;
     line-height : 150%;
     max-width   : 80ch;
     min-width   : 80ch;
-    margin      : auto;
 }
 
-em {
+.txt_unit_emph {
     font-style      : normal;
     text-decoration : underline;
 }
 
-a {
+.txt_unit_c_ref, .txt_unit_nte, .blk_nte_lbl {
     text-decoration : none;
 }
 
-p, pre {
+.txt, .vrb_line {
     margin-top    : 0;
     margin-bottom : 0;
 }
 
-
-h2, h3, h4, h5 {
-    margin-top : 0;
-}
 
 
 /************* TITLE ********************/
@@ -48,11 +42,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .title {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .title {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.chs .title {
@@ -75,22 +69,22 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .authors {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .authors {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 /************ DATE ******************/
 
 
 .doc.pars .date {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .date {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 /************ ABSTRACT ******************/
@@ -104,14 +98,15 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .abstract {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .abstract {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .abstract_hdr {
+    margin-top    : 0;
     font-weight   : normal;
     font-size     : 120%;
     margin-bottom : 0.5rem;
@@ -125,11 +120,11 @@ h2, h3, h4, h5 {
 }
 
 .doc.pars .refs {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.secs .refs {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .doc.chs .refs {
@@ -139,12 +134,13 @@ h2, h3, h4, h5 {
 }
 
 .refs_hdr {
+    margin-top  : 0;
     font-weight : normal;
     font-size   : 150%;
 }
 
 .doc.chs .refs_hdr {
-    font-size : 200%;
+    font-size     : 200%;
     margin-bottom : 3rem;
 }
 
@@ -174,6 +170,7 @@ h2, h3, h4, h5 {
 }
 
 .ch_hdr, .ch_lbl.hdr {
+    margin-top    : 0;
     margin-bottom : 3rem;
 }
 
@@ -189,6 +186,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_lbl {
+    margin-top  : 0;
     float       : left;
     font-size   : 150%;
     font-weight : normal;
@@ -196,9 +194,10 @@ h2, h3, h4, h5 {
 }
 
 .sec_hdr {
-    margin-left : 4.80rem;
-    font-size   : 150%;
-    line-height : 130%;
+    margin-top     : 0;
+    margin-left    : 5.40rem;
+    font-size      : 150%;
+    line-height    : 130%;
     bookmark-label : attr(bookmark) "  " content();
 }
 
@@ -213,15 +212,17 @@ h2, h3, h4, h5 {
 }
 
 .par_lbl {
+    margin-top  : 0;
     float       : left;
     font-weight : normal;
     font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
-    font-weight  : bold;
-    display      : inline;
-    font-size    : inherit;
+    margin-top     : 0;
+    font-weight    : bold;
+    display        : inline;
+    font-size      : inherit;
     bookmark-label : attr(bookmark) "  " content();
 }
 
@@ -238,7 +239,7 @@ h2, h3, h4, h5 {
 }
 
 .par_main {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 
@@ -265,7 +266,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_main > .blk {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .blk.txt {
@@ -310,6 +311,7 @@ h2, h3, h4, h5 {
 /******** ENDNOTES/FOOTNOTES ************/
 
 .doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
+    margin-top  : 0;
     font-weight : normal;
     font-size   : 120%;
 }
@@ -321,7 +323,7 @@ h2, h3, h4, h5 {
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : 4.80rem;
+    margin-left : 5.40rem;
 }
 
 .blk_nte_lbl {
@@ -346,10 +348,11 @@ h2, h3, h4, h5 {
 @media print {
 
   html {
-    font-size : 12px;
+    font-family : monospace;
+    font-size   : 12px;
   }
 
-  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
+  .refs_hdr, .abstract_hdr, .ch_hdr, .ch_lbl, .sec_hdr, .sec_lbl, .par_hdr, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl, .clear {
     break-after  : avoid-page;
     break-inside : avoid-page;
   }
@@ -379,11 +382,11 @@ h2, h3, h4, h5 {
 
   @page {
     size          : a4;
-    margin-top    : 20mm;
+    width         : 80ch;
     margin-left   : 20mm;
     margin-right  : 20mm;
+    margin-top    : 20mm;
     margin-bottom : 30mm;
-    width         : 80ch;
 
     @top-center {
        content : " ";
@@ -400,10 +403,11 @@ h2, h3, h4, h5 {
 
 </head>
 <body>
-<main class="doc secs">
+<div class="doc secs">
 <div class="doc_main">
 <section class="sec pars">
 <h2 class="sec_lbl hdr">§ 1</h2>
+<div class="clear"></div>
 <div class="sec_main">
 <section class="THM par" id="THM_main">
 <div class="par_lbl">¶ 1.1</div>
@@ -463,6 +467,7 @@ h2, h3, h4, h5 {
 </section>
 <section class="sec pars">
 <h2 class="sec_lbl hdr">§ 2</h2>
+<div class="clear"></div>
 <div class="sec_main">
 <section class="PRF par">
 <div class="par_lbl">¶ 2.1</div>
@@ -481,6 +486,6 @@ h2, h3, h4, h5 {
 </div>
 </section>
 </div>
-</main>
+</div>
 </body>
 </html>

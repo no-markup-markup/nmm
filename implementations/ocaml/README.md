@@ -31,6 +31,7 @@ nmm-ocaml [
   | show-exml-schema
   | check-xml-schema DTD-FILE
   | validate-xml DTD-FILE {XML-FILE | -}
+  | show-default-css
   | version
   | help
 ]
@@ -57,6 +58,8 @@ HTML-OPTIONS:
   --lang ISO-LANGUAGE-CODE
   --internal-css CSS-FILE
   --external-css URI
+  --print-only-body
+  --print-only-css
 
 EXML-OPTIONS:
   --tags TSV-FILE

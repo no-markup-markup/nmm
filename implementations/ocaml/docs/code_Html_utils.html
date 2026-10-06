@@ -51,7 +51,7 @@
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;element&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"doc"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"main"</span>,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"div"</span>,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"title"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">"h1"</span>,<br>
@@ -117,9 +117,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">"div"</span>,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<span class="string">"class"</span>,&nbsp;<span class="string">"ch_main"</span>)&nbsp;],<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"section"</span>,&nbsp;attr_list,&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec"</span>,&nbsp;attr_list,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">List</span>.map&nbsp;(html_of_exml&nbsp;doc_class)&nbsp;xml_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd::tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"section"</span>,&nbsp;attr_list,&nbsp;hd::clear::tl&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"empty&nbsp;sec"</span>)&nbsp;<br>
+&nbsp;&nbsp;)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"sec_lbl"</span>,&nbsp;_,&nbsp;xml_list)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">"div"</span>,<br>
@@ -377,7 +381,7 @@
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">Txt_utils</span>.max_length_of_margin_labels&nbsp;margin_labels&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;0&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0.0<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Float</span>.of_int&nbsp;(n&nbsp;+&nbsp;3))&nbsp;*.&nbsp;0.6<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Float</span>.of_int&nbsp;(n+4))&nbsp;*.&nbsp;0.6<br>
 <br>
 <span class="keyword">let</span>&nbsp;internal_css_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;comment&nbsp;:&nbsp;string&nbsp;=<br>
@@ -390,33 +394,27 @@
 &nbsp;&nbsp;<span class="string">"<br>
 /*=========================&nbsp;default&nbsp;css&nbsp;===========================*/<br>
 <br>
-html&nbsp;{<br>
+.doc&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-family&nbsp;:&nbsp;monospace;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;medium;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;line-height&nbsp;:&nbsp;150%;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;max-width&nbsp;&nbsp;&nbsp;:&nbsp;80ch;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;min-width&nbsp;&nbsp;&nbsp;:&nbsp;80ch;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;auto;<br>
 }<br>
 <br>
-em&nbsp;{<br>
+.txt_unit_emph&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-style&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;normal;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;text-decoration&nbsp;:&nbsp;underline;<br>
 }<br>
 <br>
-a&nbsp;{<br>
+.txt_unit_c_ref,&nbsp;.txt_unit_nte,&nbsp;.blk_nte_lbl&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;text-decoration&nbsp;:&nbsp;none;<br>
 }<br>
 <br>
-p,&nbsp;pre&nbsp;{<br>
+.txt,&nbsp;.vrb_line&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-bottom&nbsp;:&nbsp;0;<br>
 }<br>
 <br>
-<br>
-h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;:&nbsp;0;<br>
-}<br>
 <br>
 <br>
 /*************&nbsp;TITLE&nbsp;********************/<br>
@@ -493,6 +491,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .abstract_hdr&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;&nbsp;&nbsp;:&nbsp;normal;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;120%;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-bottom&nbsp;:&nbsp;0.5rem;<br>
@@ -520,12 +519,13 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .refs_hdr&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;150%;<br>
 }<br>
 <br>
 .doc.chs&nbsp;.refs_hdr&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;:&nbsp;200%;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;200%;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-bottom&nbsp;:&nbsp;3rem;<br>
 }<br>
 <br>
@@ -555,6 +555,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .ch_hdr,&nbsp;.ch_lbl.hdr&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-bottom&nbsp;:&nbsp;3rem;<br>
 }<br>
 <br>
@@ -570,6 +571,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .sec_lbl&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;left;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;150%;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
@@ -577,9 +579,10 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .sec_hdr&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;150%;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;line-height&nbsp;:&nbsp;130%;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;"</span>&nbsp;^&nbsp;margin_left&nbsp;^&nbsp;<span class="string">";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;150%;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;line-height&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;130%;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;bookmark-label&nbsp;:&nbsp;attr(bookmark)&nbsp;\"&nbsp;&nbsp;\"&nbsp;content();<br>
 }<br>
 <br>
@@ -594,15 +597,17 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 }<br>
 <br>
 .par_lbl&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;left;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;inherit;<br>
 }<br>
 <br>
 .par_tag,&nbsp;.par_hdr&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;&nbsp;:&nbsp;bold;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inline;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inherit;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;bold;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inline;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;inherit;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;bookmark-label&nbsp;:&nbsp;attr(bookmark)&nbsp;\"&nbsp;&nbsp;\"&nbsp;content();<br>
 }<br>
 <br>
@@ -691,6 +696,7 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 /********&nbsp;ENDNOTES/FOOTNOTES&nbsp;************/<br>
 <br>
 .doc_endnotes_hdr,&nbsp;.ch_endnotes_hdr,&nbsp;.sec_endnotes_hdr,&nbsp;.par_endnotes_hdr,&nbsp;.abstract_endnotes_hdr,&nbsp;.refs_endnotes_hdr&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;:&nbsp;0;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-weight&nbsp;:&nbsp;normal;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;120%;<br>
 }<br>
@@ -727,10 +733,11 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 @media&nbsp;print&nbsp;{<br>
 <br>
 &nbsp;&nbsp;html&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;:&nbsp;12px;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-family&nbsp;:&nbsp;monospace;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;font-size&nbsp;&nbsp;&nbsp;:&nbsp;12px;<br>
 &nbsp;&nbsp;}<br>
 <br>
-&nbsp;&nbsp;h1,&nbsp;h2,&nbsp;h3,&nbsp;h4,&nbsp;h5,&nbsp;.ch_lbl,&nbsp;.sec_lbl,&nbsp;.par_lbl,&nbsp;.par_tag,&nbsp;.blk_itm_lbl,&nbsp;.blk_blt_lbl,&nbsp;.clear&nbsp;{<br>
+&nbsp;&nbsp;.refs_hdr,&nbsp;.abstract_hdr,&nbsp;.ch_hdr,&nbsp;.ch_lbl,&nbsp;.sec_hdr,&nbsp;.sec_lbl,&nbsp;.par_hdr,&nbsp;.par_lbl,&nbsp;.par_tag,&nbsp;.blk_itm_lbl,&nbsp;.blk_blt_lbl,&nbsp;.clear&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;break-after&nbsp;&nbsp;:&nbsp;avoid-page;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;break-inside&nbsp;:&nbsp;avoid-page;<br>
 &nbsp;&nbsp;}<br>
@@ -760,11 +767,11 @@ h2,&nbsp;h3,&nbsp;h4,&nbsp;h5&nbsp;{<br>
 <br>
 &nbsp;&nbsp;@page&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;a4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;20mm;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;80ch;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-left&nbsp;&nbsp;&nbsp;:&nbsp;20mm;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-right&nbsp;&nbsp;:&nbsp;20mm;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;margin-top&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;20mm;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;margin-bottom&nbsp;:&nbsp;30mm;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;width&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;80ch;<br>
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;@top-center&nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content&nbsp;:&nbsp;\"&nbsp;\";<br>

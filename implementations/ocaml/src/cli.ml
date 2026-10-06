@@ -36,6 +36,7 @@ let usage_msg : string =
   | show-exml-schema
   | check-xml-schema DTD-FILE
   | validate-xml DTD-FILE {XML-FILE | -}
+  | show-default-css
   | version
   | help
 ]"
@@ -79,6 +80,8 @@ let html_options : string list =
       "--lang ISO-LANGUAGE-CODE";
       "--internal-css CSS-FILE";
       "--external-css URI";
+      "--print-only-body";
+      "--print-only-css";
     ];
   ]
 
@@ -152,6 +155,8 @@ let numbering : string option ref = ref None
 let allow_custom_numbering : bool option ref = ref None
 let tags : string option ref = ref None
 let help : bool ref = ref false
+let only_body : bool ref = ref false
+let only_css : bool ref = ref false
 
 let keyspecdoc_help1 : t_keyspecdoc = ("-help", Arg.Set help, "")
 let keyspecdoc_help2 : t_keyspecdoc = ("--help", Arg.Set help, "")
@@ -229,6 +234,10 @@ let keyspecdoc_allow_custom_numbering : t_keyspecdoc =
 let add_tags (s : string) : unit = tags.contents <- Some s
 let keyspecdoc_tags : t_keyspecdoc = ("--tags", Arg.String add_tags, "")
 
+let keyspecdoc_only_body : t_keyspecdoc = ("--print-only-body", Arg.Set only_body, "")
+let keyspecdoc_only_css : t_keyspecdoc = ("--print-only-css", Arg.Set only_css, "")
+
+
 let normalize_axml_list : t_keyspecdoc list =
   keyspecdoc_stdin::help_list
 
@@ -269,6 +278,8 @@ let html_of_nmm_list : t_keyspecdoc list =
       keyspecdoc_lang;
       keyspecdoc_internal_css;
       keyspecdoc_external_css;
+      keyspecdoc_only_body;
+      keyspecdoc_only_css;
     ];
   ]
 
@@ -388,12 +399,19 @@ let _ : unit =
           tags = tags.contents;
         }
       in
-      match read_from_stdin.contents with
-      | true -> print_endline (Main.html_of_axml options "-")
-      | false -> (
-          match path_to_xml_file.contents with
-          | "" -> raise (Error "missing PATH-TO-AXML-FILE")
-          | path -> print_endline (Main.html_of_axml options path)))
+      let path : string =
+        match read_from_stdin.contents, path_to_xml_file.contents with
+        | true, _ -> "-"
+        | false, "" -> raise (Error "missing PATH-TO-AXML-FILE")
+        | false , p -> p
+      in
+      match only_body.contents, only_css.contents with
+      | true, false -> print_endline (Main.html_body_of_axml options path)
+      | false, true -> print_endline (Main.internal_css_of_axml options path)
+      | false, false -> print_endline (Main.html_of_axml options path)
+      | true, true ->
+          raise (Error "\'--print-only-body\' and \'--print-only-css\' are mutually exclusive")
+  )
   | "axml-of-nmm" -> (
       let options : Common_utils.t_axml_options = { tags = tags.contents } in
       match read_from_stdin.contents with
@@ -434,12 +452,19 @@ let _ : unit =
           tags = tags.contents;
         }
       in
-      match read_from_stdin.contents with
-      | true -> print_endline (Main.html_of_nmm options "-")
-      | false -> (
-          match path_to_nmm_file.contents with
-          | "" -> raise (Error "missing PATH-TO-NMM-FILE")
-          | path -> print_endline (Main.html_of_nmm options path)))
+      let path : string =
+        match read_from_stdin.contents, path_to_nmm_file.contents with
+        | true, _ -> "-"
+        | false, "" -> raise (Error "missing PATH-TO-NMM-FILE")
+        | false , p -> p
+      in
+      match only_body.contents, only_css.contents with
+      | true, false -> print_endline (Main.html_body_of_nmm options path)
+      | false, true -> print_endline (Main.internal_css_of_nmm options path)
+      | false, false -> print_endline (Main.html_of_nmm options path)
+      | true, true ->
+          raise (Error "\'--print-only-body\' and \'--print-only-css\' are mutually exclusive")
+  )
   | "check-xml-schema" ->
       print_endline (Main.check_xml_schema path_to_dtd_file.contents)
   | "validate-xml" -> (

@@ -29,111 +29,95 @@ make_subset_font_css__print_usage () {
 }
 
 make_subset_font_css__clean_path () {
-    local file_path_raw="$1"
-
-    echo "$file_path_raw" | sed 's/[\x22\x27 ]*\([^\x22\x27]\+\)[\x22\x27 ]*/\1/'
+  local file_path_raw="$1"
+  echo "$file_path_raw" | sed 's/[\x22\x27 ]*\([^\x22\x27]\+\)[\x22\x27 ]*/\1/'
 }
 
 make_subset_font_css__print_ascii () {
-    for ((i=32;i<127;i++))
-    do
-        printf "\x$(printf %x $i)"
-    done
+  for ((i=32;i<127;i++)); do
+    printf "\x$(printf %x $i)"
+  done
 }
 
 make_subset_font_css__make_subset_font_base64 () {
-    local ttf_file_path="$1"
-
-    local temp_ttf_file_path=$(mktemp)
-    fonttools subset "$ttf_file_path" --text-file="$make_subset_font_css__TEMP_UTF8_FILE_PATH" --output-file="$temp_ttf_file_path"
-    local subset_font_base64=$(base64 --wrap=0 "$temp_ttf_file_path")
-    rm "$temp_ttf_file_path"
-    echo "$subset_font_base64"
+  local ttf_file_path="$1"
+  local temp_ttf_file_path=$(mktemp)
+  fonttools subset "$ttf_file_path" --text-file="$make_subset_font_css__TEMP_UTF8_FILE_PATH" --output-file="$temp_ttf_file_path"
+  local subset_font_base64=$(base64 --wrap=0 "$temp_ttf_file_path")
+  rm "$temp_ttf_file_path"
+  echo "$subset_font_base64"
 }
 
 
 make_subset_font_css__replace_font_face () {
-    local input_string="$1"
-
-    local key value ttf_file_path_raw ttf_file_path_clean subset_font_base64
-
-    while true
-    do
-        key=$(echo "$input_string" | sed -z 's/[\n ]*\([^;:\n ]\+\) *:[^;]\+.*/\1/')
-        if [ "$key" = "$input_string" ]
-        then
-            echo "$input_string"
-            break
-        else
-            value=$(echo "$input_string" | sed -z 's/[\n ]*[^;:\n ]\+ *:\([^;]\+\).*/\1/')
-            if [ "$key" = 'src' ]
-            then
-                ttf_file_path_raw=$(echo "$value" | sed -z 's/ *url *( *\([^)\n ]\+\))/\1/')
-                ttf_file_path_clean=$(make_subset_font_css__clean_path "$ttf_file_path_raw")
-                subset_font_base64=$(make_subset_font_css__make_subset_font_base64 "$ttf_file_path_clean")
-                echo "  src : url(data:font/ttf;base64,$subset_font_base64) format('truetype');"
-            else
-                echo "  $key : $value;"
-            fi
-            input_string=$(echo "$input_string" | sed -z 's/[\n ]*[^;:\n ]\+ *:[^;]\+;\?\(.*\)/\1/')
-        fi
-    done
+  local input_string="$1"
+  local key value ttf_file_path_raw ttf_file_path_clean subset_font_base64
+  while true; do
+    key=$(echo "$input_string" | sed -z 's/[\n ]*\([^;:\n ]\+\) *:[^;]\+.*/\1/')
+    if [ "$key" = "$input_string" ]; then
+      echo "$input_string"
+      break
+    else
+      value=$(echo "$input_string" | sed -z 's/[\n ]*[^;:\n ]\+ *:\([^;]\+\).*/\1/')
+      if [ "$key" = 'src' ]; then
+        ttf_file_path_raw=$(echo "$value" | sed -z 's/ *url *( *\([^)\n ]\+\))/\1/')
+        ttf_file_path_clean=$(make_subset_font_css__clean_path "$ttf_file_path_raw")
+        subset_font_base64=$(make_subset_font_css__make_subset_font_base64 "$ttf_file_path_clean")
+        echo "  src : url(data:font/ttf;base64,$subset_font_base64) format('truetype');"
+      else
+        echo "  $key : $value;"
+      fi
+      input_string=$(echo "$input_string" | sed -z 's/[\n ]*[^;:\n ]\+ *:[^;]\+;\?\(.*\)/\1/')
+    fi
+  done
 }
 
 
 make_subset_font_css__replace_all_font_faces () {
-    local input_string="$1"
-
-    local part1 part2 part2_match
-
-    while true
-    do
-        part1=$(echo "$input_string" | sed -z 's/\([^@]*\)@.*/\1/')
-        if [ "$part1" = "$input_string" ]
-        then
-            echo "$input_string"
-            break
-        else
-            part2=$(echo "$input_string" | sed -z 's/[^@]*@\(.*\)/\1/')
-            part2_match=$(echo "$part2" | sed -z 's/^font-face *{\([^}]\+\)}.*/\1/')
-            if [ "$part2_match" = "$part2" ]
-            then
-                echo -n "$part1@"
-                input_string="$part2"
-            else
-                echo "$part1"
-                echo '@font-face {'
-                make_subset_font_css__replace_font_face "$part2_match"
-                echo '}'
-                input_string=$(echo "$part2" | sed -z 's/^font-face *{[^}]\+}\(.*\)/\1/')
-            fi
-        fi
-    done
+  local input_string="$1"
+  local part1 part2 part2_match
+  while true; do
+    part1=$(echo "$input_string" | sed -z 's/\([^@]*\)@.*/\1/')
+    if [ "$part1" = "$input_string" ]; then
+      echo "$input_string"
+      break
+    else
+      part2=$(echo "$input_string" | sed -z 's/[^@]*@\(.*\)/\1/')
+      part2_match=$(echo "$part2" | sed -z 's/^font-face *{\([^}]\+\)}.*/\1/')
+      if [ "$part2_match" = "$part2" ]; then
+        echo -n "$part1@"
+        input_string="$part2"
+      else
+        echo "$part1"
+        echo '@font-face {'
+        make_subset_font_css__replace_font_face "$part2_match"
+        echo '}'
+        input_string=$(echo "$part2" | sed -z 's/^font-face *{[^}]\+}\(.*\)/\1/')
+      fi
+    fi
+  done
 }
 
 
 make_subset_font_css__main () {
-    local utf8_file_path="$1"
-    local css_file_path="$2"
-
-    make_subset_font_css__TEMP_UTF8_FILE_PATH=$(mktemp)
-    cat "$utf8_file_path" > "$make_subset_font_css__TEMP_UTF8_FILE_PATH"
-    make_subset_font_css__print_ascii >> "$make_subset_font_css__TEMP_UTF8_FILE_PATH"
-    local input_string=$(cat "$css_file_path")
-    make_subset_font_css__replace_all_font_faces "$input_string"
-    rm "$make_subset_font_css__TEMP_UTF8_FILE_PATH"
+  local utf8_file_path="$1"
+  local css_file_path="$2"
+  make_subset_font_css__TEMP_UTF8_FILE_PATH=$(mktemp)
+  cat "$utf8_file_path" > "$make_subset_font_css__TEMP_UTF8_FILE_PATH"
+  make_subset_font_css__print_ascii >> "$make_subset_font_css__TEMP_UTF8_FILE_PATH"
+  local input_string=$(cat "$css_file_path")
+  make_subset_font_css__replace_all_font_faces "$input_string"
+  rm "$make_subset_font_css__TEMP_UTF8_FILE_PATH"
 }
 
-if [ "$#" -eq 2 ]
-then
-    make_subset_font_css__main "$1" "$2"
+if [ "$#" -eq 2 ]; then
+  make_subset_font_css__main "$1" "$2"
 else
-    if [ "$#" -eq 1 ] && [ "$1" = '--help' ]
-    then
-        make_subset_font_css__print_usage
-    else
-        echo 'invalid argument(s)' 1>&2
-        make_subset_font_css__print_usage 1>&2
-        exit 2
-    fi
+  if [ "$#" -eq 1 ] && [ "$1" = '--help' ]; then
+    make_subset_font_css__print_usage
+  else
+    echo 'invalid argument(s)' 1>&2
+    make_subset_font_css__print_usage 1>&2
+    exit 2
+  fi
 fi
