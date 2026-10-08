@@ -10,24 +10,24 @@
 /*========================= default css ===========================*/
 
 .doc {
-    font-family : monospace;
-    line-height : 150%;
-    max-width   : 80ch;
-    min-width   : 80ch;
+  font-family : monospace;
+  line-height : 150%;
+  width       : 80ch;
+  margin      : auto;
 }
 
 .txt_unit_emph {
-    font-style      : normal;
-    text-decoration : underline;
+  font-style      : normal;
+  text-decoration : underline;
 }
 
 .txt_unit_c_ref, .txt_unit_nte, .blk_nte_lbl {
-    text-decoration : none;
+  text-decoration : none;
 }
 
 .txt, .vrb_line {
-    margin-top    : 0;
-    margin-bottom : 0;
+  margin-top    : 0;
+  margin-bottom : 0;
 }
 
 
@@ -35,312 +35,296 @@
 /************* TITLE ********************/
 
 .title {
-    font-weight   : normal;
-    font-size     : 200%;
-    margin-bottom : 1rem;
-    line-height   : 130%;
+  font-weight   : normal;
+  font-size     : 200%;
+  margin-bottom : 1rem;
+  line-height   : 130%;
 }
 
 .doc.pars .title {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.secs .title {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.chs .title {
-    font-size : 300%;
+  font-size : 300%;
 }
 
 
 /************ AUTHORS *******************/
 
 .title + .authors {
-    margin-top : 1rem;
+  margin-top : 1rem;
 }
 
 .authors {
-    margin-bottom : 1rem;
+  margin-bottom : 1rem;
 }
 
 .author + .author {
-    margin-top : 1rem;
+  margin-top : 1rem;
 }
 
 .doc.pars .authors {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.secs .authors {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 /************ DATE ******************/
 
 
 .doc.pars .date {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.secs .date {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 /************ ABSTRACT ******************/
 
 .abstract {
-    margin-bottom : 3rem;
+  margin-bottom : 3rem;
 }
 
 * + .abstract {
-    margin-top : 2rem;
+  margin-top : 2rem;
 }
 
 .doc.pars .abstract {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.secs .abstract {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .abstract_hdr {
-    margin-top    : 0;
-    font-weight   : normal;
-    font-size     : 120%;
-    margin-bottom : 0.5rem;
+  margin-top    : 0;
+  font-weight   : normal;
+  font-size     : 120%;
+  margin-bottom : 0.5rem;
 }
 
 
 /************* REFS *********************/
 
 .refs {
-    margin-top : 3rem;
+  margin-top : 3rem;
 }
 
 .doc.pars .refs {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.secs .refs {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .doc.chs .refs {
-    margin-top  : 0;
-    padding-top : 3rem;
-    border-top  : thin solid;
+  margin-top  : 0;
+  padding-top : 3rem;
+  border-top  : thin solid;
 }
 
 .refs_hdr {
-    margin-top  : 0;
-    font-weight : normal;
-    font-size   : 150%;
+  margin-top  : 0;
+  font-weight : normal;
+  font-size   : 150%;
 }
 
 .doc.chs .refs_hdr {
-    font-size     : 200%;
-    margin-bottom : 3rem;
+  font-size     : 200%;
+  margin-bottom : 3rem;
 }
 
 
 /************* DOC_MAIN *****************/
 
 * + .doc_main {
-    margin-top : 2rem;
+  margin-top : 2rem;
 }
 
 /************** CH **********************/
 
 .ch {
-    padding-top    : 3rem;
-    padding-bottom : 3rem;
-    border-top     : solid;
+  padding-top    : 3rem;
+  padding-bottom : 3rem;
+  border-top     : solid;
 }
 
 .ch_lbl {
-    font-weight : normal;
-    font-size   : 200%;
+  font-weight : normal;
+  font-size   : 200%;
 }
 
 .ch_hdr {
-    font-size   : 200%;
-    line-height : 130%;
+  font-size   : 200%;
+  line-height : 130%;
 }
 
 .ch_hdr, .ch_lbl.hdr {
-    margin-top    : 0;
-    margin-bottom : 3rem;
+  margin-top    : 0;
+  margin-bottom : 3rem;
 }
 
 .ch_lbl + .ch_hdr {
-    margin-top : 1rem;
+  margin-top : 1rem;
 }
 
 
 /************** SEC *********************/
 
 .sec + .sec {
-    margin-top : 3rem;
+  margin-top : 3rem;
 }
 
 .sec_lbl {
-    margin-top  : 0;
-    float       : left;
-    font-size   : 150%;
-    font-weight : normal;
-    line-height : 130%;
+  margin-top  : 0;
+  float       : left;
+  font-size   : 150%;
+  font-weight : normal;
+  line-height : 130%;
 }
 
 .sec_hdr {
-    margin-top     : 0;
-    margin-left    : 0;
-    font-size      : 150%;
-    line-height    : 130%;
-    bookmark-label : attr(bookmark) "  " content();
+  margin-top     : 0;
+  margin-left    : 0;
+  font-size      : 150%;
+  line-height    : 130%;
+  bookmark-label : attr(bookmark) "  " content();
 }
 
 .sec.pars > .sec_lbl.hdr {
-    float : none;
+  float : none;
 }
 
 /************** PAR *********************/
 
 .par + .par {
-    margin-top : 2rem;
+  margin-top : 2rem;
 }
 
 .par_lbl {
-    margin-top  : 0;
-    float       : left;
-    font-weight : normal;
-    font-size   : inherit;
+  margin-top  : 0;
+  float       : left;
+  font-weight : normal;
+  font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
-    margin-top     : 0;
-    font-weight    : bold;
-    display        : inline;
-    font-size      : inherit;
-    bookmark-label : attr(bookmark) "  " content();
+  margin-top     : 0;
+  font-weight    : bold;
+  display        : inline;
+  font-size      : inherit;
 }
 
-.par_tag + .par_hdr {
-    bookmark-label : attr(bookmark) "  (" content() ")";
-}
-
-.par_tag + .par_hdr::before {
-    content : "(";
-}
-
-.par_tag + .par_hdr::after {
-    content : ")";
+.par_tag.hdr, .par_hdr {
+  bookmark-label : attr(bookmark) "  " content();
 }
 
 .par_main {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 
 /************** BLK *********************/
 
 .par_hdr + .blk.txt {
-    display : inline;
+  display     : inline;
+  margin-left : 1ch;
 }
 
 .par_tag.hdr + .blk.txt {
-    display : inline;
-}
-
-.par_hdr + .blk.txt::before {
-    content : " ";
-}
-
-.par_tag.hdr + .blk.txt::before {
-    content : " ";
+  display     : inline;
+  margin-left : 1ch;
 }
 
 * + .blk {
-    margin-top : 1rem;
+  margin-top : 1rem;
 }
 
 .sec_main > .blk {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .blk.txt {
-    hyphens     : auto;
-    white-space : pre-wrap;
+  hyphens     : auto;
+  white-space : pre-wrap;
 }
 
 
 .blk_blt_lbl {
-    float : left;
+  float : left;
 }
 
 .blk_blt_main {
-    margin-left : 6ch;
+  margin-left : 6ch;
 }
 
 
 .blk_itm_lbl {
-    float : left;
+  float : left;
 }
 
 .blk_itm_main {
-    margin-left : 6ch;
+  margin-left : 6ch;
 }
 
 
 .dsp_line_lbl {
-    float : left;
+  float : left;
 }
 
 .dsp_line_main {
-    margin-left : 6ch;
-    white-space : pre;
+  margin-left : 6ch;
+  white-space : pre;
 }
 
 .blk_qtn_main {
-    hyphens     : auto;
-    white-space : pre-wrap;
-    margin-left : 6ch;
+  hyphens     : auto;
+  white-space : pre-wrap;
+  margin-left : 6ch;
 }
 
 /******** ENDNOTES/FOOTNOTES ************/
 
 .doc_endnotes_hdr, .ch_endnotes_hdr, .sec_endnotes_hdr, .par_endnotes_hdr, .abstract_endnotes_hdr, .refs_endnotes_hdr {
-    margin-top  : 0;
-    font-weight : normal;
-    font-size   : 120%;
+  margin-top  : 0;
+  font-weight : normal;
+  font-size   : 120%;
 }
 
 .doc_endnotes, .ch_endnotes, .sec_endnotes, .par_endnotes, .abstract_endnotes, .refs_endnotes {
-    margin-top  : 2rem;
-    border-top  : thin solid;
-    padding-top : 0.5rem;
+  margin-top  : 2rem;
+  border-top  : thin solid;
+  padding-top : 0.5rem;
 }
 
 .sec_endnotes, .par_endnotes {
-    margin-left : 0;
+  margin-left : 0;
 }
 
 .blk_nte_lbl {
-    float : left;
+  float : left;
 }
 
 .blk_nte_main {
-    margin-left : 6ch;
+  margin-left : 6ch;
 }
 
 /*************** BIB ********************/
 
 
 .bib_custom .blk_itm_lbl {
-    float : none;
+  float : none;
 }
-
 
 
 /*************** PRINTING ***************/

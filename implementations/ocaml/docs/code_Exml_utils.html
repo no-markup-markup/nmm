@@ -426,6 +426,15 @@
 <br>
 <span class="comment">(*&nbsp;par_hdr&nbsp;*)</span><br>
 <br>
+<span class="keyword">let</span>&nbsp;add_parens&nbsp;(xml_list&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;left_paren&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"txt_unit_wysiwyg"</span>,&nbsp;[],&nbsp;[<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;<span class="string">"("</span>])<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;right_paren&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"txt_unit_wysiwyg"</span>,&nbsp;[],&nbsp;[<span class="constructor">Xml</span>.<span class="constructor">PCData</span>&nbsp;<span class="string">")"</span>])<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[[left_paren];&nbsp;xml_list;&nbsp;[right_paren]]<br>
+<br>
 <span class="keyword">let</span>&nbsp;par_hdr_opt&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(nte_table&nbsp;:&nbsp;t_nte_table)&nbsp;(path&nbsp;:&nbsp;t_path)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(tag_or_id_opt&nbsp;:&nbsp;tu_tag_or_id&nbsp;option)&nbsp;(hdr_opt&nbsp;:&nbsp;ts_hdr&nbsp;option)&nbsp;:<br>
@@ -460,7 +469,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_tag"</span>,&nbsp;[],&nbsp;tag_content);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[(<span class="string">"bookmark"</span>,&nbsp;label&nbsp;^&nbsp;<span class="string">"&nbsp;&nbsp;"</span>&nbsp;^&nbsp;tag)],&nbsp;hdr_content);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[(<span class="string">"bookmark"</span>,&nbsp;label&nbsp;^&nbsp;<span class="string">"&nbsp;&nbsp;"</span>&nbsp;^&nbsp;tag)],&nbsp;add_parens&nbsp;hdr_content);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;<span class="constructor">Some</span>&nbsp;hdr_content&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span>&nbsp;[&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(<span class="string">"par_hdr"</span>,&nbsp;[(<span class="string">"bookmark"</span>,&nbsp;label)],&nbsp;hdr_content)&nbsp;]<br>

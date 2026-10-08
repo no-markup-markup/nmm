@@ -398,6 +398,15 @@ let xml_of_ts_blk_qtn (blk_qtn : ts_blk_qtn) : Xml.xml =
 
 (* par_hdr *)
 
+let add_parens (xml_list : Xml.xml list) : Xml.xml list =
+  let left_paren : Xml.xml =
+    Xml.Element ("txt_unit_wysiwyg", [], [Xml.PCData "("])
+  in
+  let right_paren : Xml.xml =
+    Xml.Element ("txt_unit_wysiwyg", [], [Xml.PCData ")"])
+  in
+  List.concat [[left_paren]; xml_list; [right_paren]]
+
 let par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table)
     (nte_table : t_nte_table) (path : t_path)
     (tag_or_id_opt : tu_tag_or_id option) (hdr_opt : ts_hdr option) :
@@ -432,7 +441,7 @@ let par_hdr_opt (doc_settings : t_doc_settings) (cref_table : t_cref_table)
       Some
         [
           Xml.Element ("par_tag", [], tag_content);
-          Xml.Element ("par_hdr", [("bookmark", label ^ "  " ^ tag)], hdr_content);
+          Xml.Element ("par_hdr", [("bookmark", label ^ "  " ^ tag)], add_parens hdr_content);
         ]
   | None, Some hdr_content ->
       Some [ Xml.Element ("par_hdr", [("bookmark", label)], hdr_content) ]
