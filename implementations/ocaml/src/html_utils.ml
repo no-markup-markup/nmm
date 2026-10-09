@@ -373,18 +373,19 @@ let default_css (tab_length : string) (margin_left : string) : string =
   margin      : auto;
 }
 
-.txt_unit_emph {
+/* overriding defaults for html elements <em>, <a>, and <pre>: */
+
+em.txt_unit_emph {
   font-style      : normal;
   text-decoration : underline;
 }
 
-.txt_unit_c_ref, .txt_unit_nte, .blk_nte_lbl {
+a.txt_unit_c_ref, a.txt_unit_nte, a.blk_nte_lbl {
   text-decoration : none;
 }
 
-.txt, .vrb_line {
-  margin-top    : 0;
-  margin-bottom : 0;
+pre.vrb_line {
+  margin : 0;
 }
 
 
@@ -569,21 +570,22 @@ let default_css (tab_length : string) (margin_left : string) : string =
 }
 
 .par_lbl {
-  margin-top  : 0;
+  margin      : 0;
   float       : left;
   font-weight : normal;
   font-size   : inherit;
 }
 
 .par_tag, .par_hdr {
-  margin-top     : 0;
-  font-weight    : bold;
-  display        : inline;
-  font-size      : inherit;
+  margin      : 0;
+  font-weight : bold;
+  display     : inline;
+  font-size   : inherit;
 }
 
 .par_tag.hdr, .par_hdr {
   bookmark-label : attr(bookmark) \"  \" content();
+  margin-right   : 1ch;
 }
 
 .par_main {
@@ -593,18 +595,20 @@ let default_css (tab_length : string) (margin_left : string) : string =
 
 /************** BLK *********************/
 
-.par_hdr + .blk.txt {
-  display     : inline;
-  margin-left : 1ch;
-}
-
-.par_tag.hdr + .blk.txt {
-  display     : inline;
-  margin-left : 1ch;
+.blk {
+  margin : 0;
 }
 
 * + .blk {
   margin-top : 1rem;
+}
+
+.par_hdr + .blk.txt {
+  display : inline;
+}
+
+.par_tag.hdr + .blk.txt {
+  display : inline;
 }
 
 .sec_main > .blk {
@@ -616,7 +620,6 @@ let default_css (tab_length : string) (margin_left : string) : string =
   white-space : pre-wrap;
 }
 
-
 .blk_blt_lbl {
   float : left;
 }
@@ -625,7 +628,6 @@ let default_css (tab_length : string) (margin_left : string) : string =
   margin-left : " ^ tab_length ^ ";
 }
 
-
 .blk_itm_lbl {
   float : left;
 }
@@ -633,7 +635,6 @@ let default_css (tab_length : string) (margin_left : string) : string =
 .blk_itm_main {
   margin-left : " ^ tab_length ^ ";
 }
-
 
 .dsp_line_lbl {
   float : left;
