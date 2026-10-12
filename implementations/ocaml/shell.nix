@@ -4,14 +4,14 @@
   ) { }
 }:
 let
-  build_packages = with pkgs; [
+  build_pkgs = with pkgs; [
     ocaml
     ocamlPackages.findlib
     ocamlPackages.sedlex
     ocamlPackages.uuseg
     ocamlPackages.xml-light
   ];
-  dev_packages = with pkgs; [
+  dev_pkgs = with pkgs; [
     ocamlPackages.utop
     ocamlformat
     gh
@@ -19,9 +19,5 @@ let
   ];
 in
 pkgs.mkShell {
-  packages = (
-    build_packages
-    ++
-    dev_packages
-  );
+  packages = build_pkgs ++ dev_pkgs;
 }
