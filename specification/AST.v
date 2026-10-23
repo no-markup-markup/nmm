@@ -45,7 +45,7 @@ Inductive tu_scope : Type :=
 | cu_scope_GBL : tu_scope
 | cu_scope_CH  : tu_scope
 | cu_scope_SEC : tu_scope
-| ch_scope_APP : tu_scope
+| cu_scope_APP : tu_scope
 | cu_scope_PAR : tu_scope
 .
 
