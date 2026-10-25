@@ -102,55 +102,61 @@ f_tknize(CHRS) = RES :- (
 
 %%%% THE PREDICATE
 
-:- pred p_tknize(ta_line_no, chrs, ts_tkns,  strs,    ts_tkns,  strs).
-:- mode p_tknize(in,         in,   in,       in,      out,      out) is det.
-p_tknize(        LINE_NO,    CHRS, TKNS_IN,  ERRS_IN, TKNS_OUT, ERRS_OUT) :- (
+% build tokens and errors list in reverse, then reverse once at the end
+% this is to avoid repeatedly using the expensive
+%   TKNS ++ [TKN]
+% instead this solution uses the non-expensive
+%   [TKN|TKN_REV]
+:- pred p_tknize(
+  ta_line_no::in, chrs::in, ts_tkns::in, strs::in,     ts_tkns::out, strs::out
+) is det.
+p_tknize(
+  LINE_NO,        CHRS,     TKNS_REV_IN, ERRS_REV_IN,  TKNS_OUT,     ERRS_OUT
+) :- (
   if CHRS = [C|CHRS_TL],p_unsupported(char.to_int(C),CP,N) then
-    ERRS_IN_NEW =
-    (
-      ERRS_IN
-      ++
-      [
-        string.append_list([
-          "line ",
-          string.uint_to_string(LINE_NO),
-          ": unsupported character ",
-          CP,
-          " ",
-          N,
-          "."
-        ])
-      ]
-    ),
-    p_tknize(LINE_NO,CHRS_TL,TKNS_IN,ERRS_IN_NEW,TKNS_OUT,ERRS_OUT)
+    ERRS_REV_IN_NEW =
+    [
+      string.append_list([
+        "line ",
+        string.uint_to_string(LINE_NO),
+        ": unsupported character ",
+        CP,
+        " ",
+        N,
+        "."
+      ])
+      |
+      ERRS_REV_IN
+    ],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_REV_IN,ERRS_REV_IN_NEW,TKNS_OUT,ERRS_OUT)
   else if p_leading_esc_chr(CHRS,ESC_CHR,CHRS_TL) then
-    TKNS_IN_NEW = TKNS_IN++[cu_tkn_esc(LINE_NO,ESC_CHR)],
-    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+    TKNS_REV_IN_NEW = [cu_tkn_esc(LINE_NO,ESC_CHR)|TKNS_REV_IN],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_REV_IN_NEW,ERRS_REV_IN,TKNS_OUT,ERRS_OUT)
   else if p_leading_line_break(CHRS,CHRS_TL) then
-    TKNS_IN_NEW = TKNS_IN++[cu_tkn_lb(LINE_NO)],
-    p_tknize(LINE_NO+1u,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+    TKNS_REV_IN_NEW = [cu_tkn_lb(LINE_NO)|TKNS_REV_IN],
+    p_tknize(LINE_NO+1u,CHRS_TL,TKNS_REV_IN_NEW,ERRS_REV_IN,TKNS_OUT,ERRS_OUT)
   else if CHRS = ['\t'|CHRS_TL] then
-    TKNS_IN_NEW = TKNS_IN++[cu_tkn_tab(LINE_NO)],
-    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+    TKNS_REV_IN_NEW = [cu_tkn_tab(LINE_NO)|TKNS_REV_IN],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_REV_IN_NEW,ERRS_REV_IN,TKNS_OUT,ERRS_OUT)
   else if CHRS = [C|CHRS_TL], p_sp_but_not_tab(C) then
-    TKNS_IN_NEW = TKNS_IN++[cu_tkn_sp(LINE_NO,C)],
-    p_tknize(LINE_NO,CHRS_TL,TKNS_IN_NEW,ERRS_IN,TKNS_OUT,ERRS_OUT)
+    TKNS_REV_IN_NEW = [cu_tkn_sp(LINE_NO,C)|TKNS_REV_IN],
+    p_tknize(LINE_NO,CHRS_TL,TKNS_REV_IN_NEW,ERRS_REV_IN,TKNS_OUT,ERRS_OUT)
   else (
     (
       CHRS = [C|CHRS_TL],
       p_tknize(
         LINE_NO,
         CHRS_TL,
-        TKNS_IN++[cu_tkn_nws(LINE_NO,C)],
-        ERRS_IN,
+        [cu_tkn_nws(LINE_NO,C)|TKNS_REV_IN],
+        ERRS_REV_IN,
         TKNS_OUT,
         ERRS_OUT
       )
     );
     (
       CHRS     = [],
-      TKNS_OUT = TKNS_IN++[cu_tkn_eof],
-      ERRS_OUT = ERRS_IN
+      TKNS_OUT = list.reverse([cu_tkn_eof|TKNS_REV_IN]),
+      ERRS_OUT = list.reverse(ERRS_REV_IN)
     )
   )
 ).
