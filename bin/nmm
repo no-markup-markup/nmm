@@ -40,7 +40,7 @@ def show_completion(ctx:typer.Context,shell:typer._completion_shared.Shells):
   """
   Show completion for SHELL, to copy it or customize the installation.
   """
-  typer.completion.show_callback(ctx, None, shell) # pyright: ignore reportArgumentType
+  typer.completion.show_callback(ctx, None, shell) # pyright: ignore[reportArgumentType]
 
 # TYPE ALIASES AND DEFAULT VALUES FOR OPTIONS
 
@@ -68,7 +68,7 @@ _ta_tags_file : TA = Annotated[
     exists       = True,
     dir_okay     = False,
     resolve_path = True,
-    help         = 'Use tags from tab-separated-values file.'
+    help         = 'Use tags from tab-separated-values FILE.'
   )
 ]
 _default_tags_file : F[pathlib.Path] = \
@@ -81,7 +81,7 @@ _ta_margin : TA = Annotated[
   int,
   typer.Option(
     '--margin',
-    min = 0,
+    min  = 0,
     help =
       'Set margin width to MARGIN := x spaces.'
       +
@@ -99,13 +99,13 @@ _ta_text_width : TA = Annotated[
   int,
   typer.Option(
     '--text-width',
-    min = 0,
+    min  = 0,
     help =
       'Set body text width to WIDTH := x spaces.'
       +
       ' '
       +
-      'Totalt width becomes MARGIN+WIDTH.',
+      'Total width becomes MARGIN+WIDTH.',
   )
 ]
 
@@ -123,7 +123,7 @@ _ta_numbering : TA = Annotated[
 
 _default_numbering : F[str] = 'a1i'
 
-## --LANG (ALIAS TA_HTML_LANG)
+## --LANG (ALIAS _TA_HTML_LANG)
 
 _ta_html_lang : TA = Annotated[
   str,
@@ -151,24 +151,23 @@ _ta_internal_css : TA = Annotated[
 ## --EXTERNAL-CSS
 
 _ta_external_css : TA = Annotated[
-  O[str],
-  typer.Option(
-    '--external-css',
-    help = 'URI',
-  )
+  O[str],typer.Option('--external-css',help = 'URI',)
 ]
 
 ## --ALLOW_CUSTOM_NUMBERING
 
-_ta_custom_numbering : TA = \
+_ta_custom_numbering : TA =\
   Annotated[bool,typer.Option('--allow-custom-numbering')]
 
 _default_custom_numbering : F[bool] = False
 
-## --QUITE
+## --QUIET
 
-_ta_quite      : TA      = Annotated[bool,typer.Option('--quite')]
-_default_quite : F[bool] = False
+_ta_quiet : TA = Annotated[
+  bool,
+  typer.Option('--quiet',help='Silence warnings.')
+]
+_default_quiet : F[bool] = False
 
 # TYPE ALIAS FOR INPUT PATH
 
@@ -193,7 +192,7 @@ def nmm2txt(
   numbering              : _ta_numbering        = _default_numbering,
   allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
   tags_file              : _ta_tags_file        = _default_tags_file,
-  quite                  : _ta_quite            = _default_quite,
+  quiet                  : _ta_quiet            = _default_quiet,
 ):
   """
   Print raw text semantics of nmm source file at PATH.
@@ -208,7 +207,7 @@ def nmm2txt(
         numbering,
         allow_custom_numbering,
         tags_file,
-        quite,
+        quiet,
       )
       os.remove(tmp_xml_file_path)
       sys.exit(exit_code_xml2txt)
@@ -224,7 +223,7 @@ def nmm2txt(
         +
         (['--allow-custom-numbering'] if allow_custom_numbering else [])
         +
-        (['--quite']                  if quite                  else [])
+        (['--quiet']                  if quiet                  else [])
         +
         [path],
       )
@@ -243,7 +242,7 @@ def nmm2html(
   lang                   : _ta_html_lang        = _default_html_lang,
   internal_css           : _ta_internal_css     = None,
   external_css           : _ta_external_css     = None,
-  quite                  : _ta_quite            = _default_quite,
+  quiet                  : _ta_quiet            = _default_quiet,
 ):
   """
   Print HTML semantics of nmm source file at PATH.
@@ -260,7 +259,7 @@ def nmm2html(
         lang,
         internal_css,
         external_css,
-        quite,
+        quiet,
       )
       os.remove(tmp_xml_file_path)
       sys.exit(exit_code_xml2txt)
@@ -282,7 +281,7 @@ def nmm2html(
         +
         ([] if external_css is None else ['--external-css', external_css])
         +
-        (['--quite'] if quite else [])
+        (['--quiet'] if quiet else [])
         +
         [path]
       )
@@ -311,7 +310,7 @@ def xml2txt(
   numbering              : _ta_numbering        = _default_numbering,
   allow_custom_numbering : _ta_custom_numbering = _default_custom_numbering,
   tags_file              : _ta_tags_file        = _default_tags_file,
-  quite                  : _ta_quite            = _default_quite,
+  quiet                  : _ta_quiet            = _default_quiet,
 ):
   """
   Print raw text semantics of XML-semantics-file at PATH.
@@ -323,7 +322,7 @@ def xml2txt(
     numbering,
     allow_custom_numbering,
     tags_file,
-    quite,
+    quiet,
   ))
 
 # SUBCOMMAND XML2HTML
@@ -338,7 +337,7 @@ def xml2html(
   lang                   : _ta_html_lang        = _default_html_lang,
   internal_css           : _ta_internal_css     = None,
   external_css           : _ta_external_css     = None,
-  quite                  : _ta_quite            = _default_quite,
+  quiet                  : _ta_quiet            = _default_quiet,
 ):
   """
   Print HTML semantics of XML-semantics-file at PATH.
@@ -352,7 +351,7 @@ def xml2html(
     lang,
     internal_css,
     external_css,
-    quite,
+    quiet,
   ))
 
 
@@ -422,9 +421,9 @@ def _nmm2xml(
   """
   match parser_backend:
     case 'Mercury':
-      bin_name           : F[str]       = 'nmm-mercury' # pyright: ignore reportGeneralTypeIssues
-      cmd_name           : F[str]       = 'nmm2xml'     # pyright: ignore reportGeneralTypeIssues
-      tags_file_arg_list : F[list[str]] = []            # pyright: ignore reportGeneralTypeIssues
+      bin_name           : F[str]       = 'nmm-mercury'
+      cmd_name           : F[str]       = 'nmm2xml'
+      tags_file_arg_list : F[list[str]] = []
       if os.path.abspath(tags_file) != os.path.abspath(_default_tags_file):
         print(
           '--tags-file non-default value not yet supported for Mercury parser.',
@@ -432,9 +431,9 @@ def _nmm2xml(
         )
         return 1
     case 'OCaml':
-      bin_name : F[str] = 'nmm-ocaml'                           # pyright: ignore reportGeneralTypeIssues
-      cmd_name : F[str] = 'axml-of-nmm'                         # pyright: ignore reportGeneralTypeIssues
-      tags_file_arg_list : F[list[str]] = ['--tags', tags_file] # pyright: ignore reportGeneralTypeIssues
+      bin_name : F[str] = 'nmm-ocaml'                                # pyright: ignore[reportGeneralTypeIssues]
+      cmd_name : F[str] = 'axml-of-nmm'                              # pyright: ignore[reportGeneralTypeIssues]
+      tags_file_arg_list : F[list[str]] = ['--tags', str(tags_file)] # pyright: ignore[reportGeneralTypeIssues]
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_path_to_file(bin_name),cmd_name]+tags_file_arg_list+[path],stdout=out
   )
@@ -449,7 +448,7 @@ def _xml2txt(
   numbering              : _ta_numbering,
   allow_custom_numbering : _ta_custom_numbering,
   tags_file              : _ta_tags_file,
-  quite                  : _ta_quite,
+  quiet                  : _ta_quiet,
 ) -> int:
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_path_to_file('nmm-ocaml'),'txt-of-axml']
@@ -464,7 +463,7 @@ def _xml2txt(
     +
     (['--allow-custom-numbering'] if allow_custom_numbering else [])
     +
-    (['--quite']                  if quite                  else [])
+    (['--quiet']                  if quiet                  else [])
     +
     [path],
   )
@@ -481,7 +480,7 @@ def _xml2html(
   lang                   : _ta_html_lang        = _default_html_lang,
   internal_css           : _ta_internal_css     = None,
   external_css           : _ta_external_css     = None,
-  quite                  : _ta_quite            = _default_quite
+  quiet                  : _ta_quiet            = _default_quiet
 ) -> int:
   completed_proc : F[subprocess.CompletedProcess[bytes]] = subprocess.run(
     [_get_path_to_file('nmm-ocaml'), 'html-of-axml']
@@ -500,7 +499,7 @@ def _xml2html(
     +
     ([] if external_css is None else ['--external-css', external_css])
     +
-    (['--quite'] if quite else [])
+    (['--quiet'] if quiet else [])
     +
     [path]
   )
