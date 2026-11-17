@@ -460,9 +460,9 @@ dsp_lines0:
 ;
 
 special_dsp_lines0:
-  |special_dsp_line NL                            { ($1::[]):tr_dsp_line list }
-  |special_dsp_line lb1 special_dsp_lines0        { ($1::$3):tr_dsp_line list }
-  |special_dsp_line lb0 dsp_lines0                { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line NL                             { ($1::[]):tr_dsp_line list }
+  |no_lbl_dsp_line lb1 special_dsp_lines0         { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line lb0 dsp_lines0                 { ($1::$3):tr_dsp_line list }
 ;
 
 blk_vrb0:
@@ -622,9 +622,9 @@ dsp_lines(n):
 ;
 
 special_dsp_lines(n):
-  |special_dsp_line NL                                    { ($1::[]):tr_dsp_line list }
-  |special_dsp_line lb(n+1) special_dsp_lines(n)          { ($1::$3):tr_dsp_line list }
-  |special_dsp_line lb(n) dsp_lines(n)                    { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line NL                                     { ($1::[]):tr_dsp_line list }
+  |no_lbl_dsp_line lb(n+1) special_dsp_lines(n)           { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line lb(n) dsp_lines(n)                     { ($1::$3):tr_dsp_line list }
 ;
 
 blk_vrb(n):
@@ -801,9 +801,9 @@ dsp_lines1:
 ;
 
 special_dsp_lines1:
-  |special_dsp_line NL                            { ($1::[]):tr_dsp_line list }
-  |special_dsp_line lb2 special_dsp_lines1        { ($1::$3):tr_dsp_line list }
-  |special_dsp_line lb1 dsp_lines1                { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line NL                             { ($1::[]):tr_dsp_line list }
+  |no_lbl_dsp_line lb2 special_dsp_lines1         { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line lb1 dsp_lines1                 { ($1::$3):tr_dsp_line list }
 ;
 
 blk_vrb1:
@@ -979,9 +979,9 @@ dsp_lines2:
 ;
 
 special_dsp_lines2:
-  |special_dsp_line NL                            { ($1::[]):tr_dsp_line list }
-  |special_dsp_line lb3 special_dsp_lines2        { ($1::$3):tr_dsp_line list }
-  |special_dsp_line lb2 dsp_lines2                { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line NL                             { ($1::[]):tr_dsp_line list }
+  |no_lbl_dsp_line lb3 special_dsp_lines2         { ($1::$3):tr_dsp_line list }
+  |no_lbl_dsp_line lb2 dsp_lines2                 { ($1::$3):tr_dsp_line list }
 ;
 
 blk_vrb2:
@@ -1183,7 +1183,7 @@ dsp_line:
   |dsp_lbl_tab dsp_units tabs dsp_id              { {fld_dsp_line_lbl=Some $1;fld_dsp_line_id=Some $4;fld_dsp_line_units=Cs_txt_units $2}:tr_dsp_line }
 ;
 
-special_dsp_line:
+no_lbl_dsp_line:
   |dsp_units                                      { {fld_dsp_line_lbl=None;fld_dsp_line_id=None;fld_dsp_line_units=Cs_txt_units $1}:tr_dsp_line }
 ;
 

@@ -96,9 +96,9 @@ To install the opam-dependencies, run
 opam install ocaml ocamlfind sedlex uuseg xml-light
 ```
 
-To build the executable that implements the command line interface, run
+To make sure that everything works properly, run
 ```bash
-make bin/nmm-ocaml
+make test
 ```
 
 Alternatively, to install nmm-ocaml as a local opam package, simply run
@@ -109,24 +109,40 @@ This will automatically install the opam-dependencies, and build the executable 
 
 ### with nix
 
-To install the standard nix package manager, see https://nixos.org/
+To install the nix package manager, see https://nixos.org/
+
+#### without experimental features
 
 To open a nix-shell with the required packages, run
 ```bash
 nix-shell
 ```
-In that shell, to build the executable, run
+
+In that shell, to make sure that everything works properly, run
 ```bash
-make bin/nmm-ocaml
+make test
 ```
 
-On standard nix (without nix-commands), to build and add the executable to your nix profile, run
+To build and add the executable to your nix profile, run
 ```bash
 nix-env --install --file .
 ```
-To do the same on experimental nix (with nix-commands), run
+
+#### with experimental features (flakes and nix-commands)
+
+To open a nix-shell with the required packages, run
 ```bash
-nix profile add --file .
+nix develop
+```
+
+In that shell, to make sure that everything works properly, run
+```bash
+make test
+```
+
+To build and add the executable to your nix profile, run
+```bash
+nix profile add .
 ```
 
 ## Documentation

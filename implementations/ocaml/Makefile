@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test utop clean-docs install-opam_package test-verbose
+.PHONY: default clean test utop clean-docs install-opam_package test-verbose format
 
 default:
 	@echo 'no default target'
@@ -49,8 +49,6 @@ utop: opam/package
 	-I $(realpath opam/package) \
 	$(realpath opam/package/nmm_ocaml.cma)
 
-bin: bin/nmm-ocaml bin/txt-of-nmm bin/html-of-nmm bin/pdf-of-nmm
-
 bin/nmm-ocaml: native
 	mkdir -p bin
 	cd native
@@ -64,22 +62,6 @@ bin/nmm-ocaml: native
 		nmm_ocaml.cmxa cli.ml
 	cd -
 	mv native/nmm-ocaml bin/
-
-bin/txt-of-nmm: scripts/txt-of-nmm.sh
-	mkdir -p bin
-	cp scripts/txt-of-nmm.sh bin/txt-of-nmm
-	chmod +x bin/txt-of-nmm
-
-bin/html-of-nmm: scripts/html-of-nmm.sh
-	mkdir -p bin
-	cp scripts/html-of-nmm.sh bin/html-of-nmm
-	chmod +x bin/html-of-nmm
-
-bin/pdf-of-nmm: scripts/pdf-of-nmm.sh
-	mkdir -p bin
-	cp scripts/pdf-of-nmm.sh bin/pdf-of-nmm
-	chmod +x bin/pdf-of-nmm
-
 
 docs: bin/nmm-ocaml
 	bin/nmm-ocaml show-axml-schema > docs/specs/axml.dtd.txt
@@ -244,7 +226,7 @@ byte: src
 	ocamlc -a -o nmm_ocaml.cma nmm_ocaml.cmo
 	cd -
 
-debian/packages: debian bin share
+debian/packages: debian bin/nmm-ocaml share
 	cd debian
 	make
 	cd -
@@ -259,3 +241,5 @@ share: scripts/nmm-ocaml-bash-completion.sh
 	cp scripts/nmm-ocaml-bash-completion.sh \
 		share/bash-completion/completions/nmm-ocaml
 
+format: src scripts/ocamlformat.sh .ocamlformat
+	bash scripts/ocamlformat.sh
