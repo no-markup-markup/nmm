@@ -48,8 +48,18 @@ and xml_list_of_ts_preamble_opt (preamble_opt : ts_preamble option) :
 
 and xml_of_ts_preamble (preamble : ts_preamble) : Xml.xml =
   match preamble with
-  | Cs_preamble (s : string) ->
-      Xml.Element ("cs_preamble", [], [ xml_of_string s ])
+  | Cs_preamble (preamble_lines : ts_preamble_lines) ->
+      Xml.Element ("cs_preamble", [], [ xml_of_ts_preamble_lines preamble_lines ])
+
+and xml_of_ts_preamble_lines (preamble_lines : ts_preamble_lines) : Xml.xml =
+  match preamble_lines with
+  | Cs_preamble_lines (preamble_line_list : ts_preamble_line list) ->
+      Xml.Element ("cs_preamble_lines", [], List.map xml_of_ts_preamble_line preamble_line_list)
+
+and xml_of_ts_preamble_line (preamble_line : ts_preamble_line) : Xml.xml =
+  match preamble_line with
+  | Cs_preamble_line (s : string) ->
+      Xml.Element ("cs_preamble_line",  [], [ xml_of_string s ])
 
 (* title *)
 
@@ -621,7 +631,9 @@ let rec normalize_axml (xml : Xml.xml) : Xml.xml =
 let axml_schema () : string =
   "
 <!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, (cu_date_auto | cu_date_custom)?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)>
-<!ELEMENT cs_preamble (#PCDATA)>
+<!ELEMENT cs_preamble (cs_preamble_lines)>
+<!ELEMENT cs_preamble_lines (cs_preamble_line+)>
+<!ELEMENT cs_preamble_line (#PCDATA)>
 <!ELEMENT cs_title (#PCDATA)>
 <!ELEMENT cs_authors (cs_author+)>
 <!ELEMENT cs_author (#PCDATA)>

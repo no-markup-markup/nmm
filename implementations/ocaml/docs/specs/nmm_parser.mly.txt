@@ -229,12 +229,16 @@ doc:
 
 
 doc_preamble:
-  | START_PREAMBLE preamble_lines END_PREAMBLE    { (Cs_preamble $2) : ts_preamble }
+  | START_PREAMBLE preamble_lines END_PREAMBLE    { (Cs_preamble (Cs_preamble_lines $2)) : ts_preamble }
 ;
 
 preamble_lines:
-  | PREAMBLE_LINE                                 { $1 : string }
-  | PREAMBLE_LINE preamble_lines                  { $1 ^ ";" ^ $2 : string }
+  | preamble_line                                 { $1 :: [] : ts_preamble_line list }
+  | preamble_line preamble_lines                  { $1 :: $2 : ts_preamble_line list }
+;
+
+preamble_line:
+  | PREAMBLE_LINE                                 { Cs_preamble_line $1 : ts_preamble_line }
 ;
 
 doc_title:

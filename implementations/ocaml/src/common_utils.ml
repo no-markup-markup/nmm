@@ -610,6 +610,15 @@ let set_allow_custom_numbering (v : string) (options : t_preamble_options) :
     in
     options
 
+let string_list_of_ts_preamble (preamble : ts_preamble) : string list=
+  let map (preamble_line : ts_preamble_line) : string =
+    match preamble_line with
+    | Cs_preamble_line s -> s
+  in
+  match preamble with
+  | Cs_preamble (Cs_preamble_lines lst) -> List.map map lst
+
+
 let preamble_options_of_ts_preamble (options : t_preamble_options)
     (preamble : Doc_types.ts_preamble) : t_preamble_options =
   let rec aux (str_list : string list) (options : t_preamble_options) :
@@ -649,10 +658,7 @@ let preamble_options_of_ts_preamble (options : t_preamble_options)
         aux tl new_preamble_options
     | [] -> options
   in
-  match preamble with
-  | Cs_preamble (s : string) ->
-      let str_list : string list = String.split_on_char ';' s in
-      aux str_list options
+  aux (string_list_of_ts_preamble preamble) options
 
 
 let preamble_options_of_tr_doc (doc : Doc_types.tr_doc)

@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>notes=*,†,‡,⹋,**,††,‡‡,⹋⹋</cs_preamble>
+<cs_preamble>
+<cs_preamble_lines>
+<cs_preamble_line>notes=*,†,‡,⹋,**,††,‡‡,⹋⹋</cs_preamble_line>
+</cs_preamble_lines>
+</cs_preamble>
 <cu_doc_main_blks>
 <cs_blks>
 <cu_blk_txt>

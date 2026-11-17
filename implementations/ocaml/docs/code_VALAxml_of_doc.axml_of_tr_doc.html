@@ -66,8 +66,18 @@
 
 <span class="keyword">and</span> xml_of_ts_preamble (preamble : ts_preamble) : <span class="constructor">Xml</span>.xml =
   <span class="keyword">match</span> preamble <span class="keyword">with</span>
-  <span class="keywordsign">|</span> <span class="constructor">Cs_preamble</span> (s : string) <span class="keywordsign">-&gt;</span>
-      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble"</span>, [], [ xml_of_string s ])
+  <span class="keywordsign">|</span> <span class="constructor">Cs_preamble</span> (preamble_lines : ts_preamble_lines) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble"</span>, [], [ xml_of_ts_preamble_lines preamble_lines ])
+
+<span class="keyword">and</span> xml_of_ts_preamble_lines (preamble_lines : ts_preamble_lines) : <span class="constructor">Xml</span>.xml =
+  <span class="keyword">match</span> preamble_lines <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cs_preamble_lines</span> (preamble_line_list : ts_preamble_line list) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble_lines"</span>, [], <span class="constructor">List</span>.map xml_of_ts_preamble_line preamble_line_list)
+
+<span class="keyword">and</span> xml_of_ts_preamble_line (preamble_line : ts_preamble_line) : <span class="constructor">Xml</span>.xml =
+  <span class="keyword">match</span> preamble_line <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Cs_preamble_line</span> (s : string) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble_line"</span>,  [], [ xml_of_string s ])
 
 <span class="comment">(* title *)</span>
 

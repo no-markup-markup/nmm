@@ -52,8 +52,8 @@ and f_ts_preamble_opt_of_xml_list (xml_list : Xml.xml list) :
   | [] -> (None, xml_list)
   | hd :: tl -> (
       match hd with
-      | Xml.Element ("cs_preamble", [], pcdata_list) ->
-          (Some (Cs_preamble (f_string_of_pcdata_list pcdata_list)), tl)
+      | Xml.Element ("cs_preamble", [], xmls) ->
+          (Some (Cs_preamble (f_ts_preamble_lines_of_xml_list xmls)), tl)
       | Xml.Element ("cs_title", [], _)
       | Xml.Element ("cs_authors", [], _)
       | Xml.Element ("cu_date_auto", [], _)
@@ -70,6 +70,36 @@ and f_ts_preamble_opt_of_xml_list (xml_list : Xml.xml list) :
             (Error
                (String.concat ""
                   [ "unexcpected element: "; string_of_xml_list [ xml ] ])))
+
+
+and f_ts_preamble_lines_of_xml_list (xml_list : Xml.xml list) : ts_preamble_lines =
+  match xml_list with
+  | [] -> raise (Error "empty preamble")
+  | [xml] -> (
+      match xml with
+      | Xml.Element ("cs_preamble_lines", [], xmls) ->
+          Cs_preamble_lines (List.map f_ts_preamble_line_of_xml xmls)
+      | _ ->
+          raise
+            (Error
+               (String.concat ""
+                  [ "unexcpected element: "; string_of_xml_list [ xml ] ]))
+  )
+  | _ :: _ ->
+      raise
+        (Error
+           (String.concat ""
+              [ "unexcpected element: "; string_of_xml_list xml_list ]))
+ 
+and f_ts_preamble_line_of_xml (xml : Xml.xml) : ts_preamble_line =
+  match xml with
+  | Xml.Element ("cs_preamble_line", [], xmls) ->
+      Cs_preamble_line (f_string_of_pcdata_list xmls)
+  | _ ->
+      raise
+        (Error
+           (String.concat ""
+              [ "unexcpected element: "; string_of_xml_list [ xml ] ]))
 
 (* title *)
 

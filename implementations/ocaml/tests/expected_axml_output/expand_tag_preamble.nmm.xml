@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>tag=PRF,Beviset;tag=THM,Teoremet;tag=THMS,Teoremen;tag=PRFS,Bevisen</cs_preamble>
+<cs_preamble>
+<cs_preamble_lines>
+<cs_preamble_line>tag=PRF,Beviset</cs_preamble_line>
+<cs_preamble_line>tag=THM,Teoremet</cs_preamble_line>
+<cs_preamble_line>tag=THMS,Teoremen</cs_preamble_line>
+<cs_preamble_line>tag=PRFS,Bevisen</cs_preamble_line>
+</cs_preamble_lines>
+</cs_preamble>
 <cu_doc_main_pars>
 <cs_pars>
 <cu_par_std>

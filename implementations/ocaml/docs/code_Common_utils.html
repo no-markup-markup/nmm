@@ -638,6 +638,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;options<br>
 <br>
+<span class="keyword">let</span>&nbsp;string_list_of_ts_preamble&nbsp;(preamble&nbsp;:&nbsp;ts_preamble)&nbsp;:&nbsp;string&nbsp;list=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;map&nbsp;(preamble_line&nbsp;:&nbsp;ts_preamble_line)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;preamble_line&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_preamble_line</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;preamble&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_preamble</span>&nbsp;(<span class="constructor">Cs_preamble_lines</span>&nbsp;lst)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.map&nbsp;map&nbsp;lst<br>
+<br>
+<br>
 <span class="keyword">let</span>&nbsp;preamble_options_of_ts_preamble&nbsp;(options&nbsp;:&nbsp;t_preamble_options)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(preamble&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_preamble)&nbsp;:&nbsp;t_preamble_options&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;aux&nbsp;(str_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(options&nbsp;:&nbsp;t_preamble_options)&nbsp;:<br>
@@ -677,10 +686,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;tl&nbsp;new_preamble_options<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;options<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;preamble&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_preamble</span>&nbsp;(s&nbsp;:&nbsp;string)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;str_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">';'</span>&nbsp;s&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aux&nbsp;str_list&nbsp;options<br>
+&nbsp;&nbsp;aux&nbsp;(string_list_of_ts_preamble&nbsp;preamble)&nbsp;options<br>
 <br>
 <br>
 <span class="keyword">let</span>&nbsp;preamble_options_of_tr_doc&nbsp;(doc&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc)<br>

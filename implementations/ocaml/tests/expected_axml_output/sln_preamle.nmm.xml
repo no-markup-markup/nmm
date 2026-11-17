@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>tag=SLN,SOLUTION,Solution;tag=SLNS,SOLUTIONS,Solutions</cs_preamble>
+<cs_preamble>
+<cs_preamble_lines>
+<cs_preamble_line>tag=SLN,SOLUTION,Solution</cs_preamble_line>
+<cs_preamble_line>tag=SLNS,SOLUTIONS,Solutions</cs_preamble_line>
+</cs_preamble_lines>
+</cs_preamble>
 <cu_doc_main_pars>
 <cs_pars>
 <cu_par_std>

@@ -13,7 +13,11 @@ type tr_doc = {
 }
 
 (* preamble *)
-and ts_preamble = Cs_preamble of string
+and ts_preamble = Cs_preamble of ts_preamble_lines
+
+and ts_preamble_lines = Cs_preamble_lines of (ts_preamble_line list)
+
+and ts_preamble_line = Cs_preamble_line of string
 
 (* title *)
 and ts_title = Cs_title of string

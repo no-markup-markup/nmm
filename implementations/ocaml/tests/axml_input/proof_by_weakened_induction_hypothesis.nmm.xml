@@ -2,8 +2,8 @@
 <cr_doc>
 <cs_title>Proof by weakened induction hypothesis</cs_title>
 <cs_authors>
-<cs_author>Eric Johannesson, eric.johannesson@philosophy.su.se</cs_author>
-<cs_author>Anders Lundstedt, anders.lundstedt@philosophy.su.se</cs_author>
+<cs_author>Eric Johannesson &lt;eric.johannesson@philosophy.su.se&gt;</cs_author>
+<cs_author>Anders Lundstedt &lt;anders.lundstedt@philosophy.su.se&gt;</cs_author>
 </cs_authors>
 <cs_abstract>
 <cs_blks>
@@ -68,7 +68,7 @@
 <cs_txt_line>
 <cs_txt_units>
 <cu_txt_unit_wysiwyg>
-<cs_txt_unit_wysiwyg>Cruacially, we show that there are cases</cs_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Crucially, we show that there are cases</cs_txt_unit_wysiwyg>
 </cu_txt_unit_wysiwyg>
 </cs_txt_units>
 </cs_txt_line>

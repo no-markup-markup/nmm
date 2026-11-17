@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<cr_doc>
+<cu_doc_main_blks>
+<cs_blks>
+<cu_blk_dsp>
+<cs_blk_dsp>
+<cs_dsp_lines>
+<cu_dsp_line_no_lbl>
+<cs_dsp_line_no_lbl>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Unlabeled display line</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_dsp_line_no_lbl>
+</cu_dsp_line_no_lbl>
+</cs_dsp_lines>
+</cs_blk_dsp>
+</cu_blk_dsp>
+<cu_blk_txt>
+<cs_blk_txt>
+<cs_txt_lines>
+<cs_txt_line>
+<cs_txt_units>
+<cu_txt_unit_wysiwyg>
+<cs_txt_unit_wysiwyg>Some text.</cs_txt_unit_wysiwyg>
+</cu_txt_unit_wysiwyg>
+</cs_txt_units>
+</cs_txt_line>
+</cs_txt_lines>
+</cs_blk_txt>
+</cu_blk_txt>
+</cs_blks>
+</cu_doc_main_blks>
+</cr_doc>

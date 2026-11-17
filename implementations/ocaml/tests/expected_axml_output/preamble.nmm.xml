@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>title-indent=0;author-indent=0;abstract-indent=0;refs-indent=0;left-margin=10</cs_preamble>
+<cs_preamble>
+<cs_preamble_lines>
+<cs_preamble_line>title-indent=0</cs_preamble_line>
+<cs_preamble_line>author-indent=0</cs_preamble_line>
+<cs_preamble_line>abstract-indent=0</cs_preamble_line>
+<cs_preamble_line>refs-indent=0</cs_preamble_line>
+<cs_preamble_line>left-margin=10</cs_preamble_line>
+</cs_preamble_lines>
+</cs_preamble>
 <cs_title>Some title</cs_title>
 <cs_authors>
 <cs_author>Eric Johannesson</cs_author>

@@ -63,8 +63,8 @@
   <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> (<span class="constructor">None</span>, xml_list)
   <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
       <span class="keyword">match</span> hd <span class="keyword">with</span>
-      <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble"</span>, [], pcdata_list) <span class="keywordsign">-&gt;</span>
-          (<span class="constructor">Some</span> (<span class="constructor">Cs_preamble</span> (f_string_of_pcdata_list pcdata_list)), tl)
+      <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble"</span>, [], xmls) <span class="keywordsign">-&gt;</span>
+          (<span class="constructor">Some</span> (<span class="constructor">Cs_preamble</span> (f_ts_preamble_lines_of_xml_list xmls)), tl)
       <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_title"</span>, [], _)
       <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_authors"</span>, [], _)
       <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cu_date_auto"</span>, [], _)
@@ -81,6 +81,36 @@
             (<span class="constructor">Error</span>
                (<span class="constructor">String</span>.concat <span class="string">""</span>
                   [ <span class="string">"unexcpected element: "</span>; string_of_xml_list [ xml ] ])))
+
+
+<span class="keyword">and</span> f_ts_preamble_lines_of_xml_list (xml_list : <span class="constructor">Xml</span>.xml list) : ts_preamble_lines =
+  <span class="keyword">match</span> xml_list <span class="keyword">with</span>
+  <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"empty preamble"</span>)
+  <span class="keywordsign">|</span> [xml] <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">match</span> xml <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble_lines"</span>, [], xmls) <span class="keywordsign">-&gt;</span>
+          <span class="constructor">Cs_preamble_lines</span> (<span class="constructor">List</span>.map f_ts_preamble_line_of_xml xmls)
+      <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
+          raise
+            (<span class="constructor">Error</span>
+               (<span class="constructor">String</span>.concat <span class="string">""</span>
+                  [ <span class="string">"unexcpected element: "</span>; string_of_xml_list [ xml ] ]))
+  )
+  <span class="keywordsign">|</span> _ :: _ <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span>
+           (<span class="constructor">String</span>.concat <span class="string">""</span>
+              [ <span class="string">"unexcpected element: "</span>; string_of_xml_list xml_list ]))
+ 
+<span class="keyword">and</span> f_ts_preamble_line_of_xml (xml : <span class="constructor">Xml</span>.xml) : ts_preamble_line =
+  <span class="keyword">match</span> xml <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (<span class="string">"cs_preamble_line"</span>, [], xmls) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Cs_preamble_line</span> (f_string_of_pcdata_list xmls)
+  <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
+      raise
+        (<span class="constructor">Error</span>
+           (<span class="constructor">String</span>.concat <span class="string">""</span>
+              [ <span class="string">"unexcpected element: "</span>; string_of_xml_list [ xml ] ]))
 
 <span class="comment">(* title *)</span>
 

@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <cr_doc>
-<cs_preamble>abstract-hdr=SUMMARY,Summary;refs-hdr=CITED WORKS,Cited works</cs_preamble>
+<cs_preamble>
+<cs_preamble_lines>
+<cs_preamble_line>abstract-hdr=SUMMARY,Summary</cs_preamble_line>
+<cs_preamble_line>refs-hdr=CITED WORKS,Cited works</cs_preamble_line>
+</cs_preamble_lines>
+</cs_preamble>
 <cs_title>Referring to named items under REFERENCES</cs_title>
 <cs_authors>
 <cs_author>Eric Johannesson</cs_author>
