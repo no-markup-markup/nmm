@@ -276,17 +276,20 @@ Inductive tu_doc_main : Type :=
 | cu_doc_main_blks : ts_blks -> tu_doc_main
 .
 
-Inductive ts_refs     : Type := cs_refs     : ts_blks        -> ts_refs.
 
-Inductive ts_abstract : Type := cs_abstract : ts_blks        -> ts_abstract.
+Inductive ts_preamble_line : Type :=
+  cs_preamble_line : t_str                 -> ts_preamble_line.
+Inductive ts_preamble      : Type :=
+  cs_preamble      : list ts_preamble_line -> ts_preamble.
 
-Inductive ts_title    : Type := cs_title    : t_str          -> ts_title.
+Inductive ts_abstract      : Type :=
+  cs_abstract : ts_blks  -> ts_abstract.
 
-Inductive ts_author   : Type := cs_author   : t_str          -> ts_author.
+Inductive ts_title         : Type := cs_title    : t_str          -> ts_title.
 
-Inductive ts_preamble : Type := cs_preamble : t_str          -> ts_preamble.
+Inductive ts_author        : Type := cs_author   : t_str          -> ts_author.
 
-Inductive ts_authors  : Type := cs_authors  : list ts_author -> ts_authors.
+Inductive ts_authors       : Type := cs_authors  : list ts_author -> ts_authors.
 
 Inductive ts_date_auto   : Type := cs_date_auto   :          ts_date_auto.
 Inductive ts_date_custom : Type := cs_date_custom : t_str -> ts_date_custom.
@@ -294,6 +297,8 @@ Inductive tu_date        : Type :=
 | cu_date_auto   : ts_date_auto   -> tu_date
 | cu_date_custom : ts_date_custom -> tu_date
 .
+
+Inductive ts_refs : Type := cs_refs : ts_blks -> ts_refs.
 
 Record tr_doc : Type := cr_doc {
   fld_doc_preamble : option ts_preamble;
