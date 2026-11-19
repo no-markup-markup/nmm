@@ -17,6 +17,7 @@
 :- include_module parser.lines.
 :- include_module parser.units.
 :- include_module parser.misc.
+:- include_module parser.xml.
 
 
 %% MODULE IMPORTS
