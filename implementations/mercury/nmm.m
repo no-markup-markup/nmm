@@ -54,3 +54,4 @@ uint2str(N)  = int2str(uint2int(N)).
 chr2str(C)   = string.from_char(C).
 chrs2str(CS) = string.from_char_list(CS).
 str2chrs(S)  = string.to_char_list(S).
+:- pragma memo(str2chrs/1, [fast_loose]).
