@@ -1,5 +1,6 @@
-Written as some kind of combination of an affix grammar and a parsing expression
-grammar (PEG).
+The grammar is some kind of combination of an affix grammar and a parsing
+expression grammar (PEG). For now the Mercury reference implementation of a
+parser acts as the definite source of truth of the grammar.
 
 PEG:
 

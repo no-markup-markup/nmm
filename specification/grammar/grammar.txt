@@ -1,9 +1,0 @@
-# this is a comment
-
-
-# this is a WIP specification of valid no-markup-markup sources
-# it probably contains errors---probably a reference implementation will have to
-# provide the definite source of truth
-
-
-TODO
