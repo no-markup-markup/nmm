@@ -1,0 +1,18 @@
+START	PREAMBLE
+	notes=*,†,‡,⹋,**,††,‡‡,⹋⹋
+END	PREAMBLE
+
+[]	Lorem ipsum 1.[NTE:1]
+
+*	NTE:1
+	1
+
+[]	Lorem ipsum 2.[NTE:2]
+
+[]	Lorem ipsum 3.[NTE:3]
+
+*	NTE:2
+	2
+
+*	NTE:3
+	3
