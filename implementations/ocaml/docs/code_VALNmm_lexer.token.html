@@ -155,7 +155,7 @@
   <span class="keywordsign">|</span> _, _, _, <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> (
       <span class="keyword">match</span>%sedlex lexbuf <span class="keyword">with</span>
       <span class="keywordsign">|</span> end_preamble <span class="keywordsign">-&gt;</span> reset_preamble_and_return_token <span class="constructor">END_PREAMBLE</span>
-      <span class="keywordsign">|</span> preamble_line <span class="keywordsign">-&gt;</span> <span class="constructor">PREAMBLE_LINE</span> (remove_nls (remove_leading_tab (lexeme lexbuf)))
+      <span class="keywordsign">|</span> preamble_line <span class="keywordsign">-&gt;</span> <span class="constructor">PREAMBLE_LINE</span> (remove_leading_tab (remove_nls (lexeme lexbuf)))
       <span class="keywordsign">|</span> nl <span class="keywordsign">-&gt;</span> <span class="constructor">PREAMBLE_LINE</span> <span class="string">""</span>
       <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
           raise

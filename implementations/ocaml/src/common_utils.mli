@@ -80,35 +80,34 @@ val preamble_options_of_tr_doc :
 
     Prints a warning to [stderr] if parsing fails, and keeps the default setting.
 
-    [Cs_preamble (preamble : string)] is valid for parsing just in case
-    [preamble] has the following format:
+    [Cs_preamble (Cs_preamble_lines [Cs_preamble_line line_1;...; Cs_preamble_line line_n])] is valid for parsing just in case
+    each string [line_1],...,[line_n] has the following format:
 
     {v
-    PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
-
-    KEY_VALUE ::= | 'doc-width=' NAT
-                  | 'left-margin=' NAT
-                  | 'title-indent=' NAT
-                  | 'author-indent=' NAT
-                  | 'date-indent=' NAT
-                  | 'abstract-indent=' NAT
-                  | 'refs-indent=' NAT
-                  | 'tab-length=' NAT
-                  | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
-                  | 'notes=' STRING [',' STRING]*
-                  | 'numbering=' \{ '1ai' | '1ia' | 'a1i' | 'ai1' | 'i1a' | 'ia1' \}
-                  | 'allow-custom-numbering=' \{ 'true' | 'false' \}
+    LINE ::= | 'doc-width=' NAT
+             | 'left-margin=' NAT
+             | 'title-indent=' NAT
+             | 'author-indent=' NAT
+             | 'date-indent=' NAT
+             | 'abstract-indent=' NAT
+             | 'refs-indent=' NAT
+             | 'tab-length=' NAT
+             | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
+             | 'notes=' STRING [',' STRING]*
+             | 'numbering=' \{ '1ai' | '1ia' | 'a1i' | 'ai1' | 'i1a' | 'ia1' \}
+             | 'allow-custom-numbering=' \{ 'true' | 'false' \}
+             | ''
 
     LABEL_FORM ::= STRING
 
     CREF_FORM ::= STRING
 
-    STRING ::= [! ';' ',']*
+    STRING ::= [^ ',']*
 
     NAT ::= ['0'-'9']+
     v} *)

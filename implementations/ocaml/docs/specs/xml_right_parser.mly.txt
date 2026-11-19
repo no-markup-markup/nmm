@@ -33,7 +33,7 @@ let attr_list_of_string (s : string) : (string * string) list =
 main:
         |TAG_OPEN xml_list TAG_CLOSE EOF        { Xml.Element (first $1, attr_list_of_string (second $1), $2) }
         |TAG_OPEN_CLOSE EOF                     { Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-        |TAG_OPEN TAG_CLOSE EOF                 { Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+        |TAG_OPEN TAG_CLOSE EOF                 { Xml.Element (first $1, attr_list_of_string (second $1),[Xml.PCData ""]) }
 ;
 
 xml_list:
@@ -45,6 +45,6 @@ xml:
         |PCDATA                                 { Xml.PCData $1 }
         |TAG_OPEN xml_list TAG_CLOSE            { Xml.Element (first $1, attr_list_of_string (second $1), $2) }
         |TAG_OPEN_CLOSE                         { Xml.Element (first $1, attr_list_of_string (second $1),[]) }
-        |TAG_OPEN TAG_CLOSE                     { Xml.Element (first $1, attr_list_of_string (second $1),[]) }
+        |TAG_OPEN TAG_CLOSE                     { Xml.Element (first $1, attr_list_of_string (second $1),[ Xml.PCData ""]) }
 ;
 

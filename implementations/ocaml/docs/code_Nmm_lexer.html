@@ -126,7 +126,7 @@
 <span class="keyword">let</span>&nbsp;tab_tab_tab_end_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;tab_tab_end_qtn]<br>
 <span class="keyword">let</span>&nbsp;start_preamble&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"START"</span>,&nbsp;tab,&nbsp;<span class="string">"PREAMBLE"</span>,&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;end_preamble&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"END"</span>,&nbsp;tab,&nbsp;<span class="string">"PREAMBLE"</span>,&nbsp;nl]<br>
-<span class="keyword">let</span>&nbsp;preamble_line&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;<span class="constructor">Plus</span>&nbsp;(<span class="constructor">Compl</span>&nbsp;(<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n"</span>)),&nbsp;nl]<br>
+<span class="keyword">let</span>&nbsp;preamble_line&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;<span class="constructor">Star</span>&nbsp;(<span class="constructor">Compl</span>&nbsp;(<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n"</span>)),&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;nl_not_nl&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;nl,&nbsp;<span class="constructor">Compl</span>&nbsp;(<span class="constructor">Chars</span>&nbsp;<span class="string">"\n\r"</span>)]<br>
 <br>
 <span class="comment">(*&nbsp;helper&nbsp;functions&nbsp;*)</span><br>
@@ -363,7 +363,7 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_,&nbsp;_,&nbsp;_,&nbsp;<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>%sedlex&nbsp;lexbuf&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;end_preamble&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;reset_preamble_and_return_token&nbsp;<span class="constructor">END_PREAMBLE</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;preamble_line&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PREAMBLE_LINE</span>&nbsp;(remove_nls&nbsp;(remove_leading_tab&nbsp;(lexeme&nbsp;lexbuf)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;preamble_line&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PREAMBLE_LINE</span>&nbsp;(remove_leading_tab&nbsp;(remove_nls&nbsp;(lexeme&nbsp;lexbuf)))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PREAMBLE_LINE</span>&nbsp;<span class="string">""</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>

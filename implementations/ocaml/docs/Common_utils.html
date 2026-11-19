@@ -380,34 +380,33 @@
 
 <p>Prints a warning to <code class="code">stderr</code> if parsing fails, and keeps the default setting.</p>
 
-<p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(preamble&nbsp;:&nbsp;string)</code> is valid for parsing just in case
-    <code class="code">preamble</code> has the following format:</p>
+<p><code class="code"><span class="constructor">Cs_preamble</span>&nbsp;(<span class="constructor">Cs_preamble_lines</span>&nbsp;[<span class="constructor">Cs_preamble_line</span>&nbsp;line_1;...;&nbsp;<span class="constructor">Cs_preamble_line</span>&nbsp;line_n])</code> is valid for parsing just in case
+    each string <code class="code">line_1</code>,...,<code class="code">line_n</code> has the following format:</p>
 
-<pre class="verbatim">    PREAMBLE ::= KEY_VALUE [';' KEY_VALUE]*
-
-    KEY_VALUE ::= | 'doc-width=' NAT
-                  | 'left-margin=' NAT
-                  | 'title-indent=' NAT
-                  | 'author-indent=' NAT
-                  | 'date-indent=' NAT
-                  | 'abstract-indent=' NAT
-                  | 'refs-indent=' NAT
-                  | 'tab-length=' NAT
-                  | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
-                  | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
-                  | 'notes=' STRING [',' STRING]*
-                  | 'numbering=' { '1ai' | '1ia' | 'a1i' | 'ai1' | 'i1a' | 'ia1' }
-                  | 'allow-custom-numbering=' { 'true' | 'false' }
+<pre class="verbatim">    LINE ::= | 'doc-width=' NAT
+             | 'left-margin=' NAT
+             | 'title-indent=' NAT
+             | 'author-indent=' NAT
+             | 'date-indent=' NAT
+             | 'abstract-indent=' NAT
+             | 'refs-indent=' NAT
+             | 'tab-length=' NAT
+             | 'abstract-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'refs-hdr=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'ch-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'sec-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'par-prefix=' LABEL_FORM [ ',' CREF_FORM ]
+             | 'tag=' STRING ',' LABEL_FORM [',' CREF_FORM]
+             | 'notes=' STRING [',' STRING]*
+             | 'numbering=' { '1ai' | '1ia' | 'a1i' | 'ai1' | 'i1a' | 'ia1' }
+             | 'allow-custom-numbering=' { 'true' | 'false' }
+             | ''
 
     LABEL_FORM ::= STRING
 
     CREF_FORM ::= STRING
 
-    STRING ::= [! ';' ',']*
+    STRING ::= [^ ',']*
 
     NAT ::= ['0'-'9']+
    </pre></div>
