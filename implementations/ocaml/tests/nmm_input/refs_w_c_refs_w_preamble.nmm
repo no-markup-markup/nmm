@@ -1,6 +1,6 @@
 START	PREAMBLE
-abstract-hdr=SUMMARY,Summary
-refs-hdr=CITED WORKS,Cited works
+	abstract-hdr=SUMMARY,Summary
+	refs-hdr=CITED WORKS,Cited works
 END	PREAMBLE
 
 TITLE:

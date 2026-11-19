@@ -126,7 +126,7 @@
 <span class="keyword">let</span>&nbsp;tab_tab_tab_end_qtn&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;tab_tab_end_qtn]<br>
 <span class="keyword">let</span>&nbsp;start_preamble&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"START"</span>,&nbsp;tab,&nbsp;<span class="string">"PREAMBLE"</span>,&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;end_preamble&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="string">"END"</span>,&nbsp;tab,&nbsp;<span class="string">"PREAMBLE"</span>,&nbsp;nl]<br>
-<span class="keyword">let</span>&nbsp;preamble_line&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;<span class="constructor">Plus</span>&nbsp;(<span class="constructor">Compl</span>&nbsp;(<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n\t"</span>))]<br>
+<span class="keyword">let</span>&nbsp;preamble_line&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;tab,&nbsp;<span class="constructor">Plus</span>&nbsp;(<span class="constructor">Compl</span>&nbsp;(<span class="constructor">Chars</span>&nbsp;<span class="string">"\r\n"</span>)),&nbsp;nl]<br>
 <span class="keyword">let</span>&nbsp;nl_not_nl&nbsp;=&nbsp;[%sedlex.regexp?&nbsp;nl,&nbsp;<span class="constructor">Compl</span>&nbsp;(<span class="constructor">Chars</span>&nbsp;<span class="string">"\n\r"</span>)]<br>
 <br>
 <span class="comment">(*&nbsp;helper&nbsp;functions&nbsp;*)</span><br>
@@ -154,6 +154,11 @@
 <br>
 <span class="keyword">let</span>&nbsp;remove_nls&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\n'</span>&nbsp;s)<br>
+<br>
+<span class="keyword">let</span>&nbsp;remove_leading_tab&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\t'</span>&nbsp;s&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[hd;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\t"</span>&nbsp;tl]<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;s<br>
 <br>
 <span class="comment">(*&nbsp;lexer_env&nbsp;*)</span><br>
 <br>
@@ -352,9 +357,8 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_,&nbsp;_,&nbsp;_,&nbsp;<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>%sedlex&nbsp;lexbuf&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;end_preamble&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;reset_preamble_and_return_token&nbsp;<span class="constructor">END_PREAMBLE</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;preamble_line&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PREAMBLE_LINE</span>&nbsp;(lexeme&nbsp;lexbuf)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;token&nbsp;lexbuf<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;tab&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;token&nbsp;lexbuf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;preamble_line&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PREAMBLE_LINE</span>&nbsp;(remove_nls&nbsp;(remove_leading_tab&nbsp;(lexeme&nbsp;lexbuf)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PREAMBLE_LINE</span>&nbsp;<span class="string">""</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">ERROR</span><br>
