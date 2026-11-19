@@ -1,7 +1,7 @@
 (*
   NAMING CONVENTIONS
 
-- A *simple type* is a type with a single non-inductive constructor taking one
+- A *simple type* is a type with a single constructor taking at most one
   argument.
 
   - Names of simple types begin with ‘ts_’.
@@ -9,44 +9,53 @@
   - If ‘ts_’⌒ν is the name of a simple type then the name of its single
     constructor is ‘cs_’⌒ν.
 
-- An *union type* is a type with multiple constructors, each non-inductive and
-  with no more than one argument.
+- A *union type* is a type with multiple constructors, each with no more than
+  one argument.
 
   - Names of union types begin with ‘tu_’.
 
-  - If ‘tu_’⌒ν is the name of an union type then the name of each of its
+  - If ‘tu_’⌒ν is the name of a union type then the name of each of its
     constructors begins with ‘cu_’⌒ν⌒‘_’.
 
-- A *record type* is a type with a single non-inductive constructor taking
-  multiple arguments. The arguments may be accessed by pattern matching as
-  usual, but also by *the field functions for the* record type.
+  - If ‘cu_’⌒ν⌒‘_’⌒ξ is a constructor of the union type ‘tu_’⌒ν that takes an
+    argument then the type of the argument is named either:
+
+    - π⌒ν⌒‘_’⌒ξ, in which case the type is used nowhere else; or
+
+    - π⌒ξ;
+
+    where π is one of ‘ts_’, ‘tu_’ and ‘tr_’. The first form is for a type that
+    exists only to be the argument of the constructor, as ‘tr_par_std’ in
+    ‘cu_par_std : tr_par_std -> tu_par’, and the second for a type with a
+    meaning independent of the union type, as ‘ts_secs’ in
+    ‘cu_doc_main_secs : ts_secs -> tu_doc_main’.
+
+- A *record type* is a type with a single constructor taking multiple arguments.
+  The arguments may be accessed by pattern matching as usual, but also by *the
+  field functions for the* record type.
 
   - Names of record types begin with ‘tr_’.
 
   - If ‘tr_’⌒ν is the name of a record type then:
 
-    - The name of the constructor of the record type begins with ‘cr_’⌒ν.
+    - The name of the constructor of the record type is ‘cr_’⌒ν.
 
     - Each field function of the record type begins with ‘fld_’⌒ν⌒‘_’.
 
-- An *inductive type* is a type with at least one properly inductive
-  constructor.
-
-  - Names of inductive types begin with ‘ti_’.
-
-  - If ‘ti_’⌒ν is the name of a simple type then the name of each of its
-    constructors start with ‘ci_’⌒ν.
+- A type ‘list’ T is used only as the argument of a simple type. The type T is
+  then named π⌒ν, where π is one of ‘ts_’, ‘tu_’ and ‘tr_’, and the simple type
+  is named ‘ts_’⌒ν⌒‘s’, as ‘ts_blks’ in ‘cs_blks : list tu_blk -> ts_blks’.
 *)
 
 (* we assume a string type *)
 Parameter t_str : Type.
 
 Inductive tu_scope : Type :=
-| cu_scope_GBL : tu_scope
-| cu_scope_CH  : tu_scope
-| cu_scope_SEC : tu_scope
-| cu_scope_APP : tu_scope
-| cu_scope_PAR : tu_scope
+| cu_scope_gbl : tu_scope
+| cu_scope_ch  : tu_scope
+| cu_scope_sec : tu_scope
+| cu_scope_app : tu_scope
+| cu_scope_par : tu_scope
 .
 
 Inductive ts_tag  : Type := cs_tag  : t_str -> ts_tag.
@@ -176,11 +185,11 @@ with
   | cs_qtn_lines           : list tu_qtn_line       -> ts_qtn_lines
 with
   tu_qtn_line            : Type :=
-  | cu_qtn_line_std        : ts_qtn_line            -> tu_qtn_line
+  | cu_qtn_line_std        : ts_qtn_line_std        -> tu_qtn_line
   | cu_qtn_line_br         : ts_qtn_line_br         -> tu_qtn_line
 with
-  ts_qtn_line            : Type :=
-  | cs_qtn_line            : ts_qtn_units           -> ts_qtn_line
+  ts_qtn_line_std        : Type :=
+  | cs_qtn_line_std        : ts_qtn_units           -> ts_qtn_line_std
 with
   ts_qtn_line_br         : Type :=
   | cs_qtn_line_br         : ts_qtn_units           -> ts_qtn_line_br
@@ -220,22 +229,22 @@ Definition fld_blk_nte_id   (blk_nte : tr_blk_nte) : tr_id
 Definition fld_blk_nte_main (blk_nte : tr_blk_nte) : ts_blks
   := match blk_nte with cr_blk_nte  _ blks => blks end.
 
-Definition fld_dsp_line_lbld_lbl   (dsp_line_lbld : tr_dsp_line_lbld)
+Definition fld_dsp_line_lbld_lbl       (dsp_line_lbld : tr_dsp_line_lbld)
   : tu_lbl
-  := match dsp_line_lbld with cr_dsp_line_lbld id _ _   => id    end.
-Definition fld_dsp_line_lbld_id    (dsp_line_lbld : tr_dsp_line_lbld)
+  := match dsp_line_lbld with cr_dsp_line_lbld lbl _ _        => lbl       end.
+Definition fld_dsp_line_lbld_id        (dsp_line_lbld : tr_dsp_line_lbld)
   : option tr_id
-  := match dsp_line_lbld with cr_dsp_line_lbld _ id _   => id    end.
-Definition fld_dsp_line_lbld_units (dsp_line_lbld : tr_dsp_line_lbld)
+  := match dsp_line_lbld with cr_dsp_line_lbld _ id _         => id        end.
+Definition fld_dsp_line_lbld_txt_units (dsp_line_lbld : tr_dsp_line_lbld)
   : ts_txt_units
-  := match dsp_line_lbld with cr_dsp_line_lbld _ _  blks => blks end.
+  := match dsp_line_lbld with cr_dsp_line_lbld _ _  txt_units => txt_units end.
 
 Inductive ts_hdr : Type := cs_hdr : ts_txt_lines -> ts_hdr.
 
 Record tr_par_std : Type := cr_par_std {
-  fld_par_tag_or_id : option tu_tag_or_id;
-  fld_par_hdr       : option ts_hdr;
-  fld_par_main      : ts_blks;
+  fld_par_std_tag_or_id : option tu_tag_or_id;
+  fld_par_std_hdr       : option ts_hdr;
+  fld_par_std_main      : ts_blks;
 }.
 Inductive ts_par_rpt : Type := cs_par_rpt : tr_id -> ts_par_rpt.
 Inductive tu_par : Type :=
@@ -277,10 +286,12 @@ Inductive tu_doc_main : Type :=
 .
 
 
-Inductive ts_preamble_line : Type :=
-  cs_preamble_line : t_str                 -> ts_preamble_line.
-Inductive ts_preamble      : Type :=
-  cs_preamble      : list ts_preamble_line -> ts_preamble.
+Inductive ts_preamble_line  : Type :=
+  cs_preamble_line  : t_str                 -> ts_preamble_line.
+Inductive ts_preamble_lines : Type :=
+  cs_preamble_lines : list ts_preamble_line -> ts_preamble_lines.
+Inductive ts_preamble       : Type :=
+  cs_preamble       : ts_preamble_lines     -> ts_preamble.
 
 Inductive ts_abstract      : Type :=
   cs_abstract : ts_blks  -> ts_abstract.
