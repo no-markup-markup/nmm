@@ -38,9 +38,9 @@
 :- instance term_to_xml.xmlable(tr_doc).
 
 
-%% R_PREAMBLE (TODO), TS_PREAMBLE, F_PREAMBLE_TO_XML, TS_PREAMBLE XMLABLE
+%% R_PREAMBLE, TS_PREAMBLE, F_PREAMBLE_TO_XML, TS_PREAMBLE XMLABLE
 
-:- type ts_preamble ---> cs_preamble(str).
+:- type ts_preamble ---> cs_preamble(ts_preamble_lines).
 
 :- pred r_preamble(ts_preamble, ts_tkns, ts_tkns).
 :- mode r_preamble(out,         in,      out) is semidet.
@@ -52,6 +52,38 @@
 ) is det.
 
 :- instance term_to_xml.xmlable(ts_preamble).
+
+
+%% R_PREAMBLE_LINES, TS_PREAMBLE_LINES, F_PREAMBLE_LINES_TO_XML, TS_PREAMBLE_LINES XMLABLE
+
+:- type ts_preamble_lines ---> cs_preamble_lines(list(ts_preamble_line)).
+
+:- pred r_preamble_lines(ts_preamble_lines, ts_tkns, ts_tkns).
+:- mode r_preamble_lines(out,               in,      out) is semidet.
+
+:- func (
+  f_preamble_lines_to_xml(ts_preamble_lines::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_preamble_lines).
+
+
+%% R_PREAMBLE_LINE, TS_PREAMBLE_LINE, F_PREAMBLE_LINE_TO_XML, TS_PREAMBLE_LINE XMLABLE
+
+:- type ts_preamble_line ---> cs_preamble_line(str).
+
+:- pred r_preamble_line(ts_preamble_line, ts_tkns, ts_tkns).
+:- mode r_preamble_line(out,              in,      out) is semidet.
+
+:- func (
+  f_preamble_line_to_xml(ts_preamble_line::in)
+  =
+  (term_to_xml.xml::out(term_to_xml.xml_doc))
+) is det.
+
+:- instance term_to_xml.xmlable(ts_preamble_line).
 
 
 %% R_TITLE, TS_TITLE, F_TITLE_TO_XML, TS_TITLE XMLABLE
@@ -406,6 +438,7 @@
 
 %% MODULE IMPORTS
 
+:- use_module nmm.lexer.
 :- use_module nmm.parser.operators.
 
 :- import_module nmm.parser.helpers.
@@ -532,22 +565,56 @@ f_doc_to_xml(DOC) = XML :- (
 ].
 
 
-%% R_PREAMBLE (TODO), F_PREAMBLE_TO_XML, TS_PREAMBLE XMLABLE
+%% R_PREAMBLE, F_PREAMBLE_TO_XML, TS_PREAMBLE XMLABLE
 
-%%% TODO: R_PREAMBLE
+%%% R_PREAMBLE
 
-:- pragma no_determinism_warning(r_preamble/3).
-r_preamble(_) --> {false}.
+r_preamble(cs_preamble(PREAMBLE_LINES)) --> (
+  r_str("START"), r_tab, r_str("PREAMBLE"), r_lb,
+  r_preamble_lines(PREAMBLE_LINES),
+  r_str("END"),   r_tab, r_str("PREAMBLE"), r_lb
+).
 
 %%% F_PREAMBLE_TO_XML
 
-f_preamble_to_xml(cs_preamble(STR)) =
-  term_to_xml.elem("cs_preamble",[],[term_to_xml.data(STR)]).
+f_preamble_to_xml(cs_preamble(PREAMBLE_LINES)) =
+  term_to_xml.elem("cs_preamble",[],[f_preamble_lines_to_xml(PREAMBLE_LINES)]).
 
 %%% XMLABLE
 
 :- instance term_to_xml.xmlable(ts_preamble) where [
   func(to_xml/1) is f_preamble_to_xml
+].
+
+
+%% R_PREAMBLE_LINES, TS_PREAMBLE_LINES, F_PREAMBLE_LINES_TO_XML, TS_PREAMBLE_LINES XMLABLE
+
+r_preamble_lines(cs_preamble_lines(PREAMBLE_LINES)) --> (
+  +([],r_preamble_line,PREAMBLE_LINES,[])
+).
+
+f_preamble_lines_to_xml(cs_preamble_lines(PREAMBLE_LINES)) = term_to_xml.elem(
+  "cs_preamble_lines",[],list.map(f_preamble_line_to_xml,PREAMBLE_LINES)
+).
+
+:- instance term_to_xml.xmlable(ts_preamble_lines) where [
+  func(to_xml/1) is f_preamble_lines_to_xml
+].
+
+
+%% R_PREAMBLE_LINE, TS_PREAMBLE_LINE, F_PREAMBLE_LINE_TO_XML, TS_PREAMBLE_LINE XMLABLE
+
+r_preamble_line(cs_preamble_line(STR)) --> (
+  r_tab, r_tkns_line(TKNS) -> {STR = nmm.lexer.f_detknize(TKNS)};
+  r_lb                     -> {STR = ""};
+                              {false}
+).
+
+f_preamble_line_to_xml(cs_preamble_line(STR)) =
+  term_to_xml.elem("cs_preamble_line",[],[term_to_xml.data(STR)]).
+
+:- instance term_to_xml.xmlable(ts_preamble_line) where [
+  func(to_xml/1) is f_preamble_line_to_xml
 ].
 
 

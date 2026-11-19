@@ -247,10 +247,8 @@ f_detknize(TKNS) = string.join_list("",list.map(f_detknize_tkn,TKNS)).
 f_detknize_tkn(cu_tkn_nws(_,C)) = chr2str(C).
 f_detknize_tkn(cu_tkn_sp( _,C)) = chr2str(C).
 f_detknize_tkn(cu_tkn_esc(_,C)) = "\\" ++ chr2str(C).
-f_detknize_tkn(cu_tkn_tab(_))   =
-  exception.throw("attempted detokenization of tab token").
-f_detknize_tkn(cu_tkn_lb( _))   =
-  exception.throw("attempted detokenization of line break token").
+f_detknize_tkn(cu_tkn_tab(_))   = "\t".
+f_detknize_tkn(cu_tkn_lb( _))   = "\n".
 f_detknize_tkn(cu_tkn_eof)      =
   exception.throw("attempted detokenization of end-of-file token").
 

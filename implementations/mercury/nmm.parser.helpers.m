@@ -82,6 +82,10 @@
 
 :- pred r_eof(ts_tkns::in, ts_tkns::out) is semidet.
 
+%% RULE R_TKNS_LINE
+
+:- pred r_tkns_line(ts_tkns::out, ts_tkns::in, ts_tkns::out) is semidet.
+
 
 
 % IMPLEMENTATION
@@ -175,3 +179,15 @@ r_tabs(N) --> if {N = 0u} then [] else r_tab, r_tabs(N-1u).
 %% R_EOF
 
 r_eof --> [nmm.lexer.cu_tkn_eof].
+
+
+%% R_TKNS_LINE
+
+r_tkns_line(TKNS) --> r_tkns_line_rec(TKNS).
+
+:- pred r_tkns_line_rec(ts_tkns::out, ts_tkns::in, ts_tkns::out) is semidet.
+r_tkns_line_rec(        TKNS) --> (
+  not r_lb, [TKN] -> r_tkns_line_rec(TKNS_TL), {TKNS = [TKN|TKNS_TL]};
+  r_lb            ->                           {TKNS = []};
+                     [],                       {TKNS = []}
+).
