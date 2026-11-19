@@ -228,7 +228,13 @@
 <br>
 <span class="comment">(*&nbsp;the&nbsp;lexer&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;token&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf)&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;skip_newlines&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf)&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>%sedlex&nbsp;lexbuf&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl_not_nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sedlexing</span>.rollback&nbsp;lexbuf<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;skip_newlines&nbsp;lexbuf<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;()<br>
+<br>
+<span class="keyword">let</span>&nbsp;token&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf)&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.token&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;lexer_env.verbatim,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lexer_env.display,<br>
@@ -365,9 +371,5 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="string">"unexpected&nbsp;string&nbsp;on&nbsp;line&nbsp;"</span>&nbsp;^&nbsp;line_of_lexbuf&nbsp;lexbuf&nbsp;^&nbsp;<span class="string">":&nbsp;\""</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;lexeme&nbsp;lexbuf&nbsp;^&nbsp;<span class="string">"\""</span>)))<br>
 <br>
-<span class="keyword">and</span>&nbsp;skip_newlines&nbsp;(lexbuf&nbsp;:&nbsp;<span class="constructor">Sedlexing</span>.lexbuf)&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">match</span>%sedlex&nbsp;lexbuf&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl_not_nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Sedlexing</span>.rollback&nbsp;lexbuf<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;nl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;skip_newlines&nbsp;lexbuf<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;()<br>
+<br>
 </code></body></html>

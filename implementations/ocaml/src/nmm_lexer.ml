@@ -98,7 +98,7 @@ let tab_tab_end_qtn = [%sedlex.regexp? tab, tab_end_qtn]
 let tab_tab_tab_end_qtn = [%sedlex.regexp? tab, tab_tab_end_qtn]
 let start_preamble = [%sedlex.regexp? "START", tab, "PREAMBLE", nl]
 let end_preamble = [%sedlex.regexp? "END", tab, "PREAMBLE", nl]
-let preamble_line = [%sedlex.regexp? tab, Plus (Compl (Chars "\r\n")), nl]
+let preamble_line = [%sedlex.regexp? tab, Star (Compl (Chars "\r\n")), nl]
 let nl_not_nl = [%sedlex.regexp? nl, Compl (Chars "\n\r")]
 
 (* helper functions *)
@@ -200,7 +200,13 @@ let set_end_of_file_and_return_token (tkn : Nmm_parser.token) : Nmm_parser.token
 
 (* the lexer *)
 
-let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
+let rec skip_newlines (lexbuf : Sedlexing.lexbuf) : unit =
+  match%sedlex lexbuf with
+  | nl_not_nl -> Sedlexing.rollback lexbuf
+  | nl -> skip_newlines lexbuf
+  | _ -> ()
+
+let token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
   match
     ( lexer_env.verbatim,
       lexer_env.display,
@@ -329,7 +335,7 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
   | _, _, _, true -> (
       match%sedlex lexbuf with
       | end_preamble -> reset_preamble_and_return_token END_PREAMBLE
-      | preamble_line -> PREAMBLE_LINE (remove_nls (remove_leading_tab (lexeme lexbuf)))
+      | preamble_line -> PREAMBLE_LINE (remove_leading_tab (remove_nls (lexeme lexbuf)))
       | nl -> PREAMBLE_LINE ""
       | _ ->
           raise
@@ -337,8 +343,4 @@ let rec token (lexbuf : Sedlexing.lexbuf) : Nmm_parser.token =
                ("unexpected string on line " ^ line_of_lexbuf lexbuf ^ ": \""
               ^ lexeme lexbuf ^ "\"")))
 
-and skip_newlines (lexbuf : Sedlexing.lexbuf) : unit =
-  match%sedlex lexbuf with
-  | nl_not_nl -> Sedlexing.rollback lexbuf
-  | nl -> skip_newlines lexbuf
-  | _ -> ()
+
