@@ -625,6 +625,7 @@ let preamble_options_of_ts_preamble (options : t_preamble_options)
       t_preamble_options =
     match str_list with
     | hd :: tl ->
+        if hd = "" then aux tl options else
         let new_preamble_options : t_preamble_options =
           match key_value_pair_of_string_opt hd with
           | Some ("doc-width", v) -> set_doc_width v options
@@ -646,12 +647,12 @@ let preamble_options_of_ts_preamble (options : t_preamble_options)
           | Some ("auto-numbering", v) -> set_auto_numbering v options
           | Some ("allow-custom-numbering", v) ->
               set_allow_custom_numbering v options
-          | _ ->
+          | Some (_,_) | None ->
               let _ : unit =
                 IO.print_warning
                   (String.concat ""
-                     [ "WARNING: invalid attribute: ";
-                       hd; "; "; "ignoring it" ])
+                     [ "WARNING: invalid attribute: \'";
+                       hd; "\'; "; "ignoring it" ])
               in
               options
         in
