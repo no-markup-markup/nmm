@@ -10,6 +10,6 @@
 
 ¶ 3  Here, the semantics issues a warning about undefined tag.
 
-     (a)   Here as well.
+     (a)   ITEM:one Here as well.
 
-     But I can still refer to (a), and to ¶ 3!
+     But I can still refer to [ITEM:one], and to [SOLS:typo]!

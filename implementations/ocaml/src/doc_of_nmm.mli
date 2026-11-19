@@ -23,11 +23,17 @@ val doc_of_nmm_stdin : bool -> Doc_types.tr_doc
 
 (* with tagger *)
 
-val doc_of_nmm_file_with_tagger :
-  (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> string -> Doc_types.tr_doc
+val doc_of_nmm_file_with_tags :
+  (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) ->
+  (Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit) ->
+  string -> Doc_types.tr_doc
 
-val doc_of_nmm_stdin_with_tagger :
-  (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> Doc_types.tr_doc
+val doc_of_nmm_stdin_with_tags :
+  (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) ->
+  (Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit) ->
+  Doc_types.tr_doc
 
-val doc_of_nmm_string_with_tagger :
-  (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> string -> Doc_types.tr_doc
+val doc_of_nmm_string_with_tags :
+  (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) -> 
+  (Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit) ->
+  string -> Doc_types.tr_doc

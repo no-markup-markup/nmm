@@ -23,10 +23,10 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Tags.tagger_of_path_opt</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Tags.c_ref_or_wysiwyg_of_path_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> tagger_of_path_opt (path_opt : string option) : tr_blk_itm <span class="keywordsign">-&gt;</span> tr_blk_itm =
+<code class="code"><span class="keyword">let</span> c_ref_or_wysiwyg_of_path_opt (path_opt : string option) : (tu_txt_unit <span class="keywordsign">-&gt;</span> tu_txt_unit) =
   <span class="keyword">match</span> path_opt <span class="keyword">with</span>
-  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> tag_blk_itm_default
-  <span class="keywordsign">|</span> <span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> tagger_of_file path</code></body></html>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> c_ref_or_wysiwyg_default
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> c_ref_or_wysiwyg_of_path path</code></body></html>

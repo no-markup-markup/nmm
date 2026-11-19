@@ -23,11 +23,14 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Doc_of_nmm.doc_of_nmm_file_with_tagger</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Doc_of_nmm.doc_of_nmm_string_with_tags</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_of_nmm_file_with_tagger
-    (tagger : <span class="constructor">Doc_types</span>.tr_blk_itm <span class="keywordsign">-&gt;</span> <span class="constructor">Doc_types</span>.tr_blk_itm) (path : string) :
-    <span class="constructor">Doc_types</span>.tr_doc =
-  <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_parser</span>.blk_itm_tagger_ref.contents &lt;- tagger <span class="keyword">in</span>
-  doc_of_nmm_file <span class="keyword">false</span> path</code></body></html>
+<code class="code"><span class="keyword">let</span> doc_of_nmm_string_with_tags
+    (blk_itm_tagger : <span class="constructor">Doc_types</span>.tr_blk_itm <span class="keywordsign">-&gt;</span> <span class="constructor">Doc_types</span>.tr_blk_itm)
+    (c_ref_or_wysiwyg : <span class="constructor">Doc_types</span>.tu_txt_unit <span class="keywordsign">-&gt;</span> <span class="constructor">Doc_types</span>.tu_txt_unit)
+    (s : string)
+    : <span class="constructor">Doc_types</span>.tr_doc =
+  <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_parser</span>.blk_itm_tagger_ref.contents &lt;- blk_itm_tagger <span class="keyword">in</span>
+  <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_parser</span>.c_ref_or_wysiwyg_ref.contents &lt;- c_ref_or_wysiwyg <span class="keyword">in</span>
+  doc_of_nmm_string <span class="keyword">false</span> s</code></body></html>

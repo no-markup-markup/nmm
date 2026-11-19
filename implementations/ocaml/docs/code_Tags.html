@@ -28,7 +28,21 @@
 <body>
 <code class="code"><span class="keyword">open</span>&nbsp;<span class="constructor">Doc_types</span><br>
 <br>
-<span class="comment">(*&nbsp;expander&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;tag&nbsp;strings&nbsp;default&nbsp;and&nbsp;standard&nbsp;*)</span><br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_strings_default&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;[&nbsp;<span class="string">"ABBR"</span>&nbsp;;&nbsp;<span class="string">"ABBRS"</span>&nbsp;;&nbsp;<span class="string">"ASM"</span>&nbsp;;&nbsp;<span class="string">"ASMS"</span>&nbsp;;&nbsp;<span class="string">"CONJ"</span>&nbsp;;&nbsp;<span class="string">"CONJS"</span>&nbsp;;&nbsp;<span class="string">"CONV"</span>&nbsp;;&nbsp;<span class="string">"CONVS"</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"COR"</span>&nbsp;;&nbsp;<span class="string">"CORS"</span>&nbsp;;&nbsp;<span class="string">"DEF"</span>&nbsp;;&nbsp;<span class="string">"DEFS"</span>&nbsp;;&nbsp;<span class="string">"EX"</span>&nbsp;;&nbsp;<span class="string">"EXS"</span>&nbsp;;&nbsp;<span class="string">"FCT"</span>&nbsp;;&nbsp;<span class="string">"FCTS"</span>&nbsp;;&nbsp;<span class="string">"LMA"</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"LMAS"</span>&nbsp;;&nbsp;<span class="string">"NTN"</span>&nbsp;;&nbsp;<span class="string">"NTNS"</span>&nbsp;;&nbsp;<span class="string">"PRF"</span>&nbsp;;&nbsp;<span class="string">"PRFS"</span>&nbsp;;&nbsp;<span class="string">"PRP"</span>&nbsp;;&nbsp;<span class="string">"PRPS"</span>&nbsp;;&nbsp;<span class="string">"QTN"</span>&nbsp;;&nbsp;<span class="string">"QTNS"</span>&nbsp;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"RMK"</span>&nbsp;;&nbsp;<span class="string">"RMKS"</span>&nbsp;;&nbsp;<span class="string">"SLN"</span>&nbsp;;&nbsp;<span class="string">"SLNS"</span>&nbsp;;&nbsp;<span class="string">"THM"</span>&nbsp;;&nbsp;<span class="string">"THMS"</span>&nbsp;;&nbsp;<span class="string">"TMY"</span>&nbsp;]<br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_strings_standard&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;[&nbsp;<span class="string">"CH"</span>;&nbsp;<span class="string">"SEC"</span>;&nbsp;<span class="string">"APP"</span>;&nbsp;<span class="string">"PAR"</span>;&nbsp;<span class="string">"ITM"</span>;&nbsp;<span class="string">"DSP"</span>;&nbsp;<span class="string">"BIB"</span>;&nbsp;<span class="string">"NTE"</span>&nbsp;]<br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_strings_standard_blk_itm&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;[&nbsp;<span class="string">"ITM"</span>;&nbsp;<span class="string">"BIB"</span>&nbsp;]<br>
+<br>
+<span class="comment">(*&nbsp;default&nbsp;expander&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;expand_tag_default&nbsp;(tag&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag)&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag&nbsp;<span class="keyword">with</span><br>
@@ -65,15 +79,14 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"RMKS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"REMARKS"</span>,&nbsp;<span class="string">"Remarks"</span>)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"SLNS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"SOLUTIONS"</span>,&nbsp;<span class="string">"Solutions"</span>)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"THMS"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="string">"THEOREMS"</span>,&nbsp;<span class="string">"Theorems"</span>)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PAR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ITM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DSP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"BIB"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;tag_string&nbsp;tag_strings_standard&nbsp;<span class="keyword">then</span>&nbsp;()&nbsp;<span class="keyword">else</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IO</span>.print_warning&nbsp;(<span class="string">"WARNING:&nbsp;undefined&nbsp;tag:&nbsp;"</span>&nbsp;^&nbsp;tag_string)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">None</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;standard_tags&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;[&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"PAR"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"ITM"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"DSP"</span>;&nbsp;<span class="constructor">Cs_tag</span>&nbsp;<span class="string">"BIB"</span>&nbsp;]<br>
+<span class="comment">(*&nbsp;custom&nbsp;expander&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;expander_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.ts_tag&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
@@ -120,26 +133,120 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;match_tag_rec&nbsp;tag_string&nbsp;tl<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;expand_tag&nbsp;(tag&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.ts_tag)&nbsp;:&nbsp;(string&nbsp;*&nbsp;string)&nbsp;option&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;tag&nbsp;standard_tags&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">None</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">match</span>&nbsp;tag&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;match_tag_rec&nbsp;tag_string&nbsp;tag_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;tag_string&nbsp;tag_strings_standard&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">None</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;match_tag_rec&nbsp;tag_string&nbsp;tag_list<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;expand_tag<br>
 <br>
-<span class="comment">(*&nbsp;tagger&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;custom&nbsp;tags&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;tag_of_string_default&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;ts_tag&nbsp;option&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;s&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ABBR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ABBRS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ASM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ASMS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CONJ"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CONJS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CONV"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CONVS"</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"COR"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"CORS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"DEF"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"DEFS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"EX"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"EXS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"FCT"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"FCTS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"LMA"</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"LMAS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"NTN"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"NTNS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRF"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRFS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRP"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"PRPS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"QTN"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"QTNS"</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"RMK"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"RMKS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SLN"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"SLNS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"THM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"THMS"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"TMY"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"ITM"</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"BIB"</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;s)<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">None</span><br>
+<span class="keyword">let</span>&nbsp;tag_strings_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;file_string&nbsp;=&nbsp;<span class="constructor">IO</span>.string_of_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\n'</span>&nbsp;file_string&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;collect_tags&nbsp;(line_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;string&nbsp;list)&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;line_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\t'</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;::&nbsp;<span class="string">""</span>&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;singular&nbsp;::&nbsp;<span class="string">""</span>&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular&nbsp;::&nbsp;acc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;::&nbsp;plural&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(plural&nbsp;::&nbsp;acc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;singular&nbsp;::&nbsp;plural&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular&nbsp;::&nbsp;plural&nbsp;::&nbsp;acc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;::&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;singular&nbsp;::&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular&nbsp;::&nbsp;acc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc)<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;collect_tags&nbsp;lines&nbsp;[]<br>
+<br>
+<span class="comment">(*&nbsp;blk_itm&nbsp;*)</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;string_of_id&nbsp;(id&nbsp;:&nbsp;tr_id)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;id.fld_id_tag,&nbsp;id.fld_id_name&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string,&nbsp;<span class="constructor">Cs_name</span>&nbsp;name_string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[tag_string;<span class="string">":"</span>;name_string]<br>
+<br>
+<span class="keyword">let</span>&nbsp;string_of_tag_or_id&nbsp;(tag_or_id)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag_or_id&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_id</span>&nbsp;id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string_of_id&nbsp;id<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_tag</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;tag_string)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tag_string<br>
+<br>
+<span class="keyword">let</span>&nbsp;txt_line_of_tag_or_id&nbsp;(tag_or_id&nbsp;:&nbsp;tu_tag_or_id)&nbsp;:&nbsp;ts_txt_line&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_or_id_string&nbsp;=&nbsp;string_of_tag_or_id&nbsp;tag_or_id&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="constructor">Cs_txt_line</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Cs_txt_units</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cu_txt_unit_wysiwyg</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;tag_or_id_string);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_string_of_tag_or_id&nbsp;(tag_or_id&nbsp;:&nbsp;tu_tag_or_id)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag_or_id&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_id</span>&nbsp;id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;id.fld_id_tag&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tag_string<br>
+&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_tag_or_id_tag</span>&nbsp;tag&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tag_string<br>
+<br>
 <br>
 <span class="keyword">let</span>&nbsp;tag_blk_itm_gen&nbsp;(tag_of_string&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ts_tag&nbsp;option)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(blk_itm&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_itm.fld_blk_itm_tag_or_id&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;blk_itm<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;tag_or_id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_string&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tag_string_of_tag_or_id&nbsp;tag_or_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;tag_of_string&nbsp;tag_string&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;blk_itm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_itm.fld_blk_itm_main&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_blks</span>&nbsp;(blk_list&nbsp;:&nbsp;tu_blk&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_list&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;blk_itm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;blk_list_hd&nbsp;::&nbsp;blk_list_tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_list_hd&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_blk_txt</span>&nbsp;blk_txt&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_txt&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_blk_txt</span>&nbsp;txt_lines&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_lines&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_txt_lines</span>&nbsp;txt_line_list&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_blk_itm_lbl&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blk_itm.fld_blk_itm_lbl;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_blk_itm_tag_or_id&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_blk_itm_main&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_blks</span>&nbsp;((<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cu_blk_txt</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_blk_txt</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_txt_lines</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(txt_line_of_tag_or_id&nbsp;tag_or_id)&nbsp;::&nbsp;txt_line_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)::&nbsp;blk_list_tl);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_blk_itm_lbl&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blk_itm.fld_blk_itm_lbl;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_blk_itm_tag_or_id&nbsp;=&nbsp;<span class="constructor">None</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld_blk_itm_main&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_blks</span>&nbsp;((<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cu_blk_txt</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_blk_txt</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cs_txt_lines</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(txt_line_of_tag_or_id&nbsp;tag_or_id)&nbsp;::&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)::&nbsp;blk_list_tl);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;)<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;blk_itm.fld_blk_itm_main&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_blks</span>&nbsp;(blk_list&nbsp;:&nbsp;tu_blk&nbsp;list)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
@@ -200,35 +307,62 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;blk_itm)))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;blk_itm)))<br>
 <br>
-<span class="keyword">let</span>&nbsp;tag_blk_itm_default&nbsp;(blk_itm&nbsp;:&nbsp;tr_blk_itm)&nbsp;:&nbsp;tr_blk_itm&nbsp;=<br>
-&nbsp;&nbsp;tag_blk_itm_gen&nbsp;tag_of_string_default&nbsp;blk_itm<br>
 <br>
-<span class="keyword">let</span>&nbsp;standard_blk_itm_tags&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;[&nbsp;<span class="string">"ITM"</span>;&nbsp;<span class="string">"BIB"</span>&nbsp;]<br>
-<br>
-<span class="keyword">let</span>&nbsp;tagger_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tr_blk_itm&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;file_string&nbsp;=&nbsp;<span class="constructor">IO</span>.string_of_file&nbsp;path&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;lines&nbsp;=&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\n'</span>&nbsp;file_string&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;collect_tags&nbsp;(line_list&nbsp;:&nbsp;string&nbsp;list)&nbsp;(acc&nbsp;:&nbsp;string&nbsp;list)&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;line_list&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;tl&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;<span class="constructor">String</span>.split_on_char&nbsp;<span class="string">'\t'</span>&nbsp;hd&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;::&nbsp;<span class="string">""</span>&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;singular&nbsp;::&nbsp;<span class="string">""</span>&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular&nbsp;::&nbsp;acc)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;::&nbsp;plural&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(plural&nbsp;::&nbsp;acc)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;singular&nbsp;::&nbsp;plural&nbsp;::&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular&nbsp;::&nbsp;plural&nbsp;::&nbsp;acc)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">""</span>&nbsp;::&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;singular&nbsp;::&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;(singular&nbsp;::&nbsp;acc)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;collect_tags&nbsp;tl&nbsp;acc)<br>
+<span class="keyword">let</span>&nbsp;blk_itm_tag_of_string_default&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;ts_tag&nbsp;option&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[tag_strings_default;&nbsp;tag_strings_standard_blk_itm]<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=&nbsp;collect_tags&nbsp;lines&nbsp;standard_blk_itm_tags&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;s&nbsp;tag_list&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;s)&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">None</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_blk_itm_default&nbsp;(blk_itm&nbsp;:&nbsp;tr_blk_itm)&nbsp;:&nbsp;tr_blk_itm&nbsp;=<br>
+&nbsp;&nbsp;tag_blk_itm_gen&nbsp;blk_itm_tag_of_string_default&nbsp;blk_itm<br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_blk_itm_of_path&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tr_blk_itm&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_list&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[tag_strings_of_file&nbsp;path;&nbsp;tag_strings_standard_blk_itm]<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_of_string&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;ts_tag&nbsp;option&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;s&nbsp;tag_list&nbsp;<span class="keyword">then</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Cs_tag</span>&nbsp;s)&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">None</span><br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;tag_blk_itm_gen&nbsp;tag_of_string<br>
 <br>
-<span class="keyword">let</span>&nbsp;tagger_of_path_opt&nbsp;(path_opt&nbsp;:&nbsp;string&nbsp;option)&nbsp;:&nbsp;tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tr_blk_itm&nbsp;=<br>
+<span class="keyword">let</span>&nbsp;tag_blk_itm_of_path_opt&nbsp;(path_opt&nbsp;:&nbsp;string&nbsp;option)&nbsp;:&nbsp;tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tr_blk_itm&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_opt&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tag_blk_itm_default<br>
-&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tagger_of_file&nbsp;path<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tag_blk_itm_of_path&nbsp;path<br>
+<br>
+<span class="comment">(*&nbsp;c_ref&nbsp;*)</span><br>
+<br>
+<br>
+<span class="keyword">let</span>&nbsp;string_of_c_ref&nbsp;(c_ref&nbsp;:&nbsp;ts_c_ref)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;c_ref&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_c_ref</span>&nbsp;id&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[<span class="string">"["</span>;&nbsp;string_of_id&nbsp;id;&nbsp;<span class="string">"]"</span>]<br>
+<br>
+<span class="keyword">let</span>&nbsp;c_ref_or_wysiwyg_gen&nbsp;(tag_strings&nbsp;:&nbsp;string&nbsp;list)&nbsp;(txt_unit&nbsp;:&nbsp;tu_txt_unit)&nbsp;&nbsp;:&nbsp;tu_txt_unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;txt_unit&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cu_txt_unit_c_ref</span>&nbsp;(<span class="constructor">Cs_txt_unit_c_ref</span>&nbsp;(<span class="constructor">Cs_c_ref</span>&nbsp;id))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;id.fld_id_tag&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Cs_tag</span>&nbsp;tag_string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;tag_string&nbsp;tag_strings&nbsp;<span class="keyword">then</span>&nbsp;txt_unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">Cu_txt_unit_wysiwyg</span>&nbsp;(<span class="constructor">Cs_txt_unit_wysiwyg</span>&nbsp;(string_of_c_ref&nbsp;(<span class="constructor">Cs_c_ref</span>&nbsp;id)))<br>
+&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;txt_unit<br>
+<br>
+<span class="keyword">let</span>&nbsp;tag_strings_c_ref_default&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[tag_strings_default;&nbsp;tag_strings_standard]<br>
+<br>
+<span class="keyword">let</span>&nbsp;c_ref_or_wysiwyg_default&nbsp;(txt_unit&nbsp;:&nbsp;tu_txt_unit)&nbsp;:&nbsp;tu_txt_unit&nbsp;=<br>
+&nbsp;&nbsp;c_ref_or_wysiwyg_gen&nbsp;tag_strings_c_ref_default&nbsp;txt_unit<br>
+<br>
+<span class="keyword">let</span>&nbsp;c_ref_or_wysiwyg_of_path&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;(tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tu_txt_unit)&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tag_strings&nbsp;:&nbsp;string&nbsp;list&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.concat&nbsp;[tag_strings_of_file&nbsp;path;&nbsp;tag_strings_standard]<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;c_ref_or_wysiwyg_gen&nbsp;tag_strings<br>
+<br>
+<span class="keyword">let</span>&nbsp;c_ref_or_wysiwyg_of_path_opt&nbsp;(path_opt&nbsp;:&nbsp;string&nbsp;option)&nbsp;:&nbsp;(tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tu_txt_unit)&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_opt&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;c_ref_or_wysiwyg_default<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;c_ref_or_wysiwyg_of_path&nbsp;path<br>
 </code></body></html>

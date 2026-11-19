@@ -31,11 +31,13 @@
   <span class="keyword">try</span>
     <span class="keyword">match</span> path <span class="keyword">with</span>
     <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span>
-        <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tagger
-          (<span class="constructor">Tags</span>.tagger_of_path_opt options.tags)
+        <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tags
+          (<span class="constructor">Tags</span>.tag_blk_itm_of_path_opt options.tags)
+          (<span class="constructor">Tags</span>.c_ref_or_wysiwyg_of_path_opt options.tags)
     <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span>
-        <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tagger
-          (<span class="constructor">Tags</span>.tagger_of_path_opt options.tags)
+        <span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tags
+          (<span class="constructor">Tags</span>.tag_blk_itm_of_path_opt options.tags)
+          (<span class="constructor">Tags</span>.c_ref_or_wysiwyg_of_path_opt options.tags)
           path
   <span class="keyword">with</span> <span class="constructor">Doc_of_nmm</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
     raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ path; <span class="string">"-&gt;"</span>; <span class="string">"Doc_of_nmm.Error:"</span>; e ]))</code></body></html>

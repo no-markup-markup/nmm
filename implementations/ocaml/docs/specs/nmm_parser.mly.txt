@@ -3,8 +3,11 @@ open Doc_types
 
 exception ERROR of string
 
-let tagger_default (blk_itm : tr_blk_itm) : tr_blk_itm = blk_itm
-let blk_itm_tagger_ref : (tr_blk_itm -> tr_blk_itm) ref = ref tagger_default
+let blk_itm_tagger_trivial (blk_itm : tr_blk_itm) : tr_blk_itm = blk_itm
+let blk_itm_tagger_ref : (tr_blk_itm -> tr_blk_itm) ref = ref blk_itm_tagger_trivial
+
+let c_ref_or_wysiwyg_trivial (txt_unit : tu_txt_unit) : tu_txt_unit = txt_unit
+let c_ref_or_wysiwyg_ref : (tu_txt_unit -> tu_txt_unit) ref = ref c_ref_or_wysiwyg_trivial
 
 let scope_of_string (s : string) : tu_scope =
   match s with
@@ -405,7 +408,7 @@ txt_units0:
 txt_unit0:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph0                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline0                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -578,7 +581,7 @@ txt_units(n):
 txt_unit(n):
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph(n)                               { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline(n)                         { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -753,7 +756,7 @@ txt_units1:
 txt_unit1:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph1                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline1                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -931,7 +934,7 @@ txt_units2:
 txt_unit2:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph2                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline2                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -1095,7 +1098,7 @@ txt_units3:
 txt_unit3:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph3                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
 ;
 
@@ -1199,7 +1202,7 @@ dsp_units:
 dsp_unit:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph                                  { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
 ;
 
@@ -1245,7 +1248,7 @@ txt_units_nte:
 txt_unit_nte:
   |txt_unit_wysiwyg_nte                           { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph_nte                              { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { Cu_txt_unit_c_ref $1 : tu_txt_unit }
+  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
 ;
 
 txt_unit_wysiwyg_nte:

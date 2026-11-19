@@ -71,7 +71,8 @@
         <span class="keyword">else</span> match_tag_rec tag_string tl
   <span class="keyword">in</span>
   <span class="keyword">let</span> expand_tag (tag : <span class="constructor">Doc_types</span>.ts_tag) : (string * string) option =
-    <span class="keyword">if</span> <span class="constructor">List</span>.mem tag standard_tags <span class="keyword">then</span> <span class="constructor">None</span>
-    <span class="keyword">else</span> <span class="keyword">match</span> tag <span class="keyword">with</span> <span class="constructor">Cs_tag</span> tag_string <span class="keywordsign">-&gt;</span> match_tag_rec tag_string tag_list
+    <span class="keyword">match</span> tag <span class="keyword">with</span> <span class="constructor">Cs_tag</span> tag_string <span class="keywordsign">-&gt;</span>
+      <span class="keyword">if</span> <span class="constructor">List</span>.mem tag_string tag_strings_standard <span class="keyword">then</span> <span class="constructor">None</span>
+      <span class="keyword">else</span> match_tag_rec tag_string tag_list
   <span class="keyword">in</span>
   expand_tag</code></body></html>

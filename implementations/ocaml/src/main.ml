@@ -11,11 +11,13 @@ let doc_of_nmm (options : Common_utils.t_axml_options) (path : string) :
   try
     match path with
     | "-" ->
-        Doc_of_nmm.doc_of_nmm_stdin_with_tagger
-          (Tags.tagger_of_path_opt options.tags)
+        Doc_of_nmm.doc_of_nmm_stdin_with_tags
+          (Tags.tag_blk_itm_of_path_opt options.tags)
+          (Tags.c_ref_or_wysiwyg_of_path_opt options.tags)
     | _ ->
-        Doc_of_nmm.doc_of_nmm_file_with_tagger
-          (Tags.tagger_of_path_opt options.tags)
+        Doc_of_nmm.doc_of_nmm_file_with_tags
+          (Tags.tag_blk_itm_of_path_opt options.tags)
+          (Tags.c_ref_or_wysiwyg_of_path_opt options.tags)
           path
   with Doc_of_nmm.Error e ->
     raise (Error (String.concat " " [ path; "->"; "Doc_of_nmm.Error:"; e ]))

@@ -23,10 +23,10 @@
 <link title="Doc_of_axml" rel="Chapter" href="Doc_of_axml.html">
 <link title="Html_utils" rel="Chapter" href="Html_utils.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Doc_of_nmm.doc_of_nmm_stdin_with_tagger</title>
+<link title="Test" rel="Chapter" href="Test.html"><title>Nmm_ocaml : Tags.tag_blk_itm_of_path_opt</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> doc_of_nmm_stdin_with_tagger
-    (tagger : <span class="constructor">Doc_types</span>.tr_blk_itm <span class="keywordsign">-&gt;</span> <span class="constructor">Doc_types</span>.tr_blk_itm) : <span class="constructor">Doc_types</span>.tr_doc =
-  <span class="keyword">let</span> _ : unit = <span class="constructor">Nmm_parser</span>.blk_itm_tagger_ref.contents &lt;- tagger <span class="keyword">in</span>
-  doc_of_nmm_stdin <span class="keyword">false</span></code></body></html>
+<code class="code"><span class="keyword">let</span> tag_blk_itm_of_path_opt (path_opt : string option) : tr_blk_itm <span class="keywordsign">-&gt;</span> tr_blk_itm =
+  <span class="keyword">match</span> path_opt <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span> tag_blk_itm_default
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> path <span class="keywordsign">-&gt;</span> tag_blk_itm_of_path path</code></body></html>
