@@ -13,6 +13,9 @@ default:
 clean:
 	# remove anything in .gitignore, including directories
 	git clean -fdX
+	cd specification
+	make clean
+	cd -
 	cd implementations
 	make clean
 	cd -
@@ -26,6 +29,9 @@ readme:
 	cd -
 
 test: check-flake.lock test-nmm2xml test-nmm2txt
+	cd specification
+	make test
+	cd -
 	cd implementations
 	make test
 	cd -
