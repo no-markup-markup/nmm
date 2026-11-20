@@ -4,6 +4,7 @@ cd "$(dirname "$0")"
 exit_code=0
 for nmm_file in ./test-data/*.nmm; do
     expected_output_file="${nmm_file%.nmm}.xml"
+    file_failed=0
 
     # tmp files
     nmm_ocaml_output_file="$(mktemp)"
@@ -12,67 +13,86 @@ for nmm_file in ./test-data/*.nmm; do
     nmm_ocaml_normalized_output_file="$(mktemp)"
 
     # check that expected output conforms to schema
-    ./bin/nmm validate-xml "$expected_output_file" > /dev/null 2>&1
-    if [[ "$?" -ne 0 ]]; then
-        >&2 echo "$expected_output_file does not conform to schema"
-        exit_code=1
-        # remove created tmp files
-        rm "$nmm_mercury_output_file"
-        rm "$nmm_ocaml_output_file"
-        rm "$nmm_mercury_normalized_output_file"
-        rm "$nmm_ocaml_normalized_output_file"
-        continue
+    if ! [[ $nmm_file == ./test-data/exclude-all_* ]]; then
+      ./bin/nmm validate-xml "$expected_output_file" > /dev/null 2>&1
+      if [[ "$?" -ne 0 ]]; then
+          >&2 echo "$expected_output_file does not conform to schema"
+          exit_code=1
+          # remove created tmp files
+          rm "$nmm_mercury_output_file"
+          rm "$nmm_ocaml_output_file"
+          rm "$nmm_mercury_normalized_output_file"
+          rm "$nmm_ocaml_normalized_output_file"
+          continue
+      fi
+    else
+      >&2 echo "warning: not tested that $expected_output_file conforms to schema"
     fi
 
     # check that output from mercury backend is as expected
-    ./bin/nmm nmm2xml --parser-backend Mercury "$nmm_file" > "$nmm_mercury_output_file"
-    ./bin/nmm validate-xml "$nmm_mercury_output_file" > /dev/null 2>&1
-    if [[ "$?" -ne 0 ]]; then
-        >&2 echo "output from"
-        >&2 echo "  nmm nmm2xml --parser-backend Mercury $nmm_file"
-        >&2 echo "does not conform to schema"
-        exit_code=1
-    else
-      xmldiff --check --ratio-mode faster "$nmm_mercury_output_file" "$expected_output_file" > /dev/null 2>&1
+    if ! [[ $nmm_file == ./test-data/exclude-mercury_* || $nmm_file == ./test-data/exclude-all_* ]]; then
+      ./bin/nmm nmm2xml --parser-backend Mercury "$nmm_file" > "$nmm_mercury_output_file"
+      ./bin/nmm validate-xml "$nmm_mercury_output_file" > /dev/null 2>&1
       if [[ "$?" -ne 0 ]]; then
           >&2 echo "output from"
           >&2 echo "  nmm nmm2xml --parser-backend Mercury $nmm_file"
-          >&2 echo "differs from expected output in"
-          >&2 echo "  $expected_output_file"
+          >&2 echo "does not conform to schema"
           exit_code=1
+          file_failed=1
+      else
+        xmldiff --check --ratio-mode faster "$nmm_mercury_output_file" "$expected_output_file" > /dev/null 2>&1
+        if [[ "$?" -ne 0 ]]; then
+            >&2 echo "output from"
+            >&2 echo "  nmm nmm2xml --parser-backend Mercury $nmm_file"
+            >&2 echo "differs from expected output in"
+            >&2 echo "  $expected_output_file"
+            exit_code=1
+            file_failed=1
+        fi
       fi
+    else
+      >&2 echo "warning: nmm2xml $nmm_file not tested for the Mercury backend"
     fi
 
     # check that output from ocaml backend is as expected
-    ./bin/nmm nmm2xml --parser-backend OCaml "$nmm_file" > "$nmm_ocaml_output_file"
-    ./bin/nmm validate-xml "$nmm_ocaml_output_file" > /dev/null 2>&1
-    if [[ "$?" -ne 0 ]]; then
-        >&2 echo "output from"
-        >&2 echo "  nmm nmm2xml --parser-backend OCaml $nmm_file"
-        >&2 echo "does not conform to schema"
-        exit_code=1
-    else
-      xmldiff --check --ratio-mode faster "$nmm_ocaml_output_file" "$expected_output_file" > /dev/null 2>&1
+    if ! [[ $nmm_file == ./test-data/exclude-ocaml_* || $nmm_file == ./test-data/exclude-all_* ]]; then
+      ./bin/nmm nmm2xml --parser-backend OCaml "$nmm_file" > "$nmm_ocaml_output_file"
+      ./bin/nmm validate-xml "$nmm_ocaml_output_file" > /dev/null 2>&1
       if [[ "$?" -ne 0 ]]; then
           >&2 echo "output from"
           >&2 echo "  nmm nmm2xml --parser-backend OCaml $nmm_file"
-          >&2 echo "differs from expected output in"
-          >&2 echo "  $expected_output_file"
+          >&2 echo "does not conform to schema"
           exit_code=1
+          file_failed=1
+      else
+        xmldiff --check --ratio-mode faster "$nmm_ocaml_output_file" "$expected_output_file" > /dev/null 2>&1
+        if [[ "$?" -ne 0 ]]; then
+            >&2 echo "output from"
+            >&2 echo "  nmm nmm2xml --parser-backend OCaml $nmm_file"
+            >&2 echo "differs from expected output in"
+            >&2 echo "  $expected_output_file"
+            exit_code=1
+            file_failed=1
+        fi
       fi
+    else
+      >&2 echo "warning: nmm2xml $nmm_file not tested for the OCaml backend"
     fi
 
     # check that mercury and ocaml output normalizes to the same XML
-    if [[ "$exit_code" -eq 0 ]]; then
-      ./bin/nmm normalize-xml "$nmm_mercury_output_file" > "$nmm_mercury_normalized_output_file"
-      ./bin/nmm normalize-xml "$nmm_ocaml_output_file"   > "$nmm_ocaml_normalized_output_file"
-      xmldiff --check --ratio-mode faster "$nmm_mercury_normalized_output_file" "$nmm_ocaml_normalized_output_file" > /dev/null 2>&1
-      if [[ "$?" -ne 0 ]]; then
-          >&2 echo "output from"
-          >&2 echo "  nmm nmm2xml --parser-backend Mercury $nmm_file"
-          >&2 echo "does not normalize to the same XML as output from"
-          >&2 echo "  nmm nmm2xml --parser-backend OCaml   $nmm_file"
-          exit_code=1
+    # (only if both outputs passed the checks above for this file)
+    if ! [[ $nmm_file == ./test-data/exclude-ocaml_* || $nmm_file == ./test-data/exclude-mercury_* || $nmm_file == ./test-data/exclude-all_* ]]; then
+      if [[ "$file_failed" -eq 0 ]]; then
+        ./bin/nmm normalize-xml "$nmm_mercury_output_file" > "$nmm_mercury_normalized_output_file"
+        ./bin/nmm normalize-xml "$nmm_ocaml_output_file"   > "$nmm_ocaml_normalized_output_file"
+        xmldiff --check --ratio-mode faster "$nmm_mercury_normalized_output_file" "$nmm_ocaml_normalized_output_file" > /dev/null 2>&1
+        if [[ "$?" -ne 0 ]]; then
+            >&2 echo "output from"
+            >&2 echo "  nmm nmm2xml --parser-backend Mercury $nmm_file"
+            >&2 echo "does not normalize to the same XML as output from"
+            >&2 echo "  nmm nmm2xml --parser-backend OCaml   $nmm_file"
+            exit_code=1
+        fi
       fi
     fi
 
