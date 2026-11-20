@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
+# Test files named test-data/exclude-mercury_*, exclude-ocaml_* or
+# exclude-all_* are skipped for one or both parser backends; see
+# test-data/README.md.
+
 cd "$(dirname "$0")"
 exit_code=0
 for nmm_file in ./test-data/*.nmm; do
