@@ -651,7 +651,7 @@ let preamble_options_of_ts_preamble (options : t_preamble_options)
               let _ : unit =
                 IO.print_warning
                   (String.concat ""
-                     [ "WARNING: invalid attribute: \'";
+                     [ "WARNING: invalid preamble attribute: \'";
                        hd; "\'; "; "ignoring it" ])
               in
               options
@@ -842,13 +842,11 @@ let path_from_common_ancestor (c_ref_loc : t_path) (id_loc : t_path) : t_path =
         match rev_c_ref_loc_hd = rev_id_loc_hd with
         | true -> aux rev_c_ref_loc_tl rev_id_loc_tl
         | false -> List.rev rev_id_loc)
-    | [], [] -> (
-        try [ List.hd id_loc ]
-        with _ -> raise (Error "id_loc not expected to be an empty path"))
-    | _ :: _, [] -> (
-        try [ List.hd id_loc ]
-        with _ -> raise (Error "id_loc not expected to be an empty path"))
-    | [], _ :: _ ->
+    | _, [] -> (
+        match id_loc with
+        | hd :: _ -> [hd]
+        | [] -> raise (Error "id_loc not expected to be an empty path"))
+    | [], _ ->
         List.rev rev_id_loc
   in
   aux rev_c_ref_loc rev_id_loc

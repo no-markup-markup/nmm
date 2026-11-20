@@ -248,7 +248,7 @@ and acc_of_tr_blk_nte (doc_settings : t_doc_settings)
   | CREF_TABLE table ->
       CREF_TABLE
         ((blk_nte.fld_blk_nte_id, path, Cref_element_blk_nte blk_nte) :: table)
-  | _ -> acc
+  | MARGIN_LABELS _ | LINES _ | EXML _ | NTE_TABLE _ -> acc
 
 and lines_of_nte_blks (doc_settings : t_doc_settings)
     (cref_table : t_cref_table) (path : t_path) (blks : ts_blks) : string list =
@@ -271,20 +271,18 @@ and lines_of_nte_table (doc_settings : t_doc_settings)
     string list =
   let map (nte_entry : t_nte_entry) : string list option =
     match nte_entry with
-    | Ftn_entry_ref (_, table_path, n, blk_nte) -> (
-        match paths_match path table_path with
-        | true ->
-            Some
-              (lines_of_nte_blks doc_settings cref_table (NTE_NODE n :: path)
-                 blk_nte.fld_blk_nte_main)
-        | false -> None)
-    | Ftn_entry_inline (Cs_nte_inline (blks, _), table_path, n) -> (
-        match paths_match path table_path with
-        | true ->
-            Some
-              (lines_of_nte_blks doc_settings cref_table (NTE_NODE n :: path)
-                 blks)
-        | false -> None)
+    | Ftn_entry_ref (_, table_path, n, blk_nte) ->
+        if paths_match path table_path then
+          Some
+            (lines_of_nte_blks doc_settings cref_table (NTE_NODE n :: path)
+               blk_nte.fld_blk_nte_main)
+        else None
+    | Ftn_entry_inline (Cs_nte_inline (blks, _), table_path, n) ->
+        if paths_match path table_path then
+          Some
+            (lines_of_nte_blks doc_settings cref_table (NTE_NODE n :: path)
+               blks)
+        else None
   in
   let rec aux1 (table : t_nte_table) (acc : string list list) : string list list
       =
@@ -866,14 +864,14 @@ let add_empty_lines_after_sec (tl : tr_sec list) (acc : t_acc) : t_acc =
 let is_appendix (sec : tr_sec) : bool =
   match sec.fld_sec_tag_or_id with
   | None -> false
-  | Some (tag_or_id : tu_tag_or_id) -> (
+  | Some (tag_or_id : tu_tag_or_id) ->
       match tag_or_id with
       | Cu_tag_or_id_tag (tag : ts_tag) -> (
           match tag with
-          | Cs_tag (s : string) -> ( match s with "APP" -> true | _ -> false))
+          | Cs_tag (s : string) -> s = "APP")
       | Cu_tag_or_id_id (id : tr_id) -> (
           match id.fld_id_tag with
-          | Cs_tag (s : string) -> ( match s with "APP" -> true | _ -> false)))
+          | Cs_tag (s : string) -> s = "APP")
 
 let acc_of_ts_secs (doc_settings : t_doc_settings) (cref_table : t_cref_table)
     (nte_table : t_nte_table) (path : t_path) (acc : t_acc) (secs : ts_secs) :
