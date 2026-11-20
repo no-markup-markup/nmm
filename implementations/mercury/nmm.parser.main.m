@@ -334,7 +334,7 @@ r_preamble(cs_preamble(PREAMBLE_LINES)) --> (
 %% R_PREAMBLE_LINES
 
 r_preamble_lines(cs_preamble_lines(PREAMBLE_LINES)) --> (
-  +([],r_preamble_line,PREAMBLE_LINES,[])
+  *([],r_preamble_line,PREAMBLE_LINES,[])
 ).
 
 
