@@ -383,8 +383,8 @@ blk0:
   |blk_itm0                                       { Cu_blk_itm (blk_itm_tagger_ref.contents $1):tu_blk }
   |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
   |blk_vrb0                                       { Cu_blk_vrb $1:tu_blk }
-  |blk_nte0                                       { Cu_blk_nte $1:tu_blk }
   |blk_qtn0                                       { Cu_blk_qtn $1:tu_blk }
+  |blk_nte0                                       { Cu_blk_nte $1:tu_blk }
   |blk0 NL                                        { $1 : tu_blk }
 ;
 
@@ -439,10 +439,6 @@ emph_txt0:
 
 blk_blt0:
   |dash_tab blks1                                 { (Cs_blk_blt (Cs_blks $2)):ts_blk_blt }
-;
-
-blk_nte0:
-  |star_tab_id lb1 blks1                          { { fld_blk_nte_id=$1; fld_blk_nte_main=Cs_blks $3} : tr_blk_nte }
 ;
 
 
@@ -529,6 +525,10 @@ qtn_emph_txt0:
   |emph_txt NL TAB qtn_emph_txt0                  { $1 ^ " " ^ $4 : string }
 ;
 
+blk_nte0:
+  |star_tab_id lb1 blks1                          { { fld_blk_nte_id=$1; fld_blk_nte_main=Cs_blks $3} : tr_blk_nte }
+;
+
 lb0:
   |NL                                             { }
 ;
@@ -559,6 +559,7 @@ blk(n):
   |blk_dsp(n)                                       { Cu_blk_dsp $1 : tu_blk }
   |blk_vrb(n)                                       { Cu_blk_vrb $1 : tu_blk }
   |blk_qtn(n)                                       { Cu_blk_qtn $1 : tu_blk }
+  |blk_nte(n)                                       { Cu_blk_nte $1 : tu_blk }
 ;
 
 blk_txt(n):
@@ -703,6 +704,10 @@ end_qtn(n):
   |TAB_end_qtn(n-1)                               { }
 ;
 
+blk_nte(n):
+  |star_tab_id lb(n+1) blks(n+1)                  { { fld_blk_nte_id=$1; fld_blk_nte_main=Cs_blks $3} : tr_blk_nte }
+;
+
 lb(n):
   |lb(n-1)_TAB                                    { }
 ;
@@ -734,6 +739,7 @@ blk1:
   |blk_dsp1                                       { Cu_blk_dsp $1 : tu_blk }
   |blk_vrb1                                       { Cu_blk_vrb $1 : tu_blk }
   |blk_qtn1                                       { Cu_blk_qtn $1 : tu_blk }
+  |blk_nte1                                       { Cu_blk_nte $1 : tu_blk }
 ;
 
 blk_txt1:
@@ -882,6 +888,11 @@ end_qtn1:
   |TAB_END_QTN                                    { }
 ;
 
+blk_nte1:
+  |star_tab_id lb2 blks2                          { { fld_blk_nte_id=$1; fld_blk_nte_main=Cs_blks $3} : tr_blk_nte }
+;
+
+
 lb1:
   |NL_TAB                                         { }
 ;
@@ -912,6 +923,7 @@ blk2:
   |blk_dsp2                                       { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb2                                       { (Cu_blk_vrb $1):tu_blk }
   |blk_qtn2                                       { Cu_blk_qtn $1 : tu_blk }
+  |blk_nte2                                       { Cu_blk_nte $1 : tu_blk }
 ;
 
 blk_txt2:
@@ -1058,6 +1070,10 @@ tab2:
 
 end_qtn2:
   |TAB_TAB_END_QTN                                { }
+;
+
+blk_nte2:
+  |star_tab_id lb3 blks3                          { { fld_blk_nte_id=$1; fld_blk_nte_main=Cs_blks $3} : tr_blk_nte }
 ;
 
 lb2:
