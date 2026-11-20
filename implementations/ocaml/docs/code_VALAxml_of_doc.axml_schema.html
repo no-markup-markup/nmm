@@ -30,7 +30,7 @@
   <span class="string">"
 &lt;!ELEMENT cr_doc (cs_preamble?, cs_title?, cs_authors?, (cu_date_auto | cu_date_custom)?, cs_abstract?, (cu_doc_main_chs | cu_doc_main_secs | cu_doc_main_pars | cu_doc_main_blks), cs_refs?)&gt;
 &lt;!ELEMENT cs_preamble (cs_preamble_lines)&gt;
-&lt;!ELEMENT cs_preamble_lines (cs_preamble_line+)&gt;
+&lt;!ELEMENT cs_preamble_lines (cs_preamble_line*)&gt;
 &lt;!ELEMENT cs_preamble_line (#PCDATA)&gt;
 &lt;!ELEMENT cs_title (#PCDATA)&gt;
 &lt;!ELEMENT cs_authors (cs_author+)&gt;
@@ -100,7 +100,7 @@
 &lt;!ELEMENT cu_dsp_line_no_lbl (cs_dsp_line_no_lbl)&gt;
 &lt;!ELEMENT cu_dsp_line_lbld (cr_dsp_line_lbld)&gt;
 &lt;!ELEMENT cs_dsp_line_no_lbl (cs_txt_units)&gt;
-&lt;!ELEMENT cr_dsp_line_lbld ((cu_lbl_auto | cu_lbl_custom)?, cr_id?, cs_txt_units)&gt;
+&lt;!ELEMENT cr_dsp_line_lbld ((cu_lbl_auto | cu_lbl_custom), cr_id?, cs_txt_units)&gt;
 
 &lt;!ELEMENT cu_txt_unit_wysiwyg (cs_txt_unit_wysiwyg)&gt;
 &lt;!ELEMENT cu_txt_unit_emph (cs_txt_unit_emph)&gt;

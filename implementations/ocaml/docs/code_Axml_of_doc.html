@@ -660,7 +660,7 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &nbsp;&nbsp;<span class="string">"<br>
 &lt;!ELEMENT&nbsp;cr_doc&nbsp;(cs_preamble?,&nbsp;cs_title?,&nbsp;cs_authors?,&nbsp;(cu_date_auto&nbsp;|&nbsp;cu_date_custom)?,&nbsp;cs_abstract?,&nbsp;(cu_doc_main_chs&nbsp;|&nbsp;cu_doc_main_secs&nbsp;|&nbsp;cu_doc_main_pars&nbsp;|&nbsp;cu_doc_main_blks),&nbsp;cs_refs?)&gt;<br>
 &lt;!ELEMENT&nbsp;cs_preamble&nbsp;(cs_preamble_lines)&gt;<br>
-&lt;!ELEMENT&nbsp;cs_preamble_lines&nbsp;(cs_preamble_line+)&gt;<br>
+&lt;!ELEMENT&nbsp;cs_preamble_lines&nbsp;(cs_preamble_line*)&gt;<br>
 &lt;!ELEMENT&nbsp;cs_preamble_line&nbsp;(#PCDATA)&gt;<br>
 &lt;!ELEMENT&nbsp;cs_title&nbsp;(#PCDATA)&gt;<br>
 &lt;!ELEMENT&nbsp;cs_authors&nbsp;(cs_author+)&gt;<br>
@@ -730,7 +730,7 @@ type&nbsp;xml&nbsp;=&nbsp;Xml_light_types.xml&nbsp;=<br>
 &lt;!ELEMENT&nbsp;cu_dsp_line_no_lbl&nbsp;(cs_dsp_line_no_lbl)&gt;<br>
 &lt;!ELEMENT&nbsp;cu_dsp_line_lbld&nbsp;(cr_dsp_line_lbld)&gt;<br>
 &lt;!ELEMENT&nbsp;cs_dsp_line_no_lbl&nbsp;(cs_txt_units)&gt;<br>
-&lt;!ELEMENT&nbsp;cr_dsp_line_lbld&nbsp;((cu_lbl_auto&nbsp;|&nbsp;cu_lbl_custom)?,&nbsp;cr_id?,&nbsp;cs_txt_units)&gt;<br>
+&lt;!ELEMENT&nbsp;cr_dsp_line_lbld&nbsp;((cu_lbl_auto&nbsp;|&nbsp;cu_lbl_custom),&nbsp;cr_id?,&nbsp;cs_txt_units)&gt;<br>
 <br>
 &lt;!ELEMENT&nbsp;cu_txt_unit_wysiwyg&nbsp;(cs_txt_unit_wysiwyg)&gt;<br>
 &lt;!ELEMENT&nbsp;cu_txt_unit_emph&nbsp;(cs_txt_unit_emph)&gt;<br>

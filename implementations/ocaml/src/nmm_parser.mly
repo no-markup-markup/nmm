@@ -233,6 +233,7 @@ doc:
 
 doc_preamble:
   | START_PREAMBLE preamble_lines END_PREAMBLE    { (Cs_preamble (Cs_preamble_lines $2)) : ts_preamble }
+  | START_PREAMBLE END_PREAMBLE                   { (Cs_preamble (Cs_preamble_lines [])) : ts_preamble }
 ;
 
 preamble_lines:
