@@ -15,7 +15,9 @@ README.md:                       \
   nmm-sources/*.nmm              \
   raw-text-semantics/*.txt       \
   ../implementations/mercury/*.m \
-  ../implementations/ocaml/src/*
+  ../implementations/ocaml/src/* \
+  generate-raw-text.sh           \
+  generate-readme                \
 	#
 	./generate-raw-text.sh
 	./generate-readme > README.md
