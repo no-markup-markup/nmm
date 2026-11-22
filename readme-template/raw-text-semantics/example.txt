@@ -1,5 +1,4 @@
-This is a no-markup-markup document, sporting the following
-features:
+This is a no-markup-markup document, sporting the following features:
 
 (a)   Bullet lists:
 

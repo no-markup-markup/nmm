@@ -100,8 +100,7 @@ Due to the feature mentioned in [ITM:y], a reference to [ITM:x] or
   <summary><b>default raw text semantics:</b></summary>
 
 ```
-This is a no-markup-markup document, sporting the following
-features:
+This is a no-markup-markup document, sporting the following features:
 
 (a)   Bullet lists:
 
@@ -430,24 +429,24 @@ By Pythagoras we have:
 ─     A nice quip:¹
 
             It adds neither to the rigor of the argument nor the
-            clarity of the exposition to say that a man M crossed
-            the street S.
+            clarity of the exposition to say that a man M crossed the
+            street S.
 
 ─     A profound insight:
 
             The subtle point is that any progression will serve as a
-            version of number so long and only so long as we stick
-            to one and the same progression. Arithmetic is, in this
+            version of number so long and only so long as we stick to
+            one and the same progression. Arithmetic is, in this
             sense, all there is to number: there is no saying
             absolutely what the numbers are; there is only
             arithmetic.
             [Quine, W.V (1968, page 198)]
 
-────────────────────────────────────────────────────────────────────
-¹  The origin of this nice quip is quite unclear---see:
+─────────────────────────────────────────────────────────────────────
+¹     The origin of this nice quip is quite unclear---see:
 
-   https://github.com/anderslundstedt/check-unicode-coverage/commit/
-   45155b205021d1181a762d8648a83ab92826f1ec
+      https://github.com/anderslundstedt/check-unicode-coverage/commit/
+      45155b205021d1181a762d8648a83ab92826f1ec
 ```
 </details>
 
@@ -508,8 +507,8 @@ Here nothing needs escaping and nothing can be escaped. For each expression E:
 
       What a remarkable discovery that was!
 
-(b)   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-      do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+(b)   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
       ─     a bullet
 
@@ -606,84 +605,88 @@ This chapter's header is omitted.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-         CHAPTER 1
-         This is this chapter's (optional) header
-         ════════════════════════════════════════
+           CHAPTER 1
+           This is this chapter's (optional) header
+           ════════════════════════════════════════
 
-§ 1.1    This is this section's (optional) header
-         ────────────────────────────────────────
+§ 1.1      This is this section's (optional) header
+           ────────────────────────────────────────
 
-¶ 1.1.1  This is this paragraph's (optional) header  Lorem ipsum dolor sit
-         amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-         ut labore et dolore magna aliqua:
+¶ 1.1.1    This is this paragraph's (optional) header  Lorem ipsum
+           dolor sit amet, consectetur adipiscing elit, sed do
+           eiusmod tempor incididunt ut labore et dolore magna
+           aliqua:
 
-               a²+b² = c²
-
-
-¶ 1.1.2  This is another paragraph. It has no header. As mentioned above,
-         section headers may also be omitted. This results in poor layout
-         however, as the following section demonstrates.
+                 a²+b² = c²
 
 
-
-§ 1.2    This is a section without a header.
+¶ 1.1.2    This is another paragraph. It has no header. As mentioned
+           above, section headers may also be omitted. This results
+           in poor layout however, as the following section
+           demonstrates.
 
 
 
-§ 1.A    An appendix
-         ───────────
-
-         This is an appendix. Neither a section nor an appendix must consist
-         of paragraphs, as this text block demonstrates.
-
-         An nmm source is made up of the following, in that order:
-
-         ─     an optional pr̲e̲a̲m̲b̲l̲e̲ ̲pa̲r̲t̲,
-
-         ─     an optional t̲i̲t̲l̲e̲ ̲pa̲r̲t̲,
-
-         ─     an optional a̲u̲t̲h̲o̲r̲ ̲pa̲r̲t̲,
-
-         ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲pa̲r̲t̲,
-
-         ─     a non-optional m̲a̲i̲n̲ ̲pa̲r̲t̲, and
-
-         ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲pa̲r̲t̲.
-
-         ─     The main part must consist of either of:
-
-               ─     chapters;
-
-               ─     sections (appendices count as sections);
-
-               ─     paragraphs;
-
-               ─     blocks.
-
-         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲pt̲e̲r̲ must consist of either of:
-
-               ─     sections (appendices count as sections);
-
-               ─     paragraphs;
-
-               ─     blocks.
-
-         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲ppe̲n̲d̲i̲x̲, must consist of
-               either of:
-
-               ─     paragraphs;
-
-               ─     blocks.
-
-         ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲pa̲r̲a̲gr̲a̲ph̲ must consist of blocks.
+§ 1.2      This is a section without a header.
 
 
 
+§ 1.A      An appendix
+           ───────────
 
-         CHAPTER 2
-         ═════════
+           This is an appendix. Neither a section nor an appendix
+           must consist of paragraphs, as this text block
+           demonstrates.
 
-¶ 2.1    This chapter's header is omitted.
+           An nmm source is made up of the following, in that order:
+
+           ─     an optional pr̲e̲a̲m̲b̲l̲e̲ ̲pa̲r̲t̲,
+
+           ─     an optional t̲i̲t̲l̲e̲ ̲pa̲r̲t̲,
+
+           ─     an optional a̲u̲t̲h̲o̲r̲ ̲pa̲r̲t̲,
+
+           ─     an optional a̲b̲s̲t̲r̲a̲c̲t̲ ̲pa̲r̲t̲,
+
+           ─     a non-optional m̲a̲i̲n̲ ̲pa̲r̲t̲, and
+
+           ─     an optional r̲e̲f̲e̲r̲e̲n̲c̲e̲s̲ ̲pa̲r̲t̲.
+
+           ─     The main part must consist of either of:
+
+                 ─     chapters;
+
+                 ─     sections (appendices count as sections);
+
+                 ─     paragraphs;
+
+                 ─     blocks.
+
+           ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲c̲h̲a̲pt̲e̲r̲ must consist of either
+                 of:
+
+                 ─     sections (appendices count as sections);
+
+                 ─     paragraphs;
+
+                 ─     blocks.
+
+           ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲s̲e̲c̲t̲i̲o̲n̲, or o̲f̲ ̲a̲n̲ ̲a̲ppe̲n̲d̲i̲x̲, must
+                 consist of either of:
+
+                 ─     paragraphs;
+
+                 ─     blocks.
+
+           ─     T̲h̲e̲ ̲m̲a̲i̲n̲ ̲pa̲r̲t̲ ̲o̲f̲ ̲a̲ ̲pa̲r̲a̲gr̲a̲ph̲ must consist of blocks.
+
+
+
+
+           CHAPTER 2
+           ═════════
+
+¶ 2.1      This chapter's header is omitted.
 ```
 </details>
 
@@ -806,42 +809,48 @@ The scopes are:
   <summary><b>default raw text semantics</b></summary>
 
 ```
-¶ 1  In LaTeX, for example, one may want to refer to something
-     “locally”---the label (LaTeX's incorrectly named version of ID) is
-     used for cross-references only in close proximity to where it is
-     defined. This typically leads to the introduction of keysmashes¹.
+¶ 1        In LaTeX, for example, one may want to refer to something
+           “locally”---the label (LaTeX's incorrectly named version
+           of ID) is used for cross-references only in close
+           proximity to where it is defined. This typically leads to
+           the introduction of keysmashes¹.
+
+           ──────────────────────────────────────────────────────────
+           ¹     https://en.wikipedia.org/wiki/Keysmash
 
 
-¶ 2  The ID of the note in the previous paragraph has the suffix ‘:PAR’.
-     This means that the ID has pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲: one may only “refer”² to
-     that note in the paragraph where it is defined.
+¶ 2        The ID of the note in the previous paragraph has the
+           suffix ‘:PAR’. This means that the ID has pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲:
+           one may only “refer”¹ to that note in the paragraph where
+           it is defined.
 
-     The ID of ¶ 1 is ‘[PAR:intro]’ and thus has no scope-defining
-     suffix. This means that ¶ 1 has gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲: it may be referred to
-     (by using ‘¶ 1’ anywhere in the nmm source).
+           The ID of ¶ 1 is ‘[PAR:intro]’ and thus has no
+           scope-defining suffix. This means that ¶ 1 has gl̲o̲b̲a̲l̲
+           s̲c̲o̲pe̲: it may be referred to (by using ‘¶ 1’ anywhere in
+           the nmm source).
+
+           ──────────────────────────────────────────────────────────
+           ¹     Scare quotes because ‘referring to a
+                 footnote/endnote’ sounds a bit weird to me.
 
 
-¶ 3  The scopes are:
+¶ 3        The scopes are:
 
-     (a)   gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲---the default³;
+           (a)   gl̲o̲b̲a̲l̲ ̲s̲c̲o̲pe̲---the default¹;
 
-     (b)   c̲h̲a̲pt̲e̲r̲ ̲s̲c̲o̲pe̲---suffix ‘:CH’;
+           (b)   c̲h̲a̲pt̲e̲r̲ ̲s̲c̲o̲pe̲---suffix ‘:CH’;
 
-     (c)   s̲e̲c̲t̲i̲o̲n̲ ̲s̲c̲o̲pe̲---suffix ‘:SEC’; equivalently a̲ppe̲n̲d̲i̲x̲
-           s̲c̲o̲pe̲---suffix ‘:APP’;
+           (c)   s̲e̲c̲t̲i̲o̲n̲ ̲s̲c̲o̲pe̲---suffix ‘:SEC’; equivalently a̲ppe̲n̲d̲i̲x̲
+                 s̲c̲o̲pe̲---suffix ‘:APP’;
 
-     (d)   pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲---suffix ‘:PAR’.
+           (d)   pa̲r̲a̲gr̲a̲ph̲ ̲s̲c̲o̲pe̲---suffix ‘:PAR’.
 
-─────────────────────────────────────────────────────────────────────────
-¹  https://en.wikipedia.org/wiki/Keysmash
-
-²  Scare quotes because ‘referring to a footnote/endnote’ sounds a bit
-   weird to me.
-
-³  One may explicitly indicate global scope by the suffix ‘:GBL’. (This
-   note has ID ‘NTE:gbl_scope:PAR’, just as the note in ¶ 2 has. The
-   duplication this ID is unproblematic since they occur in different
-   scopes.
+           ──────────────────────────────────────────────────────────
+           ¹     One may explicitly indicate global scope by the
+                 suffix ‘:GBL’. (This note has ID
+                 ‘NTE:gbl_scope:PAR’, just as the note in ¶ 2 has.
+                 The duplication this ID is unproblematic since they
+                 occur in different scopes.
 ```
 </details>
 
@@ -913,9 +922,9 @@ laborum.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-════════════════════════════════════════════════════════════════════
+═════════════════════════════════════════════════════════════════════
 Some chapters
-════════════════════════════════════════════════════════════════════
+═════════════════════════════════════════════════════════════════════
 
 Donald Duck
 
@@ -928,10 +937,10 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo consequat.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit
-anim id est laborum.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+non proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
 
 
 
@@ -945,10 +954,10 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo consequat.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit
-anim id est laborum.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+non proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
 
 
 
@@ -962,10 +971,10 @@ eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
 aliquip ex ea commodo consequat.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit
-anim id est laborum.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+non proident, sunt in culpa qui officia deserunt mollit anim id est
+laborum.
 
 
 
@@ -978,8 +987,8 @@ REFERENCES
       pages 123–134
 
 ─     Tarski, Alfred, and Andrzej Mostowski, and Raphael M.
-      Robinson (1953): Undecidable Theories; North-Holland
-      Publishing Company; Amsterdam.
+      Robinson (1953): Undecidable Theories; North-Holland Publishing
+      Company; Amsterdam.
 ```
 </details>
 
@@ -1008,18 +1017,18 @@ want to state it again!
   <summary><b>default raw text semantics</b></summary>
 
 ```
-¶ 1  FACT
+¶ 1        FACT
 
-           a²+b² = c²
-
-
-¶ 2  I think what Pythagoras discovered is such a remarkable fact that I
-     want to state it again!
+                 a²+b² = c²
 
 
-¶ 3  Fact 1 [restated]
+¶ 2        I think what Pythagoras discovered is such a remarkable
+           fact that I want to state it again!
 
-           a²+b² = c²
+
+¶ 3        Fact 1 [restated]
+
+                 a²+b² = c²
 ```
 </details>
 
@@ -1057,17 +1066,17 @@ This is a sentence followed by a note reference.¹
 
 This is another sentence followed by a note reference.²
 
-────────────────────────────────────────────────────────────────────
-¹  A footnote/endnote.
+─────────────────────────────────────────────────────────────────────
+¹     A footnote/endnote.
 
-²  A footnote/endnote. It spans multiple lines in the source.
+²     A footnote/endnote. It spans multiple lines in the source.
 
-   ─     Actually the grammar allows any kind of blocks in a
-         footnote; but
+      ─     Actually the grammar allows any kind of blocks in a
+            footnote; but
 
-   ─     implementations of the semantics have quite some freedom in
-         how to handle footnotes going wild---for example by
-         erroring out.
+      ─     implementations of the semantics have quite some freedom
+            in how to handle footnotes going wild---for example by
+            erroring out.
 ```
 </details>
 
@@ -1126,44 +1135,49 @@ than ‘\*’ is needed.
   <summary><b>default raw text semantics</b></summary>
 
 ```
-¶ 1  EXAMPLE  ¶ ← this is the paragraph symbol.
+¶ 1        EXAMPLE  ¶ ← this is the paragraph symbol.
 
-     While a line ‘¶’ (optional followed by tag or id, then optionally
-     followed by a header and one or more empty lines) always marks the
-     start of a paragraph, ‘¶ ← this’ does not. Thus no need for escaping
-     in the preceeding text block.
+           While a line ‘¶’ (optional followed by tag or id, then
+           optionally followed by a header and one or more empty
+           lines) always marks the start of a paragraph, ‘¶ ← this’
+           does not. Thus no need for escaping in the preceeding text
+           block.
 
-     ¶ If one wants to, one may still escape any magic---as in used for
-     markup---character.
-
-
-¶ 2  One possible exception to the intended no need for escaping is the
-     need for sometimes escaping the symbol ‘*’ (by writing ‘\*’). The
-     creators of No-Markup-Markup acknowledges that this is unfortunate.
-     However, they think that in most scientific writing ‘*’ should be
-     reserved for footnotes.
-
-     ─     Instead of using ‘*’ for multiplication one should use ‘×’.
-           (One should not use the abonimation ‘⋅’!)
-
-     ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲pe̲r̲a̲t̲o̲r̲ as ‘*’, one may have to
-           resort to escaping. As the No-Markup-Markup grammar uses ‘*’
-           as the notation for this operator, this is somewhat ironic.
-
-     ─     For including code snippets, which of course may unavoidably
-           include ‘*’, support for verbatim input of files is planned.
+           ¶ If one wants to, one may still escape any magic---as in
+           used for markup---character.
 
 
-¶ 3  At least theoretically there are situations where escaping of
-     something other than ‘*’ is needed.
+¶ 2        One possible exception to the intended no need for
+           escaping is the need for sometimes escaping the symbol ‘*’
+           (by writing ‘\*’). The creators of No-Markup-Markup
+           acknowledges that this is unfortunate. However, they think
+           that in most scientific writing ‘*’ should be reserved for
+           footnotes.
 
-     ─     This is a reference to the first paragraph: Example 1. This is
-           the markup that was used to produce that reference:
-           ‘[EX:no_escape]’. (This is the markup that was used to produce
-           ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
+           ─     Instead of using ‘*’ for multiplication one should
+                 use ‘×’. (One should not use the abonimation ‘⋅’!)
 
-     ─     But, for example, ‘[x,y,z]’ is not valid syntax for a
-           cross-reference, and thus needs no escaping.
+           ─     For denoting t̲h̲e̲ ̲K̲l̲e̲e̲n̲e̲ ̲s̲t̲a̲r̲ ̲o̲pe̲r̲a̲t̲o̲r̲ as ‘*’, one
+                 may have to resort to escaping. As the
+                 No-Markup-Markup grammar uses ‘*’ as the notation
+                 for this operator, this is somewhat ironic.
+
+           ─     For including code snippets, which of course may
+                 unavoidably include ‘*’, support for verbatim input
+                 of files is planned.
+
+
+¶ 3        At least theoretically there are situations where escaping
+           of something other than ‘*’ is needed.
+
+           ─     This is a reference to the first paragraph:
+                 Example 1. This is the markup that was used to
+                 produce that reference: ‘[EX:no_escape]’. (This is
+                 the markup that was used to produce
+                 ‘[EX:no_escape]’: ‘‘\[EX:no_escape]’’.)
+
+           ─     But, for example, ‘[x,y,z]’ is not valid syntax for
+                 a cross-reference, and thus needs no escaping.
 ```
 </details>
 
