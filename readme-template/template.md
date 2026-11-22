@@ -136,6 +136,21 @@ INCLUDE-FILE ./raw-text-semantics/emphasized-text.txt
 ```
 </details>
 
+<details>
+  <summary>
+    <b>raw text semantics viewed with the Iosevka font (image)</b>
+  </summary>
+
+<img
+  src="readme-template/iosevka_underlining.png"
+  width=340
+  height=67
+  alt="raw text semantics viewed with font Iosevka"
+/>
+
+<a href="https://typeof.net/Iosevka/">The Iosevka font</a>
+</details>
+
 ### Bullet blocks
 
 <details>
