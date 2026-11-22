@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test test-nmm2xml test-nmm2txt check-flake.lock bin
+.PHONY: default clean test test-nmm2xml test-nmm2txt check-flake.lock bin preview-readme
 
 default:
 	@echo 'no default target'
@@ -27,6 +27,9 @@ readme:
 	cd readme-template
 	make
 	cd -
+
+preview-readme:
+	gh-markdown-preview --markdown-mode
 
 test: check-flake.lock test-nmm2xml test-nmm2txt
 	cd specification
