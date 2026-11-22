@@ -33,7 +33,13 @@
     <span class="keyword">let</span> doc : <span class="constructor">Doc_types</span>.tr_doc = <span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml axml <span class="keyword">in</span>
     <span class="keyword">let</span> axml_of_doc : <span class="constructor">Xml</span>.xml = <span class="constructor">Axml_of_doc</span>.axml_of_tr_doc doc <span class="keyword">in</span>
     <span class="keyword">let</span> exml : <span class="constructor">Xml</span>.xml = <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc options doc <span class="keyword">in</span>
-    <span class="keyword">let</span> _ : unit = identity_test_w_axml axml axml_of_doc <span class="keyword">in</span>
+    <span class="keyword">let</span> _ : unit =
+      <span class="keyword">match</span> axml_of_doc = axml <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> ()
+      <span class="keywordsign">|</span> <span class="keyword">false</span> <span class="keywordsign">-&gt;</span>
+        raise
+          (<span class="constructor">Error</span> <span class="string">"axml_of_doc (doc_of_axml axml) != axml"</span>)
+    <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test <span class="string">"axml"</span> axml <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test <span class="string">"exml"</span> exml <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test_fmt <span class="string">"axml"</span> axml <span class="keyword">in</span>

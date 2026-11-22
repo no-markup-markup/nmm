@@ -36,7 +36,13 @@
     <span class="keyword">let</span> doc_of_axml : <span class="constructor">Doc_types</span>.tr_doc = <span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml axml <span class="keyword">in</span>
     <span class="keyword">let</span> exml : <span class="constructor">Xml</span>.xml = <span class="constructor">Compiler_of_doc</span>.exml_of_tr_doc options doc
     <span class="keyword">in</span>
-    <span class="keyword">let</span> _ : unit = identity_test_w_doc doc doc_of_axml <span class="keyword">in</span>
+    <span class="keyword">let</span> _ : unit =
+      <span class="keyword">match</span> doc_of_axml = doc <span class="keyword">with</span>
+      <span class="keywordsign">|</span> <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> ()
+      <span class="keywordsign">|</span> <span class="keyword">false</span> <span class="keywordsign">-&gt;</span>
+        raise
+          (<span class="constructor">Error</span> <span class="string">"doc_of_axml (axml_of_doc doc) != doc"</span>)
+    <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test <span class="string">"axml"</span> axml <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test <span class="string">"exml"</span> exml <span class="keyword">in</span>
     <span class="keyword">let</span> _ : unit = xml_right_test_fmt <span class="string">"axml"</span> axml <span class="keyword">in</span>
@@ -47,6 +53,8 @@
   <span class="keyword">with</span>
   <span class="keywordsign">|</span> <span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span> 
       raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ path; <span class="string">"-&gt;"</span>; <span class="string">"Error:"</span>; e ]))
+  <span class="keywordsign">|</span> <span class="constructor">Xml_right</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
+      raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ path; <span class="string">"-&gt;"</span>; <span class="string">"Xml_right.Error:"</span>; e ]))
   <span class="keywordsign">|</span> <span class="constructor">Main</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
       raise (<span class="constructor">Error</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> [ path; <span class="string">"-&gt;"</span>; <span class="string">"Main.Error:"</span>; e ]))
   <span class="keywordsign">|</span> <span class="constructor">Compiler_of_doc</span>.<span class="constructor">Error</span> e <span class="keywordsign">-&gt;</span>
