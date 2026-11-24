@@ -1073,15 +1073,19 @@ let acc_of_ts_abstract (doc_settings : t_doc_settings)
                 | Some xml -> [ xml ]
                 | None -> [])
           in
-          let exml : Xml.xml =
+          let main : Xml.xml =
             match
               acc_of_ts_blks doc_settings cref_table nte_table path (EXML [])
                 blks
             with
             | EXML xml_list ->
                 Xml.Element
-                  ("abstract", [], List.concat [ hdr; xml_list; endnotes ])
+                  ("abstract_main", [], xml_list)
             | _ -> raise (Error "accumulator type")
+          in
+          let exml : Xml.xml =
+            Xml.Element
+              ("abstract", [], List.concat [ hdr; [main]; endnotes ])
           in
           EXML [ exml ]
       | CREF_TABLE _ | MARGIN_LABELS _ | NTE_TABLE _ ->
@@ -1114,7 +1118,7 @@ let acc_of_ts_refs (doc_settings : t_doc_settings) (cref_table : t_cref_table)
           with
           | LINES lines -> LINES (List.concat [ padding; hdr; lines; endnotes ])
           | _ -> raise (Error "accumulator type"))
-      | EXML _ -> (
+      | EXML _ ->
           let hdr : Xml.xml list =
             Exml_utils.xml_list_of_refs_hdr doc_settings
           in
@@ -1128,16 +1132,21 @@ let acc_of_ts_refs (doc_settings : t_doc_settings) (cref_table : t_cref_table)
                 | Some xml -> [ xml ]
                 | None -> [])
           in
-          match
-            acc_of_ts_blks doc_settings cref_table nte_table path (EXML []) blks
-          with
-          | EXML xml_list ->
-              EXML
-                [
-                  Xml.Element
-                    ("refs", [], List.concat [ hdr; xml_list; endnotes ]);
-                ]
-          | _ -> raise (Error "accumulator type"))
+          let main : Xml.xml =
+            match
+              acc_of_ts_blks doc_settings cref_table nte_table path (EXML [])
+                blks
+            with
+            | EXML xml_list ->
+                Xml.Element
+                  ("refs_main", [], xml_list)
+            | _ -> raise (Error "accumulator type")
+          in
+          let exml : Xml.xml =
+            Xml.Element
+              ("refs", [], List.concat [ hdr; [main]; endnotes ])
+          in
+          EXML [ exml ]
       | CREF_TABLE _ | MARGIN_LABELS _ | NTE_TABLE _ ->
           acc_of_ts_blks doc_settings cref_table nte_table path acc blks)
 

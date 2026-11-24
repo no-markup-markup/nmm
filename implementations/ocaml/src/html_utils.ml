@@ -51,6 +51,11 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
         ( "h2",
           [ ("class", "abstract_hdr") ],
           List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("abstract_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "abstract_main") ],
+          List.map (html_of_exml doc_class) xml_list )
   | Xml.Element ("refs", _, xml_list) ->
       Xml.Element
         ( "section",
@@ -60,6 +65,11 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
       Xml.Element
         ( "h2",
           [ ("class", "refs_hdr") ],
+          List.map (html_of_exml doc_class) xml_list )
+  | Xml.Element ("refs_main", _, xml_list) ->
+      Xml.Element
+        ( "div",
+          [ ("class", "refs_main") ],
           List.map (html_of_exml doc_class) xml_list )
   | Xml.Element ("doc_main", _, xml_list) ->
       Xml.Element
@@ -165,14 +175,10 @@ let rec html_of_exml (doc_class : Common_utils.t_doc_class) (element : Xml.xml)
           List.map (html_of_exml doc_class) xml_list )
   | Xml.Element ("blk_qtn", _, xml_list) ->
       Xml.Element
-        ( "div",
+        ( "p",
           [ ("class", "blk qtn") ],
-          [
-            Xml.Element
-              ( "p",
-                [ ("class", "blk_qtn_main") ],
-                List.map (html_of_exml doc_class) xml_list );
-          ] )
+          List.map (html_of_exml doc_class) xml_list
+        )
   | Xml.Element ("br", _, _) -> Xml.Element ("br", [], [])
   | Xml.Element ("blk_itm", attr_list, xml_list) -> (
       match List.map (html_of_exml doc_class) xml_list with
@@ -645,7 +651,7 @@ let default_css (tab_length : string) (margin_left : string) : string =
   white-space : pre;
 }
 
-.blk_qtn_main {
+.blk.qtn {
   hyphens     : auto;
   white-space : pre-wrap;
   margin-left : " ^ tab_length ^ ";

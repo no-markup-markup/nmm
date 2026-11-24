@@ -538,12 +538,14 @@ let exml_schema () : string =
     datetime CDATA #IMPLIED
 >
 
-<!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, abstract_endnotes?)>
-<!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
-<!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, refs_endnotes?)>
-
+<!ELEMENT abstract (abstract_hdr?, abstract_main, abstract_endnotes?)>
 <!ELEMENT abstract_hdr (#PCDATA)>
+<!ELEMENT abstract_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
+<!ELEMENT refs (refs_hdr?, refs_main, refs_endnotes?)>
 <!ELEMENT refs_hdr (#PCDATA)>
+<!ELEMENT refs_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+>
+
+<!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)>
 
 <!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main, ch_endnotes?)>
 <!ATTLIST ch 

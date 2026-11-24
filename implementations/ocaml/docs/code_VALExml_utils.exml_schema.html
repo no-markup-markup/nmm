@@ -41,12 +41,14 @@
     datetime CDATA #IMPLIED
 &gt;
 
-&lt;!ELEMENT abstract (abstract_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, abstract_endnotes?)&gt;
-&lt;!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)&gt;
-&lt;!ELEMENT refs (refs_hdr?, (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+, refs_endnotes?)&gt;
-
+&lt;!ELEMENT abstract (abstract_hdr?, abstract_main, abstract_endnotes?)&gt;
 &lt;!ELEMENT abstract_hdr (#PCDATA)&gt;
+&lt;!ELEMENT abstract_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+&gt;
+&lt;!ELEMENT refs (refs_hdr?, refs_main, refs_endnotes?)&gt;
 &lt;!ELEMENT refs_hdr (#PCDATA)&gt;
+&lt;!ELEMENT refs_main (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+&gt;
+
+&lt;!ELEMENT doc_main (ch+ | sec+ | par+ | (blk_txt | blk_blt | blk_itm | blk_dsp | blk_vrb | blk_qtn)+)&gt;
 
 &lt;!ELEMENT ch (((ch_lbl, ch_hdr) | ch_lbl_hdr), ch_main, ch_endnotes?)&gt;
 &lt;!ATTLIST ch 
