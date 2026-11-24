@@ -32,9 +32,9 @@ preview-readme:
 	gh-markdown-preview --markdown-mode
 
 test: check-flake.lock test-nmm2xml test-nmm2txt
-#	cd specification
-#	make test
-#	cd -
+	cd specification
+	make test
+	cd -
 	cd implementations
 	make test
 	cd -
