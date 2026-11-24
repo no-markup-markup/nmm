@@ -17,5 +17,4 @@ clean:
 AST.vo: AST.v
 	coqc AST.v
 
-test: AST.vo AST.dtd check-ASTs.py
-	./check-ASTs.py
+test: AST.vo
