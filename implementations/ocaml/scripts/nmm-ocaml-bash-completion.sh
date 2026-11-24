@@ -1,4 +1,4 @@
-# bash completion for nmm-ocaml (and for wrapper scripts txt-of-nmm, html-of-nmm, and pdf-of-nmm)
+# bash completion for nmm-ocaml
 
 # to enable bash completion for nmm-ocaml, you can either
 # 1) copy this file to /usr/share/bash-completion/completions/nmm-ocaml, or
@@ -85,6 +85,6 @@ _nmm_ocaml () {
   return 0
 }
 
-complete -o nospace -F _nmm_ocaml nmm-ocaml html-of-nmm txt-of-nmm pdf-of-nmm
+complete -o nospace -F _nmm_ocaml nmm-ocaml
 
 
