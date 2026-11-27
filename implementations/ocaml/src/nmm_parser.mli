@@ -2,6 +2,13 @@
     with {!module:Nmm_lexer}. Generated from
     {{:specs/nmm_parser.mly.txt}nmm_parser.mly} with ocamlyacc. *)
 
+type t_parser_env = {
+  mutable blk_itm_tag_patch : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm;
+  mutable c_ref_tag_patch : Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit;
+}
+
+val parser_env : t_parser_env
+
 type token =
   | STAR
   | LBR
@@ -61,6 +68,4 @@ type token =
 val main :
   (Stdlib.Lexing.lexbuf -> token) -> Stdlib.Lexing.lexbuf -> Doc_types.tr_doc
 
-val blk_itm_tagger_ref : (Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm) ref
 
-val c_ref_or_wysiwyg_ref : (Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit) ref

@@ -199,31 +199,5 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doc_of_nmm_string&nbsp;<span class="keyword">true</span>&nbsp;input<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keyword">true</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"Parsing&nbsp;failed"</span>))<br>
 <br>
-<span class="comment">(*&nbsp;tags&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;doc_of_nmm_file_with_tags<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(blk_itm_tagger&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(c_ref_or_wysiwyg&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(path&nbsp;:&nbsp;string)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.blk_itm_tagger_ref.contents&nbsp;&lt;-&nbsp;blk_itm_tagger&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.c_ref_or_wysiwyg_ref.contents&nbsp;&lt;-&nbsp;c_ref_or_wysiwyg&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;doc_of_nmm_file&nbsp;<span class="keyword">false</span>&nbsp;path<br>
-<br>
-<span class="keyword">let</span>&nbsp;doc_of_nmm_stdin_with_tags<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(blk_itm_tagger&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(c_ref_or_wysiwyg&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.blk_itm_tagger_ref.contents&nbsp;&lt;-&nbsp;blk_itm_tagger&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.c_ref_or_wysiwyg_ref.contents&nbsp;&lt;-&nbsp;c_ref_or_wysiwyg&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;doc_of_nmm_stdin&nbsp;<span class="keyword">false</span><br>
-<br>
-<span class="keyword">let</span>&nbsp;doc_of_nmm_string_with_tags<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(blk_itm_tagger&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(c_ref_or_wysiwyg&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(s&nbsp;:&nbsp;string)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.blk_itm_tagger_ref.contents&nbsp;&lt;-&nbsp;blk_itm_tagger&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.c_ref_or_wysiwyg_ref.contents&nbsp;&lt;-&nbsp;c_ref_or_wysiwyg&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;doc_of_nmm_string&nbsp;<span class="keyword">false</span>&nbsp;s<br>
 </code></body></html>

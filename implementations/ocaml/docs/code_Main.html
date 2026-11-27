@@ -30,23 +30,23 @@
 <br>
 <span class="comment">(*&nbsp;version&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;version&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"10"</span><br>
+<span class="keyword">let</span>&nbsp;version&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="string">"11"</span><br>
 <br>
 <span class="comment">(*&nbsp;parsing&nbsp;nmm&nbsp;*)</span><br>
 <br>
+<span class="keyword">let</span>&nbsp;parser_env_of_options&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options)&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.parser_env.blk_itm_tag_patch&nbsp;&lt;-&nbsp;<span class="constructor">Tags</span>.tag_blk_itm_of_path_opt&nbsp;options.tags&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Nmm_parser</span>.parser_env.c_ref_tag_patch&nbsp;&lt;-&nbsp;<span class="constructor">Tags</span>.c_ref_or_wysiwyg_of_path_opt&nbsp;options.tags&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;()<br>
+<br>
+<br>
 <span class="keyword">let</span>&nbsp;doc_of_nmm&nbsp;(options&nbsp;:&nbsp;<span class="constructor">Common_utils</span>.t_axml_options)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;parser_env_of_options&nbsp;options&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin_with_tags<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Tags</span>.tag_blk_itm_of_path_opt&nbsp;options.tags)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Tags</span>.c_ref_or_wysiwyg_of_path_opt&nbsp;options.tags)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file_with_tags<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Tags</span>.tag_blk_itm_of_path_opt&nbsp;options.tags)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Tags</span>.c_ref_or_wysiwyg_of_path_opt&nbsp;options.tags)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_stdin&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_of_nmm</span>.doc_of_nmm_file&nbsp;<span class="keyword">false</span>&nbsp;path<br>
 &nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Doc_of_nmm</span>.<span class="constructor">Error</span>&nbsp;e&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">"&nbsp;"</span>&nbsp;[&nbsp;path;&nbsp;<span class="string">"-&gt;"</span>;&nbsp;<span class="string">"Doc_of_nmm.Error:"</span>;&nbsp;e&nbsp;]))<br>
 <br>
@@ -209,11 +209,10 @@
 <br>
 <span class="keyword">let</span>&nbsp;doc_of_axml&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_doc&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;axml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;print_tokens<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;print_tokens&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;<span class="keyword">false</span>&nbsp;path<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml&nbsp;axml<br>
 &nbsp;&nbsp;<span class="keyword">with</span><br>
@@ -303,14 +302,13 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]))<br>
 <br>
 <span class="keyword">let</span>&nbsp;validate_xml&nbsp;(path_to_dtd&nbsp;:&nbsp;string)&nbsp;(path_to_xml&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_tokens&nbsp;=&nbsp;<span class="keyword">false</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">try</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.dtd&nbsp;=&nbsp;<span class="constructor">Dtd</span>.parse_file&nbsp;path_to_dtd&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;checked_dtd&nbsp;:&nbsp;<span class="constructor">Dtd</span>.checked&nbsp;=&nbsp;<span class="constructor">Dtd</span>.check&nbsp;dtd&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;xml&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;path_to_xml&nbsp;<span class="keyword">with</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;print_tokens<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;print_tokens&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="string">"-"</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_stdin&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;path&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xml_right</span>.parse_file&nbsp;<span class="keyword">false</span>&nbsp;path<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xml</span>.<span class="constructor">Element</span>&nbsp;(entry_point,&nbsp;_,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span><br>

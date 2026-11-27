@@ -28,11 +28,10 @@
 <body>
 <code class="code"><span class="keyword">let</span> doc_of_axml (path : string) : <span class="constructor">Doc_types</span>.tr_doc =
   <span class="keyword">try</span>
-    <span class="keyword">let</span> print_tokens = <span class="keyword">false</span> <span class="keyword">in</span>
     <span class="keyword">let</span> axml : <span class="constructor">Xml</span>.xml =
       <span class="keyword">match</span> path <span class="keyword">with</span>
-      <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin print_tokens
-      <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file print_tokens path
+      <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin <span class="keyword">false</span>
+      <span class="keywordsign">|</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file <span class="keyword">false</span> path
     <span class="keyword">in</span>
     <span class="constructor">Doc_of_axml</span>.f_tr_doc_of_axml axml
   <span class="keyword">with</span>

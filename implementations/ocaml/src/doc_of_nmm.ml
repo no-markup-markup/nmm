@@ -171,30 +171,4 @@ let rec doc_of_nmm_stdin (print_tokens : bool) : Doc_types.tr_doc =
         doc_of_nmm_string true input
     | true -> raise (Error "Parsing failed"))
 
-(* tags *)
 
-let doc_of_nmm_file_with_tags
-    (blk_itm_tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm)
-    (c_ref_or_wysiwyg : Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit)
-    (path : string)
-    : Doc_types.tr_doc =
-  let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- blk_itm_tagger in
-  let _ : unit = Nmm_parser.c_ref_or_wysiwyg_ref.contents <- c_ref_or_wysiwyg in
-  doc_of_nmm_file false path
-
-let doc_of_nmm_stdin_with_tags
-    (blk_itm_tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm)
-    (c_ref_or_wysiwyg : Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit)
-    : Doc_types.tr_doc =
-  let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- blk_itm_tagger in
-  let _ : unit = Nmm_parser.c_ref_or_wysiwyg_ref.contents <- c_ref_or_wysiwyg in
-  doc_of_nmm_stdin false
-
-let doc_of_nmm_string_with_tags
-    (blk_itm_tagger : Doc_types.tr_blk_itm -> Doc_types.tr_blk_itm)
-    (c_ref_or_wysiwyg : Doc_types.tu_txt_unit -> Doc_types.tu_txt_unit)
-    (s : string)
-    : Doc_types.tr_doc =
-  let _ : unit = Nmm_parser.blk_itm_tagger_ref.contents <- blk_itm_tagger in
-  let _ : unit = Nmm_parser.c_ref_or_wysiwyg_ref.contents <- c_ref_or_wysiwyg in
-  doc_of_nmm_string false s

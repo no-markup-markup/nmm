@@ -3,11 +3,18 @@ open Doc_types
 
 exception ERROR of string
 
-let blk_itm_tagger_trivial (blk_itm : tr_blk_itm) : tr_blk_itm = blk_itm
-let blk_itm_tagger_ref : (tr_blk_itm -> tr_blk_itm) ref = ref blk_itm_tagger_trivial
+type t_parser_env = {
+  mutable blk_itm_tag_patch : tr_blk_itm -> tr_blk_itm;
+  mutable c_ref_tag_patch : tu_txt_unit -> tu_txt_unit;
+}
 
-let c_ref_or_wysiwyg_trivial (txt_unit : tu_txt_unit) : tu_txt_unit = txt_unit
-let c_ref_or_wysiwyg_ref : (tu_txt_unit -> tu_txt_unit) ref = ref c_ref_or_wysiwyg_trivial
+let blk_itm_tag_patch_trivial (blk_itm : tr_blk_itm) : tr_blk_itm = blk_itm
+let c_ref_tag_patch_trivial (txt_unit : tu_txt_unit) : tu_txt_unit = txt_unit
+
+let parser_env : t_parser_env = {
+  blk_itm_tag_patch = blk_itm_tag_patch_trivial;
+  c_ref_tag_patch = c_ref_tag_patch_trivial;
+}
 
 let scope_of_string (s : string) : tu_scope =
   match s with
@@ -380,7 +387,7 @@ crazy_blks0:
 blk0:
   |blk_txt0                                       { Cu_blk_txt $1:tu_blk }
   |blk_blt0                                       { Cu_blk_blt $1:tu_blk }
-  |blk_itm0                                       { Cu_blk_itm (blk_itm_tagger_ref.contents $1):tu_blk }
+  |blk_itm0                                       { Cu_blk_itm (parser_env.blk_itm_tag_patch $1):tu_blk }
   |blk_dsp0                                       { Cu_blk_dsp $1:tu_blk }
   |blk_vrb0                                       { Cu_blk_vrb $1:tu_blk }
   |blk_qtn0                                       { Cu_blk_qtn $1:tu_blk }
@@ -409,7 +416,7 @@ txt_units0:
 txt_unit0:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph0                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline0                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -555,7 +562,7 @@ special_blks(n):
 blk(n):
   |blk_txt(n)                                       { Cu_blk_txt $1 : tu_blk }
   |blk_blt(n)                                       { Cu_blk_blt $1 : tu_blk }
-  |blk_itm(n)                                       { Cu_blk_itm (blk_itm_tagger_ref.contents $1) : tu_blk }
+  |blk_itm(n)                                       { Cu_blk_itm (parser_env.blk_itm_tag_patch $1) : tu_blk }
   |blk_dsp(n)                                       { Cu_blk_dsp $1 : tu_blk }
   |blk_vrb(n)                                       { Cu_blk_vrb $1 : tu_blk }
   |blk_qtn(n)                                       { Cu_blk_qtn $1 : tu_blk }
@@ -583,7 +590,7 @@ txt_units(n):
 txt_unit(n):
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph(n)                               { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline(n)                         { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -735,7 +742,7 @@ special_blks1:
 blk1:
   |blk_txt1                                       { Cu_blk_txt $1 : tu_blk }
   |blk_blt1                                       { Cu_blk_blt $1 : tu_blk }
-  |blk_itm1                                       { Cu_blk_itm (blk_itm_tagger_ref.contents $1) : tu_blk }
+  |blk_itm1                                       { Cu_blk_itm (parser_env.blk_itm_tag_patch $1) : tu_blk }
   |blk_dsp1                                       { Cu_blk_dsp $1 : tu_blk }
   |blk_vrb1                                       { Cu_blk_vrb $1 : tu_blk }
   |blk_qtn1                                       { Cu_blk_qtn $1 : tu_blk }
@@ -763,7 +770,7 @@ txt_units1:
 txt_unit1:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph1                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline1                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -919,7 +926,7 @@ special_blks2:
 blk2:
   |blk_txt2                                       { (Cu_blk_txt $1):tu_blk }
   |blk_blt2                                       { (Cu_blk_blt $1):tu_blk }
-  |blk_itm2                                       { (Cu_blk_itm (blk_itm_tagger_ref.contents $1)):tu_blk }
+  |blk_itm2                                       { (Cu_blk_itm (parser_env.blk_itm_tag_patch $1)):tu_blk }
   |blk_dsp2                                       { (Cu_blk_dsp $1):tu_blk }
   |blk_vrb2                                       { (Cu_blk_vrb $1):tu_blk }
   |blk_qtn2                                       { Cu_blk_qtn $1 : tu_blk }
@@ -947,7 +954,7 @@ txt_units2:
 txt_unit2:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph2                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
   |txt_unit_nte_inline2                           { Cu_txt_unit_nte_inline $1 : tu_txt_unit }
 ;
@@ -1115,7 +1122,7 @@ txt_units3:
 txt_unit3:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph3                                 { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
 ;
 
@@ -1219,7 +1226,7 @@ dsp_units:
 dsp_unit:
   |txt_unit_wysiwyg                               { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph                                  { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
   |txt_unit_nte_ref                               { Cu_txt_unit_nte_ref $1 : tu_txt_unit }
 ;
 
@@ -1265,7 +1272,7 @@ txt_units_nte:
 txt_unit_nte:
   |txt_unit_wysiwyg_nte                           { Cu_txt_unit_wysiwyg $1 : tu_txt_unit }
   |txt_unit_emph_nte                              { Cu_txt_unit_emph $1 : tu_txt_unit }
-  |txt_unit_c_ref                                 { c_ref_or_wysiwyg_ref.contents (Cu_txt_unit_c_ref $1) : tu_txt_unit }
+  |txt_unit_c_ref                                 { parser_env.c_ref_tag_patch (Cu_txt_unit_c_ref $1) : tu_txt_unit }
 ;
 
 txt_unit_wysiwyg_nte:

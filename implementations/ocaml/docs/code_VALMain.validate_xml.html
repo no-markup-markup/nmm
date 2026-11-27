@@ -27,14 +27,13 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> validate_xml (path_to_dtd : string) (path_to_xml : string) : string =
-  <span class="keyword">let</span> print_tokens = <span class="keyword">false</span> <span class="keyword">in</span>
   <span class="keyword">try</span>
     <span class="keyword">let</span> dtd : <span class="constructor">Dtd</span>.dtd = <span class="constructor">Dtd</span>.parse_file path_to_dtd <span class="keyword">in</span>
     <span class="keyword">let</span> checked_dtd : <span class="constructor">Dtd</span>.checked = <span class="constructor">Dtd</span>.check dtd <span class="keyword">in</span>
     <span class="keyword">let</span> xml : <span class="constructor">Xml</span>.xml =
       <span class="keyword">match</span> path_to_xml <span class="keyword">with</span>
-      <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin print_tokens
-      <span class="keywordsign">|</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file print_tokens path
+      <span class="keywordsign">|</span> <span class="string">"-"</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_stdin <span class="keyword">false</span>
+      <span class="keywordsign">|</span> path <span class="keywordsign">-&gt;</span> <span class="constructor">Xml_right</span>.parse_file <span class="keyword">false</span> path
     <span class="keyword">in</span>
     <span class="keyword">match</span> xml <span class="keyword">with</span>
     <span class="keywordsign">|</span> <span class="constructor">Xml</span>.<span class="constructor">Element</span> (entry_point, _, _) <span class="keywordsign">-&gt;</span>

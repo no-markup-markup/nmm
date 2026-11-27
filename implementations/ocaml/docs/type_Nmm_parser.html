@@ -27,6 +27,11 @@
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_parser_env&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;blk_itm_tag_patch&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;c_ref_tag_patch&nbsp;:&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;parser_env&nbsp;:&nbsp;<span class="constructor">Nmm_parser</span>.t_parser_env<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;token&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">STAR</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">LBR</span><br>
@@ -85,8 +90,4 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;main&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Stdlib</span>.<span class="constructor">Lexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Nmm_parser</span>.token)&nbsp;<span class="keywordsign">-&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Stdlib</span>.<span class="constructor">Lexing</span>.lexbuf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_doc<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;blk_itm_tagger_ref&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Doc_types</span>.tr_blk_itm&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tr_blk_itm)&nbsp;<span class="constructor">Stdlib</span>.ref<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;c_ref_or_wysiwyg_ref&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Doc_types</span>.tu_txt_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Doc_types</span>.tu_txt_unit)&nbsp;<span class="constructor">Stdlib</span>.ref<br>
 <span class="keyword">end</span></code></body></html>
