@@ -1374,7 +1374,6 @@ let acc_of_tr_doc (doc_settings : t_doc_settings) (cref_table : t_cref_table)
 
 let margin_labels_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
     string list =
-  let _ : unit = IO.quiet.contents <- true in
   match
     acc_of_tr_doc doc_settings
       ([] : t_cref_table)
@@ -1389,7 +1388,6 @@ let margin_labels_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
 
 let cref_table_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
     t_cref_table =
-  let _ : unit = IO.quiet.contents <- true in
   match
     acc_of_tr_doc doc_settings
       ([] : t_cref_table)
@@ -1404,7 +1402,6 @@ let cref_table_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
 
 let nte_table_of_tr_doc (doc_settings : t_doc_settings)
     (cref_table : t_cref_table) (doc : tr_doc) : t_nte_table =
-  let _ : unit = IO.quiet.contents <- true in
   match
     acc_of_tr_doc doc_settings cref_table
       ([] : t_nte_table)
@@ -1419,6 +1416,7 @@ let nte_table_of_tr_doc (doc_settings : t_doc_settings)
 let lines_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) : string list
     =
   let quiet : bool = IO.quiet.contents in
+  let _ : unit = IO.quiet.contents <- true in
   let cref_table : t_cref_table = cref_table_of_tr_doc doc_settings doc in
   let nte_table : t_nte_table =
     nte_table_of_tr_doc doc_settings cref_table doc
@@ -1431,6 +1429,7 @@ let lines_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) : string list
   | _ -> raise (Error "accumulator type")
 
 let txt_of_tr_doc (txt_options : t_txt_options) (doc : tr_doc) : string =
+  let _ : unit = IO.quiet.contents <- txt_options.quiet in
   let preamble_options : t_preamble_options =
     Common_utils.preamble_options_of_tr_doc doc
   in
@@ -1447,7 +1446,6 @@ let txt_of_tr_doc (txt_options : t_txt_options) (doc : tr_doc) : string =
     Txt_utils.doc_settings_of_options doc_settings_preamble
       margin_auto preamble_options txt_options
   in
-  let _ : unit = IO.quiet.contents <- txt_options.quiet in
   String.concat "\n" (lines_of_tr_doc doc_settings doc)
 
 (* exml *)
@@ -1455,6 +1453,7 @@ let txt_of_tr_doc (txt_options : t_txt_options) (doc : tr_doc) : string =
 let xml_list_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
     Xml.xml list =
   let quiet : bool = IO.quiet.contents in
+  let _ : unit = IO.quiet.contents <- true in
   let cref_table : t_cref_table = cref_table_of_tr_doc doc_settings doc in
   let nte_table : t_nte_table =
     nte_table_of_tr_doc doc_settings cref_table doc
@@ -1467,6 +1466,7 @@ let xml_list_of_tr_doc (doc_settings : t_doc_settings) (doc : tr_doc) :
   | _ -> raise (Error "accumulator type")
 
 let exml_of_tr_doc (exml_options : t_exml_options) (doc : tr_doc) : Xml.xml =
+  let _ : unit = IO.quiet.contents <- exml_options.quiet in
   let preamble_options : t_preamble_options =
     Common_utils.preamble_options_of_tr_doc doc
   in
@@ -1477,7 +1477,6 @@ let exml_of_tr_doc (exml_options : t_exml_options) (doc : tr_doc) : Xml.xml =
     Exml_utils.doc_settings_of_exml_options doc_settings_preamble
       exml_options
   in
-  let _ : unit = IO.quiet.contents <- exml_options.quiet in
   match xml_list_of_tr_doc doc_settings doc with
   | hd :: [] -> hd
   | _ -> raise (Error "expected singleton exml-list")

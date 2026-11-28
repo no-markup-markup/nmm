@@ -27,6 +27,7 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> txt_of_tr_doc (txt_options : t_txt_options) (doc : tr_doc) : string =
+  <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.quiet.contents &lt;- txt_options.quiet <span class="keyword">in</span>
   <span class="keyword">let</span> preamble_options : t_preamble_options =
     <span class="constructor">Common_utils</span>.preamble_options_of_tr_doc doc
   <span class="keyword">in</span>
@@ -43,5 +44,4 @@
     <span class="constructor">Txt_utils</span>.doc_settings_of_options doc_settings_preamble
       margin_auto preamble_options txt_options
   <span class="keyword">in</span>
-  <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.quiet.contents &lt;- txt_options.quiet <span class="keyword">in</span>
   <span class="constructor">String</span>.concat <span class="string">"\n"</span> (lines_of_tr_doc doc_settings doc)</code></body></html>

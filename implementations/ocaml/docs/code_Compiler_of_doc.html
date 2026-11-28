@@ -1402,7 +1402,6 @@
 <br>
 <span class="keyword">let</span>&nbsp;margin_labels_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;list&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;acc_of_tr_doc&nbsp;doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;:&nbsp;t_cref_table)<br>
@@ -1417,7 +1416,6 @@
 <br>
 <span class="keyword">let</span>&nbsp;cref_table_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;t_cref_table&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;acc_of_tr_doc&nbsp;doc_settings<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;:&nbsp;t_cref_table)<br>
@@ -1432,7 +1430,6 @@
 <br>
 <span class="keyword">let</span>&nbsp;nte_table_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(cref_table&nbsp;:&nbsp;t_cref_table)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;acc_of_tr_doc&nbsp;doc_settings&nbsp;cref_table<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([]&nbsp;:&nbsp;t_nte_table)<br>
@@ -1447,6 +1444,7 @@
 <span class="keyword">let</span>&nbsp;lines_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;string&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;quiet&nbsp;:&nbsp;bool&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;cref_table&nbsp;:&nbsp;t_cref_table&nbsp;=&nbsp;cref_table_of_tr_doc&nbsp;doc_settings&nbsp;doc&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nte_table&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;nte_table_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;doc<br>
@@ -1459,6 +1457,7 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;type"</span>)<br>
 <br>
 <span class="keyword">let</span>&nbsp;txt_of_tr_doc&nbsp;(txt_options&nbsp;:&nbsp;t_txt_options)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;txt_options.quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;preamble_options&nbsp;:&nbsp;t_preamble_options&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.preamble_options_of_tr_doc&nbsp;doc<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
@@ -1475,7 +1474,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Txt_utils</span>.doc_settings_of_options&nbsp;doc_settings_preamble<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin_auto&nbsp;preamble_options&nbsp;txt_options<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;txt_options.quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n"</span>&nbsp;(lines_of_tr_doc&nbsp;doc_settings&nbsp;doc)<br>
 <br>
 <span class="comment">(*&nbsp;exml&nbsp;*)</span><br>
@@ -1483,6 +1481,7 @@
 <span class="keyword">let</span>&nbsp;xml_list_of_tr_doc&nbsp;(doc_settings&nbsp;:&nbsp;t_doc_settings)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Xml</span>.xml&nbsp;list&nbsp;=<br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;quiet&nbsp;:&nbsp;bool&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;cref_table&nbsp;:&nbsp;t_cref_table&nbsp;=&nbsp;cref_table_of_tr_doc&nbsp;doc_settings&nbsp;doc&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;nte_table&nbsp;:&nbsp;t_nte_table&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;nte_table_of_tr_doc&nbsp;doc_settings&nbsp;cref_table&nbsp;doc<br>
@@ -1495,6 +1494,7 @@
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"accumulator&nbsp;type"</span>)<br>
 <br>
 <span class="keyword">let</span>&nbsp;exml_of_tr_doc&nbsp;(exml_options&nbsp;:&nbsp;t_exml_options)&nbsp;(doc&nbsp;:&nbsp;tr_doc)&nbsp;:&nbsp;<span class="constructor">Xml</span>.xml&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;exml_options.quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">let</span>&nbsp;preamble_options&nbsp;:&nbsp;t_preamble_options&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Common_utils</span>.preamble_options_of_tr_doc&nbsp;doc<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
@@ -1505,7 +1505,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Exml_utils</span>.doc_settings_of_exml_options&nbsp;doc_settings_preamble<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exml_options<br>
 &nbsp;&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">IO</span>.quiet.contents&nbsp;&lt;-&nbsp;exml_options.quiet&nbsp;<span class="keyword">in</span><br>
 &nbsp;&nbsp;<span class="keyword">match</span>&nbsp;xml_list_of_tr_doc&nbsp;doc_settings&nbsp;doc&nbsp;<span class="keyword">with</span><br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;hd&nbsp;::&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;hd<br>
 &nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">Error</span>&nbsp;<span class="string">"expected&nbsp;singleton&nbsp;exml-list"</span>)<br>
